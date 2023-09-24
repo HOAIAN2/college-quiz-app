@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('teacher_id');
             $table->string('subject_id');
-            $table->bigInteger('semester_id');
+            $table->unsignedBigInteger('semester_id');
             $table->string('name');
             $table->date('exam_date');
             $table->integer('exam_time');
