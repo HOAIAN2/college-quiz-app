@@ -27,7 +27,7 @@ return new class extends Migration
             $table->timestamps();
             $table->primary('id');
             $table->foreign('role_id')->references('id')->on('roles');
-            $table->foreign('class_id')->references('id')->on('classes');
+            $table->foreign('class_id')->references('id')->on('school_classes');
         });
     }
 
