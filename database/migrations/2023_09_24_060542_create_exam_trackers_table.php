@@ -20,10 +20,10 @@ return new class extends Migration
             $table->unsignedBigInteger('answer_id');
             $table->boolean('is_correct')->default(false);
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('exam_id')->references('id')->on('exams');
-            $table->foreign('question_id')->references('id')->on('questions');
-            $table->foreign('answer_id')->references('id')->on('question_options');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('exam_id')->references('id')->on('exams')->onDelete('cascade');
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
+            $table->foreign('answer_id')->references('id')->on('question_options')->onDelete('cascade');
         });
         Schema::enableForeignKeyConstraints();
     }

@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('student_id');
             $table->string('subject_id');
             $table->timestamps();
-            $table->foreign('semester_id')->references('id')->on('semesters');
-            $table->foreign('student_id')->references('id')->on('users');
-            $table->foreign('subject_id')->references('id')->on('subjects');
+            $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade');
+            $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
             $table->unique(['semester_id', 'student_id', 'subject_id']);
         });
     }

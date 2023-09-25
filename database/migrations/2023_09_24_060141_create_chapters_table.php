@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('chapter_number');
             $table->string('name');
             $table->timestamps();
-            $table->foreign('subject_id')->references('id')->on('subjects');
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
         });
     }
 

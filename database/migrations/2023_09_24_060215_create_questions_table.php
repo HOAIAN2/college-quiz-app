@@ -17,8 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('chapter_id');
             $table->text('content');
             $table->timestamps();
-            $table->foreign('teacher_id')->references('id')->on('users');
-            $table->foreign('chapter_id')->references('id')->on('chapters');
+            $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('chapter_id')->references('id')->on('chapters')->onDelete('cascade');
         });
     }
 
