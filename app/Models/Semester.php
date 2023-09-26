@@ -20,8 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
- * @property Collection|Enrollment[] $enrollments
- * @property Collection|Exam[] $exams
+ * @property Collection|Course[] $courses
  *
  * @package App\Models
  */
@@ -40,13 +39,8 @@ class Semester extends Model
 		'end_date'
 	];
 
-	public function enrollments()
+	public function courses()
 	{
-		return $this->hasMany(Enrollment::class);
-	}
-
-	public function exams()
-	{
-		return $this->hasMany(Exam::class);
+		return $this->hasMany(Course::class);
 	}
 }

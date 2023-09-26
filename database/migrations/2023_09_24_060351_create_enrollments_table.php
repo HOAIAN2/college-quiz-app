@@ -13,14 +13,12 @@ return new class extends Migration
     {
         Schema::create('enrollments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('semester_id');
+            $table->unsignedBigInteger('course_id');
             $table->unsignedBigInteger('student_id');
-            $table->unsignedBigInteger('subject_id');
             $table->timestamps();
-            $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade');
             $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
-            $table->unique(['semester_id', 'student_id', 'subject_id']);
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->unique(['course_id', 'student_id']);
         });
     }
 

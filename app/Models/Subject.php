@@ -20,8 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $updated_at
  * 
  * @property Collection|Chapter[] $chapters
- * @property Collection|Enrollment[] $enrollments
- * @property Collection|Exam[] $exams
+ * @property Collection|Course[] $courses
  *
  * @package App\Models
  */
@@ -39,13 +38,8 @@ class Subject extends Model
 		return $this->hasMany(Chapter::class);
 	}
 
-	public function enrollments()
+	public function courses()
 	{
-		return $this->hasMany(Enrollment::class);
-	}
-
-	public function exams()
-	{
-		return $this->hasMany(Exam::class);
+		return $this->hasMany(Course::class);
 	}
 }
