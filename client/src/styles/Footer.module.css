@@ -1,0 +1,27 @@
+.footer {
+    width: 90%;
+    height: 150px;
+    background-color: white;
+    position: relative;
+    top: 75px;
+    left: 50%;
+    transform: translate(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer>div {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.footer>div>a {
+    cursor: pointer;
+}
+
+.footer>div>a:hover {
+    opacity: 0.7;
+}

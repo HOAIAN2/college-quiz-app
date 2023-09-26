@@ -1,5 +1,8 @@
+import styles from '../styles/Header.module.css'
+
+
 export default function NotFound() {
     return (
-        <div>NotFound</div>
+        <div className={styles['not-found']}>NotFound</div>
     )
 }
