@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
         Schema::create('exam_trackers', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('exam_id');
             $table->unsignedBigInteger('question_id');
             $table->unsignedBigInteger('answer_id');
@@ -25,7 +24,6 @@ return new class extends Migration
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
             $table->foreign('answer_id')->references('id')->on('question_options')->onDelete('cascade');
         });
-        Schema::enableForeignKeyConstraints();
     }
 
     /**

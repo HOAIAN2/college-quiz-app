@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('enrollments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('semester_id');
-            $table->string('student_id');
-            $table->string('subject_id');
+            $table->unsignedBigInteger('student_id');
+            $table->unsignedBigInteger('subject_id');
             $table->timestamps();
             $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade');
             $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');

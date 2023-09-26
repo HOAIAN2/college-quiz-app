@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('chapters', function (Blueprint $table) {
             $table->id();
-            $table->string('subject_id');
+            $table->unsignedBigInteger('subject_id');
             $table->integer('chapter_number');
             $table->string('name');
             $table->timestamps();

@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('school_classes', function (Blueprint $table) {
-            $table->string('id');
+            $table->id();
+            $table->string('shortcode')->unique();
             $table->string('name');
             $table->timestamps();
-            $table->primary('id');
         });
     }
 
