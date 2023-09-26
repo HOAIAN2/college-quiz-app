@@ -13,7 +13,7 @@ const USER_ACTION = {
 }
 interface UserAction {
     type: string
-    payload: User
+    payload: User | null
 }
 const userReducer: Reducer<User | null, UserAction> = (state, action) => {
     switch (action.type) {
