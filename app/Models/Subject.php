@@ -13,7 +13,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Subject
  * 
- * @property string $id
+ * @property int $id
+ * @property string $shortcode
  * @property string $name
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -27,9 +28,9 @@ use Illuminate\Database\Eloquent\Model;
 class Subject extends Model
 {
 	protected $table = 'subjects';
-	public $incrementing = false;
 
 	protected $fillable = [
+		'shortcode',
 		'name'
 	];
 

@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Question
  * 
  * @property int $id
- * @property string $teacher_id
+ * @property int $teacher_id
  * @property int $chapter_id
  * @property string $content
  * @property Carbon|null $created_at
@@ -33,6 +33,7 @@ class Question extends Model
 	protected $table = 'questions';
 
 	protected $casts = [
+		'teacher_id' => 'int',
 		'chapter_id' => 'int'
 	];
 

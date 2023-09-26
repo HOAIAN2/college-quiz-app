@@ -14,12 +14,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+
 /**
  * Class User
  * 
- * @property string $id
+ * @property int $id
  * @property int $role_id
- * @property string|null $class_id
+ * @property int|null $class_id
+ * @property string $shortcode
  * @property string $name
  * @property string $email
  * @property string|null $phone_number
@@ -45,10 +47,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     protected $table = 'users';
-    public $incrementing = false;
 
     protected $casts = [
         'role_id' => 'int',
+        'class_id' => 'int',
         'is_active' => 'bool',
         'email_verified_at' => 'datetime'
     ];
@@ -61,6 +63,7 @@ class User extends Authenticatable
     protected $fillable = [
         'role_id',
         'class_id',
+        'shortcode',
         'name',
         'email',
         'phone_number',

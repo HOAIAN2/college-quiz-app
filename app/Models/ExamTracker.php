@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class ExamTracker
  * 
  * @property int $id
- * @property string $user_id
+ * @property int $user_id
  * @property int $exam_id
  * @property int $question_id
  * @property int $answer_id
@@ -33,6 +33,7 @@ class ExamTracker extends Model
 	protected $table = 'exam_trackers';
 
 	protected $casts = [
+		'user_id' => 'int',
 		'exam_id' => 'int',
 		'question_id' => 'int',
 		'answer_id' => 'int',

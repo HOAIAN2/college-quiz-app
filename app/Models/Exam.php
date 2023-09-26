@@ -14,8 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  * Class Exam
  * 
  * @property int $id
- * @property string $teacher_id
- * @property string $subject_id
+ * @property int $teacher_id
+ * @property int $subject_id
  * @property int $semester_id
  * @property string $name
  * @property Carbon $exam_date
@@ -36,6 +36,8 @@ class Exam extends Model
 	protected $table = 'exams';
 
 	protected $casts = [
+		'teacher_id' => 'int',
+		'subject_id' => 'int',
 		'semester_id' => 'int',
 		'exam_date' => 'datetime',
 		'exam_time' => 'int'

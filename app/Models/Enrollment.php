@@ -14,8 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property int $id
  * @property int $semester_id
- * @property string $student_id
- * @property string $subject_id
+ * @property int $student_id
+ * @property int $subject_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
@@ -30,7 +30,9 @@ class Enrollment extends Model
 	protected $table = 'enrollments';
 
 	protected $casts = [
-		'semester_id' => 'int'
+		'semester_id' => 'int',
+		'student_id' => 'int',
+		'subject_id' => 'int'
 	];
 
 	protected $fillable = [

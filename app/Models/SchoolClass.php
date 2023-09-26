@@ -13,7 +13,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class SchoolClass
  * 
- * @property string $id
+ * @property int $id
+ * @property string $shortcode
  * @property string $name
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -25,9 +26,9 @@ use Illuminate\Database\Eloquent\Model;
 class SchoolClass extends Model
 {
 	protected $table = 'school_classes';
-	public $incrementing = false;
 
 	protected $fillable = [
+		'shortcode',
 		'name'
 	];
 

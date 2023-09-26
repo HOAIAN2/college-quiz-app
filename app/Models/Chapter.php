@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Chapter
  * 
  * @property int $id
- * @property string $subject_id
+ * @property int $subject_id
  * @property int $chapter_number
  * @property string $name
  * @property Carbon|null $created_at
@@ -30,6 +30,7 @@ class Chapter extends Model
 	protected $table = 'chapters';
 
 	protected $casts = [
+		'subject_id' => 'int',
 		'chapter_number' => 'int'
 	];
 
