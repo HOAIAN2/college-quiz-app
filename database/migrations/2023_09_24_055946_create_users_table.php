@@ -17,9 +17,10 @@ return new class extends Migration
             $table->string('shortcode')->unique();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone_number')->unique()->nullable();
+            $table->string('phone_number', 10)->unique()->nullable();
             $table->enum('gender', ['male', 'female'])->default('male');
             $table->string('address');
+            $table->date('birth_date');
             $table->string('class');
             $table->boolean('is_active')->default(true);
             $table->timestamp('email_verified_at');

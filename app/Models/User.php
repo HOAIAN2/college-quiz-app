@@ -24,6 +24,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string|null $phone_number
  * @property string $gender
  * @property string $address
+ * @property Carbon $birth_date
  * @property string $class
  * @property bool $is_active
  * @property Carbon $email_verified_at
@@ -47,6 +48,7 @@ class User extends Authenticatable
 
 	protected $casts = [
 		'role_id' => 'int',
+		'birth_date' => 'datetime',
 		'is_active' => 'bool',
 		'email_verified_at' => 'datetime'
 	];
@@ -64,6 +66,7 @@ class User extends Authenticatable
 		'phone_number',
 		'gender',
 		'address',
+		'birth_date',
 		'class',
 		'is_active',
 		'email_verified_at',
