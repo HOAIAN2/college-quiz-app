@@ -19,12 +19,15 @@ class AuthController extends Controller
             'password' => ['required', 'min:8'],
         ]);
         $user = User::where('email', $request->email)->first();
-        if ($user && $user->is_active == false)  return response()->json([
+        if (!$user) return response()->json([
+            'message' => 'Email Not Found'
+        ], 400);
+        if ($user->is_active == false)  return response()->json([
             'message' => 'Account Disabled'
         ], 400);
-        if (!$user || !Hash::check($request->password, $user->password)) {
+        if (!Hash::check($request->password, $user->password)) {
             return response()->json([
-                'message' => 'Email or password incorrect'
+                'message' => 'Ppassword incorrect'
             ], 400);
         }
         $token = $user->createToken('My Token')->plainTextToken;
@@ -41,9 +44,7 @@ class AuthController extends Controller
     {
         $user = $request->user();
         $user->currentAccessToken()->delete();
-        return response()->json([
-            'message' => 'Token revoked'
-        ]);
+        return response();
     }
     /**
      * Change password
