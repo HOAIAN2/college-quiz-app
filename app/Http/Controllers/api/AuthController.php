@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,18 +20,12 @@ class AuthController extends Controller
             'password' => ['required', 'min:8'],
         ]);
         $user = User::where('email', $request->email)->first();
-        if (!$user) return response()->json([
-            'message' => 'Email Not Found'
-        ], 400);
-        if ($user->is_active == false)  return response()->json([
-            'message' => 'Account Disabled'
-        ], 400);
+        if (!$user) return Reply::error('auth.errors.emailNotFound', 404);
+        if ($user->is_active == false)  return Reply::error('auth.errors.accountDisabled');
         if (!Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'message' => 'Ppassword incorrect'
-            ], 400);
+            return Reply::error('auth.errors.passwordIncorrect');
         }
-        $token = $user->createToken('My Token')->plainTextToken;
+        $token = $user->createToken('Token')->plainTextToken;
         return response()->json([
             /** @var  User> */
             'user' => $user,
@@ -57,16 +52,12 @@ class AuthController extends Controller
         ]);
         $user = $request->user();
         if (!Hash::check($request->current_password, $user->password)) {
-            return response()->json([
-                'message' => 'Password incorrect'
-            ], 400);
+            return Reply::error('auth.errors.passwordIncorrect');
         }
         $user->update([
             'password' => Hash::make($request->new_password),
         ]);
         $user->tokens()->delete();
-        return response()->json([
-            'message' => 'Tokens revoked'
-        ]);
+        return Reply::success();
     }
 }

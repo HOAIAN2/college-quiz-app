@@ -22,7 +22,6 @@ class CustomResource extends JsonResource
     {
         if (empty($array)) return $array;
         foreach ($array as $key => $value) {
-            error_log($key);
             $newKey[Str::camel($key)] = $value;
             if (is_array($value)) $newKey[Str::camel($key)] = CustomResource::toCamelCase($value);
         }
