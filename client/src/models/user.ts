@@ -9,13 +9,13 @@ export type User = {
     shortcode: string;
     name: string;
     email: string;
-    phoneNumber: null;
+    phoneNumber: string | null;
     gender: string;
     address: string;
     birthDate: Date;
-    class: null;
+    class: string | null;
     isActive: boolean;
-    emailVerifiedAt: null;
+    emailVerifiedAt: Date | null;
     role: Role;
 }
 
