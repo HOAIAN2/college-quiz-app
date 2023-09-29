@@ -37,6 +37,11 @@ class ExamQuestion extends Model
 		'question_id'
 	];
 
+	protected $hidden = [
+		'created_at',
+		'updated_at'
+	];
+
 	public function exam()
 	{
 		return $this->belongsTo(Exam::class);

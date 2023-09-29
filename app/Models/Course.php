@@ -48,6 +48,11 @@ class Course extends Model
 		'name'
 	];
 
+	protected $hidden = [
+		'created_at',
+		'updated_at'
+	];
+
 	public function semester()
 	{
 		return $this->belongsTo(Semester::class);

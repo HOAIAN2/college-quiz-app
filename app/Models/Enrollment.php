@@ -37,6 +37,11 @@ class Enrollment extends Model
 		'student_id'
 	];
 
+	protected $hidden = [
+		'created_at',
+		'updated_at'
+	];
+
 	public function course()
 	{
 		return $this->belongsTo(Course::class);

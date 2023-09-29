@@ -40,6 +40,11 @@ class QuestionOption extends Model
 		'is_correct'
 	];
 
+	protected $hidden = [
+		'created_at',
+		'updated_at'
+	];
+
 	public function question()
 	{
 		return $this->belongsTo(Question::class);

@@ -48,6 +48,11 @@ class ExamTracker extends Model
 		'is_correct'
 	];
 
+	protected $hidden = [
+		'created_at',
+		'updated_at'
+	];
+
 	public function question_option()
 	{
 		return $this->belongsTo(QuestionOption::class, 'answer_id');

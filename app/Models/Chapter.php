@@ -40,6 +40,11 @@ class Chapter extends Model
 		'name'
 	];
 
+	protected $hidden = [
+		'created_at',
+		'updated_at'
+	];
+
 	public function subject()
 	{
 		return $this->belongsTo(Subject::class);

@@ -52,12 +52,18 @@ class Exam extends Model
 	public function questions()
 	{
 		return $this->belongsToMany(Question::class, 'exam_questions')
-					->withPivot('id')
-					->withTimestamps();
+			->withPivot('id')
+			->withTimestamps();
 	}
 
 	public function exam_trackers()
 	{
 		return $this->hasMany(ExamTracker::class);
+	}
+	public function mark_all_tracker()
+	{
+		foreach ($this->exam_trackers as $exam_tracker) {
+			$exam_tracker->mark_tracker();
+		}
 	}
 }

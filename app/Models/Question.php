@@ -43,6 +43,11 @@ class Question extends Model
 		'content'
 	];
 
+	protected $hidden = [
+		'created_at',
+		'updated_at'
+	];
+
 	public function chapter()
 	{
 		return $this->belongsTo(Chapter::class);

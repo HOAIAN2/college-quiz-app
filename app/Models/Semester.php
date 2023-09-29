@@ -39,6 +39,11 @@ class Semester extends Model
 		'end_date'
 	];
 
+	protected $hidden = [
+		'created_at',
+		'updated_at'
+	];
+
 	public function courses()
 	{
 		return $this->hasMany(Course::class);
