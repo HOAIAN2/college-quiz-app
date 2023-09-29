@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property QuestionOption $question_option
  * @property Exam $exam
- * @property Question $question
+ * @property ExamQuestion $exam_question
  * @property User $user
  *
  * @package App\Models
@@ -58,9 +58,9 @@ class ExamTracker extends Model
 		return $this->belongsTo(Exam::class);
 	}
 
-	public function question()
+	public function exam_question()
 	{
-		return $this->belongsTo(Question::class);
+		return $this->belongsTo(ExamQuestion::class, 'question_id');
 	}
 
 	public function user()
