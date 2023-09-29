@@ -12,7 +12,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return $this->user->with('role');
+        return request()->user()->with('role')->first();
     }
 
     /**

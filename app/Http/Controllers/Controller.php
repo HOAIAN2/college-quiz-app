@@ -10,7 +10,6 @@ use Illuminate\Support\Str;
 
 
 /**
- * @property App\Models\User $user
  * @property string[] $supported_languages
  */
 
@@ -18,12 +17,10 @@ class Controller extends BaseController
 {
     public $supported_languages;
     private $request;
-    public $user;
     use AuthorizesRequests, ValidatesRequests;
     function __construct()
     {
         $this->request = request();
-        $this->user = $this->request->user();
         $this->setLanguage();
     }
     private function setLanguage()
