@@ -56,8 +56,8 @@ class Question extends Model
 	public function exams()
 	{
 		return $this->belongsToMany(Exam::class, 'exam_questions')
-					->withPivot('id')
-					->withTimestamps();
+			->withPivot('id')
+			->withTimestamps();
 	}
 
 	public function exam_trackers()
@@ -68,5 +68,13 @@ class Question extends Model
 	public function question_options()
 	{
 		return $this->hasMany(QuestionOption::class);
+	}
+	public function contains_option($question_option)
+	{
+		$options = $this->question_options();
+		foreach ($options as $option) {
+			if ($option->id == $question_option->id) return true;
+		}
+		return false;
 	}
 }

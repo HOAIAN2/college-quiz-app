@@ -8,6 +8,12 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
+
+/**
+ * @property App\Models\User $user
+ * @property string[] $supported_languages
+ */
+
 class Controller extends BaseController
 {
     public $supported_languages;

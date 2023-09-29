@@ -21,9 +21,9 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female'])->default('male');
             $table->string('address');
             $table->date('birth_date');
-            $table->string('class');
+            $table->string('class')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->timestamp('email_verified_at');
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

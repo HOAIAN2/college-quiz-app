@@ -67,4 +67,13 @@ class ExamTracker extends Model
 	{
 		return $this->belongsTo(User::class);
 	}
+	public function mark_tracker()
+	{
+		$question = $this->exam_question->question;
+		$question_option = $this->question_option;
+		if ($question->contains_option($question_option)) {
+			$this->is_correct = $question_option->is_correct;
+			$this->save();
+		}
+	}
 }

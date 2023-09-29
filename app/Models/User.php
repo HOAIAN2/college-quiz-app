@@ -25,9 +25,9 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $gender
  * @property string $address
  * @property Carbon $birth_date
- * @property string $class
+ * @property string|null $class
  * @property bool $is_active
- * @property Carbon $email_verified_at
+ * @property Carbon|null $email_verified_at
  * @property string $password
  * @property string|null $remember_token
  * @property Carbon|null $created_at
@@ -55,7 +55,9 @@ class User extends Authenticatable
 
 	protected $hidden = [
 		'password',
-		'remember_token'
+		'remember_token',
+		'created_at',
+		'updated_at'
 	];
 
 	protected $fillable = [
