@@ -1,12 +1,8 @@
-import { useEffect } from 'react'
 import './App.css'
 import toast from './utils/toast'
 
 
 function App() {
-  useEffect(() => {
-    document.body.prepend(toast.container)
-  }, [])
   document.querySelector('.loading-container')?.remove()
   return (
     <>

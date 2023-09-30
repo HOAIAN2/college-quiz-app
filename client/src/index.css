@@ -40,9 +40,27 @@ a {
   flex-direction: column;
   transition: 0.4s;
   position: fixed;
-  top: 0;
-  right: 0;
   z-index: 9999;
+}
+
+.toast-container.top-left {
+  top: 0px;
+  left: 0px;
+}
+
+.toast-container.top-right {
+  top: 0px;
+  right: 0px;
+}
+
+.toast-container.bottom-left {
+  bottom: 0px;
+  left: 0px;
+}
+
+.toast-container.bottom-right {
+  bottom: 0px;
+  right: 0px;
 }
 
 .toast-container>.toast {
@@ -60,6 +78,7 @@ a {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   background-color: white;
   padding: 0px 10px 0px 10px;
+  cursor: pointer;
 }
 
 .toast-container>.toast>.toast-content {
