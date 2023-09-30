@@ -8,7 +8,9 @@
 
 
 :root {
-  --primary-color: rgb(255, 255, 255);
+  --color-red: rgb(239, 6, 49);
+  --color-green: rgb(15, 217, 15);
+  --color-yellow: rgb(246, 221, 31);
 }
 
 body {
@@ -29,13 +31,75 @@ a {
   text-decoration: none;
 }
 
-button {
-  width: 120px;
-  height: 40px;
-  border-radius: 20px;
-  border: 1px solid black;
-  outline: none;
+
+.toast-container {
+  width: 300px;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  transition: 0.4s;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.toast-container>.toast {
+  margin: 5px;
+  min-width: 200px;
+  width: 200px;
+  height: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  transition: 0.4s;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   background-color: white;
+  padding: 0px 10px 0px 10px;
+}
+
+.toast-container>.toast>.toast-content {
+  width: 90%;
+  word-break: break-all;
+}
+
+.toast-container>.toast>.toast-close-icon {
+  text-align: center;
+  width: 10px;
+  aspect-ratio: 1;
+  font-size: large;
+  font-weight: bold;
   cursor: pointer;
-  transition: 0.2s;
+}
+
+.toast-container>.toast>.toast-close-icon:hover {
+  opacity: 0.9;
+}
+
+.toast-container>.toast.success {
+  border-left: 7px solid var(--color-green);
+}
+
+.toast-container>.toast.error {
+  border-left: 7px solid var(--color-red);
+}
+
+.toast-container>.toast.alert {
+  border-left: 7px solid var(--color-yellow);
+}
+
+.toast-container>.toast.show {
+  width: 260px;
+  height: 50px;
+}
+
+.toast-container>.toast.hide {
+  margin: 0;
+  width: 0px;
+  height: 0px;
+  opacity: 0;
 }
