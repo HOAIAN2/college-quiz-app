@@ -7,7 +7,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 
 export default function DasboardLayout() {
-    const { user, dispatchUser } = useUserData()
+    const { dispatchUser } = useUserData()
     const [isFirstLoad, setIsFirstLoad] = useState(true)
     const navigate = useNavigate()
     useEffect(() => {
@@ -22,7 +22,6 @@ export default function DasboardLayout() {
             })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    console.log(user)
     useEffect(() => {
         if (isFirstLoad) return
         const items = document.querySelectorAll('.loading, .pre-load')

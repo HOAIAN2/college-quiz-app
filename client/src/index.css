@@ -6,11 +6,43 @@
   scroll-behavior: smooth;
 }
 
+*,
+:not(i) {
+  font-family: "Alumni Sans";
+  font-size: 18px;
+}
+
+@font-face {
+  font-family: "Alumni Sans";
+  src: url("../fonts/AlumniSans-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Alumni Sans";
+  src: url("../fonts/AlumniSans-Medium.ttf");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Alumni Sans";
+  src: url("../fonts/AlumniSans-Bold.ttf");
+  font-weight: Bold;
+  font-style: normal;
+  font-display: swap;
+}
+
 
 :root {
+  --color-blue: rgb(26, 26, 249);
   --color-red: rgb(239, 6, 49);
   --color-green: rgb(15, 217, 15);
   --color-yellow: rgb(246, 221, 31);
+  --color-shadow: rgba(0, 0, 0, 0.1);
 }
 
 body {
@@ -49,7 +81,7 @@ a {
 }
 
 .toast-container.top-right {
-  top: 0px;
+  top: 20px;
   right: 0px;
 }
 

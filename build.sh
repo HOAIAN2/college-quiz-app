@@ -5,4 +5,3 @@ cd client
 npm run build
 cp -r ./dist/* ../public
 cd ..
-php artisan serve

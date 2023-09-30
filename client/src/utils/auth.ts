@@ -3,12 +3,9 @@ import request, {
     // getToken
 } from './api-config'
 
-export async function reqLogin(username: string, password: string) {
+export async function reqLogin(form: FormData) {
     try {
-        const res = await request.post('/auth/login', {
-            email: username,
-            password: password
-        })
+        const res = await request.post('/auth/login', form)
         const data = res.data as LoginResponse
         localStorage.setItem('token', data.token)
         return data.user
@@ -16,10 +13,10 @@ export async function reqLogin(username: string, password: string) {
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)
         const message = error.response.data
-        if (message.errors) {
-            if (message.errors.email) return Promise.reject({ email: message.errors.email[0] })
-            else return Promise.reject({ password: message.errors.password[0] })
-        }
+        // if (message.errors) {
+        //     if (message.errors.email) return Promise.reject({ email: message.errors.email[0] })
+        //     else return Promise.reject({ password: message.errors.password[0] })
+        // }
         throw new Error(message.message)
     }
 }

@@ -1,0 +1,10 @@
+.button-d {
+    border: none;
+    outline: none;
+    color: white;
+    width: fit-content;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: var(--color-blue);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}

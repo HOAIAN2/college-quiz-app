@@ -41,6 +41,7 @@ request.interceptors.request.use(async (config) => {
     if (getToken()) {
         config.headers.Authorization = getTokenHeader()
     }
+    config.headers['Content-Type'] = 'multipart/form-data'
     return config
 })
 
