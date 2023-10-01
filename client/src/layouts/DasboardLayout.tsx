@@ -5,6 +5,7 @@ import { reqGetUser } from '../utils/user'
 import { USER_ACTION } from '../contexts/UserContext'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import styles from '../styles/DashboardLayout.module.css'
 
 export default function DasboardLayout() {
     const { dispatchUser } = useUserData()
@@ -29,11 +30,9 @@ export default function DasboardLayout() {
     }, [isFirstLoad])
     if (isFirstLoad) return null
     return (
-        <div>
+        <div className={styles['dashboard-layout']}>
             <Header />
-            <div>
-                <Outlet />
-            </div>
+            <Outlet />
             <Footer />
         </div>
     )

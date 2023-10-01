@@ -4,6 +4,7 @@ import { reqGetUser } from '../utils/user'
 import { useUserData } from '../contexts/hooks'
 import { USER_ACTION } from '../contexts/UserContext'
 import styles from '../styles/AuthLayout.module.css'
+import Footer from '../components/Footer'
 
 export default function AuthLayout() {
     const navigate = useNavigate()
@@ -22,9 +23,8 @@ export default function AuthLayout() {
     }, [])
     return (
         <div className={styles['auth-layout']}>
-            <header></header>
             <Outlet />
-            <footer></footer>
+            <Footer />
         </div >
     )
 }

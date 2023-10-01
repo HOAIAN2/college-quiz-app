@@ -5,6 +5,7 @@ import DasboardLayout from './layouts/DasboardLayout'
 import Login from './pages/Login'
 import NotFound from './pages/NotFound'
 import './App.css'
+import Home from './pages/Home'
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,13 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <DasboardLayout />,
-        children: []
+        children: [
+          {
+            index: true,
+            // path: '/',
+            element: <Home />
+          }
+        ]
       }
     ]
   }

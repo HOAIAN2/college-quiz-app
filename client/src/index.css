@@ -43,6 +43,7 @@
   --color-green: rgb(15, 217, 15);
   --color-yellow: rgb(246, 221, 31);
   --color-shadow: rgba(0, 0, 0, 0.1);
+  --border-radius-low: 5px
 }
 
 body {
@@ -59,7 +60,7 @@ body {
 }
 
 a {
-  color: transparent;
+  color: black;
   text-decoration: none;
 }
 

@@ -4,20 +4,19 @@ import styles from '../styles/Footer.module.css'
 export default function Footer() {
     const { appLanguage, setAppLanguage } = useLanguage()
     return (
-        <div className={styles['footer']}>
-            <div>
-                <span>
-                    {"College Quiz App @" + new Date().getFullYear()}
-                </span>
-                <a>Terms</a>
-                <a>Privacy</a>
-                <a>Security</a>
-                <a>Status</a>
-                <a>Docs</a>
-                <a>Contact</a>
-                <a>About</a>
-                <a>Terms</a>
-            </div>
+        <footer className={styles['footer']}>
+            <span>
+                {"College Quiz App @" + new Date().getFullYear()}
+            </span>
+            <ul>
+                <li><a>Terms</a></li>
+                <li><a>Privacy</a></li>
+                <li><a>Security</a></li>
+                <li><a>Status</a></li>
+                <li><a>Docs</a></li>
+                <li><a>Contact</a></li>
+                <li><a>About</a></li>
+            </ul>
             <select value={appLanguage}
                 onChange={(e) => {
                     setAppLanguage(e.currentTarget.value)
@@ -26,6 +25,6 @@ export default function Footer() {
                 <option value="en">English</option>
                 <option value="vi">Tiếng Việt</option>
             </select>
-        </div>
+        </footer>
     )
 }
