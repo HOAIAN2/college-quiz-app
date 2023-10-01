@@ -1,43 +1,100 @@
-import { useUserData } from '../contexts/hooks'
-import { AiOutlineHome } from 'react-icons/ai'
+import { useEffect, useState } from 'react'
+import { useLanguage, useUserData } from '../contexts/hooks'
+import {
+    AiOutlineHome,
+    AiOutlineQuestionCircle
+} from 'react-icons/ai'
+import {
+    PiStudent,
+    PiChalkboardTeacherLight,
+    PiBooks,
+    PiExam
+} from 'react-icons/pi'
+import {
+    SiGoogleclassroom
+} from 'react-icons/si'
 import styles from '../styles/NavBar.module.css'
 import { Link } from 'react-router-dom'
+import { DashboardLanguage } from '../models/lang'
 
 export default function NavBar() {
+    const [language, setLanguage] = useState<DashboardLanguage>()
+    const { appLanguage } = useLanguage()
     const { user } = useUserData()
     console.log(user)
+    console.log(window.location.pathname.split('/'))
     const features = {
         admin: [
             {
-                name: 'Feature',
-                to: '',
+                name: language?.profile,
+                to: 'profile',
                 icon: <AiOutlineHome />
             },
             {
-                name: 'Feature',
-                to: '',
-                icon: <AiOutlineHome />
+                name: language?.teachers,
+                to: 'teachers',
+                icon: <PiChalkboardTeacherLight />
             },
             {
-                name: 'Feature',
-                to: '',
-                icon: <AiOutlineHome />
+                name: language?.students,
+                to: 'students',
+                icon: <PiStudent />
+            },
+            {
+                name: language?.subjects,
+                to: 'subjects',
+                icon: <PiBooks />
+            },
+            {
+                name: language?.courses,
+                to: 'courses',
+                icon: <SiGoogleclassroom />
+            },
+            {
+                name: language?.questions,
+                to: 'questions',
+                icon: <AiOutlineQuestionCircle />
+            },
+            {
+                name: language?.exams,
+                to: 'exams',
+                icon: <PiExam />
             },
         ],
         teacher: [
             {
-                name: 'Feature',
-                to: '',
+                name: language?.profile,
+                to: 'profile',
                 icon: <AiOutlineHome />
             },
             {
-                name: 'Feature',
-                to: '',
+                name: language?.teachers,
+                to: 'teachers',
                 icon: <AiOutlineHome />
             },
             {
-                name: 'Feature',
-                to: '',
+                name: language?.students,
+                to: 'students',
+                icon: <AiOutlineHome />
+            },
+            {
+                name: language?.subjects,
+                to: 'subjects',
+                icon: <AiOutlineHome />
+            },
+            {
+                name: language?.courses,
+                to: 'courses',
+                icon: <AiOutlineHome />
+            },
+            {
+                name: language?.questions,
+                to: 'questions',
+                icon: <AiOutlineHome />
+            },
+            {
+                name: language?.exams,
+                to: 'exams',
                 icon: <AiOutlineHome />
             },
         ],
@@ -59,12 +116,26 @@ export default function NavBar() {
             },
         ]
     }
+    useEffect(() => {
+        import(`../langs/component.dashboard.${appLanguage}.json`)
+            .then((data: DashboardLanguage) => {
+                setLanguage(data)
+                // document.title = data.login
+            })
+    }, [appLanguage])
     return (
         <div className={styles['nav-bar']}>
             <ul className={styles['list']}>{
                 features[user?.role.name as keyof typeof features].map((feature, index) => {
                     return (
-                        <li key={index} className={styles['list-item']}>
+                        <li onClick={e => {
+                            e.currentTarget.querySelector('a')?.click()
+                        }} key={index} className={
+                            [
+                                styles['list-item'],
+                                feature.to === window.location.pathname.split('/')[1] ? styles['current'] : ''
+                            ].join(' ')
+                        }>
                             {feature.icon}
                             <Link to={feature.to}>{feature.name}</Link>
                         </li>

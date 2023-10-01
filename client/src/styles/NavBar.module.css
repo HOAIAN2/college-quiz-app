@@ -42,6 +42,16 @@
     left: 0;
 }
 
+.current::before {
+    content: '';
+    height: 100%;
+    width: 5px;
+    background-color: var(--color-blue);
+    position: absolute;
+    left: 0;
+    transition: 0.3s;
+}
+
 /* .list-item:hover {
     border-left: 5px solid var(--color-blue);
 } */
@@ -53,5 +63,5 @@
 }
 
 .list-item>a {
-    font-size: 32px;
+    font-size: 28px;
 }

@@ -35,13 +35,29 @@ const router = createBrowserRouter([
             element: <Home />
           },
           {
-            path: 'subjects',
+            path: 'courses',
             element: <Home />
           },
           {
-            path: 'subjects',
+            path: 'profile',
             element: <Home />
-          }
+          },
+          {
+            path: 'exams',
+            element: <Home />
+          },
+          {
+            path: 'questions',
+            element: <Home />
+          },
+          {
+            path: 'teachers',
+            element: <Home />
+          },
+          {
+            path: 'students',
+            element: <Home />
+          },
         ]
       }
     ]
