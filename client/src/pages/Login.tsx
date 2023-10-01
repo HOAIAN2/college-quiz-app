@@ -35,20 +35,34 @@ export default function Login() {
                 <div className={styles['wrap-input']}>
                     <input name='email'
                         autoFocus
-                        className={styles['input']}
+                        className={
+                            [
+                                'input-d',
+                                styles['input']
+                            ].join(' ')
+                        }
                         type='email'
                         placeholder='Email'
                     ></input>
                 </div>
                 <div className={styles['wrap-input']}>
                     <input name='password'
-                        className={styles['input']}
+                        className={
+                            [
+                                'input-d',
+                                styles['input']
+                            ].join(' ')
+                        }
                         type='password'
                         placeholder='Mật khẩu'
                     />
                 </div>
                 <div className={styles['wrap-input']}>
-                    <button className={styles['submit']}>Đăng nhập</button>
+                    <button className={
+                        [
+                            'button-d',
+                            styles['submit']
+                        ].join(' ')}>Đăng nhập</button>
                 </div>
             </form>
         </div>

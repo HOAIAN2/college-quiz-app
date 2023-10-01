@@ -1,10 +1,19 @@
 .button-d {
-    border: none;
-    outline: none;
-    color: white;
-    width: fit-content;
-    border-radius: 10px;
-    padding: 10px;
     background-color: var(--color-blue);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    color: white;
+    outline: none;
+    border: 1px solid var(--color-shadow);
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px var(--color-shadow);
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.input-d {
+    padding-left: 10px;
+    outline: none;
+    border: 1px solid var(--color-shadow);
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px var(--color-shadow);
+    margin: 0 auto;
 }
