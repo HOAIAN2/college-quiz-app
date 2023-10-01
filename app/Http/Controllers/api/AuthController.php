@@ -38,7 +38,7 @@ class AuthController extends Controller
     {
         $user = $request->user();
         $user->currentAccessToken()->delete();
-        return response();
+        return Reply::success();
     }
     /**
      * Change password

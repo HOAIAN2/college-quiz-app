@@ -1,4 +1,20 @@
 .header {
     height: 75px;
     background-color: white;
+    position: relative;
+}
+
+.left-items {
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
+}
+
+.left-item {
+    cursor: pointer;
+}
+
+.left-item>svg {
+    font-size: 24px;
 }
