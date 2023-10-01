@@ -1,4 +1,5 @@
 .dashboard-layout {
     width: 100%;
-    height: calc(100% - (100px + 75px));
+    height: 100%;
+    /* height: calc(100% - (100px + 75px)); */
 }

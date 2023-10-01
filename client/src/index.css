@@ -163,19 +163,20 @@ a {
 }
 
 .loading-container {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
+  width: calc(100% - 230px);
+  height: calc(100% - (100px + 75px));
+  display: inline-block;
+  position: absolute;
   justify-content: center;
   align-items: center;
   background-color: white;
 }
 
 .lds-spinner {
-  color: official;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: inline-block;
   left: 50%;
   top: 50%;

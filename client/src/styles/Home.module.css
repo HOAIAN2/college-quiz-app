@@ -1,6 +1,6 @@
 .home-page {
-    width: calc(100% -230px);
-    height: 100%;
-    position: relative;
-    left: 230px;
+    width: calc(100% - 230px);
+    height: calc(100% - (100px + 75px));
+    display: inline-block;
+    position: absolute;
 }

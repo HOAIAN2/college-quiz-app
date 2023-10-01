@@ -1,9 +1,10 @@
 .nav-bar {
     width: 230px;
-    height: 100%;
-    position: fixed;
+    height: calc(100% - (100px + 75px));
+    /* position: fixed; */
     box-shadow: 0px 0px 10px var(--color-shadow);
     background-color: white;
+    display: inline-block;
 }
 
 .list {
