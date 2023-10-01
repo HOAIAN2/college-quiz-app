@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { useLanguage, useUserData } from '../contexts/hooks'
 import {
     AiOutlineHome,
-    AiOutlineQuestionCircle
+    AiOutlineQuestionCircle,
+    AiOutlineUser
 } from 'react-icons/ai'
 import {
     PiStudent,
@@ -13,6 +14,9 @@ import {
 import {
     SiGoogleclassroom
 } from 'react-icons/si'
+import {
+    RxDashboard
+} from 'react-icons/rx'
 import styles from '../styles/NavBar.module.css'
 import { Link } from 'react-router-dom'
 import { DashboardLanguage } from '../models/lang'
@@ -26,9 +30,14 @@ export default function NavBar() {
     const features = {
         admin: [
             {
+                name: language?.dashboard,
+                to: '',
+                icon: <RxDashboard />
+            },
+            {
                 name: language?.profile,
                 to: 'profile',
-                icon: <AiOutlineHome />
+                icon: <AiOutlineUser />
             },
             {
                 name: language?.teachers,

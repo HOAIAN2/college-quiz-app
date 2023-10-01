@@ -1,10 +1,11 @@
 .nav-bar {
     width: 230px;
     height: calc(100% - (100px + 75px));
-    /* position: fixed; */
     box-shadow: 0px 0px 10px var(--color-shadow);
     background-color: white;
     display: inline-block;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .list {
@@ -13,19 +14,21 @@
 }
 
 .list-item {
-    width: 100%;
+    width: 90%;
     height: 50px;
     cursor: pointer;
     transition: 0.4s;
     display: flex;
-    /* justify-content: space-around; */
+    background-color: var(--color-white);
     align-items: center;
+    border-radius: var(--border-radius-low);
     padding: 10px;
     position: relative;
+    margin: 10px auto;
 }
 
 .list-item:hover {
-    background-color: var(--color-white);
+    box-shadow: 0px 0px 10px var(--color-shadow);
 }
 
 .list-item::before {
@@ -36,10 +39,6 @@
     position: absolute;
     left: -20px;
     transition: 0.3s;
-}
-
-.list-item:hover:before {
-    left: 0;
 }
 
 .current::before {
@@ -63,5 +62,6 @@
 }
 
 .list-item>a {
-    font-size: 28px;
+    font-size: 24px;
+    margin-left: 15px;
 }

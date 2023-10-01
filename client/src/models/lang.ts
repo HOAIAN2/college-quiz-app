@@ -4,6 +4,7 @@ export type LoginPageLanguage = {
     password: string
 }
 export type DashboardLanguage = {
+    dashboard: string
     subjects: string
     courses: string
     profile: string
