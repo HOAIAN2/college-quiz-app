@@ -1,3 +1,10 @@
+.dashboard-d {
+    width: calc(100% - 230px);
+    height: calc(100% - (100px + 75px));
+    display: inline-block;
+    position: absolute;
+}
+
 .button-d {
     background-color: var(--color-blue);
     color: white;
