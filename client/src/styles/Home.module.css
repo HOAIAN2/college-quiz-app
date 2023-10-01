@@ -1,4 +1,6 @@
 .home-page {
-    width: 100%;
+    width: calc(100% -230px);
     height: 100%;
+    position: relative;
+    left: 230px;
 }

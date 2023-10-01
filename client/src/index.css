@@ -43,6 +43,7 @@
   --color-green: rgb(15, 217, 15);
   --color-yellow: rgb(246, 221, 31);
   --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-white: rgb(250, 250, 250);
   --border-radius-low: 5px
 }
 
@@ -64,6 +65,11 @@ a {
   text-decoration: none;
 }
 
+#loader {
+  position: absolute;
+  height: 6px;
+  background-color: var(--color-blue);
+}
 
 .toast-container {
   width: 300px;

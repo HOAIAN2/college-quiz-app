@@ -11,6 +11,7 @@ import { LoginPageLanguage } from '../models/lang'
 export default function Login() {
     const [language, setLanguage] = useState<LoginPageLanguage>()
     const [submitting, setSubmitting] = useState(false)
+    const [checking, setChecking] = useState(true)
     const { dispatchUser } = useUserData()
     const { appLanguage } = useLanguage()
     const navigate = useNavigate()
@@ -35,12 +36,25 @@ export default function Login() {
             })
     }
     useEffect(() => {
+        reqGetUser()
+            .then(data => {
+                dispatchUser({ type: USER_ACTION.SET, payload: data })
+                navigate(prePage?.pathname || '/')
+            })
+            .catch(error => {
+                setChecking(false)
+                if (error.message !== 'no token') console.error(error.message)
+            })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+    useEffect(() => {
         import(`../langs/page.login.${appLanguage}.json`)
             .then((data: LoginPageLanguage) => {
                 setLanguage(data)
                 document.title = data.login
             })
     }, [appLanguage])
+    if (checking) return null
     return (
         <div className={styles['login-page']}>
             <form onSubmit={handleLogin} className={styles['form']}>
