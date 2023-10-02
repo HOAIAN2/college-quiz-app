@@ -141,7 +141,12 @@ export default function NavBar() {
         return () => window.removeEventListener('resize', updateSize);
     }, [sideBarRef])
     return (
-        <div ref={sideBarRef} className={styles['nav-bar']}>
+        <div ref={sideBarRef} className={
+            [
+                styles['nav-bar'],
+                window.innerWidth < 800 ? styles['hide'] : ''
+            ].join(' ')
+        }>
             <ul className={styles['list']}>{
                 features[user?.role.name as keyof typeof features].map((feature, index) => {
                     return (
