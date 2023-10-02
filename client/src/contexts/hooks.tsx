@@ -1,15 +1,14 @@
 import { useContext } from 'react'
 import { UserContext } from './UserContext'
 import { LanguageContext } from './LanguageContext'
+import { SideBarContext } from './SideBarContext'
 
-function useUserData() {
+export function useUserData() {
     return useContext(UserContext)
 }
-function useLanguage() {
+export function useLanguage() {
     return useContext(LanguageContext)
 }
-
-export {
-    useUserData,
-    useLanguage
+export function useSideBarContext() {
+    return useContext(SideBarContext)
 }

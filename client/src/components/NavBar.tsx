@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useLanguage, useUserData } from '../contexts/hooks'
+import { useLanguage, useSideBarContext, useUserData } from '../contexts/hooks'
 import {
     AiOutlineHome,
     AiOutlineQuestionCircle,
@@ -22,11 +22,11 @@ import { Link } from 'react-router-dom'
 import { DashboardLanguage } from '../models/lang'
 
 export default function NavBar() {
+    const sideBarRef = useSideBarContext()
     const [language, setLanguage] = useState<DashboardLanguage>()
     const { appLanguage } = useLanguage()
     const { user } = useUserData()
     console.log(user)
-    console.log(window.location.pathname.split('/'))
     const features = {
         admin: [
             {
@@ -132,8 +132,9 @@ export default function NavBar() {
                 // document.title = data.login
             })
     }, [appLanguage])
+    console.log(sideBarRef)
     return (
-        <div className={styles['nav-bar']}>
+        <div ref={sideBarRef} className={styles['nav-bar']}>
             <ul className={styles['list']}>{
                 features[user?.role.name as keyof typeof features].map((feature, index) => {
                     return (
