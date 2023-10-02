@@ -131,6 +131,15 @@ export default function NavBar() {
                 // document.title = data.login
             })
     }, [appLanguage])
+    useEffect(() => {
+        function updateSize() {
+            if (window.innerWidth < 800) sideBarRef.current?.classList.add(styles['hide'])
+            else sideBarRef.current?.classList.remove(styles['hide'])
+        }
+        window.addEventListener('resize', updateSize);
+        updateSize()
+        return () => window.removeEventListener('resize', updateSize);
+    }, [sideBarRef])
     return (
         <div ref={sideBarRef} className={styles['nav-bar']}>
             <ul className={styles['list']}>{
