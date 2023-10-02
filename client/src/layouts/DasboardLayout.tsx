@@ -28,8 +28,10 @@ export default function DasboardLayout() {
     return (
         <div className={styles['dashboard-layout']}>
             <Header />
-            <NavBar />
-            <Outlet />
+            <div className={styles['dashboard-content']}>
+                <NavBar />
+                <Outlet />
+            </div>
             <Footer />
         </div>
     )

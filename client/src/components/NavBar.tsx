@@ -9,7 +9,7 @@ import {
     PiStudent,
     PiChalkboardTeacherLight,
     PiBooks,
-    PiExam
+    PiExam,
 } from 'react-icons/pi'
 import {
     SiGoogleclassroom
@@ -26,7 +26,6 @@ export default function NavBar() {
     const [language, setLanguage] = useState<DashboardLanguage>()
     const { appLanguage } = useLanguage()
     const { user } = useUserData()
-    console.log(user)
     const features = {
         admin: [
             {
@@ -132,7 +131,6 @@ export default function NavBar() {
                 // document.title = data.login
             })
     }, [appLanguage])
-    console.log(sideBarRef)
     return (
         <div ref={sideBarRef} className={styles['nav-bar']}>
             <ul className={styles['list']}>{

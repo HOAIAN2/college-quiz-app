@@ -1,15 +1,18 @@
 .nav-bar {
     width: 230px;
-    height: calc(100% - (100px + 75px));
+    height: 100%;
     box-shadow: 0px 0px 10px var(--color-shadow);
     background-color: white;
-    display: inline-block;
     overflow-x: hidden;
     overflow-y: scroll;
+    transition: 0.4s;
+}
+
+.hide {
+    margin-left: -230px;
 }
 
 .list {
-    margin-top: 50px;
     width: 100%;
 }
 

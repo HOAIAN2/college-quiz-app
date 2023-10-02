@@ -7,14 +7,34 @@
 .left-items {
     position: absolute;
     top: 50%;
+    left: 30px;
+    transform: translateY(-50%);
+}
+
+.toggle {
+    width: 30px;
+    height: 30px;
+    /* width: 30px;
+    height: 30px;
+    position: relative; */
+}
+
+.toggle>svg {
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.right-items {
+    position: absolute;
+    top: 50%;
     right: 30px;
     transform: translateY(-50%);
 }
 
-.left-item {
+.right-item {
     cursor: pointer;
 }
 
-.left-item>svg {
+.right-item>svg {
     font-size: 24px;
 }

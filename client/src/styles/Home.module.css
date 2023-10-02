@@ -1,6 +1,4 @@
 .home-page {
-    width: calc(100% - 230px);
-    height: calc(100% - (100px + 75px));
-    display: inline-block;
-    position: absolute;
+    flex: 1;
+    height: 100%;
 }
