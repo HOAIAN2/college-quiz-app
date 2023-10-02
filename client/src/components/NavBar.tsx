@@ -128,7 +128,7 @@ export default function NavBar() {
         import(`../langs/component.dashboard.${appLanguage}.json`)
             .then((data: DashboardLanguage) => {
                 setLanguage(data)
-                // document.title = data.login
+
             })
     }, [appLanguage])
     useEffect(() => {
@@ -137,9 +137,14 @@ export default function NavBar() {
             else sideBarRef.current?.classList.remove(styles['hide'])
         }
         window.addEventListener('resize', updateSize);
-        updateSize()
         return () => window.removeEventListener('resize', updateSize);
     }, [sideBarRef])
+    useEffect(() => {
+        const currentFeature = features[user?.role.name as keyof typeof features].find(feature => {
+            return feature.to === window.location.pathname.split('/')[1]
+        })
+        document.title = currentFeature?.name as string
+    })
     return (
         <div ref={sideBarRef} className={
             [
