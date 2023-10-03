@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    function __construct()
+    {
+        parent::__construct();
+    }
     /**
      * Display a listing of the resource.
      */

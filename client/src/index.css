@@ -163,10 +163,10 @@ a {
 }
 
 .loading-container {
-  width: calc(100% - 230px);
-  height: calc(100% - (100px + 75px));
+  flex: 1;
+  height: 100%;
   display: inline-block;
-  position: absolute;
+  position: relative;
   justify-content: center;
   align-items: center;
   background-color: white;

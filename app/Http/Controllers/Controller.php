@@ -17,10 +17,12 @@ class Controller extends BaseController
 {
     public $supported_languages;
     private $request;
+    private $user;
     use AuthorizesRequests, ValidatesRequests;
     function __construct()
     {
         $this->request = request();
+        $this->user = $this->request->user();
         $this->setLanguage();
     }
     private function setLanguage()

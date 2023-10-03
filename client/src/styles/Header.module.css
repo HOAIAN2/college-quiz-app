@@ -2,6 +2,7 @@
     height: 75px;
     background-color: white;
     position: relative;
+    border-bottom: 1px solid var(--color-shadow);
 }
 
 .left-items {
@@ -14,9 +15,6 @@
 .toggle {
     width: 30px;
     height: 30px;
-    /* width: 30px;
-    height: 30px;
-    position: relative; */
 }
 
 .toggle>svg {

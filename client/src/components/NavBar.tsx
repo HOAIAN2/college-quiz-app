@@ -143,7 +143,7 @@ export default function NavBar() {
         const currentFeature = features[user?.role.name as keyof typeof features].find(feature => {
             return feature.to === window.location.pathname.split('/')[1]
         })
-        document.title = currentFeature?.name as string
+        if (currentFeature?.name) document.title = currentFeature.name
     })
     return (
         <div ref={sideBarRef} className={
