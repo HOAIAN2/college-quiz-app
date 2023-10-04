@@ -6,7 +6,7 @@ import Login from './pages/Login'
 import NotFound from './pages/NotFound'
 import './App.css'
 import Loading from './components/Loading'
-const Home = lazy(() => import('./pages/Home'))
+const Dashboard = lazy(() => import('./pages/Dashboard'))
 
 const router = createBrowserRouter([
   {
@@ -28,35 +28,35 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Suspense fallback={<Loading />}><Home /></Suspense>,
+            element: <Suspense fallback={<Loading />}><Dashboard /></Suspense>,
           },
           {
             path: 'subjects',
-            element: <Home />
+            element: <Suspense fallback={<Loading />}><Dashboard /></Suspense>
           },
           {
             path: 'courses',
-            element: <Home />
+            element: <Suspense fallback={<Loading />}><Dashboard /></Suspense>
           },
           {
             path: 'profile',
-            element: <Home />
+            element: <Suspense fallback={<Loading />}><Dashboard /></Suspense>
           },
           {
             path: 'exams',
-            element: <Home />
+            element: <Suspense fallback={<Loading />}><Dashboard /></Suspense>
           },
           {
             path: 'questions',
-            element: <Home />
+            element: <Suspense fallback={<Loading />}><Dashboard /></Suspense>
           },
           {
             path: 'teachers',
-            element: <Home />
+            element: <Suspense fallback={<Loading />}><Dashboard /></Suspense>
           },
           {
             path: 'students',
-            element: <Home />
+            element: <Suspense fallback={<Loading />}><Dashboard /></Suspense>
           },
         ]
       }
