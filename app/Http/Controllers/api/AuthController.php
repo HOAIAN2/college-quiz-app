@@ -20,7 +20,7 @@ class AuthController extends Controller
             'password' => ['required', 'min:8'],
         ]);
         $user = User::where('email', $request->email)->first();
-        if (!$user) return Reply::error('auth.errors.emailNotFound', 404);
+        if (!$user) return Reply::error('auth.errors.emailNotFound', [], 404);
         if ($user->is_active == false)  return Reply::error('auth.errors.accountDisabled');
         if (!Hash::check($request->password, $user->password)) {
             return Reply::error('auth.errors.passwordIncorrect');

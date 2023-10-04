@@ -18,11 +18,11 @@ class Reply
      * @param string $message
      */
 
-    public static function successWithMessage($message, $status = 200)
+    public static function successWithMessage($message, $data = [], $status = 200)
     {
         return response()->json([
             'status' => 'success',
-            'message' => trans($message)
+            'message' => trans($message, $data)
         ], $status);
     }
     /**
@@ -30,11 +30,11 @@ class Reply
      * @param null $error_name
      * @param array $errorData
      */
-    public static function error($message, $status = 400)
+    public static function error($message, $data = [], $status = 400)
     {
         return response()->json([
             'status' => 'fail',
-            'message' => trans($message)
+            'message' => trans($message, $data)
         ], $status);
     }
 }
