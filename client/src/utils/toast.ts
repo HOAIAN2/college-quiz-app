@@ -11,7 +11,7 @@ class Toast {
     public readonly container: HTMLDivElement
     private static template =
         `<div class="toast">
-            <di class="toast-content"v>message</di>
+            <div class="toast-content">message</div>
             <div class="toast-close-icon">&times</div>
         </div>`
     constructor(options = {
