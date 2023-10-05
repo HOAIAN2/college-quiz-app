@@ -10,13 +10,18 @@ import { LoginPageLanguage } from '../models/lang'
 
 export default function Login() {
     const [language, setLanguage] = useState<LoginPageLanguage>()
-    const [submitting, setSubmitting] = useState(false)
+    const [submitting, setSubmitting] = useState(true)
     const [checking, setChecking] = useState(true)
     const { dispatchUser } = useUserData()
     const { appLanguage } = useLanguage()
     const navigate = useNavigate()
     const location = useLocation()
     const prePage = location.state?.from
+    const handlePreventSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        const formData = new FormData(e.currentTarget)
+        if (!formData.get('email') || !formData.get('password')) return setSubmitting(true)
+        else setSubmitting(false)
+    }
     const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (submitting) return
@@ -57,7 +62,7 @@ export default function Login() {
     if (checking) return null
     return (
         <div className={styles['login-page']}>
-            <form onSubmit={handleLogin} className={styles['form']}>
+            <form onSubmit={handleLogin} className={styles['form']} onInput={handlePreventSubmit}>
                 <div className={styles['wrap-input']}>
                     <div className={styles['title']}>Quiz</div>
                 </div>
