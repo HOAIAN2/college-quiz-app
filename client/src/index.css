@@ -6,8 +6,13 @@
   scroll-behavior: smooth;
 }
 
-*,
+/* *,
 :not(i) {
+  font-family: "Alumni Sans";
+  font-size: 18px;
+} */
+
+*:not(div.toast-close-icon):not(i) {
   font-family: "Alumni Sans";
   font-size: 18px;
 }
