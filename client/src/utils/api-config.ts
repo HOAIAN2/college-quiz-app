@@ -46,15 +46,6 @@ request.interceptors.request.use(config => {
     return config
 })
 
-// request.interceptors.response.use((response) => {
-//     console.log(response.data)
-//     if (response.data &&
-//         response.headers['content-type'] === 'application/json') {
-//         if (response.data.message && response.data.status === 'fail') toast.error(response.data.message)
-//         if (response.data.message && response.data.status === 'success') toast.error(response.data.message)
-//     }
-//     return response;
-// })
 request.interceptors.response.use(
     function (response) {
         if (response.data && response.headers['content-type'] === 'application/json')
