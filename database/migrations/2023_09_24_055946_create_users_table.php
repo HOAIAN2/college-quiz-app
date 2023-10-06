@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('address');
             $table->date('birth_date');
             $table->string('class')->nullable();
+            $table->string('faculty')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

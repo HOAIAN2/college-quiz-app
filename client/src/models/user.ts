@@ -14,6 +14,7 @@ export type User = {
     address: string;
     birthDate: Date;
     class: string | null;
+    faculty: string | null;
     isActive: boolean;
     emailVerifiedAt: Date | null;
     role: Role;
