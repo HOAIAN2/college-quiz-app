@@ -9,7 +9,7 @@ import { LoginPageLanguage } from '../models/lang'
 
 export default function Login() {
     const [language, setLanguage] = useState<LoginPageLanguage>()
-    const [submitting, setSubmitting] = useState(true)
+    const [blockSubmit, setBlockSubmit] = useState(true)
     const [checking, setChecking] = useState(true)
     const { dispatchUser } = useUserData()
     const { appLanguage } = useLanguage()
@@ -18,13 +18,13 @@ export default function Login() {
     const prePage = location.state?.from
     const handlePreventSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         const formData = new FormData(e.currentTarget)
-        if (!formData.get('email') || !formData.get('password')) return setSubmitting(true)
-        else setSubmitting(false)
+        if (!formData.get('email') || !formData.get('password')) return setBlockSubmit(true)
+        else setBlockSubmit(false)
     }
     const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if (submitting) return
-        setSubmitting(true)
+        if (blockSubmit) return
+        setBlockSubmit(true)
         const formData = new FormData(e.currentTarget)
         reqLogin(formData)
             .then(() => {
@@ -35,7 +35,7 @@ export default function Login() {
                 navigate(prePage?.pathname || '/')
             })
             .catch(() => {
-                setSubmitting(false)
+                setBlockSubmit(false)
             })
     }
     useEffect(() => {
@@ -94,7 +94,7 @@ export default function Login() {
                         [
                             'button-d',
                             styles['submit'],
-                            submitting ? styles['submitting'] : ''
+                            blockSubmit ? styles['submitting'] : ''
                         ].join(' ')}>{language?.login}</button>
                 </div>
             </form>

@@ -22,7 +22,7 @@
     cursor: pointer;
     transition: 0.4s;
     display: flex;
-    background-color: var(--color-white);
+    /* background-color: var(--color-white); */
     align-items: center;
     border-radius: var(--border-radius-low);
     padding: 10px;
@@ -42,6 +42,10 @@
     position: absolute;
     left: -20px;
     transition: 0.3s;
+}
+
+.current {
+    background-color: var(--color-white);
 }
 
 .current::before {

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useLanguage, useSideBarContext, useUserData } from '../contexts/hooks'
 import {
-    AiOutlineHome,
     AiOutlineQuestionCircle,
     AiOutlineUser
 } from 'react-icons/ai'
@@ -26,6 +25,7 @@ export default function NavBar() {
     const [language, setLanguage] = useState<DashboardLanguage>()
     const { appLanguage } = useLanguage()
     const { user } = useUserData()
+    // if (user) user.role.name = 'teacher'
     const features = {
         admin: [
             {
@@ -73,54 +73,74 @@ export default function NavBar() {
             {
                 name: language?.profile,
                 to: 'profile',
-                icon: <AiOutlineHome />
+                icon: <AiOutlineUser />
             },
             {
                 name: language?.teachers,
                 to: 'teachers',
-                icon: <AiOutlineHome />
+                icon: <PiChalkboardTeacherLight />
             },
             {
                 name: language?.students,
                 to: 'students',
-                icon: <AiOutlineHome />
+                icon: <PiStudent />
             },
             {
                 name: language?.subjects,
                 to: 'subjects',
-                icon: <AiOutlineHome />
+                icon: <PiBooks />
             },
             {
                 name: language?.courses,
                 to: 'courses',
-                icon: <AiOutlineHome />
+                icon: <SiGoogleclassroom />
             },
             {
                 name: language?.questions,
                 to: 'questions',
-                icon: <AiOutlineHome />
+                icon: <AiOutlineQuestionCircle />
             },
             {
                 name: language?.exams,
                 to: 'exams',
-                icon: <AiOutlineHome />
+                icon: <PiExam />
             },
         ],
         student: [
             {
-                name: 'Feature',
-                to: '',
-                icon: <AiOutlineHome />
+                name: language?.profile,
+                to: 'profile',
+                icon: <AiOutlineUser />
             },
             {
-                name: 'Feature',
-                to: '',
-                icon: <AiOutlineHome />
+                name: language?.teachers,
+                to: 'teachers',
+                icon: <PiChalkboardTeacherLight />
             },
             {
-                name: 'Feature',
-                to: '',
-                icon: <AiOutlineHome />
+                name: language?.students,
+                to: 'students',
+                icon: <PiStudent />
+            },
+            {
+                name: language?.subjects,
+                to: 'subjects',
+                icon: <PiBooks />
+            },
+            {
+                name: language?.courses,
+                to: 'courses',
+                icon: <SiGoogleclassroom />
+            },
+            {
+                name: language?.questions,
+                to: 'questions',
+                icon: <AiOutlineQuestionCircle />
+            },
+            {
+                name: language?.exams,
+                to: 'exams',
+                icon: <PiExam />
             },
         ]
     }
@@ -128,7 +148,6 @@ export default function NavBar() {
         import(`../langs/component.dashboard.${appLanguage}.json`)
             .then((data: DashboardLanguage) => {
                 setLanguage(data)
-
             })
     }, [appLanguage])
     useEffect(() => {
