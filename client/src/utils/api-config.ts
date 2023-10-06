@@ -1,4 +1,5 @@
-import axios from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
+import toast from './toast'
 
 const devPorts = '3000'
 let baseURL = ''
@@ -27,7 +28,7 @@ function getTokenHeader() {
 const request = axios.create({
     baseURL: baseURL
 })
-request.interceptors.request.use(async (config) => {
+request.interceptors.request.use(config => {
     if (config.method === 'get' && !ignoreLoaders.includes(config.url || '')) {
         config.onDownloadProgress = (progressEvent) => {
             const loaderElement = document.querySelector<HTMLDivElement>('#loader')
@@ -45,6 +46,29 @@ request.interceptors.request.use(async (config) => {
     return config
 })
 
+// request.interceptors.response.use((response) => {
+//     console.log(response.data)
+//     if (response.data &&
+//         response.headers['content-type'] === 'application/json') {
+//         if (response.data.message && response.data.status === 'fail') toast.error(response.data.message)
+//         if (response.data.message && response.data.status === 'success') toast.error(response.data.message)
+//     }
+//     return response;
+// })
+request.interceptors.response.use(
+    function (response) {
+        if (response.data && response.headers['content-type'] === 'application/json')
+            if (response.data.message && response.data.status === 'success') toast.success(response.data.message)
+        return response
+    },
+    function (error: AxiosError) {
+        const response = error.response as AxiosResponse
+        if (response.data && response.headers['content-type'] === 'application/json') {
+            if (response.data.message && response.data.status === 'fail') toast.error(response.data.message)
+        }
+        return Promise.reject(error)
+    }
+);
 export {
     baseIMG,
     getToken,

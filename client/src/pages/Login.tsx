@@ -4,7 +4,6 @@ import { useLanguage, useUserData } from '../contexts/hooks'
 import { reqLogin } from '../utils/auth'
 import { reqGetUser } from '../utils/user'
 import { USER_ACTION } from '../contexts/UserContext'
-import toast from '../utils/toast'
 import styles from '../styles/Login.module.css'
 import { LoginPageLanguage } from '../models/lang'
 
@@ -35,8 +34,7 @@ export default function Login() {
                 dispatchUser({ type: USER_ACTION.SET, payload: data })
                 navigate(prePage?.pathname || '/')
             })
-            .catch((error: Error) => {
-                toast.error(error.message)
+            .catch(() => {
                 setSubmitting(false)
             })
     }
