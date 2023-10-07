@@ -17,6 +17,7 @@ export default function DasboardLayout() {
             .then(data => {
                 dispatchUser({ type: USER_ACTION.SET, payload: data })
                 setChecking(false)
+                document.querySelector('.pre-load-container')?.classList.add('hide')
             })
             .catch(() => {
                 setChecking(false)

@@ -1,0 +1,21 @@
+.not-found {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.not-found>.title {
+    font-size: 120px;
+    font-weight: 600;
+}
+
+.not-found>.go-to-home {
+    display: block;
+    width: 75px;
+    height: 30px;
+    text-align: center;
+    font-size: 24px;
+}

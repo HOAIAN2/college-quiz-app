@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect } from 'react'
+import { Suspense, lazy } from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import AuthLayout from './layouts/AuthLayout'
 import DasboardLayout from './layouts/DasboardLayout'
@@ -64,11 +64,6 @@ const router = createBrowserRouter([
   }
 ])
 function App() {
-  useEffect(() => {
-    document.querySelectorAll('.loading-container, .pre-load').forEach(node => {
-      node.remove()
-    })
-  })
   return (
     // <Suspense fallback={<Loading />}>
     <RouterProvider router={router} />

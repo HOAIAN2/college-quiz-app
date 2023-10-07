@@ -18,6 +18,7 @@ export default function AuthLayout() {
                 navigate(prePage?.pathname || '/')
             })
             .catch(() => {
+                document.querySelector('.pre-load-container')?.classList.add('hide')
             })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
