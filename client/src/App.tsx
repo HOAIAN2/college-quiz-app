@@ -7,6 +7,7 @@ import NotFound from './pages/NotFound'
 import './App.css'
 import Loading from './components/Loading'
 const Dashboard = lazy(() => import('./pages/Dashboard'))
+const Students = lazy(() => import('./pages/Students'))
 
 const router = createBrowserRouter([
   {
@@ -56,7 +57,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'students',
-            element: <Suspense fallback={<Loading />}><Dashboard /></Suspense>
+            element: <Suspense fallback={<Loading />}><Students /></Suspense>
           },
         ]
       }

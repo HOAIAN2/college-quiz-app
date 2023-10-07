@@ -3,5 +3,10 @@
 // lang/en/messages.php
 
 return [
-    'welcome' => 'Welcome to our application!',
+    'successes' => [
+        'recordSaveSuccess' => 'Record save success'
+    ],
+    'errors' => [
+        'failToSaveRecord' => 'Fail to save record'
+    ],
 ];

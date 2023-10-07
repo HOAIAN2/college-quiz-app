@@ -3,5 +3,10 @@
 // lang/en/messages.php
 
 return [
-    'welcome' => 'Chào mừng!',
+    'successes' => [
+        'recordSaveSuccess' => 'Lưu bản ghi thành công'
+    ],
+    'errors' => [
+        'failToSaveRecord' => 'Lưu bản ghi thất bại'
+    ],
 ];

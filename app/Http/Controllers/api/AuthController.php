@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
+use App\Models\TokenAbility;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -25,7 +26,18 @@ class AuthController extends Controller
         if (!Hash::check($request->password, $user->password)) {
             return Reply::error('auth.errors.passwordIncorrect');
         }
-        $token = $user->createToken('Token')->plainTextToken;
+        $token = '';
+        switch ($user->role->name) {
+            case 'admin':
+                $token = $user->createToken('Admin Token', TokenAbility::ADMIN)->plainTextToken;
+                break;
+            case 'teacher':
+                $token = $user->createToken('Teacher Token', TokenAbility::TEACHER)->plainTextToken;
+                break;
+            case 'student':
+                $token = $user->createToken('Student Token', TokenAbility::STUDENT)->plainTextToken;
+                break;
+        }
         return response()->json([
             'user' => $user->with('role')->first(),
             'token' => $token
