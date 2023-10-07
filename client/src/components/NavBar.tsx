@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useLanguage, useSideBarContext, useUserData } from '../contexts/hooks'
+import { useLanguage, useDOMContext, useUserData } from '../contexts/hooks'
 import {
     AiOutlineQuestionCircle,
     AiOutlineUser
@@ -21,7 +21,7 @@ import { Link } from 'react-router-dom'
 import { DashboardLanguage } from '../models/lang'
 
 export default function NavBar() {
-    const sideBarRef = useSideBarContext()
+    const { sideBarRef, titleRef } = useDOMContext()
     const [language, setLanguage] = useState<DashboardLanguage>()
     const { appLanguage } = useLanguage()
     const { user } = useUserData()
@@ -163,6 +163,7 @@ export default function NavBar() {
             return feature.to === window.location.pathname.split('/')[1]
         })
         if (currentFeature?.name) document.title = currentFeature.name
+        if (currentFeature?.name && titleRef.current) titleRef.current.textContent = currentFeature?.name
     })
     return (
         <div ref={sideBarRef} className={

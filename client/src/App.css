@@ -49,19 +49,25 @@
     transition: 0.4s;
 }
 
+.action-item-d:hover {
+    box-shadow: 0px 0px 5px var(--color-blue);
+}
+
 .action-item-d-white {
-    outline: 2px solid var(--color-blue);
+    border: 2px solid var(--color-blue);
     width: 80px;
-    height: 80%;
+    height: calc(80% - 2px);
     cursor: pointer;
     display: flex;
     justify-content: space-around;
     align-items: center;
     border-radius: var(--border-radius-low);
-    /* background-color: var(--color-blue); */
-    /* color: white; */
     padding: 10px;
     transition: 0.4s;
+}
+
+.action-item-d-white:hover {
+    box-shadow: 0px 0px 5px var(--color-blue);
 }
 
 .button-d {

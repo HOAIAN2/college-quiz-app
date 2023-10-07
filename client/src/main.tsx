@@ -4,15 +4,15 @@ import { UserProvider } from './contexts/UserContext.tsx'
 import { LanguageProvider } from './contexts/LanguageContext.tsx'
 import App from './App.tsx'
 import './index.css'
-import { SideBarProvider } from './contexts/SideBarContext.tsx'
+import { DOMProvider } from './contexts/DOMContext.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <LanguageProvider>
       <UserProvider>
-        <SideBarProvider>
+        <DOMProvider>
           <App />
-        </SideBarProvider>
+        </DOMProvider>
       </UserProvider>
     </LanguageProvider>
   </React.StrictMode>,
