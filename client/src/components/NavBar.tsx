@@ -163,7 +163,9 @@ export default function NavBar() {
             return feature.to === window.location.pathname.split('/')[1]
         })
         if (currentFeature?.name) document.title = currentFeature.name
-        if (currentFeature?.name && titleRef.current) titleRef.current.textContent = currentFeature?.name
+        if (currentFeature?.name && titleRef.current) {
+            titleRef.current.textContent = currentFeature?.name + ' • ' + document.title
+        }
     })
     return (
         <div ref={sideBarRef} className={
@@ -177,6 +179,7 @@ export default function NavBar() {
                     return (
                         <li onClick={e => {
                             e.currentTarget.querySelector('a')?.click()
+                            if (window.innerWidth < 800) sideBarRef.current?.classList.add(styles['hide'])
                         }} key={index} className={
                             [
                                 styles['list-item'],
