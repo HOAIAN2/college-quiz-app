@@ -65,7 +65,7 @@ a {
 
 #loader {
   position: absolute;
-  height: 6px;
+  height: 5px;
   background-color: var(--color-blue);
 }
 

@@ -34,8 +34,8 @@ request.interceptors.request.use(config => {
             const loaderElement = document.querySelector<HTMLDivElement>('#loader')
             if (progressEvent.progress && loaderElement) {
                 const percent = 100 * progressEvent.progress
-                if (percent !== 100) loaderElement.style.width = `${percent}%`
-                else loaderElement.style.width = '0%'
+                if (percent !== 100) requestAnimationFrame(() => { loaderElement.style.width = `${percent}%` })
+                else requestAnimationFrame(() => { loaderElement.style.width = '0%' })
             }
         }
     }
