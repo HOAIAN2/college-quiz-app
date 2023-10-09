@@ -55,7 +55,7 @@ request.interceptors.response.use(
     function (error: AxiosError) {
         const response = error.response as AxiosResponse
         if (response.data && response.headers['content-type'] === 'application/json') {
-            if (response.data.message && response.data.status === 'fail') toast.error(response.data.message)
+            if (response.data.message) toast.error(response.data.message)
         }
         return Promise.reject(error)
     }
