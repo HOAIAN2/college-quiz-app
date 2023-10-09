@@ -175,7 +175,7 @@ export default function NavBar() {
             ].join(' ')
         }>
             <ul className={styles['list']}>{
-                features[user?.role.name as keyof typeof features].map((feature, index) => {
+                features[user?.role.name as keyof typeof features]?.map((feature, index) => {
                     return (
                         <li onClick={e => {
                             e.currentTarget.querySelector('a')?.click()
