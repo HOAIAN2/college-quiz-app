@@ -1,0 +1,51 @@
+.create-user-container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.5);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+    transition: 0.4s;
+}
+
+.create-user-container.hide {
+    opacity: 0;
+}
+
+.create-user-form {
+    width: 90%;
+    height: 90%;
+    border-radius: var(--border-radius-low);
+    box-shadow: 0px 0px 10px var(--color-shadow);
+    background-color: white;
+    border-radius: var(--border-radius-low);
+    transform-origin: center center;
+    transition: 0.4s;
+}
+
+.create-user-form.hide {
+    opacity: 0;
+    scale: 0.9;
+}
+
+.header {
+    height: 40px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header>.title {
+    font-size: 20px;
+}
+
+.header>.esc-button {
+    font-size: 48px;
+    cursor: pointer;
+}
