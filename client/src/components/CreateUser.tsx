@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react'
+import {
+    RxCross2
+} from 'react-icons/rx'
 import styles from '../styles/CreateUser.module.css'
 
 interface CreateUserProps {
@@ -35,7 +38,9 @@ export default function CreateUser({
                     <h2 className={styles['title']}>Tạo sinh viên</h2>
                     <div className={styles['esc-button']}
                         onClick={handleTurnOffInsertMode}
-                    >×</div>
+                    >
+                        <RxCross2 />
+                    </div>
                 </div>
             </div>
         </div>
