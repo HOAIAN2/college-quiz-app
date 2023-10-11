@@ -49,3 +49,10 @@
     font-size: 22px;
     cursor: pointer;
 }
+
+@media only screen and (max-width: 800px) {
+    .create-user-form {
+        width: 100%;
+        height: 100%;
+    }
+}
