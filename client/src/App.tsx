@@ -1,5 +1,9 @@
 import { Suspense, lazy } from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 import AuthLayout from './layouts/AuthLayout'
 import DasboardLayout from './layouts/DasboardLayout'
 import Login from './pages/Login'
@@ -64,11 +68,12 @@ const router = createBrowserRouter([
     ]
   }
 ])
+const queryClient = new QueryClient()
 function App() {
   return (
-    // <Suspense fallback={<Loading />}>
-    <RouterProvider router={router} />
-    // </Suspense>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   )
 }
 
