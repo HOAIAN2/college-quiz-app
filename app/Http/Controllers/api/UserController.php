@@ -31,6 +31,7 @@ class UserController extends Controller
             'role_id' => ['required', 'integer', 'in:1,2,3'],
             'short_code' => ['required', 'string', 'unique:users', 'max:255'],
             'email' => ['required', 'email', 'unique:users'],
+            'name' => ['required', 'max:255'],
             'phone_numeber' => ['string', 'unique:users', 'max:10'],
             'gender' => ['required', 'in:male,female'],
             'address' => ['required', 'string', 'max:255'],

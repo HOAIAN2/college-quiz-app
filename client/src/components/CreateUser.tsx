@@ -42,6 +42,51 @@ export default function CreateUser({
                         <RxCross2 />
                     </div>
                 </div>
+                <form className={styles['form-data']}>
+                    <div className={
+                        [
+                            styles['group-inputs']
+                        ].join(' ')
+                    }>
+                        {/* This div wrap one input item */}
+                        <div className={styles['wrap-item']}>
+                            <label htmlFor="">Email</label>
+                            <input
+                                name='email'
+                                className={
+                                    [
+                                        'input-d',
+                                        styles['input-item']
+                                    ].join(' ')
+                                } type="text" />
+                        </div>
+                        <div className={styles['wrap-item']}>
+                            <label htmlFor="">Name</label>
+                            <input
+                                name='name'
+                                className={
+                                    [
+                                        'input-d',
+                                        styles['input-item']
+                                    ].join(' ')
+                                } type="text" />
+                        </div>
+                        <div className={styles['wrap-item']}>
+                            <label htmlFor="">shortcode</label>
+                            <input
+                                name='shortcode'
+                                className={
+                                    [
+                                        'input-d',
+                                        styles['input-item']
+                                    ].join(' ')
+                                } type="text" />
+                        </div>
+                    </div>
+                    <div className={styles['action-items']}>
+                        <button className='action-item-d'>Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
     )

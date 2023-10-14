@@ -50,6 +50,36 @@
     cursor: pointer;
 }
 
+.form-data {
+    height: calc(100% - 40px);
+    padding: 10px;
+}
+
+.group-inputs {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.wrap-item {
+    /* width: fit-content; */
+    flex: 1;
+}
+
+.wrap-item>label {
+    display: block;
+}
+
+.wrap-item>.input-item {
+    height: 40px;
+    width: 250px;
+}
+
+.action-items {
+    margin-top: 10px;
+}
+
 @media only screen and (max-width: 800px) {
     .create-user-form {
         width: 100%;
