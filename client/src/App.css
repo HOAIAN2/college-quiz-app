@@ -89,3 +89,7 @@
     box-shadow: 0px 0px 10px var(--color-shadow);
     margin: 0 auto;
 }
+
+.input-d.error {
+    border-color: red;
+}

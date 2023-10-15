@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { SyntheticEvent, useEffect, useState } from 'react'
 import {
     RxCross2
 } from 'react-icons/rx'
 import styles from '../styles/CreateUser.module.css'
+import { reqCreateUser } from '../utils/user'
 
 interface CreateUserProps {
     type?: 'student' | 'teacher' | 'admin'
@@ -17,6 +18,20 @@ export default function CreateUser({
         setTimeout(() => {
             setInsertMode(false)
         }, 400)
+    }
+    const handleCreateUser = (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
+        e.preventDefault()
+        const submitter = e.nativeEvent.submitter as HTMLButtonElement
+        const form = e.currentTarget
+        const formData = new FormData(form)
+        reqCreateUser(formData)
+            .then(() => {
+                if (submitter.name === 'save') handleTurnOffInsertMode()
+                else form.reset()
+            })
+            .catch(e => {
+                console.log(e)
+            })
     }
     useEffect(() => {
         setHide(false)
@@ -42,7 +57,7 @@ export default function CreateUser({
                         <RxCross2 />
                     </div>
                 </div>
-                <form className={styles['form-data']}>
+                <form onSubmit={handleCreateUser} className={styles['form-data']}>
                     <div className={
                         [
                             styles['group-inputs']
@@ -84,7 +99,8 @@ export default function CreateUser({
                         </div>
                     </div>
                     <div className={styles['action-items']}>
-                        <button className='action-item-d'>Submit</button>
+                        <button name='save' className='action-item-d'>Save</button>
+                        <button name='save-more' className='action-item-d-white'>Save more</button>
                     </div>
                 </form>
             </div>
