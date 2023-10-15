@@ -5,7 +5,7 @@
     background-color: white;
     overflow-x: hidden;
     overflow-y: scroll;
-    transition: 0.4s;
+    transition: var(--transition-timing-medium);
 }
 
 .hide {
@@ -20,7 +20,7 @@
     width: 90%;
     height: 50px;
     cursor: pointer;
-    transition: 0.4s;
+    transition: var(--transition-timing-medium);
     display: flex;
     /* background-color: var(--color-white); */
     align-items: center;
@@ -41,7 +41,7 @@
     background-color: var(--color-blue);
     position: absolute;
     left: -20px;
-    transition: 0.3s;
+    transition: var(--transition-timing-fast);
 }
 
 .current {
@@ -55,7 +55,7 @@
     background-color: var(--color-blue);
     position: absolute;
     translate: 20px 0px;
-    transition: 0.3s;
+    transition: var(--transition-timing-fast);
 }
 
 /* .list-item:hover {
