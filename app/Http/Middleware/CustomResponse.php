@@ -17,6 +17,7 @@ class CustomResponse
     public function handle(Request $request, Closure $next): Response
     {
         $response = $next($request);
+        if ($response->getStatusCode() === 422) return $response;
         $content_type = $response->headers->get('content-type');
         if ($content_type === 'application/json') {
             $content = CustomResource::toCamelCase(json_decode($response->getContent(), true));
