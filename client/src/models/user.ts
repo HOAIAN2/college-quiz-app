@@ -25,3 +25,24 @@ export type Role = {
     name: string;
     displayName: string;
 }
+export interface UserPagination {
+    currentPage: number
+    data: User[]
+    firstPageUrl: string
+    from: number
+    lastPage: number
+    lastPageUrl: string
+    links: Link[]
+    nextPageUrl: string | null
+    path: string
+    perPage: number
+    prevPageUrl: string | null
+    to: number
+    total: number
+}
+
+export interface Link {
+    url?: string
+    label: string
+    active: boolean
+}

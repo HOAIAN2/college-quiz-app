@@ -25,4 +25,5 @@ Route::prefix('/user')->middleware('auth:sanctum')
     ->controller(UserController::class)->group(function () {
         Route::get('/', 'index');
         Route::post('/', 'store')->middleware(['auth:sanctum', 'abilities:teacher:create,student:create']);
+        Route::get('/query', 'getUserByType')->middleware(['auth:sanctum', 'abilities:teacher:view,student:view']);
     });

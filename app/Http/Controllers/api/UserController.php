@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+    private static $per_page = 10;
     function __construct()
     {
         parent::__construct();
@@ -50,7 +51,16 @@ class UserController extends Controller
             return Reply::error('app.errors.failToSaveRecord');
         }
     }
-
+    public function getUserByType(Request $request)
+    {
+        $validated = $request->validate([
+            'role' => ['required', 'string', 'in:student,teacher,admin']
+        ]);
+        $users = User::with('role')->whereHas('role', function ($query) use ($validated) {
+            $query->where('name', '=', $validated['role']);
+        })->paginate(UserController::$per_page);
+        return $users;
+    }
     /**
      * Display the specified resource.
      */
