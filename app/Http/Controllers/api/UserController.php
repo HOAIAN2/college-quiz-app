@@ -58,7 +58,7 @@ class UserController extends Controller
         ]);
         $users = User::with('role')->whereHas('role', function ($query) use ($validated) {
             $query->where('name', '=', $validated['role']);
-        })->paginate(UserController::$per_page);
+        })->latest('id')->paginate(UserController::$per_page);
         return $users;
     }
     /**
