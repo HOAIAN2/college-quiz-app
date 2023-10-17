@@ -1,5 +1,4 @@
 import { SyntheticEvent, useEffect, useState } from 'react'
-import Select from 'react-select'
 import {
     RxCross2
 } from 'react-icons/rx'
@@ -11,15 +10,10 @@ interface CreateUserProps {
     type?: 'student' | 'teacher' | 'admin'
     setInsertMode: React.Dispatch<React.SetStateAction<boolean>>
 }
-const options = [
-    { value: 'male', label: 'Male' },
-    { value: 'female', label: 'Female' },
-];
 export default function CreateUser({
     setInsertMode
 }: CreateUserProps) {
     const [hide, setHide] = useState(true)
-    const [gender, setGender] = useState('male')
     const handleTurnOffInsertMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
         setHide(true)
@@ -42,7 +36,6 @@ export default function CreateUser({
             console.log(e)
         },
     })
-    console.log(gender)
     useEffect(() => {
         setHide(false)
     }, [])
@@ -118,13 +111,6 @@ export default function CreateUser({
                         {/* This div wrap one input item */}
                         <div className={styles['wrap-item']}>
                             <label htmlFor="">Gender</label>
-                            <Select
-                                defaultValue={options[0]}
-                                onChange={(e) => {
-                                    if (e) setGender(e.value)
-                                }}
-                                options={options}
-                            />
                         </div>
                         <div className={styles['wrap-item']}>
                             <label htmlFor="">Address</label>
