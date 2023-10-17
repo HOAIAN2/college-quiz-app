@@ -11,10 +11,15 @@ type CreateUserProps = {
     type?: 'student' | 'teacher' | 'admin'
     setInsertMode: React.Dispatch<React.SetStateAction<boolean>>
 }
+type ValuePiece = Date | null;
+
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 export default function CreateUser({
     setInsertMode
 }: CreateUserProps) {
     const [hide, setHide] = useState(true)
+    const [gender, setGender] = useState('male')
+    const [birthDate, setBirthDate] = useState<Value>(new Date())
     const handleTurnOffInsertMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
         setHide(true)
@@ -27,6 +32,7 @@ export default function CreateUser({
         const submitter = e.nativeEvent.submitter as HTMLButtonElement
         const form = e.target as HTMLFormElement
         const formData = new FormData(form)
+        formData.append('gender', gender)
         await reqCreateUser(formData)
         if (submitter.name === 'save') handleTurnOffInsertMode()
         else form.reset()
@@ -119,7 +125,7 @@ export default function CreateUser({
                             <CustomSelect
                                 options={options}
                                 onChange={(option) => {
-                                    console.log(option)
+                                    setGender(option.value)
                                 }}
                             />
                         </div>
@@ -137,7 +143,8 @@ export default function CreateUser({
                         <div className={styles['wrap-item']}>
                             <label htmlFor="">Birth date</label>
                             <input
-                                name='shortcode'
+                                name='name'
+                                value={birthDate?.toLocaleString()}
                                 className={
                                     [
                                         'input-d',
