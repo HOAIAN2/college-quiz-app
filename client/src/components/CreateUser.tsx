@@ -2,11 +2,12 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 import {
     RxCross2
 } from 'react-icons/rx'
-import styles from '../styles/CreateUser.module.css'
 import { reqCreateUser } from '../utils/user'
 import { useMutation } from '@tanstack/react-query'
+import CustomSelect from './CustomSelect'
+import styles from '../styles/CreateUser.module.css'
 
-interface CreateUserProps {
+type CreateUserProps = {
     type?: 'student' | 'teacher' | 'admin'
     setInsertMode: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -36,6 +37,10 @@ export default function CreateUser({
             console.log(e)
         },
     })
+    const options = [
+        { value: 'male', label: 'Male' },
+        { value: 'female', label: 'Female' },
+    ]
     useEffect(() => {
         setHide(false)
     }, [])
@@ -111,6 +116,12 @@ export default function CreateUser({
                         {/* This div wrap one input item */}
                         <div className={styles['wrap-item']}>
                             <label htmlFor="">Gender</label>
+                            <CustomSelect
+                                options={options}
+                                onChange={(option) => {
+                                    console.log(option)
+                                }}
+                            />
                         </div>
                         <div className={styles['wrap-item']}>
                             <label htmlFor="">Address</label>

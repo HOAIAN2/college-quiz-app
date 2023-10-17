@@ -1,0 +1,38 @@
+.custom-select {
+    position: relative;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.custom-select.hidden {
+    overflow: hidden;
+}
+
+.select-dropbox {
+    background-color: white;
+    position: absolute;
+    left: 0;
+    top: 42px;
+    width: 100%;
+    height: fit-content;
+}
+
+.select-item {
+    padding: 0;
+    height: 40px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.select-item:hover {
+    background-color: var(--color-white);
+}
+
+.select-item>span {
+    margin-left: 10px;
+}
