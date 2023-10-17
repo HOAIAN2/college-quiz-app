@@ -63,6 +63,7 @@
 }
 
 .wrap-item {
+    margin-left: 20px;
     /* width: fit-content; */
     flex: 1;
 }
@@ -73,7 +74,7 @@
 
 .wrap-item>.input-item {
     height: 40px;
-    width: 250px;
+    width: 300px;
 }
 
 .action-items {
