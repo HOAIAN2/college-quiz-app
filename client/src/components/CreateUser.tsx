@@ -2,6 +2,8 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 import {
     RxCross2
 } from 'react-icons/rx'
+import Datetime from 'react-datetime'
+import 'react-datetime/css/react-datetime.css'
 import { reqCreateUser } from '../utils/user'
 import { useMutation } from '@tanstack/react-query'
 import CustomSelect from './CustomSelect'
@@ -11,15 +13,12 @@ type CreateUserProps = {
     type?: 'student' | 'teacher' | 'admin'
     setInsertMode: React.Dispatch<React.SetStateAction<boolean>>
 }
-type ValuePiece = Date | null;
-
-type Value = ValuePiece | [ValuePiece, ValuePiece];
 export default function CreateUser({
     setInsertMode
 }: CreateUserProps) {
     const [hide, setHide] = useState(true)
     const [gender, setGender] = useState('male')
-    const [birthDate, setBirthDate] = useState<Value>(new Date())
+    const [birthDate, setBirthDate] = useState<Date>(new Date())
     const handleTurnOffInsertMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
         setHide(true)
@@ -33,6 +32,7 @@ export default function CreateUser({
         const form = e.target as HTMLFormElement
         const formData = new FormData(form)
         formData.append('gender', gender)
+        formData.append('birth_date', birthDate.toISOString().split('T')[0])
         await reqCreateUser(formData)
         if (submitter.name === 'save') handleTurnOffInsertMode()
         else form.reset()
@@ -142,15 +142,23 @@ export default function CreateUser({
                         </div>
                         <div className={styles['wrap-item']}>
                             <label htmlFor="">Birth date</label>
-                            <input
-                                name='name'
-                                value={birthDate?.toLocaleString()}
-                                className={
-                                    [
-                                        'input-d',
-                                        styles['input-item']
-                                    ].join(' ')
-                                } type="text" />
+                            <Datetime
+                                initialValue={birthDate}
+                                onChange={(value) => {
+                                    if (typeof value === 'string') return
+                                    setBirthDate(value.toDate())
+                                }}
+                                inputProps={
+                                    {
+                                        className: [
+                                            'input-d',
+                                            styles['input-item']
+                                        ].join(' ')
+                                    }
+                                }
+                                closeOnSelect={true}
+                                timeFormat={false}
+                            />
                         </div>
                     </div>
                     <div className={styles['action-items']}>
