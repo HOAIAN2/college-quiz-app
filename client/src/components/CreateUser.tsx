@@ -43,6 +43,13 @@ export default function CreateUser({
         if (submitter.name === 'save') handleTurnOffInsertMode()
         else form.reset()
     }
+    const handleOnInput = (e: React.FormEvent<HTMLFormElement>) => {
+        const element = e.target as HTMLInputElement
+        if (element) {
+            element.classList.remove(styles['error'])
+            element.parentElement?.removeAttribute('data-error')
+        }
+    }
     const { mutate } = useMutation({
         mutationFn: handleCreateUser,
         onError: (error: object) => {
@@ -87,7 +94,9 @@ export default function CreateUser({
                 </div>
                 <form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
                     mutate(e)
-                }} className={styles['form-data']}>
+                }}
+                    onInput={handleOnInput}
+                    className={styles['form-data']}>
                     <div className={
                         [
                             styles['group-inputs']
