@@ -63,16 +63,32 @@
 }
 
 .wrap-item {
+    position: relative;
     margin-left: 20px;
-    /* width: fit-content; */
+    height: 75px;
     flex: 1;
+}
+
+.wrap-item::before {
+    content: attr(data-error);
+    width: fit-content;
+    position: absolute;
+    bottom: -10px;
+    color: red;
 }
 
 .wrap-item>label {
     display: block;
 }
 
+.wrap-item>label.required::after {
+    content: "*";
+    color: red;
+    margin-left: 5px;
+}
+
 .input-item {
+    /* position: relative; */
     height: 40px;
     width: 300px;
 }

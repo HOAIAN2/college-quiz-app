@@ -31,6 +31,7 @@ export default function CreateUser({
         e.preventDefault()
         document.querySelectorAll('input[name]').forEach(element => {
             element.classList.remove(styles['error'])
+            element.parentElement?.removeAttribute('data-error')
         })
         const submitter = e.nativeEvent.submitter as HTMLButtonElement
         const form = e.target as HTMLFormElement
@@ -44,10 +45,14 @@ export default function CreateUser({
     }
     const { mutate } = useMutation({
         mutationFn: handleCreateUser,
-        onError: (error) => {
+        onError: (error: object) => {
             if (typeof error === 'object') {
                 for (const key in error) {
-                    document.querySelector(`input[name="${key}"]`)?.classList.add(styles['error'])
+                    const element = document.querySelector(`input[name="${key}"]`) as HTMLInputElement
+                    if (element) {
+                        element.classList.add(styles['error'])
+                        element.parentElement?.setAttribute('data-error', error[key as keyof typeof error][0] as string)
+                    }
                 }
             }
         },
@@ -90,7 +95,7 @@ export default function CreateUser({
                     }>
                         {/* This div wrap one input item */}
                         <div className={styles['wrap-item']}>
-                            <label htmlFor="">Email</label>
+                            <label className={styles['required']} htmlFor="">Email</label>
                             <input
                                 name='email'
                                 className={
@@ -101,7 +106,7 @@ export default function CreateUser({
                                 } type="text" />
                         </div>
                         <div className={styles['wrap-item']}>
-                            <label htmlFor="">Name</label>
+                            <label className={styles['required']} htmlFor="">Name</label>
                             <input
                                 name='name'
                                 className={
@@ -112,7 +117,7 @@ export default function CreateUser({
                                 } type="text" />
                         </div>
                         <div className={styles['wrap-item']}>
-                            <label htmlFor="">shortcode</label>
+                            <label className={styles['required']} htmlFor="">shortcode</label>
                             <input
                                 name='shortcode'
                                 className={
@@ -123,7 +128,7 @@ export default function CreateUser({
                                 } type="text" />
                         </div>
                         <div className={styles['wrap-item']}>
-                            <label htmlFor="">Gender</label>
+                            <label className={styles['required']} htmlFor="">Gender</label>
                             <CustomSelect
                                 options={options}
                                 onChange={(option) => {
@@ -137,7 +142,7 @@ export default function CreateUser({
                             />
                         </div>
                         <div className={styles['wrap-item']}>
-                            <label htmlFor="">Address</label>
+                            <label className={styles['required']} htmlFor="">Address</label>
                             <input
                                 name='address'
                                 className={
@@ -148,7 +153,7 @@ export default function CreateUser({
                                 } type="text" />
                         </div>
                         <div className={styles['wrap-item']}>
-                            <label htmlFor="">Birth date</label>
+                            <label className={styles['required']} htmlFor="">Birth date</label>
                             <Datetime
                                 initialValue={birthDate}
                                 onChange={(value) => {
@@ -168,7 +173,7 @@ export default function CreateUser({
                             />
                         </div>
                         <div className={styles['wrap-item']}>
-                            <label htmlFor="">Password</label>
+                            <label className={styles['required']} htmlFor="">Password</label>
                             <input
                                 name='password'
                                 className={
