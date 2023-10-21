@@ -46,7 +46,7 @@ class UserController extends Controller
         DB::beginTransaction();
         try {
             User::create([
-                'role_id' => Role::where('name', '=',  $validated['role']),
+                'role_id' => Role::where('name', '=',  $validated['role'])->first()->id,
                 'shortcode' => $validated['shortcode'],
                 'email' => $validated['email'],
                 'name' => $validated['name'],
