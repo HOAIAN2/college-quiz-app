@@ -8,6 +8,8 @@ import { reqCreateUser } from '../utils/user'
 import { useMutation } from '@tanstack/react-query'
 import CustomSelect from './CustomSelect'
 import styles from '../styles/CreateUser.module.css'
+import { useLanguage } from '../contexts/hooks'
+import { CreateUserLanguage } from '../models/lang'
 
 type CreateUserProps = {
     type?: 'student' | 'teacher' | 'admin'
@@ -17,6 +19,8 @@ export default function CreateUser({
     type,
     setInsertMode
 }: CreateUserProps) {
+    const [language, setLanguage] = useState<CreateUserLanguage>()
+    const { appLanguage } = useLanguage()
     const [hide, setHide] = useState(true)
     const [gender, setGender] = useState('male')
     const [birthDate, setBirthDate] = useState<Date>(new Date())
@@ -71,6 +75,12 @@ export default function CreateUser({
     useEffect(() => {
         setHide(false)
     }, [])
+    useEffect(() => {
+        import(`../langs/component.create_user.${appLanguage}.json`)
+            .then((data: CreateUserLanguage) => {
+                setLanguage(data)
+            })
+    }, [appLanguage])
     return (
         <div className={
             [
@@ -85,7 +95,12 @@ export default function CreateUser({
                 ].join(' ')
             }>
                 <div className={styles['header']}>
-                    <h2 className={styles['title']}>Tạo sinh viên</h2>
+                    <h2 className={styles['title']}>{
+                        [
+                            language?.create,
+                            language && type ? language[type] : ''
+                        ].join(' ')
+                    }</h2>
                     <div className={styles['esc-button']}
                         onClick={handleTurnOffInsertMode}
                     >
@@ -104,7 +119,7 @@ export default function CreateUser({
                     }>
                         {/* This div wrap one input item */}
                         <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor="">Email</label>
+                            <label className={styles['required']} htmlFor="">{language?.email}</label>
                             <input
                                 name='email'
                                 className={
@@ -115,7 +130,7 @@ export default function CreateUser({
                                 } type="text" />
                         </div>
                         <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor="">Name</label>
+                            <label className={styles['required']} htmlFor="">{language?.name}</label>
                             <input
                                 name='name'
                                 className={
@@ -126,7 +141,7 @@ export default function CreateUser({
                                 } type="text" />
                         </div>
                         <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor="">shortcode</label>
+                            <label className={styles['required']} htmlFor="">{language?.shortcode}</label>
                             <input
                                 name='shortcode'
                                 className={
@@ -137,7 +152,7 @@ export default function CreateUser({
                                 } type="text" />
                         </div>
                         <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor="">Gender</label>
+                            <label className={styles['required']} htmlFor="">{language?.genders.gender}</label>
                             <CustomSelect
                                 options={options}
                                 onChange={(option) => {
@@ -151,7 +166,7 @@ export default function CreateUser({
                             />
                         </div>
                         <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor="">Address</label>
+                            <label className={styles['required']} htmlFor="">{language?.address}</label>
                             <input
                                 name='address'
                                 className={
@@ -162,7 +177,7 @@ export default function CreateUser({
                                 } type="text" />
                         </div>
                         <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor="">Birth date</label>
+                            <label className={styles['required']} htmlFor="">{language?.birthDate}</label>
                             <Datetime
                                 initialValue={birthDate}
                                 onChange={(value) => {
@@ -182,7 +197,7 @@ export default function CreateUser({
                             />
                         </div>
                         <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor="">Password</label>
+                            <label className={styles['required']} htmlFor="">{language?.password}</label>
                             <input
                                 name='password'
                                 className={
@@ -194,8 +209,8 @@ export default function CreateUser({
                         </div>
                     </div>
                     <div className={styles['action-items']}>
-                        <button name='save' className='action-item-d'>Save</button>
-                        <button name='save-more' className='action-item-d-white'>Save more</button>
+                        <button name='save' className='action-item-d'>{language?.save}</button>
+                        <button name='save-more' className='action-item-d-white'>{language?.saveMore}</button>
                     </div>
                 </form>
             </div >
