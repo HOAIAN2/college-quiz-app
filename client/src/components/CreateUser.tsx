@@ -14,6 +14,7 @@ type CreateUserProps = {
     setInsertMode: React.Dispatch<React.SetStateAction<boolean>>
 }
 export default function CreateUser({
+    type,
     setInsertMode
 }: CreateUserProps) {
     const [hide, setHide] = useState(true)
@@ -28,9 +29,13 @@ export default function CreateUser({
     }
     const handleCreateUser = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
         e.preventDefault()
+        document.querySelectorAll('input[name]').forEach(element => {
+            element.classList.remove(styles['error'])
+        })
         const submitter = e.nativeEvent.submitter as HTMLButtonElement
         const form = e.target as HTMLFormElement
         const formData = new FormData(form)
+        formData.append('role', type !== undefined ? type : 'student')
         formData.append('gender', gender)
         formData.append('birth_date', birthDate.toISOString().split('T')[0])
         await reqCreateUser(formData)
@@ -39,8 +44,12 @@ export default function CreateUser({
     }
     const { mutate } = useMutation({
         mutationFn: handleCreateUser,
-        onError: (e) => {
-            console.log(e)
+        onError: (error) => {
+            if (typeof error === 'object') {
+                for (const key in error) {
+                    document.querySelector(`input[name="${key}"]`)?.classList.add(styles['error'])
+                }
+            }
         },
     })
     const options = [
@@ -113,13 +122,6 @@ export default function CreateUser({
                                     ].join(' ')
                                 } type="text" />
                         </div>
-                    </div>
-                    <div className={
-                        [
-                            styles['group-inputs']
-                        ].join(' ')
-                    }>
-                        {/* This div wrap one input item */}
                         <div className={styles['wrap-item']}>
                             <label htmlFor="">Gender</label>
                             <CustomSelect
@@ -127,12 +129,17 @@ export default function CreateUser({
                                 onChange={(option) => {
                                     setGender(option.value)
                                 }}
+                                className={
+                                    [
+                                        styles['custom-select']
+                                    ].join(' ')
+                                }
                             />
                         </div>
                         <div className={styles['wrap-item']}>
                             <label htmlFor="">Address</label>
                             <input
-                                name='name'
+                                name='address'
                                 className={
                                     [
                                         'input-d',
@@ -160,13 +167,24 @@ export default function CreateUser({
                                 timeFormat={false}
                             />
                         </div>
+                        <div className={styles['wrap-item']}>
+                            <label htmlFor="">Password</label>
+                            <input
+                                name='password'
+                                className={
+                                    [
+                                        'input-d',
+                                        styles['input-item']
+                                    ].join(' ')
+                                } type="password" />
+                        </div>
                     </div>
                     <div className={styles['action-items']}>
                         <button name='save' className='action-item-d'>Save</button>
                         <button name='save-more' className='action-item-d-white'>Save more</button>
                     </div>
                 </form>
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }

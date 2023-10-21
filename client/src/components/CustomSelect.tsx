@@ -8,11 +8,13 @@ type Option = {
 type CustomSelectProps = {
     options: Option[]
     onChange: (option: Option) => void
+    className?: string
 }
 
 export default function CustomSelect({
     options,
-    onChange
+    onChange,
+    className
 }: CustomSelectProps) {
     const customSelectRef = useRef<HTMLDivElement>(null)
     const [current, setCurrent] = useState(options[0])
@@ -26,6 +28,7 @@ export default function CustomSelect({
                     'input-d',
                     styles['custom-select'],
                     styles['hidden'],
+                    className
                 ].join(' ')
             }
         >
@@ -34,7 +37,7 @@ export default function CustomSelect({
                 className={
                     [
                         'input-d',
-                        styles['select-dropbox']
+                        styles['select-dropbox'],
                     ].join(' ')
                 }
             >

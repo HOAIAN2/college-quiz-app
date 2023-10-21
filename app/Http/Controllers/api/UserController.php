@@ -4,9 +4,11 @@ namespace App\Http\Controllers\api;
 
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -29,7 +31,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'role_id' => ['required', 'integer', 'in:1,2,3'],
+            'role' => ['required', 'string', 'in:student,teacher,admin'],
             'shortcode' => ['required', 'string', 'unique:users', 'max:255'],
             'email' => ['required', 'email', 'unique:users'],
             'name' => ['required', 'max:255'],
@@ -43,7 +45,19 @@ class UserController extends Controller
         ]);
         DB::beginTransaction();
         try {
-            User::create($validated);
+            User::create([
+                'role_id' => Role::where('name', '=',  $validated['role']),
+                'shortcode' => $validated['shortcode'],
+                'email' => $validated['email'],
+                'name' => $validated['name'],
+                'phone_numeber' => $validated['phone_number'],
+                'gender' => $validated['gender'],
+                'address' => $validated['address'],
+                'birth_date' => $validated['birth_date'],
+                // 'class'=>[],
+                // 'faculty'=>[],
+                'password' => Hash::make($validated['password'])
+            ]);
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
         } catch (\Throwable $error) {
