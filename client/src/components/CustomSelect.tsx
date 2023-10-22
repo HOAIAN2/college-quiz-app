@@ -3,7 +3,7 @@ import styles from '../styles/CustomSelect.module.css'
 
 type Option = {
     value: string
-    label: string
+    label?: string
 }
 type CustomSelectProps = {
     options: Option[]

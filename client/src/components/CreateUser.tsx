@@ -12,7 +12,7 @@ import { useLanguage } from '../contexts/hooks'
 import { CreateUserLanguage } from '../models/lang'
 
 type CreateUserProps = {
-    type?: 'student' | 'teacher' | 'admin'
+    type: 'student' | 'teacher' | 'admin'
     setInsertMode: React.Dispatch<React.SetStateAction<boolean>>
 }
 export default function CreateUser({
@@ -26,6 +26,7 @@ export default function CreateUser({
     const [birthDate, setBirthDate] = useState<Date>(new Date())
     const handleTurnOffInsertMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
+        console.log(transitionTiming)
         setHide(true)
         setTimeout(() => {
             setInsertMode(false)
@@ -69,8 +70,8 @@ export default function CreateUser({
         },
     })
     const options = [
-        { value: 'male', label: 'Male' },
-        { value: 'female', label: 'Female' },
+        { value: 'male', label: language?.genders.male },
+        { value: 'female', label: language?.genders.female },
     ]
     useEffect(() => {
         setHide(false)
@@ -117,7 +118,6 @@ export default function CreateUser({
                             styles['group-inputs']
                         ].join(' ')
                     }>
-                        {/* This div wrap one input item */}
                         <div className={styles['wrap-item']}>
                             <label className={styles['required']} htmlFor="">{language?.email}</label>
                             <input

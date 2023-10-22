@@ -34,3 +34,8 @@ export type Genders = {
     female: string
     gender: string
 }
+export type UsersLanguage = {
+    add: string
+    import: string
+    export: string
+}

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     RiAddFill
 } from 'react-icons/ri'
@@ -7,13 +7,23 @@ import {
     BiExport
 } from 'react-icons/bi'
 import CreateUser from '../components/CreateUser'
+import { UsersLanguage } from '../models/lang'
+import { useLanguage } from '../contexts/hooks'
 type UsersProps = {
-    type?: 'student' | 'teacher' | 'admin'
+    type: 'student' | 'teacher' | 'admin'
 }
 export default function Users({
     type
 }: UsersProps) {
+    const [language, setLanguage] = useState<UsersLanguage>()
+    const { appLanguage } = useLanguage()
     const [insertMode, setInsertMode] = useState(false)
+    useEffect(() => {
+        import(`../langs/page.users.${appLanguage}.json`)
+            .then((data) => {
+                setLanguage(data.default)
+            })
+    }, [appLanguage])
     return (
         <>
             {insertMode === true ?
@@ -42,21 +52,21 @@ export default function Users({
                             setInsertMode(true)
                         }}
                     >
-                        <RiAddFill /> Add
+                        <RiAddFill /> {language?.add}
                     </div>
                     <div className={
                         [
                             'action-item-d-white'
                         ].join(' ')
                     }>
-                        <BiImport /> Import
+                        <BiImport /> {language?.import}
                     </div>
                     <div className={
                         [
                             'action-item-d-white'
                         ].join(' ')
                     }>
-                        <BiExport /> Export
+                        <BiExport /> {language?.export}
                     </div>
                 </div>
             </div>
