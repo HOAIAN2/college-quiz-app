@@ -44,9 +44,9 @@
   --color-shadow: rgba(0, 0, 0, 0.1);
   --color-white: rgb(246, 246, 246);
   --border-radius-low: 5px;
-  --transition-timing-fast: 300ms;
-  --transition-timing-medium: 400ms;
-  --transition-timing-slow: 500ms;
+  --transition-timing-fast: .3s;
+  --transition-timing-medium: .4s;
+  --transition-timing-slow: .5ms;
 }
 
 body {

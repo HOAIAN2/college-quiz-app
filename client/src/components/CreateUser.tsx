@@ -26,9 +26,7 @@ export default function CreateUser({
     const [birthDate, setBirthDate] = useState<Date>(new Date())
     const handleTurnOffInsertMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
-        let timing = 0
-        if (transitionTiming.endsWith('ms')) timing = Number(transitionTiming.replace('ms', ''))
-        else timing = Number(transitionTiming.replace('s', '')) * 1000
+        const timing = Number(transitionTiming.replace('s', '')) * 1000
         setHide(true)
         setTimeout(() => {
             setInsertMode(false)
