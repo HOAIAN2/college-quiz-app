@@ -9,6 +9,8 @@ import {
 import CreateUser from '../components/CreateUser'
 import { UsersLanguage } from '../models/lang'
 import { useLanguage } from '../contexts/hooks'
+import styles from '../styles/Users.module.css'
+
 type UsersProps = {
     type: 'student' | 'teacher' | 'admin'
 }
@@ -70,6 +72,7 @@ export default function Users({
                         <BiExport /> {language?.export}
                     </div>
                 </div>
+                <div className={styles['users-content']}></div>
             </div>
         </>
     )
