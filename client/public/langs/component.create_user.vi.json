@@ -1,0 +1,19 @@
+{
+    "create": "Tạo",
+    "student": "Học sinh",
+    "teacher": "Giáo viên",
+    "admin": "Admin",
+    "genders": {
+        "male": "Nam",
+        "female": "Nữ",
+        "gender": "Giới tính"
+    },
+    "email": "Email",
+    "name": "Họ tên",
+    "shortcode": "Shortcode",
+    "address": "Địa chỉ",
+    "birthDate": "Ngày sinh",
+    "password": "Mật khẩu",
+    "save": "Lưu",
+    "saveMore": "Lưu thêm"
+}

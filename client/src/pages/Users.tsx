@@ -19,9 +19,10 @@ export default function Users({
     const { appLanguage } = useLanguage()
     const [insertMode, setInsertMode] = useState(false)
     useEffect(() => {
-        import(`../langs/page.users.${appLanguage}.json`)
+        fetch(`/langs/page.users.${appLanguage}.json`)
+            .then(res => res.json())
             .then((data) => {
-                setLanguage(data.default)
+                setLanguage(data)
             })
     }, [appLanguage])
     return (

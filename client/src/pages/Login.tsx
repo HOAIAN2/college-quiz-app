@@ -38,7 +38,8 @@ export default function Login() {
             })
     }
     useEffect(() => {
-        import(`../langs/page.login.${appLanguage}.json`)
+        fetch(`/langs/page.login.${appLanguage}.json`)
+            .then(res => res.json())
             .then((data: LoginPageLanguage) => {
                 setLanguage(data)
                 document.title = data.login

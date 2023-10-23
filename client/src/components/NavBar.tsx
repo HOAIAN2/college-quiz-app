@@ -145,7 +145,8 @@ export default function NavBar() {
         ]
     }
     useEffect(() => {
-        import(`../langs/component.dashboard.${appLanguage}.json`)
+        fetch(`/langs/component.dashboard.${appLanguage}.json`)
+            .then(res => res.json())
             .then((data: DashboardLanguage) => {
                 setLanguage(data)
             })

@@ -77,7 +77,8 @@ export default function CreateUser({
         setHide(false)
     }, [])
     useEffect(() => {
-        import(`../langs/component.create_user.${appLanguage}.json`)
+        fetch(`/langs/component.create_user.${appLanguage}.json`)
+            .then(res => res.json())
             .then((data: CreateUserLanguage) => {
                 setLanguage(data)
             })
