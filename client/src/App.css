@@ -41,6 +41,7 @@
     justify-content: space-around;
     align-items: center;
     border-radius: var(--border-radius-low);
+    background-color: white;
     padding: 10px;
     transition: 0.4s;
 }
