@@ -1,5 +1,5 @@
 import request, { getToken } from './api-config'
-import { User } from '../models/user'
+import { User, UserPagination } from '../models/user'
 
 export async function reqGetUser() {
     if (!getToken()) throw new Error('no token')
@@ -23,5 +23,19 @@ export async function reqCreateUser(form: FormData) {
         const message = error.response.data.message
         if (error.response.data.errors) return Promise.reject(error.response.data.errors)
         throw new Error(message)
+    }
+}
+export async function reqGetUsersByType(type: 'teacher' | 'student' | 'admin', page?: number) {
+    try {
+        const res = await request.get('/user/query', {
+            params: {
+                role: type,
+                page: page || 1
+            }
+        })
+        return res.data as UserPagination
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+        throw new Error(error.message)
     }
 }

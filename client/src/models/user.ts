@@ -10,7 +10,7 @@ export type User = {
     name: string;
     email: string;
     phoneNumber: string | null;
-    gender: string;
+    gender: 'male' | 'female';
     address: string;
     birthDate: Date;
     class: string | null;

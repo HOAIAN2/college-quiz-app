@@ -2,3 +2,31 @@
     width: 100%;
     height: calc(100% - 50px);
 }
+
+.filter-form {
+    height: 50px;
+}
+
+.table-content {
+    width: 100%;
+    height: calc(100% - 50px);
+    position: relative;
+}
+
+.table-content>.main {
+    width: 100%;
+}
+
+.table-loading {
+    width: 100px;
+    height: 30px;
+    border: 1px solid var(--color-shadow);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    border-radius: var(--border-radius-low);
+    box-shadow: 0px 0px 10px var(--color-shadow);
+    padding-top: 3px;
+}

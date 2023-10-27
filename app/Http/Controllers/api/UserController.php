@@ -68,7 +68,8 @@ class UserController extends Controller
     public function getUserByType(Request $request)
     {
         $validated = $request->validate([
-            'role' => ['required', 'string', 'in:student,teacher,admin']
+            'role' => ['required', 'string', 'in:student,teacher,admin'],
+            'page' => ['nullable', 'integer'],
         ]);
         $users = User::with('role')->whereHas('role', function ($query) use ($validated) {
             $query->where('name', '=', $validated['role']);
