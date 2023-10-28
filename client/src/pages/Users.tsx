@@ -34,7 +34,7 @@ export default function Users({
     const [searchParams, setSearchParams] = useSearchParams()
     const queryData = useQuery({
         queryKey: [type, searchParams.get('page') || 1],
-        queryFn: () => reqGetUsersByType('admin', Number(searchParams.get('page')))
+        queryFn: () => reqGetUsersByType(type, Number(searchParams.get('page')))
     })
     useEffect(() => {
         if (!searchParams.has('page')) {
