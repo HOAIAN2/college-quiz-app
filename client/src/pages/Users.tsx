@@ -102,18 +102,25 @@ export default function Users({
                             : null}
                         <table className={styles['main']}>
                             <tbody>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Gender</th>
+                                <tr className={styles['table-header']}>
+                                    <th className={styles['column-id']}>ID</th>
+                                    <th className={styles['column-name']}>Name</th>
+                                    <th className={styles['column-email']}>Email</th>
                                 </tr>
                                 {
                                     !queryData.isError && queryData.data ? queryData.data.data.map(user => {
                                         return (
                                             <tr key={user.id}>
-                                                <td>{user.id}</td>
-                                                <td>{user.name}</td>
-                                                <td>{user.gender == 'male' ? <GiMale /> : <GiFemale />}</td>
+                                                <td className={styles['column-id']}>{user.id}</td>
+                                                <td className={styles['column-content-name']}>
+                                                    <span className={user.gender === 'male' ? styles['male'] : styles['female']}>
+                                                        {user.gender == 'male' ? <GiMale /> : <GiFemale />}
+                                                    </span>
+                                                    <span>
+                                                        {user.name}
+                                                    </span>
+                                                </td>
+                                                <td className={styles['column-content-email']}>{user.email}</td>
                                             </tr>
                                         )
                                     }) : null
