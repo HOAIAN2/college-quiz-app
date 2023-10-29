@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    private static $per_page = 10;
+    private static $per_page = 20;
     function __construct()
     {
         parent::__construct();
@@ -75,6 +75,10 @@ class UserController extends Controller
             $query->where('name', '=', $validated['role']);
         })->latest('id')->paginate(UserController::$per_page);
         return $users;
+    }
+    public function importUsers(Request $request)
+    {
+        //
     }
     /**
      * Display the specified resource.

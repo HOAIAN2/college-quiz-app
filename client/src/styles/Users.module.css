@@ -1,6 +1,7 @@
 .users-content {
     width: 100%;
     height: calc(100% - 50px);
+    /* overflow: scroll; */
 }
 
 .filter-form {
@@ -8,20 +9,32 @@
 }
 
 .table-content {
+    max-width: 100vw;
     width: 100%;
     height: calc(100% - 50px);
     position: relative;
+    /* overflow-y: scroll; */
 }
 
 .table-content>.main {
+    display: block;
+    height: calc(100% - 50px);
     width: 100%;
     border-collapse: collapse;
+    overflow-y: scroll;
 }
 
+/* .table-content>.main>tbody {
+    overflow-y: scroll;
+} */
+
 .table-content>.main>tbody>tr,
-td,
 th {
     height: 30px;
+}
+
+
+.table-header>th {
     border: 1px solid var(--color-shadow);
 }
 
@@ -29,10 +42,6 @@ th {
 td {
     height: 30px;
 }
-
-/* .table-header>th {
-    height: 30px;
-} */
 
 .column-id {
     width: 30px;
@@ -47,6 +56,10 @@ td {
     width: 250px;
 }
 
+.column-class {
+    width: 100px;
+}
+
 .column-email {
     width: 250px;
 }
@@ -55,6 +68,16 @@ td {
 .column-content-shortcode,
 .column-content-name {
     padding-left: 10px;
+    width: 250px;
+}
+
+.column-content-class {
+    width: 50px;
+}
+
+.column-content-name {
+    display: flex;
+    align-items: center;
 }
 
 .column-content-name.male>svg {
@@ -62,7 +85,7 @@ td {
 }
 
 .column-content-name.female>svg {
-    color: pink;
+    color: rgb(235, 112, 132);
 }
 
 .table-links {
@@ -71,11 +94,17 @@ td {
     height: 30px;
     margin-top: 10px;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     gap: 5px;
 }
 
-.table-links>button {
+.link-content {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+.table-links>.link-content>button {
     margin: unset;
     height: 30px;
     width: 30px;
@@ -85,14 +114,14 @@ td {
     outline: none;
 }
 
-.table-links>button.inactive {
+.table-links>.link-content>button.inactive {
     background: none;
     box-shadow: none;
     border: none;
     color: black;
 }
 
-button.next-previous {
+.table-links>.link-content>button.next-previous {
     color: black;
     background: none;
     border: none;

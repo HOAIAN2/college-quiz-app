@@ -100,15 +100,16 @@ export default function Users({
                         {queryData.isLoading ?
                             <div className={styles['table-loading']}>Loading...</div>
                             : null}
-                        <table className={styles['main']}>
-                            {!queryData.isError && queryData.data ?
-                                (
+                        {!queryData.isError && queryData.data ?
+                            <>
+                                <table className={styles['main']}>
                                     <>
                                         <tbody>
-                                            <tr>
+                                            <tr className={styles['table-header']}>
                                                 <th className={styles['column-id']}>ID</th>
                                                 <th className={styles['column-shortcode']}>Shortcode</th>
                                                 <th className={styles['column-name']}>Name</th>
+                                                {type === 'student' ? <th className={styles['column-class']}>Class</th> : null}
                                                 <th className={styles['column-email']}>Email</th>
                                             </tr>
                                             {
@@ -126,55 +127,57 @@ export default function Users({
                                                                 {user.gender == 'male' ? <GiMale /> : <GiFemale />}
                                                                 {user.name}
                                                             </td>
+                                                            <td className={styles['column-content-class']}>{user.class}</td>
                                                             <td className={styles['column-content-email']}>{user.email}</td>
                                                         </tr>
                                                     )
                                                 })
                                             }
                                         </tbody>
-                                        <div className={styles['table-links']}>
-                                            {
-                                                <>
-                                                    {queryData.data.links.map(link => {
-                                                        if (isNaN(Number(link.label))) return (
-                                                            <button key={type + link.label} className={
-                                                                [
-                                                                    styles['next-previous'],
-                                                                ].join(' ')
-                                                            }
-                                                                onClick={() => {
-                                                                    if (!link.url) return
-                                                                    const url = new URL(link.url)
-                                                                    searchParams.set('page', url.searchParams.get('page') || '1')
-                                                                    setSearchParams(searchParams)
-                                                                }}
-                                                            >
-                                                                {link.label === '...' ? '...' : link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />}
-                                                                {/* {link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />} */}
-                                                            </button>
-                                                        )
-                                                        return (
-                                                            <button key={type + link.label} className={
-                                                                [
-                                                                    'button-d',
-                                                                    !link.active ? styles['inactive'] : ''
-                                                                ].join(' ')
-                                                            }
-                                                                onClick={() => {
-                                                                    if (!link.url) return
-                                                                    const url = new URL(link.url)
-                                                                    searchParams.set('page', url.searchParams.get('page') || '1')
-                                                                    setSearchParams(searchParams)
-                                                                }}
-                                                            >{link.label}</button>
-                                                        )
-                                                    })}
-                                                </>
-                                            }
-                                        </div>
                                     </>
-                                ) : null}
-                        </table>
+                                </table>
+                                <div className={styles['table-links']}>
+                                    {
+                                        <div className={styles['link-content']}>
+                                            {queryData.data.links.map(link => {
+                                                if (isNaN(Number(link.label))) return (
+                                                    <button key={type + link.label} className={
+                                                        [
+                                                            styles['next-previous'],
+                                                        ].join(' ')
+                                                    }
+                                                        onClick={() => {
+                                                            if (!link.url) return
+                                                            const url = new URL(link.url)
+                                                            searchParams.set('page', url.searchParams.get('page') || '1')
+                                                            setSearchParams(searchParams)
+                                                        }}
+                                                    >
+                                                        {link.label === '...' ? '...' : link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />}
+                                                        {/* {link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />} */}
+                                                    </button>
+                                                )
+                                                return (
+                                                    <button key={type + link.label} className={
+                                                        [
+                                                            'button-d',
+                                                            !link.active ? styles['inactive'] : ''
+                                                        ].join(' ')
+                                                    }
+                                                        onClick={() => {
+                                                            if (!link.url) return
+                                                            const url = new URL(link.url)
+                                                            searchParams.set('page', url.searchParams.get('page') || '1')
+                                                            setSearchParams(searchParams)
+                                                        }}
+                                                    >{link.label}</button>
+                                                )
+                                            })}
+                                        </div>
+                                    }
+                                </div>
+                            </>
+                            : null}
                     </div>
                 </div>
             </div >
