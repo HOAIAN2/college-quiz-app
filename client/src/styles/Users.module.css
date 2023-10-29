@@ -16,22 +16,31 @@
 .table-content>.main {
     width: 100%;
     border-collapse: collapse;
+}
+
+.table-content>.main>tbody>tr,
+td,
+th {
+    height: 30px;
     border: 1px solid var(--color-shadow);
 }
 
 .table-content>.main>tr,
 td {
     height: 30px;
-    border: 1px solid var(--color-shadow);
 }
 
-.table-header {
-    background-color: var(--color-shadow);
-}
+/* .table-header>th {
+    height: 30px;
+} */
 
 .column-id {
     width: 30px;
     text-align: center;
+}
+
+.column-shortcode {
+    width: 250px;
 }
 
 .column-name {
@@ -43,11 +52,21 @@ td {
 }
 
 .column-content-email,
+.column-content-shortcode,
 .column-content-name {
     padding-left: 10px;
 }
 
+.column-content-name.male>svg {
+    color: blue;
+}
+
+.column-content-name.female>svg {
+    color: pink;
+}
+
 .table-links {
+    position: absolute;
     width: 100%;
     height: 30px;
     margin-top: 10px;
@@ -62,6 +81,8 @@ td {
     width: 30px;
     color: white;
     cursor: pointer;
+    border: none;
+    outline: none;
 }
 
 .table-links>button.inactive {
@@ -75,14 +96,6 @@ button.next-previous {
     background: none;
     border: none;
     outline: none;
-}
-
-.male {
-    color: blue;
-}
-
-.female {
-    color: pink;
 }
 
 .table-loading {

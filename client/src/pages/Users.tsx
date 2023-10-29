@@ -34,7 +34,7 @@ export default function Users({
     const [searchParams, setSearchParams] = useSearchParams()
     const queryData = useQuery({
         queryKey: [type, searchParams.get('page') || 1],
-        queryFn: () => reqGetUsersByType(type, Number(searchParams.get('page')))
+        queryFn: () => reqGetUsersByType('admin', Number(searchParams.get('page')))
     })
     useEffect(() => {
         if (!searchParams.has('page')) {
@@ -101,72 +101,79 @@ export default function Users({
                             <div className={styles['table-loading']}>Loading...</div>
                             : null}
                         <table className={styles['main']}>
-                            <tbody>
-                                <tr className={styles['table-header']}>
-                                    <th className={styles['column-id']}>ID</th>
-                                    <th className={styles['column-name']}>Name</th>
-                                    <th className={styles['column-email']}>Email</th>
-                                </tr>
-                                {
-                                    !queryData.isError && queryData.data ? queryData.data.data.map(user => {
-                                        return (
-                                            <tr key={user.id}>
-                                                <td className={styles['column-id']}>{user.id}</td>
-                                                <td className={styles['column-content-name']}>
-                                                    <span className={user.gender === 'male' ? styles['male'] : styles['female']}>
-                                                        {user.gender == 'male' ? <GiMale /> : <GiFemale />}
-                                                    </span>
-                                                    <span>
-                                                        {user.name}
-                                                    </span>
-                                                </td>
-                                                <td className={styles['column-content-email']}>{user.email}</td>
-                                            </tr>
-                                        )
-                                    }) : null
-                                }
-                            </tbody>
-                        </table>
-                        <div className={styles['table-links']}>
-                            {
-                                !queryData.isError && queryData.data ? (
+                            {!queryData.isError && queryData.data ?
+                                (
                                     <>
-                                        {queryData.data.links.map(link => {
-                                            if (isNaN(Number(link.label))) return (
-                                                <button key={type + link.label} className={
-                                                    [
-                                                        styles['next-previous']
-                                                    ].join(' ')
-                                                }
-                                                    onClick={() => {
-                                                        if (!link.url) return
-                                                        const url = new URL(link.url)
-                                                        searchParams.set('page', url.searchParams.get('page') || '1')
-                                                        setSearchParams(searchParams)
-                                                    }}
-                                                >
-                                                    {link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />}
-                                                </button>
-                                            )
-                                            return (
-                                                <button key={type + link.label} className={
-                                                    [
-                                                        'button-d',
-                                                        !link.active ? 'inactive' : ''
-                                                    ].join(' ')
-                                                }
-                                                    onClick={() => {
-                                                        if (!link.url) return
-                                                        const url = new URL(link.url)
-                                                        searchParams.set('page', url.searchParams.get('page') || '1')
-                                                        setSearchParams(searchParams)
-                                                    }}
-                                                >{link.label}</button>
-                                            )
-                                        })}
-                                    </>) : null
-                            }
-                        </div>
+                                        <tbody>
+                                            <tr>
+                                                <th className={styles['column-id']}>ID</th>
+                                                <th className={styles['column-shortcode']}>Shortcode</th>
+                                                <th className={styles['column-name']}>Name</th>
+                                                <th className={styles['column-email']}>Email</th>
+                                            </tr>
+                                            {
+                                                queryData.data.data.map(user => {
+                                                    return (
+                                                        <tr key={user.id}>
+                                                            <td className={styles['column-id']}>{user.id}</td>
+                                                            <td className={styles['column-content-shortcode']}>{user.shortcode}</td>
+                                                            <td className={
+                                                                [
+                                                                    styles['column-content-name'],
+                                                                    user.gender == 'male' ? styles['male'] : styles['female']
+                                                                ].join(' ')
+                                                            }>
+                                                                {user.gender == 'male' ? <GiMale /> : <GiFemale />}
+                                                                {user.name}
+                                                            </td>
+                                                            <td className={styles['column-content-email']}>{user.email}</td>
+                                                        </tr>
+                                                    )
+                                                })
+                                            }
+                                        </tbody>
+                                        <div className={styles['table-links']}>
+                                            {
+                                                <>
+                                                    {queryData.data.links.map(link => {
+                                                        if (isNaN(Number(link.label))) return (
+                                                            <button key={type + link.label} className={
+                                                                [
+                                                                    styles['next-previous']
+                                                                ].join(' ')
+                                                            }
+                                                                onClick={() => {
+                                                                    if (!link.url) return
+                                                                    const url = new URL(link.url)
+                                                                    searchParams.set('page', url.searchParams.get('page') || '1')
+                                                                    setSearchParams(searchParams)
+                                                                }}
+                                                            >
+                                                                {link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />}
+                                                            </button>
+                                                        )
+                                                        return (
+                                                            <button key={type + link.label} className={
+                                                                [
+                                                                    'button-d',
+                                                                    !link.active ? 'inactive' : ''
+                                                                ].join(' ')
+                                                            }
+                                                                onClick={() => {
+                                                                    if (!link.url) return
+                                                                    const url = new URL(link.url)
+                                                                    searchParams.set('page', url.searchParams.get('page') || '1')
+                                                                    setSearchParams(searchParams)
+                                                                }}
+                                                            >{link.label}</button>
+                                                        )
+                                                    })}
+                                                </>
+                                            }
+                                        </div>
+                                    </>
+                                ) : null}
+                        </table>
                     </div>
                 </div>
             </div >
