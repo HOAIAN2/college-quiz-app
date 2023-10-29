@@ -34,7 +34,7 @@ export default function Users({
     const [searchParams, setSearchParams] = useSearchParams()
     const queryData = useQuery({
         queryKey: [type, searchParams.get('page') || 1],
-        queryFn: () => reqGetUsersByType('admin', Number(searchParams.get('page')))
+        queryFn: () => reqGetUsersByType(type, Number(searchParams.get('page')))
     })
     useEffect(() => {
         if (!searchParams.has('page')) {
@@ -139,7 +139,7 @@ export default function Users({
                                                         if (isNaN(Number(link.label))) return (
                                                             <button key={type + link.label} className={
                                                                 [
-                                                                    styles['next-previous']
+                                                                    styles['next-previous'],
                                                                 ].join(' ')
                                                             }
                                                                 onClick={() => {
@@ -149,14 +149,15 @@ export default function Users({
                                                                     setSearchParams(searchParams)
                                                                 }}
                                                             >
-                                                                {link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />}
+                                                                {link.label === '...' ? '...' : link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />}
+                                                                {/* {link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />} */}
                                                             </button>
                                                         )
                                                         return (
                                                             <button key={type + link.label} className={
                                                                 [
                                                                     'button-d',
-                                                                    !link.active ? 'inactive' : ''
+                                                                    !link.active ? styles['inactive'] : ''
                                                                 ].join(' ')
                                                             }
                                                                 onClick={() => {

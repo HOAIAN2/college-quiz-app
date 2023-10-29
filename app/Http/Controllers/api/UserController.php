@@ -39,7 +39,7 @@ class UserController extends Controller
             'gender' => ['required', 'in:male,female'],
             'address' => ['required', 'string', 'max:255'],
             'birth_date' => ['required', 'date_format:Y-m-d', 'before:today'],
-            // 'class'=>[],
+            'class' => ['nullable'],
             // 'faculty'=>[],
             'password' => ['required', 'min:8']
         ]);
@@ -54,7 +54,7 @@ class UserController extends Controller
                 'gender' => $validated['gender'],
                 'address' => $validated['address'],
                 'birth_date' => $validated['birth_date'],
-                // 'class'=>[],
+                'class' => $validated['class'],
                 // 'faculty'=>[],
                 'password' => Hash::make($validated['password'])
             ]);

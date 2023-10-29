@@ -93,6 +93,7 @@ td {
 }
 
 button.next-previous {
+    color: black;
     background: none;
     border: none;
     outline: none;
