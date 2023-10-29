@@ -1,5 +1,5 @@
 import request, { getToken } from './api-config'
-import { User, UserPagination } from '../models/user'
+import { QueryUserType, User, UserPagination } from '../models/user'
 
 export async function reqGetUser() {
     if (!getToken()) throw new Error('no token')
@@ -25,12 +25,13 @@ export async function reqCreateUser(form: FormData) {
         throw new Error(message)
     }
 }
-export async function reqGetUsersByType(type: 'teacher' | 'student' | 'admin', page?: number) {
+export async function reqGetUsersByType(query?: QueryUserType) {
     try {
         const res = await request.get('/user/query', {
             params: {
-                role: type,
-                page: page || 1
+                role: query?.type,
+                page: query?.page || 1,
+                per_page: query?.perPage || 10
             }
         })
         return res.data as UserPagination

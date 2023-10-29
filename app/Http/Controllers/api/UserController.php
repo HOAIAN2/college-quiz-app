@@ -69,6 +69,7 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'role' => ['required', 'string', 'in:student,teacher,admin'],
+            'per_page' => ['required', 'integer', 'in:10,20,30'],
             'page' => ['nullable', 'integer'],
         ]);
         $users = User::with('role')->whereHas('role', function ($query) use ($validated) {

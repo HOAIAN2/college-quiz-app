@@ -46,3 +46,9 @@ export interface Link {
     label: string
     active: boolean
 }
+
+export type QueryUserType = {
+    type: 'admin' | 'teacher' | 'student'
+    page?: number
+    perPage?: 10 | 15 | 20
+}
