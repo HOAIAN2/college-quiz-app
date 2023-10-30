@@ -45,6 +45,11 @@ export default function Users({
             searchParams.set('page', '1')
             setSearchParams(searchParams)
         }
+        return () => {
+            if (!window.location.pathname.includes(type)) setSearchParams(new URLSearchParams())
+        }
+    })
+    useEffect(() => {
         fetch(`/langs/page.users.${appLanguage}.json`)
             .then(res => res.json())
             .then((data) => {

@@ -14,10 +14,10 @@ export default function Header() {
     const handleLogout = () => {
         reqLogout()
             .then(() => {
-                window.location.pathname = '/auth/login'
+                window.location.pathname = '/'
             })
             .catch(() => {
-                window.location.pathname = '/auth/login'
+                window.location.pathname = '/'
             })
     }
     return (
