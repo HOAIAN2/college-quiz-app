@@ -21,6 +21,7 @@ import styles from '../styles/Users.module.css'
 import { useQuery } from '@tanstack/react-query'
 import { reqGetUsersByType } from '../utils/user'
 import { useSearchParams } from 'react-router-dom'
+import CustomSelect from '../components/CustomSelect'
 
 type UsersProps = {
     type: 'student' | 'teacher' | 'admin'
@@ -33,13 +34,25 @@ export default function Users({
     const [insertMode, setInsertMode] = useState(false)
     const [searchParams, setSearchParams] = useSearchParams()
     const queryData = useQuery({
-        queryKey: [type, searchParams.get('page') || 1],
+        queryKey: [type,
+            searchParams.get('page') || '1',
+            searchParams.get('per_page') || '10',
+            searchParams.get('search')
+        ],
         queryFn: () => reqGetUsersByType({
             type: type,
             page: Number(searchParams.get('page')),
-            perPage: Number(searchParams.get('per_page')) as 10 | 20 | 30
+            perPage: Number(searchParams.get('per_page')) as 10 | 20 | 30,
+            search: searchParams.get('search') as string
         })
     })
+    const handleSubmitSearch = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        const formData = new FormData(e.currentTarget)
+        const search = formData.get('search')
+        if (search) searchParams.set('search', search as string)
+        setSearchParams(searchParams)
+    }
     useEffect(() => {
         if (!searchParams.has('page')) {
             searchParams.set('page', '1')
@@ -107,7 +120,42 @@ export default function Users({
                     </div>
                 </div>
                 <div className={styles['users-content']}>
-                    <form className={styles['filter-form']}></form>
+                    <form className={styles['filter-form']}
+                        onSubmit={handleSubmitSearch}>
+                        <CustomSelect
+                            options={[
+                                {
+                                    label: '10',
+                                    value: '10'
+                                },
+                                {
+                                    label: '20',
+                                    value: '20'
+                                },
+                                {
+                                    label: '30',
+                                    value: '30'
+                                }
+                            ]}
+                            onChange={(option) => {
+                                searchParams.set('per_page', option.value)
+                                setSearchParams(searchParams)
+                            }}
+                            className={
+                                [
+                                    styles['custom-select']
+                                ].join(' ')
+                            }
+                        />
+                        <input
+                            name='search'
+                            className={
+                                [
+                                    'input-d',
+                                    styles['input-item']
+                                ].join(' ')
+                            } type="text" />
+                    </form>
                     <div className={styles['table-content']}>
                         {/* <div className={styles['table-loading']}>Loading...</div> */}
                         {queryData.isLoading ?

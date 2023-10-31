@@ -51,5 +51,6 @@ export interface Link {
 export type QueryUserType = {
     type: 'admin' | 'teacher' | 'student'
     page?: number
-    perPage?: 10 | 20 | 30
+    perPage?: 10 | 20 | 30,
+    search?: string
 }

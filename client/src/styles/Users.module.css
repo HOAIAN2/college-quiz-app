@@ -5,13 +5,32 @@
 }
 
 .filter-form {
-    height: 50px;
+    height: 75px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.input-item {
+    max-height: 40px;
+    max-width: 300px;
+    width: 100%;
+    height: 80%;
+}
+
+.custom-select {
+    z-index: 1;
+    max-height: 40px;
+    max-width: 300px;
+    width: 100%;
+    height: 80%;
 }
 
 .table-content {
     max-width: 100vw;
     width: 100%;
-    height: calc(100% - 50px);
+    height: calc(100% - 75px);
     position: relative;
     /* overflow-y: scroll; */
 }
@@ -148,6 +167,10 @@ td {
 }
 
 @media(width<=800px) {
+    .filter-form {
+        width: 90%;
+    }
+
     .table-links {
         width: 95vw;
         overflow-x: scroll;

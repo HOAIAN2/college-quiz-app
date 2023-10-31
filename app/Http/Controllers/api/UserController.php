@@ -70,10 +70,19 @@ class UserController extends Controller
             'role' => ['required', 'string', 'in:student,teacher,admin'],
             'per_page' => ['required', 'integer', 'in:10,20,30'],
             'page' => ['nullable', 'integer'],
+            'search' => ['nullable', 'string'],
         ]);
         $users = User::with('role')
-            ->where('role_id', '=', Role::ROLES[$validated['role']])
-            ->latest('id')->paginate($validated['per_page']);
+            ->where('role_id', '=', Role::ROLES[$validated['role']]);
+        if ($request->search != null) {
+            $users = $users->where('first_name', 'like', '%' . $validated['search'] . '%')
+                ->orWhere('last_name', 'like', '%' . $validated['search'] . '%')
+                ->orWhere('class', 'like', '%' . $validated['search'] . '%');
+        }
+        $users = $users->latest('id')->paginate($validated['per_page']);
+        // $users = User::with('role')
+        //     ->where('role_id', '=', Role::ROLES[$validated['role']])
+        //     ->latest('id')->paginate($validated['per_page']);
         return $users;
     }
     public function importUsers(Request $request)

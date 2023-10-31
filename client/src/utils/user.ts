@@ -31,7 +31,8 @@ export async function reqGetUsersByType(query?: QueryUserType) {
             params: {
                 role: query?.type,
                 page: query?.page || 1,
-                per_page: query?.perPage || 10
+                per_page: query?.perPage || 10,
+                search: query?.search
             }
         })
         return res.data as UserPagination
