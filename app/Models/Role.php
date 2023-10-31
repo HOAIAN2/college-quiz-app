@@ -27,6 +27,11 @@ class Role extends Model
 {
 	protected $table = 'roles';
 
+	const ROLES = [
+		'admin' => 1,
+		'teacher' => 2,
+		'student' => 3
+	];
 	protected $fillable = [
 		'name',
 		'display_name'

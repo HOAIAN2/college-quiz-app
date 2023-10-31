@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    private static $per_page = 20;
     function __construct()
     {
         parent::__construct();
@@ -72,9 +71,9 @@ class UserController extends Controller
             'per_page' => ['required', 'integer', 'in:10,20,30'],
             'page' => ['nullable', 'integer'],
         ]);
-        $users = User::with('role')->whereHas('role', function ($query) use ($validated) {
-            $query->where('name', '=', $validated['role']);
-        })->latest('id')->paginate(UserController::$per_page);
+        $users = User::with('role')
+            ->where('role_id', '=', Role::ROLES[$validated['role']])
+            ->latest('id')->paginate($validated['per_page']);
         return $users;
     }
     public function importUsers(Request $request)
