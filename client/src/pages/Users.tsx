@@ -37,12 +37,16 @@ export default function Users({
         queryFn: () => reqGetUsersByType({
             type: type,
             page: Number(searchParams.get('page')),
-            perPage: 10
+            perPage: Number(searchParams.get('per_page')) as 10 | 20 | 30
         })
     })
     useEffect(() => {
         if (!searchParams.has('page')) {
             searchParams.set('page', '1')
+            setSearchParams(searchParams)
+        }
+        if (!searchParams.has('per_page')) {
+            searchParams.set('per_page', '10')
             setSearchParams(searchParams)
         }
         return () => {
@@ -134,7 +138,7 @@ export default function Users({
                                                                 ].join(' ')
                                                             }>
                                                                 {user.gender == 'male' ? <GiMale /> : <GiFemale />}
-                                                                {user.name}
+                                                                {`${user.lastName} ${user.firstName}`}
                                                             </td>
                                                             <td className={styles['column-content-class']}>{user.class}</td>
                                                             <td className={styles['column-content-email']}>{user.email}</td>

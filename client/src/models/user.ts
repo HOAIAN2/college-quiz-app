@@ -7,7 +7,8 @@ export type User = {
     id: number;
     roleId: number;
     shortcode: string;
-    name: string;
+    firstName: string;
+    lastName: string;
     email: string;
     phoneNumber: string | null;
     gender: 'male' | 'female';
@@ -50,5 +51,5 @@ export interface Link {
 export type QueryUserType = {
     type: 'admin' | 'teacher' | 'student'
     page?: number
-    perPage?: 10 | 15 | 20
+    perPage?: 10 | 20 | 30
 }

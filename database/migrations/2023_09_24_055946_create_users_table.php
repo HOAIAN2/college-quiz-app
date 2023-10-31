@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('role_id');
             $table->string('shortcode')->unique();
-            $table->string('name');
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('email')->unique();
             $table->string('phone_number', 10)->unique()->nullable();
             $table->enum('gender', ['male', 'female'])->default('male');

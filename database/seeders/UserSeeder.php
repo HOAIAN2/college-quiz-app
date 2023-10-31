@@ -18,7 +18,8 @@ class UserSeeder extends Seeder
         User::create([
             'role_id' => Role::where('name', '=', 'admin')->first()->id,
             'shortcode' => 'SYSADMIN',
-            'name' => 'Lê Hoài Ân',
+            'first_name' => 'Hoài Ân',
+            'last_name' => 'Hoài Ân',
             'email' => 'an69tm@gmail.com',
             'gender' => 'male',
             'address' => 'Hòa Trị, Phú Hòa, Phú Yên, Việt Nam',

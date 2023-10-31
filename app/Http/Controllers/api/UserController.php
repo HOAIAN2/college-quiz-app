@@ -38,7 +38,7 @@ class UserController extends Controller
             'gender' => ['required', 'in:male,female'],
             'address' => ['required', 'string', 'max:255'],
             'birth_date' => ['required', 'date_format:Y-m-d', 'before:today'],
-            'class' => ['nullable'],
+            'class' => ['required_if:role,student'],
             // 'faculty'=>[],
             'password' => ['required', 'min:8']
         ]);
