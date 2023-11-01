@@ -186,9 +186,10 @@ a {
   }
 }
 
-@media (width>=800px) {
+@media (width>=500px) {
   ::-webkit-scrollbar {
     width: 5px;
+    height: 5px;
   }
 
   ::-webkit-scrollbar-track {

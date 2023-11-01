@@ -22,6 +22,7 @@ import { useQuery } from '@tanstack/react-query'
 import { reqGetUsersByType } from '../utils/user'
 import { useSearchParams } from 'react-router-dom'
 import CustomSelect from '../components/CustomSelect'
+import useDebounce from '../hooks/useDebounce'
 
 type UsersProps = {
     type: 'student' | 'teacher' | 'admin'
@@ -33,6 +34,8 @@ export default function Users({
     const { appLanguage } = useLanguage()
     const [insertMode, setInsertMode] = useState(false)
     const [searchParams, setSearchParams] = useSearchParams()
+    const [searchQuery, setSearchQuery] = useState('')
+    const queryDebounce = useDebounce(searchQuery, 300) as string
     const queryData = useQuery({
         queryKey: [type,
             searchParams.get('page') || '1',
@@ -46,13 +49,6 @@ export default function Users({
             search: searchParams.get('search') as string
         })
     })
-    const handleSubmitSearch = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        const formData = new FormData(e.currentTarget)
-        const search = formData.get('search')
-        if (search) searchParams.set('search', search as string)
-        setSearchParams(searchParams)
-    }
     useEffect(() => {
         if (!searchParams.has('page')) {
             searchParams.set('page', '1')
@@ -74,6 +70,12 @@ export default function Users({
             })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [appLanguage])
+    useEffect(() => {
+        if (queryDebounce === '') searchParams.delete('search')
+        else searchParams.set('search', queryDebounce)
+        setSearchParams(searchParams)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [queryDebounce])
     return (
         <>
             {insertMode === true ?
@@ -120,8 +122,7 @@ export default function Users({
                     </div>
                 </div>
                 <div className={styles['users-content']}>
-                    <form className={styles['filter-form']}
-                        onSubmit={handleSubmitSearch}>
+                    <div className={styles['filter-form']}>
                         <CustomSelect
                             options={[
                                 {
@@ -148,6 +149,10 @@ export default function Users({
                             }
                         />
                         <input
+                            onInput={(e) => {
+                                setSearchQuery(e.currentTarget.value)
+                                // searchParams.set('search', e.currentTarget.value)
+                            }}
                             name='search'
                             className={
                                 [
@@ -155,7 +160,7 @@ export default function Users({
                                     styles['input-item']
                                 ].join(' ')
                             } type="text" />
-                    </form>
+                    </div>
                     <div className={styles['table-content']}>
                         {/* <div className={styles['table-loading']}>Loading...</div> */}
                         {queryData.isLoading ?

@@ -9,7 +9,7 @@
 ## Installation
 
 ``` console
-git clone https://github.com/HOAIAN2/collegeg-quiz-app.git
+git clone https://github.com/HOAIAN2/college-quiz-app.git
 ```
 
 - Run `prepare.sh` to generate .env file and install libs for server and client.
