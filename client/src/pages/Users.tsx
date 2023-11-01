@@ -34,7 +34,7 @@ export default function Users({
     const { appLanguage } = useLanguage()
     const [insertMode, setInsertMode] = useState(false)
     const [searchParams, setSearchParams] = useSearchParams()
-    const [searchQuery, setSearchQuery] = useState('')
+    const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
     const queryDebounce = useDebounce(searchQuery, 300) as string
     const queryData = useQuery({
         queryKey: [type,
@@ -154,6 +154,7 @@ export default function Users({
                                 // searchParams.set('search', e.currentTarget.value)
                             }}
                             name='search'
+                            defaultValue={queryDebounce}
                             className={
                                 [
                                     'input-d',
