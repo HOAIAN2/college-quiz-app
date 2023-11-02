@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'role_id' => Role::where('name', '=', 'admin')->first()->id,
             'shortcode' => 'SYSADMIN',
             'first_name' => 'Hoài Ân',
-            'last_name' => 'Hoài Ân',
+            'last_name' => 'Lê',
             'email' => 'an69tm@gmail.com',
             'gender' => 'male',
             'address' => 'Hòa Trị, Phú Hòa, Phú Yên, Việt Nam',

@@ -1,5 +1,6 @@
 .dashboard-d {
     flex: 1;
+    width: calc(100% - 230px);
     height: 100%;
     padding: 10px;
 }

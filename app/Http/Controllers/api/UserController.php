@@ -75,14 +75,14 @@ class UserController extends Controller
         $users = User::with('role')
             ->where('role_id', '=', Role::ROLES[$validated['role']]);
         if ($request->search != null) {
-            $users = $users->where('first_name', 'like', '%' . $validated['search'] . '%')
-                ->orWhere('last_name', 'like', '%' . $validated['search'] . '%')
-                ->orWhere('class', 'like', '%' . $validated['search'] . '%');
+            $users = $users->where(function ($query) use ($validated) {
+                $query->where(DB::raw("CONCAT (last_name, ' ' , first_name)"), 'like', '%' . $validated['search'] . '%')
+                    ->orWhere('class', 'like', '%' . $validated['search'] . '%')
+                    ->orWhere('shortcode', 'like', '%' . $validated['search'] . '%')
+                    ->orWhere('phone_number', 'like', '%' . $validated['search'] . '%');
+            });
         }
         $users = $users->latest('id')->paginate($validated['per_page']);
-        // $users = User::with('role')
-        //     ->where('role_id', '=', Role::ROLES[$validated['role']])
-        //     ->latest('id')->paginate($validated['per_page']);
         return $users;
     }
     public function importUsers(Request $request)
