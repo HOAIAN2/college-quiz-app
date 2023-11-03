@@ -19,7 +19,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property int $id
  * @property int $role_id
  * @property string $shortcode
- * @property string $name
+ * @property string $first_name
+ * @property string $last_name
  * @property string $email
  * @property string|null $phone_number
  * @property string $gender
@@ -64,7 +65,8 @@ class User extends Authenticatable
 	protected $fillable = [
 		'role_id',
 		'shortcode',
-		'name',
+		'first_name',
+		'last_name',
 		'email',
 		'phone_number',
 		'gender',
