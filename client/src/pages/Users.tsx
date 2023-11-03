@@ -123,44 +123,50 @@ export default function Users({
                 </div>
                 <div className={styles['users-content']}>
                     <div className={styles['filter-form']}>
-                        <CustomSelect
-                            options={[
-                                {
-                                    label: '10',
-                                    value: '10'
-                                },
-                                {
-                                    label: '20',
-                                    value: '20'
-                                },
-                                {
-                                    label: '30',
-                                    value: '30'
+                        <div className={styles['wrap-input-item']}>
+                            <label htmlFor="">Per page</label>
+                            <CustomSelect
+                                options={[
+                                    {
+                                        label: '10',
+                                        value: '10'
+                                    },
+                                    {
+                                        label: '20',
+                                        value: '20'
+                                    },
+                                    {
+                                        label: '30',
+                                        value: '30'
+                                    }
+                                ]}
+                                onChange={(option) => {
+                                    searchParams.set('per_page', option.value)
+                                    setSearchParams(searchParams)
+                                }}
+                                className={
+                                    [
+                                        styles['custom-select']
+                                    ].join(' ')
                                 }
-                            ]}
-                            onChange={(option) => {
-                                searchParams.set('per_page', option.value)
-                                setSearchParams(searchParams)
-                            }}
-                            className={
-                                [
-                                    styles['custom-select']
-                                ].join(' ')
-                            }
-                        />
-                        <input
-                            onInput={(e) => {
-                                setSearchQuery(e.currentTarget.value)
-                                // searchParams.set('search', e.currentTarget.value)
-                            }}
-                            name='search'
-                            defaultValue={queryDebounce}
-                            className={
-                                [
-                                    'input-d',
-                                    styles['input-item']
-                                ].join(' ')
-                            } type="text" />
+                            />
+                        </div>
+                        <div className={styles['wrap-input-item']}>
+                            <label htmlFor="">Search</label>
+                            <input
+                                onInput={(e) => {
+                                    setSearchQuery(e.currentTarget.value)
+                                    // searchParams.set('search', e.currentTarget.value)
+                                }}
+                                name='search'
+                                defaultValue={queryDebounce}
+                                className={
+                                    [
+                                        'input-d',
+                                        styles['input-item']
+                                    ].join(' ')
+                                } type="text" />
+                        </div>
                     </div>
                     <div className={styles['table-content']}>
                         {/* <div className={styles['table-loading']}>Loading...</div> */}
