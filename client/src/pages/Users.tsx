@@ -124,7 +124,7 @@ export default function Users({
                 <div className={styles['users-content']}>
                     <div className={styles['filter-form']}>
                         <div className={styles['wrap-input-item']}>
-                            <label htmlFor="">Per page</label>
+                            <label htmlFor="">{language?.table.filter.perPage}</label>
                             <CustomSelect
                                 options={[
                                     {
@@ -152,11 +152,10 @@ export default function Users({
                             />
                         </div>
                         <div className={styles['wrap-input-item']}>
-                            <label htmlFor="">Search</label>
+                            <label htmlFor="">{language?.table.filter.search}</label>
                             <input
                                 onInput={(e) => {
                                     setSearchQuery(e.currentTarget.value)
-                                    // searchParams.set('search', e.currentTarget.value)
                                 }}
                                 name='search'
                                 defaultValue={queryDebounce}
@@ -179,11 +178,11 @@ export default function Users({
                                     <>
                                         <tbody>
                                             <tr className={styles['table-header']}>
-                                                <th className={styles['column-id']}>ID</th>
-                                                <th className={styles['column-shortcode']}>Shortcode</th>
-                                                <th className={styles['column-name']}>Name</th>
-                                                {type === 'student' ? <th className={styles['column-class']}>Class</th> : null}
-                                                <th className={styles['column-email']}>Email</th>
+                                                <th className={styles['column-id']}>{language?.table.header.id}</th>
+                                                <th className={styles['column-shortcode']}>{language?.table.header.shortcode}</th>
+                                                <th className={styles['column-name']}>{language?.table.header.name}</th>
+                                                {type === 'student' ? <th className={styles['column-class']}>{language?.table.header.class}</th> : null}
+                                                <th className={styles['column-email']}>{language?.table.header.email}</th>
                                             </tr>
                                             {
                                                 queryData.data.data.map(user => {

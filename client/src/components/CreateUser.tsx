@@ -131,9 +131,20 @@ export default function CreateUser({
                                 } type="text" />
                         </div>
                         <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor="">{language?.name}</label>
+                            <label className={styles['required']} htmlFor="">{language?.firstName}</label>
                             <input
-                                name='name'
+                                name='first_name'
+                                className={
+                                    [
+                                        'input-d',
+                                        styles['input-item']
+                                    ].join(' ')
+                                } type="text" />
+                        </div>
+                        <div className={styles['wrap-item']}>
+                            <label className={styles['required']} htmlFor="">{language?.lastName}</label>
+                            <input
+                                name='last_name'
                                 className={
                                     [
                                         'input-d',

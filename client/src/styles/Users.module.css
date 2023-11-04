@@ -6,7 +6,8 @@
 
 .filter-form {
     height: 75px;
-    width: 100%;
+    /* width: 100%; */
+    width: fit-content;
     display: flex;
     align-items: center;
     gap: 20px;

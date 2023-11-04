@@ -1,5 +1,18 @@
 {
     "add": "Thêm",
     "import": "Nhập",
-    "export": "Xuất"
+    "export": "Xuất",
+    "table": {
+        "header": {
+            "id": "ID",
+            "name": "Họ tên",
+            "shortcode": "Mã số",
+            "class": "Lớp",
+            "email": "Email"
+        },
+        "filter": {
+            "perPage": "Số hàng",
+            "search": "Tìm kiếm"
+        }
+    }
 }

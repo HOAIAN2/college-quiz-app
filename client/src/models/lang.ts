@@ -20,7 +20,8 @@ export type CreateUserLanguage = {
     admin: string
     genders: Genders
     email: string
-    name: string
+    firstName: string
+    lastName: string
     shortcode: string
     address: string
     birthDate: string
@@ -38,4 +39,17 @@ export type UsersLanguage = {
     add: string
     import: string
     export: string
+    table: {
+        header: {
+            id: string
+            name: string
+            shortcode: string
+            class: string
+            email: string
+        }
+        filter: {
+            perPage: string,
+            search: string
+        }
+    }
 }

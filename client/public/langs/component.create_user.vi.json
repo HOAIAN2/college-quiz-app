@@ -9,7 +9,8 @@
         "gender": "Giới tính"
     },
     "email": "Email",
-    "name": "Họ tên",
+    "firstName": "Tên",
+    "lastName": "Họ",
     "shortcode": "Shortcode",
     "address": "Địa chỉ",
     "birthDate": "Ngày sinh",
