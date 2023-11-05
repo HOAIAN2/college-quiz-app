@@ -12,6 +12,7 @@
     "firstName": "First name",
     "lastName": "Last name",
     "shortcode": "Shortcode",
+    "class": "Class",
     "address": "Address",
     "birthDate": "Birth date",
     "password": "Password",

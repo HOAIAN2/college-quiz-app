@@ -163,6 +163,19 @@ export default function CreateUser({
                                     ].join(' ')
                                 } type="text" />
                         </div>
+                        {type === 'student' ?
+                            <div className={styles['wrap-item']}>
+                                <label className={styles['required']} htmlFor="">{language?.class}</label>
+                                <input
+                                    name='class'
+                                    className={
+                                        [
+                                            'input-d',
+                                            styles['input-item']
+                                        ].join(' ')
+                                    } type="text" />
+                            </div> : null
+                        }
                         <div className={styles['wrap-item']}>
                             <label className={styles['required']} htmlFor="">{language?.genders.gender}</label>
                             <CustomSelect

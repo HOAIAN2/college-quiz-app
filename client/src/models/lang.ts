@@ -23,6 +23,7 @@ export type CreateUserLanguage = {
     firstName: string
     lastName: string
     shortcode: string
+    class: string
     address: string
     birthDate: string
     password: string

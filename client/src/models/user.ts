@@ -13,7 +13,7 @@ export type User = {
     phoneNumber: string | null;
     gender: 'male' | 'female';
     address: string;
-    birthDate: Date;
+    birthDate: string;
     class: string | null;
     faculty: string | null;
     isActive: boolean;

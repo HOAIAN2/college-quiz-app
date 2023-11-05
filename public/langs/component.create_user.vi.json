@@ -12,6 +12,7 @@
     "firstName": "Tên",
     "lastName": "Họ",
     "shortcode": "Shortcode",
+    "class": "Lớp",
     "address": "Địa chỉ",
     "birthDate": "Ngày sinh",
     "password": "Mật khẩu",

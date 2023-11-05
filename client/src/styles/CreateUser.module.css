@@ -11,6 +11,7 @@
     align-items: center;
     overflow-y: scroll;
     transition: var(--transition-timing-fast);
+    transition-property: background, opacity;
 }
 
 .create-user-container.hide {
@@ -114,9 +115,11 @@
 
 @media (width<=800px) {
     .create-user-form {
+        /* height: fit-content; */
         width: 100%;
         height: 100%;
         border-radius: 0px;
+        overflow-y: scroll;
     }
 
     .input-item,
