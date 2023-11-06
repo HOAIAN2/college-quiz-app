@@ -47,16 +47,18 @@
     max-width: 100vw;
     width: 100%;
     height: calc(100% - 75px);
+    overflow-y: scroll;
     position: relative;
     /* overflow-y: scroll; */
 }
 
 .table-content>.main {
     display: block;
-    height: calc(100% - 50px);
+    /* height: calc(100% - 50px); */
+    height: fit-content;
     width: 100%;
     border-collapse: collapse;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     /* border: 1px solid var(--color-shadow); */
 }
 
@@ -125,7 +127,7 @@ td {
 }
 
 .table-links {
-    position: absolute;
+    /* position: absolute; */
     width: 100%;
     height: 30px;
     margin-top: 10px;
