@@ -10,7 +10,7 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    overflow: scroll;
+    /* overflow: scroll; */
 }
 
 .wrap-input-item {
