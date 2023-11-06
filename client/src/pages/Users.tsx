@@ -208,6 +208,11 @@ export default function Users({
                                         </tbody>
                                     </>
                                 </table>
+                                <div style={{
+                                    marginTop: '15px'
+                                }}>
+                                    {queryData.data.from} - {queryData.data.to} / {queryData.data.total}
+                                </div>
                                 <div className={styles['table-links']}>
                                     {
                                         <div className={styles['link-content']}>
