@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import styles from '../styles/CustomSelect.module.css'
 
 type Option = {
@@ -18,6 +18,10 @@ export default function CustomSelect({
 }: CustomSelectProps) {
     const customSelectRef = useRef<HTMLDivElement>(null)
     const [current, setCurrent] = useState(options[0])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useLayoutEffect(() => {
+        if (current.label == undefined) setCurrent(options[0])
+    })
     return (
         <div ref={customSelectRef}
             onClick={() => {
@@ -57,20 +61,6 @@ export default function CustomSelect({
                         </div>
                     )
                 })}
-                {/* <div className={
-                    [
-                        styles['select-item']
-                    ].join(' ')
-                }>
-                    <span>Male</span>
-                </div>
-                <div className={
-                    [
-                        styles['select-item']
-                    ].join(' ')
-                }>
-                    <span>Female</span>
-                </div> */}
             </div>
         </div>
     )
