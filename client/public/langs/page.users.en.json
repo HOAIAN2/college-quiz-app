@@ -8,7 +8,8 @@
             "name": "Name",
             "shortcode": "Shortcode",
             "class": "Class",
-            "email": "Email"
+            "email": "Email",
+            "address": "Address"
         },
         "filter": {
             "perPage": "Rows",

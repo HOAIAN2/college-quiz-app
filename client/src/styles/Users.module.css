@@ -62,7 +62,6 @@
 }
 
 .table-content>.main {
-    margin: 0 auto;
     display: block;
     width: fit-content;
     height: fit-content;
@@ -73,12 +72,12 @@
 }
 
 
-.table-content>.main>tbody>tr,
+.main>tbody>tr,
 th {
     height: 30px;
 }
 
-.table-content>.main>tr,
+.main .main>tr,
 td {
     height: 30px;
 }
@@ -88,12 +87,13 @@ td {
     text-align: center;
 }
 
+
 .column-shortcode {
-    width: 200px;
+    width: 150px;
 }
 
 .column-name {
-    width: 250px;
+    width: 200px;
 }
 
 .column-class {
@@ -104,14 +104,26 @@ td {
     width: 250px;
 }
 
+.column-address {
+    width: 250px;
+}
+
 .column-content-email,
 .column-content-shortcode,
-.column-content-name {
+.column-content-name,
+.column-content-address {
+    text-align: center;
+    white-space: nowrap;
     padding-left: 10px;
     width: 250px;
 }
 
+/* .column-content-name {
+    width: unset;
+} */
+
 .column-content-class {
+    text-align: center;
     width: 50px;
 }
 
@@ -133,12 +145,10 @@ td {
 }
 
 .table-links {
-    /* position: absolute; */
     width: fit-content;
     height: 30px;
     margin-top: 10px;
     display: flex;
-    /* justify-content: center; */
     gap: 5px;
 }
 

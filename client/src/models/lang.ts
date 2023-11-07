@@ -47,6 +47,7 @@ export type UsersLanguage = {
             shortcode: string
             class: string
             email: string
+            address: string
         }
         filter: {
             perPage: string,

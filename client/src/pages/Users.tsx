@@ -189,6 +189,7 @@ export default function Users({
                                                 <th className={styles['column-name']}>{language?.table.header.name}</th>
                                                 {type === 'student' ? <th className={styles['column-class']}>{language?.table.header.class}</th> : null}
                                                 <th className={styles['column-email']}>{language?.table.header.email}</th>
+                                                <th className={styles['column-address']}>{language?.table.header.address}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -209,6 +210,7 @@ export default function Users({
                                                             </td>
                                                             <td className={styles['column-content-class']}>{user.class}</td>
                                                             <td className={styles['column-content-email']}>{user.email}</td>
+                                                            <td className={styles['column-content-address']}>{user.address}</td>
                                                         </tr>
                                                     )
                                                 })

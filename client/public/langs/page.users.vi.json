@@ -8,7 +8,8 @@
             "name": "Họ tên",
             "shortcode": "Mã số",
             "class": "Lớp",
-            "email": "Email"
+            "email": "Email",
+            "address": "Địa chỉ"
         },
         "filter": {
             "perPage": "Số hàng",
