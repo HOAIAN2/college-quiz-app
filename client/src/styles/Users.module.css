@@ -49,21 +49,27 @@
     height: calc(100% - 75px);
     overflow-y: scroll;
     position: relative;
-    /* overflow-y: scroll; */
 }
 
-.table-content>.main {
-    padding: 15px;
+.wrap-table {
     margin: 0 auto;
-    display: block;
-    /* width: 100%; */
     width: fit-content;
     height: fit-content;
-    /* width: 100%; */
-    border-collapse: collapse;
+    padding: 15px;
     border: 1px solid var(--color-shadow);
     border-radius: var(--border-radius-low);
     box-shadow: 0px 0px 10px var(--color-shadow);
+}
+
+.table-content>.main {
+    margin: 0 auto;
+    display: block;
+    width: fit-content;
+    height: fit-content;
+    border-collapse: collapse;
+    /* border: 1px solid var(--color-shadow);
+    border-radius: var(--border-radius-low);
+    box-shadow: 0px 0px 10px var(--color-shadow); */
 }
 
 
@@ -122,8 +128,8 @@ td {
     color: rgb(235, 112, 132);
 }
 
-.table-footer>span {
-    margin-top: 10px;
+.table-footer {
+    margin-top: 15px;
 }
 
 .table-links {

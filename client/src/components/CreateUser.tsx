@@ -179,6 +179,7 @@ export default function CreateUser({
                         <div className={styles['wrap-item']}>
                             <label className={styles['required']} htmlFor="">{language?.genders.gender}</label>
                             <CustomSelect
+                                defaultOption={options[0]}
                                 options={options}
                                 onChange={(option) => {
                                     setGender(option.value)

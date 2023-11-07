@@ -126,6 +126,12 @@ export default function Users({
                         <div className={styles['wrap-input-item']}>
                             <label htmlFor="">{language?.table.filter.perPage}</label>
                             <CustomSelect
+                                defaultOption={
+                                    {
+                                        label: searchParams.get('per_page') || '10',
+                                        value: searchParams.get('per_page') || '10'
+                                    }
+                                }
                                 options={[
                                     {
                                         label: '10',
@@ -173,10 +179,10 @@ export default function Users({
                             <div className={styles['table-loading']}>Loading...</div>
                             : null}
                         {!queryData.isError && queryData.data ?
-                            <>
+                            <div className={styles['wrap-table']}>
                                 <table className={styles['main']}>
                                     <>
-                                        <tbody>
+                                        <thead>
                                             <tr className={styles['table-header']}>
                                                 <th className={styles['column-id']}>{language?.table.header.id}</th>
                                                 <th className={styles['column-shortcode']}>{language?.table.header.shortcode}</th>
@@ -184,6 +190,8 @@ export default function Users({
                                                 {type === 'student' ? <th className={styles['column-class']}>{language?.table.header.class}</th> : null}
                                                 <th className={styles['column-email']}>{language?.table.header.email}</th>
                                             </tr>
+                                        </thead>
+                                        <tbody>
                                             {
                                                 queryData.data.data.map(user => {
                                                     return (
@@ -207,56 +215,53 @@ export default function Users({
                                             }
                                         </tbody>
                                     </>
-                                    <div className={styles['table-footer']}
-                                        style={{
-                                            marginTop: '15px'
-                                        }}>
-                                        <span>
-                                            {queryData.data.from} - {queryData.data.to} / {queryData.data.total}
-                                        </span>
-                                        <div className={styles['table-links']}>
-                                            {
-                                                <div className={styles['link-content']}>
-                                                    {queryData.data.links.map(link => {
-                                                        if (isNaN(Number(link.label))) return (
-                                                            <button key={type + link.label} className={
-                                                                [
-                                                                    styles['next-previous'],
-                                                                ].join(' ')
-                                                            }
-                                                                onClick={() => {
-                                                                    if (!link.url) return
-                                                                    const url = new URL(link.url)
-                                                                    searchParams.set('page', url.searchParams.get('page') || '1')
-                                                                    setSearchParams(searchParams)
-                                                                }}
-                                                            >
-                                                                {link.label === '...' ? '...' : link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />}
-                                                                {/* {link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />} */}
-                                                            </button>
-                                                        )
-                                                        return (
-                                                            <button key={type + link.label} className={
-                                                                [
-                                                                    'button-d',
-                                                                    !link.active ? styles['inactive'] : ''
-                                                                ].join(' ')
-                                                            }
-                                                                onClick={() => {
-                                                                    if (!link.url) return
-                                                                    const url = new URL(link.url)
-                                                                    searchParams.set('page', url.searchParams.get('page') || '1')
-                                                                    setSearchParams(searchParams)
-                                                                }}
-                                                            >{link.label}</button>
-                                                        )
-                                                    })}
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
                                 </table>
-                            </>
+                                <div className={styles['table-footer']}>
+                                    <span>
+                                        {queryData.data.from} - {queryData.data.to} / {queryData.data.total}
+                                    </span>
+                                    <div className={styles['table-links']}>
+                                        {
+                                            <div className={styles['link-content']}>
+                                                {queryData.data.links.map(link => {
+                                                    if (isNaN(Number(link.label))) return (
+                                                        <button key={type + link.label} className={
+                                                            [
+                                                                styles['next-previous'],
+                                                            ].join(' ')
+                                                        }
+                                                            onClick={() => {
+                                                                if (!link.url) return
+                                                                const url = new URL(link.url)
+                                                                searchParams.set('page', url.searchParams.get('page') || '1')
+                                                                setSearchParams(searchParams)
+                                                            }}
+                                                        >
+                                                            {link.label === '...' ? '...' : link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />}
+                                                            {/* {link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />} */}
+                                                        </button>
+                                                    )
+                                                    return (
+                                                        <button key={type + link.label} className={
+                                                            [
+                                                                'button-d',
+                                                                !link.active ? styles['inactive'] : ''
+                                                            ].join(' ')
+                                                        }
+                                                            onClick={() => {
+                                                                if (!link.url) return
+                                                                const url = new URL(link.url)
+                                                                searchParams.set('page', url.searchParams.get('page') || '1')
+                                                                setSearchParams(searchParams)
+                                                            }}
+                                                        >{link.label}</button>
+                                                    )
+                                                })}
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
                             : null}
                     </div>
                 </div>

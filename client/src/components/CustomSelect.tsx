@@ -6,18 +6,20 @@ type Option = {
     label?: string
 }
 type CustomSelectProps = {
+    defaultOption: Option
     options: Option[]
     onChange: (option: Option) => void
     className?: string
 }
 
 export default function CustomSelect({
+    defaultOption,
     options,
     onChange,
     className
 }: CustomSelectProps) {
     const customSelectRef = useRef<HTMLDivElement>(null)
-    const [current, setCurrent] = useState(options[0])
+    const [current, setCurrent] = useState(defaultOption)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useLayoutEffect(() => {
         if (current.label == undefined) setCurrent(options[0])
