@@ -66,19 +66,14 @@
     width: fit-content;
     height: fit-content;
     border-collapse: collapse;
-    /* border: 1px solid var(--color-shadow);
-    border-radius: var(--border-radius-low);
-    box-shadow: 0px 0px 10px var(--color-shadow); */
 }
 
+/* .main>tbody>tr {
+    box-shadow: 0 0 4px #ccc;
+} */
 
 .main>tbody>tr,
 th {
-    height: 30px;
-}
-
-.main .main>tr,
-td {
     height: 30px;
 }
 
@@ -112,10 +107,8 @@ td {
 .column-content-shortcode,
 .column-content-name,
 .column-content-address {
-    text-align: center;
     white-space: nowrap;
     padding-left: 10px;
-    width: 250px;
 }
 
 /* .column-content-name {
