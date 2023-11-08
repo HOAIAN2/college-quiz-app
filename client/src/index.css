@@ -41,8 +41,9 @@
   --color-red: rgb(239, 6, 49);
   --color-green: rgb(15, 217, 15);
   --color-yellow: rgb(246, 221, 31);
-  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-shadow: rgb(210, 217, 228);
   --color-white: rgb(246, 246, 246);
+  --color-background: rgb(242, 244, 247);
   --border-radius-low: 5px;
   --transition-timing-fast: .3s;
   --transition-timing-medium: .4s;
