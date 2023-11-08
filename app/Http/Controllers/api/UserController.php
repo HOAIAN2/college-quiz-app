@@ -70,7 +70,7 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'role' => ['required', 'string', 'in:student,teacher,admin'],
-            'per_page' => ['required', 'integer', 'in:10,20,30'],
+            'per_page' => ['required', 'integer', 'in:10,20,30,40,50'],
             'page' => ['nullable', 'integer'],
             'search' => ['nullable', 'string'],
         ]);
