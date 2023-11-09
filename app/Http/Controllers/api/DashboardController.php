@@ -6,6 +6,7 @@ use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Exam;
+use App\Models\Question;
 use App\Models\Role;
 use App\Models\Subject;
 use App\Models\User;
@@ -42,7 +43,12 @@ class DashboardController extends Controller
                     $query->whereDate('start_date', '<=', $now)
                         ->whereDate('end_date', '>=', $now);
                 })->count('id');
-                $data->nearly_exam_count = Exam::whereBetween('exam_date', [$now, $now->copy()->addWeek()])
+                # Get Question count
+                $data->question_count = Question::count('id');
+                # Get exam count
+                $data->exam_in_next_week = Exam::whereBetween('exam_date', [$now, $now->copy()->addWeek()])
+                    ->count('id');
+                $data->exam_in_this_month = Exam::whereBetween('exam_date', [now()->startOfMonth(), now()->endOfMonth()])
                     ->count('id');
                 break;
             case Role::ROLES['teacher']:

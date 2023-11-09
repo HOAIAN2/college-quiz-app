@@ -53,6 +53,10 @@ request.interceptors.response.use(
         return response
     },
     function (error: AxiosError) {
+        if (error.message === 'Network Error') {
+            toast.error(error.message)
+            return Promise.reject(error)
+        }
         const response = error.response as AxiosResponse
         if (response.data && response.headers['content-type'] === 'application/json') {
             if (response.data.message) toast.error(response.data.message)
