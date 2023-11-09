@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\api\DashboardController;
 use App\Http\Controllers\api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,4 +27,8 @@ Route::prefix('/user')->middleware('auth:sanctum')
         Route::get('/', 'index');
         Route::post('/', 'store')->middleware(['auth:sanctum', 'abilities:teacher:create,student:create']);
         Route::get('/query', 'getUserByType')->middleware(['auth:sanctum', 'abilities:teacher:view,student:view']);
+    });
+Route::prefix('/dashboard')->middleware('auth:sanctum')
+    ->controller(DashboardController::class)->group(function () {
+        Route::get('/', 'index');
     });

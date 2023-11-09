@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    function __construct()
+    {
+        parent::__construct();
+        DB::delete('DELETE FROM personal_access_tokens
+                WHERE created_at < DATE_SUB(NOW(), INTERVAL 1 DAY);');
+    }
     /**
      * Login
      */
@@ -39,8 +45,6 @@ class AuthController extends Controller
                 $token = $user->createToken('Student Token', TokenAbility::STUDENT)->plainTextToken;
                 break;
         }
-        DB::delete('DELETE FROM personal_access_tokens
-                WHERE created_at < DATE_SUB(NOW(), INTERVAL 1 DAY);');
         return response()->json([
             'user' => $user->with('role')->first(),
             'token' => $token

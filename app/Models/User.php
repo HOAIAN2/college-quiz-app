@@ -103,4 +103,8 @@ class User extends Authenticatable
 	{
 		return $this->hasMany(Question::class, 'teacher_id');
 	}
+	public function isAdmin()
+	{
+		return $this->role_id == Role::ROLES['admin'];
+	}
 }

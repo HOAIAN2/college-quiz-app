@@ -9,6 +9,7 @@ class TokenAbility extends Model
 {
     use HasFactory;
     const ADMIN = [
+        'admin',
         'student:view',
         'student:create',
         'student:update',
