@@ -1,7 +1,7 @@
 .nav-bar {
     width: 230px;
     height: 100%;
-    box-shadow: 0px 0px 10px var(--color-shadow);
+    /* box-shadow: 0px 0px 10px var(--color-shadow); */
     background-color: white;
     overflow-x: hidden;
     overflow-y: scroll;

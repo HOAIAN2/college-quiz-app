@@ -189,8 +189,8 @@ th {
     padding-top: 3px;
 }
 
-@media(width<=800px) {
+/* @media(width<=800px) {
     .table-content {
         width: 95%;
     }
-}
+} */
