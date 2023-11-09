@@ -181,13 +181,13 @@ export default function Users({
                                 } type="text" />
                         </div>
                     </div>
-                    <div className={styles['table-content']}>
+                    <div className={styles['wrap-table']}>
                         {/* <div className={styles['table-loading']}>Loading...</div> */}
                         {queryData.isLoading ?
                             <div className={styles['table-loading']}>Loading...</div>
                             : null}
                         {!queryData.isError && queryData.data ?
-                            <div className={styles['wrap-table']}>
+                            <div className={styles['table-content']}>
                                 <table className={styles['main']}>
                                     <>
                                         <thead>
