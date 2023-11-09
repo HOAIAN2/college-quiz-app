@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\TokenAbility;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -38,6 +39,8 @@ class AuthController extends Controller
                 $token = $user->createToken('Student Token', TokenAbility::STUDENT)->plainTextToken;
                 break;
         }
+        DB::delete('DELETE FROM personal_access_tokens
+                WHERE created_at < DATE_SUB(NOW(), INTERVAL 1 DAY);');
         return response()->json([
             'user' => $user->with('role')->first(),
             'token' => $token
