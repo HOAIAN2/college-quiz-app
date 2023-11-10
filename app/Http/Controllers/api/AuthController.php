@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\TokenAbility;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -27,26 +28,26 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required', 'min:8'],
         ]);
-        $user = User::where('email', $request->email)->first();
+        $user = User::with('role')->where('email', $request->email)->first();
         if (!$user) return Reply::error('auth.errors.emailNotFound', [], 404);
         if ($user->is_active == false)  return Reply::error('auth.errors.accountDisabled');
         if (!Hash::check($request->password, $user->password)) {
             return Reply::error('auth.errors.passwordIncorrect');
         }
         $token = '';
-        switch ($user->role->name) {
-            case 'admin':
+        switch ($user->role_id) {
+            case Role::ROLES['admin']:
                 $token = $user->createToken('Admin Token', TokenAbility::ADMIN)->plainTextToken;
                 break;
-            case 'teacher':
+            case Role::ROLES['teacher']:
                 $token = $user->createToken('Teacher Token', TokenAbility::TEACHER)->plainTextToken;
                 break;
-            case 'student':
+            case Role::ROLES['student']:
                 $token = $user->createToken('Student Token', TokenAbility::STUDENT)->plainTextToken;
                 break;
         }
         return response()->json([
-            'user' => $user->with('role')->first(),
+            'user' => $user,
             'token' => $token
         ]);
     }
