@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -94,9 +95,39 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
-        //
+        $user = $request->user();
+        $now = now();
+        if (!$user->isAdmin() && $id != $user->id) return Reply::error('permission.errors.403');
+        $data = (object)[];
+        try {
+            $data->user = User::with('role')->find($id);
+            if ($data->user == null) return $data;
+            # Get course
+            switch ($data->user->role_id) {
+                case Role::ROLES['student']:
+                    $data->courses = Course::whereHas('semester', function ($query) use ($now) {
+                        $query->whereDate('start_date', '<=', $now)
+                            ->whereDate('end_date', '>=', $now);
+                    })->whereHas('enrollments', function ($query) use ($id) {
+                        $query->where('student_id', '=', $id);
+                    });
+                    break;
+                case Role::ROLES['teacher']:
+                    $data->courses = Course::whereHas('semester', function ($query) use ($now) {
+                        $query->whereDate('start_date', '<=', $now)
+                            ->whereDate('end_date', '>=', $now);
+                    })->where('teacher_id', '=', $data->user->id);
+                    break;
+                default:
+                    $data->courses = [];
+                    break;
+            }
+        } catch (\Throwable $th) {
+            return Reply::error('app.errors.serverError');
+        }
+        return $data;
     }
 
     /**

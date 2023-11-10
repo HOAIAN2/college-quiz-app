@@ -1,4 +1,5 @@
 <?php
+
 return [
     'errors' => [
         'emailNotFound' => 'Cannot find email',

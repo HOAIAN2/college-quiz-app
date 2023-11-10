@@ -1,4 +1,5 @@
 <?php
+
 return [
     'errors' => [
         'emailNotFound' => 'Không tìm thấy Email',
