@@ -1,3 +1,5 @@
+import { Course } from "./course";
+
 export type LoginResponse = {
     user: User;
     token: string;
@@ -19,6 +21,10 @@ export type User = {
     isActive: boolean;
     emailVerifiedAt: Date | null;
     role: Role;
+}
+export type UserDetail = {
+    user: User
+    course: Course[]
 }
 
 export type Role = {

@@ -1,5 +1,5 @@
 import request, { getToken } from './api-config'
-import { QueryUserType, User, UserPagination } from '../models/user'
+import { QueryUserType, User, UserDetail, UserPagination } from '../models/user'
 
 export async function reqGetUser() {
     if (!getToken()) throw new Error('no token')
@@ -36,6 +36,15 @@ export async function reqGetUsersByType(query?: QueryUserType) {
             }
         })
         return res.data as UserPagination
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+        throw new Error(error.message)
+    }
+}
+export async function reqGetUsersById(id: string | number) {
+    try {
+        const res = await request.get('/user/' + id)
+        return res.data as UserDetail
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         throw new Error(error.message)
