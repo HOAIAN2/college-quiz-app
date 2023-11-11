@@ -10,11 +10,36 @@ export default function Dashboard() {
                 ].join(' ')
             }
         >
-            <div className={
-                [
-                    'dashboard-item-d'
-                ].join(' ')
-            }></div>
+            <div className={styles['wrap-dasshboard-item']}>
+                <div className={
+                    [
+                        'dashboard-item-d',
+                        styles['dashboard-item'],
+                        styles['container-blue']
+                    ].join(' ')
+                }></div>
+                <div className={
+                    [
+                        'dashboard-item-d',
+                        styles['dashboard-item'],
+                        styles['container-red']
+                    ].join(' ')
+                }></div>
+                <div className={
+                    [
+                        'dashboard-item-d',
+                        styles['dashboard-item'],
+                        styles['container-green']
+                    ].join(' ')
+                }></div>
+                <div className={
+                    [
+                        'dashboard-item-d',
+                        styles['dashboard-item'],
+                        styles['container-pink']
+                    ].join(' ')
+                }></div>
+            </div>
         </div>
     )
 }
