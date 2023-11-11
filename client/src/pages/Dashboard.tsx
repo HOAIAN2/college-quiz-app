@@ -1,47 +1,20 @@
-import {
-    RiAddFill
-} from 'react-icons/ri'
-import {
-    BiImport,
-    BiExport
-} from 'react-icons/bi'
+import styles from '../styles/Dashboard.module.css'
 
 export default function Dashboard() {
     return (
         <div
             className={
                 [
-                    'dashboard-d'
+                    'dashboard-d',
+                    styles['dashboard']
                 ].join(' ')
             }
         >
             <div className={
                 [
-                    'action-bar-d'
+                    'dashboard-item-d'
                 ].join(' ')
-            }>
-                <div className={
-                    [
-                        'action-item-d'
-                    ].join(' ')
-                }>
-                    <RiAddFill /> Add
-                </div>
-                <div className={
-                    [
-                        'action-item-d-white'
-                    ].join(' ')
-                }>
-                    <BiImport /> Import
-                </div>
-                <div className={
-                    [
-                        'action-item-d-white'
-                    ].join(' ')
-                }>
-                    <BiExport /> Export
-                </div>
-            </div>
+            }></div>
         </div>
     )
 }
