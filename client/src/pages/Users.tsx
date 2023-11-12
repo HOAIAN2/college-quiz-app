@@ -182,9 +182,9 @@ export default function Users({
                         </div>
                     </div>
                     <div className={styles['wrap-table']}>
-                        {/* <div className={styles['table-loading']}>Loading...</div> */}
+                        {/* <div className='data-loading'>Loading...</div> */}
                         {queryData.isLoading ?
-                            <div className={styles['table-loading']}>Loading...</div>
+                            <div className='data-loading'>Loading...</div>
                             : null}
                         {!queryData.isError && queryData.data ?
                             <div className={styles['table-content']}>
