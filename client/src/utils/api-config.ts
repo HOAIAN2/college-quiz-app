@@ -1,17 +1,11 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import toast from './toast'
+const env = import.meta.env
 
-const devPorts = '3000'
-let baseURL = ''
-let baseIMG = ''
-if (devPorts === window.location.port) {
-    baseURL = `${window.location.origin.replace(devPorts, '8000')}/api/`
-    baseIMG = `${window.location.origin.replace(devPorts, '8000')}/`
-}
-else {
-    baseURL = `${window.location.origin}/api/`
-    baseIMG = `${window.location.origin}/`
-}
+const baseURL = env.DEV === true ? `${window.location.origin.replace(env.VITE_DEV_PORT, env.VITE_DEV_SERVER_PORT)}/api/`
+    : `${window.location.origin}/api/`
+const baseIMG = env.DEV === true ? `${window.location.origin.replace(env.VITE_DEV_PORT, env.VITE_DEV_SERVER_PORT)}/`
+    : `${window.location.origin}/`
 const ignoreLoaders = [
     '/user/info',
     '/comment',
@@ -63,7 +57,8 @@ request.interceptors.response.use(
         }
         return Promise.reject(error)
     }
-);
+)
+
 export {
     baseIMG,
     getToken,
