@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useLanguage, useUserData } from '../contexts/hooks'
 import { reqLogin } from '../utils/auth'
@@ -10,6 +10,7 @@ import { LoginPageLanguage } from '../models/lang'
 export default function Login() {
     const [language, setLanguage] = useState<LoginPageLanguage>()
     const [blockSubmit, setBlockSubmit] = useState(true)
+    const buttonRef = useRef<HTMLButtonElement>(null)
     const { dispatchUser } = useUserData()
     const { appLanguage } = useLanguage()
     const navigate = useNavigate()
@@ -25,6 +26,7 @@ export default function Login() {
         if (blockSubmit) return
         setBlockSubmit(true)
         const formData = new FormData(e.currentTarget)
+        buttonRef.current?.classList.add(styles['submitting'])
         reqLogin(formData)
             .then(() => {
                 return reqGetUser()
@@ -35,6 +37,8 @@ export default function Login() {
             })
             .catch(() => {
                 setBlockSubmit(false)
+            }).finally(() => {
+                buttonRef.current?.classList.remove(styles['submitting'])
             })
     }
     useEffect(() => {
@@ -77,12 +81,15 @@ export default function Login() {
                     />
                 </div>
                 <div className={styles['wrap-input']}>
-                    <button className={
-                        [
-                            'button-d',
-                            styles['submit'],
-                            blockSubmit ? styles['submitting'] : ''
-                        ].join(' ')}>{language?.login}</button>
+                    <button
+                        ref={buttonRef}
+                        className={
+                            [
+                                'button-d',
+                                styles['submit'],
+                                blockSubmit && !buttonRef.current?.classList.contains(styles['submitting'])
+                                    ? styles['blocking'] : ''
+                            ].join(' ')}>{language?.login}</button>
                 </div>
             </form>
         </div>
