@@ -50,14 +50,14 @@ export default function Users({
         })
     })
     useEffect(() => {
-        if (!searchParams.has('page')) {
-            searchParams.set('page', '1')
-            setSearchParams(searchParams)
-        }
-        if (!searchParams.has('per_page')) {
-            searchParams.set('per_page', '10')
-            setSearchParams(searchParams)
-        }
+        // if (!searchParams.has('page')) {
+        //     searchParams.set('page', '1')
+        //     setSearchParams(searchParams)
+        // }
+        // if (!searchParams.has('per_page')) {
+        //     searchParams.set('per_page', '10')
+        //     setSearchParams(searchParams)
+        // }
         return () => {
             if (!window.location.pathname.includes(type)) setSearchParams(new URLSearchParams())
         }
@@ -71,6 +71,7 @@ export default function Users({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [appLanguage])
     useEffect(() => {
+        if (!searchParams.get('search')) return
         if (queryDebounce === '') searchParams.delete('search')
         else searchParams.set('search', queryDebounce)
         setSearchParams(searchParams)

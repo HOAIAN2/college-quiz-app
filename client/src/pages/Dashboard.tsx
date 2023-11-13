@@ -16,8 +16,9 @@ export default function Dashboard() {
         queryKey: ['dashboard'],
         queryFn: reqGetDashboard
     })
-    if (queryData.isLoading) return <div className='data-loading'>Loading...</div>
-    if (queryData.isError) return <div className='data-loading'>Loading...</div>
+    // if (queryData.isLoading) return <div className='data-loading'>Loading...</div>
+    // if (queryData.isError) return <div className='data-loading'>Loading...</div>
+    // return <div className='data-loading'>Loading...</div>
     return (
         <div
             className={
@@ -27,68 +28,74 @@ export default function Dashboard() {
                 ].join(' ')
             }
         >
-            <div className={styles['wrap-dasshboard-item']}>
-                <Link
-                    to={'/students'}
-                    className={
-                        [
-                            'dashboard-item-d',
-                            styles['dashboard-item'],
-                            styles['container-blue']
-                        ].join(' ')
-                    }>
-                    <div className={styles['item-left']}>
-                        <PiStudent />
-                    </div>
-                    <div className={styles['item-top']}>{queryData.data?.studentCount}</div>
-                    <div className={styles['item-bottom']}>Số lượng học sinh</div>
-                </Link>
-                <Link
-                    to={'teachers'}
-                    className={
-                        [
-                            'dashboard-item-d',
-                            styles['dashboard-item'],
-                            styles['container-red']
-                        ].join(' ')
-                    }>
-                    <div className={styles['item-left']}>
-                        <PiChalkboardTeacherLight />
-                    </div>
-                    <div className={styles['item-top']}>{queryData.data?.teacherCount}</div>
-                    <div className={styles['item-bottom']}>Số lượng giáo viên</div>
-                </Link>
-                <Link
-                    to={'courses'}
-                    className={
-                        [
-                            'dashboard-item-d',
-                            styles['dashboard-item'],
-                            styles['container-blue']
-                        ].join(' ')
-                    }>
-                    <div className={styles['item-left']}>
-                        <SiGoogleclassroom />
-                    </div>
-                    <div className={styles['item-top']}>{queryData.data?.courseCount}</div>
-                    <div className={styles['item-bottom']}>Khóa học hiện tại</div>
-                </Link>
-                <Link
-                    to={'exams'}
-                    className={
-                        [
-                            'dashboard-item-d',
-                            styles['dashboard-item'],
-                            styles['container-red']
-                        ].join(' ')
-                    }>
-                    <div className={styles['item-left']}>
-                        <PiExam />
-                    </div>
-                    <div className={styles['item-top']}>{queryData.data?.examInThisMonth}</div>
-                    <div className={styles['item-bottom']}>Bài thi tháng này</div>
-                </Link>
-            </div>
+            {queryData.isLoading ?
+                <div className='data-loading'>Loading...</div>
+                : null}
+            {
+                !queryData.isError && queryData.data ?
+                    <div className={styles['wrap-dasshboard-item']}>
+                        <Link
+                            to={'/students'}
+                            className={
+                                [
+                                    'dashboard-item-d',
+                                    styles['dashboard-item'],
+                                    styles['container-blue']
+                                ].join(' ')
+                            }>
+                            <div className={styles['item-left']}>
+                                <PiStudent />
+                            </div>
+                            <div className={styles['item-top']}>{queryData.data?.studentCount}</div>
+                            <div className={styles['item-bottom']}>Số lượng học sinh</div>
+                        </Link>
+                        <Link
+                            to={'teachers'}
+                            className={
+                                [
+                                    'dashboard-item-d',
+                                    styles['dashboard-item'],
+                                    styles['container-blue']
+                                ].join(' ')
+                            }>
+                            <div className={styles['item-left']}>
+                                <PiChalkboardTeacherLight />
+                            </div>
+                            <div className={styles['item-top']}>{queryData.data?.teacherCount}</div>
+                            <div className={styles['item-bottom']}>Số lượng giáo viên</div>
+                        </Link>
+                        <Link
+                            to={'courses'}
+                            className={
+                                [
+                                    'dashboard-item-d',
+                                    styles['dashboard-item'],
+                                    styles['container-blue']
+                                ].join(' ')
+                            }>
+                            <div className={styles['item-left']}>
+                                <SiGoogleclassroom />
+                            </div>
+                            <div className={styles['item-top']}>{queryData.data?.courseCount}</div>
+                            <div className={styles['item-bottom']}>Khóa học hiện tại</div>
+                        </Link>
+                        <Link
+                            to={'exams'}
+                            className={
+                                [
+                                    'dashboard-item-d',
+                                    styles['dashboard-item'],
+                                    styles['container-blue']
+                                ].join(' ')
+                            }>
+                            <div className={styles['item-left']}>
+                                <PiExam />
+                            </div>
+                            <div className={styles['item-top']}>{queryData.data?.examInThisMonth}</div>
+                            <div className={styles['item-bottom']}>Bài thi tháng này</div>
+                        </Link>
+                    </div> : null
+            }
         </div>
     )
 }
