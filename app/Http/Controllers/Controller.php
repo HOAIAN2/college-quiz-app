@@ -17,16 +17,15 @@ use Illuminate\Support\Str;
 class Controller extends BaseController
 {
     public $supported_languages;
-    public $request;
     use AuthorizesRequests, ValidatesRequests;
     function __construct()
     {
-        $this->request = request();
         $this->setLanguage();
     }
     private function setLanguage()
     {
-        $accept_language = $this->request->header('Accept-Language');
+        $request = request();
+        $accept_language = $request->header('Accept-Language');
         if (Str::startsWith($accept_language, 'en')) app()->setLocale('en');
         $this->supported_languages = json_decode(env('SUPORTED_LANGS', '["vi"]'));
         if (in_array($accept_language, $this->supported_languages)) {

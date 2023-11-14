@@ -82,7 +82,7 @@ class UserController extends Controller
             'search' => ['nullable', 'string'],
         ]);
         $users = User::with('role')
-            ->where('role_id', '=', Role::ROLES[$validated['role']]);
+            ->whereRoleId(Role::ROLES[$validated['role']]);
         if ($request->search != null) {
             $users = $users->where(function ($query) use ($validated) {
                 $query->where(DB::raw("CONCAT (last_name, ' ' , first_name)"), 'like', '%' . $validated['search'] . '%')

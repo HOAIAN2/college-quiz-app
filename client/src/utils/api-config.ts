@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import toast from './toast'
+import { getLanguage } from './languages'
 const env = import.meta.env
 
 const baseURL = env.DEV === true ? `${window.location.origin.replace(env.VITE_DEV_PORT, env.VITE_DEV_SERVER_PORT)}/api/`
@@ -23,6 +24,7 @@ const request = axios.create({
     baseURL: baseURL
 })
 request.interceptors.request.use(config => {
+    config.headers['Accept-Language'] = getLanguage()
     if (config.method === 'get' && !ignoreLoaders.includes(config.url || '')) {
         config.onDownloadProgress = (progressEvent) => {
             const loaderElement = document.querySelector<HTMLDivElement>('#loader')
