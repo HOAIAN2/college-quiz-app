@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
@@ -33,5 +34,9 @@ class Controller extends BaseController
         }
         if (Str::startsWith($accept_language, 'en')) App::setLocale('en');
         else App::setLocale(env('LOCALE', 'vi'));
+    }
+    public function getUser(): User
+    {
+        return request()->user();
     }
 }

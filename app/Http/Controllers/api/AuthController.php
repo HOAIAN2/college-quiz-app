@@ -34,18 +34,7 @@ class AuthController extends Controller
         if (!Hash::check($request->password, $user->password)) {
             return Reply::error('auth.errors.passwordIncorrect');
         }
-        $token = '';
-        switch ($user->role_id) {
-            case Role::ROLES['admin']:
-                $token = $user->createToken('Admin Token', TokenAbility::ADMIN)->plainTextToken;
-                break;
-            case Role::ROLES['teacher']:
-                $token = $user->createToken('Teacher Token', TokenAbility::TEACHER)->plainTextToken;
-                break;
-            case Role::ROLES['student']:
-                $token = $user->createToken('Student Token', TokenAbility::STUDENT)->plainTextToken;
-                break;
-        }
+        $token = $user->createToken($user->role->name . ' token')->plainTextToken;
         return response()->json([
             'user' => $user,
             'token' => $token

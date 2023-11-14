@@ -23,7 +23,7 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-        $user = $request->user();
+        $user = $this->getUser();
         $data = (object)[];
         $now = now();
         switch ($user->role_id) {

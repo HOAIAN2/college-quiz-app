@@ -30,6 +30,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $user = $this->getUser();
+        if (!$user->isAdmin()) return Reply::error('permission.errors.403');
+
         $validated = $request->validate([
             'role' => ['required', 'string', 'in:student,teacher,admin'],
             'shortcode' => ['required', 'string', 'unique:users', 'max:255'],
@@ -69,6 +72,9 @@ class UserController extends Controller
     }
     public function getUserByType(Request $request)
     {
+        $user = $this->getUser();
+        if (!$user->isAdmin()) return Reply::error('permission.errors.403');
+
         $validated = $request->validate([
             'role' => ['required', 'string', 'in:student,teacher,admin'],
             'per_page' => ['required', 'integer', 'in:10,20,30,40,50'],
@@ -97,8 +103,9 @@ class UserController extends Controller
      */
     public function show(Request $request, string $id)
     {
-        $user = $request->user();
+        $user = $this->getUser();
         $now = now();
+
         if (!$user->isAdmin() && $id != $user->id) return Reply::error('permission.errors.403');
         $data = (object)[];
         try {

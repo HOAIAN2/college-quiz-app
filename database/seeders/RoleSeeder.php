@@ -13,7 +13,7 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $seedRoles = [
+        Role::insert([
             [
                 'name' => 'admin',
                 'display_name' => 'Quản trị viên',
@@ -26,9 +26,6 @@ class RoleSeeder extends Seeder
                 'name' => 'student',
                 'display_name' => 'Học sinh',
             ]
-        ];
-        foreach ($seedRoles as $seedRole) {
-            Role::create($seedRole);
-        }
+        ]);
     }
 }
