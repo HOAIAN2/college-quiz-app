@@ -35,3 +35,9 @@ php artisan migrate
 ```console
 php artisan db:seed
 ```
+
+## Demo
+
+![Desktop](./img/College-Quiz-App_D.jpg)
+
+![Mobile](./img/College-Quiz-App_M.jpg)
