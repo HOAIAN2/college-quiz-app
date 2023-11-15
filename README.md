@@ -36,6 +36,10 @@ php artisan migrate
 php artisan db:seed
 ```
 
+## Databse Diagram
+
+![DB Diagram](./img/DB_Diagram.svg)
+
 ## Demo
 
 ![Desktop](./img/College-Quiz-App_D.jpg)
