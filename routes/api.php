@@ -25,9 +25,10 @@ Route::prefix('/auth')->controller(AuthController::class)->group(function () {
 Route::prefix('/user')->middleware('auth:sanctum')
     ->controller(UserController::class)->group(function () {
         Route::get('/', 'index');
-        Route::post('/', 'store')->middleware('auth:sanctum');
-        Route::get('/query', 'getUserByType')->middleware('auth:sanctum');
-        Route::get('/{id}', 'show')->middleware('auth:sanctum');
+        Route::post('/', 'store');
+        Route::get('/query', 'getUserByType');
+        Route::get('/import', 'importUsers');
+        Route::get('/{id}', 'show');
     });
 Route::prefix('/dashboard')->middleware('auth:sanctum')
     ->controller(DashboardController::class)->group(function () {

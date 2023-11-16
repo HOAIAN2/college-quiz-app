@@ -96,7 +96,12 @@ class UserController extends Controller
     }
     public function importUsers(Request $request)
     {
-        //
+        $user = $this->getUser();
+        if (!$user->isAdmin()) return Reply::error('permission.errors.403');
+
+        $validated = $request->validate([
+            'role' => ['required', 'string', 'in:student,teacher'],
+        ]);
     }
     /**
      * Display the specified resource.
