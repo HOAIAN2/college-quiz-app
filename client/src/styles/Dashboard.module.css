@@ -70,6 +70,6 @@
 
 @media (width<=800px) {
     .dashboard-item {
-        width: 180px;
+        width: 160px;
     }
 }
