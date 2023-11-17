@@ -10,10 +10,14 @@ use App\Http\Requests\User\StoreRequest;
 use App\Models\Course;
 use App\Models\Role;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Shared;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class UserController extends Controller
 {
@@ -56,6 +60,7 @@ class UserController extends Controller
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
         } catch (\Throwable $error) {
+            Log::error($error->getMessage());
             DB::rollBack();
             return Reply::error('app.errors.failToSaveRecord');
         }
@@ -85,12 +90,40 @@ class UserController extends Controller
         $user = $this->getUser();
         if (!$user->isAdmin()) return Reply::error('permission.errors.403');
         $file = $request->file('file');
-        // Use Excel facade to read the file
+        $role_id = Role::ROLES[$request->role];
         $sheets = Excel::toArray([], $file);
-        foreach ($sheets[0] as $row) {
-            error_log(json_encode($row));
+        $data = [];
+        foreach ($sheets[0] as $index => $row) {
+            if ($index == 0) continue;
+            $record = [
+                'faculty' => $row[0],
+                'class' => $row[0],
+                'role_id' => $role_id,
+                'shortcode' => $row[1],
+                'first_name' => $row[3],
+                'last_name' => $row[2],
+                'gender' => $row[4],
+                'email' => $row[5],
+                'phone_number' => $row[6],
+                'address' => $row[7],
+                'birth_date' => Carbon::instance(Date::excelToDateTimeObject($row[8])),
+                'is_active' => true,
+                'password' => Hash::make($row[9])
+            ];
+            if ($request->role == 'student') $record['class'] = $row[0];
+            if ($request->role == 'teacher') $record['faculty'] = $row[0];
+            $data[] = $record;
         }
-        return Reply::success();
+        DB::beginTransaction();
+        try {
+            User::insert($data);
+            DB::commit();
+            return Reply::successWithMessage('app.successes.recordSaveSuccess');
+        } catch (\Throwable $error) {
+            Log::error($error->getMessage());
+            DB::rollBack();
+            return Reply::error('app.errors.failToSaveRecord');
+        }
     }
     /**
      * Display the specified resource.

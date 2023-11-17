@@ -76,6 +76,7 @@ class User extends Authenticatable
 		'address',
 		'birth_date',
 		'class',
+		'faculty',
 		'is_active',
 		'email_verified_at',
 		'password',

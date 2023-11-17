@@ -11,7 +11,7 @@ class Reply
 
     public static function success()
     {
-        return response()->json([]);
+        return response()->json((object)[]);
     }
 
     /** Return success response with Message
