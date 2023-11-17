@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -83,6 +84,13 @@ class UserController extends Controller
     {
         $user = $this->getUser();
         if (!$user->isAdmin()) return Reply::error('permission.errors.403');
+        $file = $request->file('file');
+        // Use Excel facade to read the file
+        $sheets = Excel::toArray([], $file);
+        foreach ($sheets[0] as $row) {
+            error_log(json_encode($row));
+        }
+        return Reply::success();
     }
     /**
      * Display the specified resource.

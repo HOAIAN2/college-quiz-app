@@ -27,7 +27,7 @@ Route::prefix('/user')->middleware('auth:sanctum')
         Route::get('/', 'index');
         Route::post('/', 'store');
         Route::get('/query', 'getUserByType');
-        Route::get('/import', 'importUsers');
+        Route::post('/import', 'importUsers');
         Route::get('/{id}', 'show');
     });
 Route::prefix('/dashboard')->middleware('auth:sanctum')

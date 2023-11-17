@@ -23,6 +23,7 @@ class ImportRequest extends FormRequest
     {
         return [
             'role' => ['required', 'string', 'in:student,teacher'],
+            'file' => 'required|mimes:xlsx,xls',
         ];
     }
 }
