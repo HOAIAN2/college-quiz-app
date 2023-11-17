@@ -4,6 +4,9 @@ namespace App\Http\Controllers\api;
 
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\GetByTypeRequest;
+use App\Http\Requests\User\ImportRequest;
+use App\Http\Requests\User\StoreRequest;
 use App\Models\Course;
 use App\Models\Role;
 use App\Models\User;
@@ -28,40 +31,26 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $user = $this->getUser();
         if (!$user->isAdmin()) return Reply::error('permission.errors.403');
 
-        $validated = $request->validate([
-            'role' => ['required', 'string', 'in:student,teacher,admin'],
-            'shortcode' => ['required', 'string', 'unique:users', 'max:255'],
-            'email' => ['required', 'email', 'unique:users'],
-            'first_name' => ['required', 'max:255'],
-            'last_name' => ['required', 'max:255'],
-            'phone_numeber' => ['string', 'unique:users', 'max:10'],
-            'gender' => ['required', 'in:male,female'],
-            'address' => ['required', 'string', 'max:255'],
-            'birth_date' => ['required', 'date_format:Y-m-d', 'before:today'],
-            'class' => ['required_if:role,student'],
-            // 'faculty'=>[],
-            'password' => ['required', 'min:8']
-        ]);
         DB::beginTransaction();
         try {
             User::create([
-                'role_id' => Role::where('name', '=',  $validated['role'])->first()->id,
-                'shortcode' => $validated['shortcode'],
-                'email' => $validated['email'],
-                'first_name' => $validated['first_name'],
-                'last_name' => $validated['name'],
-                'phone_numeber' => $validated['phone_number'],
-                'gender' => $validated['gender'],
-                'address' => $validated['address'],
-                'birth_date' => $validated['birth_date'],
-                'class' => $validated['class'],
-                // 'faculty'=>[],
-                'password' => Hash::make($validated['password'])
+                'role_id' => Role::ROLES[$request->role],
+                'shortcode' => $request->shortcode,
+                'email' => $request->email,
+                'first_name' => $request->first_name,
+                'last_name' => $request->name,
+                'phone_number' => $request->phone_number,
+                'gender' => $request->gender,
+                'address' => $request->address,
+                'birth_date' => $request->birth_date,
+                'class' => $request->class,
+                'faculty' => $request->faculty,
+                'password' => Hash::make($request->password)
             ]);
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
@@ -70,38 +59,30 @@ class UserController extends Controller
             return Reply::error('app.errors.failToSaveRecord');
         }
     }
-    public function getUserByType(Request $request)
+    public function getUserByType(GetByTypeRequest $request)
     {
         $user = $this->getUser();
         if (!$user->isAdmin()) return Reply::error('permission.errors.403');
 
-        $validated = $request->validate([
-            'role' => ['required', 'string', 'in:student,teacher,admin'],
-            'per_page' => ['required', 'integer', 'in:10,20,30,40,50'],
-            'page' => ['nullable', 'integer'],
-            'search' => ['nullable', 'string'],
-        ]);
         $users = User::with('role')
-            ->whereRoleId(Role::ROLES[$validated['role']]);
+            ->whereRoleId(Role::ROLES[$request->role]);
+
         if ($request->search != null) {
-            $users = $users->where(function ($query) use ($validated) {
-                $query->where(DB::raw("CONCAT (last_name, ' ' , first_name)"), 'like', '%' . $validated['search'] . '%')
-                    ->orWhere('class', 'like', '%' . $validated['search'] . '%')
-                    ->orWhere('shortcode', 'like', '%' . $validated['search'] . '%')
-                    ->orWhere('phone_number', 'like', '%' . $validated['search'] . '%');
+            $users = $users->where(function ($query) use ($request) {
+                $query->where(DB::raw("CONCAT (last_name, ' ' , first_name)"), 'like', '%' . $request->search . '%')
+                    ->orWhere('class', 'like', '%' . $request->search . '%')
+                    ->orWhere('shortcode', 'like', '%' . $request->search . '%')
+                    ->orWhere('phone_number', 'like', '%' . $request->search . '%');
             });
         }
-        $users = $users->latest('id')->paginate($validated['per_page']);
+
+        $users = $users->latest('id')->paginate($request->per_page);
         return $users;
     }
-    public function importUsers(Request $request)
+    public function importUsers(ImportRequest $request)
     {
         $user = $this->getUser();
         if (!$user->isAdmin()) return Reply::error('permission.errors.403');
-
-        $validated = $request->validate([
-            'role' => ['required', 'string', 'in:student,teacher'],
-        ]);
     }
     /**
      * Display the specified resource.

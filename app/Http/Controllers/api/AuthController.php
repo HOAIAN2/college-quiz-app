@@ -4,6 +4,8 @@ namespace App\Http\Controllers\api;
 
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\ChangePassRequest;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Models\Role;
 use App\Models\TokenAbility;
 use App\Models\User;
@@ -22,19 +24,22 @@ class AuthController extends Controller
     /**
      * Login
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $validated = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required', 'min:8'],
-        ]);
-        $user = User::with('role')->whereEmail($validated['email'])->first();
+        $user = User::with('role')->whereEmail($request->email)->first();
 
-        if (!$user) return Reply::error('auth.errors.emailNotFound', [], 404);
-        if ($user->is_active == false)  return Reply::error('auth.errors.accountDisabled');
-        if (!Hash::check($validated['password'], $user->password)) {
+        if (!$user) {
+            return Reply::error('auth.errors.emailNotFound', [], 404);
+        }
+
+        if ($user->is_active == false) {
+            return Reply::error('auth.errors.accountDisabled');
+        }
+
+        if (!Hash::check($request->password, $user->password)) {
             return Reply::error('auth.errors.passwordIncorrect');
         }
+
         $token = $user->createToken($user->role->name . ' token')->plainTextToken;
         return response()->json([
             'user' => $user,
@@ -53,12 +58,8 @@ class AuthController extends Controller
     /**
      * Change password
      */
-    public function changePassword(Request $request)
+    public function changePassword(ChangePassRequest $request)
     {
-        $request->validate([
-            'current_password' => 'required',
-            'new_password' => 'required|string|min:8|confirmed',
-        ]);
         $user = $request->user();
         if (!Hash::check($request->current_password, $user->password)) {
             return Reply::error('auth.errors.passwordIncorrect');
