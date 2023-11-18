@@ -47,6 +47,7 @@
   --color-soft-blue: rgb(108, 164, 249);
   --color-soft-red: rgb(250, 143, 173);
   --border-radius-low: 5px;
+  --border-radius-medium: 15px;
   --transition-timing-fast: .3s;
   --transition-timing-medium: .4s;
   --transition-timing-slow: .5ms;

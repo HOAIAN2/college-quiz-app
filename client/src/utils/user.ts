@@ -25,6 +25,21 @@ export async function reqCreateUser(form: FormData) {
         throw new Error(message)
     }
 }
+export async function reqImportUsers(file: File, role: 'student' | 'teacher') {
+    if (!getToken()) throw new Error('no token')
+    try {
+        await request.post('/user/import', {
+            role: role,
+            file: file
+        })
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+        if (!error.response) throw new Error(error.message)
+        const message = error.response.data.message
+        if (error.response.data.errors) return Promise.reject(error.response.data.errors)
+        throw new Error(message)
+    }
+}
 export async function reqGetUsersByType(query?: QueryUserType) {
     try {
         const res = await request.get('/user/query', {
