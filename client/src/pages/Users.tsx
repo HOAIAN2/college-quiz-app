@@ -23,6 +23,7 @@ import { reqGetUsersByType } from '../utils/user'
 import { useSearchParams } from 'react-router-dom'
 import CustomSelect from '../components/CustomSelect'
 import useDebounce from '../hooks/useDebounce'
+import ImportUsers from '../components/ImportUsers'
 
 type UsersProps = {
     type: 'student' | 'teacher' | 'admin'
@@ -33,6 +34,7 @@ export default function Users({
     const [language, setLanguage] = useState<UsersLanguage>()
     const { appLanguage } = useLanguage()
     const [insertMode, setInsertMode] = useState(false)
+    const [importMode, setImportMode] = useState(false)
     const [searchParams, setSearchParams] = useSearchParams()
     const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
     const queryDebounce = useDebounce(searchQuery, 300) as string
@@ -84,6 +86,11 @@ export default function Users({
                     type={type}
                     setInsertMode={setInsertMode}
                 /> : null}
+            {importMode === true ?
+                <ImportUsers
+                    type={type as 'student' | 'teacher'}
+                    setImportMode={setImportMode}
+                /> : null}
             <div
                 className={
                     [
@@ -111,7 +118,11 @@ export default function Users({
                         [
                             'action-item-d-white'
                         ].join(' ')
-                    }>
+                    }
+                        onClick={() => {
+                            setImportMode(true)
+                        }}
+                    >
                         <BiImport /> {language?.import}
                     </div>
                     <div className={

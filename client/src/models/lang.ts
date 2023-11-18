@@ -30,6 +30,14 @@ export type CreateUserLanguage = {
     save: string
     saveMore: string
 }
+export type ImportUsersLanguage = {
+    import: string
+    student: string
+    teacher: string
+    admin: string
+    save: string
+    downloadTemplate: string
+}
 
 export type Genders = {
     male: string

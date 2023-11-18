@@ -1,0 +1,8 @@
+{
+    "import": "Import",
+    "student": "Student",
+    "teacher": "Teacher",
+    "admin": "Admin",
+    "save": "Save",
+    "downloadTemplate": "Download template file"
+}
