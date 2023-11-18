@@ -8,6 +8,7 @@ import {
 } from 'react-icons/io'
 import { reqImportUsers } from '../utils/user'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { studentExcelTemplate } from '../utils/api-config'
 
 type InsertUsersProps = {
     type: 'student' | 'teacher'
@@ -137,7 +138,13 @@ export default function ImportUsers({
                             ].join(' ')
                         }>{language?.save}
                     </button>
-                    <button name='download' className='action-item-d-white'>{language?.downloadTemplate}</button>
+                    <a
+                        className='action-item-d-white'
+                        href={
+                            type == 'student' ? studentExcelTemplate
+                                : ''
+                        }
+                        download=''>{language?.downloadTemplate}</a>
                 </div>
             </div>
         </div>

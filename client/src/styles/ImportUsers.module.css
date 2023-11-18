@@ -105,7 +105,7 @@
     padding-right: 10px;
 }
 
-.action-items>button[name="download"] {
+.action-items>a {
     width: fit-content;
 }
 

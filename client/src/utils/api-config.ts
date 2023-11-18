@@ -3,16 +3,19 @@ import toast from './toast'
 import { getLanguage } from './languages'
 const env = import.meta.env
 
-const baseURL = env.DEV === true ? `${window.location.origin.replace(env.VITE_DEV_PORT, env.VITE_DEV_SERVER_PORT)}/api/`
-    : `${window.location.origin}/api/`
-const baseIMG = env.DEV === true ? `${window.location.origin.replace(env.VITE_DEV_PORT, env.VITE_DEV_SERVER_PORT)}/`
+const host = env.DEV === true ? `${window.location.origin.replace(env.VITE_DEV_PORT, env.VITE_DEV_SERVER_PORT)}/`
     : `${window.location.origin}/`
+
+const baseURL = host + 'api/'
+
 const ignoreLoaders = [
     '/user/info',
     '/comment',
     '/product/suggest',
     '/product/auto-complete'
 ]
+const studentExcelTemplate = host + 'data/Import_Student_Template.xlsx'
+
 function getToken() {
     const token = localStorage.getItem('token') || '' as string
     return token
@@ -62,7 +65,7 @@ request.interceptors.response.use(
 )
 
 export {
-    baseIMG,
+    studentExcelTemplate,
     getToken,
     getTokenHeader,
 }
