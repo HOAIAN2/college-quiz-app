@@ -96,8 +96,6 @@ class UserController extends Controller
         foreach ($sheets[0] as $index => $row) {
             if ($index == 0) continue;
             $record = [
-                'faculty' => $row[0],
-                'class' => $row[0],
                 'role_id' => $role_id,
                 'shortcode' => $row[1],
                 'first_name' => $row[3],
