@@ -60,7 +60,6 @@ class UserController extends Controller
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
         } catch (\Throwable $error) {
-            Log::error($error->getMessage());
             DB::rollBack();
             return Reply::error('app.errors.failToSaveRecord');
         }
@@ -89,36 +88,36 @@ class UserController extends Controller
     {
         $user = $this->getUser();
         if (!$user->isAdmin()) return Reply::error('permission.errors.403');
-        $file = $request->file('file');
-        $role_id = Role::ROLES[$request->role];
-        $sheets = Excel::toArray([], $file);
-        $data = [];
-        foreach ($sheets[0] as $index => $row) {
-            if ($index == 0) continue;
-            $record = [
-                'role_id' => $role_id,
-                'shortcode' => $row[1],
-                'first_name' => $row[3],
-                'last_name' => $row[2],
-                'gender' => $row[4],
-                'email' => $row[5],
-                'phone_number' => $row[6],
-                'address' => $row[7],
-                'birth_date' => Carbon::instance(Date::excelToDateTimeObject($row[8])),
-                'is_active' => true,
-                'password' => Hash::make($row[9])
-            ];
-            if ($request->role == 'student') $record['class'] = $row[0];
-            if ($request->role == 'teacher') $record['faculty'] = $row[0];
-            $data[] = $record;
-        }
         DB::beginTransaction();
         try {
+            $file = $request->file('file');
+            $role_id = Role::ROLES[$request->role];
+            $sheets = Excel::toArray([], $file);
+            $data = [];
+            foreach ($sheets[0] as $index => $row) {
+                if ($index == 0) continue;
+                $record = [
+                    'role_id' => $role_id,
+                    'shortcode' => $row[1],
+                    'first_name' => $row[3],
+                    'last_name' => $row[2],
+                    'gender' => $row[4],
+                    'email' => $row[5],
+                    'phone_number' => $row[6],
+                    'address' => $row[7],
+                    'birth_date' => Carbon::instance(Date::excelToDateTimeObject($row[8])),
+                    'is_active' => true,
+                    'password' => Hash::make($row[9])
+                ];
+                if ($request->role == 'student') $record['class'] = $row[0];
+                if ($request->role == 'teacher') $record['faculty'] = $row[0];
+                $data[] = $record;
+            }
             User::insert($data);
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
         } catch (\Throwable $error) {
-            Log::error($error->getMessage());
+            error_log($error->getMessage());
             DB::rollBack();
             return Reply::error('app.errors.failToSaveRecord');
         }

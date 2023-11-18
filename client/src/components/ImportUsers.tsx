@@ -3,7 +3,11 @@ import styles from '../styles/ImportUsers.module.css'
 import { RxCross2 } from 'react-icons/rx'
 import { useLanguage } from '../contexts/hooks'
 import { ImportUsersLanguage } from '../models/lang'
-import { IoMdAddCircleOutline } from 'react-icons/io'
+import {
+    IoMdAddCircleOutline,
+} from 'react-icons/io'
+import { reqImportUsers } from '../utils/user'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 type InsertUsersProps = {
     type: 'student' | 'teacher'
@@ -17,6 +21,7 @@ export default function ImportUsers({
     const [language, setLanguage] = useState<ImportUsersLanguage>()
     const { appLanguage } = useLanguage()
     const [hide, setHide] = useState(true)
+    const queryClient = useQueryClient()
     const [file, setFile] = useState<File>()
     const handleTurnOffImportMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -33,6 +38,18 @@ export default function ImportUsers({
         if (file) setFile(file)
         else setFile(undefined)
     }
+    const handleUploadFile = async () => {
+        if (!file) return
+        await reqImportUsers(file, type)
+    }
+    const mutation = useMutation({
+        mutationFn: handleUploadFile,
+        onSuccess: () => {
+            queryClient.removeQueries({ queryKey: ['student'] })
+            queryClient.removeQueries({ queryKey: ['teacher'] })
+            queryClient.removeQueries({ queryKey: ['dashboard'] })
+        }
+    })
     useEffect(() => {
         setHide(false)
     }, [])
@@ -50,6 +67,10 @@ export default function ImportUsers({
                 hide ? styles['hide'] : ''
             ].join(' ')
         }>
+            {mutation.isPending ?
+                <div className='data-loading'
+                    style={{ zIndex: 10 }}
+                >Loading...</div> : null}
             <div className={
                 [
                     styles['import-user-form'],
@@ -74,18 +95,28 @@ export default function ImportUsers({
                         styles['drag-area']
                     ].join(' ')
                 }>
-                    <div className={
-                        [
-                            styles['drag-area-dashed']
-                        ].join(' ')
-                    }>
+                    <div
+                        onDragOver={(e) => {
+                            e.currentTarget.classList.add(styles['drag'])
+                        }}
+                        onDrop={(e) => {
+                            e.currentTarget.classList.remove(styles['drag'])
+                        }}
+                        onDragLeave={(e) => {
+                            e.currentTarget.classList.remove(styles['drag'])
+                        }}
+                        className={
+                            [
+                                styles['drag-area-dashed']
+                            ].join(' ')
+                        }>
                         <div className={
                             [
                                 styles['drag-area-content']
                             ].join(' ')
                         }>
                             {
-                                file ? <div>{file.name}</div>
+                                file ? <div className={styles['file-name']} >{file.name}</div>
                                     :
                                     <IoMdAddCircleOutline />
                             }
@@ -97,7 +128,15 @@ export default function ImportUsers({
                     </div>
                 </div>
                 <div className={styles['action-items']}>
-                    <button name='save' className='action-item-d'>{language?.save}</button>
+                    <button
+                        onClick={() => { mutation.mutate() }}
+                        name='save' className={
+                            [
+                                'action-item-d',
+                                mutation.isPending ? styles['pending'] : ''
+                            ].join(' ')
+                        }>{language?.save}
+                    </button>
                     <button name='download' className='action-item-d-white'>{language?.downloadTemplate}</button>
                 </div>
             </div>

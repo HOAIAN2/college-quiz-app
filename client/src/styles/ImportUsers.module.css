@@ -66,6 +66,11 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.drag-area-dashed.drag {
+    background: rgba(108, 164, 249, 0.3);
 }
 
 .drag-area-content {
@@ -73,11 +78,15 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    cursor: pointer;
 }
 
 .drag-area-content>svg {
-    font-size: 48px;
+    font-size: 64px;
+    color: var(--color-blue);
+}
+
+.drag-area-content>.file-name {
+    font-size: 24px;
 }
 
 .drag-area-dashed>input {
@@ -88,7 +97,6 @@
 }
 
 .action-items {
-    /* margin-top: 10px; */
     height: 50px;
     display: flex;
     align-items: center;
@@ -99,6 +107,12 @@
 
 .action-items>button[name="download"] {
     width: fit-content;
+}
+
+.pending {
+    opacity: 0.7;
+    cursor: default;
+    pointer-events: none;
 }
 
 /* @media (width<=800px) {

@@ -27,11 +27,11 @@ export async function reqCreateUser(form: FormData) {
 }
 export async function reqImportUsers(file: File, role: 'student' | 'teacher') {
     if (!getToken()) throw new Error('no token')
+    const data = new FormData()
+    data.append('role', role)
+    data.append('file', file)
     try {
-        await request.post('/user/import', {
-            role: role,
-            file: file
-        })
+        await request.post('/user/import', data)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)
