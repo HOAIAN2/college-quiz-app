@@ -27,9 +27,11 @@ export type UserDetail = {
     course: Course[]
 }
 
+export type RoleName = 'student' | 'teacher' | 'admin'
+
 export type Role = {
     id: number;
-    name: string;
+    name: RoleName;
     displayName: string;
 }
 export interface UserPagination {
@@ -55,7 +57,7 @@ export interface Link {
 }
 
 export type QueryUserType = {
-    type: 'admin' | 'teacher' | 'student'
+    role: 'admin' | 'teacher' | 'student'
     page?: number
     perPage?: 10 | 20 | 30 | 40 | 50,
     search?: string

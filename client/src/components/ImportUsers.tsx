@@ -8,15 +8,16 @@ import {
 } from 'react-icons/io'
 import { reqImportUsers } from '../utils/user'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { studentExcelTemplate } from '../utils/api-config'
+import { studentExcelTemplate, teacherExcelTemplate } from '../utils/api-config'
+import { RoleName } from '../models/user'
 
 type InsertUsersProps = {
-    type: 'student' | 'teacher'
+    role: RoleName
     setImportMode: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function ImportUsers({
-    type,
+    role,
     setImportMode
 }: InsertUsersProps) {
     const [language, setLanguage] = useState<ImportUsersLanguage>()
@@ -41,7 +42,7 @@ export default function ImportUsers({
     }
     const handleUploadFile = async () => {
         if (!file) return
-        await reqImportUsers(file, type)
+        await reqImportUsers(file, role)
     }
     const mutation = useMutation({
         mutationFn: handleUploadFile,
@@ -82,7 +83,7 @@ export default function ImportUsers({
                     <h2 className={styles['title']}>{
                         [
                             language?.import,
-                            language && type ? language[type] : ''
+                            language && role ? language[role] : ''
                         ].join(' ')
                     }</h2>
                     <div className={styles['esc-button']}
@@ -146,8 +147,8 @@ export default function ImportUsers({
                         <a
                             className='action-item-d-white'
                             href={
-                                type == 'student' ? studentExcelTemplate
-                                    : ''
+                                role == 'student' ? studentExcelTemplate
+                                    : teacherExcelTemplate
                             }
                             download=''>{language?.downloadTemplate}</a>
                     </div>

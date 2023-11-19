@@ -10,13 +10,14 @@ import CustomSelect from './CustomSelect'
 import styles from '../styles/CreateUser.module.css'
 import { useLanguage } from '../contexts/hooks'
 import { CreateUserLanguage } from '../models/lang'
+import { RoleName } from '../models/user'
 
 type CreateUserProps = {
-    type: 'student' | 'teacher' | 'admin'
+    role: RoleName
     setInsertMode: React.Dispatch<React.SetStateAction<boolean>>
 }
 export default function CreateUser({
-    type,
+    role,
     setInsertMode
 }: CreateUserProps) {
     const [language, setLanguage] = useState<CreateUserLanguage>()
@@ -41,7 +42,7 @@ export default function CreateUser({
         const submitter = e.nativeEvent.submitter as HTMLButtonElement
         const form = e.target as HTMLFormElement
         const formData = new FormData(form)
-        formData.append('role', type !== undefined ? type : 'student')
+        formData.append('role', role !== undefined ? role : 'student')
         formData.append('gender', gender)
         formData.append('birth_date', birthDate.toISOString().split('T')[0])
         await reqCreateUser(formData)
@@ -100,7 +101,7 @@ export default function CreateUser({
                     <h2 className={styles['title']}>{
                         [
                             language?.create,
-                            language && type ? language[type] : ''
+                            language && role ? language[role] : ''
                         ].join(' ')
                     }</h2>
                     <div className={styles['esc-button']}
@@ -163,7 +164,7 @@ export default function CreateUser({
                                     ].join(' ')
                                 } type="text" />
                         </div>
-                        {type === 'student' ?
+                        {role === 'student' ?
                             <div className={styles['wrap-item']}>
                                 <label className={styles['required']} htmlFor="">{language?.class}</label>
                                 <input

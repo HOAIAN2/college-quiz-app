@@ -24,12 +24,13 @@ import { useSearchParams } from 'react-router-dom'
 import CustomSelect from '../components/CustomSelect'
 import useDebounce from '../hooks/useDebounce'
 import ImportUsers from '../components/ImportUsers'
+import { RoleName } from '../models/user'
 
 type UsersProps = {
-    type: 'student' | 'teacher' | 'admin'
+    role: RoleName
 }
 export default function Users({
-    type
+    role
 }: UsersProps) {
     const [language, setLanguage] = useState<UsersLanguage>()
     const { appLanguage } = useLanguage()
@@ -39,13 +40,13 @@ export default function Users({
     const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
     const queryDebounce = useDebounce(searchQuery, 300) as string
     const queryData = useQuery({
-        queryKey: [type,
+        queryKey: [role,
             searchParams.get('page') || '1',
             searchParams.get('per_page') || '10',
             searchParams.get('search')
         ],
         queryFn: () => reqGetUsersByType({
-            type: type,
+            role: role,
             page: Number(searchParams.get('page')),
             perPage: Number(searchParams.get('per_page')) as 10 | 20 | 30,
             search: searchParams.get('search') as string
@@ -61,7 +62,7 @@ export default function Users({
         //     setSearchParams(searchParams)
         // }
         return () => {
-            if (!window.location.pathname.includes(type)) setSearchParams(new URLSearchParams())
+            if (!window.location.pathname.includes(role)) setSearchParams(new URLSearchParams())
         }
     })
     useEffect(() => {
@@ -83,12 +84,12 @@ export default function Users({
         <>
             {insertMode === true ?
                 <CreateUser
-                    type={type}
+                    role={role}
                     setInsertMode={setInsertMode}
                 /> : null}
             {importMode === true ?
                 <ImportUsers
-                    type={type as 'student' | 'teacher'}
+                    role={role as 'student' | 'teacher'}
                     setImportMode={setImportMode}
                 /> : null}
             <div
@@ -207,7 +208,7 @@ export default function Users({
                                                 <th className={styles['column-id']}>{language?.table.header.id}</th>
                                                 <th className={styles['column-shortcode']}>{language?.table.header.shortcode}</th>
                                                 <th className={styles['column-name']}>{language?.table.header.name}</th>
-                                                {type === 'student' ? <th className={styles['column-class']}>{language?.table.header.class}</th> : null}
+                                                {role === 'student' ? <th className={styles['column-class']}>{language?.table.header.class}</th> : null}
                                                 <th className={styles['column-email']}>{language?.table.header.email}</th>
                                                 <th className={styles['column-address']}>{language?.table.header.address}</th>
                                             </tr>
@@ -247,7 +248,7 @@ export default function Users({
                                             <div className={styles['link-content']}>
                                                 {queryData.data.links.map(link => {
                                                     if (isNaN(Number(link.label))) return (
-                                                        <button key={type + link.label} className={
+                                                        <button key={role + link.label} className={
                                                             [
                                                                 styles['next-previous'],
                                                             ].join(' ')
@@ -264,7 +265,7 @@ export default function Users({
                                                         </button>
                                                     )
                                                     return (
-                                                        <button key={type + link.label} className={
+                                                        <button key={role + link.label} className={
                                                             [
                                                                 'button-d',
                                                                 !link.active ? styles['inactive'] : ''

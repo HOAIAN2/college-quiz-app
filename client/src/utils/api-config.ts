@@ -15,6 +15,7 @@ const ignoreLoaders = [
     '/product/auto-complete'
 ]
 const studentExcelTemplate = host + 'data/Import_Student_Template.xlsx'
+const teacherExcelTemplate = host + 'data/Import_Teacher_Template'
 
 function getToken() {
     const token = localStorage.getItem('token') || '' as string
@@ -66,6 +67,7 @@ request.interceptors.response.use(
 
 export {
     studentExcelTemplate,
+    teacherExcelTemplate,
     getToken,
     getTokenHeader,
 }
