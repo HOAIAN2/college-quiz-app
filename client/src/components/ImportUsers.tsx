@@ -93,58 +93,64 @@ export default function ImportUsers({
                 </div>
                 <div className={
                     [
-                        styles['drag-area']
+                        styles['form-data']
                     ].join(' ')
                 }>
-                    <div
-                        onDragOver={(e) => {
-                            e.currentTarget.classList.add(styles['drag'])
-                        }}
-                        onDrop={(e) => {
-                            e.currentTarget.classList.remove(styles['drag'])
-                        }}
-                        onDragLeave={(e) => {
-                            e.currentTarget.classList.remove(styles['drag'])
-                        }}
-                        className={
-                            [
-                                styles['drag-area-dashed']
-                            ].join(' ')
-                        }>
-                        <div className={
-                            [
-                                styles['drag-area-content']
-                            ].join(' ')
-                        }>
-                            {
-                                file ? <div className={styles['file-name']} >{file.name}</div>
-                                    :
-                                    <IoMdAddCircleOutline />
-                            }
+                    <div className={
+                        [
+                            styles['drag-area']
+                        ].join(' ')
+                    }>
+                        <div
+                            onDragOver={(e) => {
+                                e.currentTarget.classList.add(styles['drag'])
+                            }}
+                            onDrop={(e) => {
+                                e.currentTarget.classList.remove(styles['drag'])
+                            }}
+                            onDragLeave={(e) => {
+                                e.currentTarget.classList.remove(styles['drag'])
+                            }}
+                            className={
+                                [
+                                    styles['drag-area-dashed']
+                                ].join(' ')
+                            }>
+                            <div className={
+                                [
+                                    styles['drag-area-content']
+                                ].join(' ')
+                            }>
+                                {
+                                    file ? <div className={styles['file-name']} >{file.name}</div>
+                                        :
+                                        <IoMdAddCircleOutline />
+                                }
+                            </div>
+                            <input
+                                onChange={handleChangeFile}
+                                accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'
+                                type="file" name="file" />
                         </div>
-                        <input
-                            onChange={handleChangeFile}
-                            accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'
-                            type="file" name="file" />
                     </div>
-                </div>
-                <div className={styles['action-items']}>
-                    <button
-                        onClick={() => { mutation.mutate() }}
-                        name='save' className={
-                            [
-                                'action-item-d',
-                                mutation.isPending ? styles['pending'] : ''
-                            ].join(' ')
-                        }>{language?.save}
-                    </button>
-                    <a
-                        className='action-item-d-white'
-                        href={
-                            type == 'student' ? studentExcelTemplate
-                                : ''
-                        }
-                        download=''>{language?.downloadTemplate}</a>
+                    <div className={styles['action-items']}>
+                        <button
+                            onClick={() => { mutation.mutate() }}
+                            name='save' className={
+                                [
+                                    'action-item-d',
+                                    mutation.isPending ? styles['pending'] : ''
+                                ].join(' ')
+                            }>{language?.save}
+                        </button>
+                        <a
+                            className='action-item-d-white'
+                            href={
+                                type == 'student' ? studentExcelTemplate
+                                    : ''
+                            }
+                            download=''>{language?.downloadTemplate}</a>
+                    </div>
                 </div>
             </div>
         </div>

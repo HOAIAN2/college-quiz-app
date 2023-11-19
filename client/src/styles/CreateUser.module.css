@@ -53,6 +53,9 @@
 
 .form-data {
     height: calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     padding: 10px;
 }
 

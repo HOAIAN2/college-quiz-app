@@ -51,9 +51,18 @@
     cursor: pointer;
 }
 
+.form-data {
+    width: 100%;
+    height: calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+}
+
 .drag-area {
     width: 100%;
-    height: calc(100% - (50px + 40px + 10px));
+    height: calc(100% - (50px));
     position: relative;
 }
 
@@ -102,7 +111,6 @@
     align-items: center;
     flex-direction: row-reverse;
     gap: 10px;
-    padding-right: 10px;
 }
 
 .action-items>a {
