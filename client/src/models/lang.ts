@@ -48,18 +48,22 @@ export type UsersLanguage = {
     add: string
     import: string
     export: string
-    table: {
-        header: {
-            id: string
-            name: string
-            shortcode: string
-            class: string
-            email: string
-            address: string
-        }
-        filter: {
-            perPage: string,
-            search: string
-        }
+    filter: {
+        perPage: string,
+        search: string
+    }
+}
+export type UsersTableLanguage = {
+    header: {
+        id: string
+        name: string
+        shortcode: string
+        class: string
+        email: string
+        address: string
+    }
+    filter: {
+        perPage: string,
+        search: string
     }
 }

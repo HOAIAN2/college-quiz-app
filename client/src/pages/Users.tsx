@@ -6,14 +6,6 @@ import {
     BiImport,
     BiExport
 } from 'react-icons/bi'
-import {
-    GiFemale,
-    GiMale
-} from 'react-icons/gi'
-import {
-    GrFormNext,
-    GrFormPrevious,
-} from 'react-icons/gr'
 import CreateUser from '../components/CreateUser'
 import { UsersLanguage } from '../models/lang'
 import { useLanguage } from '../contexts/hooks'
@@ -25,6 +17,7 @@ import CustomSelect from '../components/CustomSelect'
 import useDebounce from '../hooks/useDebounce'
 import ImportUsers from '../components/ImportUsers'
 import { RoleName } from '../models/user'
+import UsersTable from '../components/UsersTable'
 
 type UsersProps = {
     role: RoleName
@@ -53,14 +46,6 @@ export default function Users({
         })
     })
     useEffect(() => {
-        // if (!searchParams.has('page')) {
-        //     searchParams.set('page', '1')
-        //     setSearchParams(searchParams)
-        // }
-        // if (!searchParams.has('per_page')) {
-        //     searchParams.set('per_page', '10')
-        //     setSearchParams(searchParams)
-        // }
         return () => {
             if (!window.location.pathname.includes(role)) setSearchParams(new URLSearchParams())
         }
@@ -137,7 +122,7 @@ export default function Users({
                 <div className={styles['users-content']}>
                     <div className={styles['filter-form']}>
                         <div className={styles['wrap-input-item']}>
-                            <label htmlFor="">{language?.table.filter.perPage}</label>
+                            <label htmlFor="">{language?.filter.perPage}</label>
                             <CustomSelect
                                 defaultOption={
                                     {
@@ -179,7 +164,7 @@ export default function Users({
                             />
                         </div>
                         <div className={styles['wrap-input-item']}>
-                            <label htmlFor="">{language?.table.filter.search}</label>
+                            <label htmlFor="">{language?.filter.search}</label>
                             <input
                                 onInput={(e) => {
                                     setSearchQuery(e.currentTarget.value)
@@ -200,91 +185,12 @@ export default function Users({
                             <div className='data-loading'>Loading...</div>
                             : null}
                         {!queryData.isError && queryData.data ?
-                            <div className={styles['table-content']}>
-                                <table className={styles['main']}>
-                                    <>
-                                        <thead>
-                                            <tr className={styles['table-header']}>
-                                                <th className={styles['column-id']}>{language?.table.header.id}</th>
-                                                <th className={styles['column-shortcode']}>{language?.table.header.shortcode}</th>
-                                                <th className={styles['column-name']}>{language?.table.header.name}</th>
-                                                {role === 'student' ? <th className={styles['column-class']}>{language?.table.header.class}</th> : null}
-                                                <th className={styles['column-email']}>{language?.table.header.email}</th>
-                                                <th className={styles['column-address']}>{language?.table.header.address}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                queryData.data.data.map(user => {
-                                                    return (
-                                                        <tr key={user.id}>
-                                                            <td className={styles['column-id']}>{user.id}</td>
-                                                            <td className={styles['column-content-shortcode']}>{user.shortcode}</td>
-                                                            <td className={
-                                                                [
-                                                                    styles['column-content-name'],
-                                                                    user.gender == 'male' ? styles['male'] : styles['female']
-                                                                ].join(' ')
-                                                            }>
-                                                                {user.gender == 'male' ? <GiMale /> : <GiFemale />}
-                                                                {`${user.lastName} ${user.firstName}`}
-                                                            </td>
-                                                            <td className={styles['column-content-class']}>{user.class}</td>
-                                                            <td className={styles['column-content-email']}>{user.email}</td>
-                                                            <td className={styles['column-content-address']}>{user.address}</td>
-                                                        </tr>
-                                                    )
-                                                })
-                                            }
-                                        </tbody>
-                                    </>
-                                </table>
-                                <div className={styles['table-footer']}>
-                                    <span>
-                                        {queryData.data.from} - {queryData.data.to} / {queryData.data.total}
-                                    </span>
-                                    <div className={styles['table-links']}>
-                                        {
-                                            <div className={styles['link-content']}>
-                                                {queryData.data.links.map(link => {
-                                                    if (isNaN(Number(link.label))) return (
-                                                        <button key={role + link.label} className={
-                                                            [
-                                                                styles['next-previous'],
-                                                            ].join(' ')
-                                                        }
-                                                            onClick={() => {
-                                                                if (!link.url) return
-                                                                const url = new URL(link.url)
-                                                                searchParams.set('page', url.searchParams.get('page') || '1')
-                                                                setSearchParams(searchParams)
-                                                            }}
-                                                        >
-                                                            {link.label === '...' ? '...' : link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />}
-                                                            {/* {link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />} */}
-                                                        </button>
-                                                    )
-                                                    return (
-                                                        <button key={role + link.label} className={
-                                                            [
-                                                                'button-d',
-                                                                !link.active ? styles['inactive'] : ''
-                                                            ].join(' ')
-                                                        }
-                                                            onClick={() => {
-                                                                if (!link.url) return
-                                                                const url = new URL(link.url)
-                                                                searchParams.set('page', url.searchParams.get('page') || '1')
-                                                                setSearchParams(searchParams)
-                                                            }}
-                                                        >{link.label}</button>
-                                                    )
-                                                })}
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
+                            <UsersTable
+                                role={role}
+                                data={queryData.data}
+                                searchParams={searchParams}
+                                setSearchParams={setSearchParams}
+                            />
                             : null}
                     </div>
                 </div>

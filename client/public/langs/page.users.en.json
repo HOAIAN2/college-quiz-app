@@ -2,18 +2,8 @@
     "add": "Add",
     "import": "Import",
     "export": "Export",
-    "table": {
-        "header": {
-            "id": "ID",
-            "name": "Name",
-            "shortcode": "Shortcode",
-            "class": "Class",
-            "email": "Email",
-            "address": "Address"
-        },
-        "filter": {
-            "perPage": "Rows",
-            "search": "Search"
-        }
+    "filter": {
+        "perPage": "Rows",
+        "search": "Search"
     }
 }

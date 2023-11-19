@@ -57,7 +57,7 @@ export interface Link {
 }
 
 export type QueryUserType = {
-    role: 'admin' | 'teacher' | 'student'
+    role: RoleName
     page?: number
     perPage?: 10 | 20 | 30 | 40 | 50,
     search?: string

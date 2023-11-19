@@ -57,11 +57,11 @@ const router = createBrowserRouter([
           },
           {
             path: 'teachers',
-            element: <Suspense fallback={<Loading />}><Users type='teacher' /></Suspense>
+            element: <Suspense fallback={<Loading />}><Users role='teacher' /></Suspense>
           },
           {
             path: 'students',
-            element: <Suspense fallback={<Loading />}><Users type='student' /></Suspense>
+            element: <Suspense fallback={<Loading />}><Users role='student' /></Suspense>
           },
         ]
       }
