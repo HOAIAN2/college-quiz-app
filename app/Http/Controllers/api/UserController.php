@@ -60,6 +60,7 @@ class UserController extends Controller
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
         } catch (\Throwable $error) {
+            Log::error($error->getMessage());
             DB::rollBack();
             return Reply::error('app.errors.failToSaveRecord');
         }
@@ -117,7 +118,7 @@ class UserController extends Controller
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
         } catch (\Throwable $error) {
-            error_log($error->getMessage());
+            Log::error($error->getMessage());
             DB::rollBack();
             return Reply::error('app.errors.failToSaveRecord');
         }
@@ -155,7 +156,8 @@ class UserController extends Controller
                     $data->courses = [];
                     break;
             }
-        } catch (\Throwable $th) {
+        } catch (\Throwable $error) {
+            Log::error($error->getMessage());
             return Reply::error('app.errors.serverError');
         }
         return $data;
