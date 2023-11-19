@@ -38,7 +38,7 @@ php artisan db:seed
 
 ## Databse Diagram
 
-![DB Diagram](./img/DB_Diagram.svg)
+![DB Diagram](./img/college-quiz-app.png)
 
 ## Demo
 
