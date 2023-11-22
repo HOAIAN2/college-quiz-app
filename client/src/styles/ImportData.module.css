@@ -1,4 +1,4 @@
-.import-user-container {
+.import-data-container {
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -14,11 +14,11 @@
     transition-property: background, opacity;
 }
 
-.import-user-container.hide {
+.import-data-container.hide {
     opacity: 0;
 }
 
-.import-user-form {
+.import-data-form {
     width: 70%;
     height: 50%;
     border-radius: var(--border-radius-low);
@@ -29,7 +29,7 @@
     transition: var(--transition-timing-medium);
 }
 
-.import-user-form.hide {
+.import-data-form.hide {
     opacity: 0;
     scale: 0.9;
 }

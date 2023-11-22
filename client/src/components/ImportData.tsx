@@ -79,7 +79,7 @@ export default function ImportData({
         <div
             className={
                 [
-                    styles['import-user-container'],
+                    styles['import-data-container'],
                     hide ? styles['hide'] : ''
                 ].join(' ')
             }>
@@ -90,7 +90,7 @@ export default function ImportData({
             <div
                 className={
                     [
-                        styles['import-user-form'],
+                        styles['import-data-form'],
                         hide ? styles['hide'] : ''
                     ].join(' ')
                 }>
