@@ -1,26 +1,28 @@
 import { useEffect, useRef, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
 import { useLanguage } from '../contexts/hooks'
-import { ImportUsersLanguage } from '../models/lang'
+import { ImportDataLanguage } from '../models/lang'
 import {
     IoMdAddCircleOutline,
 } from 'react-icons/io'
-import { reqImportUsers } from '../utils/user'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { studentExcelTemplate, teacherExcelTemplate } from '../utils/api-config'
-import { RoleName } from '../models/user'
-import styles from '../styles/ImportUsers.module.css'
+import styles from '../styles/ImportData.module.css'
 
-type InsertUsersProps = {
-    role: RoleName
-    setImportMode: React.Dispatch<React.SetStateAction<boolean>>
+type ImportDataProps = {
+    title: string,
+    teamplateUrl: string
+    importFunction: (file: File) => Promise<void>
+    setImportMode: React.Dispatch<React.SetStateAction<boolean>>,
+    queryKeys: unknown[]
 }
-
-export default function ImportUsers({
-    role,
-    setImportMode
-}: InsertUsersProps) {
-    const [language, setLanguage] = useState<ImportUsersLanguage>()
+export default function ImportData({
+    title,
+    teamplateUrl,
+    importFunction,
+    setImportMode,
+    queryKeys
+}: ImportDataProps) {
+    const [language, setLanguage] = useState<ImportDataLanguage>()
     const { appLanguage } = useLanguage()
     const [hide, setHide] = useState(true)
     const queryClient = useQueryClient()
@@ -53,23 +55,23 @@ export default function ImportUsers({
     }
     const handleUploadFile = async () => {
         if (!file) return
-        await reqImportUsers(file, role)
+        await importFunction(file)
     }
     const mutation = useMutation({
         mutationFn: handleUploadFile,
         onSuccess: () => {
-            queryClient.removeQueries({ queryKey: ['student'] })
-            queryClient.removeQueries({ queryKey: ['teacher'] })
-            queryClient.removeQueries({ queryKey: ['dashboard'] })
+            queryKeys.forEach(key => {
+                queryClient.removeQueries({ queryKey: [key] })
+            })
         }
     })
     useEffect(() => {
         setHide(false)
     }, [])
     useEffect(() => {
-        fetch(`/langs/component.import_user.${appLanguage}.json`)
+        fetch(`/langs/component.import_data.${appLanguage}.json`)
             .then(res => res.json())
-            .then((data: ImportUsersLanguage) => {
+            .then((data: ImportDataLanguage) => {
                 setLanguage(data)
             })
     }, [appLanguage])
@@ -93,12 +95,7 @@ export default function ImportUsers({
                     ].join(' ')
                 }>
                 <div className={styles['header']}>
-                    <h2 className={styles['title']}>{
-                        [
-                            language?.import,
-                            language && role ? language[role] : ''
-                        ].join(' ')
-                    }</h2>
+                    <h2 className={styles['title']}>{title}</h2>
                     <div className={styles['esc-button']}
                         onClick={handleTurnOffImportMode}
                     >
@@ -164,10 +161,7 @@ export default function ImportUsers({
                         </button>
                         <a
                             className='action-item-d-white'
-                            href={
-                                role == 'student' ? studentExcelTemplate
-                                    : teacherExcelTemplate
-                            }
+                            href={teamplateUrl}
                             download=''>{language?.downloadTemplate}</a>
                     </div>
                 </div>

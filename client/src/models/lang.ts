@@ -30,11 +30,7 @@ export type CreateUserLanguage = {
     save: string
     saveMore: string
 }
-export type ImportUsersLanguage = {
-    import: string
-    student: string
-    teacher: string
-    admin: string
+export type ImportDataLanguage = {
     save: string
     downloadTemplate: string
 }
@@ -48,6 +44,9 @@ export type UsersLanguage = {
     add: string
     import: string
     export: string
+    student: string,
+    teacher: string,
+    admin: string,
     filter: {
         perPage: string,
         search: string

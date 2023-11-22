@@ -11,13 +11,14 @@ import { UsersLanguage } from '../models/lang'
 import { useLanguage } from '../contexts/hooks'
 import styles from '../styles/Users.module.css'
 import { useQuery } from '@tanstack/react-query'
-import { reqGetUsersByType } from '../utils/user'
+import { reqGetUsersByType, reqImportUsers } from '../utils/user'
 import { useSearchParams } from 'react-router-dom'
 import CustomSelect from '../components/CustomSelect'
 import useDebounce from '../hooks/useDebounce'
-import ImportUsers from '../components/ImportUsers'
+import ImportData from '../components/ImportData'
 import { RoleName } from '../models/user'
 import UsersTable from '../components/UsersTable'
+import { templateFileUrl } from '../utils/api-config'
 
 type UsersProps = {
     role: RoleName
@@ -45,6 +46,9 @@ export default function Users({
             search: searchParams.get('search') as string
         })
     })
+    const importFunction = async (file: File) => {
+        return reqImportUsers(file, role)
+    }
     useEffect(() => {
         return () => {
             if (!window.location.pathname.includes(role)) setSearchParams(new URLSearchParams())
@@ -73,8 +77,20 @@ export default function Users({
                     setInsertMode={setInsertMode}
                 /> : null}
             {importMode === true ?
-                <ImportUsers
-                    role={role as 'student' | 'teacher'}
+                <ImportData
+                    title={[
+                        language?.import,
+                        language ? language[role] : ''
+                    ].join(' ')
+                    }
+                    teamplateUrl={templateFileUrl[role]}
+                    queryKeys={[
+                        'dashboard',
+                        'student',
+                        'teacher',
+                        'admin'
+                    ]}
+                    importFunction={importFunction}
                     setImportMode={setImportMode}
                 /> : null}
             <div

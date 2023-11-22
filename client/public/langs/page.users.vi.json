@@ -2,6 +2,9 @@
     "add": "Thêm",
     "import": "Nhập",
     "export": "Xuất",
+    "student": "Học sinh",
+    "teacher": "Giáo viên",
+    "admin": "Admin",
     "filter": {
         "perPage": "Số hàng",
         "search": "Tìm kiếm"

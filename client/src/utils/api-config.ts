@@ -3,6 +3,10 @@ import toast from './toast'
 import { getLanguage } from './languages'
 const env = import.meta.env
 
+type TemplateFileUrl = {
+    [key: string]: string;
+}
+
 const host = env.DEV === true ? `${window.location.origin.replace(env.VITE_DEV_PORT, env.VITE_DEV_SERVER_PORT)}/`
     : `${window.location.origin}/`
 
@@ -14,8 +18,10 @@ const ignoreLoaders = [
     '/product/suggest',
     '/product/auto-complete'
 ]
-const studentExcelTemplate = host + 'data/Import_Student_Template.xlsx'
-const teacherExcelTemplate = host + 'data/Import_Teacher_Template.xlsx'
+const templateFileUrl = {
+    student: host + 'data/Import_Student_Template.xlsx',
+    teacher: host + 'data/Import_Teacher_Template.xlsx',
+} as TemplateFileUrl
 
 function getToken() {
     const token = localStorage.getItem('token') || '' as string
@@ -66,8 +72,7 @@ request.interceptors.response.use(
 )
 
 export {
-    studentExcelTemplate,
-    teacherExcelTemplate,
+    templateFileUrl,
     getToken,
     getTokenHeader,
 }

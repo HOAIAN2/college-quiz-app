@@ -2,6 +2,9 @@
     "add": "Add",
     "import": "Import",
     "export": "Export",
+    "student": "Student",
+    "teacher": "Teacher",
+    "admin": "Admin",
     "filter": {
         "perPage": "Rows",
         "search": "Search"
