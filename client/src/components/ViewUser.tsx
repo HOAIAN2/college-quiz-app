@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import styles from '../styles/ViewUser.module.css'
 import { RxCross2 } from 'react-icons/rx'
 import { useQuery } from '@tanstack/react-query'
 import { reqGetUsersById } from '../utils/user'
 import Loading from './Loading'
+import styles from '../styles/ViewUser.module.css'
 
 type ViewUserProps = {
     id: number
