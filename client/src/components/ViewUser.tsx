@@ -3,6 +3,9 @@ import { RxCross2 } from 'react-icons/rx'
 import { useQuery } from '@tanstack/react-query'
 import { reqGetUsersById } from '../utils/user'
 import Loading from './Loading'
+import { useLanguage } from '../contexts/hooks'
+import { ViewUserLanguage } from '../models/lang'
+
 import styles from '../styles/ViewUser.module.css'
 
 type ViewUserProps = {
@@ -13,6 +16,8 @@ export default function ViewUser({
     id,
     setViewMode
 }: ViewUserProps) {
+    const [language, setLanguage] = useState<ViewUserLanguage>()
+    const { appLanguage } = useLanguage()
     const [hide, setHide] = useState(true)
     const handleTurnOffImportMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -24,11 +29,18 @@ export default function ViewUser({
     }
     const queryData = useQuery({
         queryKey: [`user-${id}`],
-        queryFn: () => reqGetUsersById(id)
+        queryFn: () => reqGetUsersById(id),
     })
     useEffect(() => {
         setHide(false)
     }, [])
+    useEffect(() => {
+        fetch(`/langs/component.view_user.${appLanguage}.json`)
+            .then(res => res.json())
+            .then((data: ViewUserLanguage) => {
+                setLanguage(data)
+            })
+    }, [appLanguage])
     return (
         <div
             className={
@@ -58,6 +70,16 @@ export default function ViewUser({
                         onClick={handleTurnOffImportMode}
                     >
                         <RxCross2 />
+                    </div>
+                </div>
+                <div className={styles['form-data']}>
+                    <div className={
+                        [
+                            styles['form-content']
+                        ].join(' ')
+                    }></div>
+                    <div className={styles['action-items']}>
+                        <button name='save' className='action-item-d'>{language?.save}</button>
                     </div>
                 </div>
             </div>

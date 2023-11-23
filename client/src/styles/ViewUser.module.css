@@ -53,49 +53,15 @@
 
 .form-data {
     width: 100%;
-    height: calc(100% - 40px);
+    height: calc(100% - (40px));
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 10px;
 }
 
-.drag-area {
-    width: 100%;
-    height: calc(100% - (50px));
-    position: relative;
-}
-
-.drag-area-dashed {
-    width: 93%;
-    height: 93%;
-    border: 3px dashed var(--color-blue);
-    border-radius: var(--border-radius-medium);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-}
-
-.drag-area-dashed.drag {
-    background: rgba(108, 164, 249, 0.3);
-}
-
-.drag-area-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.drag-area-content>svg {
-    font-size: 64px;
-    color: var(--color-blue);
-}
-
-.drag-area-content>.file-name {
-    font-size: 24px;
+.form-content {
+    flex: 1;
 }
 
 .action-items {
@@ -104,10 +70,6 @@
     align-items: center;
     flex-direction: row-reverse;
     gap: 10px;
-}
-
-.action-items>a {
-    width: fit-content;
 }
 
 .pending {

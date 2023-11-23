@@ -52,6 +52,21 @@ export type UsersLanguage = {
         search: string
     }
 }
+export type ViewUserLanguage = {
+    student: string
+    teacher: string
+    admin: string
+    genders: Genders
+    email: string
+    firstName: string
+    lastName: string
+    shortcode: string
+    class: string
+    address: string
+    birthDate: string
+    password: string
+    save: string
+}
 export type UsersTableLanguage = {
     header: {
         id: string
