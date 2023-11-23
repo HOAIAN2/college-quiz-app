@@ -177,7 +177,6 @@ class UserController extends Controller
      */
     public function destroy(DeleteRequest $request)
     {
-        dd($request->ids);
         $user = $this->getUser();
         if (!$user->isAdmin()) return Reply::error('permission.errors.403');
         try {
