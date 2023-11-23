@@ -29,7 +29,6 @@ export default function ViewUser({
     useEffect(() => {
         setHide(false)
     }, [])
-    console.log(queryData.data)
     return (
         <div
             className={
@@ -49,7 +48,12 @@ export default function ViewUser({
                     ].join(' ')
                 }>
                 <div className={styles['header']}>
-                    <h2 className={styles['title']}></h2>
+                    <h2 className={styles['title']}>{
+                        [
+                            queryData.data?.user.lastName,
+                            queryData.data?.user.firstName
+                        ].join(' ')
+                    }</h2>
                     <div className={styles['esc-button']}
                         onClick={handleTurnOffImportMode}
                     >
