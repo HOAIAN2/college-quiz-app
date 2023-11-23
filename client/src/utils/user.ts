@@ -67,12 +67,11 @@ export async function reqGetUsersById(id: string | number) {
 }
 export async function reqDeleteUserByIds(ids: string[] | number[]) {
     try {
-        const res = await request.delete('/user/', {
+        await request.delete('/user/', {
             params: {
                 ids: ids,
             }
         })
-        return res.data as UserDetail
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         throw new Error(error.message)
