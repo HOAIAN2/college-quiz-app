@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\DeleteRequest;
 use App\Http\Requests\User\GetByTypeRequest;
 use App\Http\Requests\User\ImportRequest;
 use App\Http\Requests\User\StoreRequest;
@@ -174,8 +175,17 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(DeleteRequest $request)
     {
-        //
+        dd($request->ids);
+        $user = $this->getUser();
+        if (!$user->isAdmin()) return Reply::error('permission.errors.403');
+        try {
+            User::destroy($request->ids);
+            return Reply::successWithMessage('app.successes.recordDeleteSuccess');
+        } catch (\Throwable $error) {
+            Log::error($error->getMessage());
+            return Reply::error('app.errors.serverError');
+        }
     }
 }
