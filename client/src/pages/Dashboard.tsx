@@ -10,15 +10,13 @@ import {
 } from 'react-icons/si'
 import styles from '../styles/Dashboard.module.css'
 import { Link } from 'react-router-dom'
+import Loading from '../components/Loading'
 
 export default function Dashboard() {
     const queryData = useQuery({
         queryKey: ['dashboard'],
         queryFn: reqGetDashboard
     })
-    // if (queryData.isLoading) return <div className='data-loading'>Loading...</div>
-    // if (queryData.isError) return <div className='data-loading'>Loading...</div>
-    // return <div className='data-loading'>Loading...</div>
     return (
         <div
             className={
@@ -29,7 +27,7 @@ export default function Dashboard() {
             }
         >
             {queryData.isLoading ?
-                <div className='data-loading'>Loading...</div>
+                <Loading />
                 : null}
             {
                 !queryData.isError && queryData.data ?

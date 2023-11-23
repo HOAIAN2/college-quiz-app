@@ -19,6 +19,7 @@ import ImportData from '../components/ImportData'
 import { RoleName } from '../models/user'
 import UsersTable from '../components/UsersTable'
 import { templateFileUrl } from '../utils/api-config'
+import Loading from '../components/Loading'
 
 type UsersProps = {
     role: RoleName
@@ -196,9 +197,8 @@ export default function Users({
                         </div>
                     </div>
                     <div className={styles['wrap-table']}>
-                        {/* <div className='data-loading'>Loading...</div> */}
                         {queryData.isLoading ?
-                            <div className='data-loading'>Loading...</div>
+                            <Loading />
                             : null}
                         {!queryData.isError && queryData.data ?
                             <UsersTable

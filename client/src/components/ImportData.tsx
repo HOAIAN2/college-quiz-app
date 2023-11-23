@@ -9,7 +9,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import styles from '../styles/ImportData.module.css'
 
 type ImportDataProps = {
-    title: string,
+    title?: string,
     teamplateUrl: string
     importFunction: (file: File) => Promise<void>
     setImportMode: React.Dispatch<React.SetStateAction<boolean>>,
