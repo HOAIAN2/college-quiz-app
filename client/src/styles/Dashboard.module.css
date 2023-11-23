@@ -16,7 +16,9 @@
 }
 
 .dashboard-item {
-    width: 220px;
+    flex: 1;
+    min-width: 150px;
+    max-width: 200px;
     height: 150px;
     background: var(--color-blue);
     border-radius: var(--border-radius-low);
