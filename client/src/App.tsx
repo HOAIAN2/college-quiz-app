@@ -61,11 +61,15 @@ const router = createBrowserRouter([
           },
           {
             path: 'students',
-            element: <Suspense fallback={<SuspenseLoading />}><Users role='student' /></Suspense>,
             children: [
               {
-                path: '*',
+                index: true,
                 element: <Suspense fallback={<SuspenseLoading />}><Users role='student' /></Suspense>
+              },
+              {
+                // Build Later
+                path: '*',
+                element: <NotFound />
               }
             ]
           },
