@@ -61,7 +61,13 @@ const router = createBrowserRouter([
           },
           {
             path: 'students',
-            element: <Suspense fallback={<SuspenseLoading />}><Users role='student' /></Suspense>
+            element: <Suspense fallback={<SuspenseLoading />}><Users role='student' /></Suspense>,
+            children: [
+              {
+                path: '*',
+                element: <Suspense fallback={<SuspenseLoading />}><Users role='student' /></Suspense>
+              }
+            ]
           },
         ]
       }

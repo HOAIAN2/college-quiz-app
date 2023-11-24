@@ -7,6 +7,7 @@ import { useLanguage } from '../contexts/hooks'
 import { ViewUserLanguage } from '../models/lang'
 
 import styles from '../styles/ViewUser.module.css'
+import { useNavigate } from 'react-router-dom'
 
 type ViewUserProps = {
     id: number
@@ -19,6 +20,7 @@ export default function ViewUser({
     const [language, setLanguage] = useState<ViewUserLanguage>()
     const { appLanguage } = useLanguage()
     const [hide, setHide] = useState(true)
+    const navigate = useNavigate()
     const handleTurnOffImportMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
         const timing = Number(transitionTiming.replace('s', '')) * 1000
@@ -26,6 +28,7 @@ export default function ViewUser({
         setTimeout(() => {
             setViewMode(false)
         }, timing)
+        navigate(-1)
     }
     const queryData = useQuery({
         queryKey: [`user-${id}`],
@@ -34,6 +37,12 @@ export default function ViewUser({
     useEffect(() => {
         setHide(false)
     }, [])
+    useEffect(() => {
+        if (location.pathname.endsWith(id.toString())) return
+        const newPath = !location.pathname.endsWith('/') ? location.pathname + '/' + id
+            : location.pathname + id
+        history.pushState({}, '', newPath)
+    }, [id])
     useEffect(() => {
         fetch(`/langs/component.view_user.${appLanguage}.json`)
             .then(res => res.json())
