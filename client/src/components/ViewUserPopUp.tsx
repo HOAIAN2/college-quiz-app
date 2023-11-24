@@ -31,9 +31,9 @@ export default function ViewUserPopUp({
     useEffect(() => {
         const currentPath = location.pathname.split('/')
         const currentId = currentPath.pop() || currentPath.pop() as string
-        if (location.pathname.endsWith(id.toString())) return
-        const newPath = !location.pathname.endsWith('/') ? location.pathname + '/' + id || currentId
-            : location.pathname + id || currentId
+        if (id.toString() === currentId) return
+        const newPath = !location.pathname.endsWith('/') ? location.pathname + '/' + id
+            : location.pathname + id
         history.pushState({}, '', newPath)
     }, [id])
     return (
