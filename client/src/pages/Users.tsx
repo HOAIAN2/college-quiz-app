@@ -8,7 +8,7 @@ import {
 } from 'react-icons/bi'
 import CreateUser from '../components/CreateUser'
 import { UsersLanguage } from '../models/lang'
-import { useLanguage } from '../contexts/hooks'
+import { useAppContext } from '../contexts/hooks'
 import styles from '../styles/Users.module.css'
 import { useQuery } from '@tanstack/react-query'
 import { reqGetUsersByType, reqImportUsers } from '../utils/user'
@@ -28,7 +28,7 @@ export default function Users({
     role
 }: UsersProps) {
     const [language, setLanguage] = useState<UsersLanguage>()
-    const { appLanguage } = useLanguage()
+    const { appLanguage } = useAppContext()
     const [insertMode, setInsertMode] = useState(false)
     const [importMode, setImportMode] = useState(false)
     const [searchParams, setSearchParams] = useSearchParams()
@@ -56,7 +56,7 @@ export default function Users({
         }
     })
     useEffect(() => {
-        fetch(`/langs/page.users.${appLanguage}.json`)
+        fetch(`/langs/page.users.${appLanguage.language}.json`)
             .then(res => res.json())
             .then((data) => {
                 setLanguage(data)

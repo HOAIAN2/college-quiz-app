@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { reqGetUser } from '../utils/user'
-import { useUserData } from '../contexts/hooks'
+import { useAppContext } from '../contexts/hooks'
 import { USER_ACTION } from '../contexts/UserContext'
 import styles from '../styles/AuthLayout.module.css'
 import Footer from '../components/Footer'
@@ -9,12 +9,12 @@ import Footer from '../components/Footer'
 export default function AuthLayout() {
     const navigate = useNavigate()
     const location = useLocation()
-    const { dispatchUser } = useUserData()
+    const { user } = useAppContext()
     useEffect(() => {
         const prePage = location.state?.from
         reqGetUser()
             .then(data => {
-                dispatchUser({ type: USER_ACTION.SET, payload: data })
+                user.dispatchUser({ type: USER_ACTION.SET, payload: data })
                 navigate(prePage?.pathname || '/')
             })
             .catch(() => {

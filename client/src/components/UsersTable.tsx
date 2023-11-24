@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { SetURLSearchParams } from 'react-router-dom'
 import { GiFemale, GiMale } from 'react-icons/gi'
 import { RoleName, UserPagination } from '../models/user'
-import { useLanguage } from '../contexts/hooks'
+import { useAppContext } from '../contexts/hooks'
 import { UsersTableLanguage } from '../models/lang'
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
 import ViewUserPopUp from './ViewUserPopUp'
@@ -23,13 +23,13 @@ export default function UsersTable({
     const [language, setLanguage] = useState<UsersTableLanguage>()
     const [viewMode, setViewMode] = useState(false)
     const [userId, setUserId] = useState<number>(0)
-    const { appLanguage } = useLanguage()
+    const { appLanguage } = useAppContext()
     const handleViewUser = (id: number) => {
         setUserId(id)
         setViewMode(true)
     }
     useEffect(() => {
-        fetch(`/langs/page.users_table.${appLanguage}.json`)
+        fetch(`/langs/page.users_table.${appLanguage.language}.json`)
             .then(res => res.json())
             .then((data) => {
                 setLanguage(data)

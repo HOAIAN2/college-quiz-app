@@ -8,7 +8,7 @@ import { reqCreateUser } from '../utils/user'
 import { useMutation } from '@tanstack/react-query'
 import CustomSelect from './CustomSelect'
 import styles from '../styles/CreateUser.module.css'
-import { useLanguage } from '../contexts/hooks'
+import { useAppContext } from '../contexts/hooks'
 import { CreateUserLanguage } from '../models/lang'
 import { RoleName } from '../models/user'
 
@@ -21,7 +21,7 @@ export default function CreateUser({
     setInsertMode
 }: CreateUserProps) {
     const [language, setLanguage] = useState<CreateUserLanguage>()
-    const { appLanguage } = useLanguage()
+    const { appLanguage } = useAppContext()
     const [hide, setHide] = useState(true)
     const [gender, setGender] = useState('male')
     const [birthDate, setBirthDate] = useState<Date>(new Date())

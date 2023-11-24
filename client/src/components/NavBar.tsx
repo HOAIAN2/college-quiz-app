@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useLanguage, useDOMContext, useUserData } from '../contexts/hooks'
+import { useAppContext } from '../contexts/hooks'
 import {
     AiOutlineQuestionCircle,
     AiOutlineUser
@@ -21,10 +21,8 @@ import { Link } from 'react-router-dom'
 import { DashboardLanguage } from '../models/lang'
 
 export default function NavBar() {
-    const { sideBarRef, titleRef } = useDOMContext()
+    const { DOM, user, appLanguage } = useAppContext()
     const [language, setLanguage] = useState<DashboardLanguage>()
-    const { appLanguage } = useLanguage()
-    const { user } = useUserData()
     // if (user) user.role.name = 'teacher'
     const features = {
         admin: [
@@ -145,7 +143,7 @@ export default function NavBar() {
         ]
     }
     useEffect(() => {
-        fetch(`/langs/component.dashboard.${appLanguage}.json`)
+        fetch(`/langs/component.dashboard.${appLanguage.language}.json`)
             .then(res => res.json())
             .then((data: DashboardLanguage) => {
                 setLanguage(data)
@@ -153,34 +151,34 @@ export default function NavBar() {
     }, [appLanguage])
     useEffect(() => {
         function updateSize() {
-            if (window.innerWidth < 800) sideBarRef.current?.classList.add(styles['hide'])
-            else sideBarRef.current?.classList.remove(styles['hide'])
+            if (window.innerWidth < 800) DOM.sideBarRef.current?.classList.add(styles['hide'])
+            else DOM.sideBarRef.current?.classList.remove(styles['hide'])
         }
         window.addEventListener('resize', updateSize);
         return () => window.removeEventListener('resize', updateSize);
-    }, [sideBarRef])
+    }, [DOM.sideBarRef])
     useEffect(() => {
-        const currentFeature = features[user?.role.name as keyof typeof features].find(feature => {
+        const currentFeature = features[user.user?.role.name as keyof typeof features].find(feature => {
             return feature.to === window.location.pathname.split('/')[1]
         })
         if (currentFeature?.name) document.title = currentFeature.name
-        if (currentFeature?.name && titleRef.current) {
-            titleRef.current.textContent = currentFeature?.name + ' • ' + document.title
+        if (currentFeature?.name && DOM.titleRef.current) {
+            DOM.titleRef.current.textContent = currentFeature?.name + ' • ' + document.title
         }
     })
     return (
-        <div ref={sideBarRef} className={
+        <div ref={DOM.sideBarRef} className={
             [
                 styles['nav-bar'],
                 window.innerWidth < 800 ? styles['hide'] : ''
             ].join(' ')
         }>
             <ul className={styles['list']}>{
-                features[user?.role.name as keyof typeof features]?.map((feature, index) => {
+                features[user.user?.role.name as keyof typeof features]?.map((feature, index) => {
                     return (
                         <li onClick={e => {
                             e.currentTarget.querySelector('a')?.click()
-                            if (window.innerWidth < 800) sideBarRef.current?.classList.add(styles['hide'])
+                            if (window.innerWidth < 800) DOM.sideBarRef.current?.classList.add(styles['hide'])
                         }} key={index} className={
                             [
                                 styles['list-item'],

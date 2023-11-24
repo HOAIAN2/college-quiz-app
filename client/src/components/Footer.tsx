@@ -1,8 +1,8 @@
-import { useLanguage } from '../contexts/hooks'
+import { useAppContext } from '../contexts/hooks'
 import styles from '../styles/Footer.module.css'
 
 export default function Footer() {
-    const { appLanguage, setAppLanguage } = useLanguage()
+    const { appLanguage } = useAppContext()
     return (
         <footer className={styles['footer']}>
             <span>
@@ -17,9 +17,9 @@ export default function Footer() {
                 <li><a>Contact</a></li>
                 <li><a>About</a></li>
             </ul>
-            <select value={appLanguage}
+            <select value={appLanguage.language}
                 onChange={(e) => {
-                    setAppLanguage(e.currentTarget.value)
+                    appLanguage.setLanguage(e.currentTarget.value)
                     localStorage.setItem('lang', e.currentTarget.value)
                 }}>
                 <option value="en">English</option>

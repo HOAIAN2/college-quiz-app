@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { reqGetUsersById } from '../utils/user'
 import Loading from './Loading'
-import { useLanguage } from '../contexts/hooks'
+import { useAppContext } from '../contexts/hooks'
 import { ViewUserLanguage } from '../models/lang'
 import { UserDetail } from '../models/user'
 import styles from '../styles/ViewUser.module.css'
@@ -16,7 +16,7 @@ export default function ViewUser({
     setUserDetail
 }: ViewUserProps) {
     const [language, setLanguage] = useState<ViewUserLanguage>()
-    const { appLanguage } = useLanguage()
+    const { appLanguage } = useAppContext()
     const queryData = useQuery({
         queryKey: [`user-${id}`],
         queryFn: () => {
@@ -26,7 +26,7 @@ export default function ViewUser({
         },
     })
     useEffect(() => {
-        fetch(`/langs/component.view_user.${appLanguage}.json`)
+        fetch(`/langs/component.view_user.${appLanguage.language}.json`)
             .then(res => res.json())
             .then((data: ViewUserLanguage) => {
                 setLanguage(data)

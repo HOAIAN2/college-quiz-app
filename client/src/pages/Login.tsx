@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useLanguage, useUserData } from '../contexts/hooks'
+import { useAppContext } from '../contexts/hooks'
 import { reqLogin } from '../utils/auth'
 import { reqGetUser } from '../utils/user'
 import { USER_ACTION } from '../contexts/UserContext'
@@ -11,8 +11,7 @@ export default function Login() {
     const [language, setLanguage] = useState<LoginPageLanguage>()
     const [blockSubmit, setBlockSubmit] = useState(true)
     const buttonRef = useRef<HTMLButtonElement>(null)
-    const { dispatchUser } = useUserData()
-    const { appLanguage } = useLanguage()
+    const { appLanguage, user } = useAppContext()
     const navigate = useNavigate()
     const location = useLocation()
     const prePage = location.state?.from
@@ -32,7 +31,7 @@ export default function Login() {
                 return reqGetUser()
             })
             .then((data) => {
-                dispatchUser({ type: USER_ACTION.SET, payload: data })
+                user.dispatchUser({ type: USER_ACTION.SET, payload: data })
                 navigate(prePage?.pathname || '/')
             })
             .catch(() => {
@@ -42,7 +41,7 @@ export default function Login() {
             })
     }
     useEffect(() => {
-        fetch(`/langs/page.login.${appLanguage}.json`)
+        fetch(`/langs/page.login.${appLanguage.language}.json`)
             .then(res => res.json())
             .then((data: LoginPageLanguage) => {
                 setLanguage(data)

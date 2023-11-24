@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
-import { useLanguage } from '../contexts/hooks'
+import { useAppContext } from '../contexts/hooks'
 import { ImportDataLanguage } from '../models/lang'
 import {
     IoMdAddCircleOutline,
@@ -23,7 +23,7 @@ export default function ImportData({
     queryKeys
 }: ImportDataProps) {
     const [language, setLanguage] = useState<ImportDataLanguage>()
-    const { appLanguage } = useLanguage()
+    const { appLanguage } = useAppContext()
     const [hide, setHide] = useState(true)
     const queryClient = useQueryClient()
     const [file, setFile] = useState<File>()
@@ -69,7 +69,7 @@ export default function ImportData({
         setHide(false)
     }, [])
     useEffect(() => {
-        fetch(`/langs/component.import_data.${appLanguage}.json`)
+        fetch(`/langs/component.import_data.${appLanguage.language}.json`)
             .then(res => res.json())
             .then((data: ImportDataLanguage) => {
                 setLanguage(data)

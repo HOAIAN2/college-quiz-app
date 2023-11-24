@@ -1,14 +1,6 @@
 import { useContext } from 'react'
-import { UserContext } from './UserContext'
-import { LanguageContext } from './LanguageContext'
-import { DOMContext } from './DOMContext'
+import { AppContext } from './AppContext'
 
-export function useUserData() {
-    return useContext(UserContext)
-}
-export function useLanguage() {
-    return useContext(LanguageContext)
-}
-export function useDOMContext() {
-    return useContext(DOMContext)
+export function useAppContext() {
+    return useContext(AppContext)
 }

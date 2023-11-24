@@ -5,12 +5,12 @@ import {
     PiSidebarSimpleLight
 } from 'react-icons/pi'
 import { reqLogout } from '../utils/auth'
-import { useDOMContext } from '../contexts/hooks'
+import { useAppContext } from '../contexts/hooks'
 import styles from '../styles/Header.module.css'
 import navBarStyles from '../styles/NavBar.module.css'
 
 export default function Header() {
-    const { sideBarRef, titleRef } = useDOMContext()
+    const { DOM } = useAppContext()
     const handleLogout = () => {
         reqLogout()
             .then(() => {
@@ -24,11 +24,11 @@ export default function Header() {
         <div className={styles['header']}>
             <div className={styles['left-items']}>
                 <div className={styles['toggle']} onClick={() => {
-                    sideBarRef.current?.classList.toggle(navBarStyles['hide'])
+                    DOM.sideBarRef.current?.classList.toggle(navBarStyles['hide'])
                 }}>
                     <PiSidebarSimpleLight />
                 </div>
-                <h1 ref={titleRef} className={styles['app-title']}></h1>
+                <h1 ref={DOM.titleRef} className={styles['app-title']}></h1>
             </div>
             <div id='loader'></div>
             <div className={styles['right-items']}>
