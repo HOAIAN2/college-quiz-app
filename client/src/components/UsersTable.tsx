@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react'
 import { SetURLSearchParams } from 'react-router-dom'
 import { GiFemale, GiMale } from 'react-icons/gi'
 import { RoleName, UserPagination } from '../models/user'
-import styles from '../styles/Users.Table.module.css'
 import { useLanguage } from '../contexts/hooks'
 import { UsersTableLanguage } from '../models/lang'
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
-import ViewUser from './ViewUser'
+import ViewUserPopUp from './ViewUserPopUp'
+import styles from '../styles/Users.Table.module.css'
 
 type UsersTableProps = {
     role: RoleName
@@ -39,7 +39,7 @@ export default function UsersTable({
     return (
         <>
             {viewMode === true ?
-                <ViewUser
+                <ViewUserPopUp
                     id={userId}
                     setViewMode={setViewMode}
                 /> : null}
