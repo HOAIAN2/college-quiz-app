@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ChangePassRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\Role;
-use App\Models\TokenAbility;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +18,7 @@ class AuthController extends Controller
     {
         parent::__construct();
         DB::delete('DELETE FROM personal_access_tokens
-                WHERE created_at < DATE_SUB(NOW(), INTERVAL 1 DAY);');
+                WHERE created_at < DATE_SUB(NOW(), INTERVAL ' . env('TOKEN_LIFETIME') . 'MINUTE);');
     }
     /**
      * Login
