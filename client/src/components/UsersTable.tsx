@@ -28,22 +28,41 @@ export default function UsersTable({
     const { appLanguage } = useAppContext()
     const handleViewUser = (id: number, e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => {
         const target = e.target as Element
-        const currentTarget = e.currentTarget
-        const acceptClasses = [
-            styles['column-id'],
-            styles['column-content-shortcode']
-        ]
-        if (acceptClasses.includes(target.className)) {
-            currentTarget.classList.toggle(styles['selected'])
-            setSelectedRows(pre => {
-                if (pre.has(id)) pre.delete(id)
-                else pre.add(id)
+        if (target.nodeName === 'INPUT') {
+            const checkBox = target as HTMLInputElement
+            if (checkBox.checked) setSelectedRows(pre => {
+                pre.add(id)
+                return structuredClone(pre)
+            })
+            else setSelectedRows(pre => {
+                pre.delete(id)
                 return structuredClone(pre)
             })
             return
         }
         setUserId(id)
         setViewMode(true)
+    }
+    const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const currentTarget = e.currentTarget
+        const selector = `.${styles['column-select']}>input`
+        const allCheckBox = document.querySelectorAll(selector)
+        allCheckBox.forEach(node => {
+            const element = node as HTMLInputElement
+            element.checked = currentTarget.checked
+        })
+        if (currentTarget.checked) setSelectedRows(pre => {
+            pre.clear()
+            data.data.forEach(user => {
+                pre.add(user.id)
+            })
+            return structuredClone(pre)
+        })
+        else setSelectedRows(pre => {
+            pre.clear()
+            return structuredClone(pre)
+        })
+
     }
     useEffect(() => {
         fetch(`/langs/page.users_table.${appLanguage.language}.json`)
@@ -65,6 +84,10 @@ export default function UsersTable({
                     <>
                         <thead>
                             <tr className={styles['table-header']}>
+                                <th className={styles['column-select']}>
+                                    <input type="checkbox"
+                                        onChange={handleSelectAll} />
+                                </th>
                                 <th className={styles['column-id']}>{language?.header.id}</th>
                                 <th className={styles['column-shortcode']}>{language?.header.shortcode}</th>
                                 <th className={styles['column-name']}>{language?.header.name}</th>
@@ -84,6 +107,9 @@ export default function UsersTable({
                                                 handleViewUser(user.id, e)
                                             }}
                                         >
+                                            <td className={styles['column-select']}>
+                                                <input type="checkbox" />
+                                            </td>
                                             <td className={styles['column-id']}>{user.id}</td>
                                             <td className={styles['column-content-shortcode']}>{user.shortcode}</td>
                                             <td className={

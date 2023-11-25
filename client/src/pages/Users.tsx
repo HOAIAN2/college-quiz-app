@@ -141,7 +141,7 @@ export default function Users({
                         selectedUserIds.size > 0 ?
                             <div className={
                                 [
-                                    'action-item-d-white'
+                                    'action-item-d-white-delete'
                                 ].join(' ')
                             }>
                                 {language?.delete}

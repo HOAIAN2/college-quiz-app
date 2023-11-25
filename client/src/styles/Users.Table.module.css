@@ -33,19 +33,19 @@ th {
     cursor: pointer;
 }
 
-.main>tbody>tr.selected {
-    background: var(--color-shadow);
-}
-
 .main>tbody>tr:hover {
     opacity: 0.8;
 }
 
-.column-id {
+.column-id,
+.column-select {
     width: 30px;
     text-align: center;
 }
 
+.column-select {
+    min-width: 40px;
+}
 
 .column-shortcode {
     width: 150px;
