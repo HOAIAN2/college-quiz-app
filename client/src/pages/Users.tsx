@@ -12,7 +12,7 @@ import { UsersLanguage } from '../models/lang'
 import { useAppContext } from '../contexts/hooks'
 import styles from '../styles/Users.module.css'
 import { useQuery } from '@tanstack/react-query'
-import { reqGetUsersByType, reqImportUsers } from '../utils/user'
+import { reqDeleteUserByIds, reqGetUsersByType, reqImportUsers } from '../utils/user'
 import { useSearchParams } from 'react-router-dom'
 import CustomSelect from '../components/CustomSelect'
 import useDebounce from '../hooks/useDebounce'
@@ -21,6 +21,7 @@ import { RoleName } from '../models/user'
 import UsersTable from '../components/UsersTable'
 import { templateFileUrl } from '../utils/api-config'
 import Loading from '../components/Loading'
+import YesNoPopUp from '../components/YesNoPopUp'
 
 type UsersProps = {
     role: RoleName
@@ -32,6 +33,7 @@ export default function Users({
     const { appLanguage } = useAppContext()
     const [insertMode, setInsertMode] = useState(false)
     const [importMode, setImportMode] = useState(false)
+    const [showPopUpMode, setShowPopUpMode] = useState(false)
     const [selectedUserIds, setSelectedUserIds] = useState<Set<string | number>>(new Set())
     const [searchParams, setSearchParams] = useSearchParams()
     const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
@@ -52,6 +54,15 @@ export default function Users({
     const importFunction = async (file: File) => {
         return reqImportUsers(file, role)
     }
+    const handleDeleteUsers = async () => {
+        return reqDeleteUserByIds(Array.from(selectedUserIds))
+    }
+    const queryKeys = [
+        'dashboard',
+        'student',
+        'teacher',
+        'admin'
+    ]
     useEffect(() => {
         return () => {
             if (!window.location.pathname.includes(role)) setSearchParams(new URLSearchParams())
@@ -72,13 +83,23 @@ export default function Users({
         setSearchParams(searchParams)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queryDebounce])
-    console.log(selectedUserIds)
     return (
         <>
             {insertMode === true ?
                 <CreateUser
                     role={role}
                     setInsertMode={setInsertMode}
+                /> : null}
+            {showPopUpMode === true ?
+                <YesNoPopUp
+                    message={
+                        language ? language.deleteMessage.replace('@n', String(selectedUserIds.size))
+                            .replace('@role', language[role])
+                            : ''
+                    }
+                    mutateFunction={handleDeleteUsers}
+                    setShowPopUpMode={setShowPopUpMode}
+                    queryKeys={queryKeys}
                 /> : null}
             {importMode === true ?
                 <ImportData
@@ -88,12 +109,7 @@ export default function Users({
                     ].join(' ')
                     }
                     teamplateUrl={templateFileUrl[role]}
-                    queryKeys={[
-                        'dashboard',
-                        'student',
-                        'teacher',
-                        'admin'
-                    ]}
+                    queryKeys={queryKeys}
                     importFunction={importFunction}
                     setImportMode={setImportMode}
                 /> : null}
@@ -140,11 +156,15 @@ export default function Users({
                     </div>
                     {
                         selectedUserIds.size > 0 ?
-                            <div className={
-                                [
-                                    'action-item-d-white-delete'
-                                ].join(' ')
-                            }>
+                            <div
+                                onClick={() => {
+                                    setShowPopUpMode(true)
+                                }}
+                                className={
+                                    [
+                                        'action-item-d-white-delete'
+                                    ].join(' ')
+                                }>
                                 <MdDeleteOutline /> {language?.delete}
                             </div>
                             : null

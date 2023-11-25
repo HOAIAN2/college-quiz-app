@@ -9,5 +9,6 @@
     "filter": {
         "perPage": "Số hàng",
         "search": "Tìm kiếm"
-    }
+    },
+    "deleteMessage": "Xóa @n @role ?"
 }

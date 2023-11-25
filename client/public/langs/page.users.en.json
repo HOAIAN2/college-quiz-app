@@ -9,5 +9,6 @@
     "filter": {
         "perPage": "Rows",
         "search": "Search"
-    }
+    },
+    "deleteMessage": "Delete @n @role ?"
 }

@@ -47,6 +47,11 @@ th {
     min-width: 40px;
 }
 
+.column-select>input {
+    accent-color: var(--color-blue);
+    cursor: pointer;
+}
+
 .column-shortcode {
     width: 150px;
 }

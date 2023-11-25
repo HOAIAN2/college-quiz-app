@@ -65,7 +65,7 @@ export async function reqGetUsersById(id: string | number) {
         throw new Error(error.message)
     }
 }
-export async function reqDeleteUserByIds(ids: string[] | number[]) {
+export async function reqDeleteUserByIds(ids: (string | number)[]) {
     try {
         await request.delete('/user/', {
             params: {
