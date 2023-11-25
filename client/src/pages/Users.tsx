@@ -6,6 +6,7 @@ import {
     BiImport,
     BiExport
 } from 'react-icons/bi'
+import { MdDeleteOutline } from 'react-icons/md'
 import CreateUser from '../components/CreateUser'
 import { UsersLanguage } from '../models/lang'
 import { useAppContext } from '../contexts/hooks'
@@ -144,7 +145,7 @@ export default function Users({
                                     'action-item-d-white-delete'
                                 ].join(' ')
                             }>
-                                {language?.delete}
+                                <MdDeleteOutline /> {language?.delete}
                             </div>
                             : null
                     }
