@@ -9,6 +9,7 @@ export async function reqGetUser() {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)
+        if (error.response.status === 401) localStorage.removeItem('token')
         const message = error.response.data.message
         throw new Error(message)
     }
