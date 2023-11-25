@@ -2,6 +2,7 @@
     "add": "Add",
     "import": "Import",
     "export": "Export",
+    "delete": "Delete",
     "student": "Student",
     "teacher": "Teacher",
     "admin": "Admin",

@@ -31,6 +31,7 @@ export default function Users({
     const { appLanguage } = useAppContext()
     const [insertMode, setInsertMode] = useState(false)
     const [importMode, setImportMode] = useState(false)
+    const [selectedUserIds, setSelectedUserIds] = useState<Set<string | number>>(new Set())
     const [searchParams, setSearchParams] = useSearchParams()
     const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
     const queryDebounce = useDebounce(searchQuery, 300) as string
@@ -70,6 +71,7 @@ export default function Users({
         setSearchParams(searchParams)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queryDebounce])
+    console.log(selectedUserIds)
     return (
         <>
             {insertMode === true ?
@@ -135,6 +137,17 @@ export default function Users({
                     }>
                         <BiExport /> {language?.export}
                     </div>
+                    {
+                        selectedUserIds.size > 0 ?
+                            <div className={
+                                [
+                                    'action-item-d-white'
+                                ].join(' ')
+                            }>
+                                {language?.delete}
+                            </div>
+                            : null
+                    }
                 </div>
                 <div className={styles['users-content']}>
                     <div className={styles['filter-form']}>
@@ -206,6 +219,7 @@ export default function Users({
                                 data={queryData.data}
                                 searchParams={searchParams}
                                 setSearchParams={setSearchParams}
+                                setSelectedRows={setSelectedUserIds}
                             />
                             : null}
                     </div>

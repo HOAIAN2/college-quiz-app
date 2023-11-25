@@ -33,6 +33,10 @@ th {
     cursor: pointer;
 }
 
+.main>tbody>tr.selected {
+    background: var(--color-shadow);
+}
+
 .main>tbody>tr:hover {
     opacity: 0.8;
 }

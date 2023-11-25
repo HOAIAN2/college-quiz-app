@@ -18,16 +18,16 @@ const ignoreLoaders = [
     '/product/suggest',
     '/product/auto-complete'
 ]
-const templateFileUrl = {
+export const templateFileUrl = {
     student: host + 'data/Import_Student_Template.xlsx',
     teacher: host + 'data/Import_Teacher_Template.xlsx',
 } as TemplateFileUrl
 
-function getToken() {
+export function getToken() {
     const token = localStorage.getItem('token') || '' as string
     return token
 }
-function getTokenHeader() {
+export function getTokenHeader() {
     return `Bearer ${getToken()}`
 }
 const request = axios.create({
@@ -71,9 +71,4 @@ request.interceptors.response.use(
     }
 )
 
-export {
-    templateFileUrl,
-    getToken,
-    getTokenHeader,
-}
 export default request

@@ -6,10 +6,10 @@ export type UserContextType = {
     dispatchUser: Dispatch<UserAction>
     USER_ACTION: typeof USER_ACTION
 }
-export const USER_ACTION = {
+export const USER_ACTION = Object.freeze({
     SET: 'SET',
     REMOVE: 'REMOVE'
-}
+})
 export type UserAction = {
     type: string
     payload: User | undefined

@@ -12,19 +12,36 @@ type UsersTableProps = {
     role: RoleName
     data: UserPagination,
     searchParams: URLSearchParams,
-    setSearchParams: SetURLSearchParams
+    setSearchParams: SetURLSearchParams,
+    setSelectedRows: React.Dispatch<React.SetStateAction<Set<string | number>>>
 }
 export default function UsersTable({
     role,
     data,
     searchParams,
-    setSearchParams
+    setSearchParams,
+    setSelectedRows
 }: UsersTableProps) {
     const [language, setLanguage] = useState<UsersTableLanguage>()
     const [viewMode, setViewMode] = useState(false)
     const [userId, setUserId] = useState<number>(0)
     const { appLanguage } = useAppContext()
-    const handleViewUser = (id: number) => {
+    const handleViewUser = (id: number, e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => {
+        const target = e.target as Element
+        const currentTarget = e.currentTarget
+        const acceptClasses = [
+            styles['column-id'],
+            styles['column-content-shortcode']
+        ]
+        if (acceptClasses.includes(target.className)) {
+            currentTarget.classList.toggle(styles['selected'])
+            setSelectedRows(pre => {
+                if (pre.has(id)) pre.delete(id)
+                else pre.add(id)
+                return structuredClone(pre)
+            })
+            return
+        }
         setUserId(id)
         setViewMode(true)
     }
@@ -63,8 +80,8 @@ export default function UsersTable({
                                 data.data.map(user => {
                                     return (
                                         <tr key={user.id}
-                                            onClick={() => {
-                                                handleViewUser(user.id)
+                                            onClick={(e) => {
+                                                handleViewUser(user.id, e)
                                             }}
                                         >
                                             <td className={styles['column-id']}>{user.id}</td>

@@ -44,6 +44,7 @@ export type UsersLanguage = {
     add: string
     import: string
     export: string
+    delete: string
     student: string,
     teacher: string,
     admin: string,
