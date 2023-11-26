@@ -95,7 +95,7 @@ export default function YesNoPopUp({
                         <button
                             className={
                                 [
-                                    'action-item-d-white',
+                                    'action-item-d-white-border-red',
                                     mutation.isPending ? styles['pending'] : ''
                                 ].join(' ')
                             }
@@ -104,7 +104,7 @@ export default function YesNoPopUp({
                             onClick={() => { mutation.mutate() }}
                             className={
                                 [
-                                    'action-item-d-white-delete',
+                                    'action-item-d-white',
                                     mutation.isPending ? styles['pending'] : ''
                                 ].join(' ')
                             }>{language?.yes}

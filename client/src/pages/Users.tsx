@@ -57,6 +57,14 @@ export default function Users({
     const handleDeleteUsers = async () => {
         return reqDeleteUserByIds(Array.from(selectedUserIds))
     }
+    const getMessage = () => {
+        if (!language) return ''
+        let message = language.deleteMessage.replace('@n', String(selectedUserIds.size))
+        if (selectedUserIds.size > 1 && appLanguage.language === 'en')
+            message = message.replace('@role', `${language[role]}s`)
+        else message = message.replace('@role', language[role])
+        return message
+    }
     const queryKeys = [
         'dashboard',
         'student',
@@ -92,11 +100,7 @@ export default function Users({
                 /> : null}
             {showPopUpMode === true ?
                 <YesNoPopUp
-                    message={
-                        language ? language.deleteMessage.replace('@n', String(selectedUserIds.size))
-                            .replace('@role', language[role])
-                            : ''
-                    }
+                    message={getMessage()}
                     mutateFunction={handleDeleteUsers}
                     setShowPopUpMode={setShowPopUpMode}
                     queryKeys={queryKeys}
@@ -162,7 +166,7 @@ export default function Users({
                                 }}
                                 className={
                                     [
-                                        'action-item-d-white-delete'
+                                        'action-item-d-white-border-red'
                                     ].join(' ')
                                 }>
                                 <MdDeleteOutline /> {language?.delete}
