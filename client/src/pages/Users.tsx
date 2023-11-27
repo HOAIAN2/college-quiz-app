@@ -101,9 +101,10 @@ export default function Users({
             {showPopUpMode === true ?
                 <YesNoPopUp
                     message={getMessage()}
+                    queryKeys={queryKeys}
                     mutateFunction={handleDeleteUsers}
                     setShowPopUpMode={setShowPopUpMode}
-                    queryKeys={queryKeys}
+                    setSelectedRows={setSelectedUserIds}
                 /> : null}
             {importMode === true ?
                 <ImportData
