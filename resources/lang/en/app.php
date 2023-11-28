@@ -2,7 +2,8 @@
 
 return [
     'successes' => [
-        'recordSaveSuccess' => 'Record save success'
+        'recordSaveSuccess' => 'Record save success',
+        'recordDeleteSuccess' => 'Record delete success',
     ],
     'errors' => [
         'serverError' => 'Server error',

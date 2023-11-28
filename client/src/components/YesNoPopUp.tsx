@@ -9,15 +9,15 @@ type YesNoPopUpProps = {
     message: string
     queryKeys: unknown[]
     mutateFunction: () => Promise<void>
+    onMutateSuccess: () => void
     setShowPopUpMode: React.Dispatch<React.SetStateAction<boolean>>
-    setSelectedRows?: React.Dispatch<React.SetStateAction<Set<string | number>>>
 }
 export default function YesNoPopUp({
     message,
     queryKeys,
     mutateFunction,
+    onMutateSuccess,
     setShowPopUpMode,
-    setSelectedRows
 }: YesNoPopUpProps) {
     const [language, setLanguage] = useState<YesNoPopUpLanguage>()
     const { appLanguage } = useAppContext()
@@ -37,7 +37,7 @@ export default function YesNoPopUp({
             queryKeys.forEach(key => {
                 queryClient.removeQueries({ queryKey: [key] })
             })
-            if (setSelectedRows) setSelectedRows(new Set())
+            onMutateSuccess()
             handleTurnOffImportMode()
         }
     })

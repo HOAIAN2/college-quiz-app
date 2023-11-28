@@ -57,6 +57,9 @@ export default function Users({
     const handleDeleteUsers = async () => {
         return reqDeleteUserByIds(Array.from(selectedUserIds))
     }
+    const onDeleteSuccess = () => {
+        setSelectedUserIds(new Set())
+    }
     const getMessage = () => {
         if (!language) return ''
         let message = language.deleteMessage.replace('@n', String(selectedUserIds.size))
@@ -104,7 +107,7 @@ export default function Users({
                     queryKeys={queryKeys}
                     mutateFunction={handleDeleteUsers}
                     setShowPopUpMode={setShowPopUpMode}
-                    setSelectedRows={setSelectedUserIds}
+                    onMutateSuccess={onDeleteSuccess}
                 /> : null}
             {importMode === true ?
                 <ImportData
