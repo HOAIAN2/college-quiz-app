@@ -26,7 +26,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
                     dispatchUser,
                     USER_ACTION: USER_ACTION
                 }
-            }
+            } as AppContextType
         }>
             {children}
         </AppContext.Provider>

@@ -5,27 +5,26 @@ import { ImportDataLanguage } from '../models/lang'
 import {
     IoMdAddCircleOutline,
 } from 'react-icons/io'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import styles from '../styles/ImportData.module.css'
 
 type ImportDataProps = {
     title?: string
     teamplateUrl: string
     importFunction: (file: File) => Promise<void>
+    onMutateSuccess: () => void
     setImportMode: React.Dispatch<React.SetStateAction<boolean>>
-    queryKeys: unknown[]
 }
 export default function ImportData({
     title,
     teamplateUrl,
     importFunction,
+    onMutateSuccess,
     setImportMode,
-    queryKeys
 }: ImportDataProps) {
     const [language, setLanguage] = useState<ImportDataLanguage>()
     const { appLanguage } = useAppContext()
     const [hide, setHide] = useState(true)
-    const queryClient = useQueryClient()
     const [file, setFile] = useState<File>()
     const inputFileRef = useRef<HTMLInputElement>(null)
     const handleTurnOffImportMode = () => {
@@ -59,11 +58,7 @@ export default function ImportData({
     }
     const mutation = useMutation({
         mutationFn: handleUploadFile,
-        onSuccess: () => {
-            queryKeys.forEach(key => {
-                queryClient.removeQueries({ queryKey: [key] })
-            })
-        }
+        onSuccess: onMutateSuccess
     })
     useEffect(() => {
         setHide(false)

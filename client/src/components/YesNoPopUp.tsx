@@ -2,19 +2,17 @@ import { useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
 import { useAppContext } from '../contexts/hooks'
 import { YesNoPopUpLanguage } from '../models/lang'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import styles from '../styles/YesNoPopUp.module.css'
 
 type YesNoPopUpProps = {
     message: string
-    queryKeys: unknown[]
     mutateFunction: () => Promise<void>
     onMutateSuccess: () => void
     setShowPopUpMode: React.Dispatch<React.SetStateAction<boolean>>
 }
 export default function YesNoPopUp({
     message,
-    queryKeys,
     mutateFunction,
     onMutateSuccess,
     setShowPopUpMode,
@@ -22,7 +20,6 @@ export default function YesNoPopUp({
     const [language, setLanguage] = useState<YesNoPopUpLanguage>()
     const { appLanguage } = useAppContext()
     const [hide, setHide] = useState(true)
-    const queryClient = useQueryClient()
     const handleTurnOffImportMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
         const timing = Number(transitionTiming.replace('s', '')) * 1000
@@ -34,9 +31,6 @@ export default function YesNoPopUp({
     const mutation = useMutation({
         mutationFn: mutateFunction,
         onSuccess: () => {
-            queryKeys.forEach(key => {
-                queryClient.removeQueries({ queryKey: [key] })
-            })
             onMutateSuccess()
             handleTurnOffImportMode()
         }

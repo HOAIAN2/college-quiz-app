@@ -11,7 +11,7 @@ import CreateUser from '../components/CreateUser'
 import { UsersLanguage } from '../models/lang'
 import { useAppContext } from '../contexts/hooks'
 import styles from '../styles/Users.module.css'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { reqDeleteUserByIds, reqGetUsersByType, reqImportUsers } from '../utils/user'
 import { useSearchParams } from 'react-router-dom'
 import CustomSelect from '../components/CustomSelect'
@@ -38,6 +38,7 @@ export default function Users({
     const [searchParams, setSearchParams] = useSearchParams()
     const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
     const queryDebounce = useDebounce(searchQuery, 300) as string
+    const queryClient = useQueryClient()
     const queryData = useQuery({
         queryKey: [role,
             searchParams.get('page') || '1',
@@ -59,6 +60,15 @@ export default function Users({
     }
     const onDeleteSuccess = () => {
         setSelectedUserIds(new Set())
+        queryKeys.forEach(key => {
+            queryClient.removeQueries({ queryKey: [key] })
+        })
+    }
+    const onCreateSuccess = () => {
+        setSelectedUserIds(new Set())
+        queryKeys.forEach(key => {
+            queryClient.removeQueries({ queryKey: [key] })
+        })
     }
     const getMessage = () => {
         if (!language) return ''
@@ -104,7 +114,6 @@ export default function Users({
             {showPopUpMode === true ?
                 <YesNoPopUp
                     message={getMessage()}
-                    queryKeys={queryKeys}
                     mutateFunction={handleDeleteUsers}
                     setShowPopUpMode={setShowPopUpMode}
                     onMutateSuccess={onDeleteSuccess}
@@ -117,9 +126,9 @@ export default function Users({
                     ].join(' ')
                     }
                     teamplateUrl={templateFileUrl[role]}
-                    queryKeys={queryKeys}
                     importFunction={importFunction}
                     setImportMode={setImportMode}
+                    onMutateSuccess={onCreateSuccess}
                 /> : null}
             <div
                 className={
