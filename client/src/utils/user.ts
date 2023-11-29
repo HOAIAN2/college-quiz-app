@@ -1,11 +1,13 @@
 import request, { getToken } from './api-config'
 import { QueryUserType, RoleName, User, UserDetail, UserPagination } from '../models/user'
+import { ApiResponseWithData } from '../models/response'
 
 export async function reqGetUser() {
     if (!getToken()) throw new Error('no token')
     try {
         const res = await request.get('/user')
-        return res.data as User
+        const { data } = res.data as ApiResponseWithData<User>
+        return data
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)
@@ -51,7 +53,8 @@ export async function reqGetUsersByType(query?: QueryUserType) {
                 search: query?.search
             }
         })
-        return res.data as UserPagination
+        const { data } = res.data as ApiResponseWithData<UserPagination>
+        return data
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         throw new Error(error.message)
@@ -60,7 +63,8 @@ export async function reqGetUsersByType(query?: QueryUserType) {
 export async function reqGetUsersById(id: string | number) {
     try {
         const res = await request.get('/user/' + id)
-        return res.data as UserDetail
+        const { data } = res.data as ApiResponseWithData<UserDetail>
+        return data
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         throw new Error(error.message)

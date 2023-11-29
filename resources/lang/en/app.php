@@ -2,6 +2,7 @@
 
 return [
     'successes' => [
+        'success' => 'Success',
         'recordSaveSuccess' => 'Record save success',
         'recordDeleteSuccess' => 'Record delete success',
     ],

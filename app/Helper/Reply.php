@@ -9,20 +9,30 @@ class Reply
      * @param int $message
      */
 
-    public static function success()
+    public static function success($status = 200)
     {
-        return response()->json((object)[]);
+        return response()->json([
+            'status' => 'success',
+        ], $status);
     }
 
     /** Return success response with Message
      * @param string $message
      */
 
-    public static function successWithMessage($message, $data = [], $status = 200)
+    public static function successWithMessage($message, $transData = [], $status = 200)
     {
         return response()->json([
             'status' => 'success',
-            'message' => trans($message, $data)
+            'message' => trans($message, $transData)
+        ], $status);
+    }
+    public static function successWithData($data = [], $message = 'app.successes.success', $transData = [], $status = 200)
+    {
+        return response()->json([
+            'status' => 'success',
+            'data' => $data,
+            'message' => trim($message) != '' ? trans($message, $transData) : null
         ], $status);
     }
     /**
@@ -30,11 +40,11 @@ class Reply
      * @param null $error_name
      * @param array $errorData
      */
-    public static function error($message, $data = [], $status = 400)
+    public static function error($message, $transData = [], $status = 400)
     {
         return response()->json([
             'status' => 'fail',
-            'message' => trans($message, $data)
+            'message' => trans($message, $transData)
         ], $status);
     }
 }

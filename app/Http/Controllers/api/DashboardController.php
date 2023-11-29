@@ -61,7 +61,7 @@ class DashboardController extends Controller
                 # code...
                 break;
         }
-        return $data;
+        return Reply::successWithData($data, '');
     }
 
     /**

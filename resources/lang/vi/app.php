@@ -2,6 +2,7 @@
 
 return [
     'successes' => [
+        'success' => 'Thành công',
         'recordSaveSuccess' => 'Lưu bản ghi thành công',
         'recordDeleteSuccess' => 'Xóa bản ghi thành công',
     ],

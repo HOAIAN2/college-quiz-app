@@ -31,7 +31,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return request()->user()->with('role')->first();
+        $user = request()->user()->with('role')->first();
+        return Reply::successWithData($user, '');
     }
 
     /**
@@ -84,7 +85,7 @@ class UserController extends Controller
         }
 
         $users = $users->latest('id')->paginate($request->per_page);
-        return $users;
+        return Reply::successWithData($users, '');
     }
     public function importUsers(ImportRequest $request)
     {
@@ -161,7 +162,7 @@ class UserController extends Controller
             Log::error($error->getMessage());
             return Reply::error('app.errors.serverError');
         }
-        return $data;
+        return Reply::successWithData($data);
     }
 
     /**

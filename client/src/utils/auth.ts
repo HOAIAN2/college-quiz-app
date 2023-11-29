@@ -1,4 +1,4 @@
-import { LoginResponse } from '../models/user'
+import { ApiResponseWithData, LoginResponse } from '../models/response'
 import request, {
     // getToken
 } from './api-config'
@@ -6,7 +6,7 @@ import request, {
 export async function reqLogin(form: FormData) {
     try {
         const res = await request.post('/auth/login', form)
-        const data = res.data as LoginResponse
+        const { data } = res.data as ApiResponseWithData<LoginResponse>
         localStorage.setItem('token', data.token)
         return data.user
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

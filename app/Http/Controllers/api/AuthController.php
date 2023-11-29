@@ -40,10 +40,10 @@ class AuthController extends Controller
         }
 
         $token = $user->createToken($user->role->name . ' token')->plainTextToken;
-        return response()->json([
+        return Reply::successWithData([
             'user' => $user,
             'token' => $token
-        ]);
+        ], '');
     }
     /**
      * Logout

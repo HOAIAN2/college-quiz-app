@@ -1,10 +1,5 @@
 import { Course } from "./course";
 
-export type LoginResponse = {
-    user: User;
-    token: string;
-}
-
 export type User = {
     id: number;
     roleId: number;
