@@ -29,11 +29,12 @@ class Reply
     }
     public static function successWithData($data = [], $message = 'app.successes.success', $transData = [], $status = 200)
     {
-        return response()->json([
+        $response = [
             'status' => 'success',
             'data' => $data,
-            'message' => trim($message) != '' ? trans($message, $transData) : null
-        ], $status);
+        ];
+        if (trim($message) != '') $response['message'] = trans($message, $transData);
+        return response()->json($response, $status);
     }
     /**
      * @param string $message

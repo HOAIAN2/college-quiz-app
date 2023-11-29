@@ -3,7 +3,7 @@ import { User } from './user'
 export type ApiResponseWithData<T> = {
     status: 'success' | 'fail'
     data: T
-    message: string | null
+    message?: string
 }
 
 export type LoginResponse = {
