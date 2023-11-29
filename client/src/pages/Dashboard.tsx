@@ -11,12 +11,24 @@ import {
 import styles from '../styles/Dashboard.module.css'
 import { Link } from 'react-router-dom'
 import Loading from '../components/Loading'
+import { useEffect, useState } from 'react'
+import { DashboardLanguage } from '../models/lang'
+import { useAppContext } from '../contexts/hooks'
 
 export default function Dashboard() {
+    const { appLanguage } = useAppContext()
+    const [language, setLanguage] = useState<DashboardLanguage>()
     const queryData = useQuery({
         queryKey: ['dashboard'],
         queryFn: reqGetDashboard
     })
+    useEffect(() => {
+        fetch(`/langs/page.dashboard.${appLanguage.language}.json`)
+            .then(res => res.json())
+            .then((data: DashboardLanguage) => {
+                setLanguage(data)
+            })
+    }, [appLanguage])
     return (
         <div
             className={
@@ -45,7 +57,7 @@ export default function Dashboard() {
                                 <PiStudent />
                             </div>
                             <div className={styles['item-top']}>{queryData.data?.studentCount}</div>
-                            <div className={styles['item-bottom']}>Số lượng học sinh</div>
+                            <div className={styles['item-bottom']}>{language?.items.totalStudent}</div>
                         </Link>
                         <Link
                             to={'teachers'}
@@ -60,7 +72,7 @@ export default function Dashboard() {
                                 <PiChalkboardTeacherLight />
                             </div>
                             <div className={styles['item-top']}>{queryData.data?.teacherCount}</div>
-                            <div className={styles['item-bottom']}>Số lượng giáo viên</div>
+                            <div className={styles['item-bottom']}>{language?.items.totalTeacher}</div>
                         </Link>
                         <Link
                             to={'courses'}
@@ -75,7 +87,7 @@ export default function Dashboard() {
                                 <SiGoogleclassroom />
                             </div>
                             <div className={styles['item-top']}>{queryData.data?.courseCount}</div>
-                            <div className={styles['item-bottom']}>Khóa học hiện tại</div>
+                            <div className={styles['item-bottom']}>{language?.items.courseCount}</div>
                         </Link>
                         <Link
                             to={'exams'}
@@ -90,7 +102,7 @@ export default function Dashboard() {
                                 <PiExam />
                             </div>
                             <div className={styles['item-top']}>{queryData.data?.examInThisMonth}</div>
-                            <div className={styles['item-bottom']}>Bài thi tháng này</div>
+                            <div className={styles['item-bottom']}>{language?.items.examInThisMonth}</div>
                         </Link>
                     </div> : null
             }

@@ -18,11 +18,11 @@ import {
 } from 'react-icons/rx'
 import styles from '../styles/NavBar.module.css'
 import { Link } from 'react-router-dom'
-import { DashboardLanguage } from '../models/lang'
+import { NavBarLanguage } from '../models/lang'
 
 export default function NavBar() {
     const { DOM, user, appLanguage } = useAppContext()
-    const [language, setLanguage] = useState<DashboardLanguage>()
+    const [language, setLanguage] = useState<NavBarLanguage>()
     // if (user) user.role.name = 'teacher'
     const features = {
         admin: [
@@ -143,9 +143,9 @@ export default function NavBar() {
         ]
     }
     useEffect(() => {
-        fetch(`/langs/component.dashboard.${appLanguage.language}.json`)
+        fetch(`/langs/component.navbar.${appLanguage.language}.json`)
             .then(res => res.json())
-            .then((data: DashboardLanguage) => {
+            .then((data: NavBarLanguage) => {
                 setLanguage(data)
             })
     }, [appLanguage])

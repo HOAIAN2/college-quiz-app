@@ -3,7 +3,7 @@ export type LoginPageLanguage = {
     email: string
     password: string
 }
-export type DashboardLanguage = {
+export type NavBarLanguage = {
     dashboard: string
     subjects: string
     courses: string
@@ -86,4 +86,15 @@ export type UsersTableLanguage = {
 export type YesNoPopUpLanguage = {
     yes: string
     no: string
+}
+export type DashboardLanguage = {
+    items: {
+        totalTeacher: string
+        totalStudent: string
+        totalSubject: string
+        courseCount: string
+        totalQuestion: string
+        examInNextWeek: string
+        examInThisMonth: string
+    }
 }

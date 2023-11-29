@@ -1,0 +1,11 @@
+{
+    "items": {
+        "totalTeacher": "Tổng số giáo viên",
+        "totalStudent": "Tổng số học sinh",
+        "totalSubject": "Tổng số môn học",
+        "courseCount": "Tổng số khóa học",
+        "totalQuestion": "Tổng số câu hỏi",
+        "examInNextWeek": "Bài thi tuần tới",
+        "examInThisMonth": "Bài thi tháng này"
+    }
+}

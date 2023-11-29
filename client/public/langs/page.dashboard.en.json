@@ -1,0 +1,11 @@
+{
+    "items": {
+        "totalTeacher": "Total number of teachers",
+        "totalStudent": "Total number of students",
+        "totalSubject": "Total number of subjects",
+        "courseCount": "Total number of courses",
+        "totalQuestion": "Total number of questions",
+        "examInNextWeek": "Exams in the next week",
+        "examInThisMonth": "Exams in this month"
+    }
+}
