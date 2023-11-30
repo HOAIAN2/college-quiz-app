@@ -21,7 +21,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-
+app.zip
 # Logs
 client/logs
 client/*.log
