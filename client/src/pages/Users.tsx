@@ -59,17 +59,11 @@ export default function Users({
         return reqDeleteUserByIds(Array.from(selectedUserIds))
     }
     const onDeleteSuccess = () => {
-        setSelectedUserIds(new Set())
         queryKeys.forEach(key => {
             queryClient.removeQueries({ queryKey: [key] })
         })
     }
-    const onCreateSuccess = () => {
-        setSelectedUserIds(new Set())
-        queryKeys.forEach(key => {
-            queryClient.removeQueries({ queryKey: [key] })
-        })
-    }
+    const onCreateSuccess = onDeleteSuccess
     const getMessage = () => {
         if (!language) return ''
         let message = language.deleteMessage.replace('@n', String(selectedUserIds.size))
@@ -84,6 +78,9 @@ export default function Users({
         'teacher',
         'admin'
     ]
+    useEffect(() => {
+        setSelectedUserIds(new Set())
+    }, [queryData.data])
     useEffect(() => {
         return () => {
             if (!window.location.pathname.includes(role)) setSearchParams(new URLSearchParams())

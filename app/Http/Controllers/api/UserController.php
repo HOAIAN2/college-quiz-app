@@ -162,7 +162,7 @@ class UserController extends Controller
             Log::error($error->getMessage());
             return Reply::error('app.errors.serverError');
         }
-        return Reply::successWithData($data);
+        return Reply::successWithData($data, '');
     }
 
     /**

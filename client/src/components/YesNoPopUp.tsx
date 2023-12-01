@@ -91,6 +91,7 @@ export default function YesNoPopUp({
                     </div>
                     <div className={styles['action-items']}>
                         <button
+                            onClick={handleTurnOffImportMode}
                             className={
                                 [
                                     'action-item-d-white-border-red',
