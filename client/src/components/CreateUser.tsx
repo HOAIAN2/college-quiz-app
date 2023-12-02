@@ -83,7 +83,7 @@ export default function CreateUser({
             .then((data: CreateUserLanguage) => {
                 setLanguage(data)
             })
-    }, [appLanguage])
+    }, [appLanguage.language])
     return (
         <div className={
             [

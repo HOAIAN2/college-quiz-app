@@ -28,7 +28,7 @@ export default function Dashboard() {
             .then((data: DashboardLanguage) => {
                 setLanguage(data)
             })
-    }, [appLanguage])
+    }, [appLanguage.language])
     return (
         <div
             className={

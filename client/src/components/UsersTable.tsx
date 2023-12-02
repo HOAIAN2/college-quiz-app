@@ -10,7 +10,7 @@ import styles from '../styles/Users.Table.module.css'
 
 type UsersTableProps = {
     role: RoleName
-    data: UserPagination,
+    data?: UserPagination,
     searchParams: URLSearchParams,
     setSearchParams: SetURLSearchParams,
     setSelectedRows: React.Dispatch<React.SetStateAction<Set<string | number>>>
@@ -53,7 +53,7 @@ export default function UsersTable({
         })
         if (currentTarget.checked) setSelectedRows(pre => {
             pre.clear()
-            data.data.forEach(user => {
+            data && data.data.forEach(user => {
                 pre.add(user.id)
             })
             return structuredClone(pre)
@@ -65,13 +65,13 @@ export default function UsersTable({
 
     }
     useEffect(() => {
-        fetch(`/langs/page.users_table.${appLanguage.language}.json`)
+        fetch(`/langs/component.users_table.${appLanguage.language}.json`)
             .then(res => res.json())
             .then((data) => {
                 setLanguage(data)
             })
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [appLanguage])
+    }, [appLanguage.language])
     return (
         <>
             {viewMode === true ?
@@ -100,82 +100,85 @@ export default function UsersTable({
                         </thead>
                         <tbody>
                             {
-                                data.data.map(user => {
-                                    return (
-                                        <tr key={user.id}
-                                            onClick={(e) => {
-                                                handleViewUser(user.id, e)
-                                            }}
-                                        >
-                                            <td className={styles['column-select']}>
-                                                <input type="checkbox" />
-                                            </td>
-                                            <td className={styles['column-id']}>{user.id}</td>
-                                            <td className={styles['column-content-shortcode']}>{user.shortcode}</td>
-                                            <td className={
-                                                [
-                                                    styles['column-content-name'],
-                                                    user.gender == 'male' ? styles['male'] : styles['female']
-                                                ].join(' ')
-                                            }>
-                                                {user.gender == 'male' ? <GiMale /> : <GiFemale />}
-                                                {`${user.lastName} ${user.firstName}`}
-                                            </td>
-                                            <td className={styles['column-content-class']}>{user.class}</td>
-                                            <td className={styles['column-content-email']}>{user.email}</td>
-                                            <td className={styles['column-content-address']}>{user.address}</td>
-                                        </tr>
-                                    )
-                                })
+                                data ?
+                                    data.data.map(user => {
+                                        return (
+                                            <tr key={user.id}
+                                                onClick={(e) => {
+                                                    handleViewUser(user.id, e)
+                                                }}
+                                            >
+                                                <td className={styles['column-select']}>
+                                                    <input type="checkbox" />
+                                                </td>
+                                                <td className={styles['column-id']}>{user.id}</td>
+                                                <td className={styles['column-content-shortcode']}>{user.shortcode}</td>
+                                                <td className={
+                                                    [
+                                                        styles['column-content-name'],
+                                                        user.gender == 'male' ? styles['male'] : styles['female']
+                                                    ].join(' ')
+                                                }>
+                                                    {user.gender == 'male' ? <GiMale /> : <GiFemale />}
+                                                    {`${user.lastName} ${user.firstName}`}
+                                                </td>
+                                                <td className={styles['column-content-class']}>{user.class}</td>
+                                                <td className={styles['column-content-email']}>{user.email}</td>
+                                                <td className={styles['column-content-address']}>{user.address}</td>
+                                            </tr>
+                                        )
+                                    }) : null
                             }
                         </tbody>
                     </>
                 </table>
-                <div className={styles['table-footer']}>
-                    <span>
-                        {data.from} - {data.to} / {data.total}
-                    </span>
-                    <div className={styles['table-links']}>
-                        {
-                            <div className={styles['link-content']}>
-                                {data.links.map(link => {
-                                    if (isNaN(Number(link.label))) return (
-                                        <button key={role + link.label} className={
-                                            [
-                                                styles['next-previous'],
-                                            ].join(' ')
-                                        }
-                                            onClick={() => {
-                                                if (!link.url) return
-                                                const url = new URL(link.url)
-                                                searchParams.set('page', url.searchParams.get('page') || '1')
-                                                setSearchParams(searchParams)
-                                            }}
-                                        >
-                                            {link.label === '...' ? '...' : link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />}
-                                            {/* {link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />} */}
-                                        </button>
-                                    )
-                                    return (
-                                        <button key={role + link.label} className={
-                                            [
-                                                'button-d',
-                                                !link.active ? styles['inactive'] : ''
-                                            ].join(' ')
-                                        }
-                                            onClick={() => {
-                                                if (!link.url) return
-                                                const url = new URL(link.url)
-                                                searchParams.set('page', url.searchParams.get('page') || '1')
-                                                setSearchParams(searchParams)
-                                            }}
-                                        >{link.label}</button>
-                                    )
-                                })}
+                {
+                    data ?
+                        <div className={styles['table-footer']}>
+                            <span>
+                                {data.from} - {data.to} / {data.total}
+                            </span>
+                            <div className={styles['table-links']}>
+                                {
+                                    <div className={styles['link-content']}>
+                                        {data.links.map(link => {
+                                            if (isNaN(Number(link.label))) return (
+                                                <button key={role + link.label} className={
+                                                    [
+                                                        styles['next-previous'],
+                                                    ].join(' ')
+                                                }
+                                                    onClick={() => {
+                                                        if (!link.url) return
+                                                        const url = new URL(link.url)
+                                                        searchParams.set('page', url.searchParams.get('page') || '1')
+                                                        setSearchParams(searchParams)
+                                                    }}
+                                                >
+                                                    {link.label === '...' ? '...' : link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />}
+                                                </button>
+                                            )
+                                            return (
+                                                <button key={role + link.label} className={
+                                                    [
+                                                        'button-d',
+                                                        !link.active ? styles['inactive'] : ''
+                                                    ].join(' ')
+                                                }
+                                                    onClick={() => {
+                                                        if (!link.url) return
+                                                        const url = new URL(link.url)
+                                                        searchParams.set('page', url.searchParams.get('page') || '1')
+                                                        setSearchParams(searchParams)
+                                                    }}
+                                                >{link.label}</button>
+                                            )
+                                        })}
+                                    </div>
+                                }
                             </div>
-                        }
-                    </div>
-                </div>
+                        </div> : null
+                }
             </div>
         </>
     )

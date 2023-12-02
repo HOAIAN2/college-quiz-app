@@ -69,7 +69,7 @@ export default function ImportData({
             .then((data: ImportDataLanguage) => {
                 setLanguage(data)
             })
-    }, [appLanguage])
+    }, [appLanguage.language])
     return (
         <div
             className={

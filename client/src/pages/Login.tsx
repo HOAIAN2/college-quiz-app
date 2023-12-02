@@ -47,7 +47,7 @@ export default function Login() {
                 setLanguage(data)
                 document.title = data.login
             })
-    }, [appLanguage])
+    }, [appLanguage.language])
     return (
         <div className={styles['login-page']}>
             <form onSubmit={handleLogin} className={styles['form']} onInput={handlePreventSubmit}>

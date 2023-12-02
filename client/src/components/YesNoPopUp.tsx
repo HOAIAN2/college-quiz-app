@@ -44,7 +44,7 @@ export default function YesNoPopUp({
             .then((data: YesNoPopUpLanguage) => {
                 setLanguage(data)
             })
-    }, [appLanguage])
+    }, [appLanguage.language])
     return (
         <div
             className={

@@ -31,7 +31,7 @@ export default function ViewUser({
             .then((data: ViewUserLanguage) => {
                 setLanguage(data)
             })
-    }, [appLanguage])
+    }, [appLanguage.language])
     useEffect(() => {
         if (queryData.data?.user && setUserDetail) {
             setUserDetail(queryData.data)

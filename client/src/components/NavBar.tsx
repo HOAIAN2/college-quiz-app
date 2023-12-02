@@ -148,7 +148,7 @@ export default function NavBar() {
             .then((data: NavBarLanguage) => {
                 setLanguage(data)
             })
-    }, [appLanguage])
+    }, [appLanguage.language])
     useEffect(() => {
         function updateSize() {
             if (window.innerWidth < 800) DOM.sideBarRef.current?.classList.add(styles['hide'])
