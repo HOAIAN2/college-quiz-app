@@ -92,7 +92,6 @@ export default function Users({
             .then((data) => {
                 setLanguage(data)
             })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [appLanguage.language])
     useEffect(() => {
         if (!searchParams.get('search') && !queryDebounce) return
@@ -248,7 +247,7 @@ export default function Users({
                         {queryData.isLoading ?
                             <Loading />
                             : null}
-                        {!queryData.isError && queryData.data ?
+                        {!queryData.isError ?
                             <UsersTable
                                 role={role}
                                 data={queryData.data}
@@ -256,13 +255,7 @@ export default function Users({
                                 setSearchParams={setSearchParams}
                                 setSelectedRows={setSelectedUserIds}
                             />
-                            : <UsersTable
-                                role={role}
-                                data={queryData.data}
-                                searchParams={searchParams}
-                                setSearchParams={setSearchParams}
-                                setSelectedRows={setSelectedUserIds}
-                            />}
+                            : null}
                     </div>
                 </div>
             </div >

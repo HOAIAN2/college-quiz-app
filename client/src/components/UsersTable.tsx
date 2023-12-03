@@ -24,6 +24,7 @@ export default function UsersTable({
 }: UsersTableProps) {
     const [language, setLanguage] = useState<UsersTableLanguage>()
     const [viewMode, setViewMode] = useState(false)
+    const [checkAll, setCheckAll] = useState(false)
     const [userId, setUserId] = useState<number>(0)
     const { appLanguage } = useAppContext()
     const handleViewUser = (id: number, e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => {
@@ -51,17 +52,23 @@ export default function UsersTable({
             const element = node as HTMLInputElement
             element.checked = currentTarget.checked
         })
-        if (currentTarget.checked) setSelectedRows(pre => {
-            pre.clear()
-            data && data.data.forEach(user => {
-                pre.add(user.id)
+        if (currentTarget.checked) {
+            setSelectedRows(pre => {
+                pre.clear()
+                data && data.data.forEach(user => {
+                    pre.add(user.id)
+                })
+                return structuredClone(pre)
             })
-            return structuredClone(pre)
-        })
-        else setSelectedRows(pre => {
-            pre.clear()
-            return structuredClone(pre)
-        })
+            setCheckAll(true)
+        }
+        else {
+            setSelectedRows(pre => {
+                pre.clear()
+                return structuredClone(pre)
+            })
+            setCheckAll(false)
+        }
 
     }
     useEffect(() => {
@@ -70,8 +77,10 @@ export default function UsersTable({
             .then((data) => {
                 setLanguage(data)
             })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [appLanguage.language])
+    useEffect(() => {
+        if (!data) setCheckAll(false)
+    }, [data])
     return (
         <>
             {viewMode === true ?
@@ -86,6 +95,7 @@ export default function UsersTable({
                             <tr className={styles['table-header']}>
                                 <th className={styles['column-select']}>
                                     <input type="checkbox"
+                                        checked={checkAll}
                                         onChange={handleSelectAll} />
                                 </th>
                                 <th className={styles['column-id']}>{language?.header.id}</th>
