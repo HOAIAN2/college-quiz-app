@@ -39,7 +39,6 @@ export default function UsersTable({
                 pre.delete(id)
                 return structuredClone(pre)
             })
-            return
         }
         setUserId(id)
         setViewMode(true)
