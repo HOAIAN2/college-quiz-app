@@ -31,14 +31,18 @@ export default function UsersTable({
         const target = e.target as Element
         if (target.nodeName === 'INPUT') {
             const checkBox = target as HTMLInputElement
+            const perPage = Number(searchParams.get('per_page')) || 10
             if (checkBox.checked) setSelectedRows(pre => {
                 pre.add(id)
+                if (pre.size === perPage) setCheckAll(true)
                 return structuredClone(pre)
             })
             else setSelectedRows(pre => {
                 pre.delete(id)
+                if (pre.size !== perPage) setCheckAll(false)
                 return structuredClone(pre)
             })
+            return
         }
         setUserId(id)
         setViewMode(true)
