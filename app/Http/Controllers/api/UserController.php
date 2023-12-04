@@ -191,7 +191,7 @@ class UserController extends Controller
             ]);
             $data->user = $data->user->fresh();
             DB::commit();
-            return Reply::successWithData($data->user, 'app.successes.recordSaveSuccess');
+            return Reply::successWithMessage('app.successes.recordSaveSuccess');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             DB::rollBack();
