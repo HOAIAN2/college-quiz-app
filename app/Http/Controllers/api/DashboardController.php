@@ -37,19 +37,19 @@ class DashboardController extends Controller
                     else $data->student_count++;
                 }
                 # Get Subject count
-                $data->subject_count = Subject::count('id');
+                $data->subject_count = Subject::count();
                 # Get courses count
                 $data->course_count = Course::whereHas('semester', function ($query) use ($now) {
                     $query->whereDate('start_date', '<=', $now)
                         ->whereDate('end_date', '>=', $now);
-                })->count('id');
+                })->count();
                 # Get Question count
-                $data->question_count = Question::count('id');
+                $data->question_count = Question::count();
                 # Get exam count
                 $data->exam_in_next_week = Exam::whereBetween('exam_date', [$now, $now->copy()->addWeek()])
-                    ->count('id');
+                    ->count();
                 $data->exam_in_this_month = Exam::whereBetween('exam_date', [now()->startOfMonth(), now()->endOfMonth()])
-                    ->count('id');
+                    ->count();
                 break;
             case Role::ROLES['teacher']:
                 #

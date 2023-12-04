@@ -8,6 +8,7 @@ use App\Http\Requests\User\DeleteRequest;
 use App\Http\Requests\User\GetByTypeRequest;
 use App\Http\Requests\User\ImportRequest;
 use App\Http\Requests\User\StoreRequest;
+use App\Http\Requests\User\UpdateRequest;
 use App\Models\Course;
 use App\Models\Role;
 use App\Models\User;
@@ -17,7 +18,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
-use PhpOffice\PhpSpreadsheet\Shared;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class UserController extends Controller
@@ -158,19 +158,45 @@ class UserController extends Controller
                     $data->courses = [];
                     break;
             }
+            return Reply::successWithData($data, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             return Reply::error('app.errors.serverError');
         }
-        return Reply::successWithData($data, '');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, string $id)
     {
-        //
+        $user = $this->getUser();
+        $data = (object)[];
+        if (!$user->isAdmin() && $id != $user->id) return Reply::error('permission.errors.403');
+        DB::beginTransaction();
+        try {
+            $data->user = User::with('role')->findOrFail($id);
+            $data->user->update([
+                'shortcode' => $request->shortcode,
+                'email' => $request->email,
+                'first_name' => $request->first_name,
+                'last_name' => $request->name,
+                'phone_number' => $request->phone_number,
+                'gender' => $request->gender,
+                'address' => $request->address,
+                'birth_date' => $request->birth_date,
+                'class' => $request->class,
+                'faculty' => $request->faculty,
+                'password' => Hash::make($request->password)
+            ]);
+            $data->user = $data->user->fresh();
+            DB::commit();
+            return Reply::successWithData($data->user, 'app.successes.recordSaveSuccess');
+        } catch (\Throwable $error) {
+            Log::error($error->getMessage());
+            DB::rollBack();
+            return Reply::error('app.errors.serverError');
+        }
     }
 
     /**

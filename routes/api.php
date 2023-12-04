@@ -28,6 +28,7 @@ Route::prefix('/user')->middleware('auth:sanctum')
     ->controller(UserController::class)->group(function () {
         Route::get('/', 'index');
         Route::post('/', 'store');
+        Route::put('/{id}', 'update');
         Route::delete('/', 'destroy');
         Route::get('/query', 'getUserByType');
         Route::post('/import', 'importUsers');
