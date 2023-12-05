@@ -189,7 +189,6 @@ class UserController extends Controller
                 'faculty' => $request->faculty,
                 'password' => Hash::make($request->password)
             ]);
-            $data->user = $data->user->fresh();
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
         } catch (\Throwable $error) {

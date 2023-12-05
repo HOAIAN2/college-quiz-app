@@ -28,6 +28,18 @@ export async function apiCreateUser(form: FormData) {
         throw new Error(message)
     }
 }
+export async function apiUpdateUser(form: FormData, id: string | number) {
+    if (!getToken()) throw new Error('no token')
+    try {
+        await request.put('/user/' + id, form)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+        if (!error.response) throw new Error(error.message)
+        const message = error.response.data.message
+        if (error.response.data.errors) return Promise.reject(error.response.data.errors)
+        throw new Error(message)
+    }
+}
 export async function apiImportUsers(file: File, role: RoleName) {
     if (!getToken()) throw new Error('no token')
     const data = new FormData()
