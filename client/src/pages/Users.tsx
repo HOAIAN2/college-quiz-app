@@ -12,14 +12,14 @@ import { UsersLanguage } from '../models/lang'
 import useAppContext from '../hooks/useAppContext'
 import styles from '../styles/Users.module.css'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { reqDeleteUserByIds, reqGetUsersByType, reqImportUsers } from '../api/user'
+import { apiDeleteUserByIds, apiGetUsersByType, apiImportUsers } from '../api/user'
 import { useSearchParams } from 'react-router-dom'
 import CustomSelect from '../components/CustomSelect'
 import useDebounce from '../hooks/useDebounce'
 import ImportData from '../components/ImportData'
 import { RoleName } from '../models/user'
 import UsersTable from '../components/UsersTable'
-import { templateFileUrl } from '../api/api-config'
+import { templateFileUrl } from '../api/config'
 import Loading from '../components/Loading'
 import YesNoPopUp from '../components/YesNoPopUp'
 
@@ -45,7 +45,7 @@ export default function Users({
             searchParams.get('per_page') || '10',
             searchParams.get('search')
         ],
-        queryFn: () => reqGetUsersByType({
+        queryFn: () => apiGetUsersByType({
             role: role,
             page: Number(searchParams.get('page')),
             perPage: Number(searchParams.get('per_page')) as 10 | 20 | 30,
@@ -53,10 +53,10 @@ export default function Users({
         })
     })
     const importFunction = async (file: File) => {
-        return reqImportUsers(file, role)
+        return apiImportUsers(file, role)
     }
     const handleDeleteUsers = async () => {
-        return reqDeleteUserByIds(Array.from(selectedUserIds))
+        return apiDeleteUserByIds(Array.from(selectedUserIds))
     }
     const onDeleteSuccess = () => {
         queryKeys.forEach(key => {

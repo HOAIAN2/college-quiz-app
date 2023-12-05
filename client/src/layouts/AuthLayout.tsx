@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { reqGetUser } from '../api/user'
+import { apiGetUser } from '../api/user'
 import useAppContext from '../hooks/useAppContext'
 import { USER_ACTION } from '../contexts/UserContext'
 import styles from '../styles/AuthLayout.module.css'
@@ -12,7 +12,7 @@ export default function AuthLayout() {
     const { user } = useAppContext()
     useEffect(() => {
         const prePage = location.state?.from
-        reqGetUser()
+        apiGetUser()
             .then(data => {
                 user.dispatchUser({ type: USER_ACTION.SET, payload: data })
                 navigate(prePage?.pathname || '/')

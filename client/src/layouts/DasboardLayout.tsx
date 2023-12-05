@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import useAppContext from '../hooks/useAppContext'
-import { reqGetUser } from '../api/user'
+import { apiGetUser } from '../api/user'
 import { USER_ACTION } from '../contexts/UserContext'
 import Header from '../components/Header'
 import NavBar from '../components/NavBar'
@@ -13,7 +13,7 @@ export default function DasboardLayout() {
     const [checking, setChecking] = useState(true)
     const navigate = useNavigate()
     useEffect(() => {
-        reqGetUser()
+        apiGetUser()
             .then(data => {
                 user.dispatchUser({ type: USER_ACTION.SET, payload: data })
                 setChecking(false)

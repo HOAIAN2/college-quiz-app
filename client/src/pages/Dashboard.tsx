@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { reqGetDashboard } from '../api/dashboard'
+import { apiGetDashboard } from '../api/dashboard'
 import {
     PiStudent,
     PiChalkboardTeacherLight,
@@ -20,7 +20,7 @@ export default function Dashboard() {
     const [language, setLanguage] = useState<DashboardLanguage>()
     const queryData = useQuery({
         queryKey: ['dashboard'],
-        queryFn: reqGetDashboard
+        queryFn: apiGetDashboard
     })
     useEffect(() => {
         fetch(`/langs/page.dashboard.${appLanguage.language}.json`)

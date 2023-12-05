@@ -1,8 +1,8 @@
-import request, { getToken } from './api-config'
+import request, { getToken } from './config'
 import { QueryUserType, RoleName, User, UserDetail, UserPagination } from '../models/user'
 import { ApiResponseWithData } from '../models/response'
 
-export async function reqGetUser() {
+export async function apiGetUser() {
     if (!getToken()) throw new Error('no token')
     try {
         const res = await request.get('/user')
@@ -16,7 +16,7 @@ export async function reqGetUser() {
         throw new Error(message)
     }
 }
-export async function reqCreateUser(form: FormData) {
+export async function apiCreateUser(form: FormData) {
     if (!getToken()) throw new Error('no token')
     try {
         await request.post('/user', form)
@@ -28,7 +28,7 @@ export async function reqCreateUser(form: FormData) {
         throw new Error(message)
     }
 }
-export async function reqImportUsers(file: File, role: RoleName) {
+export async function apiImportUsers(file: File, role: RoleName) {
     if (!getToken()) throw new Error('no token')
     const data = new FormData()
     data.append('role', role)
@@ -43,7 +43,7 @@ export async function reqImportUsers(file: File, role: RoleName) {
         throw new Error(message)
     }
 }
-export async function reqGetUsersByType(query?: QueryUserType) {
+export async function apiGetUsersByType(query?: QueryUserType) {
     try {
         const res = await request.get('/user/query', {
             params: {
@@ -60,7 +60,7 @@ export async function reqGetUsersByType(query?: QueryUserType) {
         throw new Error(error.message)
     }
 }
-export async function reqGetUsersById(id: string | number) {
+export async function apiGetUsersById(id: string | number) {
     try {
         const res = await request.get('/user/' + id)
         const { data } = res.data as ApiResponseWithData<UserDetail>
@@ -70,7 +70,7 @@ export async function reqGetUsersById(id: string | number) {
         throw new Error(error.message)
     }
 }
-export async function reqDeleteUserByIds(ids: (string | number)[]) {
+export async function apiDeleteUserByIds(ids: (string | number)[]) {
     try {
         await request.delete('/user/', {
             params: {

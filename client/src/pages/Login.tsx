@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import useAppContext from '../hooks/useAppContext'
-import { reqLogin } from '../api/auth'
-import { reqGetUser } from '../api/user'
+import { apiLogin } from '../api/auth'
+import { apiGetUser } from '../api/user'
 import { USER_ACTION } from '../contexts/UserContext'
 import styles from '../styles/Login.module.css'
 import { LoginPageLanguage } from '../models/lang'
@@ -26,9 +26,9 @@ export default function Login() {
         setBlockSubmit(true)
         const formData = new FormData(e.currentTarget)
         buttonRef.current?.classList.add(styles['submitting'])
-        reqLogin(formData)
+        apiLogin(formData)
             .then(() => {
-                return reqGetUser()
+                return apiGetUser()
             })
             .then((data) => {
                 user.dispatchUser({ type: USER_ACTION.SET, payload: data })

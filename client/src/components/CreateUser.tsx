@@ -4,7 +4,7 @@ import {
 } from 'react-icons/rx'
 import Datetime from 'react-datetime'
 import 'react-datetime/css/react-datetime.css'
-import { reqCreateUser } from '../api/user'
+import { apiCreateUser } from '../api/user'
 import { useMutation } from '@tanstack/react-query'
 import CustomSelect from './CustomSelect'
 import styles from '../styles/CreateUser.module.css'
@@ -45,7 +45,7 @@ export default function CreateUser({
         formData.append('role', role !== undefined ? role : 'student')
         formData.append('gender', gender)
         formData.append('birth_date', birthDate.toISOString().split('T')[0])
-        await reqCreateUser(formData)
+        await apiCreateUser(formData)
         if (submitter.name === 'save') handleTurnOffInsertMode()
         else form.reset()
     }

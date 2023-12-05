@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { reqGetUsersById } from '../api/user'
+import { apiGetUsersById } from '../api/user'
 import Loading from './Loading'
 import useAppContext from '../hooks/useAppContext'
 import { ViewUserLanguage } from '../models/lang'
@@ -22,7 +22,7 @@ export default function ViewUser({
         queryFn: () => {
             const currentPath = location.pathname.split('/')
             const currentId = currentPath.pop() || currentPath.pop() as string
-            return reqGetUsersById(id || currentId)
+            return apiGetUsersById(id || currentId)
         },
     })
     useEffect(() => {

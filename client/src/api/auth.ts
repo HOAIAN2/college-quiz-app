@@ -1,9 +1,9 @@
 import { ApiResponseWithData, LoginResponse } from '../models/response'
 import request, {
     // getToken
-} from './api-config'
+} from './config'
 
-export async function reqLogin(form: FormData) {
+export async function apiLogin(form: FormData) {
     try {
         const res = await request.post('/auth/login', form)
         const { data } = res.data as ApiResponseWithData<LoginResponse>
@@ -20,7 +20,7 @@ export async function reqLogin(form: FormData) {
         throw new Error(message.message)
     }
 }
-export async function reqLogout() {
+export async function apiLogout() {
     try {
         await request.post('/auth/logout')
         localStorage.removeItem('token')
