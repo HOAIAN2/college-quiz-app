@@ -31,7 +31,6 @@ export default function Header() {
                 </div>
                 <h1 ref={DOM.titleRef} className={styles['app-title']}></h1>
             </div>
-            <div id='loader'></div>
             <div className={styles['right-items']}>
                 <span onClick={handleLogout} className={styles['right-item']}>
                     <BiLogOut />
