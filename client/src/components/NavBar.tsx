@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useAppContext } from '../contexts/hooks'
+import useAppContext from '../hooks/useAppContext'
 import {
     AiOutlineQuestionCircle,
     AiOutlineUser

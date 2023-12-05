@@ -4,8 +4,8 @@ import {
 import {
     PiSidebarSimpleLight
 } from 'react-icons/pi'
-import { reqLogout } from '../utils/auth'
-import { useAppContext } from '../contexts/hooks'
+import { reqLogout } from '../api/auth'
+import useAppContext from '../hooks/useAppContext'
 import styles from '../styles/Header.module.css'
 import navBarStyles from '../styles/NavBar.module.css'
 
@@ -22,6 +22,7 @@ export default function Header() {
     }
     return (
         <div className={styles['header']}>
+            <div id='loader'></div>
             <div className={styles['left-items']}>
                 <div className={styles['toggle']} onClick={() => {
                     DOM.sideBarRef.current?.classList.toggle(navBarStyles['hide'])

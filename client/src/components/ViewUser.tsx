@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { reqGetUsersById } from '../utils/user'
+import { reqGetUsersById } from '../api/user'
 import Loading from './Loading'
-import { useAppContext } from '../contexts/hooks'
+import useAppContext from '../hooks/useAppContext'
 import { ViewUserLanguage } from '../models/lang'
 import { UserDetail } from '../models/user'
 import styles from '../styles/ViewUser.module.css'
@@ -18,7 +18,7 @@ export default function ViewUser({
     const [language, setLanguage] = useState<ViewUserLanguage>()
     const { appLanguage } = useAppContext()
     const queryData = useQuery({
-        queryKey: [`user-${id}`],
+        queryKey: ['user', id],
         queryFn: () => {
             const currentPath = location.pathname.split('/')
             const currentId = currentPath.pop() || currentPath.pop() as string

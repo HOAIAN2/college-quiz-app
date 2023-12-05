@@ -1,4 +1,4 @@
-import { useAppContext } from '../contexts/hooks'
+import useAppContext from '../hooks/useAppContext'
 import styles from '../styles/Footer.module.css'
 
 export default function Footer() {
