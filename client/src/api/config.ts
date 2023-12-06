@@ -48,7 +48,7 @@ request.interceptors.request.use(config => {
     if (getToken()) {
         config.headers.Authorization = getTokenHeader()
     }
-    config.headers['Content-Type'] = 'multipart/form-data'
+    if (!config.headers['Content-Type']) config.headers['Content-Type'] = 'multipart/form-data'
     return config
 })
 

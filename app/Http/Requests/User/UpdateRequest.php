@@ -21,19 +21,20 @@ class UpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $parameters = $this->route()->parameters;
         return [
-            'shortcode' => ['required', 'string', 'unique:users', 'max:255'],
-            'email' => ['required', 'email', 'unique:users'],
+            'shortcode' => ['required', 'string', 'unique:users,shortcode,' . $parameters['id'], 'max:255'],
+            'email' => ['required', 'email',  'unique:users,email,' . $parameters['id']],
             'first_name' => ['required', 'max:255'],
             'last_name' => ['required', 'max:255'],
-            'phone_numeber' => ['string', 'unique:users', 'max:10'],
+            'phone_number' => ['nullable', 'string',  'unique:users,phone_number,' . $parameters['id'], 'max:10'],
             'gender' => ['required', 'in:male,female'],
             'address' => ['required', 'string', 'max:255'],
             'birth_date' => ['required', 'date_format:Y-m-d', 'before:today'],
             'class' => ['required_if:role,student', 'max:255'],
             'faculty' => ['required_if:role,teacher', 'max:255'],
             'is_active' => ['required', 'in:1,0'],
-            'password' => ['required', 'min:8']
+            'password' => ['nullable', 'min:8']
         ];
     }
 }

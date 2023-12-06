@@ -12,7 +12,7 @@ import './App.css'
 import SuspenseLoading from './components/SuspenseLoading'
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Users = lazy(() => import('./pages/Users'))
-const ViewUser = lazy(() => import('./components/ViewUser'))
+// const ViewUser = lazy(() => import('./components/ViewUser'))
 
 const router = createBrowserRouter([
   {
@@ -62,16 +62,17 @@ const router = createBrowserRouter([
           },
           {
             path: 'students',
-            children: [
-              {
-                index: true,
-                element: <Suspense fallback={<SuspenseLoading />}><Users role='student' /></Suspense>
-              },
-              {
-                path: '*',
-                element: <Suspense fallback={<SuspenseLoading />}><ViewUser /></Suspense>
-              }
-            ]
+            element: <Suspense fallback={<SuspenseLoading />}><Users role='student' /></Suspense>
+            // children: [
+            //   {
+            //     index: true,
+            //     element: <Suspense fallback={<SuspenseLoading />}><Users role='student' /></Suspense>
+            //   },
+            //   {
+            //     path: '*',
+            //     element: <Suspense fallback={<SuspenseLoading />}><ViewUser /></Suspense>
+            //   }
+            // ]
           },
         ]
       }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import ViewUser from './ViewUser'
 import { UserDetail } from '../models/user'
 import styles from '../styles/ViewUserPopUp.module.css'
@@ -15,7 +15,6 @@ export default function ViewUserPopUp({
 }: ViewUserPopUpProps) {
     const [hide, setHide] = useState(true)
     const [userDetail, setUserDetail] = useState<UserDetail | null>(null)
-    const navigate = useNavigate()
     const handleTurnOffImportMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
         const timing = Number(transitionTiming.replace('s', '')) * 1000
@@ -23,19 +22,19 @@ export default function ViewUserPopUp({
         setTimeout(() => {
             setViewMode(false)
         }, timing)
-        navigate(-1)
+        // navigate(-1)
     }
     useEffect(() => {
         setHide(false)
     }, [])
-    useEffect(() => {
-        const currentPath = location.pathname.split('/')
-        const currentId = currentPath.pop() || currentPath.pop() as string
-        if (id.toString() === currentId) return
-        const newPath = !location.pathname.endsWith('/') ? location.pathname + '/' + id
-            : location.pathname + id
-        history.pushState({}, '', newPath)
-    }, [id])
+    // useEffect(() => {
+    //     const currentPath = location.pathname.split('/')
+    //     const currentId = currentPath.pop() || currentPath.pop() as string
+    //     if (id.toString() === currentId) return
+    //     const newPath = !location.pathname.endsWith('/') ? location.pathname + '/' + id
+    //         : location.pathname + id
+    //     history.pushState({}, '', newPath)
+    // }, [id])
     return (
         <div
             className={

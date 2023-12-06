@@ -16,10 +16,10 @@ export async function apiGetUser() {
         throw new Error(message)
     }
 }
-export async function apiCreateUser(form: FormData) {
+export async function apiCreateUser(formData: FormData) {
     if (!getToken()) throw new Error('no token')
     try {
-        await request.post('/user', form)
+        await request.post('/user', formData)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)
@@ -28,10 +28,18 @@ export async function apiCreateUser(form: FormData) {
         throw new Error(message)
     }
 }
-export async function apiUpdateUser(form: FormData, id: string | number) {
+export async function apiUpdateUser(formData: FormData, id: string | number) {
     if (!getToken()) throw new Error('no token')
     try {
-        await request.put('/user/' + id, form)
+        const data = new URLSearchParams();
+        for (const pair of formData) {
+            data.append(pair[0], pair[1] as string);
+        }
+        await request.put('/user/' + id, data, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)
@@ -46,7 +54,11 @@ export async function apiImportUsers(file: File, role: RoleName) {
     data.append('role', role)
     data.append('file', file)
     try {
-        await request.post('/user/import', data)
+        await request.post('/user/import', data, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+        })
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)

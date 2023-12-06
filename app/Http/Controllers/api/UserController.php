@@ -170,13 +170,11 @@ class UserController extends Controller
      */
     public function update(UpdateRequest $request, string $id)
     {
-        $user = $this->getUser();
-        $data = (object)[];
-        if (!$user->isAdmin() && $id != $user->id) return Reply::error('permission.errors.403');
+        if (!$this->getUser()->isAdmin()) return Reply::error('permission.errors.403');
         DB::beginTransaction();
         try {
-            $data->user = User::with('role')->findOrFail($id);
-            $data->user->update([
+            $user = User::with('role')->findOrFail($id);
+            $data = [
                 'shortcode' => $request->shortcode,
                 'email' => $request->email,
                 'first_name' => $request->first_name,
@@ -187,8 +185,10 @@ class UserController extends Controller
                 'birth_date' => $request->birth_date,
                 'class' => $request->class,
                 'faculty' => $request->faculty,
-                'password' => Hash::make($request->password)
-            ]);
+                'is_active' => $request->is_active,
+            ];
+            if ($request->password != null) $data['password'] = Hash::make($request->password);
+            $user->update($data);
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
         } catch (\Throwable $error) {

@@ -4,6 +4,7 @@ import useAppContext from '../hooks/useAppContext'
 import { YesNoPopUpLanguage } from '../models/lang'
 import { useMutation } from '@tanstack/react-query'
 import styles from '../styles/YesNoPopUp.module.css'
+import Loading from './Loading'
 
 type YesNoPopUpProps = {
     message: string
@@ -53,10 +54,7 @@ export default function YesNoPopUp({
                     hide ? styles['hide'] : ''
                 ].join(' ')
             }>
-            {mutation.isPending ?
-                <div className='data-loading'
-                    style={{ zIndex: 10 }}
-                >Loading...</div> : null}
+            {mutation.isPending ? <Loading /> : null}
             <div
                 className={
                     [
