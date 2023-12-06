@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import useAppContext from '../hooks/useAppContext'
 import { apiLogin } from '../api/auth'
 import { apiGetUser } from '../api/user'
 import { USER_ACTION } from '../contexts/UserContext'
-import styles from '../styles/Login.module.css'
+import useAppContext from '../hooks/useAppContext'
 import { LoginPageLanguage } from '../models/lang'
+import styles from '../styles/Login.module.css'
 
 export default function Login() {
     const [language, setLanguage] = useState<LoginPageLanguage>()

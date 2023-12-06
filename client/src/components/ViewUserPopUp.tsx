@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
 // import { useNavigate } from 'react-router-dom'
-import ViewUser from './ViewUser'
 import { UserDetail } from '../models/user'
 import styles from '../styles/ViewUserPopUp.module.css'
+import ViewUser from './ViewUser'
 
 type ViewUserPopUpProps = {
     id: number

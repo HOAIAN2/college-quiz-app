@@ -1,13 +1,13 @@
-import { SyntheticEvent, useEffect, useState } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { apiGetUsersById, apiUpdateUser } from '../api/user'
-import Loading from './Loading'
+import { SyntheticEvent, useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
+import { apiGetUsersById, apiUpdateUser } from '../api/user'
 import useAppContext from '../hooks/useAppContext'
 import { ViewUserLanguage } from '../models/lang'
 import { UserDetail } from '../models/user'
 import styles from '../styles/ViewUser.module.css'
 import CustomSelect from './CustomSelect'
+import Loading from './Loading'
 
 type ViewUserProps = {
     id: number | string,
@@ -20,7 +20,6 @@ export default function ViewUser({
     const [language, setLanguage] = useState<ViewUserLanguage>()
     const { appLanguage } = useAppContext()
     const [gender, setGender] = useState('male')
-    const [birthDate, setBirthDate] = useState<Date>(new Date())
     const queryData = useQuery({
         queryKey: ['user', id],
         queryFn: () => {
@@ -38,15 +37,15 @@ export default function ViewUser({
     }
     const handleUpdateUser = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
         e.preventDefault()
-        document.querySelectorAll('input[name]').forEach(element => {
+        document.querySelectorAll('input[name]').forEach(node => {
+            const element = node as HTMLInputElement
             element.classList.remove(styles['error'])
-            element.parentElement?.removeAttribute('data-error')
+            if (element.name === 'birth_date') element.parentElement?.parentElement?.removeAttribute('data-error')
+            else element.parentElement?.removeAttribute('data-error')
         })
         const form = e.target as HTMLFormElement
         const formData = new FormData(form)
-        // formData.append('role', role !== undefined ? role : 'student')
         formData.append('gender', gender)
-        formData.append('birth_date', birthDate.toISOString().split('T')[0])
         await apiUpdateUser(formData, id)
     }
     const { mutate } = useMutation({
@@ -57,7 +56,8 @@ export default function ViewUser({
                     const element = document.querySelector(`input[name="${key}"]`) as HTMLInputElement
                     if (element) {
                         element.classList.add(styles['error'])
-                        element.parentElement?.setAttribute('data-error', error[key as keyof typeof error][0] as string)
+                        if (element.name === 'birth_date') element.parentElement?.parentElement?.setAttribute('data-error', error[key as keyof typeof error][0] as string)
+                        else element.parentElement?.setAttribute('data-error', error[key as keyof typeof error][0] as string)
                     }
                 }
             }
@@ -75,10 +75,6 @@ export default function ViewUser({
             })
     }, [appLanguage.language])
     useEffect(() => {
-        if (queryData.data?.user) {
-            setBirthDate(new Date(queryData.data.user.birthDate))
-            setGender(queryData.data.user.gender)
-        }
         if (queryData.data?.user && setUserDetail) {
             setUserDetail(queryData.data)
         }
@@ -202,12 +198,13 @@ export default function ViewUser({
                                         <label className={styles['required']} htmlFor="">{language?.birthDate}</label>
                                         <Datetime
                                             initialValue={new Date(queryData.data.user.birthDate)}
-                                            onChange={(value) => {
-                                                if (typeof value === 'string') return
-                                                setBirthDate(value.toDate())
-                                            }}
+                                            // onChange={(value) => {
+                                            //     if (typeof value === 'string') return
+                                            //     setBirthDate(value.toDate())
+                                            // }}
                                             inputProps={
                                                 {
+                                                    name: 'birth_date',
                                                     className: [
                                                         'input-d',
                                                         styles['input-item']

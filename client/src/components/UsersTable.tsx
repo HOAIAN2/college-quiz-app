@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import { SetURLSearchParams } from 'react-router-dom'
 import { GiFemale, GiMale } from 'react-icons/gi'
-import { RoleName, UserPagination } from '../models/user'
+import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
+import { SetURLSearchParams } from 'react-router-dom'
 import useAppContext from '../hooks/useAppContext'
 import { UsersTableLanguage } from '../models/lang'
-import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
-import ViewUserPopUp from './ViewUserPopUp'
+import { RoleName, UserPagination } from '../models/user'
 import styles from '../styles/Users.Table.module.css'
+import ViewUserPopUp from './ViewUserPopUp'
 
 type UsersTableProps = {
     role: RoleName

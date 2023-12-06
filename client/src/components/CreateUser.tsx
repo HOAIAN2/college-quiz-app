@@ -1,16 +1,16 @@
+import { useMutation } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
+import Datetime from 'react-datetime'
+import 'react-datetime/css/react-datetime.css'
 import {
     RxCross2
 } from 'react-icons/rx'
-import Datetime from 'react-datetime'
-import 'react-datetime/css/react-datetime.css'
 import { apiCreateUser } from '../api/user'
-import { useMutation } from '@tanstack/react-query'
-import CustomSelect from './CustomSelect'
-import styles from '../styles/CreateUser.module.css'
 import useAppContext from '../hooks/useAppContext'
 import { CreateUserLanguage } from '../models/lang'
 import { RoleName } from '../models/user'
+import styles from '../styles/CreateUser.module.css'
+import CustomSelect from './CustomSelect'
 
 type CreateUserProps = {
     role: RoleName
@@ -24,7 +24,6 @@ export default function CreateUser({
     const { appLanguage } = useAppContext()
     const [hide, setHide] = useState(true)
     const [gender, setGender] = useState('male')
-    const [birthDate, setBirthDate] = useState<Date>(new Date())
     const handleTurnOffInsertMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
         const timing = Number(transitionTiming.replace('s', '')) * 1000
@@ -35,16 +34,17 @@ export default function CreateUser({
     }
     const handleCreateUser = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
         e.preventDefault()
-        document.querySelectorAll('input[name]').forEach(element => {
+        document.querySelectorAll('input[name]').forEach(node => {
+            const element = node as HTMLInputElement
             element.classList.remove(styles['error'])
-            element.parentElement?.removeAttribute('data-error')
+            if (element.name === 'birth_date') element.parentElement?.parentElement?.removeAttribute('data-error')
+            else element.parentElement?.removeAttribute('data-error')
         })
         const submitter = e.nativeEvent.submitter as HTMLButtonElement
         const form = e.target as HTMLFormElement
         const formData = new FormData(form)
         formData.append('role', role !== undefined ? role : 'student')
         formData.append('gender', gender)
-        formData.append('birth_date', birthDate.toISOString().split('T')[0])
         await apiCreateUser(formData)
         if (submitter.name === 'save') handleTurnOffInsertMode()
         else form.reset()
@@ -64,7 +64,8 @@ export default function CreateUser({
                     const element = document.querySelector(`input[name="${key}"]`) as HTMLInputElement
                     if (element) {
                         element.classList.add(styles['error'])
-                        element.parentElement?.setAttribute('data-error', error[key as keyof typeof error][0] as string)
+                        if (element.name === 'birth_date') element.parentElement?.parentElement?.setAttribute('data-error', error[key as keyof typeof error][0] as string)
+                        else element.parentElement?.setAttribute('data-error', error[key as keyof typeof error][0] as string)
                     }
                 }
             }
@@ -206,13 +207,10 @@ export default function CreateUser({
                         <div className={styles['wrap-item']}>
                             <label className={styles['required']} htmlFor="">{language?.birthDate}</label>
                             <Datetime
-                                initialValue={birthDate}
-                                onChange={(value) => {
-                                    if (typeof value === 'string') return
-                                    setBirthDate(value.toDate())
-                                }}
+                                initialValue={new Date()}
                                 inputProps={
                                     {
+                                        name: 'birth_date',
                                         className: [
                                             'input-d',
                                             styles['input-item']

@@ -1,19 +1,19 @@
 import { useQuery } from '@tanstack/react-query'
-import { apiGetDashboard } from '../api/dashboard'
+import { useEffect, useState } from 'react'
 import {
-    PiStudent,
     PiChalkboardTeacherLight,
     PiExam,
+    PiStudent,
 } from 'react-icons/pi'
 import {
     SiGoogleclassroom
 } from 'react-icons/si'
-import styles from '../styles/Dashboard.module.css'
 import { Link } from 'react-router-dom'
+import { apiGetDashboard } from '../api/dashboard'
 import Loading from '../components/Loading'
-import { useEffect, useState } from 'react'
-import { DashboardLanguage } from '../models/lang'
 import useAppContext from '../hooks/useAppContext'
+import { DashboardLanguage } from '../models/lang'
+import styles from '../styles/Dashboard.module.css'
 
 export default function Dashboard() {
     const { appLanguage } = useAppContext()

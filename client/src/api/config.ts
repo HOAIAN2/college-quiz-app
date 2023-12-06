@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
-import toast from '../utils/toast'
 import { getLanguage } from '../utils/languages'
+import toast from '../utils/toast'
 const env = import.meta.env
 
 type TemplateFileUrl = {

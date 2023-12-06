@@ -1,24 +1,24 @@
 import { useEffect, useState } from 'react'
-import useAppContext from '../hooks/useAppContext'
 import {
     AiOutlineQuestionCircle,
     AiOutlineUser
 } from 'react-icons/ai'
 import {
-    PiStudent,
-    PiChalkboardTeacherLight,
     PiBooks,
+    PiChalkboardTeacherLight,
     PiExam,
+    PiStudent,
 } from 'react-icons/pi'
-import {
-    SiGoogleclassroom
-} from 'react-icons/si'
 import {
     RxDashboard
 } from 'react-icons/rx'
-import styles from '../styles/NavBar.module.css'
+import {
+    SiGoogleclassroom
+} from 'react-icons/si'
 import { Link } from 'react-router-dom'
+import useAppContext from '../hooks/useAppContext'
 import { NavBarLanguage } from '../models/lang'
+import styles from '../styles/NavBar.module.css'
 
 export default function NavBar() {
     const { DOM, user, appLanguage } = useAppContext()

@@ -1,7 +1,5 @@
 import { ApiResponseWithData, LoginResponse } from '../models/response'
-import request, {
-    // getToken
-} from './config'
+import request from './config'
 
 export async function apiLogin(form: FormData) {
     try {

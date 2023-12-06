@@ -30,7 +30,7 @@ class UpdateRequest extends FormRequest
             'phone_number' => ['nullable', 'string',  'unique:users,phone_number,' . $parameters['id'], 'max:10'],
             'gender' => ['required', 'in:male,female'],
             'address' => ['required', 'string', 'max:255'],
-            'birth_date' => ['required', 'date_format:Y-m-d', 'before:today'],
+            'birth_date' => ['required', 'date', 'before:today'],
             'class' => ['required_if:role,student', 'max:255'],
             'faculty' => ['required_if:role,teacher', 'max:255'],
             'is_active' => ['required', 'in:1,0'],

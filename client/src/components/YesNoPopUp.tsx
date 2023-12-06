@@ -1,8 +1,8 @@
+import { useMutation } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
 import useAppContext from '../hooks/useAppContext'
 import { YesNoPopUpLanguage } from '../models/lang'
-import { useMutation } from '@tanstack/react-query'
 import styles from '../styles/YesNoPopUp.module.css'
 import Loading from './Loading'
 

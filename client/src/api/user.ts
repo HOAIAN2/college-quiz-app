@@ -1,6 +1,6 @@
-import request, { getToken } from './config'
-import { QueryUserType, RoleName, User, UserDetail, UserPagination } from '../models/user'
 import { ApiResponseWithData } from '../models/response'
+import { QueryUserType, RoleName, User, UserDetail, UserPagination } from '../models/user'
+import request, { getToken } from './config'
 
 export async function apiGetUser() {
     if (!getToken()) throw new Error('no token')
