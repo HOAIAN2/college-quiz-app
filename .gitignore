@@ -22,6 +22,7 @@ yarn-error.log
 /.idea
 /.vscode
 app.zip
+app.tar.gz
 # Logs
 client/logs
 client/*.log
