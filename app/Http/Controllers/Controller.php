@@ -36,7 +36,6 @@ class Controller extends BaseController
     }
     public function getUser()
     {
-        $id = request()->user()->id;
-        return User::with('role')->find($id);
+        return request()->user()->load(['role']);
     }
 }
