@@ -32,13 +32,17 @@ export default function CreateUser({
             setInsertMode(false)
         }, timing)
     }
+    const getParentElement = (element: HTMLInputElement) => {
+        let parent = element.parentElement as HTMLElement
+        while (!parent.classList.contains(styles['wrap-item'])) parent = parent.parentElement as HTMLElement
+        return parent
+    }
     const handleCreateUser = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
         e.preventDefault()
-        document.querySelectorAll('input[name]').forEach(node => {
+        document.querySelector(styles['form-data'])?.querySelectorAll('input[name]').forEach(node => {
             const element = node as HTMLInputElement
             element.classList.remove(styles['error'])
-            if (element.name === 'birth_date') element.parentElement?.parentElement?.removeAttribute('data-error')
-            else element.parentElement?.removeAttribute('data-error')
+            getParentElement(element).removeAttribute('data-error')
         })
         const submitter = e.nativeEvent.submitter as HTMLButtonElement
         const form = e.target as HTMLFormElement
@@ -53,7 +57,7 @@ export default function CreateUser({
         const element = e.target as HTMLInputElement
         if (element) {
             element.classList.remove(styles['error'])
-            element.parentElement?.removeAttribute('data-error')
+            getParentElement(element).removeAttribute('data-error')
         }
     }
     const { mutate } = useMutation({
@@ -64,8 +68,7 @@ export default function CreateUser({
                     const element = document.querySelector(`input[name="${key}"]`) as HTMLInputElement
                     if (element) {
                         element.classList.add(styles['error'])
-                        if (element.name === 'birth_date') element.parentElement?.parentElement?.setAttribute('data-error', error[key as keyof typeof error][0] as string)
-                        else element.parentElement?.setAttribute('data-error', error[key as keyof typeof error][0] as string)
+                        getParentElement(element).setAttribute('data-error', error[key as keyof typeof error][0] as string)
                     }
                 }
             }
