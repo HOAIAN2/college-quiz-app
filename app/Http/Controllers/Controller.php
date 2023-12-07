@@ -34,8 +34,9 @@ class Controller extends BaseController
         if (Str::startsWith($accept_language, 'en')) App::setLocale('en');
         else App::setLocale(env('LOCALE', 'vi'));
     }
-    public function getUser(): User
+    public function getUser()
     {
-        return request()->user()->with('role');
+        $id = request()->user()->id;
+        return User::with('role')->find($id);
     }
 }
