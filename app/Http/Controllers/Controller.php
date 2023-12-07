@@ -36,6 +36,6 @@ class Controller extends BaseController
     }
     public function getUser(): User
     {
-        return request()->user();
+        return request()->user()->with('role');
     }
 }

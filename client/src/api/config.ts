@@ -12,12 +12,7 @@ const host = env.DEV === true ? `${window.location.origin.replace(env.VITE_DEV_P
 
 const baseURL = host + 'api/'
 
-const ignoreLoaders = [
-    '/user/info',
-    '/comment',
-    '/product/suggest',
-    '/product/auto-complete'
-]
+const ignoreLoaders: string[] = []
 export const templateFileUrl = {
     student: host + 'data/Import_Student_Template.xlsx',
     teacher: host + 'data/Import_Teacher_Template.xlsx',

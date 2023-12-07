@@ -13,10 +13,7 @@ export default function Header() {
     const { DOM } = useAppContext()
     const handleLogout = () => {
         apiLogout()
-            .then(() => {
-                window.location.pathname = '/'
-            })
-            .catch(() => {
+            .finally(() => {
                 window.location.pathname = '/'
             })
     }

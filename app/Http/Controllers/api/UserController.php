@@ -31,7 +31,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = request()->user()->with('role')->first();
+        $user = $this->getUser();
         return Reply::successWithData($user, '');
     }
 
@@ -45,20 +45,10 @@ class UserController extends Controller
 
         DB::beginTransaction();
         try {
-            User::create([
-                'role_id' => Role::ROLES[$request->role],
-                'shortcode' => $request->shortcode,
-                'email' => $request->email,
-                'first_name' => $request->first_name,
-                'last_name' => $request->name,
-                'phone_number' => $request->phone_number,
-                'gender' => $request->gender,
-                'address' => $request->address,
-                'birth_date' => $request->birth_date,
-                'class' => $request->class,
-                'faculty' => $request->faculty,
-                'password' => Hash::make($request->password)
-            ]);
+            $data = $request->except(['role']);
+            $data['password'] = Hash::make($request->password);
+            $data['role_id'] = Role::ROLES[$request->role];
+            User::create($data);
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
         } catch (\Throwable $error) {
@@ -174,19 +164,7 @@ class UserController extends Controller
         DB::beginTransaction();
         try {
             $user = User::with('role')->findOrFail($id);
-            $data = [
-                'shortcode' => $request->shortcode,
-                'email' => $request->email,
-                'first_name' => $request->first_name,
-                'last_name' => $request->name,
-                'phone_number' => $request->phone_number,
-                'gender' => $request->gender,
-                'address' => $request->address,
-                'birth_date' => $request->birth_date,
-                'class' => $request->class,
-                'faculty' => $request->faculty,
-                'is_active' => $request->is_active,
-            ];
+            $data = $request->all();
             if ($request->password != null) $data['password'] = Hash::make($request->password);
             $user->update($data);
             DB::commit();
