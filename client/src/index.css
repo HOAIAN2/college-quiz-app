@@ -44,8 +44,10 @@
   --color-shadow: rgb(210, 217, 228);
   --color-white: rgb(246, 246, 246);
   --color-background: rgb(242, 244, 247);
-  --color-soft-blue: rgb(108, 164, 249);
+  --color-soft-magenta: rgb(78, 115, 223);
+  --color-soft-blue: rgb(54, 185, 204);
   --color-soft-red: rgb(250, 143, 173);
+  --color-soft-green: rgb(28, 200, 138);
   --border-radius-low: 5px;
   --border-radius-medium: 15px;
   --transition-timing-fast: .3s;

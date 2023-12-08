@@ -50,7 +50,7 @@ export default function Dashboard() {
                                 [
                                     'dashboard-item-d',
                                     styles['dashboard-item'],
-                                    styles['container-blue']
+                                    styles['container-magenta']
                                 ].join(' ')
                             }>
                             <div className={styles['item-left']}>
@@ -65,7 +65,7 @@ export default function Dashboard() {
                                 [
                                     'dashboard-item-d',
                                     styles['dashboard-item'],
-                                    styles['container-blue']
+                                    styles['container-red']
                                 ].join(' ')
                             }>
                             <div className={styles['item-left']}>
@@ -80,7 +80,7 @@ export default function Dashboard() {
                                 [
                                     'dashboard-item-d',
                                     styles['dashboard-item'],
-                                    styles['container-blue']
+                                    styles['container-green']
                                 ].join(' ')
                             }>
                             <div className={styles['item-left']}>
