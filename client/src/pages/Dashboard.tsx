@@ -56,8 +56,8 @@ export default function Dashboard() {
                             <div className={styles['item-left']}>
                                 <PiStudent />
                             </div>
-                            <div className={styles['item-top']}>{queryData.data?.studentCount}</div>
-                            <div className={styles['item-bottom']}>{language?.items.totalStudent}</div>
+                            <div className={styles['item-top']}>{queryData.data?.numberOfStudents}</div>
+                            <div className={styles['item-bottom']}>{language?.items.numberOfStudents}</div>
                         </Link>
                         <Link
                             to={'teachers'}
@@ -71,8 +71,8 @@ export default function Dashboard() {
                             <div className={styles['item-left']}>
                                 <PiChalkboardTeacherLight />
                             </div>
-                            <div className={styles['item-top']}>{queryData.data?.teacherCount}</div>
-                            <div className={styles['item-bottom']}>{language?.items.totalTeacher}</div>
+                            <div className={styles['item-top']}>{queryData.data?.numberOfTeachers}</div>
+                            <div className={styles['item-bottom']}>{language?.items.numberOfTeachers}</div>
                         </Link>
                         <Link
                             to={'courses'}
@@ -86,8 +86,8 @@ export default function Dashboard() {
                             <div className={styles['item-left']}>
                                 <SiGoogleclassroom />
                             </div>
-                            <div className={styles['item-top']}>{queryData.data?.courseCount}</div>
-                            <div className={styles['item-bottom']}>{language?.items.courseCount}</div>
+                            <div className={styles['item-top']}>{queryData.data?.numberOfCourses}</div>
+                            <div className={styles['item-bottom']}>{language?.items.numberOfCourses}</div>
                         </Link>
                         <Link
                             to={'exams'}
@@ -101,7 +101,7 @@ export default function Dashboard() {
                             <div className={styles['item-left']}>
                                 <PiExam />
                             </div>
-                            <div className={styles['item-top']}>{queryData.data?.examInThisMonth}</div>
+                            <div className={styles['item-top']}>{queryData.data?.examsInNextWeek}</div>
                             <div className={styles['item-bottom']}>{language?.items.examInThisMonth}</div>
                         </Link>
                     </div> : null

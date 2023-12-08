@@ -89,11 +89,11 @@ export type YesNoPopUpLanguage = {
 }
 export type DashboardLanguage = {
     items: {
-        totalTeacher: string
-        totalStudent: string
-        totalSubject: string
-        courseCount: string
-        totalQuestion: string
+        numberOfTeachers: string
+        numberOfStudents: string
+        numberOfSubjects: string
+        numberOfCourses: string
+        numberOfQuestions: string
         examInNextWeek: string
         examInThisMonth: string
     }
