@@ -29,13 +29,8 @@ class DashboardController extends Controller
         switch ($user->role_id) {
             case Role::ROLES['admin']:
                 # Get student, teacher count
-                $data->teacher_count = 0;
-                $data->student_count = 0;
-                $user_roles = User::where('role_id', '<>', Role::ROLES['admin'])->pluck('role_id');
-                foreach ($user_roles as $item) {
-                    if ($item == Role::ROLES['teacher']) $data->teacher_count++;
-                    else $data->student_count++;
-                }
+                $data->teacher_count = User::whereRoleId(Role::ROLES['teacher'])->count();
+                $data->student_count = User::whereRoleId(Role::ROLES['student'])->count();
                 # Get Subject count
                 $data->subject_count = Subject::count();
                 # Get courses count
