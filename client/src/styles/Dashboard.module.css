@@ -73,7 +73,7 @@
 
 @media (width<=1000px) {
     .dashboard-item {
-        flex: 0 0 calc(50% - 20px);
+        flex: 0 0 calc(50% - 10px);
     }
 }
 
