@@ -37,18 +37,21 @@
     font-size: 56px;
     margin-top: 10px;
     margin-left: 10px;
+    /* color: var(--color-gray); */
 }
 
 .dashboard-item>.item-top {
     grid-area: top;
     font-size: 56px;
-    text-align: center;
+    text-align: end;
+    margin-right: 20px;
 }
 
 .dashboard-item>.item-bottom {
     grid-area: bottom;
     font-size: 24px;
-    text-align: center;
+    margin-left: 20px;
+    /* text-align: center; */
 }
 
 .container-magenta {
