@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property Semester $semester
  * @property Subject $subject
- * @property User $user
+ * @property User $teacher
  * @property Collection|Enrollment[] $enrollments
  * @property Collection|Exam[] $exams
  *
@@ -63,7 +63,7 @@ class Course extends Model
 		return $this->belongsTo(Subject::class);
 	}
 
-	public function user()
+	public function teacher()
 	{
 		return $this->belongsTo(User::class, 'teacher_id');
 	}

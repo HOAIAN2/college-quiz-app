@@ -28,19 +28,14 @@ class DashboardController extends Controller
         $now = now();
         switch ($user->role_id) {
             case Role::ROLES['admin']:
-                # Get student, teacher count
                 $data->number_of_teachers = User::whereRoleId(Role::ROLES['teacher'])->count();
                 $data->number_of_students = User::whereRoleId(Role::ROLES['student'])->count();
-                # Get Subject count
                 $data->number_of_subjects = Subject::count();
-                # Get courses count
                 $data->number_of_courses = Course::whereHas('semester', function ($query) use ($now) {
                     $query->whereDate('start_date', '<=', $now)
                         ->whereDate('end_date', '>=', $now);
                 })->count();
-                # Get Question count
                 $data->number_of_question = Question::count();
-                # Get exam count
                 $data->exams_in_next_week = Exam::whereBetween('exam_date', [$now, $now->copy()->addWeek()])
                     ->count();
                 $data->exams_in_this_month = Exam::whereBetween('exam_date', [now()->startOfMonth(), now()->endOfMonth()])

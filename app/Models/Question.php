@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $updated_at
  * 
  * @property Chapter $chapter
- * @property User $user
+ * @property User $created_by
  * @property Collection|Exam[] $exams
  * @property Collection|ExamTracker[] $exam_trackers
  * @property Collection|QuestionOption[] $question_options
@@ -53,7 +53,7 @@ class Question extends Model
 		return $this->belongsTo(Chapter::class);
 	}
 
-	public function user()
+	public function created_by()
 	{
 		return $this->belongsTo(User::class, 'created_by');
 	}

@@ -16,8 +16,9 @@ use Illuminate\Support\Str;
 
 class Controller extends BaseController
 {
-    public $supported_languages;
     use AuthorizesRequests, ValidatesRequests;
+    public $supported_languages;
+
     function __construct()
     {
         $this->setLanguage();
