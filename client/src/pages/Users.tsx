@@ -19,6 +19,7 @@ import UsersTable from '../components/UsersTable'
 import YesNoPopUp from '../components/YesNoPopUp'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
+import useLanguage from '../hooks/useLanguage'
 import { UsersLanguage } from '../models/lang'
 import { RoleName } from '../models/user'
 import styles from '../styles/Users.module.css'
@@ -29,7 +30,7 @@ type UsersProps = {
 export default function Users({
     role
 }: UsersProps) {
-    const [language, setLanguage] = useState<UsersLanguage>()
+    const language = useLanguage<UsersLanguage>('page.users')
     const { appLanguage } = useAppContext()
     const [insertMode, setInsertMode] = useState(false)
     const [importMode, setImportMode] = useState(false)
@@ -86,13 +87,6 @@ export default function Users({
             if (!window.location.pathname.includes(role)) setSearchParams(new URLSearchParams())
         }
     })
-    useEffect(() => {
-        fetch(`/langs/page.users.${appLanguage.language}.json`)
-            .then(res => res.json())
-            .then((data) => {
-                setLanguage(data)
-            })
-    }, [appLanguage.language])
     useEffect(() => {
         if (!searchParams.get('search') && !queryDebounce) return
         if (queryDebounce === '') searchParams.delete('search')

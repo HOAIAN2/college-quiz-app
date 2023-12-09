@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
 import {
     PiChalkboardTeacherLight,
     PiStudent
@@ -10,24 +9,16 @@ import {
 import { apiGetDashboard } from '../api/dashboard'
 import DashboardCard from '../components/DashboardCard'
 import Loading from '../components/Loading'
-import useAppContext from '../hooks/useAppContext'
+import useLanguage from '../hooks/useLanguage'
 import { DashboardLanguage } from '../models/lang'
 import styles from '../styles/Dashboard.module.css'
 
 export default function Dashboard() {
-    const { appLanguage } = useAppContext()
-    const [language, setLanguage] = useState<DashboardLanguage>()
+    const language = useLanguage<DashboardLanguage>('page.dashboard')
     const queryData = useQuery({
         queryKey: ['dashboard'],
         queryFn: apiGetDashboard
     })
-    useEffect(() => {
-        fetch(`/langs/page.dashboard.${appLanguage.language}.json`)
-            .then(res => res.json())
-            .then((data: DashboardLanguage) => {
-                setLanguage(data)
-            })
-    }, [appLanguage.language])
     return (
         <div
             className={

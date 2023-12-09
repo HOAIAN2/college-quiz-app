@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import {
     AiOutlineQuestionCircle,
     AiOutlineUser
@@ -17,12 +17,13 @@ import {
 } from 'react-icons/si'
 import { Link } from 'react-router-dom'
 import useAppContext from '../hooks/useAppContext'
+import useLanguage from '../hooks/useLanguage'
 import { NavBarLanguage } from '../models/lang'
 import styles from '../styles/NavBar.module.css'
 
 export default function NavBar() {
-    const { DOM, user, appLanguage } = useAppContext()
-    const [language, setLanguage] = useState<NavBarLanguage>()
+    const { DOM, user } = useAppContext()
+    const language = useLanguage<NavBarLanguage>('component.navbar')
     // if (user) user.role.name = 'teacher'
     const features = {
         admin: [
@@ -142,13 +143,6 @@ export default function NavBar() {
             },
         ]
     }
-    useEffect(() => {
-        fetch(`/langs/component.navbar.${appLanguage.language}.json`)
-            .then(res => res.json())
-            .then((data: NavBarLanguage) => {
-                setLanguage(data)
-            })
-    }, [appLanguage.language])
     useEffect(() => {
         function updateSize() {
             if (window.innerWidth < 800) DOM.sideBarRef.current?.classList.add(styles['hide'])

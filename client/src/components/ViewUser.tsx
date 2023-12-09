@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
 import { apiGetUsersById, apiUpdateUser } from '../api/user'
-import useAppContext from '../hooks/useAppContext'
+import useLanguage from '../hooks/useLanguage'
 import { ViewUserLanguage } from '../models/lang'
 import { UserDetail } from '../models/user'
 import styles from '../styles/ViewUser.module.css'
@@ -17,8 +17,7 @@ export default function ViewUser({
     id,
     setUserDetail
 }: ViewUserProps) {
-    const [language, setLanguage] = useState<ViewUserLanguage>()
-    const { appLanguage } = useAppContext()
+    const language = useLanguage<ViewUserLanguage>('component.view_user')
     const [gender, setGender] = useState('male')
     const queryData = useQuery({
         queryKey: ['user', id],
@@ -75,13 +74,6 @@ export default function ViewUser({
             setUserDetail(queryData.data)
         }
     }, [queryData.data, setUserDetail])
-    useEffect(() => {
-        fetch(`/langs/component.view_user.${appLanguage.language}.json`)
-            .then(res => res.json())
-            .then((data: ViewUserLanguage) => {
-                setLanguage(data)
-            })
-    }, [appLanguage.language])
     return (
         <>
             {queryData.isLoading ?

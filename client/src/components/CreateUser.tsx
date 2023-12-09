@@ -6,7 +6,7 @@ import {
     RxCross2
 } from 'react-icons/rx'
 import { apiCreateUser } from '../api/user'
-import useAppContext from '../hooks/useAppContext'
+import useLanguage from '../hooks/useLanguage'
 import { CreateUserLanguage } from '../models/lang'
 import { RoleName } from '../models/user'
 import styles from '../styles/CreateUser.module.css'
@@ -20,8 +20,7 @@ export default function CreateUser({
     role,
     setInsertMode
 }: CreateUserProps) {
-    const [language, setLanguage] = useState<CreateUserLanguage>()
-    const { appLanguage } = useAppContext()
+    const language = useLanguage<CreateUserLanguage>('component.create_user')
     const [hide, setHide] = useState(true)
     const [gender, setGender] = useState('male')
     const handleTurnOffInsertMode = () => {
@@ -81,13 +80,6 @@ export default function CreateUser({
     useEffect(() => {
         setHide(false)
     }, [])
-    useEffect(() => {
-        fetch(`/langs/component.create_user.${appLanguage.language}.json`)
-            .then(res => res.json())
-            .then((data: CreateUserLanguage) => {
-                setLanguage(data)
-            })
-    }, [appLanguage.language])
     return (
         <div className={
             [

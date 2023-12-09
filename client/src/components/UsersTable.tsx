@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { GiFemale, GiMale } from 'react-icons/gi'
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
 import { SetURLSearchParams } from 'react-router-dom'
-import useAppContext from '../hooks/useAppContext'
+import useLanguage from '../hooks/useLanguage'
 import { UsersTableLanguage } from '../models/lang'
 import { RoleName, UserPagination } from '../models/user'
 import styles from '../styles/Users.Table.module.css'
@@ -22,11 +22,10 @@ export default function UsersTable({
     setSearchParams,
     setSelectedRows
 }: UsersTableProps) {
-    const [language, setLanguage] = useState<UsersTableLanguage>()
+    const language = useLanguage<UsersTableLanguage>('component.users_table')
     const [viewMode, setViewMode] = useState(false)
     const [checkAll, setCheckAll] = useState(false)
     const [userId, setUserId] = useState<number>(0)
-    const { appLanguage } = useAppContext()
     const handleViewUser = (id: number, e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => {
         const target = e.target as Element
         if (target.nodeName === 'INPUT') {
@@ -74,13 +73,6 @@ export default function UsersTable({
         }
 
     }
-    useEffect(() => {
-        fetch(`/langs/component.users_table.${appLanguage.language}.json`)
-            .then(res => res.json())
-            .then((data) => {
-                setLanguage(data)
-            })
-    }, [appLanguage.language])
     useEffect(() => {
         if (!data) setCheckAll(false)
     }, [data])
