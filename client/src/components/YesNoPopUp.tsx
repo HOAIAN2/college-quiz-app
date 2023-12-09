@@ -1,8 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
-import useAppContext from '../hooks/useAppContext'
-import { YesNoPopUpLanguage } from '../models/lang'
 import styles from '../styles/YesNoPopUp.module.css'
 import Loading from './Loading'
 
@@ -11,15 +9,17 @@ type YesNoPopUpProps = {
     mutateFunction: () => Promise<void>
     onMutateSuccess: () => void
     setShowPopUpMode: React.Dispatch<React.SetStateAction<boolean>>
+    langYes?: string
+    langNo?: string
 }
 export default function YesNoPopUp({
     message,
     mutateFunction,
     onMutateSuccess,
     setShowPopUpMode,
+    langYes,
+    langNo
 }: YesNoPopUpProps) {
-    const [language, setLanguage] = useState<YesNoPopUpLanguage>()
-    const { appLanguage } = useAppContext()
     const [hide, setHide] = useState(true)
     const handleTurnOffImportMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -39,13 +39,6 @@ export default function YesNoPopUp({
     useEffect(() => {
         setHide(false)
     }, [])
-    useEffect(() => {
-        fetch(`/langs/component.yes_no_pop_up.${appLanguage.language}.json`)
-            .then(res => res.json())
-            .then((data: YesNoPopUpLanguage) => {
-                setLanguage(data)
-            })
-    }, [appLanguage.language])
     return (
         <div
             className={
@@ -96,7 +89,7 @@ export default function YesNoPopUp({
                                     mutation.isPending ? styles['pending'] : ''
                                 ].join(' ')
                             }
-                        >{language?.no}</button>
+                        >{langNo}</button>
                         <button
                             onClick={() => { mutation.mutate() }}
                             className={
@@ -104,7 +97,7 @@ export default function YesNoPopUp({
                                     'action-item-d-white',
                                     mutation.isPending ? styles['pending'] : ''
                                 ].join(' ')
-                            }>{language?.yes}
+                            }>{langYes}
                         </button>
                     </div>
                 </div>

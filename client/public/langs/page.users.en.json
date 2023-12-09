@@ -10,5 +10,7 @@
         "perPage": "Rows",
         "search": "Search"
     },
-    "deleteMessage": "Delete @n @role ?"
+    "deleteMessage": "Delete @n @role ?",
+    "langYes": "Yes",
+    "langNo": "No"
 }

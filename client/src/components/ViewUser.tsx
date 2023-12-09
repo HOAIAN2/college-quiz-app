@@ -71,17 +71,17 @@ export default function ViewUser({
         { value: 'female', label: language?.genders.female },
     ]
     useEffect(() => {
+        if (queryData.data?.user && setUserDetail) {
+            setUserDetail(queryData.data)
+        }
+    }, [queryData.data, setUserDetail])
+    useEffect(() => {
         fetch(`/langs/component.view_user.${appLanguage.language}.json`)
             .then(res => res.json())
             .then((data: ViewUserLanguage) => {
                 setLanguage(data)
             })
     }, [appLanguage.language])
-    useEffect(() => {
-        if (queryData.data?.user && setUserDetail) {
-            setUserDetail(queryData.data)
-        }
-    }, [queryData.data, setUserDetail])
     return (
         <>
             {queryData.isLoading ?
@@ -221,6 +221,7 @@ export default function ViewUser({
                                     <div className={styles['wrap-item']}>
                                         <label htmlFor="">{language?.password}</label>
                                         <input
+                                            placeholder={language?.leaveBlank}
                                             name='password'
                                             className={
                                                 [

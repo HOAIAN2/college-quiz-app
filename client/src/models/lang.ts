@@ -53,6 +53,8 @@ export type UsersLanguage = {
         search: string
     }
     deleteMessage: string
+    langYes: string
+    langNo: string
 }
 export type ViewUserLanguage = {
     student: string
@@ -67,6 +69,7 @@ export type ViewUserLanguage = {
     address: string
     birthDate: string
     password: string
+    leaveBlank: string
     save: string
 }
 export type UsersTableLanguage = {
@@ -82,10 +85,6 @@ export type UsersTableLanguage = {
         perPage: string,
         search: string
     }
-}
-export type YesNoPopUpLanguage = {
-    yes: string
-    no: string
 }
 export type DashboardLanguage = {
     items: {

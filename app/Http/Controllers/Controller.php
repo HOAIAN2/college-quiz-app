@@ -28,12 +28,21 @@ class Controller extends BaseController
         $request = request();
         $accept_language = $request->header('Accept-Language');
         if (Str::startsWith($accept_language, 'en')) app()->setLocale('en');
-        $this->supported_languages = json_decode(env('SUPORTED_LANGS', '["vi"]'));
+        $this->supported_languages = $this->getAvailableLanguages();
         if (in_array($accept_language, $this->supported_languages)) {
             App::setLocale($accept_language);
         }
         if (Str::startsWith($accept_language, 'en')) App::setLocale('en');
         else App::setLocale(env('LOCALE', 'vi'));
+    }
+    private function getAvailableLanguages()
+    {
+        $langPath = resource_path('lang');
+        $availableLanguages = array_filter(glob($langPath . '/*'), 'is_dir');
+        $availableLanguages = array_map(function ($path) {
+            return basename($path);
+        }, $availableLanguages);
+        return $availableLanguages;
     }
     public function getUser()
     {

@@ -10,5 +10,7 @@
         "perPage": "Số hàng",
         "search": "Tìm kiếm"
     },
-    "deleteMessage": "Xóa @n @role ?"
+    "deleteMessage": "Xóa @n @role ?",
+    "langYes": "Có",
+    "langNo": "Không"
 }

@@ -113,6 +113,8 @@ export default function Users({
                     mutateFunction={handleDeleteUsers}
                     setShowPopUpMode={setShowPopUpMode}
                     onMutateSuccess={onDeleteSuccess}
+                    langYes={language?.langYes}
+                    langNo={language?.langNo}
                 /> : null}
             {importMode === true ?
                 <ImportData
