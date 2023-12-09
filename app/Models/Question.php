@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Question
  * 
  * @property int $id
- * @property int $teacher_id
+ * @property int $created_by
  * @property int $chapter_id
  * @property string $content
  * @property Carbon|null $created_at
@@ -55,7 +55,7 @@ class Question extends Model
 
 	public function user()
 	{
-		return $this->belongsTo(User::class, 'teacher_id');
+		return $this->belongsTo(User::class, 'created_by');
 	}
 
 	public function exams()
