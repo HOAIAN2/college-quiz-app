@@ -6,7 +6,7 @@
     background-color: var(--color-background);
 }
 
-.dashboard-item-d {
+.dashboard-card-d {
     width: 300px;
     height: 150px;
     background: white;

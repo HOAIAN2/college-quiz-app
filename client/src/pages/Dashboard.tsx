@@ -2,14 +2,13 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import {
     PiChalkboardTeacherLight,
-    PiExam,
-    PiStudent,
+    PiStudent
 } from 'react-icons/pi'
 import {
     SiGoogleclassroom
 } from 'react-icons/si'
-import { Link } from 'react-router-dom'
 import { apiGetDashboard } from '../api/dashboard'
+import DashboardCard from '../components/DashboardCard'
 import Loading from '../components/Loading'
 import useAppContext from '../hooks/useAppContext'
 import { DashboardLanguage } from '../models/lang'
@@ -44,66 +43,34 @@ export default function Dashboard() {
             {
                 !queryData.isError && queryData.data ?
                     <div className={styles['wrap-dasshboard-item']}>
-                        <Link
-                            to={'/students'}
-                            className={
-                                [
-                                    'dashboard-item-d',
-                                    styles['dashboard-item'],
-                                    styles['container-magenta']
-                                ].join(' ')
-                            }>
-                            <div className={styles['item-left']}>
-                                <PiStudent />
-                            </div>
-                            <div className={styles['item-top']}>{queryData.data?.numberOfStudents}</div>
-                            <div className={styles['item-bottom']}>{language?.items.numberOfStudents}</div>
-                        </Link>
-                        <Link
-                            to={'teachers'}
-                            className={
-                                [
-                                    'dashboard-item-d',
-                                    styles['dashboard-item'],
-                                    styles['container-red']
-                                ].join(' ')
-                            }>
-                            <div className={styles['item-left']}>
-                                <PiChalkboardTeacherLight />
-                            </div>
-                            <div className={styles['item-top']}>{queryData.data?.numberOfTeachers}</div>
-                            <div className={styles['item-bottom']}>{language?.items.numberOfTeachers}</div>
-                        </Link>
-                        <Link
-                            to={'courses'}
-                            className={
-                                [
-                                    'dashboard-item-d',
-                                    styles['dashboard-item'],
-                                    styles['container-green']
-                                ].join(' ')
-                            }>
-                            <div className={styles['item-left']}>
-                                <SiGoogleclassroom />
-                            </div>
-                            <div className={styles['item-top']}>{queryData.data?.numberOfCourses}</div>
-                            <div className={styles['item-bottom']}>{language?.items.numberOfCourses}</div>
-                        </Link>
-                        <Link
-                            to={'exams'}
-                            className={
-                                [
-                                    'dashboard-item-d',
-                                    styles['dashboard-item'],
-                                    styles['container-blue']
-                                ].join(' ')
-                            }>
-                            <div className={styles['item-left']}>
-                                <PiExam />
-                            </div>
-                            <div className={styles['item-top']}>{queryData.data?.examsInNextWeek}</div>
-                            <div className={styles['item-bottom']}>{language?.items.examInThisMonth}</div>
-                        </Link>
+                        <DashboardCard
+                            to='/students'
+                            color='magenta'
+                            content={language?.items.numberOfStudents}
+                            data={queryData.data?.numberOfStudents}
+                            Icon={PiStudent}
+                        />
+                        <DashboardCard
+                            to='/teachers'
+                            color='red'
+                            content={language?.items.numberOfTeachers}
+                            data={queryData.data?.numberOfTeachers}
+                            Icon={PiChalkboardTeacherLight}
+                        />
+                        <DashboardCard
+                            to='/courses'
+                            color='green'
+                            content={language?.items.numberOfCourses}
+                            data={queryData.data?.numberOfCourses}
+                            Icon={SiGoogleclassroom}
+                        />
+                        <DashboardCard
+                            to='/exams'
+                            color='blue'
+                            content={language?.items.examInThisMonth}
+                            data={queryData.data?.examsInThisMonth}
+                            Icon={SiGoogleclassroom}
+                        />
                     </div> : null
             }
         </div>
