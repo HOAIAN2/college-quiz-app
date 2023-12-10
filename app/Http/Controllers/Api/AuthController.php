@@ -18,7 +18,7 @@ class AuthController extends Controller
     function __construct()
     {
         parent::__construct();
-        DB::delete('DELETE FROM personal_access_tokens WHERE created_at > DATE_SUB(NOW(), INTERVAL ' . env('TOKEN_LIFETIME') . ' MINUTE);');
+        DB::delete('DELETE FROM personal_access_tokens WHERE last_used_at > DATE_SUB(NOW(), INTERVAL ' . env('TOKEN_LIFETIME') . ' MINUTE);');
     }
     /**
      * Login

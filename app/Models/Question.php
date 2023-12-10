@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Collection|Exam[] $exams
  * @property Collection|ExamTracker[] $exam_trackers
  * @property Collection|QuestionOption[] $question_options
+ * @method bool contains_option($id)
  *
  * @package App\Models
  */

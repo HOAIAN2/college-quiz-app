@@ -59,43 +59,13 @@ class UserController extends Controller
             return Reply::error('app.errors.failToSaveRecord');
         }
     }
-    public function getUserByType(GetByTypeRequest $request)
-    {
-        $user = $this->getUser();
-        if (!$user->isAdmin()) return Reply::error('permission.errors.403');
-        if (!$user->isTeacher()) return Reply::error('permission.errors.403');
-
-        try {
-            $users = User::with('role')
-                ->whereRoleId(Role::ROLES[$request->role]);
-
-            if ($request->search != null) {
-                $users = $users->where(function ($query) use ($request) {
-                    $query->where(DB::raw("CONCAT (last_name, ' ' , first_name)"), 'like', '%' . $request->search . '%')
-                        ->orWhere('class', 'like', '%' . $request->search . '%')
-                        ->orWhere('shortcode', 'like', '%' . $request->search . '%')
-                        ->orWhere('phone_number', 'like', '%' . $request->search . '%');
-                });
-            }
-
-            $users = $users->latest('id')->paginate($request->per_page);
-            return Reply::successWithData($users, '');
-        } catch (\Throwable $error) {
-            $message = $error->getMessage();
-            Log::error($message);
-            if (env('APP_DEBUG') == true) return $error;
-            return Reply::error('app.errors.failToSaveRecord');
-        }
-    }
     /**
      * Display the specified resource.
      */
     public function show(Request $request, string $id)
     {
         $user = $this->getUser();
-        if (!$user->isAdmin()) return Reply::error('permission.errors.403');
-        if (!$user->isTeacher()) return Reply::error('permission.errors.403');
-        if ($id != $user->id) return Reply::error('permission.errors.403');
+        if (!$user->isAdmin() && !$user->isTeacher() && $id != $user->id) return Reply::error('permission.errors.403');
 
         $now = now();
         $data = (object)[];
@@ -137,6 +107,7 @@ class UserController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         if (!$this->getUser()->isAdmin()) return Reply::error('permission.errors.403');
+
         DB::beginTransaction();
         try {
             $user = User::with('role')->findOrFail($id);
@@ -161,6 +132,7 @@ class UserController extends Controller
     {
         $user = $this->getUser();
         if (!$user->isAdmin()) return Reply::error('permission.errors.403');
+
         try {
             User::destroy($request->ids);
             return Reply::successWithMessage('app.successes.recordDeleteSuccess');
@@ -169,6 +141,33 @@ class UserController extends Controller
             Log::error($message);
             if (env('APP_DEBUG') == true) return $error;
             return Reply::error('app.errors.serverError', [], 500);
+        }
+    }
+    public function getUserByType(GetByTypeRequest $request)
+    {
+        $user = $this->getUser();
+        if (!$user->isAdmin() && !$user->isTeacher()) return Reply::error('permission.errors.403');
+
+        try {
+            $users = User::with('role')
+                ->whereRoleId(Role::ROLES[$request->role]);
+
+            if ($request->search != null) {
+                $users = $users->where(function ($query) use ($request) {
+                    $query->where(DB::raw("CONCAT (last_name, ' ' , first_name)"), 'like', '%' . $request->search . '%')
+                        ->orWhere('class', 'like', '%' . $request->search . '%')
+                        ->orWhere('shortcode', 'like', '%' . $request->search . '%')
+                        ->orWhere('phone_number', 'like', '%' . $request->search . '%');
+                });
+            }
+
+            $users = $users->latest('id')->paginate($request->per_page);
+            return Reply::successWithData($users, '');
+        } catch (\Throwable $error) {
+            $message = $error->getMessage();
+            Log::error($message);
+            if (env('APP_DEBUG') == true) return $error;
+            return Reply::error('app.errors.failToSaveRecord');
         }
     }
     public function importUsers(ImportRequest $request)
@@ -216,7 +215,6 @@ class UserController extends Controller
     {
         $user = $this->getUser();
         if (!$user->isAdmin()) return Reply::error('permission.errors.403');
-        if (!$user->isTeacher()) return Reply::error('permission.errors.403');
 
         return Reply::success();
     }
