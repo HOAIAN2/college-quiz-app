@@ -11,6 +11,7 @@ import styles from '../styles/Login.module.css'
 export default function Login() {
     const language = useLanguage<LoginPageLanguage>('page.login')
     const [blockSubmit, setBlockSubmit] = useState(true)
+    const [isSubmitting, seIsSubmitting] = useState(false)
     const buttonRef = useRef<HTMLButtonElement>(null)
     const { user } = useAppContext()
     const navigate = useNavigate()
@@ -25,6 +26,7 @@ export default function Login() {
         e.preventDefault()
         if (blockSubmit) return
         setBlockSubmit(true)
+        seIsSubmitting(true)
         const formData = new FormData(e.currentTarget)
         buttonRef.current?.classList.add(styles['submitting'])
         apiLogin(formData)
@@ -37,6 +39,7 @@ export default function Login() {
             })
             .catch(() => {
                 setBlockSubmit(false)
+                seIsSubmitting(false)
             }).finally(() => {
                 buttonRef.current?.classList.remove(styles['submitting'])
             })
@@ -81,7 +84,7 @@ export default function Login() {
                                 styles['submit'],
                                 blockSubmit && !buttonRef.current?.classList.contains(styles['submitting'])
                                     ? styles['blocking'] : ''
-                            ].join(' ')}>{language?.login}</button>
+                            ].join(' ')}>{!isSubmitting && language?.login}</button>
                 </div>
             </form>
         </div>

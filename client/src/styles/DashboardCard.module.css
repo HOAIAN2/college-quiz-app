@@ -5,6 +5,7 @@
     flex-direction: column;
     justify-content: space-around;
     border-radius: var(--border-radius-low);
+    border-left: 5px solid;
 }
 
 .dashboard-card>.card-top {
@@ -22,23 +23,19 @@
 }
 
 .container-magenta {
-    border-left: 5px solid var(--color-soft-magenta);
-    border-radius: var(--border-radius-low);
+    border-color: var(--color-soft-magenta);
 }
 
 .container-blue {
-    border-left: 5px solid var(--color-soft-blue);
-    border-radius: var(--border-radius-low);
+    border-color: var(--color-soft-blue);
 }
 
 .container-red {
-    border-left: 5px solid var(--color-soft-red);
-    border-radius: var(--border-radius-low);
+    border-color: var(--color-soft-red);
 }
 
 .container-green {
-    border-left: 5px solid var(--color-soft-green);
-    border-radius: var(--border-radius-low);
+    border-color: var(--color-soft-green);
 }
 
 @media (width<=1000px) {

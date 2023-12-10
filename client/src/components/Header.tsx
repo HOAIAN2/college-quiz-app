@@ -4,6 +4,7 @@ import {
 import {
     PiSidebarSimpleLight
 } from 'react-icons/pi'
+import { useNavigate } from 'react-router-dom'
 import { apiLogout } from '../api/auth'
 import useAppContext from '../hooks/useAppContext'
 import styles from '../styles/Header.module.css'
@@ -11,10 +12,11 @@ import navBarStyles from '../styles/NavBar.module.css'
 
 export default function Header() {
     const { DOM } = useAppContext()
+    const navigate = useNavigate()
     const handleLogout = () => {
         apiLogout()
             .finally(() => {
-                window.location.pathname = '/'
+                navigate(0)
             })
     }
     return (
