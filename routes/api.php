@@ -32,6 +32,7 @@ Route::prefix('/user')->middleware('auth:sanctum')
         Route::delete('/', 'destroy');
         Route::get('/query', 'getUserByType');
         Route::post('/import', 'importUsers');
+        Route::post('/export', 'exportUsers');
         Route::get('/{id}', 'show');
     });
 Route::prefix('/dashboard')->middleware('auth:sanctum')

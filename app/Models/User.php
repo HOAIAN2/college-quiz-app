@@ -105,10 +105,14 @@ class User extends Authenticatable
 
 	public function questions()
 	{
-		return $this->hasMany(Question::class, 'teacher_id');
+		return $this->hasMany(Question::class, 'created_by');
 	}
 	public function isAdmin()
 	{
 		return $this->role_id == Role::ROLES['admin'];
+	}
+	public function isTeacher()
+	{
+		return $this->role_id == Role::ROLES['teacher'];
 	}
 }

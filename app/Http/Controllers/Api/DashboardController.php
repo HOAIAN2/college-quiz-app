@@ -11,6 +11,7 @@ use App\Models\Role;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
@@ -26,32 +27,39 @@ class DashboardController extends Controller
         $user = $this->getUser();
         $data = (object)[];
         $now = now();
-        switch ($user->role_id) {
-            case Role::ROLES['admin']:
-                $data->number_of_teachers = User::whereRoleId(Role::ROLES['teacher'])->count();
-                $data->number_of_students = User::whereRoleId(Role::ROLES['student'])->count();
-                $data->number_of_subjects = Subject::count();
-                $data->number_of_courses = Course::whereHas('semester', function ($query) use ($now) {
-                    $query->whereDate('start_date', '<=', $now)
-                        ->whereDate('end_date', '>=', $now);
-                })->count();
-                $data->number_of_question = Question::count();
-                $data->exams_in_next_week = Exam::whereBetween('exam_date', [$now, $now->copy()->addWeek()])
-                    ->count();
-                $data->exams_in_this_month = Exam::whereBetween('exam_date', [now()->startOfMonth(), now()->endOfMonth()])
-                    ->count();
-                break;
-            case Role::ROLES['teacher']:
-                #
-                break;
-            case Role::ROLES['student']:
-                #
-                break;
-            default:
-                # code...
-                break;
+        try {
+            switch ($user->role_id) {
+                case Role::ROLES['admin']:
+                    $data->number_of_teachers = User::whereRoleId(Role::ROLES['teacher'])->count();
+                    $data->number_of_students = User::whereRoleId(Role::ROLES['student'])->count();
+                    $data->number_of_subjects = Subject::count();
+                    $data->number_of_courses = Course::whereHas('semester', function ($query) use ($now) {
+                        $query->whereDate('start_date', '<=', $now)
+                            ->whereDate('end_date', '>=', $now);
+                    })->count();
+                    $data->number_of_question = Question::count();
+                    $data->exams_in_next_week = Exam::whereBetween('exam_date', [$now, $now->copy()->addWeek()])
+                        ->count();
+                    $data->exams_in_this_month = Exam::whereBetween('exam_date', [now()->startOfMonth(), now()->endOfMonth()])
+                        ->count();
+                    break;
+                case Role::ROLES['teacher']:
+                    #
+                    break;
+                case Role::ROLES['student']:
+                    #
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+            return Reply::successWithData($data, '');
+        } catch (\Throwable $error) {
+            $message = $error->getMessage();
+            Log::error($message);
+            if (env('APP_DEBUG') == true) return $error;
+            return Reply::error('app.errors.serverError', [], 500);
         }
-        return Reply::successWithData($data, '');
     }
 
     /**
