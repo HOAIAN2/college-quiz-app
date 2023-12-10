@@ -45,7 +45,7 @@ class UserController extends Controller
 
         DB::beginTransaction();
         try {
-            $data = $request->except(['role']);
+            $data = collect($request->validated())->except(['role'])->toArray();
             $data['password'] = Hash::make($request->password);
             $data['role_id'] = Role::ROLES[$request->role];
             User::create($data);
@@ -111,7 +111,7 @@ class UserController extends Controller
         DB::beginTransaction();
         try {
             $user = User::with('role')->findOrFail($id);
-            $data = $request->all();
+            $data = $request->validated();
             if ($request->password != null) $data['password'] = Hash::make($request->password);
             $user->update($data);
             DB::commit();
