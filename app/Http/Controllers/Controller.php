@@ -46,6 +46,6 @@ class Controller extends BaseController
     }
     public function getUser()
     {
-        return request()->user()->load(['role']);
+        return request()->user();
     }
 }

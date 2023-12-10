@@ -31,7 +31,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = $this->getUser();
+        $user = $this->getUser()->load(['role']);
         return Reply::successWithData($user, '');
     }
 
