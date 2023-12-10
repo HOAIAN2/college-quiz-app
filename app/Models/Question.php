@@ -33,12 +33,12 @@ class Question extends Model
 	protected $table = 'questions';
 
 	protected $casts = [
-		'teacher_id' => 'int',
+		'created_by' => 'int',
 		'chapter_id' => 'int'
 	];
 
 	protected $fillable = [
-		'teacher_id',
+		'created_by',
 		'chapter_id',
 		'content'
 	];
