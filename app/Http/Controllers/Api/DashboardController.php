@@ -55,7 +55,9 @@ class DashboardController extends Controller
                         $query->whereDate('start_date', '<=', $now)
                             ->whereDate('end_date', '>=', $now);
                     })->count();
-                    $data->exams_in_this_month = Exam::whereBetween('exam_date', [now()->startOfMonth(), now()->endOfMonth()])
+                    $data->exams_in_this_month = Exam::whereHas('course.teacher', function ($query) use ($user) {
+                        $query->where('id', '=', $user->id);
+                    })->whereBetween('exam_date', [now()->startOfMonth(), now()->endOfMonth()])
                         ->count();
                     # Get render data
                     $data->exams_in_next_week = Exam::with([
@@ -75,7 +77,9 @@ class DashboardController extends Controller
                         $query->whereDate('start_date', '<=', $now)
                             ->whereDate('end_date', '>=', $now);
                     })->count();
-                    $data->exams_in_this_month = Exam::whereBetween('exam_date', [now()->startOfMonth(), now()->endOfMonth()])
+                    $data->exams_in_this_month = Exam::whereHas('course.enrollments', function ($query) use ($user) {
+                        $query->where('student_id', '=', $user->id);
+                    })->whereBetween('exam_date', [now()->startOfMonth(), now()->endOfMonth()])
                         ->count();
                     # Get render data
                     $data->exams_in_next_week = Exam::with([
