@@ -74,12 +74,8 @@ class Question extends Model
 	{
 		return $this->hasMany(QuestionOption::class);
 	}
-	public function contains_option($question_option)
+	public function contains_option($id)
 	{
-		$options = $this->question_options();
-		foreach ($options as $option) {
-			if ($option->id == $question_option->id) return true;
-		}
-		return false;
+		return $this->id == QuestionOption::find($id)->question_id;
 	}
 }
