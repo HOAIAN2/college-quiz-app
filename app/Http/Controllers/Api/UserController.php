@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exports\UsersExport;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\DeleteRequest;
+use App\Http\Requests\User\ExportRequest;
 use App\Http\Requests\User\GetByTypeRequest;
 use App\Http\Requests\User\ImportRequest;
 use App\Http\Requests\User\StoreRequest;
@@ -211,11 +213,22 @@ class UserController extends Controller
             return Reply::error('app.errors.failToSaveRecord');
         }
     }
-    public function exportUsers(ImportRequest $request)
+    public function exportUsers(ExportRequest $request)
     {
         $user = $this->getUser();
         if (!$user->isAdmin()) return Reply::error('permission.errors.403');
 
-        return Reply::success();
+        $fileName = 'demo.xlsx';
+        try {
+            $collection = User::whereRoleId(Role::ROLES['student'])->get();
+
+            return Excel::download(new UsersExport($collection), $fileName);
+        } catch (\Throwable $error) {
+            $message = $error->getMessage();
+            Log::error($message);
+            DB::rollBack();
+            if (env('APP_DEBUG') == true) return $error;
+            return Reply::error('app.errors.serverError');
+        }
     }
 }
