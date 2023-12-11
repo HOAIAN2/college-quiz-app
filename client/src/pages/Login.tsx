@@ -48,7 +48,7 @@ export default function Login() {
         <div className={styles['login-page']}>
             <form onSubmit={handleLogin} className={styles['form']} onInput={handlePreventSubmit}>
                 <div className={styles['wrap-input']}>
-                    <div className={styles['title']}>Quiz</div>
+                    <div className={styles['title']}>{language?.login}</div>
                 </div>
                 <div className={styles['wrap-input']}>
                     <input name='email'

@@ -18,6 +18,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
     public $supported_languages;
+    public $current_language;
 
     function __construct()
     {
@@ -34,6 +35,7 @@ class Controller extends BaseController
         }
         if (Str::startsWith($accept_language, 'en')) App::setLocale('en');
         else App::setLocale(env('LOCALE', 'vi'));
+        $this->current_language = App::getLocale();
     }
     private function getAvailableLanguages()
     {
