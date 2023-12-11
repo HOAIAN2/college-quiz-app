@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { apiLogin } from '../api/auth'
 import { apiGetUser } from '../api/user'
@@ -44,6 +44,9 @@ export default function Login() {
                 buttonRef.current?.classList.remove(styles['submitting'])
             })
     }
+    useEffect(() => {
+        if (language) document.title = language?.login
+    }, [language])
     return (
         <div className={styles['login-page']}>
             <form onSubmit={handleLogin} className={styles['form']} onInput={handlePreventSubmit}>
