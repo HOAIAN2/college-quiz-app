@@ -152,8 +152,8 @@ export default function ViewUser({
                                         <div className={styles['wrap-item']}>
                                             <label className={styles['required']} htmlFor="">{language?.class}</label>
                                             <input
-                                                defaultValue={queryData.data.user.class || ''}
-                                                name='class'
+                                                defaultValue={queryData.data.user.schoolClassId || ''}
+                                                name='school_class_id'
                                                 className={
                                                     [
                                                         'input-d',

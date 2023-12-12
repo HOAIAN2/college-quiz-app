@@ -11,8 +11,8 @@ export type User = {
     gender: 'male' | 'female';
     address: string;
     birthDate: string;
-    class: string | null;
-    faculty: string | null;
+    schoolClassId: string | null;
+    facultyId: string | null;
     isActive: boolean;
     emailVerifiedAt: Date | null;
     role: Role;

@@ -164,7 +164,7 @@ export default function CreateUser({
                             <div className={styles['wrap-item']}>
                                 <label className={styles['required']} htmlFor="">{language?.class}</label>
                                 <input
-                                    name='class'
+                                    name='school_class_id'
                                     className={
                                         [
                                             'input-d',

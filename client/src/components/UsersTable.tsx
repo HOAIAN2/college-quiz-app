@@ -127,7 +127,7 @@ export default function UsersTable({
                                                     {user.gender == 'male' ? <GiMale /> : <GiFemale />}
                                                     {`${user.lastName} ${user.firstName}`}
                                                 </td>
-                                                <td className={styles['column-content-class']}>{user.class}</td>
+                                                <td className={styles['column-content-class']}>{user.schoolClassId}</td>
                                                 <td className={styles['column-content-email']}>{user.email}</td>
                                                 <td className={styles['column-content-address']}>{user.address}</td>
                                             </tr>

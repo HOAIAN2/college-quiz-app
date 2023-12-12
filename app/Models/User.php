@@ -38,10 +38,13 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static Builder|User whereEmail($value)
  * @method static Builder|User[] whereRoleId($value)
  *
+ * @property Faculty|null $faculty
  * @property Role $role
+ * @property SchoolClass|null $school_class
  * @property Collection|Course[] $courses
  * @property Collection|Enrollment[] $enrollments
  * @property Collection|ExamTracker[] $exam_trackers
+ * @property Collection|Faculty[] $faculties
  * @property Collection|Question[] $questions
  *
  * @package App\Models
@@ -60,9 +63,7 @@ class User extends Authenticatable
 
 	protected $hidden = [
 		'password',
-		'remember_token',
-		'created_at',
-		'updated_at'
+		'remember_token'
 	];
 
 	protected $fillable = [
@@ -75,17 +76,27 @@ class User extends Authenticatable
 		'gender',
 		'address',
 		'birth_date',
-		'class',
-		'faculty',
+		'school_class_id',
+		'faculty_id',
 		'is_active',
 		'email_verified_at',
 		'password',
 		'remember_token'
 	];
 
+	public function faculty()
+	{
+		return $this->belongsTo(Faculty::class);
+	}
+
 	public function role()
 	{
 		return $this->belongsTo(Role::class);
+	}
+
+	public function school_class()
+	{
+		return $this->belongsTo(SchoolClass::class);
 	}
 
 	public function courses()
@@ -101,6 +112,11 @@ class User extends Authenticatable
 	public function exam_trackers()
 	{
 		return $this->hasMany(ExamTracker::class);
+	}
+
+	public function faculties()
+	{
+		return $this->hasMany(Faculty::class, 'leader_id');
 	}
 
 	public function questions()

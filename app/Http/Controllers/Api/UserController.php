@@ -157,7 +157,7 @@ class UserController extends Controller
             if ($request->search != null) {
                 $users = $users->where(function ($query) use ($request) {
                     $query->where(DB::raw("CONCAT (last_name, ' ' , first_name)"), 'like', '%' . $request->search . '%')
-                        ->orWhere('class', 'like', '%' . $request->search . '%')
+                        ->orWhere('school_class_id', 'like', '%' . $request->search . '%')
                         ->orWhere('shortcode', 'like', '%' . $request->search . '%')
                         ->orWhere('phone_number', 'like', '%' . $request->search . '%');
                 });
@@ -198,8 +198,8 @@ class UserController extends Controller
                     'is_active' => true,
                     'password' => Hash::make($row[9])
                 ];
-                if ($request->role == 'student') $record['class'] = $row[0];
-                if ($request->role == 'teacher') $record['faculty'] = $row[0];
+                if ($request->role == 'student') $record['school_class_id'] = $row[0];
+                if ($request->role == 'teacher') $record['faculty_id'] = $row[0];
                 $data[] = $record;
             }
             User::insert($data);
