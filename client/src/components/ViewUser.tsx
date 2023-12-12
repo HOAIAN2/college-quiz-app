@@ -2,6 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
 import { apiGetUsersById, apiUpdateUser } from '../api/user'
+import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { ViewUserLanguage } from '../models/lang'
 import { UserDetail } from '../models/user'
@@ -19,6 +20,7 @@ export default function ViewUser({
 }: ViewUserProps) {
     const language = useLanguage<ViewUserLanguage>('component.view_user')
     const [gender, setGender] = useState('male')
+    const { user } = useAppContext()
     const queryData = useQuery({
         queryKey: ['user', id],
         queryFn: () => {
@@ -41,6 +43,7 @@ export default function ViewUser({
     }
     const handleUpdateUser = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
         e.preventDefault()
+        if (user.user?.role.name !== 'admin') return
         document.querySelector(styles['form-data'])?.querySelectorAll('input[name]').forEach(node => {
             const element = node as HTMLInputElement
             element.classList.remove(styles['error'])
@@ -223,9 +226,13 @@ export default function ViewUser({
                                             } type="password" />
                                     </div>
                                 </div>
-                                <div className={styles['action-items']}>
-                                    <button name='save' className='action-item-d'>{language?.save}</button>
-                                </div>
+                                {
+                                    user.user?.role.name === 'admin' ?
+                                        <div className={styles['action-items']}>
+                                            <button name='save' className='action-item-d'>{language?.save}</button>
+                                        </div>
+                                        : null
+                                }
                             </form>
                         ) : null
                     }
