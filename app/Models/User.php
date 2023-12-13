@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
@@ -53,6 +54,13 @@ class User extends Authenticatable
 {
 	use HasApiTokens, HasFactory, Notifiable;
 	protected $table = 'users';
+
+	const SEARCHABLE = [
+		'email',
+		'shortcode',
+		'school_class_id',
+		'faculty_id',
+	];
 
 	protected $casts = [
 		'role_id' => 'int',
