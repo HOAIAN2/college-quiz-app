@@ -261,6 +261,11 @@ class ShoolClassSeeder extends Seeder
                 'name' => 'D22XDK4',
                 'faculty_id' => Faculty::inRandomOrder()->select('id')->first()->id
             ],
+            [
+                'id' => 'D21CTC1',
+                'name' => 'D21CTC1',
+                'faculty_id' => Faculty::inRandomOrder()->select('id')->first()->id
+            ],
         ]);
     }
 }

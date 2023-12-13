@@ -20,10 +20,9 @@ export default function CustomSelect({
 }: CustomSelectProps) {
     const customSelectRef = useRef<HTMLDivElement>(null)
     const [current, setCurrent] = useState(defaultOption)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useLayoutEffect(() => {
         if (current.label == undefined) setCurrent(defaultOption)
-    })
+    }, [current, defaultOption])
     return (
         <div ref={customSelectRef}
             onClick={() => {
