@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Traits\FullTextSearch;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -52,16 +53,17 @@ use Laravel\Sanctum\HasApiTokens;
  */
 class User extends Authenticatable
 {
-	use HasApiTokens, HasFactory, Notifiable;
+	use HasApiTokens, HasFactory, Notifiable, FullTextSearch;
 	protected $table = 'users';
 
-	const SEARCHABLE = [
+	protected $searchable = [
+		'first_name',
+		'last_name',
 		'email',
 		'shortcode',
 		'school_class_id',
 		'faculty_id',
 	];
-
 	protected $casts = [
 		'role_id' => 'int',
 		'birth_date' => 'datetime',

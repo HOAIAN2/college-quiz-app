@@ -20,12 +20,10 @@ class SchoolClassController extends Controller
     public function index(Request $request)
     {
         // $user = $this->getUser();
-        $data = SchoolClass::where('id', 'like', '%' . $request->search . '%');
         try {
-            foreach (SchoolClass::SEARCHABLE as $key) {
-                $data = $data->orWhere($key, 'like', '%' . $request->search . '%');
-            }
-            $data = $data->get();
+            if ($request->search != null) {
+                $data = SchoolClass::search($request->search);
+            } else $data = SchoolClass::all();
             return Reply::successWithData($data, '');
         } catch (\Throwable $error) {
             $message = $error->getMessage();

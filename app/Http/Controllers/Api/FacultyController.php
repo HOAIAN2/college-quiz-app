@@ -19,12 +19,10 @@ class FacultyController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Faculty::where('id', 'like', '%' . $request->search . '%');
         try {
-            foreach (Faculty::SEARCHABLE as $key) {
-                $data = $data->orWhere($key, 'like', '%' . $request->search . '%');
-            }
-            $data = $data->get();
+            if ($request->search != null) {
+                $data = Faculty::search($request->search);
+            } else $data = Faculty::all();
             return Reply::successWithData($data, '');
         } catch (\Throwable $error) {
             $message = $error->getMessage();

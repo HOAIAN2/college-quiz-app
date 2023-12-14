@@ -154,13 +154,7 @@ class UserController extends Controller
             $users = User::with('role')
                 ->whereRoleId(Role::ROLES[$request->role]);
             if ($request->search != null) {
-                $users = $users->where(function ($query) use ($request) {
-                    $query->where(DB::raw("CONCAT (last_name, ' ' , first_name)"), 'like', '%' . $request->search . '%')
-                        ->orWhere(DB::raw("CONCAT (first_name, ' ' , last_name)"), 'like', '%' . $request->search . '%');
-                    foreach (User::SEARCHABLE as $key) {
-                        $query->orWhere($key, 'like', '%' . $request->search . '%');
-                    }
-                });
+                $users = $users->search($request->search);
             }
 
             $users = $users->latest('id')->paginate($request->per_page);

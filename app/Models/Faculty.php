@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Traits\FullTextSearch;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -29,16 +30,17 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Faculty extends Model
 {
+	use FullTextSearch;
+
 	protected $table = 'faculties';
 	public $incrementing = false;
 
-	const SEARCHABLE = [
+	protected $searchable = [
 		'id',
 		'name',
 		'email',
 		'phone_number',
 	];
-
 	protected $casts = [
 		'leader_id' => 'int'
 	];
