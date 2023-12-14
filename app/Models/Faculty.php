@@ -32,6 +32,13 @@ class Faculty extends Model
 	protected $table = 'faculties';
 	public $incrementing = false;
 
+	const SEARCHABLE = [
+		'id',
+		'name',
+		'email',
+		'phone_number',
+	];
+
 	protected $casts = [
 		'leader_id' => 'int'
 	];

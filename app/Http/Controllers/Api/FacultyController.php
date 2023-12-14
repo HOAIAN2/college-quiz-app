@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helper\Reply;
 use App\Http\Controllers\Controller;
+use App\Models\Faculty;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class FacultyController extends Controller
 {
@@ -14,9 +17,21 @@ class FacultyController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $data = Faculty::where('id', 'like', '%' . $request->search . '%');
+        try {
+            foreach (Faculty::SEARCHABLE as $key) {
+                $data = $data->orWhere($key, 'like', '%' . $request->search . '%');
+            }
+            $data = $data->get();
+            return Reply::successWithData($data, '');
+        } catch (\Throwable $error) {
+            $message = $error->getMessage();
+            Log::error($message);
+            if (env('APP_DEBUG') == true) return $error;
+            return Reply::error('app.errors.serverError');
+        }
     }
 
     /**
@@ -32,7 +47,17 @@ class FacultyController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $data = Faculty::with([
+                'school_classes'
+            ])->find($id);
+            return Reply::successWithData($data, '');
+        } catch (\Throwable $error) {
+            $message = $error->getMessage();
+            Log::error($message);
+            if (env('APP_DEBUG') == true) return $error;
+            return Reply::error('app.errors.serverError');
+        }
     }
 
     /**

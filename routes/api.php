@@ -26,14 +26,14 @@ Route::prefix('/auth')->controller(AuthController::class)->group(function () {
 
 Route::prefix('/user')->middleware('auth:sanctum')
     ->controller(UserController::class)->group(function () {
-        Route::get('/', 'index');
-        Route::post('/', 'store');
-        Route::put('/{id}', 'update');
-        Route::delete('/', 'destroy');
         Route::get('/query', 'getUserByType');
         Route::post('/import', 'importUsers');
         Route::post('/export', 'exportUsers');
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::delete('/', 'destroy');
         Route::get('/{id}', 'show');
+        Route::put('/{id}', 'update');
     });
 Route::prefix('/dashboard')->middleware('auth:sanctum')
     ->controller(DashboardController::class)->group(function () {

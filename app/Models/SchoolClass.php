@@ -29,6 +29,12 @@ class SchoolClass extends Model
 	protected $table = 'school_classes';
 	public $incrementing = false;
 
+	const SEARCHABLE = [
+		'id',
+		'name',
+		'faculty_id',
+	];
+
 	protected $fillable = [
 		'name',
 		'faculty_id'

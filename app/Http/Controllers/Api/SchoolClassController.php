@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helper\Reply;
 use App\Http\Controllers\Controller;
+use App\Models\SchoolClass;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SchoolClassController extends Controller
 {
@@ -14,9 +17,22 @@ class SchoolClassController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        // $user = $this->getUser();
+        $data = SchoolClass::where('id', 'like', '%' . $request->search . '%');
+        try {
+            foreach (SchoolClass::SEARCHABLE as $key) {
+                $data = $data->orWhere($key, 'like', '%' . $request->search . '%');
+            }
+            $data = $data->get();
+            return Reply::successWithData($data, '');
+        } catch (\Throwable $error) {
+            $message = $error->getMessage();
+            Log::error($message);
+            if (env('APP_DEBUG') == true) return $error;
+            return Reply::error('app.errors.serverError');
+        }
     }
 
     /**
@@ -32,7 +48,15 @@ class SchoolClassController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $data = SchoolClass::withCount('students')->find($id);
+            return Reply::successWithData($data, '');
+        } catch (\Throwable $error) {
+            $message = $error->getMessage();
+            Log::error($message);
+            if (env('APP_DEBUG') == true) return $error;
+            return Reply::error('app.errors.serverError');
+        }
     }
 
     /**
