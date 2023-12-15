@@ -46,7 +46,7 @@ return [
     |
     */
 
-    'expiration' => env('TOKEN_LIFETIME', null),
+    'expiration' => null,
 
     /*
     |--------------------------------------------------------------------------
