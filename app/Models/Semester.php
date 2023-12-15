@@ -28,9 +28,11 @@ class Semester extends Model
 {
 	protected $table = 'semesters';
 
+	const DATE_FORMAT = 'Y-m-d\TH:i:sP';
+
 	protected $casts = [
-		'start_date' => 'datetime',
-		'end_date' => 'datetime'
+		'start_date' => 'datetime:' . Semester::DATE_FORMAT,
+		'end_date' => 'datetime:' . Semester::DATE_FORMAT
 	];
 
 	protected $fillable = [

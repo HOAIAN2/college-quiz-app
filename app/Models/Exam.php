@@ -31,9 +31,11 @@ class Exam extends Model
 {
 	protected $table = 'exams';
 
+	const DATE_FORMAT = 'Y-m-d\TH:i:sP';
+
 	protected $casts = [
 		'course_id' => 'int',
-		'exam_date' => 'datetime',
+		'exam_date' => 'datetime:' . Exam::DATE_FORMAT,
 		'exam_time' => 'int'
 	];
 

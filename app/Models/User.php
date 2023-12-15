@@ -54,6 +54,9 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
 	use HasApiTokens, HasFactory, Notifiable, FullTextSearch;
+
+	const DATE_FORMAT = 'Y-m-d\TH:i:sP';
+
 	protected $table = 'users';
 
 	protected $searchable = [
@@ -66,9 +69,9 @@ class User extends Authenticatable
 	];
 	protected $casts = [
 		'role_id' => 'int',
-		'birth_date' => 'datetime',
+		'birth_date' => 'datetime:' . User::DATE_FORMAT,
 		'is_active' => 'bool',
-		'email_verified_at' => 'datetime'
+		'email_verified_at' => 'datetime:' . User::DATE_FORMAT
 	];
 
 	protected $hidden = [
