@@ -26,15 +26,6 @@ class Controller extends BaseController
     }
     private function setLanguage()
     {
-        $request = request();
-        $accept_language = $request->header('Accept-Language');
-        if (Str::startsWith($accept_language, 'en')) app()->setLocale('en');
-        $this->supported_languages = $this->getAvailableLanguages();
-        if (in_array($accept_language, $this->supported_languages)) {
-            App::setLocale($accept_language);
-        }
-        if (Str::startsWith($accept_language, 'en')) App::setLocale('en');
-        else App::setLocale(env('LOCALE', 'vi'));
         $this->current_language = App::getLocale();
     }
     private function getAvailableLanguages()
