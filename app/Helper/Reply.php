@@ -5,20 +5,12 @@ namespace App\Helper;
 class Reply
 {
 
-    /** Return success response
-     * @param int $message
-     */
-
     public static function success($status = 200)
     {
         return response()->json([
             'status' => 'success',
         ], $status);
     }
-
-    /** Return success response with Message
-     * @param string $message
-     */
 
     public static function successWithMessage($message, $transData = [], $status = 200)
     {
@@ -27,6 +19,7 @@ class Reply
             'message' => trans($message, $transData)
         ], $status);
     }
+
     public static function successWithData($data = [], $message = 'app.successes.success', $transData = [], $status = 200)
     {
         $response = [
@@ -36,11 +29,7 @@ class Reply
         if (trim($message) != '') $response['message'] = trans($message, $transData);
         return response()->json($response, $status);
     }
-    /**
-     * @param string $message
-     * @param null $error_name
-     * @param array $errorData
-     */
+
     public static function error($message, $transData = [], $status = 400)
     {
         return response()->json([
