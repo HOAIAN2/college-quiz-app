@@ -18,8 +18,10 @@ class AuthController extends Controller
     function __construct()
     {
         parent::__construct();
-        DB::delete('DELETE FROM personal_access_tokens
-            WHERE last_used_at < DATE_SUB(NOW(), INTERVAL ' . env('TOKEN_LIFETIME') . ' MINUTE);');
+        $tokenLifetime = (string) env('TOKEN_LIFETIME');
+        DB::table('personal_access_tokens')
+            ->where('last_used_at', '<', DB::raw("DATE_SUB(NOW(), INTERVAL $tokenLifetime MINUTE)"))
+            ->delete();
     }
     /**
      * Login
