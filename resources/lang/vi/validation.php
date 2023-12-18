@@ -11,6 +11,19 @@ return [
     ],
     'date' => 'Trường :attribute phải là ngày hợp lệ.',
     'before' => 'Trường :attribute phải là ngày trước ngày hôm nay.',
+    'attributes' => [
+        'first_name' => 'tên',
+        'last_name' => 'họ',
+        'shortcode' => 'mã số',
+        'role' => 'vai trò',
+        'email' => 'địa chỉ email',
+        'address' => 'địa chỉ',
+        'phone_number' => 'số điện thoại',
+        'birth_date' => 'ngày sinh',
+        'school_class_id' => 'lớp học',
+        'faculty_id' => 'khoa',
+        'password' => 'mật khẩu',
+    ],
     'custom' => [
         'role' => [
             'in' => 'Vai trò được chọn không hợp lệ. Vui lòng chọn từ học sinh, giáo viên hoặc quản trị viên.',

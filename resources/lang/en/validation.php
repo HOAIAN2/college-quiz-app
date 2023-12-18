@@ -11,6 +11,19 @@ return [
     ],
     'date' => 'The :attribute must be a valid date.',
     'before' => 'The :attribute must be a date before today.',
+    'attributes' => [
+        'first_name' => 'first name',
+        'last_name' => 'last name',
+        'shortcode' => 'shortcode',
+        'role' => 'role',
+        'email' => 'email address',
+        'address' => 'address',
+        'phone_number' => 'phone number',
+        'birth_date' => 'birth date',
+        'school_class_id' => 'school class',
+        'faculty_id' => 'faculty',
+        'password' => 'password',
+    ],
     'custom' => [
         'role' => [
             'in' => 'The selected role is invalid. Please choose from student, teacher, or admin.',

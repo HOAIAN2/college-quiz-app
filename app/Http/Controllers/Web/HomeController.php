@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 
 class HomeController extends Controller
 {
@@ -14,7 +15,7 @@ class HomeController extends Controller
     public function index()
     {
         $data = [];
-        $data['lang'] = $this->current_language;
+        $data['lang'] = App::getLocale();
         $data['description'] = trans('app.meta.description');
         $data['keywords'] = trans('app.meta.keywords');
         $data['title'] = env('APP_NAME');
