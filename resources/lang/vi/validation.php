@@ -29,7 +29,7 @@ return [
             'in' => 'Vai trò được chọn không hợp lệ. Vui lòng chọn từ học sinh, giáo viên hoặc quản trị viên.',
         ],
         'shortcode' => [
-            'unique' => 'Mã sóo đã được sử dụng. Vui lòng chọn một mã khác.',
+            'unique' => 'Mã số đã được sử dụng. Vui lòng chọn một mã khác.',
         ],
         'email' => [
             'unique' => 'Địa chỉ email đã được sử dụng. Vui lòng chọn một địa chỉ khác.',
