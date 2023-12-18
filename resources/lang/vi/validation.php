@@ -11,6 +11,7 @@ return [
     ],
     'date' => 'Trường :attribute phải là ngày hợp lệ.',
     'before' => 'Trường :attribute phải là ngày trước ngày hôm nay.',
+    'required_if' => 'Trường :attribute là bắt buộc khi :other là :value.',
     'attributes' => [
         'first_name' => 'tên',
         'last_name' => 'họ',

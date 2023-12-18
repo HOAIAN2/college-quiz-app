@@ -11,6 +11,7 @@ return [
     ],
     'date' => 'The :attribute must be a valid date.',
     'before' => 'The :attribute must be a date before today.',
+    'required_if' => 'The :attribute field is required when :other is :value.',
     'attributes' => [
         'first_name' => 'first name',
         'last_name' => 'last name',
