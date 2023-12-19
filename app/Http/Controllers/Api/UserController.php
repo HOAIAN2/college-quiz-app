@@ -53,9 +53,6 @@ class UserController extends Controller
             return Reply::error('app.errors.failToSaveRecord');
         }
     }
-    /**
-     * Display the specified resource.
-     */
     public function show(Request $request, string $id)
     {
         $user = $this->getUser();
@@ -93,10 +90,6 @@ class UserController extends Controller
             return Reply::error('app.errors.serverError', [], 500);
         }
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateRequest $request, string $id)
     {
         if (!$this->getUser()->isAdmin()) return Reply::error('permission.errors.403');
@@ -116,10 +109,6 @@ class UserController extends Controller
             return Reply::error('app.errors.serverError', [], 500);
         }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(DeleteRequest $request)
     {
         $user = $this->getUser();
