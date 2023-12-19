@@ -25,9 +25,8 @@ class FacultyController extends Controller
             } else $data = Faculty::all();
             return Reply::successWithData($data, '');
         } catch (\Throwable $error) {
-            $message = $error->getMessage();
-            Log::error($message);
-            if (env('APP_DEBUG') == true) return $error;
+            Log::error($error->getMessage());
+            if ($this->isDevelopment) return $error;
             return Reply::error('app.errors.serverError');
         }
     }
@@ -51,9 +50,8 @@ class FacultyController extends Controller
             ])->find($id);
             return Reply::successWithData($data, '');
         } catch (\Throwable $error) {
-            $message = $error->getMessage();
-            Log::error($message);
-            if (env('APP_DEBUG') == true) return $error;
+            Log::error($error->getMessage());
+            if ($this->isDevelopment) return $error;
             return Reply::error('app.errors.serverError');
         }
     }

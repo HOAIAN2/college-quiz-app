@@ -97,9 +97,8 @@ class DashboardController extends Controller
             }
             return Reply::successWithData($data, '');
         } catch (\Throwable $error) {
-            $message = $error->getMessage();
-            Log::error($message);
-            if (env('APP_DEBUG') == true) return $error;
+            Log::error($error->getMessage());
+            if ($this->isDevelopment) return $error;
             return Reply::error('app.errors.serverError', [], 500);
         }
     }

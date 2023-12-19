@@ -9,8 +9,10 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
+    public bool $isDevelopment = false;
     public function __construct()
     {
+        if (env('APP_DEBUG') == true)  $this->isDevelopment = true;
     }
     public function getUser()
     {

@@ -26,9 +26,6 @@ class AuthController extends Controller
                 ->delete();
         }
     }
-    /**
-     * Login
-     */
     public function login(LoginRequest $request)
     {
         try {
@@ -52,15 +49,11 @@ class AuthController extends Controller
                 'token' => $token
             ], '');
         } catch (\Throwable $error) {
-            $message = $error->getMessage();
-            Log::error($message);
-            if (env('APP_DEBUG') == true) return $error;
+            Log::error($error->getMessage());
+            if ($this->isDevelopment) return $error;
             return Reply::error('app.errors.serverError');
         }
     }
-    /**
-     * Logout
-     */
     public function logout(Request $request)
     {
         $user = $this->getUser();
@@ -69,15 +62,11 @@ class AuthController extends Controller
             $user->currentAccessToken()->delete();
             return Reply::success();
         } catch (\Throwable $error) {
-            $message = $error->getMessage();
-            Log::error($message);
-            if (env('APP_DEBUG') == true) return $error;
+            Log::error($error->getMessage());
+            if ($this->isDevelopment) return $error;
             return Reply::error('app.errors.serverError');
         }
     }
-    /**
-     * Change password
-     */
     public function changePassword(ChangePassRequest $request)
     {
         $user = $this->getUser();
@@ -91,9 +80,8 @@ class AuthController extends Controller
             $user->tokens()->delete();
             return Reply::successWithMessage('auth.successes.changePasswordSuccess');
         } catch (\Throwable $error) {
-            $message = $error->getMessage();
-            Log::error($message);
-            if (env('APP_DEBUG') == true) return $error;
+            Log::error($error->getMessage());
+            if ($this->isDevelopment) return $error;
             return Reply::error('app.errors.failToSaveRecord');
         }
     }
