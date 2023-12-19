@@ -17,10 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('/auth')->controller(AuthController::class)->group(function () {
-    Route::post('login', 'login');
+    Route::post('/login', 'login');
     Route::middleware('auth:sanctum')->group(function () {
-        Route::post('logout', 'logout');
-        Route::post('change-password', 'changePassword');
+        Route::post('/logout', 'logout');
+        Route::post('/change-password', 'changePassword');
     });
 });
 
@@ -28,7 +28,7 @@ Route::prefix('/user')->middleware('auth:sanctum')
     ->controller(UserController::class)->group(function () {
         Route::get('/query', 'getUserByType');
         Route::post('/import', 'importUsers');
-        Route::post('/export', 'exportUsers');
+        Route::get('/export', 'exportUsers');
         Route::get('/', 'index');
         Route::post('/', 'store');
         Route::delete('/', 'destroy');
