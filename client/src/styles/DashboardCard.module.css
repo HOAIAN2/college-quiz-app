@@ -1,5 +1,6 @@
 .dashboard-card {
     flex: 0 0 calc(25% - 20px);
+    min-width: 160px;
     height: 150px;
     display: flex;
     flex-direction: column;
