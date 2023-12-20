@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $created_by
  * @property int $chapter_id
+ * @property string $level
  * @property string $content
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -41,6 +42,7 @@ class Question extends Model
 	protected $fillable = [
 		'created_by',
 		'chapter_id',
+		'level',
 		'content'
 	];
 

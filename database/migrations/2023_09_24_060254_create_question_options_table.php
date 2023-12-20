@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('content');
             $table->boolean('is_correct')->default(false);
             $table->timestamps();
-            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
+            $table->foreign('question_id')->references('id')->on('questions')->cascadeOnDelete();
         });
     }
 
