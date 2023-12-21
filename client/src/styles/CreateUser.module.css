@@ -81,16 +81,6 @@
     color: red;
 }
 
-.wrap-item>label {
-    display: block;
-}
-
-.wrap-item>label.required::after {
-    content: "*";
-    color: red;
-    margin-left: 5px;
-}
-
 .input-item {
     /* position: relative; */
     height: 40px;

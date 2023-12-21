@@ -11,6 +11,7 @@ import { CreateUserLanguage } from '../models/lang'
 import { RoleName } from '../models/user'
 import styles from '../styles/CreateUser.module.css'
 import CustomSelect from './CustomSelect'
+import FormInput from './FormInput'
 
 type CreateUserProps = {
     role: RoleName
@@ -116,62 +117,72 @@ export default function CreateUser({
                             styles['group-inputs']
                         ].join(' ')
                     }>
-                        <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor="">{language?.email}</label>
-                            <input
-                                name='email'
-                                className={
-                                    [
-                                        'input-d',
-                                        styles['input-item']
-                                    ].join(' ')
-                                } type="text" />
-                        </div>
-                        <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor="">{language?.firstName}</label>
-                            <input
-                                name='first_name'
-                                className={
-                                    [
-                                        'input-d',
-                                        styles['input-item']
-                                    ].join(' ')
-                                } type="text" />
-                        </div>
-                        <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor="">{language?.lastName}</label>
-                            <input
-                                name='last_name'
-                                className={
-                                    [
-                                        'input-d',
-                                        styles['input-item']
-                                    ].join(' ')
-                                } type="text" />
-                        </div>
-                        <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor="">{language?.shortcode}</label>
-                            <input
-                                name='shortcode'
-                                className={
-                                    [
-                                        'input-d',
-                                        styles['input-item']
-                                    ].join(' ')
-                                } type="text" />
-                        </div>
+                        <FormInput
+                            label={language?.email}
+                            name='email'
+                            required={true}
+                            type='text'
+                            wrapClassName={styles['wrap-item']}
+                            inputClassName={
+                                [
+                                    'input-d',
+                                    styles['input-item']
+                                ].join(' ')
+                            }
+                        />
+                        <FormInput
+                            label={language?.firstName}
+                            name='first_name'
+                            required={true}
+                            type='text'
+                            wrapClassName={styles['wrap-item']}
+                            inputClassName={
+                                [
+                                    'input-d',
+                                    styles['input-item']
+                                ].join(' ')
+                            }
+                        />
+                        <FormInput
+                            label={language?.lastName}
+                            name='last_name'
+                            required={true}
+                            type='text'
+                            wrapClassName={styles['wrap-item']}
+                            inputClassName={
+                                [
+                                    'input-d',
+                                    styles['input-item']
+                                ].join(' ')
+                            }
+                        />
+                        <FormInput
+                            label={language?.shortcode}
+                            name='shortcode'
+                            required={true}
+                            type='text'
+                            wrapClassName={styles['wrap-item']}
+                            inputClassName={
+                                [
+                                    'input-d',
+                                    styles['input-item']
+                                ].join(' ')
+                            }
+                        />
                         {role === 'student' ?
-                            <div className={styles['wrap-item']}>
-                                <label className={styles['required']} htmlFor="">{language?.class}</label>
-                                <input
-                                    name='school_class_id'
-                                    className={
-                                        [
-                                            'input-d',
-                                            styles['input-item']
-                                        ].join(' ')
-                                    } type="text" />
-                            </div> : null
+                            <FormInput
+                                label={language?.class}
+                                name='school_class_id'
+                                required={true}
+                                type='text'
+                                wrapClassName={styles['wrap-item']}
+                                inputClassName={
+                                    [
+                                        'input-d',
+                                        styles['input-item']
+                                    ].join(' ')
+                                }
+                            /> : null
                         }
                         <div className={styles['wrap-item']}>
                             <label className={styles['required']} htmlFor="">{language?.genders.gender}</label>
@@ -188,17 +199,19 @@ export default function CreateUser({
                                 }
                             />
                         </div>
-                        <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor="">{language?.address}</label>
-                            <input
-                                name='address'
-                                className={
-                                    [
-                                        'input-d',
-                                        styles['input-item']
-                                    ].join(' ')
-                                } type="text" />
-                        </div>
+                        <FormInput
+                            label={language?.address}
+                            name='address'
+                            required={true}
+                            type='text'
+                            wrapClassName={styles['wrap-item']}
+                            inputClassName={
+                                [
+                                    'input-d',
+                                    styles['input-item']
+                                ].join(' ')
+                            }
+                        />
                         <div className={styles['wrap-item']}>
                             <label className={styles['required']} htmlFor="">{language?.birthDate}</label>
                             <Datetime
@@ -216,17 +229,19 @@ export default function CreateUser({
                                 timeFormat={false}
                             />
                         </div>
-                        <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor="">{language?.password}</label>
-                            <input
-                                name='password'
-                                className={
-                                    [
-                                        'input-d',
-                                        styles['input-item']
-                                    ].join(' ')
-                                } type="password" />
-                        </div>
+                        <FormInput
+                            label={language?.password}
+                            name='password'
+                            required={true}
+                            type='password'
+                            wrapClassName={styles['wrap-item']}
+                            inputClassName={
+                                [
+                                    'input-d',
+                                    styles['input-item']
+                                ].join(' ')
+                            }
+                        />
                     </div>
                     <div className={styles['action-items']}>
                         <button name='save' className='action-item-d'>{language?.save}</button>
