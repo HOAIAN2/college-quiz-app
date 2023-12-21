@@ -22,7 +22,6 @@ export default function CreateUser({
 }: CreateUserProps) {
     const language = useLanguage<CreateUserLanguage>('component.create_user')
     const [hide, setHide] = useState(true)
-    const [gender, setGender] = useState('male')
     const handleTurnOffInsertMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
         const timing = Number(transitionTiming.replace('s', '')) * 1000
@@ -47,7 +46,6 @@ export default function CreateUser({
         const form = e.target as HTMLFormElement
         const formData = new FormData(form)
         formData.append('role', role !== undefined ? role : 'student')
-        formData.append('gender', gender)
         await apiCreateUser(formData)
         if (submitter.name === 'save') handleTurnOffInsertMode()
         else form.reset()
@@ -176,11 +174,9 @@ export default function CreateUser({
                         <div className={styles['wrap-item']}>
                             <label className={styles['required']} htmlFor="">{language?.genders.gender}</label>
                             <CustomSelect
+                                name='gender'
                                 defaultOption={options[0]}
                                 options={options}
-                                onChange={(option) => {
-                                    setGender(option.value)
-                                }}
                                 className={
                                     [
                                         styles['custom-select']

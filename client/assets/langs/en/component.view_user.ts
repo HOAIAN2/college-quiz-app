@@ -7,6 +7,11 @@ export default {
         female: "Female",
         gender: "Gender"
     },
+    status: {
+        accountStatus: "Account status",
+        active: "Active",
+        inactive: "Inactive",
+    },
     email: "Email",
     firstName: "First name",
     lastName: "Last name",

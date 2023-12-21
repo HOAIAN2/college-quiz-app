@@ -6,13 +6,15 @@ type Option = {
     label?: string
 }
 type CustomSelectProps = {
+    name?: string
     defaultOption: Option
     options: Option[]
-    onChange: (option: Option) => void
+    onChange?: (option: Option) => void
     className?: string
 }
 
 export default function CustomSelect({
+    name,
     defaultOption,
     options,
     onChange,
@@ -38,6 +40,7 @@ export default function CustomSelect({
             }
         >
             <span>{current.label}</span>
+            <input type="text" name={name} value={current.value} hidden />
             <div
                 className={
                     [
@@ -50,7 +53,7 @@ export default function CustomSelect({
                     return (
                         <div key={option.value}
                             onClick={() => {
-                                onChange(option)
+                                onChange && onChange(option)
                                 setCurrent(option)
                             }}
                             className={

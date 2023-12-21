@@ -40,6 +40,11 @@ export type Genders = {
     female: string
     gender: string
 }
+export type Statuses = {
+    accountStatus: string
+    active: string
+    inactive: string
+}
 export type UsersLanguage = {
     add: string
     import: string
@@ -61,6 +66,7 @@ export type ViewUserLanguage = {
     teacher: string
     admin: string
     genders: Genders
+    status: Statuses
     email: string
     firstName: string
     lastName: string

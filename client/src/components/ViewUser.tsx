@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { SyntheticEvent, useEffect, useState } from 'react'
+import { SyntheticEvent, useEffect } from 'react'
 import Datetime from 'react-datetime'
 import { apiGetUsersById, apiUpdateUser } from '../api/user'
 import useAppContext from '../hooks/useAppContext'
@@ -19,7 +19,6 @@ export default function ViewUser({
     setUserDetail
 }: ViewUserProps) {
     const language = useLanguage<ViewUserLanguage>('component.view_user')
-    const [gender, setGender] = useState('male')
     const { user } = useAppContext()
     const queryData = useQuery({
         queryKey: ['user', id],
@@ -51,7 +50,6 @@ export default function ViewUser({
         })
         const form = e.target as HTMLFormElement
         const formData = new FormData(form)
-        formData.append('gender', gender)
         await apiUpdateUser(formData, id)
     }
     const { mutate } = useMutation({
@@ -68,9 +66,13 @@ export default function ViewUser({
             }
         },
     })
-    const options = [
+    const genderOptions = [
         { value: 'male', label: language?.genders.male },
         { value: 'female', label: language?.genders.female },
+    ]
+    const statusOptions = [
+        { value: '1', label: language?.status.active },
+        { value: '0', label: language?.status.inactive },
     ]
     useEffect(() => {
         if (queryData.data?.user && setUserDetail) {
@@ -169,14 +171,12 @@ export default function ViewUser({
                                 <div className={styles['wrap-item']}>
                                     <label className={styles['required']} htmlFor="">{language?.genders.gender}</label>
                                     <CustomSelect
+                                        name='gender'
                                         defaultOption={
                                             queryData.data.user.gender === 'male'
-                                                ? options[0] : options[1]
+                                                ? genderOptions[0] : genderOptions[1]
                                         }
-                                        options={options}
-                                        onChange={(option) => {
-                                            setGender(option.value)
-                                        }}
+                                        options={genderOptions}
                                         className={
                                             [
                                                 styles['custom-select']
@@ -201,10 +201,6 @@ export default function ViewUser({
                                     <label className={styles['required']} htmlFor="">{language?.birthDate}</label>
                                     <Datetime
                                         initialValue={new Date(queryData.data.user.birthDate)}
-                                        // onChange={(value) => {
-                                        //     if (typeof value === 'string') return
-                                        //     setBirthDate(value.toDate())
-                                        // }}
                                         inputProps={
                                             {
                                                 readOnly: user.user?.role.name === 'admin' ? false : true,
@@ -217,6 +213,22 @@ export default function ViewUser({
                                         }
                                         closeOnSelect={true}
                                         timeFormat={false}
+                                    />
+                                </div>
+                                <div className={styles['wrap-item']}>
+                                    <label className={styles['required']} htmlFor="">{language?.status.accountStatus}</label>
+                                    <CustomSelect
+                                        name='is_active'
+                                        defaultOption={
+                                            queryData.data.user.isActive
+                                                ? statusOptions[0] : statusOptions[1]
+                                        }
+                                        options={statusOptions}
+                                        className={
+                                            [
+                                                styles['custom-select']
+                                            ].join(' ')
+                                        }
                                     />
                                 </div>
                                 <div className={styles['wrap-item']}>

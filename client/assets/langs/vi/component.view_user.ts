@@ -7,6 +7,11 @@ export default {
         female: "Nữ",
         gender: "Giới tính"
     },
+    status: {
+        accountStatus: "Trạng thái tài khoản",
+        active: "Hoạt động",
+        inactive: "Không hoạt động",
+    },
     email: "Email",
     firstName: "Tên",
     lastName: "Họ",
