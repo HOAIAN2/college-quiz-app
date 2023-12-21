@@ -21,8 +21,14 @@ class FacultyController extends Controller
     {
         try {
             if ($request->search != null) {
-                $data = Faculty::search($request->search);
-            } else $data = Faculty::all();
+                $data = Faculty::withCount([
+                    'school_classes',
+                    'users'
+                ])->search($request->search);
+            } else $data = Faculty::withCount([
+                'school_classes',
+                'users'
+            ])->get();
             return Reply::successWithData($data, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());

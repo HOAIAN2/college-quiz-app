@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'required' => 'Trường :attribute là bắt buộc.',
+    'required' => 'Vui lòng nhập đầy đủ :attribute.',
     'string' => 'Trường :attribute phải là một chuỗi ký tự.',
     'in' => 'Giá trị đã chọn cho trường :attribute không hợp lệ.',
-    'unique' => 'Trường :attribute đã tồn tại.',
+    'unique' => 'Trường :attribute đã tồn tại trong hệ thống.',
     'email' => 'Trường :attribute phải là địa chỉ email hợp lệ.',
     'max' => [
         'string' => 'Trường :attribute không được vượt quá :max ký tự.',
@@ -17,7 +17,7 @@ return [
         'last_name' => 'họ',
         'shortcode' => 'mã số',
         'role' => 'vai trò',
-        'email' => 'địa chỉ email',
+        'email' => 'email',
         'address' => 'địa chỉ',
         'phone_number' => 'số điện thoại',
         'birth_date' => 'ngày sinh',

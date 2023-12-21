@@ -19,8 +19,9 @@ class SchoolClassController extends Controller
         // $user = $this->getUser();
         try {
             if ($request->search != null) {
-                $data = SchoolClass::search($request->search);
-            } else $data = SchoolClass::all();
+                $data = SchoolClass::withCount('students')
+                    ->search($request->search);
+            } else $data = SchoolClass::withCount('students')->get();
             return Reply::successWithData($data, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
