@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SyntheticEvent } from 'react'
 import Datetime from 'react-datetime'
 import { apiGetUser, apiUpdateUser } from '../api/user'
@@ -12,6 +12,7 @@ import styles from '../styles/Profile.module.css'
 export default function Profile() {
     const language = useLanguage<ProfileLanguage>('page.profile')
     const { user } = useAppContext()
+    const queryClient = useQueryClient()
     const queryData = useQuery({
         queryKey: ['user', user.user?.id],
         queryFn: () => {
@@ -56,7 +57,7 @@ export default function Profile() {
             }
         },
         onSuccess: () => {
-            //
+            queryClient.removeQueries({ queryKey: ['user', user.user?.id] })
         }
     })
     const genderOptions = [
