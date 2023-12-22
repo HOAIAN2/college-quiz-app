@@ -1,7 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
-import 'react-datetime/css/react-datetime.css'
 import {
     RxCross2
 } from 'react-icons/rx'

@@ -92,14 +92,16 @@ class UserController extends Controller
     }
     public function update(UpdateRequest $request, string $id)
     {
-        if (!$this->getUser()->isAdmin()) return Reply::error('permission.errors.403');
+        $user = $this->getUser();
+        if (!$user->isAdmin()) return Reply::error('permission.errors.403');
 
         DB::beginTransaction();
         try {
-            $user = User::with('role')->findOrFail($id);
+            $targetUser = User::with('role')->findOrFail($id);
             $data = $request->validated();
+            if ($user->id == $id) $data['is_active'] = 1;
             if ($request->password != null) $data['password'] = Hash::make($request->password);
-            $user->update($data);
+            $targetUser->update($data);
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
         } catch (\Throwable $error) {

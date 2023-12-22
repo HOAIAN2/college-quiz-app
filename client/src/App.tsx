@@ -1,17 +1,19 @@
-import { Suspense, lazy } from 'react'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import { Suspense, lazy } from 'react'
+import 'react-datetime/css/react-datetime.css'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import './App.css'
+import SuspenseLoading from './components/SuspenseLoading'
 import AuthLayout from './layouts/AuthLayout'
 import DasboardLayout from './layouts/DasboardLayout'
 import Login from './pages/Login'
 import NotFound from './pages/NotFound'
-import './App.css'
-import SuspenseLoading from './components/SuspenseLoading'
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Users = lazy(() => import('./pages/Users'))
+const Profile = lazy(() => import('./pages/Profile'))
 // const ViewUser = lazy(() => import('./components/ViewUser'))
 
 const router = createBrowserRouter([
@@ -39,6 +41,10 @@ const router = createBrowserRouter([
           {
             path: 'subjects',
             element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>
+          },
+          {
+            path: 'profile',
+            element: <Suspense fallback={<SuspenseLoading />}><Profile /></Suspense>
           },
           {
             path: 'courses',

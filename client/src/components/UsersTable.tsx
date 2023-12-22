@@ -98,7 +98,9 @@ export default function UsersTable({
                                 <th className={styles['column-name']}>{language?.header.name}</th>
                                 {role === 'student' ?
                                     <th className={styles['column-class']}>{language?.header.class}</th>
-                                    : null}
+                                    : role === 'teacher' ?
+                                        <th className={styles['column-class']}>{language?.header.faculty}</th>
+                                        : null}
                                 <th className={styles['column-email']}>{language?.header.email}</th>
                                 <th className={styles['column-address']}>{language?.header.address}</th>
                             </tr>
@@ -127,7 +129,13 @@ export default function UsersTable({
                                                     {user.gender == 'male' ? <GiMale /> : <GiFemale />}
                                                     {`${user.lastName} ${user.firstName}`}
                                                 </td>
-                                                <td className={styles['column-content-class']}>{user.schoolClassId}</td>
+                                                {
+                                                    role === 'student' ?
+                                                        <td className={styles['column-content-class']}>{user.schoolClassId}</td>
+                                                        : role === 'teacher' ?
+                                                            <td className={styles['column-content-class']}>{user.facultyId}</td>
+                                                            : null
+                                                }
                                                 <td className={styles['column-content-email']}>{user.email}</td>
                                                 <td className={styles['column-content-address']}>{user.address}</td>
                                             </tr>

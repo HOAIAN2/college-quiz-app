@@ -78,12 +78,30 @@ export type ViewUserLanguage = {
     leaveBlank: string
     save: string
 }
+export type ProfileLanguage = {
+    student: string
+    teacher: string
+    admin: string
+    genders: Genders
+    status: Statuses
+    email: string
+    firstName: string
+    lastName: string
+    shortcode: string
+    class: string
+    address: string
+    birthDate: string
+    password: string
+    leaveBlank: string
+    save: string
+}
 export type UsersTableLanguage = {
     header: {
         id: string
         name: string
         shortcode: string
         class: string
+        faculty: string
         email: string
         address: string
     }

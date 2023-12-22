@@ -40,7 +40,8 @@ export default function CustomSelect({
             }
         >
             <span>{current.label}</span>
-            <input type="text" name={name} value={current.value} hidden />
+            <input type="text" name={name} value={current.value} hidden
+                onChange={(e) => { e.preventDefault() }} />
             <div
                 className={
                     [

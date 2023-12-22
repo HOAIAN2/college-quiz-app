@@ -4,6 +4,7 @@ export default {
         name: "Name",
         shortcode: "Shortcode",
         class: "Class",
+        faculty: "Faculty",
         email: "Email",
         address: "Address"
     },

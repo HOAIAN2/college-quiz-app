@@ -2,16 +2,19 @@ import {
     BiLogOut
 } from 'react-icons/bi'
 import {
+    FaRegUser
+} from "react-icons/fa6"
+import {
     PiSidebarSimpleLight
 } from 'react-icons/pi'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { apiLogout } from '../api/auth'
 import useAppContext from '../hooks/useAppContext'
 import styles from '../styles/Header.module.css'
 import navBarStyles from '../styles/NavBar.module.css'
 
 export default function Header() {
-    const { DOM } = useAppContext()
+    const { DOM, user } = useAppContext()
     const navigate = useNavigate()
     const handleLogout = () => {
         apiLogout()
@@ -31,6 +34,15 @@ export default function Header() {
                 <h1 ref={DOM.titleRef} className={styles['app-title']}></h1>
             </div>
             <div className={styles['right-items']}>
+                <Link to='/profile' className={styles['right-item']}
+                    title={
+                        [
+                            user.user?.lastName,
+                            user.user?.firstName
+                        ].join(' ')
+                    }>
+                    <FaRegUser />
+                </Link>
                 <span onClick={handleLogout} className={styles['right-item']}>
                     <BiLogOut />
                 </span>

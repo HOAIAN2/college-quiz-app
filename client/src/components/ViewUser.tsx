@@ -20,6 +20,7 @@ export default function ViewUser({
 }: ViewUserProps) {
     const language = useLanguage<ViewUserLanguage>('component.view_user')
     const { user } = useAppContext()
+    console.log(user)
     const queryData = useQuery({
         queryKey: ['user', id],
         queryFn: () => {
