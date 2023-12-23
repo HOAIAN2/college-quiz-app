@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
                 // $query->sql;
                 // $query->bindings;
                 // $query->time;
-                error_log($query->sql);
+                Log::channel('stderr')->info($query->sql . ' ❯❯ ' . $query->time . 'ms');
             });
     }
 }
