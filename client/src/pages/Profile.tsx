@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { SyntheticEvent } from 'react'
+import { SyntheticEvent, useEffect } from 'react'
 import Datetime from 'react-datetime'
 import { apiGetUser, apiUpdateUser } from '../api/user'
 import CustomSelect from '../components/CustomSelect'
@@ -64,6 +64,11 @@ export default function Profile() {
         { value: 'male', label: language?.genders.male },
         { value: 'female', label: language?.genders.female },
     ]
+    useEffect(() => {
+        return () => {
+            queryClient.removeQueries({ queryKey: ['user', user.user?.id] })
+        }
+    }, [queryClient, user.user?.id])
     return (
         <div className={
             [

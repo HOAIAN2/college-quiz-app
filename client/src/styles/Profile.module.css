@@ -1,6 +1,7 @@
 .profile-content {
     width: 100%;
-    /* height: calc(100% - 50px); */
+    height: 100%;
+    position: relative;
     background: white;
 }
 

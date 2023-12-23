@@ -32,6 +32,15 @@ php artisan migrate
 
 - Seed databse (Change root account in databse/seeders/UserSeeder.php)
 
+- Build
+
+Some free hosting like infinityfree, 000webhost only allow GET, POST method so you can config override method when call api on client
+
+``` env
+VITE_DEV_PORT=3000
+VITE_DEV_SERVER_PORT=8000
+VITE_OVERRIDE_HTTP_METHOD=true
+
 ```console
 php artisan db:seed
 ```

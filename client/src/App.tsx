@@ -11,9 +11,10 @@ import AuthLayout from './layouts/AuthLayout'
 import DasboardLayout from './layouts/DasboardLayout'
 import Login from './pages/Login'
 import NotFound from './pages/NotFound'
+import Profile from './pages/Profile'
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Users = lazy(() => import('./pages/Users'))
-const Profile = lazy(() => import('./pages/Profile'))
+// const Profile = lazy(() => import('./pages/Profile'))
 // const ViewUser = lazy(() => import('./components/ViewUser'))
 
 const router = createBrowserRouter([
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
           },
           {
             path: 'profile',
-            element: <Suspense fallback={<SuspenseLoading />}><Profile /></Suspense>
+            element: <Profile />
           },
           {
             path: 'courses',

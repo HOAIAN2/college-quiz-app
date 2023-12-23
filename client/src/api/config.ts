@@ -7,6 +7,8 @@ type TemplateFileUrl = {
     [key: string]: string;
 }
 
+const overrideHttpMethod = env.VITE_OVERRIDE_HTTP_METHOD === 'true' ? true : false
+
 const host = env.DEV === true ? `${window.location.origin.replace(env.VITE_DEV_PORT, env.VITE_DEV_SERVER_PORT)}/`
     : `${window.location.origin}/`
 
@@ -42,6 +44,20 @@ request.interceptors.request.use(config => {
     }
     if (getToken()) {
         config.headers.Authorization = getTokenHeader()
+    }
+    if (overrideHttpMethod) {
+        if (config.method !== 'get' && config.method !== 'post') {
+            const override = config.method?.toUpperCase() as string
+            if (config.data instanceof FormData) {
+                config.data.append('_method', override)
+            } else if (typeof config.data === 'object' && !(config.data instanceof URLSearchParams)) {
+                config.data = config.data || {}
+                config.data._method = config.method
+            } else if (config.data instanceof URLSearchParams) {
+                config.data.append('_method', override)
+            }
+            config.method = 'post'
+        }
     }
     if (!config.headers['Content-Type']) config.headers['Content-Type'] = 'multipart/form-data'
     return config
