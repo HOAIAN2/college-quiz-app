@@ -96,7 +96,7 @@ export async function apiGetUsersById(id: string | number) {
 }
 export async function apiDeleteUserByIds(ids: (string | number)[]) {
     try {
-        await request.delete('/user/', {
+        await request.delete('/user', {
             params: {
                 ids: ids,
             }

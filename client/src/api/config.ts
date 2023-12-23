@@ -48,6 +48,7 @@ request.interceptors.request.use(config => {
     if (overrideHttpMethod) {
         if (config.method !== 'get' && config.method !== 'post') {
             const override = config.method?.toUpperCase() as string
+            config.data = config.data || new FormData()
             if (config.data instanceof FormData) {
                 config.data.append('_method', override)
             } else if (typeof config.data === 'object' && !(config.data instanceof URLSearchParams)) {
