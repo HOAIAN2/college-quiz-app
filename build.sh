@@ -1,6 +1,7 @@
 #!/bin/sh
 rm ./public/index.html
 rm -rf ./public/icon.png
+rm -rf ./public/favicon.ico
 rm -rf ./public/assets
 rm -rf ./public/langs
 cd client

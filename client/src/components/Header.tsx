@@ -14,7 +14,7 @@ import styles from '../styles/Header.module.css'
 import navBarStyles from '../styles/NavBar.module.css'
 
 export default function Header() {
-    const { DOM, user } = useAppContext()
+    const { DOM, user, appLanguage } = useAppContext()
     const navigate = useNavigate()
     const handleLogout = () => {
         apiLogout()
@@ -22,6 +22,16 @@ export default function Header() {
                 navigate(0)
             })
     }
+    const fullName = appLanguage.language === 'vi'
+        ? [
+            user.user?.lastName,
+            user.user?.firstName
+        ].join(' ')
+        :
+        [
+            user.user?.firstName,
+            user.user?.lastName
+        ].join(' ')
     return (
         <div className={styles['header']}>
             <div id='loader'></div>
@@ -35,12 +45,7 @@ export default function Header() {
             </div>
             <div className={styles['right-items']}>
                 <Link to='/profile' className={styles['right-item']}
-                    title={
-                        [
-                            user.user?.lastName,
-                            user.user?.firstName
-                        ].join(' ')
-                    }>
+                    title={fullName}>
                     <FaRegUser />
                 </Link>
                 <span onClick={handleLogout} className={styles['right-item']}>

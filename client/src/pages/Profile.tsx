@@ -11,7 +11,7 @@ import styles from '../styles/Profile.module.css'
 
 export default function Profile() {
     const language = useLanguage<ProfileLanguage>('page.profile')
-    const { user } = useAppContext()
+    const { user, appLanguage } = useAppContext()
     const queryClient = useQueryClient()
     const queryData = useQuery({
         queryKey: ['user', user.user?.id],
@@ -64,6 +64,16 @@ export default function Profile() {
         { value: 'male', label: language?.genders.male },
         { value: 'female', label: language?.genders.female },
     ]
+    const fullName = appLanguage.language === 'vi'
+        ? [
+            user.user?.lastName,
+            user.user?.firstName
+        ].join(' ')
+        :
+        [
+            user.user?.firstName,
+            user.user?.lastName
+        ].join(' ')
     useEffect(() => {
         return () => {
             queryClient.removeQueries({ queryKey: ['user', user.user?.id] })
@@ -88,10 +98,7 @@ export default function Profile() {
                     queryData.data ? (
                         <>
                             <div className={styles['header']}>
-                                <h2 className={styles['title']}>{[
-                                    queryData.data.lastName,
-                                    queryData.data.firstName,
-                                ].join(' ')}</h2>
+                                <h2 className={styles['title']}>{fullName}</h2>
                             </div>
                             <form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
                                 mutate(e)

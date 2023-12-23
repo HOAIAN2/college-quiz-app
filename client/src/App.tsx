@@ -14,7 +14,6 @@ import NotFound from './pages/NotFound'
 import Profile from './pages/Profile'
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Users = lazy(() => import('./pages/Users'))
-// const Profile = lazy(() => import('./pages/Profile'))
 // const ViewUser = lazy(() => import('./components/ViewUser'))
 
 const router = createBrowserRouter([
