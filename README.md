@@ -24,10 +24,14 @@ DB_USERNAME=admin
 DB_PASSWORD=123456789
 ````
 
-- Create databse
+- Create databse, seed data
 
 ```console
 php artisan migrate
+```
+
+```console
+php artisan db:seed
 ```
 
 - Seed databse (Change root account in databse/seeders/UserSeeder.php)
@@ -40,9 +44,6 @@ Some free hosting like infinityfree, 000webhost only allow GET, POST method so y
 VITE_DEV_PORT=3000
 VITE_DEV_SERVER_PORT=8000
 VITE_OVERRIDE_HTTP_METHOD=true
-
-```console
-php artisan db:seed
 ```
 
 ## Deploy
