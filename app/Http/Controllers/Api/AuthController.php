@@ -19,7 +19,7 @@ class AuthController extends Controller
     function __construct()
     {
         parent::__construct();
-        if (env('TOKEN_LIFTTIME') != null) {
+        if (env('TOKEN_LIFETIME') != null) {
             $interval = Carbon::now()->subMinutes(env('TOKEN_LIFETIME'));
             DB::table('personal_access_tokens')
                 ->where('last_used_at', '<', $interval)
