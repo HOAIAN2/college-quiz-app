@@ -18,8 +18,8 @@
   <link rel="preload" href="/fonts/AlumniSans-Medium.ttf" as="font" crossorigin>
   <link rel="preload" href="/fonts//AlumniSans-Bold.ttf" as="font" crossorigin>
   <title>{{$title}}</title>
-  <script type="module" crossorigin src="/assets/index-VzR90PYS.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-asMXa91X.css">
+  <script type="module" crossorigin src="/assets/index-7VxZ9U_O.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-lhLFvpAN.css">
 </head>
 
 <body>
