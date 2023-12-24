@@ -23,6 +23,7 @@ class AuthController extends Controller
             $interval = Carbon::now()->subMinutes(env('TOKEN_LIFETIME'));
             DB::table('personal_access_tokens')
                 ->where('last_used_at', '<', $interval)
+                ->orWhereNull('last_used_at')
                 ->delete();
         }
     }
