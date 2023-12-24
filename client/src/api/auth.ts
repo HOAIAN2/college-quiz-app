@@ -18,6 +18,17 @@ export async function apiLogin(form: FormData) {
         throw new Error(message.message)
     }
 }
+export async function apiChangePassword(form: FormData) {
+    try {
+        await request.post('/auth/change-password', form)
+        localStorage.removeItem('token')
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+        if (!error.response) throw new Error(error.message)
+        const message = error.response.data.message
+        throw new Error(message)
+    }
+}
 export async function apiLogout() {
     try {
         await request.post('/auth/logout')

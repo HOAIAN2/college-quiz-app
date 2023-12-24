@@ -48,6 +48,7 @@ return [
             'required_if' => 'The faculty field is required when the role is teacher.',
         ],
         'password' => [
+            'confirmed' => 'The password confirmation does not match.',
             'min' => 'The password must contain at least :min characters.',
         ],
     ],

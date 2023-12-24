@@ -48,6 +48,7 @@ return [
             'required_if' => 'Trường khoa là bắt buộc khi vai trò là giáo viên.',
         ],
         'password' => [
+            'confirmed' => 'Xác nhận mật khẩu không khớp.',
             'min' => 'Mật khẩu phải chứa ít nhất :min ký tự.',
         ],
     ],

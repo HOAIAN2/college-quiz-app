@@ -19,8 +19,13 @@ export default function Login() {
     const prePage = location.state?.from
     const handlePreventSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         const formData = new FormData(e.currentTarget)
-        if (!formData.get('email') || !formData.get('password')) return setBlockSubmit(true)
-        else setBlockSubmit(false)
+        for (const pair of formData.entries()) {
+            const value = pair[1] as string
+            if (!value.trim()) {
+                return setBlockSubmit(true)
+            }
+        }
+        setBlockSubmit(false)
     }
     const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()

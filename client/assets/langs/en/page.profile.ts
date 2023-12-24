@@ -21,5 +21,9 @@ export default {
     birthDate: "Birth date",
     password: "Password",
     leaveBlank: "leave blank to remain unchanged",
-    save: "Save"
+    save: "Save",
+    otherSection: {
+        other: "Other",
+        changePassword: "Change password"
+    }
 }

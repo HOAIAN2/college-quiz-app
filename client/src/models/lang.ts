@@ -94,6 +94,10 @@ export type ProfileLanguage = {
     password: string
     leaveBlank: string
     save: string
+    otherSection: {
+        other: string
+        changePassword: string
+    }
 }
 export type UsersTableLanguage = {
     header: {
@@ -120,4 +124,11 @@ export type DashboardLanguage = {
         examInNextWeek: string
         examInThisMonth: string
     }
+}
+export type ChangePasswordLanguage = {
+    title: string
+    password: string
+    newPassword: string
+    confirmPassword: string
+    save: string
 }
