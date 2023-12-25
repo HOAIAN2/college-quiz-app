@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\DB;
 
 class Controller extends BaseController
 {
@@ -13,6 +15,20 @@ class Controller extends BaseController
     public function __construct()
     {
         if (env('APP_DEBUG') == true)  $this->isDevelopment = true;
+    }
+    public function __destruct()
+    {
+        if (env('TOKEN_LIFETIME') != null) {
+            $interval = Carbon::now()->subMinutes(env('TOKEN_LIFETIME'));
+            DB::table('personal_access_tokens')
+                ->where(function ($query) use ($interval) {
+                    $query->where('last_used_at', '<', $interval)
+                        ->orWhere(function ($query) use ($interval) {
+                            $query->where('created_at', '<', $interval)
+                                ->whereNull('last_used_at');
+                        });
+                })->delete();
+        }
     }
     public function getUser()
     {
