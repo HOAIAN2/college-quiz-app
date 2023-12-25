@@ -19,12 +19,19 @@ class AuthController extends Controller
     function __construct()
     {
         parent::__construct();
+    }
+    function __destruct()
+    {
         if (env('TOKEN_LIFETIME') != null) {
             $interval = Carbon::now()->subMinutes(env('TOKEN_LIFETIME'));
             DB::table('personal_access_tokens')
-                ->where('last_used_at', '<', $interval)
-                ->orWhereNull('last_used_at')
-                ->delete();
+                ->where(function ($query) use ($interval) {
+                    $query->where('last_used_at', '<', $interval)
+                        ->orWhere(function ($query) use ($interval) {
+                            $query->where('created_at', '<', $interval)
+                                ->whereNull('last_used_at');
+                        });
+                })->delete();
         }
     }
     public function login(LoginRequest $request)
