@@ -19,10 +19,9 @@ class DashboardController extends Controller
     {
         parent::__construct();
     }
-    function __destruct()
-    {
-        parent::__destruct();
-    }
+    /**
+     * Display a listing of the resource.
+     */
     public function index(Request $request)
     {
         $user = $this->getUser();
@@ -31,7 +30,7 @@ class DashboardController extends Controller
         try {
             switch ($user->role_id) {
                 case Role::ROLES['admin']:
-                    // Get Count for 4 card in Dashboard
+                    # Get Count for 4 card in Dashboard
                     $data->number_of_teachers = User::whereRoleId(Role::ROLES['teacher'])->count();
                     $data->number_of_students = User::whereRoleId(Role::ROLES['student'])->count();
                     $data->number_of_courses = Course::whereHas('semester', function ($query) use ($now) {
@@ -40,7 +39,7 @@ class DashboardController extends Controller
                     })->count();
                     $data->exams_in_this_month = Exam::whereBetween('exam_date', [now()->startOfMonth(), now()->endOfMonth()])
                         ->count();
-                    // Get render data
+                    # Get render data
                     $data->exams_in_next_week = Exam::with([
                         'course',
                         'course.subject',
@@ -49,7 +48,7 @@ class DashboardController extends Controller
                         ->get();
                     break;
                 case Role::ROLES['teacher']:
-                    // Get Count for 4 card in Dashboard
+                    # Get Count for 4 card in Dashboard
                     $data->number_of_teachers = User::whereRoleId(Role::ROLES['teacher'])->count();
                     $data->number_of_students = User::whereRoleId(Role::ROLES['student'])->count();
                     $data->number_of_courses = Course::whereHas('semester', function ($query) use ($now) {
@@ -60,7 +59,7 @@ class DashboardController extends Controller
                         $query->where('id', '=', $user->id);
                     })->whereBetween('exam_date', [now()->startOfMonth(), now()->endOfMonth()])
                         ->count();
-                    // Get render data
+                    # Get render data
                     $data->exams_in_next_week = Exam::with([
                         'course',
                         'course.subject',
@@ -71,7 +70,7 @@ class DashboardController extends Controller
                         ->get();
                     break;
                 case Role::ROLES['student']:
-                    // Get Count for 4 card in Dashboard
+                    # Get Count for 4 card in Dashboard
                     $data->number_of_teachers = User::whereRoleId(Role::ROLES['teacher'])->count();
                     $data->number_of_students = User::whereRoleId(Role::ROLES['student'])->count();
                     $data->number_of_courses = Course::whereHas('semester', function ($query) use ($now) {
@@ -82,7 +81,7 @@ class DashboardController extends Controller
                         $query->where('student_id', '=', $user->id);
                     })->whereBetween('exam_date', [now()->startOfMonth(), now()->endOfMonth()])
                         ->count();
-                    // Get render data
+                    # Get render data
                     $data->exams_in_next_week = Exam::with([
                         'course',
                         'course.subject',
@@ -93,7 +92,7 @@ class DashboardController extends Controller
                         ->get();
                     break;
                 default:
-                    // code...
+                    # code...
                     break;
             }
             return Reply::successWithData($data, '');
