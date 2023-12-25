@@ -6,11 +6,8 @@ use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ChangePassRequest;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\Role;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
@@ -22,17 +19,7 @@ class AuthController extends Controller
     }
     function __destruct()
     {
-        if (env('TOKEN_LIFETIME') != null) {
-            $interval = Carbon::now()->subMinutes(env('TOKEN_LIFETIME'));
-            DB::table('personal_access_tokens')
-                ->where(function ($query) use ($interval) {
-                    $query->where('last_used_at', '<', $interval)
-                        ->orWhere(function ($query) use ($interval) {
-                            $query->where('created_at', '<', $interval)
-                                ->whereNull('last_used_at');
-                        });
-                })->delete();
-        }
+        parent::__destruct();
     }
     public function login(LoginRequest $request)
     {

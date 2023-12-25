@@ -10,9 +10,13 @@ use Illuminate\Support\Facades\Log;
 
 class FacultyController extends Controller
 {
-    public function __construct()
+    function __construct()
     {
         parent::__construct();
+    }
+    function __destruct()
+    {
+        parent::__destruct();
     }
     /**
      * Display a listing of the resource.

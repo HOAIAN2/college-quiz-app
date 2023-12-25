@@ -28,6 +28,10 @@ class UserController extends Controller
     {
         parent::__construct();
     }
+    function __destruct()
+    {
+        parent::__destruct();
+    }
     public function index()
     {
         $user = $this->getUser()->load(['role']);

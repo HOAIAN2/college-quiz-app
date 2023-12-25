@@ -10,9 +10,13 @@ use Illuminate\Support\Facades\Log;
 
 class SchoolClassController extends Controller
 {
-    public function __construct()
+    function __construct()
     {
         parent::__construct();
+    }
+    function __destruct()
+    {
+        parent::__destruct();
     }
     public function index(Request $request)
     {
