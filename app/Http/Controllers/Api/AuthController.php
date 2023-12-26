@@ -65,6 +65,9 @@ class AuthController extends Controller
             if (!Hash::check($request->current_password, $user->password)) {
                 return Reply::error('auth.errors.passwordIncorrect');
             }
+            if ($request->current_password == $request->password) {
+                return Reply::error('auth.errors.newPasswordIsSame');
+            }
             $user->update([
                 'password' => Hash::make($request->password),
             ]);

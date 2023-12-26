@@ -98,11 +98,12 @@ class UserController extends Controller
         DB::beginTransaction();
         try {
             $targetUser = User::with('role')->findOrFail($id);
-            $data = $request->validated();
+            $data = collect($request->validated())->except(['password'])->toArray();
             if ($user->id == $id) $data['is_active'] = 1;
             if ($request->password != null) $data['password'] = Hash::make($request->password);
             $targetUser->update($data);
             DB::commit();
+            if ($data['is_active'] == 0) $targetUser->tokens()->delete();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());

@@ -70,6 +70,11 @@ export default function NavBar() {
         ],
         teacher: [
             {
+                name: language?.dashboard,
+                to: '',
+                icon: <RxDashboard />
+            },
+            {
                 name: language?.profile,
                 to: 'profile',
                 icon: <AiOutlineUser />
@@ -107,20 +112,25 @@ export default function NavBar() {
         ],
         student: [
             {
+                name: language?.dashboard,
+                to: '',
+                icon: <RxDashboard />
+            },
+            {
                 name: language?.profile,
                 to: 'profile',
                 icon: <AiOutlineUser />
             },
-            {
-                name: language?.teachers,
-                to: 'teachers',
-                icon: <PiChalkboardTeacherLight />
-            },
-            {
-                name: language?.students,
-                to: 'students',
-                icon: <PiStudent />
-            },
+            // {
+            //     name: language?.teachers,
+            //     to: 'teachers',
+            //     icon: <PiChalkboardTeacherLight />
+            // },
+            // {
+            //     name: language?.students,
+            //     to: 'students',
+            //     icon: <PiStudent />
+            // },
             {
                 name: language?.subjects,
                 to: 'subjects',
