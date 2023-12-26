@@ -17,13 +17,8 @@ class DatabaseSeeder extends Seeder
             ShoolClassSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
-            SubjectSeeder::class
+            SubjectSeeder::class,
+            StudentSeeder::class
         ]);
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 }
