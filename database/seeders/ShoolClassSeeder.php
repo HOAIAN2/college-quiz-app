@@ -14,7 +14,7 @@ class ShoolClassSeeder extends Seeder
      */
     public function run(): void
     {
-        SchoolClass::insert([
+        $schoolClasses = [
             [
                 'id' => 'D18K1',
                 'name' => 'D18K1',
@@ -266,6 +266,9 @@ class ShoolClassSeeder extends Seeder
                 'name' => 'D21CTC1',
                 'faculty_id' => Faculty::inRandomOrder()->select('id')->first()->id
             ],
-        ]);
+        ];
+        foreach ($schoolClasses as $schoolClass) {
+            SchoolClass::create($schoolClass);
+        }
     }
 }

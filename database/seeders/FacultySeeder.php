@@ -13,7 +13,7 @@ class FacultySeeder extends Seeder
      */
     public function run(): void
     {
-        Faculty::insert([
+        $faculties = [
             [
                 'id' => 'CB01',
                 'name' => 'Khoa học cơ bản',
@@ -79,6 +79,9 @@ class FacultySeeder extends Seeder
                 'name' => 'Xây dựng',
                 'phone_number' => '0573801897'
             ]
-        ]);
+        ];
+        foreach ($faculties as $faculty) {
+            Faculty::create($faculty);
+        }
     }
 }

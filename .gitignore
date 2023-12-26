@@ -23,8 +23,8 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-app.zip
-app.tar.gz
+*.zip
+*.tar.gz
 # Logs
 client/logs
 client/*.log

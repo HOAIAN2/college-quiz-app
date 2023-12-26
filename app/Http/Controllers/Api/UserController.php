@@ -178,7 +178,9 @@ class UserController extends Controller
                 if ($request->role == 'teacher') $record['faculty_id'] = $row[0];
                 $data[] = $record;
             }
-            User::insert($data);
+            foreach ($data as $row) {
+                User::create($row);
+            }
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
         } catch (\Throwable $error) {

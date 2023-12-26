@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
             FacultySeeder::class,
             ShoolClassSeeder::class,
             RoleSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            SubjectSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
 
