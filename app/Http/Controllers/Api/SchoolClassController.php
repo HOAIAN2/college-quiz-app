@@ -10,10 +10,6 @@ use Illuminate\Support\Facades\Log;
 
 class SchoolClassController extends Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
     public function index(Request $request)
     {
         // $user = $this->getUser();

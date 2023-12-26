@@ -15,13 +15,6 @@ use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
-    function __construct()
-    {
-        parent::__construct();
-    }
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $user = $this->getUser();

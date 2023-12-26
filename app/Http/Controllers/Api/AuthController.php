@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
-    function __construct()
-    {
-        parent::__construct();
-    }
     public function login(LoginRequest $request)
     {
         try {
@@ -45,6 +41,7 @@ class AuthController extends Controller
             return Reply::error('app.errors.serverError');
         }
     }
+
     public function logout(Request $request)
     {
         $user = $this->getUser();
@@ -58,6 +55,7 @@ class AuthController extends Controller
             return Reply::error('app.errors.serverError');
         }
     }
+
     public function changePassword(ChangePassRequest $request)
     {
         $user = $this->getUser();

@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
                 // $query->sql;
                 // $query->bindings;
                 // $query->time;
-                Log::channel('stderr')->info($query->sql . ' ❯❯ ' . $query->time . 'ms');
+                Log::channel('stderr')->info($query->sql . ' => ' . $query->time . 'ms');
             });
     }
 }

@@ -24,15 +24,12 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class UserController extends Controller
 {
-    function __construct()
-    {
-        parent::__construct();
-    }
     public function index()
     {
         $user = $this->getUser()->load(['role']);
         return Reply::successWithData($user, '');
     }
+
     public function store(StoreRequest $request)
     {
         $user = $this->getUser();
@@ -53,6 +50,7 @@ class UserController extends Controller
             return Reply::error('app.errors.failToSaveRecord');
         }
     }
+
     public function show(Request $request, string $id)
     {
         $user = $this->getUser();
@@ -90,6 +88,7 @@ class UserController extends Controller
             return Reply::error('app.errors.serverError', [], 500);
         }
     }
+
     public function update(UpdateRequest $request, string $id)
     {
         $user = $this->getUser();
@@ -112,6 +111,7 @@ class UserController extends Controller
             return Reply::error('app.errors.serverError', [], 500);
         }
     }
+
     public function destroy(DeleteRequest $request)
     {
         $user = $this->getUser();
@@ -126,6 +126,7 @@ class UserController extends Controller
             return Reply::error('app.errors.serverError', [], 500);
         }
     }
+
     public function getUserByType(GetByTypeRequest $request)
     {
         $user = $this->getUser();
@@ -146,6 +147,7 @@ class UserController extends Controller
             return Reply::error('app.errors.failToSaveRecord');
         }
     }
+
     public function importUsers(ImportRequest $request)
     {
         $user = $this->getUser();
@@ -186,6 +188,7 @@ class UserController extends Controller
             return Reply::error('app.errors.failToSaveRecord');
         }
     }
+
     public function exportUsers(ExportRequest $request)
     {
         $user = $this->getUser();
