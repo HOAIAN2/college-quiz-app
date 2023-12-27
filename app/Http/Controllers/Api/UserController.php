@@ -117,11 +117,15 @@ class UserController extends Controller
         $user = $this->getUser();
         if (!$user->isAdmin()) return Reply::error('permission.errors.403');
 
+
+        DB::beginTransaction();
         try {
             User::destroy($request->ids);
+            DB::commit();
             return Reply::successWithMessage('app.successes.recordDeleteSuccess');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
+            DB::rollBack();
             if ($this->isDevelopment) return $error;
             return Reply::error('app.errors.serverError', [], 500);
         }

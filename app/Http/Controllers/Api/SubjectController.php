@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Subject\DeleteRequest;
-use App\Http\Requests\Subject\GetRequest;
+use App\Http\Requests\Subject\IndexRequest;
 use App\Http\Requests\Subject\StoreRequest;
 use App\Models\Subject;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Log;
 
 class SubjectController extends Controller
 {
-    public function index(GetRequest $request)
+    public function index(IndexRequest $request)
     {
         $subjects = Subject::withCount(['chapters', 'courses']);
         try {
@@ -83,11 +83,14 @@ class SubjectController extends Controller
         $user = $this->getUser();
         if (!$user->isAdmin()) return Reply::error('permission.errors.403');
 
+        DB::beginTransaction();
         try {
             Subject::destroy($request->ids);
+            DB::commit();
             return Reply::successWithMessage('app.successes.recordDeleteSuccess');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
+            DB::rollBack();
             if ($this->isDevelopment) return $error;
             return Reply::error('app.errors.serverError', [], 500);
         }

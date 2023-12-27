@@ -4,7 +4,7 @@ namespace App\Http\Requests\Subject;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetRequest extends FormRequest
+class IndexRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
