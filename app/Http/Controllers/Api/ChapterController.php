@@ -6,6 +6,7 @@ use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Chapter\DeleteRequest;
 use App\Http\Requests\Chapter\StoreRequest;
+use App\Http\Requests\Chapter\UpdateRequest;
 use App\Models\Chapter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -53,7 +54,7 @@ class ChapterController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, string $id)
     {
         $user = $this->getUser();
         if (!$user->isAdmin()) return Reply::error('permission.errors.403');
