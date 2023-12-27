@@ -50,3 +50,10 @@ Route::prefix('/subject')->middleware('auth:sanctum')
         Route::get('/{id}', 'show');
         Route::put('/{id}', 'update');
     });
+
+Route::prefix('/chapter')->middleware('auth:sanctum')
+    ->controller(SubjectController::class)->group(function () {
+        Route::post('/', 'store');
+        Route::delete('/', 'destroy');
+        Route::put('/{id}', 'update');
+    });
