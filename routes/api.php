@@ -45,5 +45,8 @@ Route::prefix('/dashboard')->middleware('auth:sanctum')
 Route::prefix('/subject')->middleware('auth:sanctum')
     ->controller(SubjectController::class)->group(function () {
         Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::delete('/', 'destroy');
         Route::get('/{id}', 'show');
+        Route::put('/{id}', 'update');
     });
