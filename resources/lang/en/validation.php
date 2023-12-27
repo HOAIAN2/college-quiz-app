@@ -13,6 +13,7 @@ return [
     'before' => 'The :attribute field must be a date before today.',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'attributes' => [
+        'name' => 'name',
         'first_name' => 'first name',
         'last_name' => 'last name',
         'shortcode' => 'shortcode',

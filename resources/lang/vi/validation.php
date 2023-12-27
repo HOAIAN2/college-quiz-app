@@ -13,6 +13,7 @@ return [
     'before' => 'Trường :attribute phải là ngày trước ngày hôm nay.',
     'required_if' => 'Trường :attribute là bắt buộc khi :other là :value.',
     'attributes' => [
+        'name' => 'Tên',
         'first_name' => 'tên',
         'last_name' => 'họ',
         'shortcode' => 'mã số',
