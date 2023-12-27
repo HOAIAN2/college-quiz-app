@@ -13,12 +13,13 @@ class SchoolClassController extends Controller
     public function index(Request $request)
     {
         // $user = $this->getUser();
+        $school_classes = SchoolClass::withCount('students');
         try {
             if ($request->search != null) {
-                $data = SchoolClass::withCount('students')
-                    ->search($request->search);
-            } else $data = SchoolClass::withCount('students')->get();
-            return Reply::successWithData($data, '');
+                $$school_classes = $school_classes->search($request->search);
+            }
+            $school_classes = $school_classes->paginate();
+            return Reply::successWithData($school_classes, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             if ($this->isDevelopment) return $error;

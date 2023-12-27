@@ -12,17 +12,16 @@ class FacultyController extends Controller
 {
     public function index(Request $request)
     {
+        $faculties = Faculty::withCount([
+            'school_classes',
+            'users'
+        ]);
         try {
             if ($request->search != null) {
-                $data = Faculty::withCount([
-                    'school_classes',
-                    'users'
-                ])->search($request->search);
-            } else $data = Faculty::withCount([
-                'school_classes',
-                'users'
-            ])->get();
-            return Reply::successWithData($data, '');
+                $faculties = $faculties->search($request->search);
+            }
+            $faculties = $faculties->paginate();
+            return Reply::successWithData($faculties, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             if ($this->isDevelopment) return $error;

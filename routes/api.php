@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\SubjectController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,7 +36,14 @@ Route::prefix('/user')->middleware('auth:sanctum')
         Route::get('/{id}', 'show');
         Route::put('/{id}', 'update');
     });
+
 Route::prefix('/dashboard')->middleware('auth:sanctum')
     ->controller(DashboardController::class)->group(function () {
         Route::get('/', 'index');
+    });
+
+Route::prefix('/subject')->middleware('auth:sanctum')
+    ->controller(SubjectController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::get('/{id}', 'show');
     });

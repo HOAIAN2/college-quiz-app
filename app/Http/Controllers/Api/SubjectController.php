@@ -2,48 +2,94 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helper\Reply;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Subject\DeleteRequest;
+use App\Http\Requests\Subject\GetRequest;
+use App\Http\Requests\Subject\StoreRequest;
+use App\Models\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class SubjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(GetRequest $request)
     {
-        //
+        $subjects = Subject::withCount(['chapters', 'courses']);
+        try {
+            if ($request->search != null)
+                $subjects = $subjects->search($request->search);
+            $subjects = $subjects->paginate();
+            return Reply::successWithData($subjects, '');
+        } catch (\Throwable $error) {
+            Log::error($error->getMessage());
+            if ($this->isDevelopment) return $error;
+            return Reply::error('app.errors.failToSaveRecord');
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $user = $this->getUser();
+        if (!$user->isAdmin()) return Reply::error('permission.errors.403');
+
+        DB::beginTransaction();
+        try {
+            Subject::create($request->validated());
+            DB::commit();
+            return Reply::successWithMessage('app.successes.recordSaveSuccess');
+        } catch (\Throwable $error) {
+            Log::error($error->getMessage());
+            DB::rollBack();
+            if ($this->isDevelopment) return $error;
+            return Reply::error('app.errors.failToSaveRecord');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        try {
+            $subject = Subject::with(['chapters', 'courses'])->find($id);
+            return Reply::successWithData($subject, '');
+        } catch (\Throwable $error) {
+            Log::error($error->getMessage());
+            if ($this->isDevelopment) return $error;
+            return Reply::error('app.errors.failToSaveRecord');
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $user = $this->getUser();
+        if (!$user->isAdmin()) return Reply::error('permission.errors.403');
+
+        DB::beginTransaction();
+        try {
+            $subject = Subject::findOrFail($id);
+            $subject->update($request->validated());
+            DB::commit();
+            return Reply::successWithMessage('app.successes.recordSaveSuccess');
+        } catch (\Throwable $error) {
+            Log::error($error->getMessage());
+            DB::rollBack();
+            if ($this->isDevelopment) return $error;
+            return Reply::error('app.errors.failToSaveRecord');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(DeleteRequest $request)
     {
-        //
+        $user = $this->getUser();
+        if (!$user->isAdmin()) return Reply::error('permission.errors.403');
+
+        try {
+            Subject::destroy($request->ids);
+            return Reply::successWithMessage('app.successes.recordDeleteSuccess');
+        } catch (\Throwable $error) {
+            Log::error($error->getMessage());
+            if ($this->isDevelopment) return $error;
+            return Reply::error('app.errors.serverError', [], 500);
+        }
     }
 }
