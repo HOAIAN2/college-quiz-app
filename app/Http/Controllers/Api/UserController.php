@@ -117,7 +117,6 @@ class UserController extends Controller
         $user = $this->getUser();
         if (!$user->isAdmin()) return Reply::error('permission.errors.403');
 
-
         DB::beginTransaction();
         try {
             User::destroy($request->ids);
