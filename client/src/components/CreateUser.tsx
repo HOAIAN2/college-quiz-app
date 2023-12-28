@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
 import {
@@ -25,6 +25,7 @@ export default function CreateUser({
     const language = useLanguage<CreateUserLanguage>('component.create_user')
     const [hide, setHide] = useState(true)
     const [queryClass, setQueryClass] = useState('')
+    const queryClient = useQueryClient()
     const handleTurnOffInsertMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
         const timing = Number(transitionTiming.replace('s', '')) * 1000
@@ -88,7 +89,10 @@ export default function CreateUser({
     ]
     useEffect(() => {
         setHide(false)
-    }, [])
+        return () => {
+            queryClient.removeQueries({ queryKey: ['class-query'] })
+        }
+    }, [queryClient])
     return (
         <div className={
             [

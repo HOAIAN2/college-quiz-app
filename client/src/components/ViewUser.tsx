@@ -1,7 +1,7 @@
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
 // import { useNavigate } from 'react-router-dom'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Datetime from 'react-datetime'
 import { apiAutoCompleteClass } from '../api/class'
 import { apiGetUsersById, apiUpdateUser } from '../api/user'
@@ -28,6 +28,7 @@ export default function ViewUser({
     const [userDetail, setUserDetail] = useState<UserDetail | null>(null)
     const { user } = useAppContext()
     const [queryClass, setQueryClass] = useState('')
+    const queryClient = useQueryClient()
     const handleTurnOffImportMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
         const timing = Number(transitionTiming.replace('s', '')) * 1000
@@ -110,7 +111,9 @@ export default function ViewUser({
     }, [queryData.data, setUserDetail])
     useEffect(() => {
         setHide(false)
-    }, [])
+        queryClient.removeQueries({ queryKey: ['user', id] })
+        queryClient.removeQueries({ queryKey: ['class-query'] })
+    }, [queryClient, id])
     return (
         <div
             className={
@@ -237,7 +240,9 @@ export default function ViewUser({
                                                 </datalist>
                                             </div> : null
                                         }
-                                        <div className={styles['wrap-item']}>
+                                        <div
+                                            className={styles['wrap-item']}
+                                            style={{ zIndex: 10 }}>
                                             <label className={styles['required']} htmlFor="">{language?.genders.gender}</label>
                                             <CustomSelect
                                                 name='gender'
