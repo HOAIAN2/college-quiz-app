@@ -59,12 +59,17 @@ export default function Users({
     const handleDeleteUsers = async () => {
         return apiDeleteUserByIds(Array.from(selectedUserIds))
     }
-    const onDeleteSuccess = () => {
+    const onMutateSuccess = () => {
+        const queryKeys = [
+            'dashboard',
+            'student',
+            'teacher',
+            'admin'
+        ]
         queryKeys.forEach(key => {
-            queryClient.removeQueries({ queryKey: [key] })
+            queryClient.refetchQueries({ queryKey: [key] })
         })
     }
-    const onCreateSuccess = onDeleteSuccess
     const getMessage = () => {
         if (!language) return ''
         let message = language.deleteMessage.replace('@n', String(selectedUserIds.size))
@@ -73,12 +78,6 @@ export default function Users({
         else message = message.replace('@role', language[role])
         return message
     }
-    const queryKeys = [
-        'dashboard',
-        'student',
-        'teacher',
-        'admin'
-    ]
     useEffect(() => {
         setSelectedUserIds(new Set())
     }, [queryData.data])
@@ -99,7 +98,7 @@ export default function Users({
             {insertMode === true ?
                 <CreateUser
                     role={role}
-                    onMutateSuccess={onCreateSuccess}
+                    onMutateSuccess={onMutateSuccess}
                     setInsertMode={setInsertMode}
                 /> : null}
             {showPopUpMode === true ?
@@ -107,7 +106,7 @@ export default function Users({
                     message={getMessage()}
                     mutateFunction={handleDeleteUsers}
                     setShowPopUpMode={setShowPopUpMode}
-                    onMutateSuccess={onDeleteSuccess}
+                    onMutateSuccess={onMutateSuccess}
                     langYes={language?.langYes}
                     langNo={language?.langNo}
                 /> : null}
@@ -121,7 +120,7 @@ export default function Users({
                     teamplateUrl={templateFileUrl[role]}
                     importFunction={importFunction}
                     setImportMode={setImportMode}
-                    onMutateSuccess={onCreateSuccess}
+                    onMutateSuccess={onMutateSuccess}
                 /> : null}
             <div
                 className={
@@ -249,6 +248,7 @@ export default function Users({
                                 role={role}
                                 data={queryData.data}
                                 searchParams={searchParams}
+                                onMutateSuccess={onMutateSuccess}
                                 setSearchParams={setSearchParams}
                                 setSelectedRows={setSelectedUserIds}
                             />

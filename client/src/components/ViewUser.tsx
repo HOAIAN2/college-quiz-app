@@ -89,10 +89,7 @@ export default function ViewUser({
                 }
             }
         },
-        onSuccess: () => {
-            console.log(onMutateSuccess)
-            onMutateSuccess
-        }
+        onSuccess: onMutateSuccess
     })
     const genderOptions = [
         { value: 'male', label: language?.genders.male },

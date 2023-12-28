@@ -12,6 +12,7 @@ type UsersTableProps = {
     role: RoleName
     data?: UserPagination,
     searchParams: URLSearchParams,
+    onMutateSuccess: () => void
     setSearchParams: SetURLSearchParams,
     setSelectedRows: React.Dispatch<React.SetStateAction<Set<string | number>>>
 }
@@ -19,6 +20,7 @@ export default function UsersTable({
     role,
     data,
     searchParams,
+    onMutateSuccess,
     setSearchParams,
     setSelectedRows
 }: UsersTableProps) {
@@ -81,7 +83,7 @@ export default function UsersTable({
             {viewMode === true ?
                 <ViewUser
                     id={userId}
-                    onMutateSuccess={() => { }}
+                    onMutateSuccess={onMutateSuccess}
                     setViewMode={setViewMode}
                 /> : null}
             <div className={styles['table-content']}>
