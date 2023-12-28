@@ -93,7 +93,7 @@ export default function UsersTable({
                                         checked={checkAll}
                                         onChange={handleSelectAll} />
                                 </th>
-                                <th className={styles['column-id']}>{language?.header.id}</th>
+                                {/* <th className={styles['column-id']}>{language?.header.id}</th> */}
                                 <th className={styles['column-shortcode']}>{language?.header.shortcode}</th>
                                 <th className={styles['column-name']}>{language?.header.name}</th>
                                 {role === 'student' ?
@@ -118,7 +118,7 @@ export default function UsersTable({
                                                 <td className={styles['column-select']}>
                                                     <input type="checkbox" />
                                                 </td>
-                                                <td className={styles['column-id']}>{user.id}</td>
+                                                {/* <td className={styles['column-id']}>{user.id}</td> */}
                                                 <td className={styles['column-content-shortcode']}>{user.shortcode}</td>
                                                 <td className={
                                                     [

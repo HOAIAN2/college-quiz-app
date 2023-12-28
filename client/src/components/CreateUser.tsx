@@ -1,9 +1,10 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
 import {
     RxCross2
 } from 'react-icons/rx'
+import { apiAutoCompleteClass } from '../api/class'
 import { apiCreateUser } from '../api/user'
 import useLanguage from '../hooks/useLanguage'
 import { CreateUserLanguage } from '../models/lang'
@@ -21,6 +22,7 @@ export default function CreateUser({
 }: CreateUserProps) {
     const language = useLanguage<CreateUserLanguage>('component.create_user')
     const [hide, setHide] = useState(true)
+    const [queryClass, setQueryClass] = useState('')
     const handleTurnOffInsertMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
         const timing = Number(transitionTiming.replace('s', '')) * 1000
@@ -29,6 +31,12 @@ export default function CreateUser({
             setInsertMode(false)
         }, timing)
     }
+    const classQueryData = useQuery({
+        queryKey: ['class-query', queryClass],
+        queryFn: () => {
+            return apiAutoCompleteClass(queryClass)
+        }
+    })
     const getParentElement = (element: HTMLInputElement) => {
         let parent = element.parentElement as HTMLElement
         while (!parent.classList.contains(styles['wrap-item'])) parent = parent.parentElement as HTMLElement
@@ -162,13 +170,25 @@ export default function CreateUser({
                                 <label className={styles['required']} htmlFor="">{language?.class}</label>
                                 <input
                                     name='school_class_id'
+                                    value={queryClass}
+                                    onInput={(e) => { setQueryClass(e.currentTarget.value) }}
                                     className={
                                         [
                                             'input-d',
                                             styles['input-item']
                                         ].join(' ')
-                                    } type="text" />
-                            </div> : null
+                                    }
+                                    list='classList'
+                                />
+                                <datalist id='classList'>
+                                    {
+                                        classQueryData.data ? classQueryData.data.map(item => {
+                                            return <option key={`class-${item.id}`} value={item.id}>{item.name}</option>
+                                        }) : null
+                                    }
+                                </datalist>
+                            </div>
+                            : null
                         }
                         <div className={styles['wrap-item']}>
                             <label className={styles['required']} htmlFor="">{language?.genders.gender}</label>

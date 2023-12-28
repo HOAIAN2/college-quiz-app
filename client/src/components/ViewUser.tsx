@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { SyntheticEvent, useEffect } from 'react'
+import { SyntheticEvent, useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
+import { apiAutoCompleteClass } from '../api/class'
 import { apiGetUsersById, apiUpdateUser } from '../api/user'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
@@ -20,6 +21,7 @@ export default function ViewUser({
 }: ViewUserProps) {
     const language = useLanguage<ViewUserLanguage>('component.view_user')
     const { user } = useAppContext()
+    const [queryClass, setQueryClass] = useState('')
     const queryData = useQuery({
         queryKey: ['user', id],
         queryFn: () => {
@@ -27,6 +29,13 @@ export default function ViewUser({
             const currentId = currentPath.pop() || currentPath.pop() as string
             return apiGetUsersById(id || currentId)
         },
+    })
+    const classQueryData = useQuery({
+        queryKey: ['class-query', queryClass],
+        queryFn: () => {
+            return apiAutoCompleteClass(queryClass)
+        },
+        enabled: queryClass ? true : false
     })
     const getParentElement = (element: HTMLInputElement) => {
         let parent = element.parentElement as HTMLElement
@@ -75,6 +84,10 @@ export default function ViewUser({
         { value: '0', label: language?.status.inactive },
     ]
     useEffect(() => {
+        if (queryData.data?.user) {
+            if (queryData.data.user.role.name === 'student')
+                setQueryClass(queryData.data.user.schoolClassId as string)
+        }
         if (queryData.data?.user && setUserDetail) {
             setUserDetail(queryData.data)
         }
@@ -160,12 +173,22 @@ export default function ViewUser({
                                             readOnly={user.user?.role.name === 'admin' ? false : true}
                                             defaultValue={queryData.data.user.schoolClassId || ''}
                                             name='school_class_id'
+                                            onInput={(e) => { setQueryClass(e.currentTarget.value) }}
                                             className={
                                                 [
                                                     'input-d',
                                                     styles['input-item']
                                                 ].join(' ')
-                                            } type="text" />
+                                            }
+                                            list='classList'
+                                        />
+                                        <datalist id='classList'>
+                                            {
+                                                classQueryData.data ? classQueryData.data.map(item => {
+                                                    return <option key={`class-${item.id}`} value={item.id}>{item.name}</option>
+                                                }) : null
+                                            }
+                                        </datalist>
                                     </div> : null
                                 }
                                 <div className={styles['wrap-item']}>
