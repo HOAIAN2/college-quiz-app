@@ -21,8 +21,7 @@ else
     rm -rf vendor
     composer install --optimize-autoloader --no-dev
     find . -type f -name '*.tar.gz' -exec rm {} +
-    tar --exclude=vendor --exclude=client --exclude=dump --exclude=node_modules --exclude=img --exclude=.git --exclude=composer.lock --exclude='app.tar.gz' -czvf app.tar.gz *
-    tar -czvf vendor.tar.gz vendor
+    tar --exclude=client --exclude=dump --exclude=node_modules --exclude=img --exclude=.git --exclude=composer.lock --exclude='app.tar.gz' -czvf app.tar.gz *
     end_time=$(date +%s)
     elapsed_time=$((end_time - start_time))
     echo -e "Script executed in \e[1m$elapsed_time\e[0m seconds."
