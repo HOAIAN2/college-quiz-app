@@ -35,7 +35,8 @@ export default function CreateUser({
         queryKey: ['class-query', queryClass],
         queryFn: () => {
             return apiAutoCompleteClass(queryClass)
-        }
+        },
+        enabled: queryClass ? true : false
     })
     const getParentElement = (element: HTMLInputElement) => {
         let parent = element.parentElement as HTMLElement
