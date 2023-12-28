@@ -57,4 +57,18 @@ class FacultyController extends Controller
     {
         //
     }
+    public function autocomplete(Request $request)
+    {
+        $user = $this->getUser();
+        if (!$user->isAdmin() && !$user->isTeacher()) return Reply::error('permission.errors.403');
+
+        try {
+            $school_classes = Faculty::search($request->search)->take(5)->get();
+            return Reply::successWithData($school_classes, '');
+        } catch (\Throwable $error) {
+            Log::error($error->getMessage());
+            if ($this->isDevelopment) return $error;
+            return Reply::error('app.errors.serverError', [], 500);
+        }
+    }
 }

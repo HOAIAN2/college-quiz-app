@@ -4,6 +4,7 @@ import { RxCross2 } from 'react-icons/rx'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Datetime from 'react-datetime'
 import { apiAutoCompleteClass } from '../api/class'
+import { apiAutoCompleteFaculty } from '../api/faculty'
 import { apiGetUsersById, apiUpdateUser } from '../api/user'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
@@ -28,6 +29,7 @@ export default function ViewUser({
     const [userDetail, setUserDetail] = useState<UserDetail | null>(null)
     const { user } = useAppContext()
     const [queryClass, setQueryClass] = useState('')
+    const [queryFaculty, setQueryFaculty] = useState('')
     const queryClient = useQueryClient()
     const handleTurnOffImportMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -52,6 +54,13 @@ export default function ViewUser({
             return apiAutoCompleteClass(queryClass)
         },
         enabled: queryClass ? true : false
+    })
+    const facultyQueryData = useQuery({
+        queryKey: ['faculty-query', queryFaculty],
+        queryFn: () => {
+            return apiAutoCompleteFaculty(queryFaculty)
+        },
+        enabled: queryFaculty ? true : false
     })
     const getParentElement = (element: HTMLInputElement) => {
         let parent = element.parentElement as HTMLElement
@@ -113,6 +122,7 @@ export default function ViewUser({
         setHide(false)
         queryClient.removeQueries({ queryKey: ['user', id] })
         queryClient.removeQueries({ queryKey: ['class-query'] })
+        queryClient.removeQueries({ queryKey: ['faculty-query'] })
     }, [queryClient, id])
     return (
         <div
@@ -238,7 +248,31 @@ export default function ViewUser({
                                                         }) : null
                                                     }
                                                 </datalist>
-                                            </div> : null
+                                            </div>
+                                            : queryData.data?.user.role.name === 'teacher' ?
+                                                <div className={styles['wrap-item']}>
+                                                    <label className={styles['required']} htmlFor="">{language?.faculty}</label>
+                                                    <input
+                                                        name='faculty_id'
+                                                        value={queryFaculty}
+                                                        onInput={(e) => { setQueryFaculty(e.currentTarget.value) }}
+                                                        className={
+                                                            [
+                                                                'input-d',
+                                                                styles['input-item']
+                                                            ].join(' ')
+                                                        }
+                                                        list='facultyList'
+                                                    />
+                                                    <datalist id='facultyList'>
+                                                        {
+                                                            facultyQueryData.data ? facultyQueryData.data.map(item => {
+                                                                return <option key={`faculty-${item.id}`} value={item.id}>{item.name}</option>
+                                                            }) : null
+                                                        }
+                                                    </datalist>
+                                                </div>
+                                                : null
                                         }
                                         <div
                                             className={styles['wrap-item']}

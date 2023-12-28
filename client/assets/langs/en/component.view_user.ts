@@ -17,6 +17,7 @@ export default {
     lastName: "Last name",
     shortcode: "Shortcode",
     class: "Class",
+    faculty: "Faculty",
     address: "Address",
     birthDate: "Birth date",
     password: "Password",

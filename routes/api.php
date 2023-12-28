@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DashboardController;
+use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Api\SchoolClassController;
 use App\Http\Controllers\Api\SubjectController;
 use App\Http\Controllers\Api\UserController;
@@ -45,6 +46,11 @@ Route::prefix('/dashboard')->middleware('auth:sanctum')
 
 Route::prefix('/class')->middleware('auth:sanctum')
     ->controller(SchoolClassController::class)->group(function () {
+        Route::get('/complete', 'autocomplete');
+    });
+
+Route::prefix('/faculty')->middleware('auth:sanctum')
+    ->controller(FacultyController::class)->group(function () {
         Route::get('/complete', 'autocomplete');
     });
 

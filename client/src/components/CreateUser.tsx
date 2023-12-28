@@ -5,6 +5,7 @@ import {
     RxCross2
 } from 'react-icons/rx'
 import { apiAutoCompleteClass } from '../api/class'
+import { apiAutoCompleteFaculty } from '../api/faculty'
 import { apiCreateUser } from '../api/user'
 import useLanguage from '../hooks/useLanguage'
 import { CreateUserLanguage } from '../models/lang'
@@ -25,6 +26,7 @@ export default function CreateUser({
     const language = useLanguage<CreateUserLanguage>('component.create_user')
     const [hide, setHide] = useState(true)
     const [queryClass, setQueryClass] = useState('')
+    const [queryFaculty, setQueryFaculty] = useState('')
     const queryClient = useQueryClient()
     const handleTurnOffInsertMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -40,6 +42,13 @@ export default function CreateUser({
             return apiAutoCompleteClass(queryClass)
         },
         enabled: queryClass ? true : false
+    })
+    const facultyQueryData = useQuery({
+        queryKey: ['faculty-query', queryFaculty],
+        queryFn: () => {
+            return apiAutoCompleteFaculty(queryFaculty)
+        },
+        enabled: queryFaculty ? true : false
     })
     const getParentElement = (element: HTMLInputElement) => {
         let parent = element.parentElement as HTMLElement
@@ -91,6 +100,7 @@ export default function CreateUser({
         setHide(false)
         return () => {
             queryClient.removeQueries({ queryKey: ['class-query'] })
+            queryClient.removeQueries({ queryKey: ['faculty-query'] })
         }
     }, [queryClient])
     return (
@@ -196,7 +206,30 @@ export default function CreateUser({
                                     }
                                 </datalist>
                             </div>
-                            : null
+                            : role === 'teacher' ?
+                                <div className={styles['wrap-item']}>
+                                    <label className={styles['required']} htmlFor="">{language?.faculty}</label>
+                                    <input
+                                        name='faculty_id'
+                                        value={queryFaculty}
+                                        onInput={(e) => { setQueryFaculty(e.currentTarget.value) }}
+                                        className={
+                                            [
+                                                'input-d',
+                                                styles['input-item']
+                                            ].join(' ')
+                                        }
+                                        list='facultyList'
+                                    />
+                                    <datalist id='facultyList'>
+                                        {
+                                            facultyQueryData.data ? facultyQueryData.data.map(item => {
+                                                return <option key={`faculty-${item.id}`} value={item.id}>{item.name}</option>
+                                            }) : null
+                                        }
+                                    </datalist>
+                                </div>
+                                : null
                         }
                         <div className={styles['wrap-item']}>
                             <label className={styles['required']} htmlFor="">{language?.genders.gender}</label>

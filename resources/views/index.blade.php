@@ -18,7 +18,7 @@
   <link rel="preload" href="/fonts/AlumniSans-Medium.ttf" as="font" crossorigin>
   <link rel="preload" href="/fonts//AlumniSans-Bold.ttf" as="font" crossorigin>
   <title>{{$title}}</title>
-  <script type="module" crossorigin src="/assets/index-J6x6Refy.js"></script>
+  <script type="module" crossorigin src="/assets/index-lLFTrYEk.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/index-lhLFvpAN.css">
 </head>
 

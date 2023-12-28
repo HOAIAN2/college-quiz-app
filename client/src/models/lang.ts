@@ -24,6 +24,7 @@ export type CreateUserLanguage = {
     lastName: string
     shortcode: string
     class: string
+    faculty: string
     address: string
     birthDate: string
     password: string
@@ -72,6 +73,7 @@ export type ViewUserLanguage = {
     lastName: string
     shortcode: string
     class: string
+    faculty: string
     address: string
     birthDate: string
     password: string
