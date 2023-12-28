@@ -99,6 +99,7 @@ export default function Users({
             {insertMode === true ?
                 <CreateUser
                     role={role}
+                    onMutateSuccess={onCreateSuccess}
                     setInsertMode={setInsertMode}
                 /> : null}
             {showPopUpMode === true ?

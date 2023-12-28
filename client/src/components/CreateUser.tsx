@@ -14,10 +14,12 @@ import CustomSelect from './CustomSelect'
 
 type CreateUserProps = {
     role: RoleName
+    onMutateSuccess: () => void
     setInsertMode: React.Dispatch<React.SetStateAction<boolean>>
 }
 export default function CreateUser({
     role,
+    onMutateSuccess,
     setInsertMode
 }: CreateUserProps) {
     const language = useLanguage<CreateUserLanguage>('component.create_user')
@@ -78,6 +80,7 @@ export default function CreateUser({
                 }
             }
         },
+        onSuccess: onMutateSuccess
     })
     const options = [
         { value: 'male', label: language?.genders.male },

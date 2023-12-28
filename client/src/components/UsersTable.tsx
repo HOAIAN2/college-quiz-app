@@ -6,7 +6,7 @@ import useLanguage from '../hooks/useLanguage'
 import { UsersTableLanguage } from '../models/lang'
 import { RoleName, UserPagination } from '../models/user'
 import styles from '../styles/Users.Table.module.css'
-import ViewUserPopUp from './ViewUserPopUp'
+import ViewUser from './ViewUser'
 
 type UsersTableProps = {
     role: RoleName
@@ -79,8 +79,9 @@ export default function UsersTable({
     return (
         <>
             {viewMode === true ?
-                <ViewUserPopUp
+                <ViewUser
                     id={userId}
+                    onMutateSuccess={() => { }}
                     setViewMode={setViewMode}
                 /> : null}
             <div className={styles['table-content']}>
