@@ -49,10 +49,28 @@ th {
 }
 
 .column {
+    white-space: nowrap;
     height: 30px;
     overflow: hidden;
     text-overflow: ellipsis;
-    border: 1px solid #000000;
+}
+
+.column.tiny {
+    width: 30px;
+}
+
+.column.small {
+    width: 50px;
+}
+
+.column.medium {
+    width: 150px;
+    padding-left: 15px;
+}
+
+.column.large {
+    width: 250px;
+    padding-left: 15px;
 }
 
 .column-select {
@@ -64,45 +82,12 @@ th {
     cursor: pointer;
 }
 
-.column-shortcode {
-    width: 150px;
-}
-
-.column-name {
-    width: 200px;
-}
-
-.column-class {
-    width: 100px;
-}
-
-.column-email {
-    width: 250px;
-}
-
-.column-address {
-    width: 250px;
-}
-
 .column-content-status {
     width: 70px;
     height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.column-content-email,
-.column-content-shortcode,
-.column-content-name,
-.column-content-address {
-    white-space: nowrap;
-    padding-left: 15px;
-}
-
-.column-content-class {
-    text-align: center;
-    width: 50px;
 }
 
 .column-content-name>svg {

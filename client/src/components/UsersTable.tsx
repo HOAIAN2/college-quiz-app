@@ -92,22 +92,61 @@ export default function UsersTable({
                     <>
                         <thead>
                             <tr className={styles['table-header']}>
-                                <th className={styles['column-select']}>
+                                <th className={
+                                    [
+                                        styles['column-select'],
+                                        styles['column']
+                                    ].join(' ')
+                                }>
                                     <input type="checkbox"
                                         checked={checkAll}
                                         onChange={handleSelectAll} />
                                 </th>
-                                {/* <th className={styles['column-id']}>{language?.header.id}</th> */}
-                                <th className={styles['column-shortcode']}>{language?.header.shortcode}</th>
-                                <th className={styles['column-name']}>{language?.header.name}</th>
+                                <th className={
+                                    [
+                                        styles['column'],
+                                        styles['medium']
+                                    ].join(' ')
+                                }>{language?.header.shortcode}</th>
+                                <th className={
+                                    [
+                                        styles['column'],
+                                        styles['medium']
+                                    ].join(' ')
+                                }>{language?.header.name}</th>
                                 {role === 'student' ?
-                                    <th className={styles['column-class']}>{language?.header.class}</th>
+                                    <th className={
+                                        [
+                                            styles['column'],
+                                            styles['medium']
+                                        ].join(' ')
+                                    }>{language?.header.class}</th>
                                     : role === 'teacher' ?
-                                        <th className={styles['column-class']}>{language?.header.faculty}</th>
+                                        <th className={
+                                            [
+                                                styles['column'],
+                                                styles['medium']
+                                            ].join(' ')
+                                        }>{language?.header.faculty}</th>
                                         : null}
-                                <th className={styles['column-email']}>{language?.header.email}</th>
-                                <th className={styles['column-address']}>{language?.header.address}</th>
-                                <th className={styles['column-status']}>
+                                <th className={
+                                    [
+                                        styles['column'],
+                                        styles['medium']
+                                    ].join(' ')
+                                }>{language?.header.email}</th>
+                                <th className={
+                                    [
+                                        styles['column'],
+                                        styles['medium']
+                                    ].join(' ')
+                                }>{language?.header.address}</th>
+                                <th className={
+                                    [
+                                        styles['column'],
+                                        styles['small']
+                                    ].join(' ')
+                                }>
                                     {language?.header.status}
                                 </th>
                             </tr>
@@ -122,13 +161,25 @@ export default function UsersTable({
                                                     handleViewUser(user.id, e)
                                                 }}
                                             >
-                                                <td className={styles['column-select']}>
-                                                    <input type="checkbox" />
-                                                </td>
-                                                {/* <td className={styles['column-id']}>{user.id}</td> */}
-                                                <td className={styles['column-content-shortcode']}>{user.shortcode}</td>
                                                 <td className={
                                                     [
+                                                        styles['column'],
+                                                        styles['small'],
+                                                        styles['column-select']
+                                                    ].join(' ')
+                                                }>
+                                                    <input type="checkbox" />
+                                                </td>
+                                                <td className={
+                                                    [
+                                                        styles['column'],
+                                                        styles['medium']
+                                                    ].join(' ')
+                                                }>{user.shortcode}</td>
+                                                <td className={
+                                                    [
+                                                        styles['column'],
+                                                        styles['large'],
                                                         styles['column-content-name'],
                                                         user.gender == 'male' ? styles['male'] : styles['female']
                                                     ].join(' ')
@@ -138,14 +189,40 @@ export default function UsersTable({
                                                 </td>
                                                 {
                                                     role === 'student' ?
-                                                        <td className={styles['column-content-class']}>{user.schoolClassId}</td>
+                                                        <td className={
+                                                            [
+                                                                styles['column'],
+                                                                styles['medium']
+                                                            ].join(' ')
+                                                        }>{user.schoolClassId}</td>
                                                         : role === 'teacher' ?
-                                                            <td className={styles['column-content-class']}>{user.facultyId}</td>
+                                                            <td className={
+                                                                [
+                                                                    styles['column'],
+                                                                    styles['medium']
+                                                                ].join(' ')
+                                                            }>{user.facultyId}</td>
                                                             : null
                                                 }
-                                                <td className={styles['column-content-email']}>{user.email}</td>
-                                                <td className={styles['column-content-address']}>{user.address}</td>
-                                                <td className={styles['column-content-status']}>
+                                                <td className={
+                                                    [
+                                                        styles['column'],
+                                                        styles['medium']
+                                                    ].join(' ')
+                                                }>{user.email}</td>
+                                                <td className={
+                                                    [
+                                                        styles['column'],
+                                                        styles['large']
+                                                    ].join(' ')
+                                                }>{user.address}</td>
+                                                <td className={
+                                                    [
+                                                        styles['column'],
+                                                        styles['column-content-status'],
+                                                        styles['small']
+                                                    ].join(' ')
+                                                }>
                                                     {
                                                         user.isActive
                                                             ?
