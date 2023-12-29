@@ -45,6 +45,14 @@ th {
 
 .column-status {
     width: 50px;
+    white-space: nowrap;
+}
+
+.column {
+    height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid #000000;
 }
 
 .column-select {
