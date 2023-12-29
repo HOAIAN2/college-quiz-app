@@ -213,7 +213,7 @@ export default function UsersTable({
                                                 <td className={
                                                     [
                                                         styles['column'],
-                                                        styles['large']
+                                                        styles['medium']
                                                     ].join(' ')
                                                 }>{user.address}</td>
                                                 <td className={

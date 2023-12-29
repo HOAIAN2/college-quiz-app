@@ -64,11 +64,16 @@ th {
 }
 
 .column.medium {
-    width: 150px;
+    width: 100px;
     padding-left: 15px;
 }
 
 .column.large {
+    width: 150px;
+    padding-left: 15px;
+}
+
+.column.super-large {
     width: 250px;
     padding-left: 15px;
 }
@@ -88,6 +93,7 @@ th {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0 auto;
 }
 
 .column-content-name>svg {
