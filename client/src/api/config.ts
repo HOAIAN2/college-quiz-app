@@ -71,6 +71,14 @@ request.interceptors.response.use(
         return response
     },
     function (error: AxiosError) {
+        if (error.response?.status === 401) {
+            if (getToken()) {
+                localStorage.removeItem('token')
+                const cleanUrl = window.location.href.split('?')[0]
+                window.location.href = cleanUrl
+                return Promise.reject(error)
+            }
+        }
         if (error.message === 'Network Error') {
             toast.error(error.message)
             return Promise.reject(error)

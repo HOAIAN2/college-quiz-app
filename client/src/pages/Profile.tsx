@@ -1,9 +1,11 @@
-import { useMutation } from '@tanstack/react-query'
-import { SyntheticEvent, useState } from 'react'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { SyntheticEvent, useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
-import { apiUpdateUser } from '../api/user'
+import { apiGetUser, apiUpdateUser } from '../api/user'
 import ChangePassword from '../components/ChangePassword'
 import CustomSelect from '../components/CustomSelect'
+import SuspenseLoading from '../components/SuspenseLoading'
+import { USER_ACTION } from '../contexts/UserContext'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { ProfileLanguage } from '../models/lang'
@@ -13,13 +15,13 @@ export default function Profile() {
     const language = useLanguage<ProfileLanguage>('page.profile')
     const { user, appLanguage } = useAppContext()
     const [changePasswordMode, setChangePasswordMode] = useState(false)
-    // const queryClient = useQueryClient()
-    // const queryData = useQuery({
-    //     queryKey: ['user', user.user?.id],
-    //     queryFn: () => {
-    //         return apiGetUser()
-    //     },
-    // })
+    const queryClient = useQueryClient()
+    const queryData = useQuery({
+        queryKey: ['current-user'],
+        queryFn: () => {
+            return apiGetUser()
+        },
+    })
     const getParentElement = (element: HTMLInputElement) => {
         let parent = element.parentElement as HTMLElement
         while (!parent.classList.contains(styles['wrap-item'])) parent = parent.parentElement as HTMLElement
@@ -34,7 +36,7 @@ export default function Profile() {
     }
     const handleUpdateUser = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
         e.preventDefault()
-        if (user.user?.role.name !== 'admin') return
+        if (queryData.data?.role.name !== 'admin') return
         document.querySelector(styles['form-data'])?.querySelectorAll('input[name]').forEach(node => {
             const element = node as HTMLInputElement
             element.classList.remove(styles['error'])
@@ -42,7 +44,7 @@ export default function Profile() {
         })
         const form = e.target as HTMLFormElement
         const formData = new FormData(form)
-        await apiUpdateUser(formData, user.user.id)
+        await apiUpdateUser(formData, queryData.data.id)
     }
     const { mutate } = useMutation({
         mutationFn: handleUpdateUser,
@@ -57,9 +59,12 @@ export default function Profile() {
                 }
             }
         },
-        // onSuccess: () => {
-        //     queryClient.removeQueries({ queryKey: ['user', user.user?.id] })
-        // }
+        onSuccess: () => {
+            apiGetUser()
+                .then((data) => {
+                    user.dispatchUser({ type: USER_ACTION.SET, payload: data })
+                })
+        }
     })
     const genderOptions = [
         { value: 'male', label: language?.genders.male },
@@ -67,19 +72,20 @@ export default function Profile() {
     ]
     const fullName = appLanguage.language === 'vi'
         ? [
-            user.user?.lastName,
-            user.user?.firstName
+            queryData.data?.lastName,
+            queryData.data?.firstName
         ].join(' ')
         :
         [
-            user.user?.firstName,
-            user.user?.lastName
+            queryData.data?.firstName,
+            queryData.data?.lastName
         ].join(' ')
-    // useEffect(() => {
-    //     return () => {
-    //         queryClient.removeQueries({ queryKey: ['user', user.user?.id] })
-    //     }
-    // }, [queryClient, user.user?.id])
+    useEffect(() => {
+        return () => {
+            queryClient.removeQueries({ queryKey: ['current-user'] })
+        }
+    }, [queryClient])
+    if (!queryData.data) return <SuspenseLoading />
     return (
         <>
             {changePasswordMode === true ?
@@ -92,157 +98,148 @@ export default function Profile() {
                     styles['profile-content']
                 ].join(' ')
             }>
-                {/* {queryData.isLoading ?
-                    <Loading />
-                    : null} */}
                 <div className={
                     [
                         styles['form-content']
                     ].join(' ')
                 }>
-                    {
-                        user.user ? (
-                            <>
-                                <div className={styles['header']}>
-                                    <h2 className={styles['title']}>{fullName}</h2>
-                                </div>
-                                <form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
-                                    mutate(e)
-                                }}
-                                    onInput={handleOnInput}
-                                    className={styles['form-data']}>
-                                    <input name='is_active' defaultValue='1' hidden />
-                                    <div className={
+                    <div className={styles['header']}>
+                        <h2 className={styles['title']}>{fullName}</h2>
+                    </div>
+                    <form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
+                        mutate(e)
+                    }}
+                        onInput={handleOnInput}
+                        className={styles['form-data']}>
+                        <input name='is_active' defaultValue='1' hidden />
+                        <div className={
+                            [
+                                styles['group-inputs']
+                            ].join(' ')
+                        }>
+                            <div className={styles['wrap-item']}>
+                                <label className={styles['required']} htmlFor="">{language?.email}</label>
+                                <input
+                                    readOnly={queryData.data?.role.name === 'admin' ? false : true}
+                                    defaultValue={queryData.data.email}
+                                    name='email'
+                                    className={
                                         [
-                                            styles['group-inputs']
+                                            'input-d',
+                                            styles['input-item']
                                         ].join(' ')
-                                    }>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={styles['required']} htmlFor="">{language?.email}</label>
-                                            <input
-                                                readOnly={user.user?.role.name === 'admin' ? false : true}
-                                                defaultValue={user.user.email}
-                                                name='email'
-                                                className={
-                                                    [
-                                                        'input-d',
-                                                        styles['input-item']
-                                                    ].join(' ')
-                                                } type="text" />
-                                        </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={styles['required']} htmlFor="">{language?.firstName}</label>
-                                            <input
-                                                readOnly={user.user?.role.name === 'admin' ? false : true}
-                                                defaultValue={user.user.firstName}
-                                                name='first_name'
-                                                className={
-                                                    [
-                                                        'input-d',
-                                                        styles['input-item']
-                                                    ].join(' ')
-                                                } type="text" />
-                                        </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={styles['required']} htmlFor="">{language?.lastName}</label>
-                                            <input
-                                                readOnly={user.user?.role.name === 'admin' ? false : true}
-                                                defaultValue={user.user.lastName}
-                                                name='last_name'
-                                                className={
-                                                    [
-                                                        'input-d',
-                                                        styles['input-item']
-                                                    ].join(' ')
-                                                } type="text" />
-                                        </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={styles['required']} htmlFor="">{language?.shortcode}</label>
-                                            <input
-                                                readOnly={user.user?.role.name === 'admin' ? false : true}
-                                                defaultValue={user.user.shortcode}
-                                                name='shortcode'
-                                                className={
-                                                    [
-                                                        'input-d',
-                                                        styles['input-item']
-                                                    ].join(' ')
-                                                } type="text" />
-                                        </div>
-                                        {user.user?.role.name === 'student' ?
-                                            <div className={styles['wrap-item']}>
-                                                <label className={styles['required']} htmlFor="">{language?.class}</label>
-                                                <input
-                                                    readOnly={true}
-                                                    defaultValue={user.user.schoolClassId || ''}
-                                                    name='school_class_id'
-                                                    className={
-                                                        [
-                                                            'input-d',
-                                                            styles['input-item']
-                                                        ].join(' ')
-                                                    } type="text" />
-                                            </div> : null
-                                        }
-                                        <div className={styles['wrap-item']}>
-                                            <label className={styles['required']} htmlFor="">{language?.genders.gender}</label>
-                                            <CustomSelect
-                                                name='gender'
-                                                defaultOption={
-                                                    user.user.gender === 'male'
-                                                        ? genderOptions[0] : genderOptions[1]
-                                                }
-                                                options={genderOptions}
-                                                className={
-                                                    [
-                                                        styles['custom-select']
-                                                    ].join(' ')
-                                                }
-                                            />
-                                        </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={styles['required']} htmlFor="">{language?.address}</label>
-                                            <input
-                                                readOnly={user.user?.role.name === 'admin' ? false : true}
-                                                defaultValue={user.user.address}
-                                                name='address'
-                                                className={
-                                                    [
-                                                        'input-d',
-                                                        styles['input-item']
-                                                    ].join(' ')
-                                                } type="text" />
-                                        </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={styles['required']} htmlFor="">{language?.birthDate}</label>
-                                            <Datetime
-                                                initialValue={new Date(user.user.birthDate)}
-                                                inputProps={
-                                                    {
-                                                        readOnly: user.user?.role.name === 'admin' ? false : true,
-                                                        name: 'birth_date',
-                                                        className: [
-                                                            'input-d',
-                                                            styles['input-item']
-                                                        ].join(' ')
-                                                    }
-                                                }
-                                                closeOnSelect={true}
-                                                timeFormat={false}
-                                            />
-                                        </div>
-                                    </div>
-                                    {
-                                        user.user?.role.name === 'admin' ?
-                                            <div className={styles['action-items']}>
-                                                <button name='save' className='action-item-d'>{language?.save}</button>
-                                            </div>
-                                            : null
+                                    } type="text" />
+                            </div>
+                            <div className={styles['wrap-item']}>
+                                <label className={styles['required']} htmlFor="">{language?.firstName}</label>
+                                <input
+                                    readOnly={queryData.data?.role.name === 'admin' ? false : true}
+                                    defaultValue={queryData.data.firstName}
+                                    name='first_name'
+                                    className={
+                                        [
+                                            'input-d',
+                                            styles['input-item']
+                                        ].join(' ')
+                                    } type="text" />
+                            </div>
+                            <div className={styles['wrap-item']}>
+                                <label className={styles['required']} htmlFor="">{language?.lastName}</label>
+                                <input
+                                    readOnly={queryData.data?.role.name === 'admin' ? false : true}
+                                    defaultValue={queryData.data.lastName}
+                                    name='last_name'
+                                    className={
+                                        [
+                                            'input-d',
+                                            styles['input-item']
+                                        ].join(' ')
+                                    } type="text" />
+                            </div>
+                            <div className={styles['wrap-item']}>
+                                <label className={styles['required']} htmlFor="">{language?.shortcode}</label>
+                                <input
+                                    readOnly={queryData.data?.role.name === 'admin' ? false : true}
+                                    defaultValue={queryData.data.shortcode}
+                                    name='shortcode'
+                                    className={
+                                        [
+                                            'input-d',
+                                            styles['input-item']
+                                        ].join(' ')
+                                    } type="text" />
+                            </div>
+                            {queryData.data?.role.name === 'student' ?
+                                <div className={styles['wrap-item']}>
+                                    <label className={styles['required']} htmlFor="">{language?.class}</label>
+                                    <input
+                                        readOnly={true}
+                                        defaultValue={queryData.data.schoolClassId || ''}
+                                        name='school_class_id'
+                                        className={
+                                            [
+                                                'input-d',
+                                                styles['input-item']
+                                            ].join(' ')
+                                        } type="text" />
+                                </div> : null
+                            }
+                            <div className={styles['wrap-item']}>
+                                <label className={styles['required']} htmlFor="">{language?.genders.gender}</label>
+                                <CustomSelect
+                                    name='gender'
+                                    defaultOption={
+                                        queryData.data.gender === 'male'
+                                            ? genderOptions[0] : genderOptions[1]
                                     }
-                                </form>
-                            </>
-                        ) : null
-                    }
+                                    options={genderOptions}
+                                    className={
+                                        [
+                                            styles['custom-select']
+                                        ].join(' ')
+                                    }
+                                />
+                            </div>
+                            <div className={styles['wrap-item']}>
+                                <label className={styles['required']} htmlFor="">{language?.address}</label>
+                                <input
+                                    readOnly={queryData.data?.role.name === 'admin' ? false : true}
+                                    defaultValue={queryData.data.address}
+                                    name='address'
+                                    className={
+                                        [
+                                            'input-d',
+                                            styles['input-item']
+                                        ].join(' ')
+                                    } type="text" />
+                            </div>
+                            <div className={styles['wrap-item']}>
+                                <label className={styles['required']} htmlFor="">{language?.birthDate}</label>
+                                <Datetime
+                                    initialValue={new Date(queryData.data.birthDate)}
+                                    inputProps={
+                                        {
+                                            readOnly: queryData.data?.role.name === 'admin' ? false : true,
+                                            name: 'birth_date',
+                                            className: [
+                                                'input-d',
+                                                styles['input-item']
+                                            ].join(' ')
+                                        }
+                                    }
+                                    closeOnSelect={true}
+                                    timeFormat={false}
+                                />
+                            </div>
+                        </div>
+                        {
+                            queryData.data?.role.name === 'admin' ?
+                                <div className={styles['action-items']}>
+                                    <button name='save' className='action-item-d'>{language?.save}</button>
+                                </div>
+                                : null
+                        }
+                    </form>
                 </div>
                 <div className={styles['header']}>
                     <h2 className={styles['title']}>{language?.otherSection.other}</h2>
