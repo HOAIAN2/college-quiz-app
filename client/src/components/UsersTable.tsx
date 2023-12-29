@@ -76,7 +76,7 @@ export default function UsersTable({
 
     }
     useEffect(() => {
-        if (!data) setCheckAll(false)
+        setCheckAll(false)
     }, [data])
     return (
         <>
