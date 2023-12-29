@@ -6,6 +6,7 @@ import useLanguage from '../hooks/useLanguage'
 import { UsersTableLanguage } from '../models/lang'
 import { RoleName, UserPagination } from '../models/user'
 import styles from '../styles/Users.Table.module.css'
+import StatusBadge from './StatusBadge'
 import ViewUser from './ViewUser'
 
 type UsersTableProps = {
@@ -106,6 +107,9 @@ export default function UsersTable({
                                         : null}
                                 <th className={styles['column-email']}>{language?.header.email}</th>
                                 <th className={styles['column-address']}>{language?.header.address}</th>
+                                <th className={styles['column-status']}>
+                                    {language?.header.status}
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -141,6 +145,14 @@ export default function UsersTable({
                                                 }
                                                 <td className={styles['column-content-email']}>{user.email}</td>
                                                 <td className={styles['column-content-address']}>{user.address}</td>
+                                                <td className={styles['column-content-status']}>
+                                                    {
+                                                        user.isActive
+                                                            ?
+                                                            <StatusBadge color='green' content={language?.status.active} />
+                                                            : <StatusBadge color='red' content={language?.status.inactive} />
+                                                    }
+                                                </td>
                                             </tr>
                                         )
                                     }) : null

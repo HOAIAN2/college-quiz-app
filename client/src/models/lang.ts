@@ -109,12 +109,14 @@ export type UsersTableLanguage = {
         class: string
         faculty: string
         email: string
+        status: string
         address: string
     }
     filter: {
         perPage: string,
         search: string
     }
+    status: Statuses
 }
 export type DashboardLanguage = {
     items: {

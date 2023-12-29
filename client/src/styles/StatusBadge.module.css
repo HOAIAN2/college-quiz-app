@@ -1,0 +1,34 @@
+.badge {
+    width: 40px;
+    height: 14px;
+    border-radius: 7px;
+    position: relative;
+}
+
+.badge::before {
+    content: '';
+    width: 8px;
+    aspect-ratio: 1;
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 3px;
+    transform: translate(0px, -50%);
+}
+
+.red {
+    background: var(--color-soft-red);
+}
+
+.red::before {
+    background: var(--color-red);
+}
+
+.green {
+    background: var(--color-soft-green);
+}
+
+.green::before {
+    background: green;
+}

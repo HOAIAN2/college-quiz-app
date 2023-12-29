@@ -6,10 +6,16 @@ export default {
         class: "Lớp",
         faculty: "Khoa",
         email: "Email",
+        status: "Trạng thái",
         address: "Địa chỉ"
     },
     filter: {
         perPage: "Số hàng",
         search: "Tìm kiếm"
+    },
+    status: {
+        accountStatus: "Trạng thái tài khoản",
+        active: "Hoạt động",
+        inactive: "Không hoạt động",
     }
 }
