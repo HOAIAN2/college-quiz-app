@@ -214,7 +214,6 @@ class UserController extends Controller
             )->toArray();
             $query = $query->select($columns);
             $collection = $query->get();
-            return $collection;
             return Excel::download(new UsersExport($collection), $file_name);
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
