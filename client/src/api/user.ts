@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios'
 import { ApiResponseWithData } from '../models/response'
 import { QueryUserType, RoleName, User, UserDetail, UserPagination } from '../models/user'
 import request, { getToken } from './config'
@@ -108,12 +109,14 @@ export async function apiDeleteUserByIds(ids: (string | number)[]) {
 }
 export async function apiExportUsers(role: RoleName, fields: (string)[]) {
     try {
-        await request.get('/user/export', {
+        const response: AxiosResponse<Blob> = await request.get('/user/export', {
             params: {
                 role: role,
                 fields: fields
-            }
+            },
+            responseType: 'blob'
         })
+        return response.data
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         throw new Error(error.message)

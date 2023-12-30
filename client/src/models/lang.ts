@@ -20,6 +20,7 @@ export type CreateUserLanguage = {
     admin: string
     genders: Genders
     email: string
+    phoneNumber: string
     firstName: string
     lastName: string
     shortcode: string
@@ -69,6 +70,7 @@ export type ViewUserLanguage = {
     genders: Genders
     status: Statuses
     email: string
+    phoneNumber: string
     firstName: string
     lastName: string
     shortcode: string
@@ -80,6 +82,24 @@ export type ViewUserLanguage = {
     leaveBlank: string
     save: string
 }
+export type ExportUsersLanguage = {
+    student: string
+    teacher: string
+    admin: string
+    genders: Genders
+    status: Statuses
+    email: string
+    phoneNumber: string
+    firstName: string
+    lastName: string
+    shortcode: string
+    class: string
+    faculty: string
+    address: string
+    birthDate: string
+    password: string
+    save: string
+}
 export type ProfileLanguage = {
     student: string
     teacher: string
@@ -87,6 +107,7 @@ export type ProfileLanguage = {
     genders: Genders
     status: Statuses
     email: string
+    phoneNumber: string
     firstName: string
     lastName: string
     shortcode: string

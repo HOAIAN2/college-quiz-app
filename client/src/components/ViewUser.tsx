@@ -91,7 +91,7 @@ export default function ViewUser({
         onError: (error: object) => {
             if (typeof error === 'object') {
                 for (const key in error) {
-                    const element = document.querySelector(`input[name="${key}"]`) as HTMLInputElement
+                    const element = document.querySelector(`input[name='${key}']`) as HTMLInputElement
                     if (element) {
                         element.classList.add(styles['error'])
                         getParentElement(element).setAttribute('data-error', error[key as keyof typeof error][0] as string)
@@ -174,8 +174,9 @@ export default function ViewUser({
                                         ].join(' ')
                                     }>
                                         <div className={styles['wrap-item']}>
-                                            <label className={styles['required']} htmlFor="">{language?.email}</label>
+                                            <label className={styles['required']} htmlFor='email'>{language?.email}</label>
                                             <input
+                                                id='email'
                                                 readOnly={user.user?.role.name === 'admin' ? false : true}
                                                 defaultValue={queryData.data.user.email}
                                                 name='email'
@@ -184,11 +185,26 @@ export default function ViewUser({
                                                         'input-d',
                                                         styles['input-item']
                                                     ].join(' ')
-                                                } type="text" />
+                                                } type='text' />
                                         </div>
                                         <div className={styles['wrap-item']}>
-                                            <label className={styles['required']} htmlFor="">{language?.firstName}</label>
+                                            <label className={styles['required']} htmlFor='phone_number'>{language?.phoneNumber}</label>
                                             <input
+                                                id='phone_number'
+                                                readOnly={user.user?.role.name === 'admin' ? false : true}
+                                                defaultValue={queryData.data.user.phoneNumber || ''}
+                                                name='phone_number'
+                                                className={
+                                                    [
+                                                        'input-d',
+                                                        styles['input-item']
+                                                    ].join(' ')
+                                                } type='text' />
+                                        </div>
+                                        <div className={styles['wrap-item']}>
+                                            <label className={styles['required']} htmlFor='first_name'>{language?.firstName}</label>
+                                            <input
+                                                id='first_name'
                                                 readOnly={user.user?.role.name === 'admin' ? false : true}
                                                 defaultValue={queryData.data.user.firstName}
                                                 name='first_name'
@@ -197,11 +213,12 @@ export default function ViewUser({
                                                         'input-d',
                                                         styles['input-item']
                                                     ].join(' ')
-                                                } type="text" />
+                                                } type='text' />
                                         </div>
                                         <div className={styles['wrap-item']}>
-                                            <label className={styles['required']} htmlFor="">{language?.lastName}</label>
+                                            <label className={styles['required']} htmlFor='last_name'>{language?.lastName}</label>
                                             <input
+                                                id='last_name'
                                                 readOnly={user.user?.role.name === 'admin' ? false : true}
                                                 defaultValue={queryData.data.user.lastName}
                                                 name='last_name'
@@ -210,11 +227,12 @@ export default function ViewUser({
                                                         'input-d',
                                                         styles['input-item']
                                                     ].join(' ')
-                                                } type="text" />
+                                                } type='text' />
                                         </div>
                                         <div className={styles['wrap-item']}>
-                                            <label className={styles['required']} htmlFor="">{language?.shortcode}</label>
+                                            <label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
                                             <input
+                                                id='shortcode'
                                                 readOnly={user.user?.role.name === 'admin' ? false : true}
                                                 defaultValue={queryData.data.user.shortcode}
                                                 name='shortcode'
@@ -223,12 +241,13 @@ export default function ViewUser({
                                                         'input-d',
                                                         styles['input-item']
                                                     ].join(' ')
-                                                } type="text" />
+                                                } type='text' />
                                         </div>
                                         {queryData.data?.user.role.name === 'student' ?
                                             <div className={styles['wrap-item']}>
-                                                <label className={styles['required']} htmlFor="">{language?.class}</label>
+                                                <label className={styles['required']} htmlFor='school_class_id'>{language?.class}</label>
                                                 <input
+                                                    id='school_class_id'
                                                     readOnly={user.user?.role.name === 'admin' ? false : true}
                                                     defaultValue={queryData.data.user.schoolClassId || ''}
                                                     name='school_class_id'
@@ -251,8 +270,9 @@ export default function ViewUser({
                                             </div>
                                             : queryData.data?.user.role.name === 'teacher' ?
                                                 <div className={styles['wrap-item']}>
-                                                    <label className={styles['required']} htmlFor="">{language?.faculty}</label>
+                                                    <label className={styles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
                                                     <input
+                                                        id='faculty_id'
                                                         name='faculty_id'
                                                         value={queryFaculty}
                                                         onInput={(e) => { setQueryFaculty(e.currentTarget.value) }}
@@ -277,7 +297,7 @@ export default function ViewUser({
                                         <div
                                             className={styles['wrap-item']}
                                             style={{ zIndex: 10 }}>
-                                            <label className={styles['required']} htmlFor="">{language?.genders.gender}</label>
+                                            <label className={styles['required']} htmlFor=''>{language?.genders.gender}</label>
                                             <CustomSelect
                                                 name='gender'
                                                 defaultOption={
@@ -293,8 +313,9 @@ export default function ViewUser({
                                             />
                                         </div>
                                         <div className={styles['wrap-item']}>
-                                            <label className={styles['required']} htmlFor="">{language?.address}</label>
+                                            <label className={styles['required']} htmlFor='address'>{language?.address}</label>
                                             <input
+                                                id='address'
                                                 readOnly={user.user?.role.name === 'admin' ? false : true}
                                                 defaultValue={queryData.data.user.address}
                                                 name='address'
@@ -303,14 +324,15 @@ export default function ViewUser({
                                                         'input-d',
                                                         styles['input-item']
                                                     ].join(' ')
-                                                } type="text" />
+                                                } type='text' />
                                         </div>
                                         <div className={styles['wrap-item']}>
-                                            <label className={styles['required']} htmlFor="">{language?.birthDate}</label>
+                                            <label className={styles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
                                             <Datetime
                                                 initialValue={new Date(queryData.data.user.birthDate)}
                                                 inputProps={
                                                     {
+                                                        id: 'birth_date',
                                                         readOnly: user.user?.role.name === 'admin' ? false : true,
                                                         name: 'birth_date',
                                                         className: [
@@ -324,7 +346,7 @@ export default function ViewUser({
                                             />
                                         </div>
                                         <div className={styles['wrap-item']}>
-                                            <label className={styles['required']} htmlFor="">{language?.status.accountStatus}</label>
+                                            <label className={styles['required']} htmlFor=''>{language?.status.accountStatus}</label>
                                             <CustomSelect
                                                 name='is_active'
                                                 defaultOption={
@@ -340,8 +362,9 @@ export default function ViewUser({
                                             />
                                         </div>
                                         <div className={styles['wrap-item']}>
-                                            <label htmlFor="">{language?.password}</label>
+                                            <label htmlFor='password'>{language?.password}</label>
                                             <input
+                                                id='password'
                                                 readOnly={user.user?.role.name === 'admin' ? false : true}
                                                 placeholder={language?.leaveBlank}
                                                 name='password'
@@ -350,7 +373,7 @@ export default function ViewUser({
                                                         'input-d',
                                                         styles['input-item']
                                                     ].join(' ')
-                                                } type="password" />
+                                                } type='password' />
                                         </div>
                                     </div>
                                     {

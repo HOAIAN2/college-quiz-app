@@ -50,3 +50,45 @@
     font-size: 22px;
     cursor: pointer;
 }
+
+.form-data {
+    width: 100%;
+    height: calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.group-inputs {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.wrap-item {
+    width: fit-content;
+    position: relative;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    /* flex: 1; */
+}
+
+.wrap-item>.label {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.action-items {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    gap: 10px;
+}
+
+.action-items>a {
+    width: fit-content;
+}

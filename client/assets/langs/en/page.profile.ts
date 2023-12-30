@@ -13,6 +13,7 @@ export default {
         inactive: 'Inactive',
     },
     email: 'Email',
+    phoneNumber: 'Phone number',
     firstName: 'First name',
     lastName: 'Last name',
     shortcode: 'Shortcode',

@@ -22,6 +22,5 @@ export default {
     address: 'Address',
     birthDate: 'Birth date',
     password: 'Password',
-    leaveBlank: 'leave blank to remain unchanged',
     save: 'Save'
 }

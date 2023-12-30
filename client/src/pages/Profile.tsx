@@ -51,7 +51,7 @@ export default function Profile() {
         onError: (error: object) => {
             if (typeof error === 'object') {
                 for (const key in error) {
-                    const element = document.querySelector(`input[name="${key}"]`) as HTMLInputElement
+                    const element = document.querySelector(`input[name='${key}']`) as HTMLInputElement
                     if (element) {
                         element.classList.add(styles['error'])
                         getParentElement(element).setAttribute('data-error', error[key as keyof typeof error][0] as string)
@@ -118,8 +118,9 @@ export default function Profile() {
                             ].join(' ')
                         }>
                             <div className={styles['wrap-item']}>
-                                <label className={styles['required']} htmlFor="">{language?.email}</label>
+                                <label className={styles['required']} htmlFor='email'>{language?.email}</label>
                                 <input
+                                    id='email'
                                     readOnly={queryData.data?.role.name === 'admin' ? false : true}
                                     defaultValue={queryData.data.email}
                                     name='email'
@@ -128,11 +129,26 @@ export default function Profile() {
                                             'input-d',
                                             styles['input-item']
                                         ].join(' ')
-                                    } type="text" />
+                                    } type='text' />
                             </div>
                             <div className={styles['wrap-item']}>
-                                <label className={styles['required']} htmlFor="">{language?.firstName}</label>
+                                <label className={styles['required']} htmlFor='phone_number'>{language?.phoneNumber}</label>
                                 <input
+                                    id='phone_number'
+                                    readOnly={queryData.data?.role.name === 'admin' ? false : true}
+                                    defaultValue={queryData.data.phoneNumber || ''}
+                                    name='phone_number'
+                                    className={
+                                        [
+                                            'input-d',
+                                            styles['input-item']
+                                        ].join(' ')
+                                    } type='text' />
+                            </div>
+                            <div className={styles['wrap-item']}>
+                                <label className={styles['required']} htmlFor='first_name'>{language?.firstName}</label>
+                                <input
+                                    id='first_name'
                                     readOnly={queryData.data?.role.name === 'admin' ? false : true}
                                     defaultValue={queryData.data.firstName}
                                     name='first_name'
@@ -141,11 +157,12 @@ export default function Profile() {
                                             'input-d',
                                             styles['input-item']
                                         ].join(' ')
-                                    } type="text" />
+                                    } type='text' />
                             </div>
                             <div className={styles['wrap-item']}>
-                                <label className={styles['required']} htmlFor="">{language?.lastName}</label>
+                                <label className={styles['required']} htmlFor='last_name'>{language?.lastName}</label>
                                 <input
+                                    id='last_name'
                                     readOnly={queryData.data?.role.name === 'admin' ? false : true}
                                     defaultValue={queryData.data.lastName}
                                     name='last_name'
@@ -154,11 +171,12 @@ export default function Profile() {
                                             'input-d',
                                             styles['input-item']
                                         ].join(' ')
-                                    } type="text" />
+                                    } type='text' />
                             </div>
                             <div className={styles['wrap-item']}>
-                                <label className={styles['required']} htmlFor="">{language?.shortcode}</label>
+                                <label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
                                 <input
+                                    id='shortcode'
                                     readOnly={queryData.data?.role.name === 'admin' ? false : true}
                                     defaultValue={queryData.data.shortcode}
                                     name='shortcode'
@@ -167,12 +185,13 @@ export default function Profile() {
                                             'input-d',
                                             styles['input-item']
                                         ].join(' ')
-                                    } type="text" />
+                                    } type='text' />
                             </div>
                             {queryData.data?.role.name === 'student' ?
                                 <div className={styles['wrap-item']}>
-                                    <label className={styles['required']} htmlFor="">{language?.class}</label>
+                                    <label className={styles['required']} htmlFor='school_class_id'>{language?.class}</label>
                                     <input
+                                        id='school_class_id'
                                         readOnly={true}
                                         defaultValue={queryData.data.schoolClassId || ''}
                                         name='school_class_id'
@@ -181,11 +200,11 @@ export default function Profile() {
                                                 'input-d',
                                                 styles['input-item']
                                             ].join(' ')
-                                        } type="text" />
+                                        } type='text' />
                                 </div> : null
                             }
                             <div className={styles['wrap-item']}>
-                                <label className={styles['required']} htmlFor="">{language?.genders.gender}</label>
+                                <label className={styles['required']} htmlFor=''>{language?.genders.gender}</label>
                                 <CustomSelect
                                     name='gender'
                                     defaultOption={
@@ -201,8 +220,9 @@ export default function Profile() {
                                 />
                             </div>
                             <div className={styles['wrap-item']}>
-                                <label className={styles['required']} htmlFor="">{language?.address}</label>
+                                <label className={styles['required']} htmlFor='address'>{language?.address}</label>
                                 <input
+                                    id='address'
                                     readOnly={queryData.data?.role.name === 'admin' ? false : true}
                                     defaultValue={queryData.data.address}
                                     name='address'
@@ -211,14 +231,15 @@ export default function Profile() {
                                             'input-d',
                                             styles['input-item']
                                         ].join(' ')
-                                    } type="text" />
+                                    } type='text' />
                             </div>
                             <div className={styles['wrap-item']}>
-                                <label className={styles['required']} htmlFor="">{language?.birthDate}</label>
+                                <label className={styles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
                                 <Datetime
                                     initialValue={new Date(queryData.data.birthDate)}
                                     inputProps={
                                         {
+                                            id: 'birth_date',
                                             readOnly: queryData.data?.role.name === 'admin' ? false : true,
                                             name: 'birth_date',
                                             className: [

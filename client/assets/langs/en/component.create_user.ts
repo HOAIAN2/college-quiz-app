@@ -9,6 +9,7 @@ export default {
         gender: 'Gender'
     },
     email: 'Email',
+    phoneNumber: 'Phone number',
     firstName: 'First name',
     lastName: 'Last name',
     shortcode: 'Shortcode',

@@ -44,7 +44,7 @@
     position: relative;
     margin-left: 20px;
     height: 75px;
-    flex: 1;
+    flex: 0 0 30%;
 }
 
 .wrap-item::before {
@@ -66,9 +66,8 @@
 }
 
 .input-item {
-    /* position: relative; */
     height: 40px;
-    width: 300px;
+    width: 100%;
 }
 
 .input-item.error {
@@ -76,7 +75,7 @@
 }
 
 .custom-select {
-    width: 300px;
+    width: 100%;
     margin-left: 0;
     z-index: 1;
 }

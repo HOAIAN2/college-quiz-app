@@ -13,6 +13,7 @@ export default {
         inactive: 'Không hoạt động',
     },
     email: 'Email',
+    phoneNumber: 'Số điện thoại',
     firstName: 'Tên',
     lastName: 'Họ',
     shortcode: 'Mã số',
