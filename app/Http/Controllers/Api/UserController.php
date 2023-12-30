@@ -201,15 +201,12 @@ class UserController extends Controller
 
         $data = $request->validated();
         $file_name = in_array('file_name', $data) == true ?
-            "{$data['file_name']}.xlsx" : "Export_{$data['role']}_" . Carbon::now()->format(User::DATE_FORMAT) . '.xlsx';
+            "{$data['file_name']}.xlsx"
+            : "Export_{$data['role']}_" . Carbon::now()->format(User::DATE_FORMAT) . '.xlsx';
 
         try {
             $query = User::whereRoleId(Role::ROLES[$data['role']]);
-            $columns = collect($data)->except(['role']);
-            $filteredColumns = $columns->filter(function ($value) {
-                return $value == 1;
-            })->keys()->toArray();
-            $query = $query->select($filteredColumns);
+            $query = $query->select($data['fields']);
             $collection = $query->get();
             return Excel::download(new UsersExport($collection), $file_name);
         } catch (\Throwable $error) {
