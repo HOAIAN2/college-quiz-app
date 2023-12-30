@@ -1,4 +1,4 @@
 export default {
-    save: "Save",
-    downloadTemplate: "Download template file"
+    save: 'Save',
+    downloadTemplate: 'Download template file'
 }

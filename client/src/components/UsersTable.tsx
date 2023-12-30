@@ -74,7 +74,6 @@ export default function UsersTable({
             })
             setCheckAll(false)
         }
-
     }
     useEffect(() => {
         setCheckAll(false)

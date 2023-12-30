@@ -30,5 +30,5 @@
 }
 
 .green::before {
-    background: green;
+    background: var(--color-green);
 }

@@ -1,7 +1,9 @@
+import styles from '../styles/SupspenseLoading.module.css'
+
 export default function SuspenseLoading() {
     return (
-        <div className="loading-container">
-            <div className="lds-spinner">
+        <div className={styles['loading-container']}>
+            <div className={styles['lds-spinner']}>
                 <div></div>
                 <div></div>
                 <div></div>

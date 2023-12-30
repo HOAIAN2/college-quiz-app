@@ -14,7 +14,6 @@ import NotFound from './pages/NotFound'
 import Profile from './pages/Profile'
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Users = lazy(() => import('./pages/Users'))
-// const ViewUser = lazy(() => import('./components/ViewUser'))
 
 const router = createBrowserRouter([
   {
@@ -69,16 +68,6 @@ const router = createBrowserRouter([
           {
             path: 'students',
             element: <Suspense fallback={<SuspenseLoading />}><Users role='student' /></Suspense>
-            // children: [
-            //   {
-            //     index: true,
-            //     element: <Suspense fallback={<SuspenseLoading />}><Users role='student' /></Suspense>
-            //   },
-            //   {
-            //     path: '*',
-            //     element: <Suspense fallback={<SuspenseLoading />}><ViewUser /></Suspense>
-            //   }
-            // ]
           },
         ]
       }

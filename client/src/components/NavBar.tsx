@@ -121,16 +121,6 @@ export default function NavBar() {
                 to: 'profile',
                 icon: <AiOutlineUser />
             },
-            // {
-            //     name: language?.teachers,
-            //     to: 'teachers',
-            //     icon: <PiChalkboardTeacherLight />
-            // },
-            // {
-            //     name: language?.students,
-            //     to: 'students',
-            //     icon: <PiStudent />
-            // },
             {
                 name: language?.subjects,
                 to: 'subjects',

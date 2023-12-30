@@ -10,17 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.13.4",
-    "axios": "^1.6.2",
+    "@tanstack/react-query": "^5.15.5",
+    "axios": "^1.6.3",
     "react": "^18.2.0",
     "react-datetime": "^3.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.12.0",
-    "react-router-dom": "^6.21.0",
+    "react-router-dom": "^6.21.1",
     "toast-noti": "^1.0.4"
   },
   "devDependencies": {
-    "@types/react": "^18.2.45",
+    "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "@typescript-eslint/parser": "^6.14.0",
@@ -28,7 +28,7 @@
     "eslint": "^8.55.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.9"
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8"
   }
 }
