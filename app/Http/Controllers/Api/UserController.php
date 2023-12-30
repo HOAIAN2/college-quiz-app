@@ -200,7 +200,7 @@ class UserController extends Controller
         if (!$user->isAdmin()) return Reply::error('permission.errors.403');
 
         $data = $request->validated();
-        $file_name = in_array('file_name', $data) == true ?
+        $file_name = $request->has('file_name') ?
             "{$data['file_name']}.xlsx"
             : "Export_{$data['role']}_" . Carbon::now()->format(User::DATE_FORMAT) . '.xlsx';
 
@@ -212,9 +212,12 @@ class UserController extends Controller
                     'remember_token'
                 ]
             )->toArray();
+            $headers = array_map(function ($value) {
+                return trans('headers.users.' . $value);
+            }, $columns);
             $query = $query->select($columns);
             $collection = $query->get();
-            return Excel::download(new UsersExport($collection), $file_name);
+            return Excel::download(new UsersExport($collection, $headers), $file_name);
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             DB::rollBack();
