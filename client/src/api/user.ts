@@ -106,3 +106,16 @@ export async function apiDeleteUserByIds(ids: (string | number)[]) {
         throw new Error(error.message)
     }
 }
+export async function apiExportUsers(role: RoleName, fields: (string)[]) {
+    try {
+        await request.get('/user/export', {
+            params: {
+                role: role,
+                fields: fields
+            }
+        })
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+        throw new Error(error.message)
+    }
+}

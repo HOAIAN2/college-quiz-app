@@ -13,6 +13,7 @@ import { templateFileUrl } from '../api/config'
 import { apiDeleteUserByIds, apiGetUsersByType, apiImportUsers } from '../api/user'
 import CreateUser from '../components/CreateUser'
 import CustomSelect from '../components/CustomSelect'
+import ExportUsers from '../components/ExportUsers'
 import ImportData from '../components/ImportData'
 import Loading from '../components/Loading'
 import UsersTable from '../components/UsersTable'
@@ -33,6 +34,7 @@ export default function Users({
     const language = useLanguage<UsersLanguage>('page.users')
     const { appLanguage } = useAppContext()
     const [insertMode, setInsertMode] = useState(false)
+    const [exportMode, setExportMode] = useState(false)
     const [importMode, setImportMode] = useState(false)
     const [showPopUpMode, setShowPopUpMode] = useState(false)
     const [selectedUserIds, setSelectedUserIds] = useState<Set<string | number>>(new Set())
@@ -101,6 +103,11 @@ export default function Users({
                     onMutateSuccess={onMutateSuccess}
                     setInsertMode={setInsertMode}
                 /> : null}
+            {exportMode === true ?
+                <ExportUsers
+                    role={role}
+                    setExportMode={setExportMode}
+                /> : null}
             {showPopUpMode === true ?
                 <YesNoPopUp
                     message={getMessage()}
@@ -160,7 +167,11 @@ export default function Users({
                         [
                             'action-item-d-white'
                         ].join(' ')
-                    }>
+                    }
+                        onClick={() => {
+                            setExportMode(true)
+                        }}
+                    >
                         <BiExport /> {language?.export}
                     </div>
                     {

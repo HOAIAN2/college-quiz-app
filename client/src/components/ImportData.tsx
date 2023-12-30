@@ -7,6 +7,7 @@ import { RxCross2 } from 'react-icons/rx'
 import useLanguage from '../hooks/useLanguage'
 import { ImportDataLanguage } from '../models/lang'
 import styles from '../styles/ImportData.module.css'
+import Loading from './Loading'
 
 type ImportDataProps = {
     title?: string
@@ -71,9 +72,7 @@ export default function ImportData({
                 ].join(' ')
             }>
             {mutation.isPending ?
-                <div className='data-loading'
-                    style={{ zIndex: 10 }}
-                >Loading...</div> : null}
+                <Loading /> : null}
             <div
                 className={
                     [
