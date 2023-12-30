@@ -206,8 +206,15 @@ class UserController extends Controller
 
         try {
             $query = User::whereRoleId(Role::ROLES[$data['role']]);
-            $query = $query->select($data['fields']);
+            $columns = collect($data['fields'])->except(
+                [
+                    'password',
+                    'remember_token'
+                ]
+            )->toArray();
+            $query = $query->select($columns);
             $collection = $query->get();
+            return $collection;
             return Excel::download(new UsersExport($collection), $file_name);
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
