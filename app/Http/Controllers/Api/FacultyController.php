@@ -24,7 +24,7 @@ class FacultyController extends Controller
             return Reply::successWithData($faculties, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.serverError');
         }
     }
@@ -43,7 +43,7 @@ class FacultyController extends Controller
             return Reply::successWithData($data, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.serverError');
         }
     }
@@ -67,7 +67,7 @@ class FacultyController extends Controller
             return Reply::successWithData($school_classes, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.serverError', [], 500);
         }
     }

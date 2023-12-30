@@ -46,7 +46,7 @@ class UserController extends Controller
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             DB::rollBack();
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.failToSaveRecord');
         }
     }
@@ -84,7 +84,7 @@ class UserController extends Controller
             return Reply::successWithData($data, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.serverError', [], 500);
         }
     }
@@ -107,7 +107,7 @@ class UserController extends Controller
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             DB::rollBack();
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.serverError', [], 500);
         }
     }
@@ -125,7 +125,7 @@ class UserController extends Controller
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             DB::rollBack();
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.serverError', [], 500);
         }
     }
@@ -146,7 +146,7 @@ class UserController extends Controller
             return Reply::successWithData($users, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.failToSaveRecord');
         }
     }
@@ -189,7 +189,7 @@ class UserController extends Controller
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             DB::rollBack();
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.failToSaveRecord');
         }
     }
@@ -199,15 +199,23 @@ class UserController extends Controller
         $user = $this->getUser();
         if (!$user->isAdmin()) return Reply::error('permission.errors.403');
 
-        $fileName = 'demo.xlsx';
-        try {
-            $collection = User::whereRoleId(Role::ROLES['student'])->get();
+        $data = $request->validated();
+        $file_name = in_array('file_name', $data) == true ?
+            "{$data['file_name']}.xlsx" : "Export_{$data['role']}_" . Carbon::now()->format(User::DATE_FORMAT) . '.xlsx';
 
-            return Excel::download(new UsersExport($collection), $fileName);
+        try {
+            $query = User::whereRoleId(Role::ROLES[$data['role']]);
+            $columns = collect($data)->except(['role']);
+            $filteredColumns = $columns->filter(function ($value) {
+                return $value == 1;
+            })->keys()->toArray();
+            $query = $query->select($filteredColumns);
+            $collection = $query->get();
+            return Excel::download(new UsersExport($collection), $file_name);
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             DB::rollBack();
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.serverError');
         }
     }

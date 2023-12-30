@@ -37,7 +37,7 @@ class AuthController extends Controller
             ], '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.serverError');
         }
     }
@@ -51,7 +51,7 @@ class AuthController extends Controller
             return Reply::success();
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.serverError');
         }
     }
@@ -73,7 +73,7 @@ class AuthController extends Controller
             return Reply::successWithMessage('auth.successes.changePasswordSuccess');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.failToSaveRecord');
         }
     }

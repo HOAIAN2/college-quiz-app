@@ -24,7 +24,7 @@ class SubjectController extends Controller
             return Reply::successWithData($subjects, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.failToSaveRecord');
         }
     }
@@ -42,7 +42,7 @@ class SubjectController extends Controller
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             DB::rollBack();
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.failToSaveRecord');
         }
     }
@@ -54,7 +54,7 @@ class SubjectController extends Controller
             return Reply::successWithData($subject, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.failToSaveRecord');
         }
     }
@@ -73,7 +73,7 @@ class SubjectController extends Controller
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             DB::rollBack();
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.failToSaveRecord');
         }
     }
@@ -91,7 +91,7 @@ class SubjectController extends Controller
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             DB::rollBack();
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.serverError', [], 500);
         }
     }

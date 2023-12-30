@@ -38,7 +38,7 @@ class ChapterController extends Controller
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             DB::rollBack();
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.serverError', [], 500);
         }
     }
@@ -68,7 +68,7 @@ class ChapterController extends Controller
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             DB::rollBack();
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.serverError', [], 500);
         }
     }
@@ -89,7 +89,7 @@ class ChapterController extends Controller
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             DB::rollBack();
-            if ($this->isDevelopment) return $error;
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.serverError', [], 500);
         }
     }

@@ -22,7 +22,19 @@ class ExportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'role' => ['required', 'string', 'in:student,teacher,admin'],
+            'file_name' => ['nullable'],
+            'shortcode' => ['required', 'in:1,0'],
+            'email' => ['required', 'in:1,0'],
+            'first_name' => ['required', 'in:1,0'],
+            'last_name' => ['required', 'in:1,0'],
+            'phone_number' => ['required', 'in:1,0'],
+            'gender' => ['required', 'in:1,0'],
+            'address' => ['required', 'in:1,0'],
+            'birth_date' => ['required', 'in:1,0'],
+            'school_class_id' => ['required', 'in:1,0'],
+            'faculty_id' => ['required', 'in:1,0'],
+            'is_active' => ['required', 'in:1,0'],
         ];
     }
 }
