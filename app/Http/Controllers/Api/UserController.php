@@ -198,20 +198,12 @@ class UserController extends Controller
     {
         $user = $this->getUser();
         if (!$user->isAdmin()) return Reply::error('permission.errors.403');
-
         $data = $request->validated();
-        $file_name = $request->has('file_name') ?
-            "{$data['file_name']}.xlsx"
-            : "Export_{$data['role']}_" . Carbon::now()->format(User::DATE_FORMAT) . '.xlsx';
+        $file_name = "Export_{$data['role']}_" . Carbon::now()->format(User::DATE_FORMAT) . '.xlsx';
 
         try {
             $query = User::whereRoleId(Role::ROLES[$data['role']]);
-            $columns = collect($data['fields'])->except(
-                [
-                    'password',
-                    'remember_token'
-                ]
-            )->toArray();
+            $columns = collect($data['fields'])->except((new User())->getHidden())->toArray();
             $headers = array_map(function ($value) {
                 return trans('headers.users.' . $value);
             }, $columns);
