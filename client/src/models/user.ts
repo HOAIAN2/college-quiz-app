@@ -1,21 +1,21 @@
-import { Course } from "./course";
+import { Course } from './course'
 
 export type User = {
-    id: number;
-    roleId: number;
-    shortcode: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phoneNumber: string | null;
-    gender: 'male' | 'female';
-    address: string;
-    birthDate: string;
-    schoolClassId: string | null;
-    facultyId: string | null;
-    isActive: boolean;
-    emailVerifiedAt: Date | null;
-    role: Role;
+    id: number
+    roleId: number
+    shortcode: string
+    firstName: string
+    lastName: string
+    email: string
+    phoneNumber: string | null
+    gender: 'male' | 'female'
+    address: string
+    birthDate: string
+    schoolClassId: string | null
+    facultyId: string | null
+    isActive: boolean
+    emailVerifiedAt: string | null
+    role: Role
 }
 export type UserDetail = {
     user: User
@@ -29,7 +29,7 @@ export type Role = {
     name: RoleName;
     displayName: string;
 }
-export interface UserPagination {
+export type UserPagination = {
     currentPage: number
     data: User[]
     firstPageUrl: string
@@ -45,7 +45,7 @@ export interface UserPagination {
     total: number
 }
 
-export interface Link {
+export type Link = {
     url?: string
     label: string
     active: boolean

@@ -7,6 +7,6 @@ export type ApiResponseWithData<T> = {
 }
 
 export type LoginResponse = {
-    user: User;
-    token: string;
+    user: User
+    token: string
 }

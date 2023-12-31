@@ -11,10 +11,10 @@ import ViewUser from './ViewUser'
 
 type UsersTableProps = {
     role: RoleName
-    data?: UserPagination,
-    searchParams: URLSearchParams,
+    data?: UserPagination
+    searchParams: URLSearchParams
     onMutateSuccess: () => void
-    setSearchParams: SetURLSearchParams,
+    setSearchParams: SetURLSearchParams
     setSelectedRows: React.Dispatch<React.SetStateAction<Set<string | number>>>
 }
 export default function UsersTable({
