@@ -1,4 +1,4 @@
-export default {
+const lang = {
     items: {
         numberOfTeachers: 'Number of teachers',
         numberOfStudents: 'Number of students',
@@ -9,3 +9,5 @@ export default {
         examInThisMonth: 'Exams in this month'
     }
 }
+export default lang
+export type PageDashBoardLang = typeof lang

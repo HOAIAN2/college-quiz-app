@@ -8,7 +8,7 @@ import { apiAutoCompleteClass } from '../api/class'
 import { apiAutoCompleteFaculty } from '../api/faculty'
 import { apiCreateUser } from '../api/user'
 import useLanguage from '../hooks/useLanguage'
-import { CreateUserLanguage } from '../models/lang'
+import { ComponentCreateUserLang } from '../models/lang'
 import { RoleName } from '../models/user'
 import styles from '../styles/CreateUser.module.css'
 import CustomSelect from './CustomSelect'
@@ -23,7 +23,7 @@ export default function CreateUser({
     onMutateSuccess,
     setInsertMode
 }: CreateUserProps) {
-    const language = useLanguage<CreateUserLanguage>('component.create_user')
+    const language = useLanguage<ComponentCreateUserLang>('component.create_user')
     const [hide, setHide] = useState(true)
     const [queryClass, setQueryClass] = useState('')
     const [queryFaculty, setQueryFaculty] = useState('')

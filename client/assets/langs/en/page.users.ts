@@ -1,4 +1,4 @@
-export default {
+const lang = {
     add: 'Add',
     import: 'Import',
     export: 'Export',
@@ -14,3 +14,5 @@ export default {
     langYes: 'Yes',
     langNo: 'No'
 }
+export default lang
+export type PageUsersLang = typeof lang

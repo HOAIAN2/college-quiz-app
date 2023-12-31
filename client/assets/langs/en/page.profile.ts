@@ -1,4 +1,4 @@
-export default {
+const lang = {
     student: 'Student',
     teacher: 'Teacher',
     admin: 'Admin',
@@ -28,3 +28,5 @@ export default {
         changePassword: 'Change password'
     }
 }
+export default lang
+export type PageProfileLang = typeof lang

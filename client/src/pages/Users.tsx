@@ -21,7 +21,7 @@ import YesNoPopUp from '../components/YesNoPopUp'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
-import { UsersLanguage } from '../models/lang'
+import { PageUsersLang } from '../models/lang'
 import { RoleName } from '../models/user'
 import styles from '../styles/Users.module.css'
 
@@ -31,7 +31,7 @@ type UsersProps = {
 export default function Users({
     role
 }: UsersProps) {
-    const language = useLanguage<UsersLanguage>('page.users')
+    const language = useLanguage<PageUsersLang>('page.users')
     const { appLanguage } = useAppContext()
     const [insertMode, setInsertMode] = useState(false)
     const [exportMode, setExportMode] = useState(false)

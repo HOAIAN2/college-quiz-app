@@ -1,4 +1,4 @@
-export default {
+const lang = {
     dashboard: 'Tổng quan',
     subjects: 'Môn học',
     courses: 'Lớp học',
@@ -8,3 +8,5 @@ export default {
     teachers: 'Giáo viên',
     students: 'Học sinh'
 }
+export default lang
+export type ComponentNavBarLang = typeof lang

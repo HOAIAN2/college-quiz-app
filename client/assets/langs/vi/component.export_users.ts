@@ -1,4 +1,4 @@
-export default {
+const lang = {
     student: 'Học sinh',
     teacher: 'Giáo viên',
     admin: 'Admin',
@@ -24,3 +24,5 @@ export default {
     password: 'Mật khẩu',
     save: 'Lưu'
 }
+export default lang
+export type ComponentExportUsersLang = typeof lang

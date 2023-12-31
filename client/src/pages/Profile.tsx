@@ -8,11 +8,11 @@ import SuspenseLoading from '../components/SuspenseLoading'
 import { USER_ACTION } from '../contexts/UserContext'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
-import { ProfileLanguage } from '../models/lang'
+import { PageProfileLang } from '../models/lang'
 import styles from '../styles/Profile.module.css'
 
 export default function Profile() {
-    const language = useLanguage<ProfileLanguage>('page.profile')
+    const language = useLanguage<PageProfileLang>('page.profile')
     const { user, appLanguage } = useAppContext()
     const [changePasswordMode, setChangePasswordMode] = useState(false)
     const queryClient = useQueryClient()

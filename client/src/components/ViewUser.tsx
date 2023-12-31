@@ -8,7 +8,7 @@ import { apiAutoCompleteFaculty } from '../api/faculty'
 import { apiGetUsersById, apiUpdateUser } from '../api/user'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
-import { ViewUserLanguage } from '../models/lang'
+import { ComponentViewUserLang } from '../models/lang'
 import { UserDetail } from '../models/user'
 import styles from '../styles/ViewUser.module.css'
 import CustomSelect from './CustomSelect'
@@ -25,7 +25,7 @@ export default function ViewUser({
     setViewMode
 }: ViewUserProps) {
     const [hide, setHide] = useState(true)
-    const language = useLanguage<ViewUserLanguage>('component.view_user')
+    const language = useLanguage<ComponentViewUserLang>('component.view_user')
     const [userDetail, setUserDetail] = useState<UserDetail | null>(null)
     const { user } = useAppContext()
     const [queryClass, setQueryClass] = useState('')

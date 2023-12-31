@@ -3,7 +3,7 @@ import { RxCross2 } from 'react-icons/rx'
 import { useNavigate } from 'react-router-dom'
 import { apiChangePassword } from '../api/auth'
 import useLanguage from '../hooks/useLanguage'
-import { ChangePasswordLanguage } from '../models/lang'
+import { ComponentChangePassword } from '../models/lang'
 import styles from '../styles/ChangePassword.module.css'
 
 type ChangePasswordProps = {
@@ -12,7 +12,7 @@ type ChangePasswordProps = {
 export default function ChangePassword({
     setInsertMode
 }: ChangePasswordProps) {
-    const language = useLanguage<ChangePasswordLanguage>('component.change_password')
+    const language = useLanguage<ComponentChangePassword>('component.change_password')
     const [blockSubmit, setBlockSubmit] = useState(true)
     const [isSubmitting, seIsSubmitting] = useState(false)
     const [hide, setHide] = useState(true)

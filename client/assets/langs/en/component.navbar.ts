@@ -1,4 +1,4 @@
-export default {
+const lang = {
     dashboard: 'Dasrdboard',
     subjects: 'Subjects',
     courses: 'Course',
@@ -8,3 +8,5 @@ export default {
     teachers: 'Teachers',
     students: 'Students'
 }
+export default lang
+export type ComponentNavBarLang = typeof lang

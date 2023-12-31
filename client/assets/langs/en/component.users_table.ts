@@ -1,4 +1,4 @@
-export default {
+const lang = {
     header: {
         id: 'ID',
         name: 'Name',
@@ -19,3 +19,5 @@ export default {
         inactive: 'Inactive',
     },
 }
+export default lang
+export type ComponentUsersTableLang = typeof lang

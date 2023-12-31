@@ -3,7 +3,7 @@ import { RxCross2 } from 'react-icons/rx'
 import { apiExportUsers } from '../api/user'
 import { saveBlob } from '../helpers/saveBlob'
 import useLanguage from '../hooks/useLanguage'
-import { ExportUsersLanguage } from '../models/lang'
+import { ComponentExportUsersLang } from '../models/lang'
 import { RoleName } from '../models/user'
 import styles from '../styles/ExportUsers.module.css'
 
@@ -16,7 +16,7 @@ export default function ExportUsers({
     role,
     setExportMode
 }: ExportUsersProps) {
-    const language = useLanguage<ExportUsersLanguage>('component.export_users')
+    const language = useLanguage<ComponentExportUsersLang>('component.export_users')
     const [hide, setHide] = useState(true)
     const handleTurnOffImportMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')

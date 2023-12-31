@@ -1,4 +1,4 @@
-export default {
+const lang = {
     add: 'Thêm',
     import: 'Nhập',
     export: 'Xuất',
@@ -14,3 +14,5 @@ export default {
     langYes: 'Có',
     langNo: 'Không'
 }
+export default lang
+export type PageUsersLang = typeof lang

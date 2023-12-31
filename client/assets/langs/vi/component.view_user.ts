@@ -1,4 +1,4 @@
-export default {
+const lang = {
     student: 'Học sinh',
     teacher: 'Giáo viên',
     admin: 'Admin',
@@ -25,3 +25,5 @@ export default {
     leaveBlank: 'Để trống để giữ nguyên',
     save: 'Lưu'
 }
+export default lang
+export type ComponentViewUserLang = typeof lang

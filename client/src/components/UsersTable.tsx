@@ -3,7 +3,7 @@ import { GiFemale, GiMale } from 'react-icons/gi'
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
 import { SetURLSearchParams } from 'react-router-dom'
 import useLanguage from '../hooks/useLanguage'
-import { UsersTableLanguage } from '../models/lang'
+import { ComponentUsersTableLang } from '../models/lang'
 import { RoleName, UserPagination } from '../models/user'
 import styles from '../styles/Users.Table.module.css'
 import StatusBadge from './StatusBadge'
@@ -25,7 +25,7 @@ export default function UsersTable({
     setSearchParams,
     setSelectedRows
 }: UsersTableProps) {
-    const language = useLanguage<UsersTableLanguage>('component.users_table')
+    const language = useLanguage<ComponentUsersTableLang>('component.users_table')
     const [viewMode, setViewMode] = useState(false)
     const [checkAll, setCheckAll] = useState(false)
     const [userId, setUserId] = useState<number>(0)

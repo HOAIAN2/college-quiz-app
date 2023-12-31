@@ -1,4 +1,4 @@
-export default {
+const lang = {
     student: 'Student',
     teacher: 'Teacher',
     admin: 'Admin',
@@ -25,3 +25,5 @@ export default {
     leaveBlank: 'leave blank to remain unchanged',
     save: 'Save'
 }
+export default lang
+export type ComponentViewUserLang = typeof lang

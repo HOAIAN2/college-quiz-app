@@ -18,12 +18,12 @@ import {
 import { Link } from 'react-router-dom'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
-import { NavBarLanguage } from '../models/lang'
+import { ComponentNavBarLang } from '../models/lang'
 import styles from '../styles/NavBar.module.css'
 
 export default function NavBar() {
     const { DOM, user } = useAppContext()
-    const language = useLanguage<NavBarLanguage>('component.navbar')
+    const language = useLanguage<ComponentNavBarLang>('component.navbar')
     // if (user) user.role.name = 'teacher'
     const features = {
         admin: [
