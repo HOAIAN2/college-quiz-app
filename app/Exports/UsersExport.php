@@ -2,23 +2,22 @@
 
 namespace App\Exports;
 
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Illuminate\Support\Collection;
 
 class UsersExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
     /**
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public $collection = [];
     public $headers = [];
 
-    public function __construct($collection = [], $headers = [])
+    public function __construct(Collection $collection, $headers = [])
     {
         $this->collection = $collection;
         $this->headers = $headers;

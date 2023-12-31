@@ -17,19 +17,15 @@ class AuthController extends Controller
     {
         try {
             $user = User::with('role')->whereEmail($request->email)->first();
-
             if (!$user) {
                 return Reply::error('auth.errors.emailNotFound', [], 404);
             }
-
             if ($user->is_active == false) {
                 return Reply::error('auth.errors.accountDisabled');
             }
-
             if (!Hash::check($request->password, $user->password)) {
                 return Reply::error('auth.errors.passwordIncorrect');
             }
-
             $token = $user->createToken($user->role->name . ' token')->plainTextToken;
             return Reply::successWithData([
                 'user' => $user,
