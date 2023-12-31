@@ -6,6 +6,7 @@ return [
         'last_name' => 'Họ',
         'shortcode' => 'Mã số',
         'role' => 'Vai trò',
+        'gender' => 'Giới tính',
         'email' => 'Email',
         'address' => 'Địa chỉ',
         'phone_number' => 'Số điện thoại',
