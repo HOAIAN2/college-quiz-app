@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Faculty } from '../models/faculty'
 import { ApiResponseWithData } from '../models/response'
 import request, { getToken } from './config'
@@ -12,7 +13,6 @@ export async function apiAutoCompleteFaculty(search: string) {
         })
         const { data } = res.data as ApiResponseWithData<Faculty[]>
         return data
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)
         const message = error.response.data.message

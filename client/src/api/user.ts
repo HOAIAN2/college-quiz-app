@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosResponse } from 'axios'
 import { ApiResponseWithData } from '../models/response'
 import { QueryUserType, RoleName, User, UserDetail, UserPagination } from '../models/user'
@@ -9,7 +10,6 @@ export async function apiGetUser() {
         const res = await request.get('/user')
         const { data } = res.data as ApiResponseWithData<User>
         return data
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)
         if (error.response.status === 401) localStorage.removeItem('token')
@@ -21,7 +21,6 @@ export async function apiCreateUser(formData: FormData) {
     if (!getToken()) throw new Error('no token')
     try {
         await request.post('/user', formData)
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)
         const message = error.response.data.message
@@ -41,7 +40,6 @@ export async function apiUpdateUser(formData: FormData, id: string | number) {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         })
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)
         const message = error.response.data.message
@@ -60,7 +58,6 @@ export async function apiImportUsers(file: File, role: RoleName) {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
         })
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)
         const message = error.response.data.message
@@ -80,7 +77,6 @@ export async function apiGetUsersByType(query?: QueryUserType) {
         })
         const { data } = res.data as ApiResponseWithData<UserPagination>
         return data
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         throw new Error(error.message)
     }
@@ -90,7 +86,6 @@ export async function apiGetUsersById(id: string | number) {
         const res = await request.get('/user/' + id)
         const { data } = res.data as ApiResponseWithData<UserDetail>
         return data
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         throw new Error(error.message)
     }
@@ -102,7 +97,6 @@ export async function apiDeleteUserByIds(ids: (string | number)[]) {
                 ids: ids,
             }
         })
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         throw new Error(error.message)
     }
@@ -117,7 +111,6 @@ export async function apiExportUsers(role: RoleName, fields: (string)[]) {
             responseType: 'blob'
         })
         return response.data
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         throw new Error(error.message)
     }

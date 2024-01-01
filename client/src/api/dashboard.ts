@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DashboarData } from '../models/dashboard'
 import { ApiResponseWithData } from '../models/response'
 import request, { getToken } from './config'
@@ -8,7 +9,6 @@ export async function apiGetDashboard() {
         const res = await request.get('/dashboard')
         const { data } = res.data as ApiResponseWithData<DashboarData>
         return data
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)
         const message = error.response.data.message
