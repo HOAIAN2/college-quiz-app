@@ -17,7 +17,6 @@ use App\Models\Role;
 use App\Models\SchoolClass;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -64,7 +63,7 @@ class UserController extends Controller
         }
     }
 
-    public function show(Request $request, string $id)
+    public function show(string $id)
     {
         $user = $this->getUser();
         if (!$user->isAdmin() && !$user->isTeacher() && $id != $user->id) return Reply::error('permission.errors.403');

@@ -129,187 +129,193 @@ export default function CreateUser({
                         <RxCross2 />
                     </div>
                 </div>
-                <form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
-                    mutate(e)
-                }}
-                    onInput={handleOnInput}
-                    className={styles['form-data']}>
-                    <div className={
-                        [
-                            styles['group-inputs']
-                        ].join(' ')
-                    }>
-                        <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor='email'>{language?.email}</label>
-                            <input
-                                id='email'
-                                name='email'
-                                className={
-                                    [
-                                        'input-d',
-                                        styles['input-item']
-                                    ].join(' ')
-                                } type='text' />
-                        </div>
-                        <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor='phone_number'>{language?.phoneNumber}</label>
-                            <input
-                                id='phone_number'
-                                name='phone_number'
-                                className={
-                                    [
-                                        'input-d',
-                                        styles['input-item']
-                                    ].join(' ')
-                                } type='text' />
-                        </div>
-                        <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor='first_name'>{language?.firstName}</label>
-                            <input
-                                id='first_name'
-                                name='first_name'
-                                className={
-                                    [
-                                        'input-d',
-                                        styles['input-item']
-                                    ].join(' ')
-                                } type='text' />
-                        </div>
-                        <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor='last_name'>{language?.lastName}</label>
-                            <input
-                                id='last_name'
-                                name='last_name'
-                                className={
-                                    [
-                                        'input-d',
-                                        styles['input-item']
-                                    ].join(' ')
-                                } type='text' />
-                        </div>
-                        <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
-                            <input
-                                id='shortcode'
-                                name='shortcode'
-                                className={
-                                    [
-                                        'input-d',
-                                        styles['input-item']
-                                    ].join(' ')
-                                } type='text' />
-                        </div>
-                        {role === 'student' ?
+                <div className={
+                    [
+                        styles['form-content']
+                    ].join(' ')
+                }>
+                    <form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
+                        mutate(e)
+                    }}
+                        onInput={handleOnInput}
+                        className={styles['form-data']}>
+                        <div className={
+                            [
+                                styles['group-inputs']
+                            ].join(' ')
+                        }>
                             <div className={styles['wrap-item']}>
-                                <label className={styles['required']} htmlFor='school_class_id'>{language?.class}</label>
+                                <label className={styles['required']} htmlFor='email'>{language?.email}</label>
                                 <input
-                                    id='school_class_id'
-                                    name='school_class_id'
-                                    value={queryClass}
-                                    onInput={(e) => { setQueryClass(e.currentTarget.value) }}
+                                    id='email'
+                                    name='email'
                                     className={
                                         [
                                             'input-d',
                                             styles['input-item']
                                         ].join(' ')
-                                    }
-                                    list='classList'
-                                />
-                                <datalist id='classList'>
-                                    {
-                                        classQueryData.data ? classQueryData.data.map(item => {
-                                            return <option key={`class-${item.id}`} value={item.id}>{item.name}</option>
-                                        }) : null
-                                    }
-                                </datalist>
+                                    } type='text' />
                             </div>
-                            : role === 'teacher' ?
+                            <div className={styles['wrap-item']}>
+                                <label className={styles['required']} htmlFor='phone_number'>{language?.phoneNumber}</label>
+                                <input
+                                    id='phone_number'
+                                    name='phone_number'
+                                    className={
+                                        [
+                                            'input-d',
+                                            styles['input-item']
+                                        ].join(' ')
+                                    } type='text' />
+                            </div>
+                            <div className={styles['wrap-item']}>
+                                <label className={styles['required']} htmlFor='first_name'>{language?.firstName}</label>
+                                <input
+                                    id='first_name'
+                                    name='first_name'
+                                    className={
+                                        [
+                                            'input-d',
+                                            styles['input-item']
+                                        ].join(' ')
+                                    } type='text' />
+                            </div>
+                            <div className={styles['wrap-item']}>
+                                <label className={styles['required']} htmlFor='last_name'>{language?.lastName}</label>
+                                <input
+                                    id='last_name'
+                                    name='last_name'
+                                    className={
+                                        [
+                                            'input-d',
+                                            styles['input-item']
+                                        ].join(' ')
+                                    } type='text' />
+                            </div>
+                            <div className={styles['wrap-item']}>
+                                <label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
+                                <input
+                                    id='shortcode'
+                                    name='shortcode'
+                                    className={
+                                        [
+                                            'input-d',
+                                            styles['input-item']
+                                        ].join(' ')
+                                    } type='text' />
+                            </div>
+                            {role === 'student' ?
                                 <div className={styles['wrap-item']}>
-                                    <label className={styles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
+                                    <label className={styles['required']} htmlFor='school_class_id'>{language?.class}</label>
                                     <input
-                                        id='faculty_id'
-                                        name='faculty_id'
-                                        value={queryFaculty}
-                                        onInput={(e) => { setQueryFaculty(e.currentTarget.value) }}
+                                        id='school_class_id'
+                                        name='school_class_id'
+                                        value={queryClass}
+                                        onInput={(e) => { setQueryClass(e.currentTarget.value) }}
                                         className={
                                             [
                                                 'input-d',
                                                 styles['input-item']
                                             ].join(' ')
                                         }
-                                        list='facultyList'
+                                        list='classList'
                                     />
-                                    <datalist id='facultyList'>
+                                    <datalist id='classList'>
                                         {
-                                            facultyQueryData.data ? facultyQueryData.data.map(item => {
-                                                return <option key={`faculty-${item.id}`} value={item.id}>{item.name}</option>
+                                            classQueryData.data ? classQueryData.data.map(item => {
+                                                return <option key={`class-${item.id}`} value={item.id}>{item.name}</option>
                                             }) : null
                                         }
                                     </datalist>
                                 </div>
-                                : null
-                        }
-                        <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor=''>{language?.genders.gender}</label>
-                            <CustomSelect
-                                name='gender'
-                                defaultOption={options[0]}
-                                options={options}
-                                className={
-                                    [
-                                        styles['custom-select']
-                                    ].join(' ')
-                                }
-                            />
-                        </div>
-                        <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor='address'>{language?.address}</label>
-                            <input
-                                id='address'
-                                name='address'
-                                className={
-                                    [
-                                        'input-d',
-                                        styles['input-item']
-                                    ].join(' ')
-                                } type='text' />
-                        </div>
-                        <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
-                            <Datetime
-                                initialValue={new Date()}
-                                inputProps={
-                                    {
-                                        id: 'birth_date',
-                                        name: 'birth_date',
-                                        className: [
+                                : role === 'teacher' ?
+                                    <div className={styles['wrap-item']}>
+                                        <label className={styles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
+                                        <input
+                                            id='faculty_id'
+                                            name='faculty_id'
+                                            value={queryFaculty}
+                                            onInput={(e) => { setQueryFaculty(e.currentTarget.value) }}
+                                            className={
+                                                [
+                                                    'input-d',
+                                                    styles['input-item']
+                                                ].join(' ')
+                                            }
+                                            list='facultyList'
+                                        />
+                                        <datalist id='facultyList'>
+                                            {
+                                                facultyQueryData.data ? facultyQueryData.data.map(item => {
+                                                    return <option key={`faculty-${item.id}`} value={item.id}>{item.name}</option>
+                                                }) : null
+                                            }
+                                        </datalist>
+                                    </div>
+                                    : null
+                            }
+                            <div className={styles['wrap-item']}>
+                                <label className={styles['required']} htmlFor=''>{language?.genders.gender}</label>
+                                <CustomSelect
+                                    name='gender'
+                                    defaultOption={options[0]}
+                                    options={options}
+                                    className={
+                                        [
+                                            styles['custom-select']
+                                        ].join(' ')
+                                    }
+                                />
+                            </div>
+                            <div className={styles['wrap-item']}>
+                                <label className={styles['required']} htmlFor='address'>{language?.address}</label>
+                                <input
+                                    id='address'
+                                    name='address'
+                                    className={
+                                        [
                                             'input-d',
                                             styles['input-item']
                                         ].join(' ')
+                                    } type='text' />
+                            </div>
+                            <div className={styles['wrap-item']}>
+                                <label className={styles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
+                                <Datetime
+                                    initialValue={new Date()}
+                                    inputProps={
+                                        {
+                                            id: 'birth_date',
+                                            name: 'birth_date',
+                                            className: [
+                                                'input-d',
+                                                styles['input-item']
+                                            ].join(' ')
+                                        }
                                     }
-                                }
-                                closeOnSelect={true}
-                                timeFormat={false}
-                            />
+                                    closeOnSelect={true}
+                                    timeFormat={false}
+                                />
+                            </div>
+                            <div className={styles['wrap-item']}>
+                                <label className={styles['required']} htmlFor='password'>{language?.password}</label>
+                                <input
+                                    id='password'
+                                    name='password'
+                                    className={
+                                        [
+                                            'input-d',
+                                            styles['input-item']
+                                        ].join(' ')
+                                    } type='password' />
+                            </div>
                         </div>
-                        <div className={styles['wrap-item']}>
-                            <label className={styles['required']} htmlFor='password'>{language?.password}</label>
-                            <input
-                                id='password'
-                                name='password'
-                                className={
-                                    [
-                                        'input-d',
-                                        styles['input-item']
-                                    ].join(' ')
-                                } type='password' />
+                        <div className={styles['action-items']}>
+                            <button name='save' className='action-item-d'>{language?.save}</button>
+                            <button name='save-more' className='action-item-d-white'>{language?.saveMore}</button>
                         </div>
-                    </div>
-                    <div className={styles['action-items']}>
-                        <button name='save' className='action-item-d'>{language?.save}</button>
-                        <button name='save-more' className='action-item-d-white'>{language?.saveMore}</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div >
         </div >
     )
