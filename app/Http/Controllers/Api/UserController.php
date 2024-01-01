@@ -43,12 +43,12 @@ class UserController extends Controller
             $data['password'] = Hash::make($request->password);
             $data['role_id'] = Role::ROLES[$request->role];
             if ($request->role == 'student') {
-                $exists_class = SchoolClass::select('id')->where('id', $request->school_class_id)->exists();
+                $exists_class = SchoolClass::where('id', $request->school_class_id)->exists();
                 if ($exists_class == false) return Reply::error('app.errors.classNotRxists', [
                     'id' => $request->school_class_id
                 ]);
             } else if ($request->role == 'teacher') {
-                $exists_faculty = Faculty::select('id')->where('id', $request->faculty_id)->exists();
+                $exists_faculty = Faculty::where('id', $request->faculty_id)->exists();
                 if ($exists_faculty == false) return Reply::error('app.errors.faucltyNotRxists', [
                     'id' => $request->faculty_id
                 ]);
@@ -114,12 +114,12 @@ class UserController extends Controller
             if ($user->id == $id) $data['is_active'] = 1;
             if ($request->password != null) $data['password'] = Hash::make($request->password);
             if ($targetUser->role_id == Role::ROLES['student']) {
-                $exists_class = SchoolClass::select('id')->where('id', $request->school_class_id)->exists();
+                $exists_class = SchoolClass::where('id', $request->school_class_id)->exists();
                 if ($exists_class == false) return Reply::error('app.errors.classNotRxists', [
                     'id' => $request->school_class_id
                 ]);
             } else if ($targetUser->role_id == Role::ROLES['teacher']) {
-                $exists_faculty = Faculty::select('id')->where('id', $request->faculty_id)->exists();
+                $exists_faculty = Faculty::where('id', $request->faculty_id)->exists();
                 if ($exists_faculty == false) return Reply::error('app.errors.faucltyNotRxists', [
                     'id' => $request->faculty_id
                 ]);
@@ -202,13 +202,13 @@ class UserController extends Controller
                     'password' => Hash::make($row[9])
                 ];
                 if ($request->role == 'student') {
-                    $exists_class = SchoolClass::select('id')->where('id', $row[0])->exists();
+                    $exists_class = SchoolClass::where('id', $row[0])->exists();
                     if ($exists_class == false) return Reply::error('app.errors.classNotRxists', [
                         'id' => $row[0]
                     ]);
                     $record['school_class_id'] = $row[0];
                 } else if ($request->role == 'teacher') {
-                    $exists_faculty = Faculty::select('id')->where('id', $row[0])->exists();
+                    $exists_faculty = Faculty::where('id', $row[0])->exists();
                     if ($exists_faculty == false) return Reply::error('app.errors.faucltyNotRxists', [
                         'id' => $row[0]
                     ]);
