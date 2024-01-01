@@ -12,7 +12,9 @@ use App\Http\Requests\User\ImportRequest;
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\UpdateRequest;
 use App\Models\Course;
+use App\Models\Faculty;
 use App\Models\Role;
+use App\Models\SchoolClass;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -40,6 +42,17 @@ class UserController extends Controller
             $data = collect($request->validated())->except(['role'])->toArray();
             $data['password'] = Hash::make($request->password);
             $data['role_id'] = Role::ROLES[$request->role];
+            if ($request->role == 'student') {
+                $exists_class = SchoolClass::select('id')->where('id', $request->school_class_id)->exists();
+                if ($exists_class == false) return Reply::error('app.errors.classNotRxists', [
+                    'id' => $request->school_class_id
+                ]);
+            } else if ($request->role == 'teacher') {
+                $exists_faculty = Faculty::select('id')->where('id', $request->faculty_id)->exists();
+                if ($exists_faculty == false) return Reply::error('app.errors.faucltyNotRxists', [
+                    'id' => $request->faculty_id
+                ]);
+            }
             User::create($data);
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
@@ -100,6 +113,17 @@ class UserController extends Controller
             $data = collect($request->validated())->except(['password'])->toArray();
             if ($user->id == $id) $data['is_active'] = 1;
             if ($request->password != null) $data['password'] = Hash::make($request->password);
+            if ($targetUser->role_id == Role::ROLES['student']) {
+                $exists_class = SchoolClass::select('id')->where('id', $request->school_class_id)->exists();
+                if ($exists_class == false) return Reply::error('app.errors.classNotRxists', [
+                    'id' => $request->school_class_id
+                ]);
+            } else if ($targetUser->role_id == Role::ROLES['teacher']) {
+                $exists_faculty = Faculty::select('id')->where('id', $request->faculty_id)->exists();
+                if ($exists_faculty == false) return Reply::error('app.errors.faucltyNotRxists', [
+                    'id' => $request->faculty_id
+                ]);
+            }
             $targetUser->update($data);
             DB::commit();
             if ($data['is_active'] == 0) $targetUser->tokens()->delete();
@@ -177,8 +201,19 @@ class UserController extends Controller
                     'is_active' => true,
                     'password' => Hash::make($row[9])
                 ];
-                if ($request->role == 'student') $record['school_class_id'] = $row[0];
-                if ($request->role == 'teacher') $record['faculty_id'] = $row[0];
+                if ($request->role == 'student') {
+                    $exists_class = SchoolClass::select('id')->where('id', $row[0])->exists();
+                    if ($exists_class == false) return Reply::error('app.errors.classNotRxists', [
+                        'id' => $row[0]
+                    ]);
+                    $record['school_class_id'] = $row[0];
+                } else if ($request->role == 'teacher') {
+                    $exists_faculty = Faculty::select('id')->where('id', $row[0])->exists();
+                    if ($exists_faculty == false) return Reply::error('app.errors.faucltyNotRxists', [
+                        'id' => $row[0]
+                    ]);
+                    $record['faculty_id'] = $row[0];
+                }
                 $data[] = $record;
             }
             foreach ($data as $row) {

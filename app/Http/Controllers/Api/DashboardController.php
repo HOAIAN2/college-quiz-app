@@ -8,12 +8,11 @@ use App\Models\Course;
 use App\Models\Exam;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $user = $this->getUser();
         $data = (object)[];

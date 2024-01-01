@@ -32,6 +32,7 @@ class Reply
 
     public static function error($message, $transData = [], $status = 400)
     {
+        error_log(json_encode($transData));
         return response()->json([
             'status' => 'fail',
             'message' => trans($message, $transData)

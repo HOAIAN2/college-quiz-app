@@ -12,6 +12,8 @@ return [
     ],
     'errors' => [
         'serverError' => 'Server error',
-        'failToSaveRecord' => 'Fail to save record'
+        'failToSaveRecord' => 'Fail to save record',
+        'classNotRxists' => 'Class {0} not exists',
+        'faucltyNotRxists' => 'Fauclty {0} not exists',
     ],
 ];
