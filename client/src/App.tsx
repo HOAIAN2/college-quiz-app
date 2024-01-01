@@ -5,6 +5,7 @@ import {
 import { Suspense, lazy } from 'react'
 import 'react-datetime/css/react-datetime.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Toaster } from 'sonner'
 import './App.css'
 import SuspenseLoading from './components/SuspenseLoading'
 import AuthLayout from './layouts/AuthLayout'
@@ -77,9 +78,12 @@ const router = createBrowserRouter([
 const queryClient = new QueryClient()
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <>
+      <Toaster richColors closeButton position="top-right" />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </>
   )
 }
 

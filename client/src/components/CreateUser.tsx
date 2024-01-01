@@ -157,7 +157,7 @@ export default function CreateUser({
                                     } type='text' />
                             </div>
                             <div className={styles['wrap-item']}>
-                                <label className={styles['required']} htmlFor='phone_number'>{language?.phoneNumber}</label>
+                                <label htmlFor='phone_number'>{language?.phoneNumber}</label>
                                 <input
                                     id='phone_number'
                                     name='phone_number'
