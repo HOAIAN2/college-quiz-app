@@ -44,12 +44,12 @@ class UserController extends Controller
             if ($request->role == 'student') {
                 $exists_class = SchoolClass::where('id', $request->school_class_id)->exists();
                 if ($exists_class == false) return Reply::error('app.errors.classNotExists', [
-                    'id' => $request->school_class_id
+                    'ids' => $request->school_class_id
                 ]);
             } else if ($request->role == 'teacher') {
                 $exists_faculty = Faculty::where('id', $request->faculty_id)->exists();
                 if ($exists_faculty == false) return Reply::error('app.errors.faucltyNotExists', [
-                    'id' => $request->faculty_id
+                    'ids' => $request->faculty_id
                 ]);
             }
             User::create($data);
@@ -115,12 +115,12 @@ class UserController extends Controller
             if ($targetUser->role_id == Role::ROLES['student']) {
                 $exists_class = SchoolClass::where('id', $request->school_class_id)->exists();
                 if ($exists_class == false) return Reply::error('app.errors.classNotExists', [
-                    'id' => $request->school_class_id
+                    'ids' => $request->school_class_id
                 ]);
             } else if ($targetUser->role_id == Role::ROLES['teacher']) {
                 $exists_faculty = Faculty::where('id', $request->faculty_id)->exists();
                 if ($exists_faculty == false) return Reply::error('app.errors.faucltyNotExists', [
-                    'id' => $request->faculty_id
+                    'ids' => $request->faculty_id
                 ]);
             }
             $targetUser->update($data);
