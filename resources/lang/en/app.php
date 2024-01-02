@@ -14,6 +14,6 @@ return [
         'serverError' => 'Server error',
         'failToSaveRecord' => 'Fail to save record',
         'classNotExists' => 'Class :ids not exists',
-        'faucltyNotExists' => 'Fauclty :id not exists',
+        'faucltyNotExists' => 'Fauclty :ids not exists',
     ],
 ];

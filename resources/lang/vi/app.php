@@ -14,6 +14,6 @@ return [
         'serverError' => 'Lỗi server',
         'failToSaveRecord' => 'Lưu bản ghi thất bại',
         'classNotExists' => 'Lớp :ids không tồn tại',
-        'faucltyNotExists' => 'Khoa :id không tồn tại',
+        'faucltyNotExists' => 'Khoa :ids không tồn tại',
     ],
 ];
