@@ -79,7 +79,15 @@ const queryClient = new QueryClient()
 function App() {
   return (
     <>
-      <Toaster richColors closeButton position="top-right" />
+      <Toaster
+        richColors
+        closeButton
+        visibleToasts={5}
+        position='bottom-left'
+        toastOptions={{
+          duration: 3000
+        }}
+      />
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
       </QueryClientProvider>

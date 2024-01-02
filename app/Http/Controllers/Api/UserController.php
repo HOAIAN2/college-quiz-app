@@ -43,12 +43,12 @@ class UserController extends Controller
             $data['role_id'] = Role::ROLES[$request->role];
             if ($request->role == 'student') {
                 $exists_class = SchoolClass::where('id', $request->school_class_id)->exists();
-                if ($exists_class == false) return Reply::error('app.errors.classNotRxists', [
+                if ($exists_class == false) return Reply::error('app.errors.classNotExists', [
                     'id' => $request->school_class_id
                 ]);
             } else if ($request->role == 'teacher') {
                 $exists_faculty = Faculty::where('id', $request->faculty_id)->exists();
-                if ($exists_faculty == false) return Reply::error('app.errors.faucltyNotRxists', [
+                if ($exists_faculty == false) return Reply::error('app.errors.faucltyNotExists', [
                     'id' => $request->faculty_id
                 ]);
             }
@@ -114,12 +114,12 @@ class UserController extends Controller
             if ($request->password != null) $data['password'] = Hash::make($request->password);
             if ($targetUser->role_id == Role::ROLES['student']) {
                 $exists_class = SchoolClass::where('id', $request->school_class_id)->exists();
-                if ($exists_class == false) return Reply::error('app.errors.classNotRxists', [
+                if ($exists_class == false) return Reply::error('app.errors.classNotExists', [
                     'id' => $request->school_class_id
                 ]);
             } else if ($targetUser->role_id == Role::ROLES['teacher']) {
                 $exists_faculty = Faculty::where('id', $request->faculty_id)->exists();
-                if ($exists_faculty == false) return Reply::error('app.errors.faucltyNotRxists', [
+                if ($exists_faculty == false) return Reply::error('app.errors.faucltyNotExists', [
                     'id' => $request->faculty_id
                 ]);
             }
@@ -185,6 +185,8 @@ class UserController extends Controller
             $role_id = Role::ROLES[$request->role];
             $sheets = Excel::toArray([], $file);
             $data = [];
+            $class_list = [];
+            $faculty_list = [];
             foreach ($sheets[0] as $index => $row) {
                 if ($index == 0) continue;
                 $record = [
@@ -201,20 +203,34 @@ class UserController extends Controller
                     'password' => Hash::make($row[9])
                 ];
                 if ($request->role == 'student') {
-                    $exists_class = SchoolClass::where('id', $row[0])->exists();
-                    if ($exists_class == false) return Reply::error('app.errors.classNotRxists', [
-                        'id' => $row[0]
-                    ]);
                     $record['school_class_id'] = $row[0];
+                    $class_list[] = $row[0];
                 } else if ($request->role == 'teacher') {
-                    $exists_faculty = Faculty::where('id', $row[0])->exists();
-                    if ($exists_faculty == false) return Reply::error('app.errors.faucltyNotRxists', [
-                        'id' => $row[0]
-                    ]);
                     $record['faculty_id'] = $row[0];
+                    $faculty_list[] = $row[0];
                 }
                 $data[] = $record;
             }
+            $unique_class_list = collect($class_list)->unique();
+            $unique_faculty_list = collect($faculty_list)->unique();
+
+            $existingIds = SchoolClass::whereIn('id', $unique_class_list)->pluck('id')->toArray();
+            $nonExistingIds = array_diff($unique_class_list->toArray(), $existingIds);
+            if (!empty($nonExistingIds)) {
+                return Reply::error('app.errors.classNotExists', [
+                    'ids' => implode(', ', $nonExistingIds)
+                ]);
+            }
+
+            $existingIds = Faculty::whereIn('id', $unique_class_list)->pluck('id')->toArray();
+            $nonExistingIds = array_diff($unique_faculty_list->toArray(), $existingIds);
+            if (!empty($nonExistingIds)) {
+                return Reply::error('app.errors.classNotExists', [
+                    'ids' => implode(', ', $nonExistingIds)
+                ]);
+            }
+
+            Reply::error('app.errors.failToSaveRecord');
             foreach ($data as $row) {
                 User::create($row);
             }
