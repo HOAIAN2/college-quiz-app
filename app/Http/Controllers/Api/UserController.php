@@ -230,7 +230,6 @@ class UserController extends Controller
                 ]);
             }
 
-            Reply::error('app.errors.failToSaveRecord');
             foreach ($data as $row) {
                 User::create($row);
             }
