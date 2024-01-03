@@ -20,6 +20,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
@@ -190,7 +192,7 @@ class UserController extends Controller
             foreach ($sheets[0] as $index => $row) {
                 if ($index == 0) continue;
                 $record = [
-                    'role_id' => $role_id,
+                    'role' => $request->role,
                     'shortcode' => $row[1],
                     'first_name' => $row[3],
                     'last_name' => $row[2],
@@ -200,7 +202,7 @@ class UserController extends Controller
                     'address' => $row[7],
                     'birth_date' => Carbon::instance(Date::excelToDateTimeObject($row[8])),
                     'is_active' => true,
-                    'password' => Hash::make($row[9])
+                    'password' => $row[9]
                 ];
                 if ($request->role == 'student') {
                     $record['school_class_id'] = $row[0];
@@ -209,7 +211,14 @@ class UserController extends Controller
                     $record['faculty_id'] = $row[0];
                     $faculty_list[] = $row[0];
                 }
-                $data[] = $record;
+
+                $validated_record = $this->validateUserArray($record);
+
+                $validated_record = collect($validated_record)->except(['role'])->toArray();
+                $validated_record['password'] = Hash::make($request->password);
+                $validated_record['role_id'] = $role_id;
+
+                $data[] = $validated_record;
             }
             $unique_class_list = collect($class_list)->unique();
             $unique_faculty_list = collect($faculty_list)->unique();
@@ -265,5 +274,16 @@ class UserController extends Controller
             if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.serverError');
         }
+    }
+    public function validateUserArray($record)
+    {
+        $store_request = new StoreRequest();
+        $validator = Validator::make($record, $store_request->rules());
+
+        if ($validator->fails()) {
+            throw ValidationException::withMessages($validator->errors()->toArray());
+        }
+
+        return $validator->validated();
     }
 }
