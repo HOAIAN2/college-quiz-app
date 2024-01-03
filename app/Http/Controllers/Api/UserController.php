@@ -275,6 +275,7 @@ class UserController extends Controller
             return Reply::error('app.errors.serverError');
         }
     }
+
     public function validateUserArray($record)
     {
         $store_request = new StoreRequest();

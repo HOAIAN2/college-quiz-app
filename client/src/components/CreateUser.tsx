@@ -13,6 +13,7 @@ import { ComponentCreateUserLang } from '../models/lang'
 import { RoleName } from '../models/user'
 import styles from '../styles/CreateUser.module.css'
 import CustomSelect from './CustomSelect'
+import Loading from './Loading'
 
 type CreateUserProps = {
     role: RoleName
@@ -80,7 +81,7 @@ export default function CreateUser({
             getParentElement(element).removeAttribute('data-error')
         }
     }
-    const { mutate } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: handleCreateUser,
         onError: (error: object) => {
             if (typeof error === 'object') {
@@ -113,6 +114,9 @@ export default function CreateUser({
                 hide ? styles['hide'] : ''
             ].join(' ')
         }>
+            {
+                isPending ? <Loading /> : null
+            }
             <div className={
                 [
                     styles['create-user-form'],
@@ -314,8 +318,21 @@ export default function CreateUser({
                             </div>
                         </div>
                         <div className={styles['action-items']}>
-                            <button name='save' className='action-item-d'>{language?.save}</button>
-                            <button name='save-more' className='action-item-d-white'>{language?.saveMore}</button>
+                            <button name='save'
+                                className={
+                                    [
+                                        'action-item-d',
+                                        isPending ? 'button-submitting' : ''
+                                    ].join(' ')
+                                }>{language?.save}</button>
+                            <button name='save-more'
+                                className={
+                                    [
+                                        'action-item-d-white',
+                                        isPending ? 'button-submitting' : ''
+                                    ].join(' ')
+                                }
+                            >{language?.saveMore}</button>
                         </div>
                     </form>
                 </div>

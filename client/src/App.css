@@ -87,6 +87,7 @@
     box-shadow: 0px 0px 10px var(--color-shadow);
     margin: 0 auto;
     cursor: pointer;
+    user-select: none;
 }
 
 .input-d {
@@ -120,4 +121,10 @@
     box-shadow: 0px 0px 10px var(--color-shadow);
     padding-top: 3px;
     background: white;
+}
+
+.button-submitting {
+    opacity: 0.7;
+    cursor: default;
+    pointer-events: none;
 }

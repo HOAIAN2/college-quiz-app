@@ -4,6 +4,7 @@ import Datetime from 'react-datetime'
 import { apiGetUser, apiUpdateUser } from '../api/user'
 import ChangePassword from '../components/ChangePassword'
 import CustomSelect from '../components/CustomSelect'
+import Loading from '../components/Loading'
 import SuspenseLoading from '../components/SuspenseLoading'
 import { USER_ACTION } from '../contexts/UserContext'
 import useAppContext from '../hooks/useAppContext'
@@ -46,7 +47,7 @@ export default function Profile() {
         const formData = new FormData(form)
         await apiUpdateUser(formData, queryData.data.id)
     }
-    const { mutate } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: handleUpdateUser,
         onError: (error: object) => {
             if (typeof error === 'object') {
@@ -98,6 +99,9 @@ export default function Profile() {
                     styles['profile-content']
                 ].join(' ')
             }>
+                {
+                    isPending ? <Loading /> : null
+                }
                 <div className={
                     [
                         styles['form-content']
@@ -256,7 +260,14 @@ export default function Profile() {
                         {
                             queryData.data?.role.name === 'admin' ?
                                 <div className={styles['action-items']}>
-                                    <button name='save' className='action-item-d'>{language?.save}</button>
+                                    <button name='save'
+                                        className={
+                                            [
+                                                'action-item-d',
+                                                isPending ? 'button-submitting' : ''
+                                            ].join(' ')
+                                        }
+                                    >{language?.save}</button>
                                 </div>
                                 : null
                         }

@@ -89,7 +89,7 @@ export default function ViewUser({
         const formData = new FormData(form)
         await apiUpdateUser(formData, id)
     }
-    const { mutate } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: handleUpdateUser,
         onError: (error: object) => {
             if (typeof error === 'object') {
@@ -135,6 +135,9 @@ export default function ViewUser({
                     hide ? styles['hide'] : ''
                 ].join(' ')
             }>
+            {
+                isPending ? <Loading /> : null
+            }
             <div
                 className={
                     [
@@ -382,7 +385,14 @@ export default function ViewUser({
                                     {
                                         user.user?.role.name === 'admin' ?
                                             <div className={styles['action-items']}>
-                                                <button name='save' className='action-item-d'>{language?.save}</button>
+                                                <button name='save'
+                                                    className={
+                                                        [
+                                                            'action-item-d',
+                                                            isPending ? 'button-submitting' : ''
+                                                        ].join(' ')
+                                                    }
+                                                >{language?.save}</button>
                                             </div>
                                             : null
                                     }
