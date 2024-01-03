@@ -7,6 +7,7 @@ import { apiAutoCompleteClass } from '../api/class'
 import { apiAutoCompleteFaculty } from '../api/faculty'
 import { apiGetUsersById, apiUpdateUser } from '../api/user'
 import useAppContext from '../hooks/useAppContext'
+import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentViewUserLang } from '../models/lang'
 import { UserDetail } from '../models/user'
@@ -30,6 +31,8 @@ export default function ViewUser({
     const { user } = useAppContext()
     const [queryClass, setQueryClass] = useState('')
     const [queryFaculty, setQueryFaculty] = useState('')
+    const debouceQueryClass = useDebounce(queryClass, 200) as string
+    const debouceQueryFaculty = useDebounce(queryClass, 200) as string
     const queryClient = useQueryClient()
     const handleTurnOffImportMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -49,18 +52,18 @@ export default function ViewUser({
         },
     })
     const classQueryData = useQuery({
-        queryKey: ['class-query', queryClass],
+        queryKey: ['class-query', debouceQueryClass],
         queryFn: () => {
-            return apiAutoCompleteClass(queryClass)
+            return apiAutoCompleteClass(debouceQueryClass)
         },
-        enabled: queryClass ? true : false
+        enabled: debouceQueryClass ? true : false
     })
     const facultyQueryData = useQuery({
-        queryKey: ['faculty-query', queryFaculty],
+        queryKey: ['faculty-query', debouceQueryFaculty],
         queryFn: () => {
-            return apiAutoCompleteFaculty(queryFaculty)
+            return apiAutoCompleteFaculty(debouceQueryFaculty)
         },
-        enabled: queryFaculty ? true : false
+        enabled: debouceQueryFaculty ? true : false
     })
     const getParentElement = (element: HTMLInputElement) => {
         let parent = element.parentElement as HTMLElement
