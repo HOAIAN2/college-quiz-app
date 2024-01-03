@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Traits\CustomValidateResponse;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ChangePassRequest extends FormRequest
 {
+    use CustomValidateResponse;
     /**
      * Determine if the user is authorized to make this request.
      */
