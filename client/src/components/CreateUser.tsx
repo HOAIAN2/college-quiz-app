@@ -29,7 +29,7 @@ export default function CreateUser({
     const [queryClass, setQueryClass] = useState('')
     const [queryFaculty, setQueryFaculty] = useState('')
     const debouceQueryClass = useDebounce(queryClass, 200) as string
-    const debouceQueryFaculty = useDebounce(queryClass, 200) as string
+    const debouceQueryFaculty = useDebounce(queryFaculty, 200) as string
     const queryClient = useQueryClient()
     const handleTurnOffInsertMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
