@@ -193,14 +193,14 @@ export default function UsersTable({
                                                                 styles['column'],
                                                                 styles['medium']
                                                             ].join(' ')
-                                                        }>{user.schoolClassId}</td>
+                                                        }>{user.schoolClass?.shortcode}</td>
                                                         : role === 'teacher' ?
                                                             <td className={
                                                                 [
                                                                     styles['column'],
                                                                     styles['medium']
                                                                 ].join(' ')
-                                                            }>{user.facultyId}</td>
+                                                            }>{user.faculty?.shortcode}</td>
                                                             : null
                                                 }
                                                 <td className={

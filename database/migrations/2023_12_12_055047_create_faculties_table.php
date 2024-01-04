@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('faculties', function (Blueprint $table) {
-            $table->string('id', 100)->primary();
+            $table->id();
+            $table->string('shortcode')->unique();
             $table->string('name');
             $table->string('email')->nullable();
             $table->string('phone_number')->nullable();

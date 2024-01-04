@@ -12,9 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('school_classes', function (Blueprint $table) {
-            $table->string('id', 100)->primary();
+            $table->id();
+            $table->string('shortcode')->unique();
             $table->string('name');
-            $table->string('faculty_id', 100)->nullable();
+            $table->unsignedBigInteger('faculty_id')->nullable();
             $table->timestamps();
             $table->foreign('faculty_id')->references('id')->on('faculties')->nullOnDelete();
         });

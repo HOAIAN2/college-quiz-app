@@ -1,4 +1,6 @@
+import { SchoolClass } from './class'
 import { Course } from './course'
+import { Faculty } from './faculty'
 
 export type User = {
     id: number
@@ -11,17 +13,20 @@ export type User = {
     gender: 'male' | 'female'
     address: string
     birthDate: string
-    schoolClassId: string | null
-    facultyId: string | null
+    schoolClassId: number | null
+    facultyId: number | null
     isActive: boolean
     emailVerifiedAt: string | null
     role: Role
 }
-export type UserDetail = {
-    user: User
-    course: Course[]
+export type UserDetail = User & {
+    schoolClass: SchoolClass | null
+    faculty: Faculty | null
 }
-
+export type UserWithCourse = {
+    user: UserDetail
+    courses: Course[]
+}
 export type RoleName = 'student' | 'teacher' | 'admin'
 
 export type Role = {
@@ -31,7 +36,7 @@ export type Role = {
 }
 export type UserPagination = {
     currentPage: number
-    data: User[]
+    data: UserDetail[]
     firstPageUrl: string
     from: number
     lastPage: number

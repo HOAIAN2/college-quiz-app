@@ -13,7 +13,7 @@ return [
     'errors' => [
         'serverError' => 'Server error',
         'failToSaveRecord' => 'Fail to save record',
-        'classNotExists' => 'Class :ids not exists',
-        'faucltyNotExists' => 'Fauclty :ids not exists',
+        'classNotExists' => 'Class :shortcodes not exists',
+        'faucltyNotExists' => 'Fauclty :shortcodes not exists',
     ],
 ];

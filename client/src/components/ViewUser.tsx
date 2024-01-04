@@ -113,11 +113,11 @@ export default function ViewUser({
         { value: '0', label: language?.status.inactive },
     ]
     useEffect(() => {
-        if (queryData.data?.user) {
-            if (queryData.data.user.role.name === 'student')
-                setQueryClass(queryData.data.user.schoolClassId as string)
+        if (queryData.data) {
+            if (queryData.data.role.name === 'student')
+                setQueryClass(queryData.data.schoolClass?.shortcode as string)
         }
-        if (queryData.data?.user && setUserDetail) {
+        if (queryData.data && setUserDetail) {
             setUserDetail(queryData.data)
         }
     }, [queryData.data, setUserDetail])
@@ -148,8 +148,8 @@ export default function ViewUser({
                 <div className={styles['header']}>
                     <h2 className={styles['title']}>{
                         [
-                            userDetail?.user.lastName,
-                            userDetail?.user.firstName
+                            userDetail?.lastName,
+                            userDetail?.firstName
                         ].join(' ')
                     }</h2>
                     <div className={styles['esc-button']}
@@ -184,7 +184,7 @@ export default function ViewUser({
                                             <input
                                                 id='email'
                                                 readOnly={user.user?.role.name === 'admin' ? false : true}
-                                                defaultValue={queryData.data.user.email}
+                                                defaultValue={queryData.data.email}
                                                 name='email'
                                                 className={
                                                     [
@@ -198,7 +198,7 @@ export default function ViewUser({
                                             <input
                                                 id='phone_number'
                                                 readOnly={user.user?.role.name === 'admin' ? false : true}
-                                                defaultValue={queryData.data.user.phoneNumber || ''}
+                                                defaultValue={queryData.data.phoneNumber || ''}
                                                 name='phone_number'
                                                 className={
                                                     [
@@ -212,7 +212,7 @@ export default function ViewUser({
                                             <input
                                                 id='first_name'
                                                 readOnly={user.user?.role.name === 'admin' ? false : true}
-                                                defaultValue={queryData.data.user.firstName}
+                                                defaultValue={queryData.data.firstName}
                                                 name='first_name'
                                                 className={
                                                     [
@@ -226,7 +226,7 @@ export default function ViewUser({
                                             <input
                                                 id='last_name'
                                                 readOnly={user.user?.role.name === 'admin' ? false : true}
-                                                defaultValue={queryData.data.user.lastName}
+                                                defaultValue={queryData.data.lastName}
                                                 name='last_name'
                                                 className={
                                                     [
@@ -240,7 +240,7 @@ export default function ViewUser({
                                             <input
                                                 id='shortcode'
                                                 readOnly={user.user?.role.name === 'admin' ? false : true}
-                                                defaultValue={queryData.data.user.shortcode}
+                                                defaultValue={queryData.data.shortcode}
                                                 name='shortcode'
                                                 className={
                                                     [
@@ -249,14 +249,14 @@ export default function ViewUser({
                                                     ].join(' ')
                                                 } type='text' />
                                         </div>
-                                        {queryData.data?.user.role.name === 'student' ?
+                                        {queryData.data.role.name === 'student' ?
                                             <div className={styles['wrap-item']}>
-                                                <label className={styles['required']} htmlFor='school_class_id'>{language?.class}</label>
+                                                <label className={styles['required']} htmlFor='school_class'>{language?.class}</label>
                                                 <input
-                                                    id='school_class_id'
+                                                    id='school_class'
                                                     readOnly={user.user?.role.name === 'admin' ? false : true}
-                                                    defaultValue={queryData.data.user.schoolClassId || ''}
-                                                    name='school_class_id'
+                                                    defaultValue={queryData.data.schoolClass?.shortcode || ''}
+                                                    name='school_class'
                                                     onInput={(e) => { setQueryClass(e.currentTarget.value) }}
                                                     className={
                                                         [
@@ -269,16 +269,18 @@ export default function ViewUser({
                                                 <datalist id='classList'>
                                                     {
                                                         classQueryData.data ? classQueryData.data.map(item => {
-                                                            return <option key={`class-${item.id}`} value={item.id}>{item.name}</option>
+                                                            return <option key={`class-${item.id}`} value={item.shortcode}>{item.name}</option>
                                                         }) : null
                                                     }
                                                 </datalist>
                                             </div>
-                                            : queryData.data?.user.role.name === 'teacher' ?
+                                            : queryData.data.role.name === 'teacher' ?
                                                 <div className={styles['wrap-item']}>
                                                     <label className={styles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
                                                     <input
                                                         id='faculty_id'
+                                                        readOnly={user.user?.role.name === 'admin' ? false : true}
+                                                        defaultValue={queryData.data.faculty?.shortcode || ''}
                                                         name='faculty_id'
                                                         value={queryFaculty}
                                                         onInput={(e) => { setQueryFaculty(e.currentTarget.value) }}
@@ -293,7 +295,7 @@ export default function ViewUser({
                                                     <datalist id='facultyList'>
                                                         {
                                                             facultyQueryData.data ? facultyQueryData.data.map(item => {
-                                                                return <option key={`faculty-${item.id}`} value={item.id}>{item.name}</option>
+                                                                return <option key={`faculty-${item.id}`} value={item.shortcode}>{item.name}</option>
                                                             }) : null
                                                         }
                                                     </datalist>
@@ -307,7 +309,7 @@ export default function ViewUser({
                                             <CustomSelect
                                                 name='gender'
                                                 defaultOption={
-                                                    queryData.data.user.gender === 'male'
+                                                    queryData.data.gender === 'male'
                                                         ? genderOptions[0] : genderOptions[1]
                                                 }
                                                 options={genderOptions}
@@ -323,7 +325,7 @@ export default function ViewUser({
                                             <input
                                                 id='address'
                                                 readOnly={user.user?.role.name === 'admin' ? false : true}
-                                                defaultValue={queryData.data.user.address}
+                                                defaultValue={queryData.data.address}
                                                 name='address'
                                                 className={
                                                     [
@@ -335,7 +337,7 @@ export default function ViewUser({
                                         <div className={styles['wrap-item']}>
                                             <label className={styles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
                                             <Datetime
-                                                initialValue={new Date(queryData.data.user.birthDate)}
+                                                initialValue={new Date(queryData.data.birthDate)}
                                                 inputProps={
                                                     {
                                                         id: 'birth_date',
@@ -356,7 +358,7 @@ export default function ViewUser({
                                             <CustomSelect
                                                 name='is_active'
                                                 defaultOption={
-                                                    queryData.data.user.isActive
+                                                    queryData.data.isActive
                                                         ? statusOptions[0] : statusOptions[1]
                                                 }
                                                 options={statusOptions}

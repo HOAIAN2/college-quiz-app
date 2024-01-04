@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\SchoolClass;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class StudentSeeder extends Seeder
 {
@@ -13,7 +14,13 @@ class StudentSeeder extends Seeder
      */
     public function run(): void
     {
-        $sqlContent = file_get_contents(base_path('/dump/users_202311230920.sql'));
-        DB::unprepared($sqlContent);
+        $students = file_get_contents(base_path('/dump/students.json'));
+        $students = json_decode($students);
+        foreach ($students as $student) {
+            $school_class_id = SchoolClass::where('shortcode', $student->school_class)->pluck('id')->first();
+            $student = collect($student)->except(['school_class', 'faculty'])->toArray();
+            $student['school_class_id'] = $school_class_id;
+            User::create($student);
+        }
     }
 }

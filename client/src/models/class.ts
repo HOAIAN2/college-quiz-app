@@ -1,7 +1,8 @@
 export type SchoolClass = {
-    id: string
+    id: number
+    shortcode: string
     name: string
-    facultyId: string
+    facultyId: number
     createdAt: string
     updatedAt: string
 }

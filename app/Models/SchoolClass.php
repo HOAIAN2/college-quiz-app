@@ -14,30 +14,35 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class SchoolClass
  * 
- * @property string $id
+ * @property int $id
+ * @property string $shortcode
  * @property string $name
- * @property string|null $faculty_id
+ * @property int|null $faculty_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
  * @property Faculty|null $faculty
  * @property Collection|User[] $students
  *
- * @package App\Models\Test
+ * @package App\Models
  */
 class SchoolClass extends Model
 {
 	use FullTextSearch;
 
 	protected $table = 'school_classes';
-	public $incrementing = false;
 
 	protected $searchable = [
-		'id',
+		'shortcode',
 		'name',
-		'faculty_id',
 	];
+
+	protected $casts = [
+		'faculty_id' => 'int'
+	];
+
 	protected $fillable = [
+		'shortcode',
 		'name',
 		'faculty_id'
 	];

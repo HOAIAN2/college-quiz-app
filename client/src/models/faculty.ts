@@ -1,5 +1,6 @@
 export type Faculty = {
-    id: string
+    id: number
+    shortcode: string
     name: string
     email: string | null
     phoneNumber: string

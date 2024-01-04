@@ -22,8 +22,8 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female'])->default('male');
             $table->string('address');
             $table->date('birth_date');
-            $table->string('school_class_id', 100)->nullable();
-            $table->string('faculty_id', 100)->nullable();
+            $table->unsignedBigInteger('school_class_id')->nullable();
+            $table->unsignedBigInteger('faculty_id')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

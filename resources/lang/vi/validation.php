@@ -22,8 +22,8 @@ return [
         'address' => 'địa chỉ',
         'phone_number' => 'số điện thoại',
         'birth_date' => 'ngày sinh',
-        'school_class_id' => 'lớp học',
-        'faculty_id' => 'khoa',
+        'school_class' => 'lớp học',
+        'faculty' => 'khoa',
         'password' => 'mật khẩu',
     ],
     'custom' => [
@@ -42,10 +42,10 @@ return [
         'birth_date' => [
             'before' => 'Ngày sinh phải là một ngày trước ngày hôm nay.',
         ],
-        'school_class_id' => [
+        'school_class' => [
             'required_if' => 'Trường lớp học là bắt buộc khi vai trò là học sinh.',
         ],
-        'faculty_id' => [
+        'faculty' => [
             'required_if' => 'Trường khoa là bắt buộc khi vai trò là giáo viên.',
         ],
         'password' => [

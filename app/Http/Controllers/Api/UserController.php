@@ -40,19 +40,26 @@ class UserController extends Controller
 
         DB::beginTransaction();
         try {
-            $data = collect($request->validated())->except(['role'])->toArray();
+            $school_class = $request->school_class;
+            $faculty = $request->faculty;
+            $data = collect($request->validated())->except(['role', 'school_class', 'faculty'])->toArray();
+
             $data['password'] = Hash::make($request->password);
             $data['role_id'] = Role::ROLES[$request->role];
             if ($request->role == 'student') {
-                $exists_class = SchoolClass::where('id', $request->school_class_id)->exists();
-                if ($exists_class == false) return Reply::error('app.errors.classNotExists', [
-                    'ids' => $request->school_class_id
+                $school_class_id = SchoolClass::where('shortcode', $school_class)->pluck('id')->first();
+                if ($school_class_id == null) return Reply::error('app.errors.classNotExists', [
+                    'shortcodes' => $school_class
                 ]);
-            } else if ($request->role == 'teacher') {
-                $exists_faculty = Faculty::where('id', $request->faculty_id)->exists();
-                if ($exists_faculty == false) return Reply::error('app.errors.faucltyNotExists', [
-                    'ids' => $request->faculty_id
+                $data['school_class_id'] = $school_class_id;
+            }
+
+            if ($request->role == 'teacher') {
+                $faculty_id = Faculty::where('shortcode', $faculty)->pluck('id')->first();
+                if ($faculty_id == false) return Reply::error('app.errors.faucltyNotExists', [
+                    'shortcodes' => $faculty
                 ]);
+                $data['school_class_id'] = $faculty_id;
             }
             User::create($data);
             DB::commit();
@@ -70,31 +77,8 @@ class UserController extends Controller
         $user = $this->getUser();
         if (!$user->isAdmin() && !$user->isTeacher() && $id != $user->id) return Reply::error('permission.errors.403');
 
-        $now = now();
-        $data = (object)[];
         try {
-            $data->user = User::with('role')->find($id);
-            if ($data->user == null) return Reply::successWithData($data, '');
-            # Get course
-            switch ($data->user->role_id) {
-                case Role::ROLES['student']:
-                    $data->courses = Course::whereHas('semester', function ($query) use ($now) {
-                        $query->whereDate('start_date', '<=', $now)
-                            ->whereDate('end_date', '>=', $now);
-                    })->whereHas('enrollments', function ($query) use ($id) {
-                        $query->where('student_id', '=', $id);
-                    });
-                    break;
-                case Role::ROLES['teacher']:
-                    $data->courses = Course::whereHas('semester', function ($query) use ($now) {
-                        $query->whereDate('start_date', '<=', $now)
-                            ->whereDate('end_date', '>=', $now);
-                    })->where('teacher_id', '=', $data->user->id);
-                    break;
-                default:
-                    $data->courses = [];
-                    break;
-            }
+            $data = User::with(['role', 'school_class', 'faculty'])->find($id);
             return Reply::successWithData($data, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
@@ -111,19 +95,28 @@ class UserController extends Controller
         DB::beginTransaction();
         try {
             $targetUser = User::with('role')->findOrFail($id);
-            $data = collect($request->validated())->except(['password'])->toArray();
+
+            $school_class = $request->school_class;
+            $faculty = $request->faculty;
+            $data = collect($request->validated())->except(['password', 'school_class', 'faculty'])->toArray();
+
             if ($user->id == $id) $data['is_active'] = 1;
             if ($request->password != null) $data['password'] = Hash::make($request->password);
+
             if ($targetUser->role_id == Role::ROLES['student']) {
-                $exists_class = SchoolClass::where('id', $request->school_class_id)->exists();
-                if ($exists_class == false) return Reply::error('app.errors.classNotExists', [
-                    'ids' => $request->school_class_id
+                $school_class_id = SchoolClass::where('shortcode', $school_class)->pluck('id')->first();
+                if ($school_class_id == null) return Reply::error('app.errors.classNotExists', [
+                    'shortcodes' => $school_class
                 ]);
-            } else if ($targetUser->role_id == Role::ROLES['teacher']) {
-                $exists_faculty = Faculty::where('id', $request->faculty_id)->exists();
-                if ($exists_faculty == false) return Reply::error('app.errors.faucltyNotExists', [
-                    'ids' => $request->faculty_id
+                $data['school_class_id'] = $school_class_id;
+            }
+
+            if ($targetUser->role_id == Role::ROLES['teacher']) {
+                $faculty_id = Faculty::where('shortcode', $faculty)->pluck('id')->first();
+                if ($faculty_id == false) return Reply::error('app.errors.faucltyNotExists', [
+                    'shortcodes' => $faculty
                 ]);
+                $data['school_class_id'] = $faculty_id;
             }
             $targetUser->update($data);
             DB::commit();
@@ -161,7 +154,7 @@ class UserController extends Controller
         if (!$user->isAdmin() && !$user->isTeacher()) return Reply::error('permission.errors.403');
 
         try {
-            $users = User::with('role')
+            $users = User::with(['role', 'school_class', 'faculty'])
                 ->whereRoleId(Role::ROLES[$request->role]);
             if ($request->search != null) {
                 $users = $users->search($request->search);
@@ -187,8 +180,8 @@ class UserController extends Controller
             $role_id = Role::ROLES[$request->role];
             $sheets = Excel::toArray([], $file);
             $data = [];
-            $class_list = [];
-            $faculty_list = [];
+            $non_exists_classes = [];
+            $non_exists_faculties = [];
             foreach ($sheets[0] as $index => $row) {
                 if ($index == 0) continue;
                 $record = [
@@ -204,15 +197,20 @@ class UserController extends Controller
                     'is_active' => true,
                     'password' => $row[9]
                 ];
-                if ($request->role == 'student') {
-                    $record['school_class_id'] = $row[0];
-                    $class_list[] = $row[0];
-                } else if ($request->role == 'teacher') {
-                    $record['faculty_id'] = $row[0];
-                    $faculty_list[] = $row[0];
-                }
 
                 $validated_record = $this->validateUserArray($record);
+
+                if ($request->role == 'student') {
+                    $school_class_id = SchoolClass::where('shortcode', $row[0])->pluck('id')->first();
+                    $record['school_class_id'] = $school_class_id;
+                    if ($school_class_id == null) $non_exists_classes[] = $row[0];
+                }
+
+                if ($request->role == 'teacher') {
+                    $faculty_id = Faculty::where('shortcode', $row[0])->pluck('id')->first();
+                    $record['faculty_id'] = $faculty_id;
+                    if ($faculty_id == null) $non_exists_faculties[] = $row[0];
+                }
 
                 $validated_record = collect($validated_record)->except(['role'])->toArray();
                 $validated_record['password'] = Hash::make($request->password);
@@ -220,22 +218,14 @@ class UserController extends Controller
 
                 $data[] = $validated_record;
             }
-            $unique_class_list = collect($class_list)->unique();
-            $unique_faculty_list = collect($faculty_list)->unique();
-
-            $existingIds = SchoolClass::whereIn('id', $unique_class_list)->pluck('id')->toArray();
-            $nonExistingIds = array_diff($unique_class_list->toArray(), $existingIds);
-            if (!empty($nonExistingIds)) {
+            if (count($non_exists_classes) != 0) {
                 return Reply::error('app.errors.classNotExists', [
-                    'ids' => implode(', ', $nonExistingIds)
+                    'shortcodes' => implode(', ', $non_exists_classes)
                 ]);
             }
-
-            $existingIds = Faculty::whereIn('id', $unique_class_list)->pluck('id')->toArray();
-            $nonExistingIds = array_diff($unique_faculty_list->toArray(), $existingIds);
-            if (!empty($nonExistingIds)) {
-                return Reply::error('app.errors.classNotExists', [
-                    'ids' => implode(', ', $nonExistingIds)
+            if (count($non_exists_faculties) != 0) {
+                return Reply::error('app.errors.facultyNotExists', [
+                    'shortcodes' => implode(', ', $non_exists_faculties)
                 ]);
             }
 
@@ -279,7 +269,8 @@ class UserController extends Controller
     public function validateUserArray($record)
     {
         $store_request = new StoreRequest();
-        $validator = Validator::make($record, $store_request->rules());
+        $rules = collect($store_request->rules())->except(['school_class', 'faculty'])->toArray();
+        $validator = Validator::make($record, $rules);
 
         if ($validator->fails()) {
             throw ValidationException::withMessages($validator->errors()->toArray());

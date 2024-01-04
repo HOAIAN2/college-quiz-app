@@ -13,7 +13,7 @@ return [
     'errors' => [
         'serverError' => 'Lỗi server',
         'failToSaveRecord' => 'Lưu bản ghi thất bại',
-        'classNotExists' => 'Lớp :ids không tồn tại',
-        'faucltyNotExists' => 'Khoa :ids không tồn tại',
+        'classNotExists' => 'Lớp :shortcodes không tồn tại',
+        'faucltyNotExists' => 'Khoa :shortcodes không tồn tại',
     ],
 ];
