@@ -1,6 +1,5 @@
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
-// import { useNavigate } from 'react-router-dom'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import Datetime from 'react-datetime'
 import { apiAutoCompleteClass } from '../api/class'
@@ -41,7 +40,6 @@ export default function ViewUser({
         setTimeout(() => {
             setViewMode(false)
         }, timing)
-        // navigate(-1)
     }
     const queryData = useQuery({
         queryKey: ['user', id],
@@ -295,7 +293,7 @@ export default function ViewUser({
                                                     <datalist id='facultyList'>
                                                         {
                                                             facultyQueryData.data ? facultyQueryData.data.map(item => {
-                                                                return <option key={`faculty-${item.id}`} value={item.shortcode}>{item.name}</option>
+                                                                return <option key={`faculty-${item.idd}`} value={item.shortcode}>{item.name}</option>
                                                             }) : null
                                                         }
                                                     </datalist>

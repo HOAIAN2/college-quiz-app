@@ -213,10 +213,10 @@ export default function CreateUser({
                             </div>
                             {role === 'student' ?
                                 <div className={styles['wrap-item']}>
-                                    <label className={styles['required']} htmlFor='school_class_id'>{language?.class}</label>
+                                    <label className={styles['required']} htmlFor='school_class'>{language?.class}</label>
                                     <input
-                                        id='school_class_id'
-                                        name='school_class_id'
+                                        id='school_class'
+                                        name='school_class'
                                         value={queryClass}
                                         onInput={(e) => { setQueryClass(e.currentTarget.value) }}
                                         className={
@@ -230,17 +230,17 @@ export default function CreateUser({
                                     <datalist id='classList'>
                                         {
                                             classQueryData.data ? classQueryData.data.map(item => {
-                                                return <option key={`class-${item.id}`} value={item.id}>{item.name}</option>
+                                                return <option key={`class-${item.id}`} value={item.shortcode}>{item.name}</option>
                                             }) : null
                                         }
                                     </datalist>
                                 </div>
                                 : role === 'teacher' ?
                                     <div className={styles['wrap-item']}>
-                                        <label className={styles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
+                                        <label className={styles['required']} htmlFor='faculty'>{language?.faculty}</label>
                                         <input
-                                            id='faculty_id'
-                                            name='faculty_id'
+                                            id='faculty'
+                                            name='faculty'
                                             value={queryFaculty}
                                             onInput={(e) => { setQueryFaculty(e.currentTarget.value) }}
                                             className={
@@ -254,7 +254,7 @@ export default function CreateUser({
                                         <datalist id='facultyList'>
                                             {
                                                 facultyQueryData.data ? facultyQueryData.data.map(item => {
-                                                    return <option key={`faculty-${item.id}`} value={item.id}>{item.name}</option>
+                                                    return <option key={`faculty-${item.id}`} value={item.shortcode}>{item.name}</option>
                                                 }) : null
                                             }
                                         </datalist>
