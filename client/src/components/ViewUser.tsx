@@ -1,7 +1,7 @@
-import { SyntheticEvent, useEffect, useState } from 'react'
-import { RxCross2 } from 'react-icons/rx'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { SyntheticEvent, useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
+import { RxCross2 } from 'react-icons/rx'
 import { apiAutoCompleteClass } from '../api/class'
 import { apiAutoCompleteFaculty } from '../api/faculty'
 import { apiGetUsersById, apiUpdateUser } from '../api/user'
@@ -293,7 +293,7 @@ export default function ViewUser({
                                                     <datalist id='facultyList'>
                                                         {
                                                             facultyQueryData.data ? facultyQueryData.data.map(item => {
-                                                                return <option key={`faculty-${item.idd}`} value={item.shortcode}>{item.name}</option>
+                                                                return <option key={`faculty-${item.id}`} value={item.shortcode}>{item.name}</option>
                                                             }) : null
                                                         }
                                                     </datalist>
