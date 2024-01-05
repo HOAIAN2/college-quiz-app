@@ -59,7 +59,7 @@ class UserController extends Controller
                 if ($faculty_id == false) return Reply::error('app.errors.faucltyNotExists', [
                     'shortcodes' => $faculty
                 ]);
-                $data['school_class_id'] = $faculty_id;
+                $data['faculty'] = $faculty_id;
             }
             User::create($data);
             DB::commit();
@@ -116,7 +116,7 @@ class UserController extends Controller
                 if ($faculty_id == false) return Reply::error('app.errors.faucltyNotExists', [
                     'shortcodes' => $faculty
                 ]);
-                $data['school_class_id'] = $faculty_id;
+                $data['faculty_id'] = $faculty_id;
             }
             $targetUser->update($data);
             DB::commit();
