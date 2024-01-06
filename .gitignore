@@ -11,6 +11,9 @@
 /public/storage
 /storage/*.key
 /vendor
+
+/resources/views/index.blade.php
+
 .env
 .env.backup
 .env.production
