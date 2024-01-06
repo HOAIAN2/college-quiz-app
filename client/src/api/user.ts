@@ -53,11 +53,7 @@ export async function apiImportUsers(file: File, role: RoleName) {
     data.append('role', role)
     data.append('file', file)
     try {
-        await request.post('/user/import', data, {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-        })
+        await request.post('/user/import', data)
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)
         const message = error.response.data.message
