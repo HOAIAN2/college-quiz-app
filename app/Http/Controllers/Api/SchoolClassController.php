@@ -23,7 +23,7 @@ class SchoolClassController extends Controller
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             if ($this->isDevelopment) return Reply::error($error->getMessage());
-            return Reply::error('app.errors.serverError');
+            return Reply::error('app.errors.somethingWentWrong');
         }
     }
     public function store(Request $request)
@@ -38,7 +38,7 @@ class SchoolClassController extends Controller
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             if ($this->isDevelopment) return Reply::error($error->getMessage());
-            return Reply::error('app.errors.serverError');
+            return Reply::error('app.errors.somethingWentWrong');
         }
     }
     public function update(Request $request, string $id)
@@ -60,7 +60,7 @@ class SchoolClassController extends Controller
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             if ($this->isDevelopment) return Reply::error($error->getMessage());
-            return Reply::error('app.errors.serverError', [], 500);
+            return Reply::error('app.errors.somethingWentWrong', [], 500);
         }
     }
 }

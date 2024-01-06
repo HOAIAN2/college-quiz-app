@@ -11,6 +11,7 @@ return [
         'recordDeleteSuccess' => 'Record delete success',
     ],
     'errors' => [
+        'somethingWentWrong' => 'Something went wrong',
         'serverError' => 'Server error',
         'failToSaveRecord' => 'Fail to save record',
         'classNotExists' => 'Class :shortcodes not exists',

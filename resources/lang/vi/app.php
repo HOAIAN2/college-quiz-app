@@ -11,6 +11,7 @@ return [
         'recordDeleteSuccess' => 'Xóa bản ghi thành công',
     ],
     'errors' => [
+        'somethingWentWrong' => 'Đã xảy ra sự cố',
         'serverError' => 'Lỗi server',
         'failToSaveRecord' => 'Lưu bản ghi thất bại',
         'classNotExists' => 'Lớp :shortcodes không tồn tại',

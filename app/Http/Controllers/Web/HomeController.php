@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\File;
 
 class HomeController extends Controller
 {
@@ -14,7 +13,6 @@ class HomeController extends Controller
     }
     public function index()
     {
-        if (!view()->exists('index')) return File::get(public_path() . '/index.html');
         $data = [];
         $data['lang'] = App::getLocale();
         $data['description'] = trans('app.meta.description');

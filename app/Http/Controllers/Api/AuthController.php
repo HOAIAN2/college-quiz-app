@@ -34,7 +34,7 @@ class AuthController extends Controller
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             if ($this->isDevelopment) return Reply::error($error->getMessage());
-            return Reply::error('app.errors.serverError');
+            return Reply::error('app.errors.somethingWentWrong');
         }
     }
 
@@ -48,7 +48,7 @@ class AuthController extends Controller
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             if ($this->isDevelopment) return Reply::error($error->getMessage());
-            return Reply::error('app.errors.serverError');
+            return Reply::error('app.errors.somethingWentWrong');
         }
     }
 
