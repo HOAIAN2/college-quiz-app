@@ -11,7 +11,6 @@ use App\Http\Requests\User\GetByTypeRequest;
 use App\Http\Requests\User\ImportRequest;
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\UpdateRequest;
-use App\Models\Course;
 use App\Models\Faculty;
 use App\Models\Role;
 use App\Models\SchoolClass;

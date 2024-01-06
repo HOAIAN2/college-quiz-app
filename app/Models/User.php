@@ -64,8 +64,8 @@ class User extends Authenticatable
 		'last_name',
 		'email',
 		'shortcode',
-		'school_class_id',
-		'faculty_id',
+		'school_class.shortcode',
+		'faculty.shortcode',
 	];
 	protected $casts = [
 		'role_id' => 'int',

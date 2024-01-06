@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 trait FullTextSearch
 {
@@ -21,7 +22,12 @@ trait FullTextSearch
                 ->orWhere(DB::raw("CONCAT (first_name, ' ' , last_name)"), 'like', "%$term%");
         }
         foreach ($columns as $column) {
-            $query->orWhere($column, 'like', "%$term%");
+            if (Str::contains($column, '.')) {
+                [$relation, $relationColumn] = explode('.', $column);
+                $query->orWhereHas($relation, function ($subQuery) use ($term, $relationColumn) {
+                    $subQuery->where($relationColumn, 'like', "%$term%");
+                });
+            } else $query->orWhere($column, 'like', "%$term%");
         }
         return $query;
     }
