@@ -80,7 +80,7 @@ request.interceptors.response.use(
                 return Promise.reject(error)
             }
         }
-        if (error.message === 'Network Error') {
+        if (error.code?.startsWith('ERR_NETWORK')) {
             toast.error(error.message)
             return Promise.reject(error)
         }
