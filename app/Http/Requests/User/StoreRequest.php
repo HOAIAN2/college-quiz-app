@@ -29,7 +29,7 @@ class StoreRequest extends FormRequest
             'email' => ['required', 'email', 'unique:users'],
             'first_name' => ['required', 'max:255'],
             'last_name' => ['required', 'max:255'],
-            'phone_number' => ['nullable', 'string', 'unique:users', 'max:10'],
+            'phone_number' => ['nullable', 'string', 'unique:users', 'regex:/^0\d{9}$/'],
             'gender' => ['required', 'in:male,female'],
             'address' => ['required', 'string', 'max:255'],
             'birth_date' => ['required', 'date', 'before:today'],

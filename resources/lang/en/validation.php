@@ -9,6 +9,10 @@ return [
     'max' => [
         'string' => 'The :attribute field must not exceed :max characters.',
     ],
+    'size' => [
+        'string' => 'The :attribute field must be 10 characters.'
+    ],
+    'regex' => 'The :attribute field format is invalid.',
     'date' => 'The :attribute field must be a valid date.',
     'before' => 'The :attribute field must be a date before today.',
     'required_if' => 'The :attribute field is required when :other is :value.',
@@ -38,6 +42,7 @@ return [
         ],
         'phone_number' => [
             'unique' => 'The phone number has already been used. Please choose a different one.',
+            'regex' => 'The phone number must start with 0 and have 10 digits.'
         ],
         'birth_date' => [
             'before' => 'The birth date must be a date before today.',

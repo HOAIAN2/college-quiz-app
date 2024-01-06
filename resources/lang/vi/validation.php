@@ -9,6 +9,10 @@ return [
     'max' => [
         'string' => 'Trường :attribute không được vượt quá :max ký tự.',
     ],
+    'size' => [
+        'string' => 'Trường :attribute phải luôn có 10 ký tự',
+    ],
+    'regex' => 'Trường :attribute có định dạng không hợp lệ',
     'date' => 'Trường :attribute phải là ngày hợp lệ.',
     'before' => 'Trường :attribute phải là ngày trước ngày hôm nay.',
     'required_if' => 'Trường :attribute là bắt buộc khi :other là :value.',
@@ -38,6 +42,7 @@ return [
         ],
         'phone_number' => [
             'unique' => 'Số điện thoại đã được sử dụng. Vui lòng chọn một số khác.',
+            'regex' => 'Số điện thoại phải bắt đầu bằng 0 và có 10 chữ số'
         ],
         'birth_date' => [
             'before' => 'Ngày sinh phải là một ngày trước ngày hôm nay.',

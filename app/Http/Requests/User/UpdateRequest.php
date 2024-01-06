@@ -29,7 +29,7 @@ class UpdateRequest extends FormRequest
             'email' => ['required', 'email',  'unique:users,email,' . $parameters['id']],
             'first_name' => ['required', 'max:255'],
             'last_name' => ['required', 'max:255'],
-            'phone_number' => ['nullable', 'string',  'unique:users,phone_number,' . $parameters['id'], 'max:10'],
+            'phone_number' => ['nullable', 'string',  'unique:users,phone_number,' . $parameters['id'], 'regex:/^0\d{9}$/'],
             'gender' => ['required', 'in:male,female'],
             'address' => ['required', 'string', 'max:255'],
             'birth_date' => ['required', 'date', 'before:today'],

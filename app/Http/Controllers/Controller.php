@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class Controller extends BaseController
 {
@@ -18,7 +19,7 @@ class Controller extends BaseController
     }
     public function __destruct()
     {
-        if (env('TOKEN_LIFETIME') != null) {
+        if (env('TOKEN_LIFETIME') != null && Str::startsWith(request()->path(), 'api')) {
             $interval = Carbon::now()->subMinutes(env('TOKEN_LIFETIME'));
             DB::table('personal_access_tokens')
                 ->where(function ($query) use ($interval) {
