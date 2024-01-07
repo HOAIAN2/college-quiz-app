@@ -155,8 +155,9 @@ class UserController extends Controller
         try {
             $users = User::with(['role', 'school_class', 'faculty'])
                 ->whereRoleId(Role::ROLES[$request->role]);
-            if ($request->search != null) {
-                $users = $users->search($request->search);
+            $search = $request->search == null ? null : trim($request->search);
+            if ($search != null && $search != '') {
+                $users = $users->search($search);
             }
 
             $users = $users->latest('id')->paginate($request->per_page);

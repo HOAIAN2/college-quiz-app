@@ -28,8 +28,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $gender
  * @property string $address
  * @property Carbon $birth_date
- * @property string|null $class
- * @property string|null $faculty
+ * @property int|null $school_class_id
+ * @property int|null $faculty_id
  * @property bool $is_active
  * @property Carbon|null $email_verified_at
  * @property string $password

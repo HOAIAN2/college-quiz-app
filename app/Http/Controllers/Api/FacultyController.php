@@ -17,8 +17,9 @@ class FacultyController extends Controller
             'users'
         ]);
         try {
-            if ($request->search != null) {
-                $faculties = $faculties->search($request->search);
+            $search = $request->search == null ? null : trim($request->search);
+            if (($search != null && $search != '')) {
+                $faculties = $faculties->search($search);
             }
             $faculties = $faculties->paginate();
             return Reply::successWithData($faculties, '');
