@@ -5,29 +5,29 @@ namespace App\Traits;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-trait FullTextSearch
+trait Searchable
 {
     /**
-     * Scope a query that matches a full text search of term.
+     * Scope a query that search in model and relation.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $term
+     * @param string $value
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeSearch($query, $term)
+    public function scopeSearch($query, $value)
     {
         $columns = $this->searchable;
         if (in_array('first_name', $columns) && in_array('last_name', $columns)) {
-            $query->where(DB::raw("CONCAT (last_name, ' ' , first_name)"), 'like', "%$term%")
-                ->orWhere(DB::raw("CONCAT (first_name, ' ' , last_name)"), 'like', "%$term%");
+            $query->where(DB::raw("CONCAT (last_name, ' ' , first_name)"), 'like', "%$value%")
+                ->orWhere(DB::raw("CONCAT (first_name, ' ' , last_name)"), 'like', "%$value%");
         }
         foreach ($columns as $column) {
             if (Str::contains($column, '.')) {
                 [$relation, $relationColumn] = explode('.', $column);
-                $query->orWhereHas($relation, function ($subQuery) use ($term, $relationColumn) {
-                    $subQuery->where($relationColumn, 'like', "%$term%");
+                $query->orWhereHas($relation, function ($subQuery) use ($value, $relationColumn) {
+                    $subQuery->where($relationColumn, 'like', "%$value%");
                 });
-            } else $query->orWhere($column, 'like', "%$term%");
+            } else $query->orWhere($column, 'like', "%$value%");
         }
         return $query;
     }
