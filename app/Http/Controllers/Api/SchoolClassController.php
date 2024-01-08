@@ -15,9 +15,8 @@ class SchoolClassController extends Controller
         // $user = $this->getUser();
         $school_classes = SchoolClass::withCount('students');
         try {
-            $search = $request->search == null ? null : trim($request->search);
-            if (($search != null && $search != '')) {
-                $school_classes = $school_classes->search($search);
+            if ($request->search != null) {
+                $school_classes = $school_classes->search($request->search);
             }
             $school_classes = $school_classes->paginate();
             return Reply::successWithData($school_classes, '');

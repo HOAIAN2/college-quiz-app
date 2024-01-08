@@ -18,9 +18,8 @@ class SubjectController extends Controller
     {
         $subjects = Subject::withCount(['chapters', 'courses']);
         try {
-            $search = $request->search == null ? null : trim($request->search);
-            if (($search != null && $search != '')) {
-                $subjects = $subjects->search($search);
+            if ($request->search != null) {
+                $subjects = $subjects->search($request->search);
             }
             $subjects = $subjects->paginate();
             return Reply::successWithData($subjects, '');
