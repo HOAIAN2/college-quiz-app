@@ -5,7 +5,7 @@ import { SetURLSearchParams } from 'react-router-dom'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentUsersTableLang } from '../models/lang'
 import { RoleName, UserPagination } from '../models/user'
-import styles from '../styles/Users.Table.module.css'
+import styles from '../styles/UsersTable.module.css'
 import StatusBadge from './StatusBadge'
 import ViewUser from './ViewUser'
 
@@ -143,7 +143,7 @@ export default function UsersTable({
                                 <th className={
                                     [
                                         styles['column'],
-                                        styles['small']
+                                        styles['medium']
                                     ].join(' ')
                                 }>
                                     {language?.header.status}
