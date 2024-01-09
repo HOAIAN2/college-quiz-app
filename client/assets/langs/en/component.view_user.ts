@@ -22,7 +22,7 @@ const lang = {
     address: 'Address',
     birthDate: 'Birth date',
     password: 'Password',
-    leaveBlank: 'leave blank to remain unchanged',
+    leaveBlank: 'Leave blank to remain unchanged',
     save: 'Save'
 }
 export default lang
