@@ -19,7 +19,7 @@
 }
 
 .import-data-form {
-    width: 70%;
+    width: 400px;
     height: 50%;
     border-radius: var(--border-radius-low);
     box-shadow: 0px 0px 10px var(--color-shadow);
@@ -83,19 +83,29 @@
 }
 
 .drag-area-content {
+    width: 100%;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.drag-area-content>svg {
+.drag-area-content>.file-name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.drag-area-content>.file-name>svg {
     font-size: 64px;
     color: var(--color-blue);
 }
 
-.drag-area-content>.file-name {
-    font-size: 24px;
+.drag-area-content>.file-name.have-file>svg {
+    color: var(--color-green);
 }
 
 .action-items {

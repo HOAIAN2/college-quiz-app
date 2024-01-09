@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import {
     IoMdAddCircleOutline,
 } from 'react-icons/io'
+import { PiMicrosoftExcelLogoFill } from 'react-icons/pi'
 import { RxCross2 } from 'react-icons/rx'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentImportDataLang } from '../models/lang'
@@ -120,9 +121,27 @@ export default function ImportData({
                                 ].join(' ')
                             }>
                                 {
-                                    file ? <div className={styles['file-name']} >{file.name}</div>
+                                    file ?
+                                        <div className={
+                                            [
+                                                styles['file-name'],
+                                                styles['have-file']
+                                            ].join(' ')
+                                        }
+                                            title={file.name}>
+                                            <PiMicrosoftExcelLogoFill />
+                                            <p className={styles['content']}>
+                                                {file.name}
+                                            </p>
+                                        </div>
                                         :
-                                        <IoMdAddCircleOutline />
+                                        <div className={
+                                            [
+                                                styles['file-name'],
+                                            ].join(' ')
+                                        }>
+                                            <IoMdAddCircleOutline />
+                                        </div>
                                 }
                             </div>
                             <input
@@ -151,7 +170,7 @@ export default function ImportData({
                             download=''>{language?.downloadTemplate}</a>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }
