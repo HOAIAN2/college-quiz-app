@@ -197,7 +197,11 @@ class UserController extends Controller
                     'password' => $row[9]
                 ];
 
-                $validated_record = $this->validateUserArray($record);
+                $validated_result = $this->validateUserArray($record);
+                if ($validated_result['is_valid'] == false) {
+                    return Reply::error($validated_result['data']->getMessage());
+                }
+                $validated_record = $validated_result['data'];
 
                 if ($request->role == 'student') {
                     $school_class_id = SchoolClass::where('shortcode', $row[0])->pluck('id')->first();
@@ -272,9 +276,14 @@ class UserController extends Controller
         $validator = Validator::make($record, $rules);
 
         if ($validator->fails()) {
-            throw ValidationException::withMessages($validator->errors()->toArray());
+            return [
+                'is_valid' => false,
+                'data' => ValidationException::withMessages($validator->errors()->toArray())
+            ];
         }
-
-        return $validator->validated();
+        return [
+            'is_valid' => true,
+            'data' => $validator->validated()
+        ];
     }
 }
