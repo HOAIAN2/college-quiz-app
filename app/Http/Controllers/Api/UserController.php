@@ -256,11 +256,12 @@ class UserController extends Controller
             $query = User::whereRoleId(Role::ROLES[$data['role']]);
             if ($data['role'] == 'student') $query = $query->with('school_class');
             if ($data['role'] == 'teacher') $query = $query->with('faculty');
-            $columns = collect($data['fields'])->except((new User())->getHidden())->toArray();
-            $headers = array_map(function ($value) {
-                return trans('headers.users.' . $value);
-            }, $columns);
-            // $query = $query->select($columns);
+
+            $hiddens = (new User())->getHidden();
+            $columns = array_filter($data['fields'], function ($value) use ($hiddens) {
+                return !in_array($value, $hiddens);
+            });
+
             $collection = $query->get();
             return Excel::download(new UsersExport($collection, $columns), $file_name);
         } catch (\Throwable $error) {
