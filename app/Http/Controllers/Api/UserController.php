@@ -254,13 +254,15 @@ class UserController extends Controller
 
         try {
             $query = User::whereRoleId(Role::ROLES[$data['role']]);
+            if ($data['role'] == 'student') $query = $query->with('school_class');
+            if ($data['role'] == 'teacher') $query = $query->with('faculty');
             $columns = collect($data['fields'])->except((new User())->getHidden())->toArray();
             $headers = array_map(function ($value) {
                 return trans('headers.users.' . $value);
             }, $columns);
-            $query = $query->select($columns);
+            // $query = $query->select($columns);
             $collection = $query->get();
-            return Excel::download(new UsersExport($collection, $headers), $file_name);
+            return Excel::download(new UsersExport($collection, $columns), $file_name);
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
             DB::rollBack();

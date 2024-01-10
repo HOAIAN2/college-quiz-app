@@ -13,5 +13,9 @@ return [
         'birth_date' => 'Birth date',
         'school_class_id' => 'School class',
         'faculty_id' => 'Faculty',
+    ],
+    'school_class' => [
+        'shortcode' => 'Class code',
+        'name' => 'Class name'
     ]
 ];

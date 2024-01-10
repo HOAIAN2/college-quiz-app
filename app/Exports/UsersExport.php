@@ -8,19 +8,35 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Illuminate\Support\Collection;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Illuminate\Support\Str;
 
-class UsersExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
+class UsersExport implements
+    FromCollection,
+    WithHeadings,
+    ShouldAutoSize,
+    WithStyles,
+    WithMapping
 {
     /**
      * @return Collection
      */
     public $collection = [];
     public $headers = [];
+    public $columns = [];
 
-    public function __construct(Collection $collection, $headers = [])
+    public function __construct(Collection $collection, $columns = [])
     {
+        $headers = array_map(function ($value) {
+            if (Str::contains($value, '.')) {
+                [$model, $fieldName] = explode('.', $value);
+                return trans("headers.$model.$fieldName");
+            } else return trans("headers.users.$value");
+        }, $columns);
+
         $this->collection = $collection;
         $this->headers = $headers;
+        $this->columns = $columns;
     }
     public function collection()
     {
@@ -58,5 +74,18 @@ class UsersExport implements FromCollection, WithHeadings, ShouldAutoSize, WithS
                 ],
             ],
         ]);
+    }
+    public function map($user): array
+    {
+        $data = array_map(function ($column) use ($user) {
+            if (Str::contains($column, '.')) {
+                [$relation, $relationColumn] = explode('.', $column);
+                if ($user->relationLoaded($relation))
+                    return $user->{$relation}->{$relationColumn};
+                return null;
+            }
+            return $user->{$column};
+        }, $this->columns);
+        return $data;
     }
 }

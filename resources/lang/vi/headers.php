@@ -13,5 +13,9 @@ return [
         'birth_date' => 'Ngày sinh',
         'school_class_id' => 'Lớp học',
         'faculty_id' => 'Khoa',
+    ],
+    'school_class' => [
+        'shortcode' => 'Mã lớp',
+        'name' => 'Tên lớp'
     ]
 ];
