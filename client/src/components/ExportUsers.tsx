@@ -101,13 +101,13 @@ export default function ExportUsers({
                         {
                             role === 'student' ?
                                 <div className={styles['wrap-item']}>
-                                    <label htmlFor='school_class_id' className={styles['label']}>{language?.class}</label>
-                                    <input id='school_class_id' type='checkbox' name='fields[]' value='school_class_id' />
+                                    <label htmlFor='school_class' className={styles['label']}>{language?.class}</label>
+                                    <input id='school_class' type='checkbox' name='fields[]' value='school_class.shortcode' />
                                 </div>
                                 : role === 'teacher' ?
                                     <div className={styles['wrap-item']}>
-                                        <label htmlFor='faculty_id' className={styles['label']}>{language?.faculty}</label>
-                                        <input id='faculty_id' type='checkbox' name='fields[]' value='faculty_id' />
+                                        <label htmlFor='faculty' className={styles['label']}>{language?.faculty}</label>
+                                        <input id='faculty' type='checkbox' name='fields[]' value='faculty.shortcode' />
                                     </div>
                                     : null
                         }

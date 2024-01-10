@@ -5,6 +5,7 @@ import {
     BiImport
 } from 'react-icons/bi'
 import { MdDeleteOutline } from 'react-icons/md'
+import { PiMicrosoftExcelLogoFill } from 'react-icons/pi'
 import {
     RiAddFill
 } from 'react-icons/ri'
@@ -124,6 +125,7 @@ export default function Users({
                         language ? language[role] : ''
                     ].join(' ')
                     }
+                    icon={<PiMicrosoftExcelLogoFill />}
                     teamplateUrl={templateFileUrl[role]}
                     importFunction={importFunction}
                     setImportMode={setImportMode}

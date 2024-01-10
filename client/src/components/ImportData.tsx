@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from 'react'
 import {
     IoMdAddCircleOutline,
 } from 'react-icons/io'
-import { PiMicrosoftExcelLogoFill } from 'react-icons/pi'
 import { RxCross2 } from 'react-icons/rx'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentImportDataLang } from '../models/lang'
@@ -13,6 +12,7 @@ import Loading from './Loading'
 type ImportDataProps = {
     title?: string
     teamplateUrl: string
+    icon: React.ReactNode
     importFunction: (file: File) => Promise<void>
     onMutateSuccess: () => void
     setImportMode: React.Dispatch<React.SetStateAction<boolean>>
@@ -20,6 +20,7 @@ type ImportDataProps = {
 export default function ImportData({
     title,
     teamplateUrl,
+    icon,
     importFunction,
     onMutateSuccess,
     setImportMode,
@@ -129,7 +130,7 @@ export default function ImportData({
                                             ].join(' ')
                                         }
                                             title={file.name}>
-                                            <PiMicrosoftExcelLogoFill />
+                                            {icon}
                                             <p className={styles['content']}>
                                                 {file.name}
                                             </p>
