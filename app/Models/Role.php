@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $updated_at
  * 
  * @property Collection|User[] $users
+ * @property Collection|Permission[] $permissions
  *
  * @package App\Models
  */
@@ -41,6 +42,13 @@ class Role extends Model
 		'created_at',
 		'updated_at'
 	];
+
+	public function permissions()
+	{
+		return $this->belongsToMany(Permission::class, 'role_permissions', 'role_id', 'perrmission_id')
+			->withPivot('id')
+			->withTimestamps();
+	}
 
 	public function users()
 	{

@@ -136,12 +136,19 @@ class User extends Authenticatable
 	{
 		return $this->hasMany(Question::class, 'created_by');
 	}
+
 	public function isAdmin()
 	{
 		return $this->role_id == Role::ROLES['admin'];
 	}
+
 	public function isTeacher()
 	{
 		return $this->role_id == Role::ROLES['teacher'];
+	}
+
+	public function hasPermission(string $name)
+	{
+		return $this->role->permissions()->where('name', '=', $name)->exists();
 	}
 }
