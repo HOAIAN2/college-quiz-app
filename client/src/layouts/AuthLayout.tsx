@@ -10,12 +10,13 @@ export default function AuthLayout() {
     const [checking, setChecking] = useState(true)
     const navigate = useNavigate()
     const location = useLocation()
-    const { user } = useAppContext()
+    const { user, permissions } = useAppContext()
     useEffect(() => {
         const prePage = location.state?.from
         apiGetUser()
             .then(data => {
                 user.dispatchUser({ type: USER_ACTION.SET, payload: data.user })
+                permissions.setItems(data.permissions)
                 navigate(prePage?.pathname || '/')
             })
             .catch(() => {
