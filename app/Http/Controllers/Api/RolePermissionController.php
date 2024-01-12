@@ -48,19 +48,4 @@ class RolePermissionController extends Controller
     {
         //
     }
-
-    public function navBarFeatures()
-    {
-        $user = $this->getUser();
-        try {
-            $data = $user->role->permissions()
-                ->where('name', 'like', '%view')
-                ->pluck('name');
-            return Reply::successWithData($data, '');
-        } catch (\Throwable $error) {
-            Log::error($error->getMessage());
-            if ($this->isDevelopment) return Reply::error($error->getMessage());
-            return Reply::error('app.errors.somethingWentWrong', [], 500);
-        }
-    }
 }

@@ -1,5 +1,4 @@
 import { SchoolClass } from './class'
-import { Course } from './course'
 import { Faculty } from './faculty'
 
 export type User = {
@@ -18,15 +17,15 @@ export type User = {
     isActive: boolean
     emailVerifiedAt: string | null
     role: Role
-}
-export type UserDetail = User & {
     schoolClass: SchoolClass | null
     faculty: Faculty | null
 }
-export type UserWithCourse = {
-    user: UserDetail
-    courses: Course[]
+
+export type UserWithPermissions = {
+    user: User
+    permissions: string[]
 }
+
 export type RoleName = 'student' | 'teacher' | 'admin'
 
 export type Role = {
@@ -36,7 +35,7 @@ export type Role = {
 }
 export type UserPagination = {
     currentPage: number
-    data: UserDetail[]
+    data: User[]
     firstPageUrl: string
     from: number
     lastPage: number

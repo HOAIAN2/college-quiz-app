@@ -1,14 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosResponse } from 'axios'
 import { ApiResponseWithData } from '../models/response'
-import { QueryUserType, RoleName, User, UserDetail, UserPagination } from '../models/user'
+import {
+    QueryUserType,
+    RoleName,
+    User,
+    UserPagination,
+    UserWithPermissions
+} from '../models/user'
 import request, { getToken } from './config'
 
 export async function apiGetUser() {
     if (!getToken()) throw new Error('no token')
     try {
         const res = await request.get('/user')
-        const { data } = res.data as ApiResponseWithData<User>
+        const { data } = res.data as ApiResponseWithData<UserWithPermissions>
         return data
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)
@@ -80,7 +86,7 @@ export async function apiGetUsersByType(query?: QueryUserType) {
 export async function apiGetUsersById(id: string | number) {
     try {
         const res = await request.get('/user/' + id)
-        const { data } = res.data as ApiResponseWithData<UserDetail>
+        const { data } = res.data as ApiResponseWithData<User>
         return data
     } catch (error: any) {
         throw new Error(error.message)

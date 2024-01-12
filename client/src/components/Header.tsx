@@ -1,10 +1,8 @@
 import { useRef } from 'react'
+import { AiOutlineUser } from 'react-icons/ai'
 import {
     BiLogOut
 } from 'react-icons/bi'
-import {
-    FaRegUser
-} from "react-icons/fa6"
 import {
     PiSidebarSimpleLight
 } from 'react-icons/pi'
@@ -53,12 +51,12 @@ export default function Header() {
             </div>
             <div className={styles['right-items']}>
                 <span onClick={handleToggle} className={styles['right-item']}>
-                    <FaRegUser />
+                    <AiOutlineUser />
                 </span>
                 <div onClick={handleToggle} className={styles['drop-down']} ref={dropContainerRef}>
                     <Link to='/profile' className={styles['drop-item']}
                         title={fullName}>
-                        <FaRegUser />
+                        <AiOutlineUser />
                         <span>{language?.profile}</span>
                     </Link>
                     <div onClick={handleLogout} className={styles['drop-item']}>

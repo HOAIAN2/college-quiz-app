@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-import { apiGetNavBarItems } from '../api/role-permission'
 import { apiGetUser } from '../api/user'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
@@ -10,21 +9,16 @@ import useAppContext from '../hooks/useAppContext'
 import styles from '../styles/DashboardLayout.module.css'
 
 export default function DasboardLayout() {
-    const { user, navBarFeatures } = useAppContext()
+    const { user, permissions } = useAppContext()
     const [checking, setChecking] = useState(true)
     const navigate = useNavigate()
     useEffect(() => {
         apiGetUser()
             .then(data => {
-                user.dispatchUser({ type: USER_ACTION.SET, payload: data })
+                user.dispatchUser({ type: USER_ACTION.SET, payload: data.user })
+                permissions.setItems(data.permissions)
                 setChecking(false)
                 document.querySelector('.pre-load-container')?.classList.add('hide')
-            })
-            .then(() => {
-                return apiGetNavBarItems()
-            })
-            .then((data) => {
-                navBarFeatures.setItems(data)
             })
             .catch(() => {
                 setChecking(false)

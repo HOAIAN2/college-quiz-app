@@ -13,7 +13,7 @@ export default function Login() {
     const [blockSubmit, setBlockSubmit] = useState(true)
     const [isSubmitting, seIsSubmitting] = useState(false)
     const buttonRef = useRef<HTMLButtonElement>(null)
-    const { user } = useAppContext()
+    const { user, permissions } = useAppContext()
     const navigate = useNavigate()
     const location = useLocation()
     const prePage = location.state?.from
@@ -39,7 +39,8 @@ export default function Login() {
                 return apiGetUser()
             })
             .then((data) => {
-                user.dispatchUser({ type: USER_ACTION.SET, payload: data })
+                user.dispatchUser({ type: USER_ACTION.SET, payload: data.user })
+                permissions.setItems(data.permissions)
                 navigate(prePage?.pathname || '/')
             })
             .catch(() => {

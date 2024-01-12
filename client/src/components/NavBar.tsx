@@ -22,7 +22,7 @@ import { ComponentNavBarLang } from '../models/lang'
 import styles from '../styles/NavBar.module.css'
 
 export default function NavBar() {
-    const { DOM, navBarFeatures } = useAppContext()
+    const { DOM, permissions } = useAppContext()
     const language = useLanguage<ComponentNavBarLang>('component.navbar')
     const navBarItems = [
         {
@@ -41,37 +41,37 @@ export default function NavBar() {
             name: language?.teachers,
             to: 'teachers',
             icon: <PiChalkboardTeacherLight />,
-            isActive: navBarFeatures.items.includes('user_view')
+            isActive: permissions.items.includes('user_view')
         },
         {
             name: language?.students,
             to: 'students',
             icon: <PiStudent />,
-            isActive: navBarFeatures.items.includes('user_view')
+            isActive: permissions.items.includes('user_view')
         },
         {
             name: language?.subjects,
             to: 'subjects',
             icon: <PiBooks />,
-            isActive: navBarFeatures.items.includes('subject_view')
+            isActive: permissions.items.includes('subject_view')
         },
         {
             name: language?.courses,
             to: 'courses',
             icon: <SiGoogleclassroom />,
-            isActive: navBarFeatures.items.includes('course_view')
+            isActive: permissions.items.includes('course_view')
         },
         {
             name: language?.questions,
             to: 'questions',
             icon: <AiOutlineQuestionCircle />,
-            isActive: navBarFeatures.items.includes('question_view')
+            isActive: permissions.items.includes('question_view')
         },
         {
             name: language?.exams,
             to: 'exams',
             icon: <PiExam />,
-            isActive: navBarFeatures.items.includes('exam_view')
+            isActive: permissions.items.includes('exam_view')
         },
     ]
     useEffect(() => {

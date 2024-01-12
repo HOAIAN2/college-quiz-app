@@ -9,7 +9,7 @@ import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentViewUserLang } from '../models/lang'
-import { UserDetail } from '../models/user'
+import { User } from '../models/user'
 import styles from '../styles/ViewUser.module.css'
 import CustomSelect from './CustomSelect'
 import Loading from './Loading'
@@ -26,8 +26,8 @@ export default function ViewUser({
 }: ViewUserProps) {
     const [hide, setHide] = useState(true)
     const language = useLanguage<ComponentViewUserLang>('component.view_user')
-    const [userDetail, setUserDetail] = useState<UserDetail | null>(null)
-    const { user } = useAppContext()
+    const [userDetail, setUserDetail] = useState<User | null>(null)
+    const { user, permissions } = useAppContext()
     const [queryClass, setQueryClass] = useState('')
     const [queryFaculty, setQueryFaculty] = useState('')
     const debouceQueryClass = useDebounce(queryClass, 200) as string
@@ -181,7 +181,7 @@ export default function ViewUser({
                                             <label className={styles['required']} htmlFor='email'>{language?.email}</label>
                                             <input
                                                 id='email'
-                                                readOnly={user.user?.role.name === 'admin' ? false : true}
+                                                readOnly={!permissions.items.includes('user_update')}
                                                 defaultValue={queryData.data.email}
                                                 name='email'
                                                 className={
@@ -195,7 +195,7 @@ export default function ViewUser({
                                             <label htmlFor='phone_number'>{language?.phoneNumber}</label>
                                             <input
                                                 id='phone_number'
-                                                readOnly={user.user?.role.name === 'admin' ? false : true}
+                                                readOnly={!permissions.items.includes('user_update')}
                                                 defaultValue={queryData.data.phoneNumber || ''}
                                                 name='phone_number'
                                                 className={
@@ -209,7 +209,7 @@ export default function ViewUser({
                                             <label className={styles['required']} htmlFor='first_name'>{language?.firstName}</label>
                                             <input
                                                 id='first_name'
-                                                readOnly={user.user?.role.name === 'admin' ? false : true}
+                                                readOnly={!permissions.items.includes('user_update')}
                                                 defaultValue={queryData.data.firstName}
                                                 name='first_name'
                                                 className={
@@ -223,7 +223,7 @@ export default function ViewUser({
                                             <label className={styles['required']} htmlFor='last_name'>{language?.lastName}</label>
                                             <input
                                                 id='last_name'
-                                                readOnly={user.user?.role.name === 'admin' ? false : true}
+                                                readOnly={!permissions.items.includes('user_update')}
                                                 defaultValue={queryData.data.lastName}
                                                 name='last_name'
                                                 className={
@@ -237,7 +237,7 @@ export default function ViewUser({
                                             <label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
                                             <input
                                                 id='shortcode'
-                                                readOnly={user.user?.role.name === 'admin' ? false : true}
+                                                readOnly={!permissions.items.includes('user_update')}
                                                 defaultValue={queryData.data.shortcode}
                                                 name='shortcode'
                                                 className={
@@ -252,7 +252,7 @@ export default function ViewUser({
                                                 <label className={styles['required']} htmlFor='school_class'>{language?.class}</label>
                                                 <input
                                                     id='school_class'
-                                                    readOnly={user.user?.role.name === 'admin' ? false : true}
+                                                    readOnly={!permissions.items.includes('user_update')}
                                                     defaultValue={queryData.data.schoolClass?.shortcode || ''}
                                                     name='school_class'
                                                     onInput={(e) => { setQueryClass(e.currentTarget.value) }}
@@ -277,7 +277,7 @@ export default function ViewUser({
                                                     <label className={styles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
                                                     <input
                                                         id='faculty_id'
-                                                        readOnly={user.user?.role.name === 'admin' ? false : true}
+                                                        readOnly={!permissions.items.includes('user_update')}
                                                         defaultValue={queryData.data.faculty?.shortcode || ''}
                                                         name='faculty_id'
                                                         value={queryFaculty}
@@ -322,7 +322,7 @@ export default function ViewUser({
                                             <label className={styles['required']} htmlFor='address'>{language?.address}</label>
                                             <input
                                                 id='address'
-                                                readOnly={user.user?.role.name === 'admin' ? false : true}
+                                                readOnly={!permissions.items.includes('user_update')}
                                                 defaultValue={queryData.data.address}
                                                 name='address'
                                                 className={
@@ -339,7 +339,7 @@ export default function ViewUser({
                                                 inputProps={
                                                     {
                                                         id: 'birth_date',
-                                                        readOnly: user.user?.role.name === 'admin' ? false : true,
+                                                        readOnly: !permissions.items.includes('user_update'),
                                                         name: 'birth_date',
                                                         className: [
                                                             'input-d',

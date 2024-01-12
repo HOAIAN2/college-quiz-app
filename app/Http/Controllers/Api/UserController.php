@@ -28,8 +28,17 @@ class UserController extends Controller
 {
     public function index()
     {
-        $user = $this->getUser()->load(['role']);
-        return Reply::successWithData($user, '');
+        $data = (object)[];
+        $data->user = $this->getUser()->load(['role', 'school_class', 'faculty']);
+        try {
+            $data->permissions = $data->user->role->permissions()->pluck('name');
+            return Reply::successWithData($data, '');
+        } catch (\Throwable $error) {
+            Log::error($error->getMessage());
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
+            return Reply::error('app.errors.somethingWentWrong', [], 500);
+        }
+        return Reply::successWithData($data, '');
     }
 
     public function store(StoreRequest $request)
@@ -269,6 +278,19 @@ class UserController extends Controller
             DB::rollBack();
             if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.somethingWentWrong');
+        }
+    }
+
+    public function permissions()
+    {
+        $user = $this->getUser();
+        try {
+            $data = $user->role->permissions()->pluck('name');
+            return Reply::successWithData($data, '');
+        } catch (\Throwable $error) {
+            Log::error($error->getMessage());
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
+            return Reply::error('app.errors.somethingWentWrong', [], 500);
         }
     }
 

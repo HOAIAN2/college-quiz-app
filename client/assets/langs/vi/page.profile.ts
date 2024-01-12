@@ -18,6 +18,7 @@ export const lang = {
     lastName: 'Họ',
     shortcode: 'Mã số',
     class: 'Lớp',
+    faculty: 'Khoa',
     address: 'Địa chỉ',
     birthDate: 'Ngày sinh',
     password: 'Mật khẩu',

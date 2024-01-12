@@ -15,7 +15,7 @@ export default function AuthLayout() {
         const prePage = location.state?.from
         apiGetUser()
             .then(data => {
-                user.dispatchUser({ type: USER_ACTION.SET, payload: data })
+                user.dispatchUser({ type: USER_ACTION.SET, payload: data.user })
                 navigate(prePage?.pathname || '/')
             })
             .catch(() => {

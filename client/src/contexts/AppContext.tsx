@@ -12,7 +12,7 @@ type AppContextType = {
         setLanguage: React.Dispatch<React.SetStateAction<string>>
     },
     user: UserContextType
-    navBarFeatures: {
+    permissions: {
         items: string[]
         setItems: React.Dispatch<React.SetStateAction<string[]>>
     }
@@ -23,7 +23,7 @@ export const AppContext = createContext<AppContextType>(init as AppContextType)
 
 export function AppProvider({ children }: { children: ReactNode }) {
     const [language, setLanguage] = useState(getLanguage())
-    const [navBarFeatures, setNavBarFeatures] = useState<string[]>([])
+    const [permissions, setPermissions] = useState<string[]>([])
     const [user, dispatchUser] = useReducer(userReducer, undefined)
     return (
         <AppContext.Provider value={
@@ -41,9 +41,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
                     dispatchUser,
                     USER_ACTION: USER_ACTION
                 },
-                navBarFeatures: {
-                    items: navBarFeatures,
-                    setItems: setNavBarFeatures
+                permissions: {
+                    items: permissions,
+                    setItems: setPermissions
                 }
             }
         }>
