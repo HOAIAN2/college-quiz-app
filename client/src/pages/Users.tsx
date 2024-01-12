@@ -94,8 +94,7 @@ export default function Users({
         if (queryDebounce === '') searchParams.delete('search')
         else searchParams.set('search', queryDebounce)
         setSearchParams(searchParams)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [queryDebounce])
+    }, [queryDebounce, searchParams, setSearchParams])
     return (
         <>
             {insertMode === true ?
