@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\FacultyController;
+use App\Http\Controllers\Api\RolePermissionController;
 use App\Http\Controllers\Api\SchoolClassController;
 use App\Http\Controllers\Api\SubjectController;
 use App\Http\Controllers\Api\UserController;
@@ -68,4 +69,9 @@ Route::prefix('/chapter')->middleware('auth:sanctum')
         Route::post('/', 'store');
         Route::delete('/', 'destroy');
         Route::put('/{id}', 'update');
+    });
+
+Route::prefix('/role-permission')->middleware('auth:sanctum')
+    ->controller(RolePermissionController::class)->group(function () {
+        Route::get('/nav-bar-features', 'navBarFeatures');
     });

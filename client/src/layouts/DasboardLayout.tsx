@@ -1,15 +1,16 @@
-import { Outlet, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import useAppContext from '../hooks/useAppContext'
+import { Outlet, useNavigate } from 'react-router-dom'
+import { apiGetNavBarItems } from '../api/role-permission'
 import { apiGetUser } from '../api/user'
-import { USER_ACTION } from '../contexts/UserContext'
+import Footer from '../components/Footer'
 import Header from '../components/Header'
 import NavBar from '../components/NavBar'
-import Footer from '../components/Footer'
+import { USER_ACTION } from '../contexts/UserContext'
+import useAppContext from '../hooks/useAppContext'
 import styles from '../styles/DashboardLayout.module.css'
 
 export default function DasboardLayout() {
-    const { user } = useAppContext()
+    const { user, navBarFeatures } = useAppContext()
     const [checking, setChecking] = useState(true)
     const navigate = useNavigate()
     useEffect(() => {
@@ -18,6 +19,12 @@ export default function DasboardLayout() {
                 user.dispatchUser({ type: USER_ACTION.SET, payload: data })
                 setChecking(false)
                 document.querySelector('.pre-load-container')?.classList.add('hide')
+            })
+            .then(() => {
+                return apiGetNavBarItems()
+            })
+            .then((data) => {
+                navBarFeatures.setItems(data)
             })
             .catch(() => {
                 setChecking(false)

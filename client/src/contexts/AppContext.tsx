@@ -1,14 +1,29 @@
 import { ReactNode, createContext, useReducer, useState } from 'react'
-import { sideBarRef, titleRef } from './DOMContext'
+import { DOMContextType } from '../contexts/DOMContext'
+import { UserContextType } from '../contexts/UserContext'
 import { getLanguage } from '../utils/languages'
+import { sideBarRef, titleRef } from './DOMContext'
 import { USER_ACTION, userReducer } from './UserContext'
-import { AppContextType } from '../models/context'
+
+type AppContextType = {
+    DOM: DOMContextType,
+    appLanguage: {
+        language: string
+        setLanguage: React.Dispatch<React.SetStateAction<string>>
+    },
+    user: UserContextType
+    navBarFeatures: {
+        items: string[]
+        setItems: React.Dispatch<React.SetStateAction<string[]>>
+    }
+}
 
 const init: unknown = {}
 export const AppContext = createContext<AppContextType>(init as AppContextType)
 
 export function AppProvider({ children }: { children: ReactNode }) {
     const [language, setLanguage] = useState(getLanguage())
+    const [navBarFeatures, setNavBarFeatures] = useState<string[]>([])
     const [user, dispatchUser] = useReducer(userReducer, undefined)
     return (
         <AppContext.Provider value={
@@ -25,10 +40,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
                     user,
                     dispatchUser,
                     USER_ACTION: USER_ACTION
+                },
+                navBarFeatures: {
+                    items: navBarFeatures,
+                    setItems: setNavBarFeatures
                 }
-            } as AppContextType
+            }
         }>
             {children}
-        </AppContext.Provider>
+        </AppContext.Provider >
     )
 }

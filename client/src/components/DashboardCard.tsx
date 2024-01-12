@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import styles from '../styles/DashboardCard.module.css'
 
 type DashboardCardProps = {
-    to: string
+    to?: string
     content?: string
     data: string | number
     color: 'magenta' | 'blue' | 'red' | 'green'
@@ -18,7 +18,7 @@ export default function DashboardCard({
 }: DashboardCardProps) {
     return (
         <Link
-            to={to}
+            to={to || '#'}
             className={
                 [
                     'dashboard-card-d',

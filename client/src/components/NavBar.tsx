@@ -22,127 +22,58 @@ import { ComponentNavBarLang } from '../models/lang'
 import styles from '../styles/NavBar.module.css'
 
 export default function NavBar() {
-    const { DOM, user } = useAppContext()
+    const { DOM, navBarFeatures } = useAppContext()
     const language = useLanguage<ComponentNavBarLang>('component.navbar')
-    // if (user) user.role.name = 'teacher'
-    const features = {
-        admin: [
-            {
-                name: language?.dashboard,
-                to: '',
-                icon: <RxDashboard />
-            },
-            {
-                name: language?.profile,
-                to: 'profile',
-                icon: <AiOutlineUser />
-            },
-            {
-                name: language?.teachers,
-                to: 'teachers',
-                icon: <PiChalkboardTeacherLight />
-            },
-            {
-                name: language?.students,
-                to: 'students',
-                icon: <PiStudent />
-            },
-            {
-                name: language?.subjects,
-                to: 'subjects',
-                icon: <PiBooks />
-            },
-            {
-                name: language?.courses,
-                to: 'courses',
-                icon: <SiGoogleclassroom />
-            },
-            {
-                name: language?.questions,
-                to: 'questions',
-                icon: <AiOutlineQuestionCircle />
-            },
-            {
-                name: language?.exams,
-                to: 'exams',
-                icon: <PiExam />
-            },
-        ],
-        teacher: [
-            {
-                name: language?.dashboard,
-                to: '',
-                icon: <RxDashboard />
-            },
-            {
-                name: language?.profile,
-                to: 'profile',
-                icon: <AiOutlineUser />
-            },
-            {
-                name: language?.teachers,
-                to: 'teachers',
-                icon: <PiChalkboardTeacherLight />
-            },
-            {
-                name: language?.students,
-                to: 'students',
-                icon: <PiStudent />
-            },
-            {
-                name: language?.subjects,
-                to: 'subjects',
-                icon: <PiBooks />
-            },
-            {
-                name: language?.courses,
-                to: 'courses',
-                icon: <SiGoogleclassroom />
-            },
-            {
-                name: language?.questions,
-                to: 'questions',
-                icon: <AiOutlineQuestionCircle />
-            },
-            {
-                name: language?.exams,
-                to: 'exams',
-                icon: <PiExam />
-            },
-        ],
-        student: [
-            {
-                name: language?.dashboard,
-                to: '',
-                icon: <RxDashboard />
-            },
-            {
-                name: language?.profile,
-                to: 'profile',
-                icon: <AiOutlineUser />
-            },
-            {
-                name: language?.subjects,
-                to: 'subjects',
-                icon: <PiBooks />
-            },
-            {
-                name: language?.courses,
-                to: 'courses',
-                icon: <SiGoogleclassroom />
-            },
-            {
-                name: language?.questions,
-                to: 'questions',
-                icon: <AiOutlineQuestionCircle />
-            },
-            {
-                name: language?.exams,
-                to: 'exams',
-                icon: <PiExam />
-            },
-        ]
-    }
+    const navBarItems = [
+        {
+            name: language?.dashboard,
+            to: '',
+            icon: <RxDashboard />,
+            isActive: true
+        },
+        {
+            name: language?.profile,
+            to: 'profile',
+            icon: <AiOutlineUser />,
+            isActive: true
+        },
+        {
+            name: language?.teachers,
+            to: 'teachers',
+            icon: <PiChalkboardTeacherLight />,
+            isActive: navBarFeatures.items.includes('user_view')
+        },
+        {
+            name: language?.students,
+            to: 'students',
+            icon: <PiStudent />,
+            isActive: navBarFeatures.items.includes('user_view')
+        },
+        {
+            name: language?.subjects,
+            to: 'subjects',
+            icon: <PiBooks />,
+            isActive: navBarFeatures.items.includes('subject_view')
+        },
+        {
+            name: language?.courses,
+            to: 'courses',
+            icon: <SiGoogleclassroom />,
+            isActive: navBarFeatures.items.includes('course_view')
+        },
+        {
+            name: language?.questions,
+            to: 'questions',
+            icon: <AiOutlineQuestionCircle />,
+            isActive: navBarFeatures.items.includes('question_view')
+        },
+        {
+            name: language?.exams,
+            to: 'exams',
+            icon: <PiExam />,
+            isActive: navBarFeatures.items.includes('exam_view')
+        },
+    ]
     useEffect(() => {
         function updateSize() {
             if (window.innerWidth < 800) DOM.sideBarRef.current?.classList.add(styles['hide'])
@@ -152,7 +83,7 @@ export default function NavBar() {
         return () => window.removeEventListener('resize', updateSize);
     }, [DOM.sideBarRef])
     useEffect(() => {
-        const currentFeature = features[user.user?.role.name as keyof typeof features].find(feature => {
+        const currentFeature = navBarItems.find(feature => {
             return feature.to === window.location.pathname.split('/')[1]
         })
         if (currentFeature?.name) document.title = currentFeature.name
@@ -168,7 +99,8 @@ export default function NavBar() {
             ].join(' ')
         }>
             <ul className={styles['list']}>{
-                features[user.user?.role.name as keyof typeof features]?.map((feature, index) => {
+                navBarItems.map((feature, index) => {
+                    if (feature.isActive === false) return
                     return (
                         <li onClick={e => {
                             e.currentTarget.querySelector('a')?.click()
