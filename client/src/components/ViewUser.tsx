@@ -181,7 +181,7 @@ export default function ViewUser({
                                             <label className={styles['required']} htmlFor='email'>{language?.email}</label>
                                             <input
                                                 id='email'
-                                                readOnly={!permissions.items.includes('user_update')}
+                                                readOnly={!permissions.has('user_view')}
                                                 defaultValue={queryData.data.email}
                                                 name='email'
                                                 className={
@@ -195,7 +195,7 @@ export default function ViewUser({
                                             <label htmlFor='phone_number'>{language?.phoneNumber}</label>
                                             <input
                                                 id='phone_number'
-                                                readOnly={!permissions.items.includes('user_update')}
+                                                readOnly={!permissions.has('user_view')}
                                                 defaultValue={queryData.data.phoneNumber || ''}
                                                 name='phone_number'
                                                 className={
@@ -209,7 +209,7 @@ export default function ViewUser({
                                             <label className={styles['required']} htmlFor='first_name'>{language?.firstName}</label>
                                             <input
                                                 id='first_name'
-                                                readOnly={!permissions.items.includes('user_update')}
+                                                readOnly={!permissions.has('user_view')}
                                                 defaultValue={queryData.data.firstName}
                                                 name='first_name'
                                                 className={
@@ -223,7 +223,7 @@ export default function ViewUser({
                                             <label className={styles['required']} htmlFor='last_name'>{language?.lastName}</label>
                                             <input
                                                 id='last_name'
-                                                readOnly={!permissions.items.includes('user_update')}
+                                                readOnly={!permissions.has('user_view')}
                                                 defaultValue={queryData.data.lastName}
                                                 name='last_name'
                                                 className={
@@ -237,7 +237,7 @@ export default function ViewUser({
                                             <label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
                                             <input
                                                 id='shortcode'
-                                                readOnly={!permissions.items.includes('user_update')}
+                                                readOnly={!permissions.has('user_view')}
                                                 defaultValue={queryData.data.shortcode}
                                                 name='shortcode'
                                                 className={
@@ -252,7 +252,7 @@ export default function ViewUser({
                                                 <label className={styles['required']} htmlFor='school_class'>{language?.class}</label>
                                                 <input
                                                     id='school_class'
-                                                    readOnly={!permissions.items.includes('user_update')}
+                                                    readOnly={!permissions.has('user_view')}
                                                     defaultValue={queryData.data.schoolClass?.shortcode || ''}
                                                     name='school_class'
                                                     onInput={(e) => { setQueryClass(e.currentTarget.value) }}
@@ -277,7 +277,7 @@ export default function ViewUser({
                                                     <label className={styles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
                                                     <input
                                                         id='faculty_id'
-                                                        readOnly={!permissions.items.includes('user_update')}
+                                                        readOnly={!permissions.has('user_view')}
                                                         defaultValue={queryData.data.faculty?.shortcode || ''}
                                                         name='faculty_id'
                                                         value={queryFaculty}
@@ -322,7 +322,7 @@ export default function ViewUser({
                                             <label className={styles['required']} htmlFor='address'>{language?.address}</label>
                                             <input
                                                 id='address'
-                                                readOnly={!permissions.items.includes('user_update')}
+                                                readOnly={!permissions.has('user_view')}
                                                 defaultValue={queryData.data.address}
                                                 name='address'
                                                 className={
@@ -339,7 +339,7 @@ export default function ViewUser({
                                                 inputProps={
                                                     {
                                                         id: 'birth_date',
-                                                        readOnly: !permissions.items.includes('user_update'),
+                                                        readOnly: !permissions.has('user_view'),
                                                         name: 'birth_date',
                                                         className: [
                                                             'input-d',

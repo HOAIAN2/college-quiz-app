@@ -41,37 +41,37 @@ export default function NavBar() {
             name: language?.teachers,
             to: 'teachers',
             icon: <PiChalkboardTeacherLight />,
-            isActive: permissions.items.includes('user_view')
+            isActive: permissions.has('user_view')
         },
         {
             name: language?.students,
             to: 'students',
             icon: <PiStudent />,
-            isActive: permissions.items.includes('user_view')
+            isActive: permissions.has('user_view')
         },
         {
             name: language?.subjects,
             to: 'subjects',
             icon: <PiBooks />,
-            isActive: permissions.items.includes('subject_view')
+            isActive: permissions.has('subject_view')
         },
         {
             name: language?.courses,
             to: 'courses',
             icon: <SiGoogleclassroom />,
-            isActive: permissions.items.includes('course_view')
+            isActive: permissions.has('course_view')
         },
         {
             name: language?.questions,
             to: 'questions',
             icon: <AiOutlineQuestionCircle />,
-            isActive: permissions.items.includes('question_view')
+            isActive: permissions.has('question_view')
         },
         {
             name: language?.exams,
             to: 'exams',
             icon: <PiExam />,
-            isActive: permissions.items.includes('exam_view')
+            isActive: permissions.has('exam_view')
         },
     ]
     useEffect(() => {

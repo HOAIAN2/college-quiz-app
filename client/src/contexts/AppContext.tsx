@@ -15,6 +15,7 @@ type AppContextType = {
     permissions: {
         items: string[]
         setItems: React.Dispatch<React.SetStateAction<string[]>>
+        has: (name: string) => boolean
     }
 }
 
@@ -43,7 +44,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
                 },
                 permissions: {
                     items: permissions,
-                    setItems: setPermissions
+                    setItems: setPermissions,
+                    has: (name: string) => permissions.includes(name)
                 }
             }
         }>

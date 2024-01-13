@@ -37,28 +37,28 @@ export default function Dashboard() {
                 !queryData.isError && queryData.data ?
                     <div className={styles['wrap-dasshboard-item']}>
                         <DashboardCard
-                            to={permissions.items.includes('user_view') ? '/students' : undefined}
+                            to={permissions.has('user_view') ? '/students' : undefined}
                             color='magenta'
                             content={language?.items.numberOfStudents}
                             data={queryData.data?.numberOfStudents}
                             Icon={PiStudent}
                         />
                         <DashboardCard
-                            to={permissions.items.includes('user_view') ? '/teachers' : undefined}
+                            to={permissions.has('user_view') ? '/teachers' : undefined}
                             color='red'
                             content={language?.items.numberOfTeachers}
                             data={queryData.data?.numberOfTeachers}
                             Icon={PiChalkboardTeacherLight}
                         />
                         <DashboardCard
-                            to={permissions.items.includes('course_view') ? '/courses' : undefined}
+                            to={permissions.has('course_view') ? '/courses' : undefined}
                             color='green'
                             content={language?.items.numberOfCourses}
                             data={queryData.data?.numberOfCourses}
                             Icon={SiGoogleclassroom}
                         />
                         <DashboardCard
-                            to={permissions.items.includes('exam_view') ? '/exams' : undefined}
+                            to={permissions.has('exam_view') ? '/exams' : undefined}
                             color='blue'
                             content={language?.items.examInThisMonth}
                             data={queryData.data?.examsInThisMonth}
