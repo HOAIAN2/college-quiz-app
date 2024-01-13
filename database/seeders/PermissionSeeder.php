@@ -15,7 +15,7 @@ class PermissionSeeder extends Seeder
     {
         $permissions = [
             ['name' => 'permission_role_view'],
-            ['name' => 'permission_role_assign'],
+            ['name' => 'permission_role_grant'],
 
             ['name' => 'user_view'],
             ['name' => 'user_create'],
