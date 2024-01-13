@@ -24,12 +24,13 @@ class Controller extends BaseController
     }
     public function clearUnusedTokens()
     {
+        $interval = env('CLEAR_TOKENS_INTERVAL', 60);
         $now = Carbon::now();
         $last_clear_tokens_at = Cache::has('last_clear_tokens_at')
             ? Carbon::parse(Cache::get('last_clear_tokens_at'))
             : $now;
         if ($last_clear_tokens_at == $now) Cache::put('last_clear_tokens_at', $now->format('Y-m-d H:i:s'));
-        if ($now->diffInSeconds($last_clear_tokens_at) > 60) {
+        if ($now->diffInSeconds($last_clear_tokens_at) > $interval) {
             if (env('TOKEN_LIFETIME') != null && Str::startsWith(request()->path(), 'api')) {
                 $interval = Carbon::now()->subMinutes(env('TOKEN_LIFETIME'));
                 DB::table('personal_access_tokens')
