@@ -44,7 +44,7 @@ class UserController extends Controller
     public function store(StoreRequest $request)
     {
         $user = $this->getUser();
-        if (!$user->isAdmin()) return Reply::error('permission.errors.403');
+        if (!$user->hasPermission('user_create')) return abort(403);
 
         DB::beginTransaction();
         try {
@@ -83,7 +83,7 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user = $this->getUser();
-        if (!$user->isAdmin() && !$user->isTeacher() && $id != $user->id) return Reply::error('permission.errors.403');
+        if (!$user->hasPermission('user_view') && $id != $user->id) return abort(403);
 
         try {
             $data = User::with(['role', 'school_class', 'faculty'])->find($id);
@@ -98,7 +98,7 @@ class UserController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $user = $this->getUser();
-        if (!$user->isAdmin()) return Reply::error('permission.errors.403');
+        if (!$user->hasPermission('user_update')) return abort(403);
 
         DB::beginTransaction();
         try {
@@ -141,7 +141,7 @@ class UserController extends Controller
     public function destroy(DeleteRequest $request)
     {
         $user = $this->getUser();
-        if (!$user->isAdmin()) return Reply::error('permission.errors.403');
+        if (!$user->hasPermission('user_delete')) return abort(403);
 
         DB::beginTransaction();
         try {
@@ -159,7 +159,7 @@ class UserController extends Controller
     public function getUserByType(GetByTypeRequest $request)
     {
         $user = $this->getUser();
-        if (!$user->isAdmin() && !$user->isTeacher()) return Reply::error('permission.errors.403');
+        if (!$user->hasPermission('user_view')) return abort(403);
 
         try {
             $users = User::with(['role', 'school_class', 'faculty'])
@@ -180,7 +180,7 @@ class UserController extends Controller
     public function importUsers(ImportRequest $request)
     {
         $user = $this->getUser();
-        if (!$user->isAdmin()) return Reply::error('permission.errors.403');
+        if (!$user->hasPermission('user_create')) return abort(403);
 
         DB::beginTransaction();
         try {
@@ -257,7 +257,7 @@ class UserController extends Controller
     public function exportUsers(ExportRequest $request)
     {
         $user = $this->getUser();
-        if (!$user->isAdmin()) return Reply::error('permission.errors.403');
+        if (!$user->hasPermission('user_view')) return abort(403);
         $data = $request->validated();
         $file_name = "Export_{$data['role']}_" . Carbon::now()->format(User::DATE_FORMAT) . '.xlsx';
 
@@ -278,19 +278,6 @@ class UserController extends Controller
             DB::rollBack();
             if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.somethingWentWrong');
-        }
-    }
-
-    public function permissions()
-    {
-        $user = $this->getUser();
-        try {
-            $data = $user->role->permissions()->pluck('name');
-            return Reply::successWithData($data, '');
-        } catch (\Throwable $error) {
-            Log::error($error->getMessage());
-            if ($this->isDevelopment) return Reply::error($error->getMessage());
-            return Reply::error('app.errors.somethingWentWrong', [], 500);
         }
     }
 

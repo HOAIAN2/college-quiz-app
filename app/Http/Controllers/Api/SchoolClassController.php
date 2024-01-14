@@ -12,8 +12,11 @@ class SchoolClassController extends Controller
 {
     public function index(Request $request)
     {
-        // $user = $this->getUser();
+        $user = $this->getUser();
+        if (!$user->hasPermission('school_class_view')) return abort(403);
+
         $school_classes = SchoolClass::withCount('students');
+
         try {
             if ($request->search != null) {
                 $school_classes = $school_classes->search($request->search);
@@ -32,6 +35,9 @@ class SchoolClassController extends Controller
     }
     public function show(string $id)
     {
+        $user = $this->getUser();
+        if (!$user->hasPermission('school_class_view')) return abort(403);
+
         try {
             $data = SchoolClass::withCount('students')->find($id);
             return Reply::successWithData($data, '');
@@ -52,7 +58,7 @@ class SchoolClassController extends Controller
     public function autocomplete(Request $request)
     {
         $user = $this->getUser();
-        if (!$user->isAdmin() && !$user->isTeacher()) return Reply::error('permission.errors.403');
+        if (!$user->hasPermission('school_class_view')) return abort(403);
 
         try {
             $school_classes = SchoolClass::search($request->search)->take(5)->get();

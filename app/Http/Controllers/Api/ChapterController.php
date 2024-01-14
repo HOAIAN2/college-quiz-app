@@ -28,7 +28,7 @@ class ChapterController extends Controller
     public function store(StoreRequest $request)
     {
         $user = $this->getUser();
-        if (!$user->isAdmin()) return Reply::error('permission.errors.403');
+        if (!$user->hasPermission('subject_create')) return abort(403);
 
         DB::beginTransaction();
         try {
@@ -57,7 +57,7 @@ class ChapterController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $user = $this->getUser();
-        if (!$user->isAdmin()) return Reply::error('permission.errors.403');
+        if (!$user->hasPermission('subject_update')) return abort(403);
 
         DB::beginTransaction();
         try {
@@ -79,7 +79,7 @@ class ChapterController extends Controller
     public function destroy(DeleteRequest $request)
     {
         $user = $this->getUser();
-        if (!$user->isAdmin()) return Reply::error('permission.errors.403');
+        if (!$user->hasPermission('subject_delete')) return abort(403);
 
         DB::beginTransaction();
         try {
