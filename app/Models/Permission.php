@@ -32,7 +32,7 @@ class Permission extends Model
 
 	public function roles()
 	{
-		return $this->belongsToMany(Role::class, 'role_permissions', 'perrmission_id')
+		return $this->belongsToMany(Role::class, 'role_permissions')
 					->withPivot('id')
 					->withTimestamps();
 	}

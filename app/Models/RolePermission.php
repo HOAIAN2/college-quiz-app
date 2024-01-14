@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property int $id
  * @property int $role_id
- * @property int $perrmission_id
+ * @property int $permission_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
@@ -29,17 +29,17 @@ class RolePermission extends Model
 
 	protected $casts = [
 		'role_id' => 'int',
-		'perrmission_id' => 'int'
+		'permission_id' => 'int'
 	];
 
 	protected $fillable = [
 		'role_id',
-		'perrmission_id'
+		'permission_id'
 	];
 
 	public function permission()
 	{
-		return $this->belongsTo(Permission::class, 'perrmission_id');
+		return $this->belongsTo(Permission::class);
 	}
 
 	public function role()

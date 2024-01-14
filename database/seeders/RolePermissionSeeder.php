@@ -19,7 +19,7 @@ class RolePermissionSeeder extends Seeder
         foreach ($admin_permission_ids as $admin_permission_id) {
             RolePermission::create([
                 'role_id' => Role::ROLES['admin'],
-                'perrmission_id' => $admin_permission_id
+                'permission_id' => $admin_permission_id
             ]);
         };
     }
