@@ -72,6 +72,7 @@ class ExamTracker extends Model
 	{
 		return $this->belongsTo(User::class);
 	}
+
 	public function mark_tracker()
 	{
 		$question = $this->exam_question->question;

@@ -62,6 +62,7 @@ class Exam extends Model
 	{
 		return $this->hasMany(ExamTracker::class);
 	}
+
 	public function mark_all_tracker()
 	{
 		foreach ($this->exam_trackers as $exam_tracker) {

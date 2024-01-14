@@ -13,15 +13,19 @@ use Illuminate\Support\Str;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
+
     public bool $isDevelopment = false;
+
     public function __construct()
     {
-        if (env('APP_DEBUG') == true)  $this->isDevelopment = true;
+        if (env('APP_DEBUG') == true) $this->isDevelopment = true;
     }
+
     public function __destruct()
     {
         $this->clearUnusedTokens();
     }
+
     public function clearUnusedTokens()
     {
         $clear_token_interval = env('CLEAR_TOKENS_INTERVAL', 60);
@@ -50,6 +54,7 @@ class Controller extends BaseController
             Cache::put('last_clear_tokens_at', $now->format('Y-m-d H:i:s'));
         }
     }
+
     public function getUser()
     {
         return request()->user();

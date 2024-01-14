@@ -9,16 +9,18 @@ type CustomSelectProps = {
     name?: string
     defaultOption: Option
     options: Option[]
-    onChange?: (option: Option) => void
     className?: string
+    disabled?: boolean
+    onChange?: (option: Option) => void
 }
 
 export default function CustomSelect({
     name,
     defaultOption,
     options,
+    className,
+    disabled,
     onChange,
-    className
 }: CustomSelectProps) {
     const customSelectRef = useRef<HTMLDivElement>(null)
     const [current, setCurrent] = useState(defaultOption)
@@ -28,6 +30,7 @@ export default function CustomSelect({
     return (
         <div ref={customSelectRef}
             onClick={() => {
+                if (disabled) return
                 customSelectRef.current?.classList.toggle(styles['hidden'])
             }}
             className={
@@ -40,7 +43,11 @@ export default function CustomSelect({
             }
         >
             <span>{current.label}</span>
-            <input type="text" name={name} value={current.value} hidden
+            <input type="text"
+                name={name}
+                value={current.value}
+                disabled={disabled}
+                hidden
                 onChange={(e) => { e.preventDefault() }} />
             <div
                 className={
