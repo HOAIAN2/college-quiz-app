@@ -25,7 +25,7 @@ class AuthController extends Controller
             if (!Hash::check($request->password, $user->password)) {
                 return Reply::error('auth.errors.passwordIncorrect');
             }
-            $token = $user->createToken($user->role->name . ' token')->plainTextToken;
+            $token = $user->createToken("{$user->role->name} token")->plainTextToken;
             return Reply::successWithData([
                 'user' => $user,
                 'token' => $token

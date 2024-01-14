@@ -284,7 +284,10 @@ class UserController extends Controller
     public function validateUserArray($record)
     {
         $store_request = new StoreRequest();
-        $rules = collect($store_request->rules())->except(['school_class', 'faculty'])->toArray();
+        $rules = collect($store_request->rules())->except([
+            'school_class',
+            'faculty'
+        ])->toArray();
         $validator = Validator::make($record, $rules);
 
         if ($validator->fails()) {
