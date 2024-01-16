@@ -16,6 +16,7 @@ import Profile from './pages/Profile'
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Users = lazy(() => import('./pages/Users'))
 const Permisisons = lazy(() => import('./pages/Permisisons'))
+const RolePermissions = lazy(() => import('./pages/RolePermissions'))
 
 const router = createBrowserRouter([
   {
@@ -77,7 +78,11 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: <Suspense fallback={<SuspenseLoading />}><Permisisons /></Suspense>
-              }
+              },
+              {
+                path: ':id',
+                element: <Suspense fallback={<SuspenseLoading />}><RolePermissions /></Suspense>
+              },
             ],
           },
         ]

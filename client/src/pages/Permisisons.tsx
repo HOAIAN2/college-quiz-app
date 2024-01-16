@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { FaRegUser } from 'react-icons/fa'
+import { LuUsers2 } from 'react-icons/lu'
 import { Link } from 'react-router-dom'
 import { apiGetRolePermissionCount } from '../api/role-permission'
 import Loading from '../components/Loading'
@@ -10,7 +10,7 @@ import styles from '../styles/Permissions.module.css'
 export default function Permisisons() {
     const language = useLanguage<PagePermissionsLang>('page.permissions')
     const queryData = useQuery({
-        queryKey: [],
+        queryKey: ['permissions'],
         queryFn: () => apiGetRolePermissionCount()
     })
     return (
@@ -38,7 +38,7 @@ export default function Permisisons() {
                                                 className={styles['list-anchor']}
                                                 to={item.id.toString()}>
                                                 <div className={styles['item-left']}>
-                                                    <FaRegUser />
+                                                    <LuUsers2 />
                                                     <span className={styles['name']}>
                                                         {
                                                             language && language[item.name as keyof typeof language]
