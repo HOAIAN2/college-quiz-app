@@ -23,7 +23,7 @@ import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { PageUsersLang } from '../models/lang'
-import { RoleName } from '../models/user'
+import { RoleName } from '../models/role'
 import styles from '../styles/Users.module.css'
 
 type UsersProps = {

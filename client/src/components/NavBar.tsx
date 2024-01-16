@@ -15,6 +15,7 @@ import {
 import {
     SiGoogleclassroom
 } from 'react-icons/si'
+import { TbBrandAuth0 } from 'react-icons/tb'
 import { Link } from 'react-router-dom'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
@@ -72,6 +73,12 @@ export default function NavBar() {
             to: 'exams',
             icon: <PiExam />,
             isActive: permissions.has('exam_view')
+        },
+        {
+            name: language?.permission,
+            to: 'permissions',
+            icon: <TbBrandAuth0 />,
+            isActive: permissions.has('permission_role_view')
         },
     ]
     useEffect(() => {

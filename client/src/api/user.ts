@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosResponse } from 'axios'
 import { ApiResponseWithData } from '../models/response'
+import { RoleName } from '../models/role'
 import {
     QueryUserType,
-    RoleName,
     User,
     UserPagination,
     UserWithPermissions

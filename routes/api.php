@@ -73,5 +73,5 @@ Route::prefix('/chapter')->middleware('auth:sanctum')
 
 Route::prefix('/role-permission')->middleware('auth:sanctum')
     ->controller(RolePermissionController::class)->group(function () {
-        //
+        Route::get('/', 'index');
     });

@@ -4,7 +4,7 @@ import { apiExportUsers } from '../api/user'
 import { saveBlob } from '../helpers/saveBlob'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentExportUsersLang } from '../models/lang'
-import { RoleName } from '../models/user'
+import { RoleName } from '../models/role'
 import styles from '../styles/ExportUsers.module.css'
 
 type ExportUsersProps = {

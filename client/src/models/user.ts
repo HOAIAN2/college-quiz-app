@@ -1,5 +1,6 @@
 import { SchoolClass } from './class'
 import { Faculty } from './faculty'
+import { Role, RoleName } from './role'
 
 export type User = {
     id: number
@@ -26,13 +27,6 @@ export type UserWithPermissions = {
     permissions: string[]
 }
 
-export type RoleName = 'student' | 'teacher' | 'admin'
-
-export type Role = {
-    id: number;
-    name: RoleName;
-    displayName: string;
-}
 export type UserPagination = {
     currentPage: number
     data: User[]

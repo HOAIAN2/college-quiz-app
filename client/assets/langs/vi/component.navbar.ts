@@ -6,7 +6,8 @@ const lang = {
     exams: 'Bài thi',
     questions: 'Câu hỏi',
     teachers: 'Giáo viên',
-    students: 'Học sinh'
+    students: 'Học sinh',
+    permission: 'Phân quyền'
 }
 export default lang
 export type ComponentNavBarLang = typeof lang

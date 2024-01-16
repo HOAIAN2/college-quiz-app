@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -14,7 +15,19 @@ class RolePermissionController extends Controller
      */
     public function index()
     {
-        //
+        $user = $this->getUser();
+        if (!$user->hasPermission('permission_role_view')) return abort(403);
+
+        try {
+            $data = Role::withCount('permissions')
+                ->where('name', '<>', 'admin')
+                ->get();
+            return Reply::successWithData($data, '');
+        } catch (\Throwable $error) {
+            Log::error($error->getMessage());
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
+            return Reply::error('app.errors.somethingWentWrong', [], 500);
+        }
     }
 
     /**

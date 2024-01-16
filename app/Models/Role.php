@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property int $id
  * @property string $name
- * @property string $display_name
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * 
@@ -35,7 +34,6 @@ class Role extends Model
 	];
 	protected $fillable = [
 		'name',
-		'display_name'
 	];
 
 	protected $hidden = [

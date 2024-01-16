@@ -16,15 +16,12 @@ class RoleSeeder extends Seeder
         $roles = [
             [
                 'name' => 'admin',
-                'display_name' => 'Quản trị viên',
             ],
             [
                 'name' => 'teacher',
-                'display_name' => 'Giáo viên',
             ],
             [
                 'name' => 'student',
-                'display_name' => 'Học sinh',
             ]
         ];
         foreach ($roles as $role) {

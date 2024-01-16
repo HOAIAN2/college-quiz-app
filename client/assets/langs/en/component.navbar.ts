@@ -6,7 +6,8 @@ const lang = {
     exams: 'Exam',
     questions: 'Questions',
     teachers: 'Teachers',
-    students: 'Students'
+    students: 'Students',
+    permission: 'Permission'
 }
 export default lang
 export type ComponentNavBarLang = typeof lang
