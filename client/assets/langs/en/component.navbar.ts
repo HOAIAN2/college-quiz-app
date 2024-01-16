@@ -1,5 +1,5 @@
 const lang = {
-    dashboard: 'Dasrdboard',
+    dashboard: 'Dashboard',
     subjects: 'Subjects',
     courses: 'Course',
     profile: 'Profile',
