@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\FacultyController;
+use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\RolePermissionController;
 use App\Http\Controllers\Api\SchoolClassController;
 use App\Http\Controllers\Api\SubjectController;
@@ -74,4 +75,5 @@ Route::prefix('/chapter')->middleware('auth:sanctum')
 Route::prefix('/role-permission')->middleware('auth:sanctum')
     ->controller(RolePermissionController::class)->group(function () {
         Route::get('/', 'index');
+        Route::get('/{id}', 'show');
     });

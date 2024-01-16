@@ -1,3 +1,5 @@
+import { Permission } from './permission'
+import { RoleWithPermissions } from './role'
 import { User } from './user'
 
 export type ApiResponseWithData<T> = {
@@ -9,4 +11,9 @@ export type ApiResponseWithData<T> = {
 export type LoginResponse = {
     user: User
     token: string
+}
+
+export type RolePermissionsResponse = {
+    role: RoleWithPermissions
+    appPermissions: Permission
 }
