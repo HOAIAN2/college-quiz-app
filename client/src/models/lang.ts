@@ -8,5 +8,6 @@ export { type ComponentUsersTableLang } from '../../assets/langs/en/component.us
 export { type ComponentViewUserLang } from '../../assets/langs/en/component.view_user'
 export { type PageDashBoardLang } from '../../assets/langs/en/page.dashboard'
 export { type PageLoginLang } from '../../assets/langs/en/page.login'
+export { type PagePermissionsLang } from '../../assets/langs/en/page.permissions'
 export { type PageProfileLang } from '../../assets/langs/en/page.profile'
 export { type PageUsersLang } from '../../assets/langs/en/page.users'
