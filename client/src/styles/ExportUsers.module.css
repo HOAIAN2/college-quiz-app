@@ -57,15 +57,15 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    overflow: auto;
     padding: 10px;
 }
 
 .group-inputs {
+    height: 100%;
     width: 100%;
+    overflow: auto;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     gap: 10px;
 }
 
@@ -99,4 +99,10 @@
 
 .action-items>a {
     width: fit-content;
+}
+
+@media(width<=800px) {
+    .export-users-form {
+        width: 90%;
+    }
 }
