@@ -1,4 +1,5 @@
 const lang = {
+    selectFields: 'Select fields',
     student: 'Student',
     teacher: 'Teacher',
     admin: 'Admin',
