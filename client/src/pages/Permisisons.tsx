@@ -28,7 +28,7 @@ export default function Permisisons() {
             {
                 queryData.data ?
                     <div className={styles['permission-content']}>
-                        <ul>
+                        <ul className={styles['list-conatiner']}>
                             {
                                 queryData.data.map((item) => {
                                     return (

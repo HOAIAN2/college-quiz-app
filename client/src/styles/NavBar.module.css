@@ -4,7 +4,7 @@
     /* box-shadow: 0px 0px 10px var(--color-shadow); */
     background-color: white;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     transition: var(--transition-timing-medium);
     z-index: 10;
 }
