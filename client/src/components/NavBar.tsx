@@ -95,7 +95,7 @@ export default function NavBar() {
         })
         if (currentFeature?.name) document.title = currentFeature.name
         if (currentFeature?.name && DOM.titleRef.current) {
-            DOM.titleRef.current.textContent = currentFeature?.name + ' • ' + document.title
+            DOM.titleRef.current.textContent = document.title
         }
     })
     return (
