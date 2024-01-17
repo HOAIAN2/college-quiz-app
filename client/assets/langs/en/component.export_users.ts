@@ -22,7 +22,8 @@ const lang = {
     faculty: 'Faculty',
     address: 'Address',
     birthDate: 'Birth date',
-    password: 'Password',
+    selectAll: 'Select all',
+    deselectAll: 'Deselect all',
     save: 'Save'
 }
 export default lang

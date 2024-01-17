@@ -22,7 +22,8 @@ const lang = {
     faculty: 'Khoa',
     address: 'Địa chỉ',
     birthDate: 'Ngày sinh',
-    password: 'Mật khẩu',
+    selectAll: 'Chọn hết',
+    deselectAll: 'Bỏ chọn hết',
     save: 'Lưu'
 }
 export default lang

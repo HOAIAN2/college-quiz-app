@@ -39,6 +39,14 @@ export default function ExportUsers({
                 saveBlob(res, fileName)
             })
     }
+    const handleSelectAll = (type: 'deselect' | 'select') => {
+        document.querySelector(`.${styles['form-data']}`)
+            ?.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')
+            .forEach(item => {
+                if (type === 'select') item.checked = true
+                else item.checked = false
+            })
+    }
     useEffect(() => {
         setHide(false)
     }, [])
@@ -114,6 +122,15 @@ export default function ExportUsers({
                     </div>
                     <div className={styles['action-items']}>
                         <button name='save' className='action-item-d'>{language?.save}</button>
+                        <button
+                            onClick={() => { handleSelectAll('deselect') }}
+                            style={{ width: 'fit-content' }}
+                            type='button' name='save'
+                            className='action-item-d-white'>{language?.deselectAll}</button>
+                        <button
+                            onClick={() => { handleSelectAll('select') }}
+                            type='button' name='save'
+                            className='action-item-d-white'>{language?.selectAll}</button>
                     </div>
                 </form>
             </div>
