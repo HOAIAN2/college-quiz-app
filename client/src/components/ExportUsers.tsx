@@ -39,11 +39,11 @@ export default function ExportUsers({
                 saveBlob(res, fileName)
             })
     }
-    const handleSelectAll = (type: 'deselect' | 'select') => {
+    const handleSelectAll = (type: 'all' | 'none') => {
         document.querySelector(`.${styles['form-data']}`)
             ?.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')
             .forEach(item => {
-                if (type === 'select') item.checked = true
+                if (type === 'all') item.checked = true
                 else item.checked = false
             })
     }
@@ -123,12 +123,12 @@ export default function ExportUsers({
                     <div className={styles['action-items']}>
                         <button name='save' className='action-item-d'>{language?.save}</button>
                         <button
-                            onClick={() => { handleSelectAll('deselect') }}
+                            onClick={() => { handleSelectAll('none') }}
                             style={{ width: 'fit-content' }}
                             type='button' name='save'
                             className='action-item-d-white'>{language?.deselectAll}</button>
                         <button
-                            onClick={() => { handleSelectAll('select') }}
+                            onClick={() => { handleSelectAll('all') }}
                             type='button' name='save'
                             className='action-item-d-white'>{language?.selectAll}</button>
                     </div>

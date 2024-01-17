@@ -52,9 +52,10 @@ class RolePermissionController extends Controller
             $data->role = Role::with('permissions')
                 ->where('name', '<>', 'admin')
                 ->find($id);
-
             $data->app_permissions = Permission::all();
-
+            foreach ($data->app_permissions as $app_permission) {
+                $app_permission->display_name = trans("permission.{$app_permission->name}");
+            }
             return Reply::successWithData($data, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
