@@ -15,9 +15,7 @@ export type LoginResponse = {
 
 export type RolePermissionsResponse = {
     role: RoleWithPermissions
-    appPermissions: Permission & {
-        displayName: string
-    }
+    appPermissions: Array<Permission & { displayName: string }>;
 }
 
 export type ExportableResponse = {
