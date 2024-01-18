@@ -46,7 +46,7 @@ class FacultyController extends Controller
         try {
             $data = Faculty::with([
                 'school_classes'
-            ])->find($id);
+            ])->findOrFail($id);
             return Reply::successWithData($data, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());

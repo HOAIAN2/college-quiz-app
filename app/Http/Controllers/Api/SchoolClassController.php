@@ -39,7 +39,7 @@ class SchoolClassController extends Controller
         if (!$user->hasPermission('school_class_view')) return abort(403);
 
         try {
-            $data = SchoolClass::withCount('students')->find($id);
+            $data = SchoolClass::withCount('students')->findOrFail($id);
             return Reply::successWithData($data, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());

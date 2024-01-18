@@ -87,7 +87,7 @@ class UserController extends Controller
         if (!$user->hasPermission('user_view') && $id != $user->id) return abort(403);
 
         try {
-            $data = User::with(['role', 'school_class', 'faculty'])->find($id);
+            $data = User::with(['role', 'school_class', 'faculty'])->findOrFail($id);
             return Reply::successWithData($data, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
