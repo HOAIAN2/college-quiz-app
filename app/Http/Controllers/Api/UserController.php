@@ -209,7 +209,7 @@ class UserController extends Controller
 
                 $validated_result = $this->validateUserArray($record);
                 if ($validated_result['is_valid'] == false) {
-                    return Reply::error($validated_result['data']->getMessage());
+                    return Reply::error($validated_result['message']);
                 }
                 $validated_record = $validated_result['data'];
 
@@ -337,12 +337,13 @@ class UserController extends Controller
         if ($validator->fails()) {
             return [
                 'is_valid' => false,
-                'data' => ValidationException::withMessages($validator->errors()->toArray())
+                'data' => ValidationException::withMessages($validator->errors()->toArray()),
+                'message' => $validator->errors()->first()
             ];
         }
         return [
             'is_valid' => true,
-            'data' => $validator->validated()
+            'data' => $validator->validated(),
         ];
     }
 }
