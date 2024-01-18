@@ -1,3 +1,5 @@
+import { PermissionWithPivot } from './permission';
+
 export type RoleName = 'student' | 'teacher' | 'admin'
 
 export type Role = {
@@ -13,6 +15,10 @@ export type RoleWithPermissionCount = RoleWithDisplayName & {
     permissionsCount: number
 }
 
-export type RoleWithPermissions = Role & {
+export type RoleWithPermissionNames = Role & {
     permissions: string[]
+}
+
+export type RoleWithPermissions = Role & {
+    permissions: PermissionWithPivot[]
 }

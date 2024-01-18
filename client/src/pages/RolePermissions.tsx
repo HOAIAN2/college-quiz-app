@@ -16,6 +16,12 @@ export default function RolePermissions() {
         queryKey: ['role-permissions', id],
         queryFn: () => apiGetRolePermissions(Number(id))
     })
+    const hasPermission = (name: string) => {
+        const result = queryData.data?.role.permissions.find((item) => {
+            return item.name === name
+        })
+        return Boolean(result)
+    }
     useEffect(() => {
         if (queryData.data) {
             document.title = language ?
@@ -39,7 +45,7 @@ export default function RolePermissions() {
                 : null}
             {
                 queryData.data ?
-                    <div>
+                    <div className={styles['permission-container']}>
                         <ul className={styles['permission-list']}>
                             {queryData.data.appPermissions.map(item => {
                                 return (
@@ -51,13 +57,16 @@ export default function RolePermissions() {
                                             type='checkbox'
                                             name='fields[]'
                                             value={item.id}
-                                            defaultChecked={queryData.data.role.permissions.includes(item.name)}
+                                            defaultChecked={hasPermission(item.name)}
                                         />
                                         <label htmlFor={item.name} className={styles['label']}>{item.displayName}</label>
                                     </li>
                                 )
                             })}
                         </ul>
+                        <div className={styles['action-items']}>
+                            <button name='save' className='action-item-d'>{language?.student}</button>
+                        </div>
                     </div>
                     : null
             }
