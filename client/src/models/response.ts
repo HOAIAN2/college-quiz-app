@@ -19,3 +19,8 @@ export type RolePermissionsResponse = {
         displayName: string
     }
 }
+
+export type ExportableResponse = {
+    fieldName: string
+    field: string
+}

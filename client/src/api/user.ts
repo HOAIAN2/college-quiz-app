@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosResponse } from 'axios'
-import { ApiResponseWithData } from '../models/response'
+import { ApiResponseWithData, ExportableResponse } from '../models/response'
 import { RoleName } from '../models/role'
 import {
     QueryUserType,
@@ -103,6 +103,21 @@ export async function apiDeleteUserByIds(ids: (string | number)[]) {
         throw new Error(error.message)
     }
 }
+
+export async function apiGetUserExportableFields(role: RoleName) {
+    try {
+        const res = await request.get('/user/exportable', {
+            params: {
+                role: role,
+            },
+        })
+        const { data } = res.data as AxiosResponse<ExportableResponse[]>
+        return data
+    } catch (error: any) {
+        throw new Error(error.message)
+    }
+}
+
 export async function apiExportUsers(role: RoleName, fields: (string)[]) {
     try {
         const response: AxiosResponse<Blob> = await request.get('/user/export', {

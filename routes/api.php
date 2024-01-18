@@ -34,6 +34,7 @@ Route::prefix('/user')->middleware('auth:sanctum')
         Route::get('/query', 'getUserByType');
         Route::post('/import', 'importUsers');
         Route::get('/export', 'exportUsers');
+        Route::get('/exportable', 'exportableFields');
         Route::get('/', 'index');
         Route::post('/', 'store');
         Route::delete('/', 'destroy');

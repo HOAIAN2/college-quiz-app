@@ -6,6 +6,7 @@ use App\Exports\UsersExport;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\DeleteRequest;
+use App\Http\Requests\User\ExportableRequest;
 use App\Http\Requests\User\ExportRequest;
 use App\Http\Requests\User\GetByTypeRequest;
 use App\Http\Requests\User\ImportRequest;
@@ -252,6 +253,49 @@ class UserController extends Controller
             if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.failToSaveRecord');
         }
+    }
+
+    public function exportableFields(ExportableRequest $request)
+    {
+        $user = $this->getUser();
+        if (!$user->hasPermission('user_view')) return abort(403);
+
+        $hiddens = $user->getHidden();
+        $fillable = $user->getFillable();
+
+        $hiddens[] = 'role_id';
+        $hiddens[] = 'school_class_id';
+        $hiddens[] = 'faculty_id';
+        $hiddens[] = 'is_active';
+        $hiddens[] = 'email_verified_at';
+
+        $columns = array_filter($fillable, function ($value) use ($hiddens) {
+            return !in_array($value, $hiddens);
+        });
+
+        $data = [];
+
+        foreach ($columns as $column) {
+            $data[] = [
+                'field_name' => trans("headers.users.$column"),
+                'field' => $column
+            ];
+        }
+
+        if ($request->role == 'student') {
+            $data[] = [
+                'field_name' => trans('headers.school_class.shortcode'),
+                'field' => 'school_class.shortcode'
+            ];
+        }
+
+        if ($request->role == 'teacher') {
+            $data[] = [
+                'field_name' => trans('headers.faculty.shortcode'),
+                'field' => 'faculty.shortcode'
+            ];
+        }
+        return Reply::successWithData($data, '');
     }
 
     public function exportUsers(ExportRequest $request)
