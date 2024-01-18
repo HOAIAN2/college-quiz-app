@@ -5,7 +5,11 @@ export type Role = {
     name: RoleName;
 }
 
-export type RoleWithPermissionCount = Role & {
+export type RoleWithDisplayName = Role & {
+    displayName: string
+}
+
+export type RoleWithPermissionCount = RoleWithDisplayName & {
     permissionsCount: number
 }
 

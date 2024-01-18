@@ -23,6 +23,9 @@ class RolePermissionController extends Controller
             $data = Role::withCount('permissions')
                 ->where('name', '<>', 'admin')
                 ->get();
+            foreach ($data as $item) {
+                $item->display_name = trans("role.{$item->name}");
+            }
             return Reply::successWithData($data, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());

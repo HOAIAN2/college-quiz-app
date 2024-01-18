@@ -40,9 +40,7 @@ export default function Permisisons() {
                                                 <div className={styles['item-left']}>
                                                     <LuUsers2 />
                                                     <span className={styles['name']}>
-                                                        {
-                                                            language && language[item.name as keyof typeof language]
-                                                        }
+                                                        {item.displayName}
                                                     </span>
                                                 </div>
                                                 <div className={styles['item-right']}>
