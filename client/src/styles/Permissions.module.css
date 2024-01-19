@@ -5,21 +5,22 @@
 }
 
 .permission-content {
-    padding-right: 10px;
+    width: 100%;
 }
 
 .list-conatiner {
     width: 100%;
     height: fit-content;
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
 .list-item {
     list-style-type: none;
     height: 75px;
-    /* width: 100%; */
-    flex: 0 0 50%;
+    /* width: 45%; */
+    flex: 0 0 calc(50% - 10px);
     display: flex;
     align-items: center;
     gap: 20px;

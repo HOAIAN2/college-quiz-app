@@ -31,6 +31,9 @@ export default function RolePermissions() {
             }
         }
     }, [DOM.titleRef, language, queryData.data])
+    useEffect(() => {
+        queryData.refetch()
+    }, [language, queryData])
     return (
         <div
             className={
@@ -65,7 +68,7 @@ export default function RolePermissions() {
                             })}
                         </ul>
                         <div className={styles['action-items']}>
-                            <button name='save' className='action-item-d'>{language?.student}</button>
+                            <button name='save' className='action-item-d'>{language?.save}</button>
                         </div>
                     </div>
                     : null

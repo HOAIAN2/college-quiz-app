@@ -4,6 +4,7 @@ const lang = {
     permissions: 'Phần quyền',
     teacherPermissions: 'Quyền giáo viên',
     studentPermissions: 'Quyền học sinh',
+    save: 'Lưu'
 }
 
 export default lang
