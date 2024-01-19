@@ -157,7 +157,7 @@ export default function ViewUser({
                     </div>
                 </div>
                 <>
-                    {queryData.isLoading ?
+                    {queryData.isFetching ?
                         <Loading />
                         : null}
                     <div className={

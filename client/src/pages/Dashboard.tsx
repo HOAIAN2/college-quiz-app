@@ -30,7 +30,7 @@ export default function Dashboard() {
                 ].join(' ')
             }
         >
-            {queryData.isLoading ?
+            {queryData.isFetching ?
                 <Loading />
                 : null}
             {

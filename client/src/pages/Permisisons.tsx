@@ -22,7 +22,7 @@ export default function Permisisons() {
                 ].join(' ')
             }
         >
-            {queryData.isLoading ?
+            {queryData.isFetching ?
                 <Loading />
                 : null}
             {

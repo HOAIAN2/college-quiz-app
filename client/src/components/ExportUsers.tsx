@@ -78,7 +78,7 @@ export default function ExportUsers({
                         <RxCross2 />
                     </div>
                 </div>
-                {queryData.isLoading ?
+                {queryData.isFetching ?
                     <Loading />
                     : null}
                 {
