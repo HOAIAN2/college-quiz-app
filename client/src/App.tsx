@@ -49,6 +49,14 @@ const router = createBrowserRouter([
             element: <Profile />
           },
           {
+            path: 'faculties',
+            element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>
+          },
+          {
+            path: 'school-classes',
+            element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>
+          },
+          {
             path: 'courses',
             element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>
           },

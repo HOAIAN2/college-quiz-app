@@ -3,6 +3,8 @@ import {
     AiOutlineQuestionCircle,
     AiOutlineUser
 } from 'react-icons/ai'
+import { GrCertificate } from 'react-icons/gr'
+import { LuSchool } from 'react-icons/lu'
 import {
     PiBooks,
     PiChalkboardTeacherLight,
@@ -57,9 +59,21 @@ export default function NavBar() {
             isActive: permissions.has('subject_view')
         },
         {
+            name: language?.faculty,
+            to: 'faculties',
+            icon: <LuSchool />,
+            isActive: permissions.has('faculty_view')
+        },
+        {
+            name: language?.schoolClass,
+            to: 'school-classes',
+            icon: <SiGoogleclassroom />,
+            isActive: permissions.has('school_class_view')
+        },
+        {
             name: language?.courses,
             to: 'courses',
-            icon: <SiGoogleclassroom />,
+            icon: <GrCertificate />,
             isActive: permissions.has('course_view')
         },
         {

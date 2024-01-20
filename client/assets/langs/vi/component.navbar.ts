@@ -1,7 +1,9 @@
 const lang = {
     dashboard: 'Tổng quan',
     subjects: 'Môn học',
-    courses: 'Lớp học',
+    courses: 'Khóa học',
+    schoolClass: 'Lớp học',
+    faculty: 'Khoa',
     profile: 'Cá nhân',
     exams: 'Bài thi',
     questions: 'Câu hỏi',
