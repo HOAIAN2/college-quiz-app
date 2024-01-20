@@ -9,7 +9,7 @@ import { PageRolePermissionsLang } from '../models/lang'
 import styles from '../styles/RolePermissions.module.css'
 
 export default function RolePermissions() {
-    const { DOM, appLanguage } = useAppContext()
+    const { DOM } = useAppContext()
     const language = useLanguage<PageRolePermissionsLang>('page.role_permissions')
     const { id } = useParams()
     const queryData = useQuery({
@@ -33,8 +33,7 @@ export default function RolePermissions() {
     }, [DOM.titleRef, language, queryData.data])
     useEffect(() => {
         queryData.refetch()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [appLanguage.language])
+    }, [language, queryData])
     return (
         <div
             className={
@@ -44,7 +43,7 @@ export default function RolePermissions() {
                 ].join(' ')
             }
         >
-            {queryData.isFetching ?
+            {queryData.isLoading ?
                 <Loading />
                 : null}
             {

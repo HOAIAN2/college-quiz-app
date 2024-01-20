@@ -252,7 +252,7 @@ export default function Users({
                         </div>
                     </div>
                     <div className={styles['wrap-table']}>
-                        {queryData.isFetching ?
+                        {queryData.isLoading ?
                             <Loading />
                             : null}
                         {!queryData.isError ?
