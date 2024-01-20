@@ -25,3 +25,19 @@ export async function apiGetRolePermissions(id: number) {
         throw new Error(error.message)
     }
 }
+
+export async function apiUpdateRolePermissions(id: number | string, permissionIds: (number | string)[]) {
+    try {
+        const data = new URLSearchParams();
+        permissionIds.forEach(item => {
+            data.append('ids[]', String(item))
+        })
+        await request.put('/role-permission/' + id, data, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+    } catch (error: any) {
+        throw new Error(error.message)
+    }
+}

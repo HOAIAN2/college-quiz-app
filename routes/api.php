@@ -77,4 +77,5 @@ Route::prefix('/role-permission')->middleware('auth:sanctum')
     ->controller(RolePermissionController::class)->group(function () {
         Route::get('/', 'index');
         Route::get('/{id}', 'show');
+        Route::put('/{id}', 'update');
     });

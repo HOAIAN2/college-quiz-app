@@ -39,7 +39,7 @@ export default function Header() {
             user.user?.lastName
         ].join(' ')
     return (
-        <div className={styles['header']}>
+        <header className={styles['header']}>
             <div id='loader'></div>
             <div className={styles['left-items']}>
                 <div className={styles['toggle']} onClick={() => {
@@ -65,6 +65,6 @@ export default function Header() {
                     </div>
                 </div>
             </div>
-        </div>
+        </header>
     )
 }
