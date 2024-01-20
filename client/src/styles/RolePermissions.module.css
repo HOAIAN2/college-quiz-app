@@ -13,7 +13,11 @@
 }
 
 .permission-list {
-    columns: 3;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .permission-item {
@@ -40,8 +44,4 @@
     gap: 10px;
 }
 
-@media(width<=800px) {
-    .permission-list {
-        columns: 2;
-    }
-}
+/* @media(width<=800px) {} */
