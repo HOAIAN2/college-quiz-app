@@ -17,7 +17,7 @@ class SubjectController extends Controller
     public function index(IndexRequest $request)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('subject_view')) return abort(403);
+        abort_if(!$user->hasPermission('subject_view'), 403);
 
         $subjects = Subject::withCount(['chapters', 'courses']);
 
@@ -37,7 +37,7 @@ class SubjectController extends Controller
     public function store(StoreRequest $request)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('subject_create')) return abort(403);
+        abort_if(!$user->hasPermission('subject_create'), 403);
 
         DB::beginTransaction();
         try {
@@ -55,7 +55,7 @@ class SubjectController extends Controller
     public function show(string $id)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('subject_view')) return abort(403);
+        abort_if(!$user->hasPermission('subject_view'), 403);
 
         try {
             $subject = Subject::with(['chapters', 'courses'])->findOrFail($id);
@@ -70,7 +70,7 @@ class SubjectController extends Controller
     public function update(Request $request, string $id)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('subject_update')) return abort(403);
+        abort_if(!$user->hasPermission('subject_update'), 403);
 
         DB::beginTransaction();
         try {
@@ -89,7 +89,7 @@ class SubjectController extends Controller
     public function destroy(DeleteRequest $request)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('subject_delete')) return abort(403);
+        abort_if(!$user->hasPermission('subject_delete'), 403);
 
         DB::beginTransaction();
         try {

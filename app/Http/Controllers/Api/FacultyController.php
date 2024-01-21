@@ -13,7 +13,7 @@ class FacultyController extends Controller
     public function index(Request $request)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('faculty_view')) return abort(403);
+        abort_if(!$user->hasPermission('faculty_view'), 403);
 
         $faculties = Faculty::withCount([
             'school_classes',
@@ -41,7 +41,7 @@ class FacultyController extends Controller
     public function show(string $id)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('faculty_view')) return abort(403);
+        abort_if(!$user->hasPermission('faculty_view'), 403);
 
         try {
             $data = Faculty::with([
@@ -67,7 +67,7 @@ class FacultyController extends Controller
     public function autocomplete(Request $request)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('faculty_view')) return abort(403);
+        abort_if(!$user->hasPermission('faculty_view'), 403);
 
         try {
             $school_classes = Faculty::search($request->search)->take(5)->get();

@@ -14,13 +14,10 @@ use Illuminate\Support\Facades\Log;
 
 class RolePermissionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('permission_role_view')) return abort(403);
+        abort_if(!$user->hasPermission('permission_role_view'), 403);
 
         try {
             $data = Role::withCount('permissions')
@@ -37,21 +34,10 @@ class RolePermissionController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('permission_role_view')) return abort(403);
+        abort_if(!$user->hasPermission('permission_role_view'), 403);
         $data = (object)[];
 
         try {
@@ -70,13 +56,10 @@ class RolePermissionController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateRequest $request, string $id)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('permission_role_grant')) return abort(403);
+        abort_if(!$user->hasPermission('permission_role_grant'), 403);
 
         DB::beginTransaction();
         try {
@@ -117,13 +100,5 @@ class RolePermissionController extends Controller
             if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.somethingWentWrong', [], 500);
         }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

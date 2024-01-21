@@ -54,6 +54,7 @@ class AuthController extends Controller
     public function changePassword(ChangePassRequest $request)
     {
         $user = $this->getUser();
+
         try {
             if (!Hash::check($request->current_password, $user->password)) {
                 return Reply::error('auth.errors.passwordIncorrect');

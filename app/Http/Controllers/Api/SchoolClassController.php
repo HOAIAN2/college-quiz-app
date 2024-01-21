@@ -13,7 +13,7 @@ class SchoolClassController extends Controller
     public function index(Request $request)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('school_class_view')) return abort(403);
+        abort_if(!$user->hasPermission('school_class_view'), 403);
 
         $school_classes = SchoolClass::withCount('students');
 
@@ -36,7 +36,7 @@ class SchoolClassController extends Controller
     public function show(string $id)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('school_class_view')) return abort(403);
+        abort_if(!$user->hasPermission('school_class_view'), 403);
 
         try {
             $data = SchoolClass::withCount('students')->findOrFail($id);
@@ -58,7 +58,7 @@ class SchoolClassController extends Controller
     public function autocomplete(Request $request)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('school_class_view')) return abort(403);
+        abort_if(!$user->hasPermission('school_class_view'), 403);
 
         try {
             $school_classes = SchoolClass::search($request->search)->take(5)->get();

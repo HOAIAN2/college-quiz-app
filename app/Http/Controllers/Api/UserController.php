@@ -45,7 +45,7 @@ class UserController extends Controller
     public function store(StoreRequest $request)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('user_create')) return abort(403);
+        abort_if(!$user->hasPermission('user_create'), 403);
 
         DB::beginTransaction();
         try {
@@ -84,7 +84,7 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('user_view') && $id != $user->id) return abort(403);
+        abort_if(!$user->hasPermission('user_view') && $id != $user->id, 403);
 
         try {
             $data = User::with(['role', 'school_class', 'faculty'])->findOrFail($id);
@@ -99,7 +99,7 @@ class UserController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('user_update')) return abort(403);
+        abort_if(!$user->hasPermission('user_update'), 403);
 
         DB::beginTransaction();
         try {
@@ -142,7 +142,7 @@ class UserController extends Controller
     public function destroy(DeleteRequest $request)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('user_delete')) return abort(403);
+        abort_if(!$user->hasPermission('user_delete'), 403);
 
         DB::beginTransaction();
         try {
@@ -160,7 +160,7 @@ class UserController extends Controller
     public function getUserByType(GetByTypeRequest $request)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('user_view')) return abort(403);
+        abort_if(!$user->hasPermission('user_view'), 403);
 
         try {
             $users = User::with(['role', 'school_class', 'faculty'])
@@ -181,7 +181,7 @@ class UserController extends Controller
     public function importUsers(ImportRequest $request)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('user_create')) return abort(403);
+        abort_if(!$user->hasPermission('user_create'), 403);
 
         DB::beginTransaction();
         try {
@@ -258,7 +258,7 @@ class UserController extends Controller
     public function exportableFields(ExportableRequest $request)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('user_view')) return abort(403);
+        abort_if(!$user->hasPermission('user_view'), 403);
 
         $hiddens = $user->getHidden();
         $fillable = $user->getFillable();
@@ -301,7 +301,7 @@ class UserController extends Controller
     public function exportUsers(ExportRequest $request)
     {
         $user = $this->getUser();
-        if (!$user->hasPermission('user_view')) return abort(403);
+        abort_if(!$user->hasPermission('user_view'), 403);
         $data = $request->validated();
         $file_name = "Export_{$data['role']}_" . Carbon::now()->format(User::DATE_FORMAT) . '.xlsx';
 
