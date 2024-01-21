@@ -1,5 +1,5 @@
-import { IconType } from "react-icons"
-import { Link } from "react-router-dom"
+import { ReactNode } from 'react'
+import { Link } from 'react-router-dom'
 import styles from '../styles/DashboardCard.module.css'
 
 type DashboardCardProps = {
@@ -7,14 +7,14 @@ type DashboardCardProps = {
     content?: string
     data: string | number
     color: 'magenta' | 'blue' | 'red' | 'green'
-    Icon: IconType
+    icon: ReactNode
 }
 export default function DashboardCard({
     to,
     content,
     data,
     color,
-    Icon
+    icon
 }: DashboardCardProps) {
     return (
         <Link
@@ -27,7 +27,7 @@ export default function DashboardCard({
                 ].join(' ')
             }>
             <div className={styles['card-top']}>
-                <Icon />
+                {icon}
                 {data}
             </div>
             <div className={styles['card-bottom']}>{content}</div>
