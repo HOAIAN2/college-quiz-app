@@ -9,7 +9,7 @@ import { Toaster } from 'sonner'
 import './App.css'
 import SuspenseLoading from './components/SuspenseLoading'
 import AuthLayout from './layouts/AuthLayout'
-import DasboardLayout from './layouts/DasboardLayout'
+import DashboardLayout from './layouts/DashboardLayout'
 import Login from './pages/Login'
 import NotFound from './pages/NotFound'
 import Profile from './pages/Profile'
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/',
-        element: <DasboardLayout />,
+        element: <DashboardLayout />,
         children: [
           {
             index: true,
