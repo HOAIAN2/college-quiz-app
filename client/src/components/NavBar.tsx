@@ -101,7 +101,7 @@ export default function NavBar() {
             else DOM.sideBarRef.current?.classList.remove(styles['hide'])
         }
         window.addEventListener('resize', updateSize);
-        return () => window.removeEventListener('resize', updateSize);
+        return () => window.removeEventListener('resize', updateSize)
     }, [DOM.sideBarRef])
     useEffect(() => {
         const currentFeature = navBarItems.find(feature => {
