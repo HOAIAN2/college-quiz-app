@@ -30,7 +30,7 @@ export default function ExportUsers({
     }
     const queryData = useQuery({
         queryKey: ['export-user'],
-        queryFn: (() => apiGetUserExportableFields(role))
+        queryFn: () => apiGetUserExportableFields(role)
     })
     const handleExportUsers = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()

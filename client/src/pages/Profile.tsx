@@ -19,9 +19,7 @@ export default function Profile() {
     const queryClient = useQueryClient()
     const queryData = useQuery({
         queryKey: ['current-user'],
-        queryFn: () => {
-            return apiGetUser()
-        },
+        queryFn: apiGetUser,
     })
     const getParentElement = (element: HTMLInputElement) => {
         let parent = element.parentElement as HTMLElement
@@ -64,6 +62,7 @@ export default function Profile() {
             apiGetUser()
                 .then((data) => {
                     user.dispatchUser({ type: USER_ACTION.SET, payload: data.user })
+                    permissions.setItems(data.permissions)
                 })
         }
     })

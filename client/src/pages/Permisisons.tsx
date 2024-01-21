@@ -11,7 +11,7 @@ export default function Permisisons() {
     const language = useLanguage<PagePermissionsLang>('page.permissions')
     const queryData = useQuery({
         queryKey: ['permissions'],
-        queryFn: () => apiGetRolePermissionCount()
+        queryFn: apiGetRolePermissionCount
     })
     return (
         <div
