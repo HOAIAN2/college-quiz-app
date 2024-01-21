@@ -8,7 +8,7 @@ import { USER_ACTION } from '../contexts/UserContext'
 import useAppContext from '../hooks/useAppContext'
 import styles from '../styles/DashboardLayout.module.css'
 
-export default function DashoardLayout() {
+export default function DashboardLayout() {
     const { user, permissions } = useAppContext()
     const [checking, setChecking] = useState(true)
     const navigate = useNavigate()
