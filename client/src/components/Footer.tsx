@@ -1,12 +1,13 @@
 import useAppContext from '../hooks/useAppContext'
 import styles from '../styles/Footer.module.css'
+const env = import.meta.env
 
 export default function Footer() {
     const { appLanguage } = useAppContext()
     return (
         <footer className={styles['footer']}>
             <span>
-                {"College Quiz App @" + new Date().getFullYear()}
+                {`${env.VITE_APP_NAME} @ ${new Date().getFullYear()}`}
             </span>
             <ul>
                 <li><a>Terms</a></li>
