@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { apiLogin } from '../api/auth'
 import { apiGetUser } from '../api/user'
-import { USER_ACTION } from '../contexts/UserContext'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { PageLoginLang } from '../models/lang'
@@ -39,7 +38,7 @@ export default function Login() {
                 return apiGetUser()
             })
             .then((data) => {
-                user.dispatchUser({ type: USER_ACTION.SET, payload: data.user })
+                user.setUser(data.user)
                 permissions.setItems(data.permissions)
                 navigate(prePage?.pathname || '/')
             })

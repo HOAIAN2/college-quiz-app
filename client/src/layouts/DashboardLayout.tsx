@@ -4,7 +4,6 @@ import { apiGetUser } from '../api/user'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import NavBar from '../components/NavBar'
-import { USER_ACTION } from '../contexts/UserContext'
 import useAppContext from '../hooks/useAppContext'
 import styles from '../styles/DashboardLayout.module.css'
 
@@ -15,7 +14,7 @@ export default function DashboardLayout() {
     useEffect(() => {
         apiGetUser()
             .then(data => {
-                user.dispatchUser({ type: USER_ACTION.SET, payload: data.user })
+                user.setUser(data.user)
                 permissions.setItems(data.permissions)
                 setChecking(false)
                 document.querySelector('.pre-load-container')?.classList.add('hide')

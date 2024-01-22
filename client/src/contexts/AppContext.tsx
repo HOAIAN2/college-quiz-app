@@ -1,17 +1,20 @@
-import { ReactNode, createContext, useReducer, useState } from 'react'
-import { DOMContextType } from '../contexts/DOMContext'
-import { UserContextType } from '../contexts/UserContext'
+import { ReactNode, createContext, createRef, useState } from 'react'
+import { User } from '../models/user'
 import { getLanguage } from '../utils/languages'
-import { sideBarRef, titleRef } from './DOMContext'
-import { USER_ACTION, userReducer } from './UserContext'
 
 type AppContextType = {
-    DOM: DOMContextType,
+    DOM: {
+        sideBarRef: React.RefObject<HTMLDivElement>
+        titleRef: React.RefObject<HTMLHeadingElement>
+    }
     appLanguage: {
         language: string
         setLanguage: React.Dispatch<React.SetStateAction<string>>
     },
-    user: UserContextType
+    user: {
+        user: User | undefined
+        setUser: React.Dispatch<React.SetStateAction<User | undefined>>
+    }
     permissions: {
         items: string[]
         setItems: React.Dispatch<React.SetStateAction<string[]>>
@@ -25,7 +28,9 @@ export const AppContext = createContext<AppContextType>(init as AppContextType)
 export function AppProvider({ children }: { children: ReactNode }) {
     const [language, setLanguage] = useState(getLanguage())
     const [permissions, setPermissions] = useState<string[]>([])
-    const [user, dispatchUser] = useReducer(userReducer, undefined)
+    const [user, setUser] = useState<User | undefined>()
+    const sideBarRef = createRef<HTMLDivElement>()
+    const titleRef = createRef<HTMLHeadingElement>()
     return (
         <AppContext.Provider value={
             {
@@ -39,8 +44,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
                 },
                 user: {
                     user,
-                    dispatchUser,
-                    USER_ACTION: USER_ACTION
+                    setUser
                 },
                 permissions: {
                     items: permissions,
