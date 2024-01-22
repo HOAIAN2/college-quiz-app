@@ -9,17 +9,13 @@
     align-items: center;
 }
 
-.footer>span {
-    margin-left: 20px;
-    white-space: nowrap;
-}
-
 .footer>ul {
     width: 80%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    white-space: nowrap;
 }
 
 .footer>ul>li {
@@ -35,7 +31,7 @@
     opacity: 0.7;
 }
 
-.footer>select {
+.footer>ul>li>select {
     margin-right: 20px;
     border: none;
     outline: none;

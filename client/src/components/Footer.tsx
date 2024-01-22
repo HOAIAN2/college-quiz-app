@@ -6,10 +6,10 @@ export default function Footer() {
     const { appLanguage } = useAppContext()
     return (
         <footer className={styles['footer']}>
-            <span>
-                {`${env.VITE_APP_NAME} @ ${new Date().getFullYear()}`}
-            </span>
             <ul>
+                <li>
+                    {`${env.VITE_APP_NAME} @ ${new Date().getFullYear()}`}
+                </li>
                 <li><a>Terms</a></li>
                 <li><a>Privacy</a></li>
                 <li><a>Security</a></li>
@@ -17,15 +17,17 @@ export default function Footer() {
                 <li><a>Docs</a></li>
                 <li><a>Contact</a></li>
                 <li><a>About</a></li>
+                <li>
+                    <select value={appLanguage.language}
+                        onChange={(e) => {
+                            appLanguage.setLanguage(e.currentTarget.value)
+                            localStorage.setItem('lang', e.currentTarget.value)
+                        }}>
+                        <option value="en">English</option>
+                        <option value="vi">Tiếng Việt</option>
+                    </select>
+                </li>
             </ul>
-            <select value={appLanguage.language}
-                onChange={(e) => {
-                    appLanguage.setLanguage(e.currentTarget.value)
-                    localStorage.setItem('lang', e.currentTarget.value)
-                }}>
-                <option value="en">English</option>
-                <option value="vi">Tiếng Việt</option>
-            </select>
         </footer>
     )
 }
