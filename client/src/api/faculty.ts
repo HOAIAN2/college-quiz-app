@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Faculty } from '../models/faculty'
 import { ApiResponseWithData } from '../models/response'
-import request, { getToken } from './config'
+import { getToken } from '../utils/token'
+import request from './config'
 
 export async function apiAutoCompleteFaculty(search: string) {
     if (!getToken()) throw new Error('no token')

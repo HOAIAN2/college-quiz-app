@@ -8,7 +8,8 @@ import {
     UserPagination,
     UserWithPermissions
 } from '../models/user'
-import request, { getToken } from './config'
+import { getToken, removeToken } from '../utils/token'
+import request from './config'
 
 export async function apiGetUser() {
     if (!getToken()) throw new Error('no token')
@@ -18,7 +19,7 @@ export async function apiGetUser() {
         return data
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)
-        if (error.response.status === 401) localStorage.removeItem('token')
+        if (error.response.status === 401) removeToken()
         const message = error.response.data.message
         throw new Error(message)
     }

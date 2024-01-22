@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DashboarData } from '../models/dashboard'
 import { ApiResponseWithData } from '../models/response'
-import request, { getToken } from './config'
+import { getToken } from '../utils/token'
+import request from './config'
 
 export async function apiGetDashboard() {
     if (!getToken()) throw new Error('no token')

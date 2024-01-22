@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ApiResponseWithData, LoginResponse } from '../models/response'
+import { removeToken, setToken } from '../utils/token'
 import request from './config'
 
 export async function apiLogin(form: FormData) {
     try {
         const res = await request.post('/auth/login', form)
         const { data } = res.data as ApiResponseWithData<LoginResponse>
-        localStorage.setItem('token', data.token)
+        setToken(data.token)
         return data.user
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)
@@ -17,7 +18,7 @@ export async function apiLogin(form: FormData) {
 export async function apiChangePassword(form: FormData) {
     try {
         await request.post('/auth/change-password', form)
-        localStorage.removeItem('token')
+        removeToken()
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)
         const message = error.response.data.message
@@ -27,11 +28,11 @@ export async function apiChangePassword(form: FormData) {
 export async function apiLogout() {
     try {
         await request.post('/auth/logout')
-        localStorage.removeItem('token')
+        removeToken()
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)
         const message = error.response.data.message
-        localStorage.removeItem('token')
+        removeToken()
         throw new Error(message)
     }
 }

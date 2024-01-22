@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import { toast } from 'sonner'
 import { getLanguage } from '../utils/languages'
+import { getToken, removeToken } from '../utils/token'
 const env = import.meta.env
 
 type TemplateFileUrl = {
@@ -20,10 +21,6 @@ export const templateFileUrl = {
     teacher: host + 'data/Import_Teacher_Template.xlsx',
 } as TemplateFileUrl
 
-export function getToken() {
-    const token = localStorage.getItem('token') || '' as string
-    return token
-}
 export function getTokenHeader() {
     return `Bearer ${getToken()}`
 }
@@ -73,7 +70,7 @@ request.interceptors.response.use(
     function (error: AxiosError) {
         if (error.response?.status === 401) {
             if (getToken()) {
-                localStorage.removeItem('token')
+                removeToken()
                 const cleanUrl = window.location.href.split('?')[0]
                 window.location.href = cleanUrl
                 return Promise.reject(error)

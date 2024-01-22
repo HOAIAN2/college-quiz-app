@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { SchoolClass } from '../models/class'
 import { ApiResponseWithData } from '../models/response'
-import request, { getToken } from './config'
+import { getToken } from '../utils/token'
+import request from './config'
 
 export async function apiAutoCompleteClass(search: string) {
     if (!getToken()) throw new Error('no token')
