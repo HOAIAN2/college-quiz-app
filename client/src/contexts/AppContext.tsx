@@ -1,4 +1,4 @@
-import { ReactNode, createContext, createRef, useState } from 'react'
+import { ReactNode, createContext, useRef, useState } from 'react'
 import { User } from '../models/user'
 import { getLanguage } from '../utils/languages'
 
@@ -29,8 +29,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const [language, setLanguage] = useState(getLanguage())
     const [permissions, setPermissions] = useState<string[]>([])
     const [user, setUser] = useState<User | undefined>()
-    const sideBarRef = createRef<HTMLDivElement>()
-    const titleRef = createRef<HTMLHeadingElement>()
+    const sideBarRef = useRef<HTMLDivElement>(null)
+    const titleRef = useRef<HTMLHeadingElement>(null)
     return (
         <AppContext.Provider value={
             {
