@@ -33,7 +33,7 @@ export default function Users({
     role
 }: UsersProps) {
     const language = useLanguage<PageUsersLang>('page.users')
-    const { appLanguage } = useAppContext()
+    const { appLanguage, permissions } = useAppContext()
     const [insertMode, setInsertMode] = useState(false)
     const [exportMode, setExportMode] = useState(false)
     const [importMode, setImportMode] = useState(false)
@@ -142,39 +142,51 @@ export default function Users({
                         'action-bar-d'
                     ].join(' ')
                 }>
-                    <div className={
-                        [
-                            'action-item-d'
-                        ].join(' ')
+                    {
+                        permissions.has('user_create') ?
+                            <div className={
+                                [
+                                    'action-item-d'
+                                ].join(' ')
+                            }
+                                onClick={() => {
+                                    setInsertMode(true)
+                                }}
+                            >
+                                <RiAddFill /> {language?.add}
+                            </div>
+                            : null
                     }
-                        onClick={() => {
-                            setInsertMode(true)
-                        }}
-                    >
-                        <RiAddFill /> {language?.add}
-                    </div>
-                    <div className={
-                        [
-                            'action-item-d-white'
-                        ].join(' ')
+                    {
+                        permissions.has('user_create') ?
+                            <div className={
+                                [
+                                    'action-item-d-white'
+                                ].join(' ')
+                            }
+                                onClick={() => {
+                                    setImportMode(true)
+                                }}
+                            >
+                                <BiImport /> {language?.import}
+                            </div>
+                            : null
                     }
-                        onClick={() => {
-                            setImportMode(true)
-                        }}
-                    >
-                        <BiImport /> {language?.import}
-                    </div>
-                    <div className={
-                        [
-                            'action-item-d-white'
-                        ].join(' ')
+                    {
+                        permissions.has('user_view') ?
+                            <div className={
+                                [
+                                    'action-item-d-white'
+                                ].join(' ')
+                            }
+                                onClick={() => {
+                                    setExportMode(true)
+                                }}
+                            >
+                                <BiExport /> {language?.export}
+                            </div>
+                            : null
                     }
-                        onClick={() => {
-                            setExportMode(true)
-                        }}
-                    >
-                        <BiExport /> {language?.export}
-                    </div>
                     {
                         selectedUserIds.size > 0 ?
                             <div

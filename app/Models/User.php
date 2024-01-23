@@ -151,4 +151,9 @@ class User extends Authenticatable
 	{
 		return $this->role->permissions()->where('name', '=', $name)->exists();
 	}
+
+	public function hasPermissions(array $names)
+	{
+		return $this->role->permissions()->whereIn('name', $names)->count() == count($names);
+	}
 }
