@@ -15,7 +15,11 @@ return [
         'faculty_id' => 'Khoa',
     ],
     'school_class' => [
-        'shortcode' => 'Mã lớp',
+        'shortcode' => 'Lớp',
         'name' => 'Tên lớp'
-    ]
+    ],
+    'faculty' => [
+        'shortcode' => 'Khoa',
+        'name' => 'Tên khoa'
+    ],
 ];

@@ -15,7 +15,11 @@ return [
         'faculty_id' => 'Faculty',
     ],
     'school_class' => [
-        'shortcode' => 'Class code',
+        'shortcode' => 'Class',
         'name' => 'Class name'
-    ]
+    ],
+    'faculty' => [
+        'shortcode' => 'Faculty',
+        'name' => 'Faculty name'
+    ],
 ];
