@@ -13,10 +13,15 @@ use Illuminate\Support\Facades\Log;
 
 class RolePermissionController extends Controller
 {
+    public $ignore_permissions = [
+        'role_permission_view',
+        'role_permission_grant',
+    ];
+
     public function index()
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('permission_role_view'), 403);
+        abort_if(!$user->hasPermission('role_permission_view'), 403);
 
         try {
             $data = Role::withCount('permissions')
@@ -36,14 +41,15 @@ class RolePermissionController extends Controller
     public function show(string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('permission_role_view'), 403);
+        abort_if(!$user->hasPermission('role_permission_view'), 403);
         $data = (object)[];
 
         try {
             $data->role = Role::with('permissions')
                 ->where('name', '<>', 'admin')
                 ->findOrFail($id);
-            $data->app_permissions = Permission::all();
+            $data->app_permissions = Permission::whereNotIn('name', $this->ignore_permissions)
+                ->get();
             foreach ($data->app_permissions as $app_permission) {
                 $app_permission->display_name = trans("permission.{$app_permission->name}");
             }
@@ -58,7 +64,7 @@ class RolePermissionController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('permission_role_grant'), 403);
+        abort_if(!$user->hasPermission('role_permission_grant'), 403);
 
         DB::beginTransaction();
         try {
@@ -80,7 +86,8 @@ class RolePermissionController extends Controller
                 $existing_permission_ids = $role->permissions()
                     ->whereIn('id', $request->ids)->pluck('id')->toArray();
 
-                $permission_ids = Permission::whereIn('id', $request->ids)
+                $permission_ids = Permission::whereNotIn('name', $this->ignore_permissions)
+                    ->whereIn('id', $request->ids)
                     ->pluck('id');
 
                 foreach ($permission_ids as $permission_id) {

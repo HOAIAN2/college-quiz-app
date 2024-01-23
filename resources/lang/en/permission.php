@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'permission_role_view' => 'View Permission Role',
-    'permission_role_grant' => 'Grant Permission Role',
+    'role_permission_view' => 'View Permission Role',
+    'role_permission_grant' => 'Grant Permission Role',
     'user_view' => 'View User',
     'user_create' => 'Create User',
     'user_update' => 'Update User',

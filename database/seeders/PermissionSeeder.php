@@ -14,8 +14,8 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         $permissions = [
-            ['name' => 'permission_role_view'],
-            ['name' => 'permission_role_grant'],
+            ['name' => 'role_permission_view'],
+            ['name' => 'role_permission_grant'],
 
             ['name' => 'user_view'],
             ['name' => 'user_create'],

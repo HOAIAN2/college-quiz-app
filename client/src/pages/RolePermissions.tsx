@@ -24,7 +24,7 @@ export default function RolePermissions() {
         formData.forEach(value => {
             permissionIds.push(value.toString())
         })
-        if (!permissions.has('permission_role_grant')) return
+        if (!permissions.has('role_permission_grant')) return
         if (!id) return
         await apiUpdateRolePermissions(id, permissionIds)
     }

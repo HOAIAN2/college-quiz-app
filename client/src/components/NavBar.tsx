@@ -92,7 +92,7 @@ export default function NavBar() {
             name: language?.permission,
             to: 'permissions',
             icon: <TbBrandAuth0 />,
-            isActive: permissions.has('permission_role_view')
+            isActive: permissions.has('role_permission_view')
         },
     ]
     useEffect(() => {

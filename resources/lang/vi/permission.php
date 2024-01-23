@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'permission_role_view' => 'Xem Quyền Vai Trò',
-    'permission_role_grant' => 'Cấp Quyền Vai Trò',
+    'role_permission_view' => 'Xem Quyền Vai Trò',
+    'role_permission_grant' => 'Cấp Quyền Vai Trò',
     'user_view' => 'Xem Người Dùng',
     'user_create' => 'Tạo Người Dùng',
     'user_update' => 'Cập Nhật Người Dùng',
