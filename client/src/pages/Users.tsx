@@ -188,7 +188,7 @@ export default function Users({
                             : null
                     }
                     {
-                        selectedUserIds.size > 0 ?
+                        selectedUserIds.size > 0 && permissions.has('user_delete') ?
                             <div
                                 onClick={() => {
                                     setShowPopUpMode(true)

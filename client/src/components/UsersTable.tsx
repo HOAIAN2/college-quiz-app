@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { GiFemale, GiMale } from 'react-icons/gi'
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
 import { SetURLSearchParams } from 'react-router-dom'
+import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentUsersTableLang } from '../models/lang'
 import { RoleName } from '../models/role'
@@ -26,6 +27,7 @@ export default function UsersTable({
     setSearchParams,
     setSelectedRows
 }: UsersTableProps) {
+    const { permissions } = useAppContext()
     const language = useLanguage<ComponentUsersTableLang>('component.users_table')
     const [viewMode, setViewMode] = useState(false)
     const [checkAll, setCheckAll] = useState(false)
@@ -92,16 +94,20 @@ export default function UsersTable({
                     <>
                         <thead>
                             <tr className={styles['table-header']}>
-                                <th className={
-                                    [
-                                        styles['column-select'],
-                                        styles['column']
-                                    ].join(' ')
-                                }>
-                                    <input type="checkbox"
-                                        checked={checkAll}
-                                        onChange={handleSelectAll} />
-                                </th>
+                                {
+                                    permissions.has('user_delete') ?
+                                        <th className={
+                                            [
+                                                styles['column-select'],
+                                                styles['column']
+                                            ].join(' ')
+                                        }>
+                                            <input type="checkbox"
+                                                checked={checkAll}
+                                                onChange={handleSelectAll} />
+                                        </th>
+                                        : null
+                                }
                                 <th className={
                                     [
                                         styles['column'],
@@ -161,15 +167,19 @@ export default function UsersTable({
                                                     handleViewUser(user.id, e)
                                                 }}
                                             >
-                                                <td className={
-                                                    [
-                                                        styles['column'],
-                                                        styles['small'],
-                                                        styles['column-select']
-                                                    ].join(' ')
-                                                }>
-                                                    <input type="checkbox" />
-                                                </td>
+                                                {
+                                                    permissions.has('user_delete') ?
+                                                        <td className={
+                                                            [
+                                                                styles['column'],
+                                                                styles['small'],
+                                                                styles['column-select']
+                                                            ].join(' ')
+                                                        }>
+                                                            <input type="checkbox" />
+                                                        </td>
+                                                        : null
+                                                }
                                                 <td className={
                                                     [
                                                         styles['column'],
