@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Subject\DeleteRequest;
-use App\Http\Requests\Subject\IndexRequest;
+use App\Http\Requests\Subject\GetAllRequest;
 use App\Http\Requests\Subject\StoreRequest;
 use App\Models\Subject;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Log;
 
 class SubjectController extends Controller
 {
-    public function index(IndexRequest $request)
+    public function index(GetAllRequest $request)
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission('subject_view'), 403);
