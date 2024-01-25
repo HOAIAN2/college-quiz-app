@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SchoolClass\DeleteRequest;
 use App\Http\Requests\SchoolClass\GetAllRequest;
 use App\Http\Requests\SchoolClass\StoreRequest;
 use App\Models\Faculty;
@@ -97,14 +96,14 @@ class SchoolClassController extends Controller
             return Reply::error('app.errors.failToSaveRecord', [], 500);
         }
     }
-    public function destroy(DeleteRequest $request)
+    public function destroy(string $id)
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission('school_class_delete'), 403);
         DB::beginTransaction();
 
         try {
-            SchoolClass::destroy($request->ids);
+            SchoolClass::destroy($id);
             DB::commit();
             return Reply::successWithMessage('app.successes.recordDeleteSuccess');
         } catch (\Throwable $error) {

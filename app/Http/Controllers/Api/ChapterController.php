@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Chapter\DeleteRequest;
 use App\Http\Requests\Chapter\StoreRequest;
 use App\Http\Requests\Chapter\UpdateRequest;
 use App\Models\Chapter;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -64,14 +62,14 @@ class ChapterController extends Controller
         }
     }
 
-    public function destroy(DeleteRequest $request)
+    public function destroy(string $id)
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission('subject_delete'), 403);
 
         DB::beginTransaction();
         try {
-            Chapter::destroy($request->ids);
+            Chapter::destroy($id);
             DB::commit();
             return Reply::successWithMessage('app.successes.recordDeleteSuccess');
         } catch (\Throwable $error) {
