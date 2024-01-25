@@ -37,7 +37,7 @@ class SchoolClassController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission('school_class_create'), 403);
-        $data = collect($request->validated())->except('faculty');
+        $data = collect($request->validated())->except('faculty')->toArray();
 
         DB::beginTransaction();
         try {
@@ -52,6 +52,7 @@ class SchoolClassController extends Controller
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
+            DB::rollBack();
             if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.failToSaveRecord', [], 500);
         }
@@ -92,6 +93,7 @@ class SchoolClassController extends Controller
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());
+            DB::rollBack();
             if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.failToSaveRecord', [], 500);
         }
