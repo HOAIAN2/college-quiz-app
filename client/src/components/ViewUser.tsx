@@ -54,14 +54,14 @@ export default function ViewUser({
         queryFn: () => {
             return apiAutoCompleteClass(debouceQueryClass)
         },
-        enabled: debouceQueryClass ? true : false
+        enabled: debouceQueryClass && permissions.has('school_class_view') ? true : false
     })
     const facultyQueryData = useQuery({
         queryKey: ['faculty-query', debouceQueryFaculty],
         queryFn: () => {
             return apiAutoCompleteFaculty(debouceQueryFaculty)
         },
-        enabled: debouceQueryFaculty ? true : false
+        enabled: debouceQueryFaculty && permissions.has('faculty_view') ? true : false
     })
     const getParentElement = (element: HTMLInputElement) => {
         let parent = element.parentElement as HTMLElement
