@@ -33,6 +33,7 @@ class SchoolClassController extends Controller
             return Reply::error('app.errors.somethingWentWrong');
         }
     }
+
     public function store(StoreRequest $request)
     {
         $user = $this->getUser();
@@ -57,6 +58,7 @@ class SchoolClassController extends Controller
             return Reply::error('app.errors.failToSaveRecord', [], 500);
         }
     }
+
     public function show(string $id)
     {
         $user = $this->getUser();
@@ -71,6 +73,7 @@ class SchoolClassController extends Controller
             return Reply::error('app.errors.somethingWentWrong');
         }
     }
+
     public function update(StoreRequest $request, string $id)
     {
         $user = $this->getUser();
@@ -98,6 +101,7 @@ class SchoolClassController extends Controller
             return Reply::error('app.errors.failToSaveRecord', [], 500);
         }
     }
+
     public function destroy(string $id)
     {
         $user = $this->getUser();
@@ -115,6 +119,7 @@ class SchoolClassController extends Controller
             return Reply::error('app.errors.somethingWentWrong', [], 500);
         }
     }
+
     public function autocomplete(Request $request)
     {
         $user = $this->getUser();
