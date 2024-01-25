@@ -385,7 +385,7 @@ export default function ViewUser({
                                         </div>
                                     </div>
                                     {
-                                        user.user?.role.name === 'admin' ?
+                                        permissions.has('user_update') ?
                                             <div className={styles['action-items']}>
                                                 <button name='save'
                                                     className={
