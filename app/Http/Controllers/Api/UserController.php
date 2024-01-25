@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Exports\UsersExport;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\DeleteRequest;
+use App\Http\Requests\DeleteRequest;
 use App\Http\Requests\User\ExportableRequest;
 use App\Http\Requests\User\ExportRequest;
 use App\Http\Requests\User\GetByTypeRequest;
