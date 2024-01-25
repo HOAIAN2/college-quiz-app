@@ -25,6 +25,7 @@ class DeleteRequest extends FormRequest
     {
         return [
             'ids'  => ['required', 'array'],
+            'ids.*' => ['integer']
         ];
     }
 }
