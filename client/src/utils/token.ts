@@ -1,14 +1,12 @@
-const env = import.meta.env
-
-const tokenKey = env.VITE_TOKEN_KEY as string
+import { TOKEN_KEY } from "../config/env"
 
 export function getToken() {
-    return localStorage.getItem(tokenKey)
+    return localStorage.getItem(TOKEN_KEY)
 }
 export function setToken(token: string) {
-    localStorage.setItem(tokenKey, token)
+    localStorage.setItem(TOKEN_KEY, token)
 }
 
 export function removeToken() {
-    localStorage.removeItem(tokenKey)
+    localStorage.removeItem(TOKEN_KEY)
 }

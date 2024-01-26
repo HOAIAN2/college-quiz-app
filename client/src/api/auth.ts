@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import request from '../config/api'
 import { ApiResponseWithData, LoginResponse } from '../models/response'
 import { removeToken, setToken } from '../utils/token'
-import request from './config'
 
 export async function apiLogin(form: FormData) {
     try {

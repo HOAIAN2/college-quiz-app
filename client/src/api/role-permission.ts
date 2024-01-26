@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import request from '../config/api'
 import {
     ApiResponseWithData,
     RolePermissionsResponse
 } from '../models/response'
 import { RoleWithPermissionCount } from '../models/role'
-import request from './config'
 
 export async function apiGetRolePermissionCount() {
     try {

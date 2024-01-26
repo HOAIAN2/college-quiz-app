@@ -1,6 +1,6 @@
+import { APP_NAME, LANG_KEY } from '../config/env'
 import useAppContext from '../hooks/useAppContext'
 import styles from '../styles/Footer.module.css'
-const env = import.meta.env
 
 export default function Footer() {
     const { appLanguage } = useAppContext()
@@ -8,7 +8,7 @@ export default function Footer() {
         <footer className={styles['footer']}>
             <ul>
                 <li>
-                    {`${env.VITE_APP_NAME} @ ${new Date().getFullYear()}`}
+                    {`${APP_NAME} @ ${new Date().getFullYear()}`}
                 </li>
                 <li><a>Terms</a></li>
                 <li><a>Privacy</a></li>
@@ -21,7 +21,7 @@ export default function Footer() {
                     <select value={appLanguage.language}
                         onChange={(e) => {
                             appLanguage.setLanguage(e.currentTarget.value)
-                            localStorage.setItem(env.VITE_LANG_KEY, e.currentTarget.value)
+                            localStorage.setItem(LANG_KEY, e.currentTarget.value)
                         }}>
                         <option value="en">English</option>
                         <option value="vi">Tiếng Việt</option>

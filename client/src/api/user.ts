@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosResponse } from 'axios'
+import request from '../config/api'
 import { ApiResponseWithData, ExportableResponse } from '../models/response'
 import { RoleName } from '../models/role'
 import {
@@ -9,7 +10,6 @@ import {
     UserWithPermissions
 } from '../models/user'
 import { getToken, removeToken } from '../utils/token'
-import request from './config'
 
 export async function apiGetUser() {
     if (!getToken()) throw new Error('no token')

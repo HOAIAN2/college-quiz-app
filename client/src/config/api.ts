@@ -2,15 +2,16 @@ import axios, { AxiosError, AxiosResponse } from 'axios'
 import { toast } from 'sonner'
 import { getLanguage } from '../utils/languages'
 import { getToken, removeToken } from '../utils/token'
+import { OVERRIDE_HTTP_METHOD, VITE_DEV_SERVER_PORT } from './env'
 const env = import.meta.env
 
 type TemplateFileUrl = {
-    [key: string]: string;
+    [key: string]: string
 }
 
-const overrideHttpMethod = env.VITE_OVERRIDE_HTTP_METHOD === 'true' ? true : false
-
-const host = env.DEV === true ? `${window.location.origin.replace(env.VITE_DEV_PORT, env.VITE_DEV_SERVER_PORT)}/`
+const host = env.DEV === true ? `${window.location.origin.replace(
+    window.location.port,
+    VITE_DEV_SERVER_PORT)}/`
     : `${window.location.origin}/`
 
 const baseURL = host + 'api/'
@@ -42,7 +43,7 @@ request.interceptors.request.use(config => {
     if (getToken()) {
         config.headers.Authorization = getTokenHeader()
     }
-    if (overrideHttpMethod) {
+    if (OVERRIDE_HTTP_METHOD) {
         if (config.method !== 'get' && config.method !== 'post') {
             const override = config.method?.toUpperCase() as string
             config.data = config.data || new FormData()
