@@ -2,11 +2,11 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
 import { apiExportUsers, apiGetUserExportableFields } from '../api/user'
-import { saveBlob } from '../helpers/saveBlob'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentExportUsersLang } from '../models/lang'
 import { RoleName } from '../models/role'
 import styles from '../styles/ExportUsers.module.css'
+import { saveBlob } from '../utils/saveBlob'
 import Loading from './Loading'
 
 type ExportUsersProps = {

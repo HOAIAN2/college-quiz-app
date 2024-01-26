@@ -18,7 +18,7 @@ import ImportData from '../components/ImportData'
 import Loading from '../components/Loading'
 import UsersTable from '../components/UsersTable'
 import YesNoPopUp from '../components/YesNoPopUp'
-import { templateFileUrl } from '../config/api'
+import { importTemplateFileUrl } from '../config/api'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
@@ -125,7 +125,7 @@ export default function Users({
                     ].join(' ')
                     }
                     icon={<PiMicrosoftExcelLogoFill />}
-                    teamplateUrl={templateFileUrl[role]}
+                    teamplateUrl={importTemplateFileUrl[role]}
                     importFunction={importFunction}
                     setImportMode={setImportMode}
                     onMutateSuccess={onMutateSuccess}

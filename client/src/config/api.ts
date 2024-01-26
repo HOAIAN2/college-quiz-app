@@ -17,7 +17,8 @@ const host = env.DEV === true ? `${window.location.origin.replace(
 const baseURL = host + 'api/'
 
 const ignoreLoaders: string[] = []
-export const templateFileUrl = {
+
+export const importTemplateFileUrl = {
     student: host + 'data/Import_Student_Template.xlsx',
     teacher: host + 'data/Import_Teacher_Template.xlsx',
 } as TemplateFileUrl
@@ -28,6 +29,7 @@ export function getTokenHeader() {
 const request = axios.create({
     baseURL: baseURL
 })
+
 request.interceptors.request.use(config => {
     config.headers['Accept-Language'] = getLanguage()
     if (config.method === 'get' && !ignoreLoaders.includes(config.url || '')) {

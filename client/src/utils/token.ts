@@ -1,4 +1,4 @@
-import { TOKEN_KEY } from "../config/env"
+import { TOKEN_KEY } from '../config/env'
 
 export function getToken() {
     return localStorage.getItem(TOKEN_KEY)
