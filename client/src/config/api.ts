@@ -2,32 +2,15 @@ import axios, { AxiosError, AxiosResponse } from 'axios'
 import { toast } from 'sonner'
 import { getLanguage } from '../utils/languages'
 import { getToken, removeToken } from '../utils/token'
-import { OVERRIDE_HTTP_METHOD, VITE_DEV_SERVER_PORT } from './env'
-const env = import.meta.env
-
-type TemplateFileUrl = {
-    [key: string]: string
-}
-
-const host = env.DEV === true ? `${window.location.origin.replace(
-    window.location.port,
-    VITE_DEV_SERVER_PORT)}/`
-    : `${window.location.origin}/`
-
-const baseURL = host + 'api/'
+import { API_HOST, OVERRIDE_HTTP_METHOD } from './env'
 
 const ignoreLoaders: string[] = []
-
-export const importTemplateFileUrl = {
-    student: host + 'data/Import_Student_Template.xlsx',
-    teacher: host + 'data/Import_Teacher_Template.xlsx',
-} as TemplateFileUrl
 
 export function getTokenHeader() {
     return `Bearer ${getToken()}`
 }
 const request = axios.create({
-    baseURL: baseURL
+    baseURL: API_HOST + '/api/'
 })
 
 request.interceptors.request.use(config => {

@@ -18,13 +18,13 @@ import ImportData from '../components/ImportData'
 import Loading from '../components/Loading'
 import UsersTable from '../components/UsersTable'
 import YesNoPopUp from '../components/YesNoPopUp'
-import { importTemplateFileUrl } from '../config/api'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { PageUsersLang } from '../models/lang'
 import { RoleName } from '../models/role'
 import styles from '../styles/Users.module.css'
+import { importTemplateFileUrl } from '../utils/template'
 
 type UsersProps = {
     role: RoleName

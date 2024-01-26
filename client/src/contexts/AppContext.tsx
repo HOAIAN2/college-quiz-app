@@ -32,7 +32,7 @@ function useAppContext() {
             setItems: setPermissions,
             has: (name: string) => permissions.includes(name)
         }
-    };
+    }
 }
 
 export function AppProvider({ children }: { children: ReactNode }) {
