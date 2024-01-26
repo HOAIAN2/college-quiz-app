@@ -6,15 +6,13 @@ import { API_HOST, OVERRIDE_HTTP_METHOD } from './env'
 
 const ignoreLoaders: string[] = []
 
-export function getTokenHeader() {
-    return `Bearer ${getToken()}`
-}
 const request = axios.create({
     baseURL: API_HOST + '/api/'
 })
 
 request.interceptors.request.use(config => {
     config.headers['Accept-Language'] = getLanguage()
+    const token = getToken()
     if (config.method === 'get' && !ignoreLoaders.includes(config.url || '')) {
         config.onDownloadProgress = (progressEvent) => {
             const loaderElement = document.querySelector<HTMLDivElement>('#loader')
@@ -25,8 +23,8 @@ request.interceptors.request.use(config => {
             }
         }
     }
-    if (getToken()) {
-        config.headers.Authorization = getTokenHeader()
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`
     }
     if (OVERRIDE_HTTP_METHOD) {
         if (config.method !== 'get' && config.method !== 'post') {
