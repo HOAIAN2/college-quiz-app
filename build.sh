@@ -8,4 +8,7 @@ cd client
 npm run build
 cp -r ./dist/* ../public
 cd ..
+if [ ! -d ./resources/views ]; then
+    mkdir ./resources/views
+fi
 cp -r ./public/index.html ./resources/views/index.blade.php
