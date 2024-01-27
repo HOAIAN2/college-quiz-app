@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import { toast } from 'sonner'
-import { getLanguage } from '../utils/languages'
-import { getToken, removeToken } from '../utils/token'
+import languageUtils from '../utils/languageUtils'
+import tokenUtils from '../utils/tokenUtils'
 import { API_HOST, OVERRIDE_HTTP_METHOD } from './env'
 
 const ignoreLoaders: string[] = []
@@ -11,8 +11,8 @@ const request = axios.create({
 })
 
 request.interceptors.request.use(config => {
-    config.headers['Accept-Language'] = getLanguage()
-    const token = getToken()
+    config.headers['Accept-Language'] = languageUtils.getLanguage()
+    const token = tokenUtils.getToken()
     if (config.method === 'get' && !ignoreLoaders.includes(config.url || '')) {
         config.onDownloadProgress = (progressEvent) => {
             const loaderElement = document.querySelector<HTMLDivElement>('#loader')
@@ -53,12 +53,13 @@ request.interceptors.response.use(
     },
     function (error: AxiosError) {
         if (error.response?.status === 401) {
-            if (getToken()) {
-                removeToken()
+            if (tokenUtils.getToken()) {
+                tokenUtils.removeToken()
                 const cleanUrl = window.location.href.split('?')[0]
                 window.location.href = cleanUrl
                 return Promise.reject(error)
             }
+            return Promise.reject(error)
         }
         if (error.code?.startsWith('ERR_NETWORK')) {
             toast.error(error.message)

@@ -2,10 +2,8 @@
 import request from '../config/api'
 import { DashboarData } from '../models/dashboard'
 import { ApiResponseWithData } from '../models/response'
-import { getToken } from '../utils/token'
 
 export async function apiGetDashboard() {
-    if (!getToken()) throw new Error('no token')
     try {
         const res = await request.get('/dashboard')
         const { data } = res.data as ApiResponseWithData<DashboarData>

@@ -2,10 +2,8 @@
 import request from '../config/api'
 import { Faculty } from '../models/faculty'
 import { ApiResponseWithData } from '../models/response'
-import { getToken } from '../utils/token'
 
 export async function apiAutoCompleteFaculty(search: string) {
-    if (!getToken()) throw new Error('no token')
     try {
         const res = await request.get('/faculty/complete', {
             params: {

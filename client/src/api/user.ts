@@ -9,23 +9,21 @@ import {
     UserPagination,
     UserWithPermissions
 } from '../models/user'
-import { getToken, removeToken } from '../utils/token'
+import tokenUtils from '../utils/tokenUtils'
 
 export async function apiGetUser() {
-    if (!getToken()) throw new Error('no token')
     try {
         const res = await request.get('/user')
         const { data } = res.data as ApiResponseWithData<UserWithPermissions>
         return data
     } catch (error: any) {
         if (!error.response) throw new Error(error.message)
-        if (error.response.status === 401) removeToken()
+        if (error.response.status === 401) tokenUtils.removeToken()
         const message = error.response.data.message
         throw new Error(message)
     }
 }
 export async function apiCreateUser(formData: FormData) {
-    if (!getToken()) throw new Error('no token')
     try {
         await request.post('/user', formData)
     } catch (error: any) {
@@ -36,7 +34,7 @@ export async function apiCreateUser(formData: FormData) {
     }
 }
 export async function apiUpdateUser(formData: FormData, id: string | number) {
-    if (!getToken()) throw new Error('no token')
+    if (!tokenUtils.getToken()) throw new Error('no token')
     try {
         const data = new URLSearchParams();
         for (const pair of formData) {
@@ -55,7 +53,6 @@ export async function apiUpdateUser(formData: FormData, id: string | number) {
     }
 }
 export async function apiImportUsers(file: File, role: RoleName) {
-    if (!getToken()) throw new Error('no token')
     const data = new FormData()
     data.append('role', role)
     data.append('file', file)
