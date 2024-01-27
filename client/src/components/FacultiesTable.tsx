@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
 import { SetURLSearchParams } from 'react-router-dom'
+import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { FacultyDetail } from '../models/faculty'
 import { ComponentFacultiesTableLang } from '../models/lang'
@@ -21,14 +22,27 @@ export default function FacultiesTable({
     // onMutateSuccess,
     setSearchParams
 }: FacultiesTableProps) {
+    const { appLanguage } = useAppContext()
     const language = useLanguage<ComponentFacultiesTableLang>('component.faculties_table')
     const [viewMode, setViewMode] = useState(false)
     const [facultyId, seFacultyId] = useState<number>(0)
     const handleViewFaculty = (id: number) => {
         seFacultyId(id)
         setViewMode(true)
+        console.log(viewMode, facultyId)
     }
-    console.log(viewMode, facultyId)
+    const getLeaderName = (faculty: FacultyDetail) => {
+        return appLanguage.language === 'vi'
+            ? [
+                faculty.leader?.lastName,
+                faculty.leader?.firstName
+            ].join(' ')
+            :
+            [
+                faculty.leader?.firstName,
+                faculty.leader?.lastName
+            ].join(' ')
+    }
     return (
         <>
             <div className={styles['table-content']}>
@@ -53,13 +67,13 @@ export default function FacultiesTable({
                                         styles['column'],
                                         styles['medium']
                                     ].join(' ')
-                                }>{language?.header.email}</th>
+                                }>{language?.header.phoneNumber}</th>
                                 <th className={
                                     [
                                         styles['column'],
                                         styles['medium']
                                     ].join(' ')
-                                }>{language?.header.phoneNumber}</th>
+                                }>{language?.header.email}</th>
                                 <th className={
                                     [
                                         styles['column'],
@@ -97,19 +111,19 @@ export default function FacultiesTable({
                                                         styles['column'],
                                                         styles['medium']
                                                     ].join(' ')
+                                                }>{faculty.phoneNumber}</td>
+                                                <td className={
+                                                    [
+                                                        styles['column'],
+                                                        styles['medium']
+                                                    ].join(' ')
                                                 }>{faculty.email}</td>
                                                 <td className={
                                                     [
                                                         styles['column'],
                                                         styles['medium']
                                                     ].join(' ')
-                                                }>{faculty.phoneNumber}</td>
-                                                <td className={
-                                                    [
-                                                        styles['column'],
-                                                        styles['medium']
-                                                    ].join(' ')
-                                                }>{faculty.phoneNumber}</td>
+                                                }>{getLeaderName(faculty)}</td>
                                             </tr>
                                         )
                                     }) : null
