@@ -12,6 +12,7 @@ import {
 import tokenUtils from '../utils/tokenUtils'
 
 export async function apiGetUser() {
+    if (!tokenUtils.getToken()) throw new Error('no token')
     try {
         const res = await request.get('/user')
         const { data } = res.data as ApiResponseWithData<UserWithPermissions>
@@ -34,7 +35,6 @@ export async function apiCreateUser(formData: FormData) {
     }
 }
 export async function apiUpdateUser(formData: FormData, id: string | number) {
-    if (!tokenUtils.getToken()) throw new Error('no token')
     try {
         const data = new URLSearchParams();
         for (const pair of formData) {
