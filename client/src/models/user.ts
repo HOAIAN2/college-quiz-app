@@ -27,28 +27,6 @@ export type UserWithPermissions = {
     permissions: string[]
 }
 
-export type UserPagination = {
-    currentPage: number
-    data: User[]
-    firstPageUrl: string
-    from: number
-    lastPage: number
-    lastPageUrl: string
-    links: Link[]
-    nextPageUrl: string | null
-    path: string
-    perPage: number
-    prevPageUrl: string | null
-    to: number
-    total: number
-}
-
-export type Link = {
-    url?: string
-    label: string
-    active: boolean
-}
-
 export type QueryUserType = {
     role: RoleName
     page?: number

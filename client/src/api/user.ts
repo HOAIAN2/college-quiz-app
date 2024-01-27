@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosResponse } from 'axios'
 import request from '../config/api'
-import { ApiResponseWithData, ExportableResponse } from '../models/response'
+import { ApiResponseWithData, ExportableResponse, Pagination } from '../models/response'
 import { RoleName } from '../models/role'
 import {
     QueryUserType,
     User,
-    UserPagination,
     UserWithPermissions
 } from '../models/user'
 import tokenUtils from '../utils/tokenUtils'
@@ -75,7 +74,7 @@ export async function apiGetUsersByType(query?: QueryUserType) {
                 search: query?.search
             }
         })
-        const { data } = res.data as ApiResponseWithData<UserPagination>
+        const { data } = res.data as ApiResponseWithData<Pagination<User>>
         return data
     } catch (error: any) {
         throw new Error(error.message)

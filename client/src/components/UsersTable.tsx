@@ -5,15 +5,16 @@ import { SetURLSearchParams } from 'react-router-dom'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentUsersTableLang } from '../models/lang'
+import { Pagination } from '../models/response'
 import { RoleName } from '../models/role'
-import { UserPagination } from '../models/user'
+import { User } from '../models/user'
 import styles from '../styles/UsersTable.module.css'
 import StatusBadge from './StatusBadge'
 import ViewUser from './ViewUser'
 
 type UsersTableProps = {
     role: RoleName
-    data?: UserPagination
+    data?: Pagination<User>
     searchParams: URLSearchParams
     onMutateSuccess: () => void
     setSearchParams: SetURLSearchParams

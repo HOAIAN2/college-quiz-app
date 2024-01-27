@@ -22,3 +22,25 @@ export type ExportableResponse = {
     fieldName: string
     field: string
 }
+
+export type Pagination<T> = {
+    currentPage: number
+    data: T[]
+    firstPageUrl: string
+    from: number
+    lastPage: number
+    lastPageUrl: string
+    links: Link[]
+    nextPageUrl: string | null
+    path: string
+    perPage: number
+    prevPageUrl: string | null
+    to: number
+    total: number
+}
+
+export type Link = {
+    url?: string
+    label: string
+    active: boolean
+}
