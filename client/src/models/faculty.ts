@@ -13,8 +13,6 @@ export type Faculty = {
 
 export type FacultyDetail = Faculty & {
     leader: User | null
-    schoolClassesCount: number
-    usersCount: number
 }
 
 export type QueryFacultyType = {

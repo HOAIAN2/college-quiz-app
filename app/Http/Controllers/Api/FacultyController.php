@@ -20,9 +20,6 @@ class FacultyController extends Controller
 
         $faculties = Faculty::with([
             'leader'
-        ])->withCount([
-            'school_classes',
-            'users'
         ]);
 
         try {
@@ -65,9 +62,6 @@ class FacultyController extends Controller
         try {
             $data = Faculty::with([
                 'leader'
-            ])->withCount([
-                'school_classes',
-                'users'
             ])->findOrFail($id);
             return Reply::successWithData($data, '');
         } catch (\Throwable $error) {

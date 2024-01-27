@@ -5,6 +5,7 @@ import { RiAddFill } from 'react-icons/ri'
 import { useSearchParams } from 'react-router-dom'
 import { apiGetFaculties } from '../api/faculty'
 import CustomSelect from '../components/CustomSelect'
+import FacultiesTable from '../components/FacultiesTable'
 import Loading from '../components/Loading'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
@@ -31,7 +32,6 @@ export default function Faculties() {
             search: searchParams.get('search') as string
         })
     })
-    console.log(queryData.data)
     useEffect(() => {
         if (!searchParams.get('search') && !queryDebounce) return
         if (queryDebounce === '') searchParams.delete('search')
@@ -160,6 +160,14 @@ export default function Faculties() {
                 <div className={styles['wrap-table']}>
                     {queryData.isLoading ?
                         <Loading />
+                        : null}
+                    {!queryData.isError ?
+                        <FacultiesTable
+                            data={queryData.data}
+                            searchParams={searchParams}
+                            onMutateSuccess={() => { }}
+                            setSearchParams={setSearchParams}
+                        />
                         : null}
                 </div>
             </div>
