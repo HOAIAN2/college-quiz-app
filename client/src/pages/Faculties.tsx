@@ -4,6 +4,7 @@ import { BiExport, BiImport } from 'react-icons/bi'
 import { RiAddFill } from 'react-icons/ri'
 import { useSearchParams } from 'react-router-dom'
 import { apiGetFaculties } from '../api/faculty'
+import CreateFaculty from '../components/CreateFaculty'
 import CustomSelect from '../components/CustomSelect'
 import FacultiesTable from '../components/FacultiesTable'
 import Loading from '../components/Loading'
@@ -16,6 +17,7 @@ import styles from '../styles/Faculties.module.css'
 export default function Faculties() {
     const { permissions } = useAppContext()
     const language = useLanguage<PageFacultiesLang>('page.faculties')
+    const [insertMode, setInsertMode] = useState(false)
     const [searchParams, setSearchParams] = useSearchParams()
     const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
     const queryDebounce = useDebounce(searchQuery) as string
@@ -39,138 +41,145 @@ export default function Faculties() {
         setSearchParams(searchParams)
     }, [queryDebounce, searchParams, setSearchParams])
     return (
-        <div
-            className={
-                [
-                    'dashboard-d'
-                ].join(' ')
-            }
-        >
-            <div className={
-                [
-                    'action-bar-d'
-                ].join(' ')
-            }>
-                {
-                    permissions.has('faculty_create') ?
-                        <div className={
-                            [
-                                'action-item-d'
-                            ].join(' ')
-                        }
-                            onClick={() => {
-                                // setInsertMode(true)
-                            }}
-                        >
-                            <RiAddFill /> {language?.add}
-                        </div>
-                        : null
+        <>
+            {insertMode === true ?
+                <CreateFaculty
+                    onMutateSuccess={() => { }}
+                    setInsertMode={setInsertMode}
+                /> : null}
+            <div
+                className={
+                    [
+                        'dashboard-d'
+                    ].join(' ')
                 }
-                {
-                    permissions.has('faculty_create') ?
-                        <div className={
-                            [
-                                'action-item-d-white'
-                            ].join(' ')
-                        }
-                            onClick={() => {
-                                // setImportMode(true)
-                            }}
-                        >
-                            <BiImport /> {language?.import}
-                        </div>
-                        : null
-                }
-                {
-                    permissions.has('faculty_view') ?
-                        <div className={
-                            [
-                                'action-item-d-white'
-                            ].join(' ')
-                        }
-                            onClick={() => {
-                                // setExportMode(true)
-                            }}
-                        >
-                            <BiExport /> {language?.export}
-                        </div>
-                        : null
-                }
-            </div>
-            <div className={styles['faculties-content']}>
-                <div className={styles['filter-form']}>
-                    <div className={styles['wrap-input-item']}>
-                        <label htmlFor="">{language?.filter.perPage}</label>
-                        <CustomSelect
-                            defaultOption={
-                                {
-                                    label: '10',
-                                    value: '10'
+            >
+                <div className={
+                    [
+                        'action-bar-d'
+                    ].join(' ')
+                }>
+                    {
+                        permissions.has('faculty_create') ?
+                            <div className={
+                                [
+                                    'action-item-d'
+                                ].join(' ')
+                            }
+                                onClick={() => {
+                                    setInsertMode(true)
+                                }}
+                            >
+                                <RiAddFill /> {language?.add}
+                            </div>
+                            : null
+                    }
+                    {
+                        permissions.has('faculty_create') ?
+                            <div className={
+                                [
+                                    'action-item-d-white'
+                                ].join(' ')
+                            }
+                                onClick={() => {
+                                    // setImportMode(true)
+                                }}
+                            >
+                                <BiImport /> {language?.import}
+                            </div>
+                            : null
+                    }
+                    {
+                        permissions.has('faculty_view') ?
+                            <div className={
+                                [
+                                    'action-item-d-white'
+                                ].join(' ')
+                            }
+                                onClick={() => {
+                                    // setExportMode(true)
+                                }}
+                            >
+                                <BiExport /> {language?.export}
+                            </div>
+                            : null
+                    }
+                </div>
+                <div className={styles['faculties-content']}>
+                    <div className={styles['filter-form']}>
+                        <div className={styles['wrap-input-item']}>
+                            <label htmlFor="">{language?.filter.perPage}</label>
+                            <CustomSelect
+                                defaultOption={
+                                    {
+                                        label: '10',
+                                        value: '10'
+                                    }
                                 }
-                            }
-                            options={[
-                                {
-                                    label: '10',
-                                    value: '10'
-                                },
-                                {
-                                    label: '20',
-                                    value: '20'
-                                },
-                                {
-                                    label: '30',
-                                    value: '30'
-                                },
-                                {
-                                    label: '40',
-                                    value: '40'
-                                },
-                                {
-                                    label: '50',
-                                    value: '50'
-                                },
-                            ]}
-                            onChange={(option) => {
-                                searchParams.set('per_page', option.value)
-                                setSearchParams(searchParams)
-                            }}
-                            className={
-                                [
-                                    styles['custom-select']
-                                ].join(' ')
-                            }
-                        />
+                                options={[
+                                    {
+                                        label: '10',
+                                        value: '10'
+                                    },
+                                    {
+                                        label: '20',
+                                        value: '20'
+                                    },
+                                    {
+                                        label: '30',
+                                        value: '30'
+                                    },
+                                    {
+                                        label: '40',
+                                        value: '40'
+                                    },
+                                    {
+                                        label: '50',
+                                        value: '50'
+                                    },
+                                ]}
+                                onChange={(option) => {
+                                    searchParams.set('per_page', option.value)
+                                    setSearchParams(searchParams)
+                                }}
+                                className={
+                                    [
+                                        styles['custom-select']
+                                    ].join(' ')
+                                }
+                            />
+                        </div>
+                        <div className={styles['wrap-input-item']}>
+                            <label htmlFor="">{language?.filter.search}</label>
+                            <input
+                                onInput={(e) => {
+                                    setSearchQuery(e.currentTarget.value)
+                                }}
+                                name='search'
+                                defaultValue={queryDebounce}
+                                className={
+                                    [
+                                        'input-d',
+                                        styles['input-item']
+                                    ].join(' ')
+                                } type="text" />
+                        </div>
                     </div>
-                    <div className={styles['wrap-input-item']}>
-                        <label htmlFor="">{language?.filter.search}</label>
-                        <input
-                            onInput={(e) => {
-                                setSearchQuery(e.currentTarget.value)
-                            }}
-                            name='search'
-                            defaultValue={queryDebounce}
-                            className={
-                                [
-                                    'input-d',
-                                    styles['input-item']
-                                ].join(' ')
-                            } type="text" />
+                    <div className={styles['wrap-table']}>
+                        {queryData.isLoading ?
+                            <Loading />
+                            : null}
+                        {!queryData.isError ?
+                            <FacultiesTable
+                                data={queryData.data}
+                                searchParams={searchParams}
+                                onMutateSuccess={() => { }}
+                                setSearchParams={setSearchParams}
+                            />
+                            : null}
                     </div>
-                </div>
-                <div className={styles['wrap-table']}>
-                    {queryData.isLoading ?
-                        <Loading />
-                        : null}
-                    {!queryData.isError ?
-                        <FacultiesTable
-                            data={queryData.data}
-                            searchParams={searchParams}
-                            onMutateSuccess={() => { }}
-                            setSearchParams={setSearchParams}
-                        />
-                        : null}
                 </div>
             </div>
-        </div>
+        </>
     )
 }

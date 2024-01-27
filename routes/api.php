@@ -54,6 +54,7 @@ Route::prefix('/class')->middleware('auth:sanctum')
 Route::prefix('/faculty')->middleware('auth:sanctum')
     ->controller(FacultyController::class)->group(function () {
         Route::get('/', 'index');
+        Route::post('/', 'store');
         Route::get('/complete', 'autocomplete');
     });
 
