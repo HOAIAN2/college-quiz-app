@@ -41,7 +41,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             // \App\Http\Middleware\AcceptContentType::class,
-            \App\Http\Middleware\CustomResponse::class,
+            \App\Http\Middleware\CamelCaseResponse::class,
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,

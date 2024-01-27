@@ -52,6 +52,6 @@ export type Link = {
 export type QueryUserType = {
     role: RoleName
     page?: number
-    perPage?: 10 | 20 | 30 | 40 | 50,
+    perPage?: number,
     search?: string
 }

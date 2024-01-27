@@ -52,7 +52,7 @@ export default function Users({
         queryFn: () => apiGetUsersByType({
             role: role,
             page: Number(searchParams.get('page')),
-            perPage: Number(searchParams.get('per_page')) as 10 | 20 | 30,
+            perPage: Number(searchParams.get('per_page')),
             search: searchParams.get('search') as string
         })
     })
