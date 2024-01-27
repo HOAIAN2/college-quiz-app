@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
+import { DEFAULT_DEBOUNCE } from '../config/env'
 
-export default function useDebounce(value: unknown, timeout: number) {
+export default function useDebounce(value: unknown, timeout: number = DEFAULT_DEBOUNCE) {
     const [debounce, setDebouce] = useState(value)
     useEffect(() => {
         const handleDelay = setTimeout(() => {

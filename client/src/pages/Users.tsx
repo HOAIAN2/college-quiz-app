@@ -41,7 +41,7 @@ export default function Users({
     const [selectedUserIds, setSelectedUserIds] = useState<Set<string | number>>(new Set())
     const [searchParams, setSearchParams] = useSearchParams()
     const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
-    const queryDebounce = useDebounce(searchQuery, 300) as string
+    const queryDebounce = useDebounce(searchQuery) as string
     const queryClient = useQueryClient()
     const queryData = useQuery({
         queryKey: [role,
