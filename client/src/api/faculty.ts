@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import request from '../config/api'
-import { Faculty, QueryFacultyType } from '../models/faculty'
-import { ApiResponseWithData } from '../models/response'
+import { Faculty, FacultyDetail, QueryFacultyType } from '../models/faculty'
+import { ApiResponseWithData, Pagination } from '../models/response'
 
 export async function apiAutoCompleteFaculty(search: string) {
     try {
@@ -27,7 +27,7 @@ export async function apiGetFaculties(query?: QueryFacultyType) {
                 search: query?.search
             }
         })
-        const { data } = res.data as ApiResponseWithData<[]>
+        const { data } = res.data as ApiResponseWithData<Pagination<FacultyDetail>>
         return data
     } catch (error: any) {
         throw new Error(error.message)

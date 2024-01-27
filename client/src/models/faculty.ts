@@ -1,3 +1,5 @@
+import { User } from './user'
+
 export type Faculty = {
     id: number
     shortcode: string
@@ -7,6 +9,12 @@ export type Faculty = {
     leaderId: number | null
     createdAt: string
     updatedAt: string
+}
+
+export type FacultyDetail = Faculty & {
+    leader: User | null
+    schoolClassesCount: number
+    usersCount: number
 }
 
 export type QueryFacultyType = {

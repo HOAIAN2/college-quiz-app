@@ -5,7 +5,7 @@ import { ApiResponseWithData, ExportableResponse, Pagination } from '../models/r
 import { RoleName } from '../models/role'
 import {
     QueryUserType,
-    User,
+    UserDetail,
     UserWithPermissions
 } from '../models/user'
 import tokenUtils from '../utils/tokenUtils'
@@ -74,7 +74,7 @@ export async function apiGetUsersByType(query?: QueryUserType) {
                 search: query?.search
             }
         })
-        const { data } = res.data as ApiResponseWithData<Pagination<User>>
+        const { data } = res.data as ApiResponseWithData<Pagination<UserDetail>>
         return data
     } catch (error: any) {
         throw new Error(error.message)
@@ -83,7 +83,7 @@ export async function apiGetUsersByType(query?: QueryUserType) {
 export async function apiGetUsersById(id: string | number) {
     try {
         const res = await request.get('/user/' + id)
-        const { data } = res.data as ApiResponseWithData<User>
+        const { data } = res.data as ApiResponseWithData<UserDetail>
         return data
     } catch (error: any) {
         throw new Error(error.message)

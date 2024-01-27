@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BiExport, BiImport } from 'react-icons/bi'
 import { RiAddFill } from 'react-icons/ri'
 import { useSearchParams } from 'react-router-dom'
 import { apiGetFaculties } from '../api/faculty'
 import CustomSelect from '../components/CustomSelect'
+import Loading from '../components/Loading'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
@@ -31,6 +32,12 @@ export default function Faculties() {
         })
     })
     console.log(queryData.data)
+    useEffect(() => {
+        if (!searchParams.get('search') && !queryDebounce) return
+        if (queryDebounce === '') searchParams.delete('search')
+        else searchParams.set('search', queryDebounce)
+        setSearchParams(searchParams)
+    }, [queryDebounce, searchParams, setSearchParams])
     return (
         <div
             className={
@@ -151,6 +158,9 @@ export default function Faculties() {
                     </div>
                 </div>
                 <div className={styles['wrap-table']}>
+                    {queryData.isLoading ?
+                        <Loading />
+                        : null}
                 </div>
             </div>
         </div>

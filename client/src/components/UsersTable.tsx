@@ -7,14 +7,14 @@ import useLanguage from '../hooks/useLanguage'
 import { ComponentUsersTableLang } from '../models/lang'
 import { Pagination } from '../models/response'
 import { RoleName } from '../models/role'
-import { User } from '../models/user'
+import { UserDetail } from '../models/user'
 import styles from '../styles/UsersTable.module.css'
 import StatusBadge from './StatusBadge'
 import ViewUser from './ViewUser'
 
 type UsersTableProps = {
     role: RoleName
-    data?: Pagination<User>
+    data?: Pagination<UserDetail>
     searchParams: URLSearchParams
     onMutateSuccess: () => void
     setSearchParams: SetURLSearchParams

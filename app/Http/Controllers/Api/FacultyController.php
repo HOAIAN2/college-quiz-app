@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Faculty\GetAllRequest;
 use App\Http\Requests\Faculty\StoreRequest;
 use App\Models\Faculty;
 use Illuminate\Http\Request;
@@ -12,12 +13,14 @@ use Illuminate\Support\Facades\Log;
 
 class FacultyController extends Controller
 {
-    public function index(Request $request)
+    public function index(GetAllRequest $request)
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission('faculty_view'), 403);
 
-        $faculties = Faculty::withCount([
+        $faculties = Faculty::with([
+            'leader'
+        ])->withCount([
             'school_classes',
             'users'
         ]);
@@ -26,7 +29,7 @@ class FacultyController extends Controller
             if ($request->search != null) {
                 $faculties = $faculties->search($request->search);
             }
-            $faculties = $faculties->paginate();
+            $faculties = $faculties->paginate($request->per_page);
             return Reply::successWithData($faculties, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());

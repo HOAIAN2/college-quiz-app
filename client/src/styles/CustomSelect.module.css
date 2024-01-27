@@ -7,6 +7,10 @@
     padding-left: 10px;
 }
 
+.disabled {
+    cursor: default;
+}
+
 .custom-select.hidden {
     overflow: hidden;
 }

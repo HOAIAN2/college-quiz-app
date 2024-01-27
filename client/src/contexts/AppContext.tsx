@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useRef, useState } from 'react'
-import { User } from '../models/user'
+import { UserDetail } from '../models/user'
 import languageUtils from '../utils/languageUtils'
 
 type AppContextType = ReturnType<typeof useAppContextValue>
@@ -12,7 +12,7 @@ function useAppContextValue() {
     const titleRef = useRef<HTMLHeadingElement>(null)
     const [language, setLanguage] = useState(languageUtils.getLanguage())
     const [permissions, setPermissions] = useState<string[]>([])
-    const [user, setUser] = useState<User | undefined>()
+    const [user, setUser] = useState<UserDetail | undefined>()
     return {
         DOM: {
             sideBarRef,

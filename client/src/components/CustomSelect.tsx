@@ -38,6 +38,7 @@ export default function CustomSelect({
                     'input-d',
                     styles['custom-select'],
                     styles['hidden'],
+                    disabled ? styles['disabled'] : '',
                     className
                 ].join(' ')
             }

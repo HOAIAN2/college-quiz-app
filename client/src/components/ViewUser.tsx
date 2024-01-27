@@ -9,7 +9,7 @@ import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentViewUserLang } from '../models/lang'
-import { User } from '../models/user'
+import { UserDetail } from '../models/user'
 import styles from '../styles/ViewUser.module.css'
 import CustomSelect from './CustomSelect'
 import Loading from './Loading'
@@ -26,7 +26,7 @@ export default function ViewUser({
 }: ViewUserProps) {
     const [hide, setHide] = useState(true)
     const language = useLanguage<ComponentViewUserLang>('component.view_user')
-    const [userDetail, setUserDetail] = useState<User | null>(null)
+    const [userDetail, setUserDetail] = useState<UserDetail | null>(null)
     const { user, permissions } = useAppContext()
     const [queryClass, setQueryClass] = useState('')
     const [queryFaculty, setQueryFaculty] = useState('')

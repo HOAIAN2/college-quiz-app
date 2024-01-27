@@ -1,6 +1,6 @@
 import { Permission } from './permission'
 import { RoleWithPermissions } from './role'
-import { User } from './user'
+import { UserDetail } from './user'
 
 export type ApiResponseWithData<T> = {
     status: 'success' | 'fail'
@@ -9,7 +9,7 @@ export type ApiResponseWithData<T> = {
 }
 
 export type LoginResponse = {
-    user: User
+    user: UserDetail
     token: string
 }
 

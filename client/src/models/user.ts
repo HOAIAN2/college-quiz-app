@@ -17,13 +17,16 @@ export type User = {
     facultyId: number | null
     isActive: boolean
     emailVerifiedAt: string | null
+}
+
+export type UserDetail = User & {
     role: Role
     schoolClass: SchoolClass | null
     faculty: Faculty | null
 }
 
 export type UserWithPermissions = {
-    user: User
+    user: UserDetail
     permissions: string[]
 }
 
