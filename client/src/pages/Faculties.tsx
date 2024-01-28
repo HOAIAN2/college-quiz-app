@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { BiExport, BiImport } from 'react-icons/bi'
 import { RiAddFill } from 'react-icons/ri'
@@ -19,6 +19,7 @@ export default function Faculties() {
     const language = useLanguage<PageFacultiesLang>('page.faculties')
     const [insertMode, setInsertMode] = useState(false)
     const [searchParams, setSearchParams] = useSearchParams()
+    const queryClient = useQueryClient()
     const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
     const queryDebounce = useDebounce(searchQuery) as string
     const queryData = useQuery({
@@ -34,6 +35,14 @@ export default function Faculties() {
             search: searchParams.get('search') as string
         })
     })
+    const onMutateSuccess = () => {
+        const queryKeys = [
+            'faculties',
+        ]
+        queryKeys.forEach(key => {
+            queryClient.refetchQueries({ queryKey: [key] })
+        })
+    }
     useEffect(() => {
         if (!searchParams.get('search') && !queryDebounce) return
         if (queryDebounce === '') searchParams.delete('search')
@@ -44,7 +53,7 @@ export default function Faculties() {
         <>
             {insertMode === true ?
                 <CreateFaculty
-                    onMutateSuccess={() => { }}
+                    onMutateSuccess={onMutateSuccess}
                     setInsertMode={setInsertMode}
                 /> : null}
             <div
@@ -166,7 +175,6 @@ export default function Faculties() {
                         </div>
                     </div>
                     <div className={styles['wrap-table']}>
-                        {/* <Loading /> */}
                         {queryData.isLoading ?
                             <Loading />
                             : null}
@@ -174,7 +182,7 @@ export default function Faculties() {
                             <FacultiesTable
                                 data={queryData.data}
                                 searchParams={searchParams}
-                                onMutateSuccess={() => { }}
+                                onMutateSuccess={onMutateSuccess}
                                 setSearchParams={setSearchParams}
                             />
                             : null}

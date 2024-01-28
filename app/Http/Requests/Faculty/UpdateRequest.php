@@ -5,7 +5,7 @@ namespace App\Http\Requests\Faculty;
 use App\Traits\CustomValidateResponse;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     use CustomValidateResponse;
     /**
@@ -23,8 +23,9 @@ class StoreRequest extends FormRequest
      */
     public function rules(): array
     {
+        $parameters = $this->route()->parameters;
         return [
-            'shortcode' => ['required', 'string', 'unique:faculties'],
+            'shortcode' => ['required', 'string', 'unique:faculties,shortcode,' . $parameters['id']],
             'name' => ['required', 'string'],
             'email' => ['nullable', 'email'],
             'phone_number' => ['nullable', 'string', 'regex:/^0\d{9}$/'],

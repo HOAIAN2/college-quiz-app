@@ -6,6 +6,7 @@ use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Faculty\GetAllRequest;
 use App\Http\Requests\Faculty\StoreRequest;
+use App\Http\Requests\Faculty\UpdateRequest;
 use App\Models\Faculty;
 use App\Models\Role;
 use App\Models\User;
@@ -22,7 +23,7 @@ class FacultyController extends Controller
 
         $faculties = Faculty::with([
             'leader'
-        ]);
+        ])->latest('id');
 
         try {
             if ($request->search != null) {
@@ -47,7 +48,7 @@ class FacultyController extends Controller
         try {
             $leader_id = User::whereRoleId(Role::ROLES['teacher'])
                 ->where('shortcode', '=', $request->leader)->pluck('id')
-                ->firstOrFail();
+                ->first();
             $data['leader_id'] = $leader_id;
             Faculty::create($data);
             DB::commit();
@@ -77,7 +78,7 @@ class FacultyController extends Controller
         }
     }
 
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, string $id)
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission('faculty_update'), 403);
@@ -88,7 +89,7 @@ class FacultyController extends Controller
             $faculty = Faculty::findOrFail($id);
             $leader_id = User::whereRoleId(Role::ROLES['teacher'])
                 ->where('shortcode', '=', $request->leader)->pluck('id')
-                ->firstOrFail();
+                ->first();
             $data['leader_id'] = $leader_id;
             $faculty->update($data);
             DB::commit();

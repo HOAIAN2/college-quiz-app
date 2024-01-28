@@ -36,7 +36,7 @@ export default function ViewFaculty({
         }, timing)
     }
     const queryData = useQuery({
-        queryKey: ['faculty', id],
+        queryKey: ['faculties', id],
         queryFn: () => apiGetFacultyById(id)
     })
     const userQueryData = useQuery({

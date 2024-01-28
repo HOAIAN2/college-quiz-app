@@ -70,3 +70,14 @@ export async function apiGetFacultyById(id: string | number) {
         throw new Error(error.message)
     }
 }
+export async function apiDeleteFacultiesByIds(ids: (string | number)[]) {
+    try {
+        await request.delete('/faculty', {
+            params: {
+                ids: ids,
+            }
+        })
+    } catch (error: any) {
+        throw new Error(error.message)
+    }
+}
