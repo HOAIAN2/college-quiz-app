@@ -6,7 +6,7 @@ import useLanguage from '../hooks/useLanguage'
 import { FacultyDetail } from '../models/faculty'
 import { ComponentFacultiesTableLang } from '../models/lang'
 import { Pagination } from '../models/response'
-import styles from '../styles/FacultiesTable.module.css'
+import styles from '../styles/global/Table.module.css'
 
 type FacultiesTableProps = {
     data?: Pagination<FacultyDetail>

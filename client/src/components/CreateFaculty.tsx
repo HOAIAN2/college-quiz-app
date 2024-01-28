@@ -4,7 +4,7 @@ import { RxCross2 } from 'react-icons/rx'
 import { apiCreateFaculty } from '../api/faculty'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateFacultyLang } from '../models/lang'
-import styles from '../styles/CreateFaculty.module.css'
+import styles from '../styles/global/CreateModel.module.css'
 
 type CreateFacultyProps = {
     onMutateSuccess: () => void
@@ -72,7 +72,7 @@ export default function CreateFaculty({
     return (
         <div className={
             [
-                styles['create-faculty-container'],
+                styles['create-model-container'],
                 hide ? styles['hide'] : ''
             ].join(' ')
         }>
@@ -81,7 +81,7 @@ export default function CreateFaculty({
             }
             <div className={
                 [
-                    styles['create-faculty-form'],
+                    styles['create-model-form'],
                     hide ? styles['hide'] : ''
                 ].join(' ')
             }>

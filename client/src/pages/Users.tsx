@@ -23,7 +23,7 @@ import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { PageUsersLang } from '../models/lang'
 import { RoleName } from '../models/role'
-import styles from '../styles/Users.module.css'
+import styles from '../styles/global/TablePage.module.css'
 import { importTemplateFileUrl } from '../utils/template'
 
 type UsersProps = {
@@ -203,7 +203,7 @@ export default function Users({
                             : null
                     }
                 </div>
-                <div className={styles['users-content']}>
+                <div className={styles['table-page-content']}>
                     <div className={styles['filter-form']}>
                         <div className={styles['wrap-input-item']}>
                             <label htmlFor="">{language?.filter.perPage}</label>

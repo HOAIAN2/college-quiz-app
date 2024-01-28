@@ -1,4 +1,4 @@
-.create-user-container {
+.view-model-container {
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -14,11 +14,11 @@
     transition-property: background, opacity;
 }
 
-.create-user-container.hide {
+.view-model-container.hide {
     opacity: 0;
 }
 
-.create-user-form {
+.view-model-form {
     width: 90%;
     height: 90%;
     border-radius: var(--border-radius-low);
@@ -30,7 +30,7 @@
     overflow-y: auto;
 }
 
-.create-user-form.hide {
+.view-model-form.hide {
     opacity: 0;
     scale: 0.9;
 }
@@ -98,7 +98,6 @@
 
 .input-item {
     height: 40px;
-    width: 300px;
     width: 100%;
 }
 
@@ -121,8 +120,15 @@
     gap: 10px;
 }
 
+.pending {
+    opacity: 0.7;
+    cursor: default;
+    pointer-events: none;
+}
+
+
 @media (width<=800px) {
-    .create-user-form {
+    .view-model-form {
         width: 100%;
         height: 100%;
         border-radius: 0px;

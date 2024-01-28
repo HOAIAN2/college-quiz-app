@@ -12,7 +12,7 @@ import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { PageFacultiesLang } from '../models/lang'
-import styles from '../styles/Faculties.module.css'
+import styles from '../styles/global/TablePage.module.css'
 
 export default function Faculties() {
     const { permissions } = useAppContext()
@@ -105,7 +105,7 @@ export default function Faculties() {
                             : null
                     }
                 </div>
-                <div className={styles['faculties-content']}>
+                <div className={styles['table-page-content']}>
                     <div className={styles['filter-form']}>
                         <div className={styles['wrap-input-item']}>
                             <label htmlFor="">{language?.filter.perPage}</label>
@@ -166,6 +166,7 @@ export default function Faculties() {
                         </div>
                     </div>
                     <div className={styles['wrap-table']}>
+                        {/* <Loading /> */}
                         {queryData.isLoading ?
                             <Loading />
                             : null}

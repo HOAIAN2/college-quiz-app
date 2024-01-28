@@ -10,7 +10,7 @@ import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentViewUserLang } from '../models/lang'
 import { UserDetail } from '../models/user'
-import styles from '../styles/ViewUser.module.css'
+import styles from '../styles/global/ViewModel.module.css'
 import CustomSelect from './CustomSelect'
 import Loading from './Loading'
 
@@ -129,7 +129,7 @@ export default function ViewUser({
         <div
             className={
                 [
-                    styles['view-user-container'],
+                    styles['view-model-container'],
                     hide ? styles['hide'] : ''
                 ].join(' ')
             }>
@@ -139,7 +139,7 @@ export default function ViewUser({
             <div
                 className={
                     [
-                        styles['view-user-form'],
+                        styles['view-model-form'],
                         hide ? styles['hide'] : ''
                     ].join(' ')
                 }>

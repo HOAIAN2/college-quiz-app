@@ -8,7 +8,7 @@ import { ComponentUsersTableLang } from '../models/lang'
 import { Pagination } from '../models/response'
 import { RoleName } from '../models/role'
 import { UserDetail } from '../models/user'
-import styles from '../styles/UsersTable.module.css'
+import styles from '../styles/global/Table.module.css'
 import StatusBadge from './StatusBadge'
 import ViewUser from './ViewUser'
 

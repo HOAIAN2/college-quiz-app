@@ -11,7 +11,7 @@ import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateUserLang } from '../models/lang'
 import { RoleName } from '../models/role'
-import styles from '../styles/CreateUser.module.css'
+import styles from '../styles/global/CreateModel.module.css'
 import CustomSelect from './CustomSelect'
 import Loading from './Loading'
 
@@ -110,7 +110,7 @@ export default function CreateUser({
     return (
         <div className={
             [
-                styles['create-user-container'],
+                styles['create-model-container'],
                 hide ? styles['hide'] : ''
             ].join(' ')
         }>
@@ -119,7 +119,7 @@ export default function CreateUser({
             }
             <div className={
                 [
-                    styles['create-user-form'],
+                    styles['create-model-form'],
                     hide ? styles['hide'] : ''
                 ].join(' ')
             }>
