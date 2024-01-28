@@ -10,7 +10,7 @@ const lang = {
         perPage: 'Rows',
         search: 'Search'
     },
-    deleteMessage: 'Delete @n @role ?',
+    deleteMessage: 'Delete @n records ?',
     langYes: 'Yes',
     langNo: 'No'
 }

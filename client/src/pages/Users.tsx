@@ -33,7 +33,7 @@ export default function Users({
     role
 }: UsersProps) {
     const language = useLanguage<PageUsersLang>('page.users')
-    const { appLanguage, permissions } = useAppContext()
+    const { permissions } = useAppContext()
     const [insertMode, setInsertMode] = useState(false)
     const [exportMode, setExportMode] = useState(false)
     const [importMode, setImportMode] = useState(false)
@@ -75,11 +75,7 @@ export default function Users({
     }
     const getMessage = () => {
         if (!language) return ''
-        let message = language.deleteMessage.replace('@n', String(selectedUserIds.size))
-        if (selectedUserIds.size > 1 && appLanguage.language === 'en')
-            message = message.replace('@role', `${language[role]}s`)
-        else message = message.replace('@role', language[role])
-        return message
+        return language.deleteMessage.replace('@n', String(selectedUserIds.size))
     }
     useEffect(() => {
         setSelectedUserIds(new Set())

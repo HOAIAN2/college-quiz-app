@@ -54,12 +54,12 @@ Route::prefix('/class')->middleware('auth:sanctum')
 
 Route::prefix('/faculty')->middleware('auth:sanctum')
     ->controller(FacultyController::class)->group(function () {
+        Route::get('/complete', 'autocomplete');
         Route::get('/', 'index');
         Route::get('/{id}', 'show');
         Route::post('/', 'store');
         Route::put('/{id}', 'update');
-        Route::delete('/{id}', 'destroy');
-        Route::get('/complete', 'autocomplete');
+        Route::delete('/', 'destroy');
     });
 
 Route::prefix('/subject')->middleware('auth:sanctum')

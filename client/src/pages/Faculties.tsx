@@ -1,13 +1,15 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { BiExport, BiImport } from 'react-icons/bi'
+import { MdDeleteOutline } from 'react-icons/md'
 import { RiAddFill } from 'react-icons/ri'
 import { useSearchParams } from 'react-router-dom'
-import { apiGetFaculties } from '../api/faculty'
+import { apiDeleteFacultiesByIds, apiGetFaculties } from '../api/faculty'
 import CreateFaculty from '../components/CreateFaculty'
 import CustomSelect from '../components/CustomSelect'
 import FacultiesTable from '../components/FacultiesTable'
 import Loading from '../components/Loading'
+import YesNoPopUp from '../components/YesNoPopUp'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
@@ -18,10 +20,12 @@ export default function Faculties() {
     const { permissions } = useAppContext()
     const language = useLanguage<PageFacultiesLang>('page.faculties')
     const [insertMode, setInsertMode] = useState(false)
+    const [showPopUpMode, setShowPopUpMode] = useState(false)
     const [searchParams, setSearchParams] = useSearchParams()
     const queryClient = useQueryClient()
     const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
     const queryDebounce = useDebounce(searchQuery) as string
+    const [selectedFacultyIds, setSelectedFacultyIds] = useState<Set<string | number>>(new Set())
     const queryData = useQuery({
         queryKey: [
             'faculties',
@@ -35,6 +39,13 @@ export default function Faculties() {
             search: searchParams.get('search') as string
         })
     })
+    const handleDeleteFaulties = async () => {
+        return apiDeleteFacultiesByIds(Array.from(selectedFacultyIds))
+    }
+    const getMessage = () => {
+        if (!language) return ''
+        return language.deleteMessage.replace('@n', String(selectedFacultyIds.size))
+    }
     const onMutateSuccess = () => {
         const queryKeys = [
             'faculties',
@@ -43,6 +54,9 @@ export default function Faculties() {
             queryClient.refetchQueries({ queryKey: [key] })
         })
     }
+    useEffect(() => {
+        setSelectedFacultyIds(new Set())
+    }, [queryData.data])
     useEffect(() => {
         if (!searchParams.get('search') && !queryDebounce) return
         if (queryDebounce === '') searchParams.delete('search')
@@ -55,6 +69,15 @@ export default function Faculties() {
                 <CreateFaculty
                     onMutateSuccess={onMutateSuccess}
                     setInsertMode={setInsertMode}
+                /> : null}
+            {showPopUpMode === true ?
+                <YesNoPopUp
+                    message={getMessage()}
+                    mutateFunction={handleDeleteFaulties}
+                    setShowPopUpMode={setShowPopUpMode}
+                    onMutateSuccess={onMutateSuccess}
+                    langYes={language?.langYes}
+                    langNo={language?.langNo}
                 /> : null}
             <div
                 className={
@@ -110,6 +133,21 @@ export default function Faculties() {
                                 }}
                             >
                                 <BiExport /> {language?.export}
+                            </div>
+                            : null
+                    }
+                    {
+                        selectedFacultyIds.size > 0 && permissions.has('user_delete') ?
+                            <div
+                                onClick={() => {
+                                    setShowPopUpMode(true)
+                                }}
+                                className={
+                                    [
+                                        'action-item-d-white-border-red'
+                                    ].join(' ')
+                                }>
+                                <MdDeleteOutline /> {language?.delete}
                             </div>
                             : null
                     }
@@ -184,6 +222,7 @@ export default function Faculties() {
                                 searchParams={searchParams}
                                 onMutateSuccess={onMutateSuccess}
                                 setSearchParams={setSearchParams}
+                                setSelectedRows={setSelectedFacultyIds}
                             />
                             : null}
                     </div>

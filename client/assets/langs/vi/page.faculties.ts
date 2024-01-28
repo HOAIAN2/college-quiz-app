@@ -10,7 +10,7 @@ const lang = {
         perPage: 'Số hàng',
         search: 'Tìm kiếm'
     },
-    deleteMessage: 'Xóa @n @role ?',
+    deleteMessage: 'Xóa @n bản ghi ?',
     langYes: 'Có',
     langNo: 'Không'
 }
