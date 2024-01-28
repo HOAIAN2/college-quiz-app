@@ -5,6 +5,7 @@ import { ApiResponseWithData, ExportableResponse, Pagination } from '../models/r
 import { RoleName } from '../models/role'
 import {
     QueryUserType,
+    User,
     UserDetail,
     UserWithPermissions
 } from '../models/user'
@@ -127,5 +128,21 @@ export async function apiExportUsers(role: RoleName, fields: (string)[]) {
         return response.data
     } catch (error: any) {
         throw new Error(error.message)
+    }
+}
+export async function apiAutoCompleteUser(role: RoleName, search: string) {
+    try {
+        const res = await request.get('/user/complete', {
+            params: {
+                role: role,
+                search: search
+            }
+        })
+        const { data } = res.data as ApiResponseWithData<User[]>
+        return data
+    } catch (error: any) {
+        if (!error.response) throw new Error(error.message)
+        const message = error.response.data.message
+        throw new Error(message)
     }
 }

@@ -1,9 +1,13 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
 import { apiCreateFaculty } from '../api/faculty'
+import { apiAutoCompleteUser } from '../api/user'
+import useAppContext from '../hooks/useAppContext'
+import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateFacultyLang } from '../models/lang'
+import { User } from '../models/user'
 import styles from '../styles/global/CreateModel.module.css'
 import Loading from './Loading'
 
@@ -18,6 +22,9 @@ export default function CreateFaculty({
 }: CreateFacultyProps) {
     const language = useLanguage<ComponentCreateFacultyLang>('component.create_faculty')
     const [hide, setHide] = useState(true)
+    const [queryUser, setQueryUser] = useState('')
+    const { appLanguage } = useAppContext()
+    const debounceQueryUser = useDebounce(queryUser, 200) as string
     const handleTurnOffInsertMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
         const timing = Number(transitionTiming.replace('s', '')) * 1000
@@ -26,6 +33,13 @@ export default function CreateFaculty({
             setInsertMode(false)
         }, timing)
     }
+    const userQueryData = useQuery({
+        queryKey: ['user-auto-complete', debounceQueryUser],
+        queryFn: () => {
+            return apiAutoCompleteUser('teacher', debounceQueryUser)
+        },
+        enabled: debounceQueryUser ? true : false
+    })
     const getParentElement = (element: HTMLInputElement) => {
         let parent = element.parentElement as HTMLElement
         while (!parent.classList.contains(styles['wrap-item'])) parent = parent.parentElement as HTMLElement
@@ -67,6 +81,18 @@ export default function CreateFaculty({
         },
         onSuccess: onMutateSuccess
     })
+    const getFullName = (user: User) => {
+        return appLanguage.language === 'vi'
+            ? [
+                user.lastName,
+                user.firstName
+            ].join(' ')
+            :
+            [
+                user.firstName,
+                user.lastName
+            ].join(' ')
+    }
     useEffect(() => {
         setHide(false)
     }, [])
@@ -162,12 +188,22 @@ export default function CreateFaculty({
                                 <input
                                     id='leader'
                                     name='leader'
+                                    onInput={e => { setQueryUser(e.currentTarget.value) }}
                                     className={
                                         [
                                             'input-d',
                                             styles['input-item']
                                         ].join(' ')
-                                    } type='text' />
+                                    } type='text'
+                                    list='userList'
+                                />
+                                <datalist id='userList'>
+                                    {
+                                        userQueryData.data ? userQueryData.data.map(item => {
+                                            return <option key={`user-${item.id}`} value={item.shortcode}>{getFullName(item)}</option>
+                                        }) : null
+                                    }
+                                </datalist>
                             </div>
                         </div>
                         <div className={styles['action-items']}>

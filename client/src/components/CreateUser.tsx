@@ -29,8 +29,8 @@ export default function CreateUser({
     const [hide, setHide] = useState(true)
     const [queryClass, setQueryClass] = useState('')
     const [queryFaculty, setQueryFaculty] = useState('')
-    const debouceQueryClass = useDebounce(queryClass, 200) as string
-    const debouceQueryFaculty = useDebounce(queryFaculty, 200) as string
+    const debounceQueryClass = useDebounce(queryClass, 200) as string
+    const debounceQueryFaculty = useDebounce(queryFaculty, 200) as string
     const queryClient = useQueryClient()
     const handleTurnOffInsertMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -41,18 +41,18 @@ export default function CreateUser({
         }, timing)
     }
     const classQueryData = useQuery({
-        queryKey: ['class-query', debouceQueryClass],
+        queryKey: ['class-query', debounceQueryClass],
         queryFn: () => {
-            return apiAutoCompleteClass(debouceQueryClass)
+            return apiAutoCompleteClass(debounceQueryClass)
         },
-        enabled: debouceQueryClass ? true : false
+        enabled: debounceQueryClass ? true : false
     })
     const facultyQueryData = useQuery({
-        queryKey: ['faculty-query', debouceQueryFaculty],
+        queryKey: ['faculty-query', debounceQueryFaculty],
         queryFn: () => {
-            return apiAutoCompleteFaculty(debouceQueryFaculty)
+            return apiAutoCompleteFaculty(debounceQueryFaculty)
         },
-        enabled: debouceQueryFaculty ? true : false
+        enabled: debounceQueryFaculty ? true : false
     })
     const getParentElement = (element: HTMLInputElement) => {
         let parent = element.parentElement as HTMLElement

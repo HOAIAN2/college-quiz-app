@@ -2,9 +2,12 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
 import { apiGetFacultyById, apiUpdateFaculty } from '../api/faculty'
+import { apiAutoCompleteUser } from '../api/user'
 import useAppContext from '../hooks/useAppContext'
+import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentViewFacultyLang } from '../models/lang'
+import { User } from '../models/user'
 import styles from '../styles/global/ViewModel.module.css'
 import Loading from './Loading'
 
@@ -21,7 +24,9 @@ export default function ViewFaculty({
 }: ViewFacultyProps) {
     const [hide, setHide] = useState(true)
     const language = useLanguage<ComponentViewFacultyLang>('component.view_faculty')
-    const { user, permissions } = useAppContext()
+    const { user, permissions, appLanguage } = useAppContext()
+    const [queryUser, setQueryUser] = useState('')
+    const debounceQueryUser = useDebounce(queryUser, 200) as string
     const handleTurnOffImportMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
         const timing = Number(transitionTiming.replace('s', '')) * 1000
@@ -33,6 +38,13 @@ export default function ViewFaculty({
     const queryData = useQuery({
         queryKey: ['faculty', id],
         queryFn: () => apiGetFacultyById(id)
+    })
+    const userQueryData = useQuery({
+        queryKey: ['user-auto-complete', debounceQueryUser],
+        queryFn: () => {
+            return apiAutoCompleteUser('teacher', debounceQueryUser)
+        },
+        enabled: debounceQueryUser ? true : false
     })
     const getParentElement = (element: HTMLInputElement) => {
         let parent = element.parentElement as HTMLElement
@@ -73,6 +85,18 @@ export default function ViewFaculty({
         },
         onSuccess: onMutateSuccess
     })
+    const getFullName = (user: User | null) => {
+        return appLanguage.language === 'vi'
+            ? [
+                user?.lastName,
+                user?.firstName
+            ].join(' ')
+            :
+            [
+                user?.firstName,
+                user?.lastName
+            ].join(' ')
+    }
     useEffect(() => {
         setHide(false)
     }, [])
@@ -184,14 +208,24 @@ export default function ViewFaculty({
                                             <input
                                                 id='leader'
                                                 disabled={!permissions.has('faculty_update')}
-                                                defaultValue={queryData.data.phoneNumber || ''}
+                                                defaultValue={getFullName(queryData.data.leader) || ''}
                                                 name='leader'
+                                                onInput={e => { setQueryUser(e.currentTarget.value) }}
                                                 className={
                                                     [
                                                         'input-d',
                                                         styles['input-item']
                                                     ].join(' ')
-                                                } type='text' />
+                                                } type='text'
+                                                list='userList'
+                                            />
+                                            <datalist id='userList'>
+                                                {
+                                                    userQueryData.data ? userQueryData.data.map(item => {
+                                                        return <option key={`user-${item.id}`} value={item.shortcode}>{getFullName(item)}</option>
+                                                    }) : null
+                                                }
+                                            </datalist>
                                         </div>
                                     </div>
                                     {

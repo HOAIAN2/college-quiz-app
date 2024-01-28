@@ -6,6 +6,7 @@ use App\Exports\UsersExport;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DeleteRequest;
+use App\Http\Requests\User\AutoCompleteRequest;
 use App\Http\Requests\User\ExportableRequest;
 use App\Http\Requests\User\ExportRequest;
 use App\Http\Requests\User\GetByTypeRequest;
@@ -322,6 +323,22 @@ class UserController extends Controller
             DB::rollBack();
             if ($this->isDevelopment) return Reply::error($error->getMessage());
             return Reply::error('app.errors.somethingWentWrong');
+        }
+    }
+
+    public function autocomplete(AutoCompleteRequest $request)
+    {
+        $user = $this->getUser();
+        abort_if(!$user->hasPermission('user_view'), 403);
+
+        try {
+            $users = User::whereRoleId(Role::ROLES[$request->role])
+                ->search($request->search)->take(5)->get();
+            return Reply::successWithData($users, '');
+        } catch (\Throwable $error) {
+            Log::error($error->getMessage());
+            if ($this->isDevelopment) return Reply::error($error->getMessage());
+            return Reply::error('app.errors.somethingWentWrong', [], 500);
         }
     }
 
