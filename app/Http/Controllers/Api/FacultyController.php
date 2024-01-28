@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Faculty\GetAllRequest;
 use App\Http\Requests\Faculty\StoreRequest;
 use App\Models\Faculty;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -39,10 +41,14 @@ class FacultyController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission('faculty_create'), 403);
-        $data = $request->validated();
+        $data = collect($request->validated())->except(['leader'])->toArray();
         DB::beginTransaction();
 
         try {
+            $leader_id = User::whereRoleId(Role::ROLES['teacher'])
+                ->where('shortcode', '=', $request->leader)->pluck('id')
+                ->firstOrFail();
+            $data['leader_id'] = $leader_id;
             Faculty::create($data);
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
@@ -75,11 +81,15 @@ class FacultyController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission('faculty_update'), 403);
-        $data = $request->validated();
+        $data = collect($request->validated())->except(['leader'])->toArray();
         DB::beginTransaction();
 
         try {
             $faculty = Faculty::findOrFail($id);
+            $leader_id = User::whereRoleId(Role::ROLES['teacher'])
+                ->where('shortcode', '=', $request->leader)->pluck('id')
+                ->firstOrFail();
+            $data['leader_id'] = $leader_id;
             $faculty->update($data);
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');

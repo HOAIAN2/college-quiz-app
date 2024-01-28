@@ -29,7 +29,7 @@ class StoreRequest extends FormRequest
             'faculty' => ['required', 'string'],
             'email' => ['nullable', 'email'],
             'phone_number' => ['nullable', 'string', 'regex:/^0\d{9}$/'],
-            'leader_id' => ['nullable']
+            'leader' => ['nullable', 'string']
         ];
     }
 }
