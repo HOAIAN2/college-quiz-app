@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DeleteRequest;
 use App\Http\Requests\SchoolClass\GetAllRequest;
 use App\Http\Requests\SchoolClass\StoreRequest;
 use App\Models\Faculty;
@@ -102,14 +103,14 @@ class SchoolClassController extends Controller
         }
     }
 
-    public function destroy(string $id)
+    public function destroy(DeleteRequest $request)
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission('school_class_delete'), 403);
         DB::beginTransaction();
 
         try {
-            SchoolClass::destroy($id);
+            SchoolClass::destroy($request->ids);
             DB::commit();
             return Reply::successWithMessage('app.successes.recordDeleteSuccess');
         } catch (\Throwable $error) {

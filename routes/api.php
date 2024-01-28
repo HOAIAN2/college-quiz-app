@@ -35,11 +35,11 @@ Route::prefix('/user')->middleware('auth:sanctum')
         Route::get('/export', 'exportUsers');
         Route::get('/exportable', 'exportableFields');
         Route::get('/complete', 'autocomplete');
+        Route::get('/{id}', 'show');
+        Route::put('/{id}', 'update');
         Route::get('/', 'index');
         Route::post('/', 'store');
         Route::delete('/', 'destroy');
-        Route::get('/{id}', 'show');
-        Route::put('/{id}', 'update');
     });
 
 Route::prefix('/dashboard')->middleware('auth:sanctum')
@@ -50,37 +50,42 @@ Route::prefix('/dashboard')->middleware('auth:sanctum')
 Route::prefix('/class')->middleware('auth:sanctum')
     ->controller(SchoolClassController::class)->group(function () {
         Route::get('/complete', 'autocomplete');
+        Route::get('/{id}', 'show');
+        Route::put('/{id}', 'update');
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::delete('/', 'destroy');
     });
 
 Route::prefix('/faculty')->middleware('auth:sanctum')
     ->controller(FacultyController::class)->group(function () {
         Route::get('/complete', 'autocomplete');
-        Route::get('/', 'index');
         Route::get('/{id}', 'show');
-        Route::post('/', 'store');
         Route::put('/{id}', 'update');
+        Route::get('/', 'index');
+        Route::post('/', 'store');
         Route::delete('/', 'destroy');
     });
 
 Route::prefix('/subject')->middleware('auth:sanctum')
     ->controller(SubjectController::class)->group(function () {
-        Route::get('/', 'index');
-        Route::post('/', 'store');
-        Route::delete('/{id}', 'destroy');
         Route::get('/{id}', 'show');
         Route::put('/{id}', 'update');
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::delete('/', 'destroy');
     });
 
 Route::prefix('/chapter')->middleware('auth:sanctum')
     ->controller(SubjectController::class)->group(function () {
-        Route::post('/', 'store');
-        Route::delete('/{id}', 'destroy');
         Route::put('/{id}', 'update');
+        Route::delete('/{id}', 'destroy');
+        Route::post('/', 'store');
     });
 
 Route::prefix('/role-permission')->middleware('auth:sanctum')
     ->controller(RolePermissionController::class)->group(function () {
-        Route::get('/', 'index');
         Route::get('/{id}', 'show');
         Route::put('/{id}', 'update');
+        Route::get('/', 'index');
     });
