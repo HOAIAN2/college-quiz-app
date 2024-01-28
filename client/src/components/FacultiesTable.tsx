@@ -7,6 +7,7 @@ import { FacultyDetail } from '../models/faculty'
 import { ComponentFacultiesTableLang } from '../models/lang'
 import { Pagination } from '../models/response'
 import styles from '../styles/global/Table.module.css'
+import languageUtils from '../utils/languageUtils'
 import ViewFaculty from './ViewFaculty'
 
 type FacultiesTableProps = {
@@ -24,7 +25,7 @@ export default function FacultiesTable({
     setSearchParams,
     setSelectedRows
 }: FacultiesTableProps) {
-    const { appLanguage, permissions } = useAppContext()
+    const { permissions } = useAppContext()
     const [checkAll, setCheckAll] = useState(false)
     const language = useLanguage<ComponentFacultiesTableLang>('component.faculties_table')
     const [viewMode, setViewMode] = useState(false)
@@ -74,18 +75,6 @@ export default function FacultiesTable({
             })
             setCheckAll(false)
         }
-    }
-    const getLeaderName = (faculty: FacultyDetail) => {
-        return appLanguage.language === 'vi'
-            ? [
-                faculty.leader?.lastName,
-                faculty.leader?.firstName
-            ].join(' ')
-            :
-            [
-                faculty.leader?.firstName,
-                faculty.leader?.lastName
-            ].join(' ')
     }
     return (
         <>
@@ -200,7 +189,7 @@ export default function FacultiesTable({
                                                         styles['column'],
                                                         styles['medium']
                                                     ].join(' ')
-                                                }>{getLeaderName(faculty)}</td>
+                                                }>{languageUtils.getFullName(faculty.leader?.firstName, faculty.leader?.lastName)}</td>
                                             </tr>
                                         )
                                     }) : null

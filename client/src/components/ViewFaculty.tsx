@@ -7,8 +7,8 @@ import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentViewFacultyLang } from '../models/lang'
-import { User } from '../models/user'
 import styles from '../styles/global/ViewModel.module.css'
+import languageUtils from '../utils/languageUtils'
 import Loading from './Loading'
 
 type ViewFacultyProps = {
@@ -24,7 +24,7 @@ export default function ViewFaculty({
 }: ViewFacultyProps) {
     const [hide, setHide] = useState(true)
     const language = useLanguage<ComponentViewFacultyLang>('component.view_faculty')
-    const { user, permissions, appLanguage } = useAppContext()
+    const { user, permissions } = useAppContext()
     const [queryUser, setQueryUser] = useState('')
     const debounceQueryUser = useDebounce(queryUser, 200) as string
     const handleTurnOffImportMode = () => {
@@ -85,18 +85,6 @@ export default function ViewFaculty({
         },
         onSuccess: onMutateSuccess
     })
-    const getFullName = (user: User | null) => {
-        return appLanguage.language === 'vi'
-            ? [
-                user?.lastName,
-                user?.firstName
-            ].join(' ')
-            :
-            [
-                user?.firstName,
-                user?.lastName
-            ].join(' ')
-    }
     useEffect(() => {
         setHide(false)
     }, [])
@@ -208,7 +196,7 @@ export default function ViewFaculty({
                                             <input
                                                 id='leader'
                                                 disabled={!permissions.has('faculty_update')}
-                                                defaultValue={getFullName(queryData.data.leader) || ''}
+                                                defaultValue={languageUtils.getFullName(queryData.data.leader?.firstName, queryData.data.leader?.lastName)}
                                                 name='leader'
                                                 onInput={e => { setQueryUser(e.currentTarget.value) }}
                                                 className={
@@ -222,7 +210,7 @@ export default function ViewFaculty({
                                             <datalist id='userList'>
                                                 {
                                                     userQueryData.data ? userQueryData.data.map(item => {
-                                                        return <option key={`user-${item.id}`} value={item.shortcode}>{getFullName(item)}</option>
+                                                        return <option key={`user-${item.id}`} value={item.shortcode}>{languageUtils.getFullName(item.firstName, item.lastName)}</option>
                                                     }) : null
                                                 }
                                             </datalist>

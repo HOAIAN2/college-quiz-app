@@ -12,4 +12,4 @@ const tokenUtils = {
     }
 }
 
-export default tokenUtils
+export default Object.freeze(tokenUtils)

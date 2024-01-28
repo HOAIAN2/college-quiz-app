@@ -15,7 +15,11 @@ const languageUtils = {
     },
     setLanguage(value: string) {
         localStorage.setItem(LANG_KEY, value)
+    },
+    getFullName(firstName?: string, lastName?: string) {
+        if (this.getLanguage() === 'vi') return [lastName, firstName].join(' ')
+        return [firstName, lastName].join(' ')
     }
 }
 
-export default languageUtils
+export default Object.freeze(languageUtils)

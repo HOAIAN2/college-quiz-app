@@ -10,6 +10,7 @@ import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentViewUserLang } from '../models/lang'
 import styles from '../styles/global/ViewModel.module.css'
+import languageUtils from '../utils/languageUtils'
 import CustomSelect from './CustomSelect'
 import Loading from './Loading'
 
@@ -25,7 +26,7 @@ export default function ViewUser({
 }: ViewUserProps) {
     const [hide, setHide] = useState(true)
     const language = useLanguage<ComponentViewUserLang>('component.view_user')
-    const { user, permissions, appLanguage } = useAppContext()
+    const { user, permissions } = useAppContext()
     const [queryClass, setQueryClass] = useState('')
     const [queryFaculty, setQueryFaculty] = useState('')
     const debouceQueryClass = useDebounce(queryClass, 200) as string
@@ -100,16 +101,6 @@ export default function ViewUser({
         { value: '1', label: language?.status.active },
         { value: '0', label: language?.status.inactive },
     ]
-    const fullName = appLanguage.language === 'vi'
-        ? [
-            queryData.data?.lastName,
-            queryData.data?.firstName
-        ].join(' ')
-        :
-        [
-            queryData.data?.firstName,
-            queryData.data?.lastName
-        ].join(' ')
     useEffect(() => {
         if (queryData.data) {
             if (queryData.data.role.name === 'student')
@@ -141,7 +132,7 @@ export default function ViewUser({
                     ].join(' ')
                 }>
                 <div className={styles['header']}>
-                    <h2 className={styles['title']}>{fullName}</h2>
+                    <h2 className={styles['title']}>{languageUtils.getFullName(queryData.data?.firstName, queryData.data?.lastName)}</h2>
                     <div className={styles['esc-button']}
                         onClick={handleTurnOffImportMode}
                     >
