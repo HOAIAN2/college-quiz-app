@@ -4,12 +4,11 @@ import Datetime from 'react-datetime'
 import { RxCross2 } from 'react-icons/rx'
 import { apiAutoCompleteClass } from '../api/class'
 import { apiAutoCompleteFaculty } from '../api/faculty'
-import { apiGetUsersById, apiUpdateUser } from '../api/user'
+import { apiGetUserById, apiUpdateUser } from '../api/user'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentViewUserLang } from '../models/lang'
-import { UserDetail } from '../models/user'
 import styles from '../styles/global/ViewModel.module.css'
 import CustomSelect from './CustomSelect'
 import Loading from './Loading'
@@ -26,8 +25,7 @@ export default function ViewUser({
 }: ViewUserProps) {
     const [hide, setHide] = useState(true)
     const language = useLanguage<ComponentViewUserLang>('component.view_user')
-    const [userDetail, setUserDetail] = useState<UserDetail | null>(null)
-    const { user, permissions } = useAppContext()
+    const { user, permissions, appLanguage } = useAppContext()
     const [queryClass, setQueryClass] = useState('')
     const [queryFaculty, setQueryFaculty] = useState('')
     const debouceQueryClass = useDebounce(queryClass, 200) as string
@@ -43,24 +41,16 @@ export default function ViewUser({
     }
     const queryData = useQuery({
         queryKey: ['user', id],
-        queryFn: () => {
-            const currentPath = location.pathname.split('/')
-            const currentId = currentPath.pop() || currentPath.pop() as string
-            return apiGetUsersById(id || currentId)
-        },
+        queryFn: () => apiGetUserById(id)
     })
     const classQueryData = useQuery({
         queryKey: ['class-query', debouceQueryClass],
-        queryFn: () => {
-            return apiAutoCompleteClass(debouceQueryClass)
-        },
+        queryFn: () => apiAutoCompleteClass(debouceQueryClass),
         enabled: debouceQueryClass && permissions.has('school_class_view') ? true : false
     })
     const facultyQueryData = useQuery({
         queryKey: ['faculty-query', debouceQueryFaculty],
-        queryFn: () => {
-            return apiAutoCompleteFaculty(debouceQueryFaculty)
-        },
+        queryFn: () => apiAutoCompleteFaculty(debouceQueryFaculty),
         enabled: debouceQueryFaculty && permissions.has('faculty_view') ? true : false
     })
     const getParentElement = (element: HTMLInputElement) => {
@@ -110,15 +100,22 @@ export default function ViewUser({
         { value: '1', label: language?.status.active },
         { value: '0', label: language?.status.inactive },
     ]
+    const fullName = appLanguage.language === 'vi'
+        ? [
+            queryData.data?.lastName,
+            queryData.data?.firstName
+        ].join(' ')
+        :
+        [
+            queryData.data?.firstName,
+            queryData.data?.lastName
+        ].join(' ')
     useEffect(() => {
         if (queryData.data) {
             if (queryData.data.role.name === 'student')
                 setQueryClass(queryData.data.schoolClass?.shortcode as string)
         }
-        if (queryData.data && setUserDetail) {
-            setUserDetail(queryData.data)
-        }
-    }, [queryData.data, setUserDetail])
+    }, [queryData.data])
     useEffect(() => {
         setHide(false)
         queryClient.removeQueries({ queryKey: ['user', id] })
@@ -144,12 +141,7 @@ export default function ViewUser({
                     ].join(' ')
                 }>
                 <div className={styles['header']}>
-                    <h2 className={styles['title']}>{
-                        [
-                            userDetail?.lastName,
-                            userDetail?.firstName
-                        ].join(' ')
-                    }</h2>
+                    <h2 className={styles['title']}>{fullName}</h2>
                     <div className={styles['esc-button']}
                         onClick={handleTurnOffImportMode}
                     >

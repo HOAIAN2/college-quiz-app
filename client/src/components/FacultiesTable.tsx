@@ -7,6 +7,7 @@ import { FacultyDetail } from '../models/faculty'
 import { ComponentFacultiesTableLang } from '../models/lang'
 import { Pagination } from '../models/response'
 import styles from '../styles/global/Table.module.css'
+import ViewFaculty from './ViewFaculty'
 
 type FacultiesTableProps = {
     data?: Pagination<FacultyDetail>
@@ -19,7 +20,7 @@ type FacultiesTableProps = {
 export default function FacultiesTable({
     data,
     searchParams,
-    // onMutateSuccess,
+    onMutateSuccess,
     setSearchParams
 }: FacultiesTableProps) {
     const { appLanguage } = useAppContext()
@@ -29,7 +30,6 @@ export default function FacultiesTable({
     const handleViewFaculty = (id: number) => {
         seFacultyId(id)
         setViewMode(true)
-        console.log(viewMode, facultyId)
     }
     const getLeaderName = (faculty: FacultyDetail) => {
         return appLanguage.language === 'vi'
@@ -45,6 +45,12 @@ export default function FacultiesTable({
     }
     return (
         <>
+            {viewMode === true ?
+                <ViewFaculty
+                    id={facultyId}
+                    onMutateSuccess={onMutateSuccess}
+                    setViewMode={setViewMode}
+                /> : null}
             <div className={styles['table-content']}>
                 <table className={styles['main']}>
                     <>

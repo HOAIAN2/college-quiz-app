@@ -5,6 +5,7 @@ import { apiCreateFaculty } from '../api/faculty'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateFacultyLang } from '../models/lang'
 import styles from '../styles/global/CreateModel.module.css'
+import Loading from './Loading'
 
 type CreateFacultyProps = {
     onMutateSuccess: () => void
@@ -77,7 +78,7 @@ export default function CreateFaculty({
             ].join(' ')
         }>
             {
-                // isPending ? <Loading /> : null
+                isPending ? <Loading /> : null
             }
             <div className={
                 [

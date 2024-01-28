@@ -80,7 +80,7 @@ export async function apiGetUsersByType(query?: QueryUserType) {
         throw new Error(error.message)
     }
 }
-export async function apiGetUsersById(id: string | number) {
+export async function apiGetUserById(id: string | number) {
     try {
         const res = await request.get('/user/' + id)
         const { data } = res.data as ApiResponseWithData<UserDetail>

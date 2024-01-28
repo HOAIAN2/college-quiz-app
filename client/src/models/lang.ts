@@ -7,6 +7,7 @@ export { type ComponentHeaderLang } from '../../assets/langs/en/component.header
 export { type ComponentImportDataLang } from '../../assets/langs/en/component.import_data'
 export { type ComponentNavBarLang } from '../../assets/langs/en/component.navbar'
 export { type ComponentUsersTableLang } from '../../assets/langs/en/component.users_table'
+export { type ComponentViewFacultyLang } from '../../assets/langs/en/component.view_faculty'
 export { type ComponentViewUserLang } from '../../assets/langs/en/component.view_user'
 export { type PageDashBoardLang } from '../../assets/langs/en/page.dashboard'
 export { type PageFacultiesLang } from '../../assets/langs/en/page.faculties'

@@ -43,3 +43,30 @@ export async function apiCreateFaculty(formData: FormData) {
         throw new Error(message)
     }
 }
+export async function apiUpdateFaculty(formData: FormData, id: string | number) {
+    try {
+        const data = new URLSearchParams();
+        for (const pair of formData) {
+            data.append(pair[0], pair[1] as string);
+        }
+        await request.put('/faculty/' + id, data, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+    } catch (error: any) {
+        if (!error.response) throw new Error(error.message)
+        const message = error.response.data.message
+        if (error.response.data.errors) return Promise.reject(error.response.data.errors)
+        throw new Error(message)
+    }
+}
+export async function apiGetFacultyById(id: string | number) {
+    try {
+        const res = await request.get('/faculty/' + id)
+        const { data } = res.data as ApiResponseWithData<FacultyDetail>
+        return data
+    } catch (error: any) {
+        throw new Error(error.message)
+    }
+}
