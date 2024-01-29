@@ -109,9 +109,11 @@ export default function ViewUser({
     }, [queryData.data])
     useEffect(() => {
         setHide(false)
-        queryClient.removeQueries({ queryKey: ['user', id] })
-        queryClient.removeQueries({ queryKey: ['class-query'] })
-        queryClient.removeQueries({ queryKey: ['faculty-query'] })
+        return () => {
+            queryClient.removeQueries({ queryKey: ['user', id] })
+            queryClient.removeQueries({ queryKey: ['class-query'] })
+            queryClient.removeQueries({ queryKey: ['faculty-query'] })
+        }
     }, [queryClient, id])
     return (
         <div

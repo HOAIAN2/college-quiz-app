@@ -47,10 +47,12 @@ class FacultyController extends Controller
         DB::beginTransaction();
 
         try {
-            $leader_id = User::whereRoleId(Role::ROLES['teacher'])
-                ->where('shortcode', '=', $request->leader)->pluck('id')
-                ->first();
-            $data['leader_id'] = $leader_id;
+            if ($request->leader != null) {
+                $leader_id = User::whereRoleId(Role::ROLES['teacher'])
+                    ->where('shortcode', '=', $request->leader)->pluck('id')
+                    ->firstOrFail();
+                $data['leader_id'] = $leader_id;
+            }
             Faculty::create($data);
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
@@ -88,10 +90,12 @@ class FacultyController extends Controller
 
         try {
             $faculty = Faculty::findOrFail($id);
-            $leader_id = User::whereRoleId(Role::ROLES['teacher'])
-                ->where('shortcode', '=', $request->leader)->pluck('id')
-                ->first();
-            $data['leader_id'] = $leader_id;
+            if ($request->leader != null) {
+                $leader_id = User::whereRoleId(Role::ROLES['teacher'])
+                    ->where('shortcode', '=', $request->leader)->pluck('id')
+                    ->firstOrFail();
+                $data['leader_id'] = $leader_id;
+            }
             $faculty->update($data);
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');

@@ -3,12 +3,12 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
 import { apiCreateFaculty } from '../api/faculty'
 import { apiAutoCompleteUser } from '../api/user'
-import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateFacultyLang } from '../models/lang'
-import { User } from '../models/user'
 import styles from '../styles/global/CreateModel.module.css'
+import languageUtils from '../utils/languageUtils'
+import CustomDataList from './CustomDataList'
 import Loading from './Loading'
 
 type CreateFacultyProps = {
@@ -23,7 +23,7 @@ export default function CreateFaculty({
     const language = useLanguage<ComponentCreateFacultyLang>('component.create_faculty')
     const [hide, setHide] = useState(true)
     const [queryUser, setQueryUser] = useState('')
-    const { appLanguage } = useAppContext()
+    const [leaderShortcode, setLeaderShortcode] = useState<string>()
     const debounceQueryUser = useDebounce(queryUser, 200) as string
     const handleTurnOffInsertMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -62,6 +62,7 @@ export default function CreateFaculty({
         const submitter = e.nativeEvent.submitter as HTMLButtonElement
         const form = e.target as HTMLFormElement
         const formData = new FormData(form)
+        formData.set('leader', leaderShortcode || '')
         await apiCreateFaculty(formData)
         if (submitter.name === 'save') handleTurnOffInsertMode()
         else form.reset()
@@ -81,18 +82,6 @@ export default function CreateFaculty({
         },
         onSuccess: onMutateSuccess
     })
-    const getFullName = (user: User) => {
-        return appLanguage.language === 'vi'
-            ? [
-                user.lastName,
-                user.firstName
-            ].join(' ')
-            :
-            [
-                user.firstName,
-                user.lastName
-            ].join(' ')
-    }
     useEffect(() => {
         setHide(false)
     }, [])
@@ -185,7 +174,7 @@ export default function CreateFaculty({
                             </div>
                             <div className={styles['wrap-item']}>
                                 <label htmlFor='leader'>{language?.leader}</label>
-                                <input
+                                {/* <input
                                     id='leader'
                                     name='leader'
                                     onInput={e => { setQueryUser(e.currentTarget.value) }}
@@ -196,14 +185,32 @@ export default function CreateFaculty({
                                         ].join(' ')
                                     } type='text'
                                     list='userList'
+                                /> */}
+                                <CustomDataList
+                                    onInput={e => { setQueryUser(e.currentTarget.value) }}
+                                    options={userQueryData.data ? userQueryData.data.map(item => {
+                                        return {
+                                            label: languageUtils.getFullName(item.firstName, item.lastName),
+                                            value: item.shortcode
+                                        }
+                                    }) : []}
+                                    onChange={e => { setLeaderShortcode(e.value) }}
+                                    className={
+                                        [
+                                            styles['custom-select']
+                                        ].join(' ')
+                                    }
                                 />
-                                <datalist id='userList'>
+                                {/* <datalist id='userList'>
                                     {
                                         userQueryData.data ? userQueryData.data.map(item => {
-                                            return <option key={`user-${item.id}`} value={item.shortcode}>{getFullName(item)}</option>
+                                            return <option key={`user-${item.id}`}
+                                                value={languageUtils.getFullName(item.firstName, item.lastName)}>
+                                                {languageUtils.getFullName(item.firstName, item.lastName)}
+                                            </option>
                                         }) : null
                                     }
-                                </datalist>
+                                </datalist> */}
                             </div>
                         </div>
                         <div className={styles['action-items']}>

@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
 import { apiGetFacultyById, apiUpdateFaculty } from '../api/faculty'
@@ -9,6 +9,7 @@ import useLanguage from '../hooks/useLanguage'
 import { ComponentViewFacultyLang } from '../models/lang'
 import styles from '../styles/global/ViewModel.module.css'
 import languageUtils from '../utils/languageUtils'
+import CustomDataList from './CustomDataList'
 import Loading from './Loading'
 
 type ViewFacultyProps = {
@@ -27,6 +28,8 @@ export default function ViewFaculty({
     const { user, permissions } = useAppContext()
     const [queryUser, setQueryUser] = useState('')
     const debounceQueryUser = useDebounce(queryUser, 200) as string
+    const [leaderShortcode, setLeaderShortcode] = useState<string>()
+    const queryClient = useQueryClient()
     const handleTurnOffImportMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
         const timing = Number(transitionTiming.replace('s', '')) * 1000
@@ -36,7 +39,7 @@ export default function ViewFaculty({
         }, timing)
     }
     const queryData = useQuery({
-        queryKey: ['faculties', id],
+        queryKey: ['faculty', id],
         queryFn: () => apiGetFacultyById(id)
     })
     const userQueryData = useQuery({
@@ -68,6 +71,7 @@ export default function ViewFaculty({
         })
         const form = e.target as HTMLFormElement
         const formData = new FormData(form)
+        formData.set('leader', leaderShortcode || '')
         await apiUpdateFaculty(formData, id)
     }
     const { mutate, isPending } = useMutation({
@@ -87,7 +91,11 @@ export default function ViewFaculty({
     })
     useEffect(() => {
         setHide(false)
-    }, [])
+        return () => {
+            queryClient.removeQueries({ queryKey: ['faculty', id] })
+            queryClient.removeQueries({ queryKey: ['user-auto-complete'] })
+        }
+    }, [id, queryClient])
     return (
         <div
             className={
@@ -193,7 +201,7 @@ export default function ViewFaculty({
                                         </div>
                                         <div className={styles['wrap-item']}>
                                             <label htmlFor='leader'>{language?.leader}</label>
-                                            <input
+                                            {/* <input
                                                 id='leader'
                                                 disabled={!permissions.has('faculty_update')}
                                                 defaultValue={languageUtils.getFullName(queryData.data.leader?.firstName, queryData.data.leader?.lastName)}
@@ -206,14 +214,35 @@ export default function ViewFaculty({
                                                     ].join(' ')
                                                 } type='text'
                                                 list='userList'
+                                            /> */}
+                                            <CustomDataList
+                                                defaultOption={
+                                                    {
+                                                        label: languageUtils.getFullName(queryData.data.leader?.firstName, queryData.data.leader?.lastName),
+                                                        value: queryData.data.leader?.shortcode || ''
+                                                    }
+                                                }
+                                                onInput={e => { setQueryUser(e.currentTarget.value) }}
+                                                options={userQueryData.data ? userQueryData.data.map(item => {
+                                                    return {
+                                                        label: languageUtils.getFullName(item.firstName, item.lastName),
+                                                        value: item.shortcode
+                                                    }
+                                                }) : []}
+                                                onChange={e => { setLeaderShortcode(e.value) }}
+                                                className={
+                                                    [
+                                                        styles['custom-select']
+                                                    ].join(' ')
+                                                }
                                             />
-                                            <datalist id='userList'>
+                                            {/* <datalist id='userList'>
                                                 {
                                                     userQueryData.data ? userQueryData.data.map(item => {
                                                         return <option key={`user-${item.id}`} value={item.shortcode}>{languageUtils.getFullName(item.firstName, item.lastName)}</option>
                                                     }) : null
                                                 }
-                                            </datalist>
+                                            </datalist> */}
                                         </div>
                                     </div>
                                     {
