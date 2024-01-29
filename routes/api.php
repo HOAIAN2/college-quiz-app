@@ -47,7 +47,7 @@ Route::prefix('/dashboard')->middleware('auth:sanctum')
         Route::get('/', 'index');
     });
 
-Route::prefix('/class')->middleware('auth:sanctum')
+Route::prefix('/school-class')->middleware('auth:sanctum')
     ->controller(SchoolClassController::class)->group(function () {
         Route::get('/complete', 'autocomplete');
         Route::get('/{id}', 'show');

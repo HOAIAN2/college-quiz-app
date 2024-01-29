@@ -5,7 +5,7 @@ import { ApiResponseWithData } from '../models/response'
 
 export async function apiAutoCompleteClass(search: string) {
     try {
-        const res = await request.get('/class/complete', {
+        const res = await request.get('/school-class/complete', {
             params: {
                 search: search
             }

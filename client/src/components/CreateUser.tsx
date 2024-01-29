@@ -4,8 +4,8 @@ import Datetime from 'react-datetime'
 import {
     RxCross2
 } from 'react-icons/rx'
-import { apiAutoCompleteClass } from '../api/class'
 import { apiAutoCompleteFaculty } from '../api/faculty'
+import { apiAutoCompleteClass } from '../api/school-class'
 import { apiCreateUser } from '../api/user'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
