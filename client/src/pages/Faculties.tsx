@@ -39,7 +39,7 @@ export default function Faculties() {
             search: searchParams.get('search') as string
         })
     })
-    const handleDeleteFaulties = async () => {
+    const handleDeleteFaculties = async () => {
         return apiDeleteFacultiesByIds(Array.from(selectedFacultyIds))
     }
     const getMessage = () => {
@@ -73,7 +73,7 @@ export default function Faculties() {
             {showPopUpMode === true ?
                 <YesNoPopUp
                     message={getMessage()}
-                    mutateFunction={handleDeleteFaulties}
+                    mutateFunction={handleDeleteFaculties}
                     setShowPopUpMode={setShowPopUpMode}
                     onMutateSuccess={onMutateSuccess}
                     langYes={language?.langYes}

@@ -22,7 +22,7 @@ export default function ViewSchoolClass({
     setViewMode
 }: ViewSchoolClassProps) {
     const [hide, setHide] = useState(true)
-    const language = useLanguage<ComponentViewSchoolClassLang>('component.view_faculty')
+    const language = useLanguage<ComponentViewSchoolClassLang>('component.view_school_class')
     const { permissions } = useAppContext()
     const [queryFaculty, setQueryFaculty] = useState('')
     const debounceQueryFaculty = useDebounce(queryFaculty, 200) as string
@@ -189,20 +189,6 @@ export default function ViewSchoolClass({
                                                 }
                                             </datalist>
                                         </div>
-                                        {/* <div className={styles['wrap-item']}>
-                                            <label htmlFor='phone_number'>{language?.phoneNumber}</label>
-                                            <input
-                                                id='phone_number'
-                                                disabled={!permissions.has('school_class_update')}
-                                                defaultValue={queryData.data.phoneNumber || ''}
-                                                name='phone_number'
-                                                className={
-                                                    [
-                                                        'input-d',
-                                                        styles['input-item']
-                                                    ].join(' ')
-                                                } type='text' />
-                                        </div> */}
                                     </div>
                                     {
                                         permissions.has('school_class_update') ?

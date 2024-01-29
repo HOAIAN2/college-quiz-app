@@ -60,3 +60,24 @@ export async function apiUpdateSchoolClass(formData: FormData, id: string | numb
         throw new Error(message)
     }
 }
+export async function apiDeleteSchoolClassIds(ids: (string | number)[]) {
+    try {
+        await request.delete('/school-class', {
+            params: {
+                ids: ids,
+            }
+        })
+    } catch (error: any) {
+        throw new Error(error.message)
+    }
+}
+export async function apiCreateSchoolClass(formData: FormData) {
+    try {
+        await request.post('/school-class', formData)
+    } catch (error: any) {
+        if (!error.response) throw new Error(error.message)
+        const message = error.response.data.message
+        if (error.response.data.errors) return Promise.reject(error.response.data.errors)
+        throw new Error(message)
+    }
+}

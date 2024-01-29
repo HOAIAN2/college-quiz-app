@@ -1,5 +1,6 @@
 export { type ComponentChangePassword } from '../../assets/langs/en/component.change_password'
 export { type ComponentCreateFacultyLang } from '../../assets/langs/en/component.create_faculty'
+export { type ComponentCreateSchoolClassLang } from '../../assets/langs/en/component.create_school_class'
 export { type ComponentCreateUserLang } from '../../assets/langs/en/component.create_user'
 export { type ComponentExportUsersLang } from '../../assets/langs/en/component.export_users'
 export { type ComponentFacultiesTableLang } from '../../assets/langs/en/component.faculties_table'

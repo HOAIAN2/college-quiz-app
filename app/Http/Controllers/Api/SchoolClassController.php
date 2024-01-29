@@ -20,7 +20,7 @@ class SchoolClassController extends Controller
         $user = $this->getUser();
         abort_if(!$user->hasPermission('school_class_view'), 403);
 
-        $school_classes = SchoolClass::with(['faculty']);
+        $school_classes = SchoolClass::with(['faculty'])->latest('id');
 
         try {
             if ($request->search != null) {

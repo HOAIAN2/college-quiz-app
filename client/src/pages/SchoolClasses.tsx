@@ -1,14 +1,16 @@
 
-import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useEffect, useState } from 'react'
 import { BiExport, BiImport } from 'react-icons/bi'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RiAddFill } from 'react-icons/ri'
 import { useSearchParams } from 'react-router-dom'
-import { apiGetSchoolClasses } from '../api/school-class'
+import { apiDeleteSchoolClassIds, apiGetSchoolClasses } from '../api/school-class'
+import CreateSchoolClass from '../components/CreateSchoolClass'
 import CustomSelect from '../components/CustomSelect'
 import Loading from '../components/Loading'
 import SchoolClassesTable from '../components/SchoolClassesTable'
+import YesNoPopUp from '../components/YesNoPopUp'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
@@ -19,9 +21,12 @@ export default function SchoolClasses() {
     const { permissions } = useAppContext()
     const language = useLanguage<PageFacultiesLang>('page.school_classes')
     const [searchParams, setSearchParams] = useSearchParams()
+    const [insertMode, setInsertMode] = useState(false)
+    const [showPopUpMode, setShowPopUpMode] = useState(false)
     const [selectedSchoolClassIds, setSelectedSchoolClassIds] = useState<Set<string | number>>(new Set())
     const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
     const queryDebounce = useDebounce(searchQuery) as string
+    const queryClient = useQueryClient()
     const queryData = useQuery({
         queryKey: [
             'school-classes',
@@ -35,9 +40,46 @@ export default function SchoolClasses() {
             search: searchParams.get('search') as string
         })
     })
-    queryData.data && console.log(queryData.data)
+    const handleDeleteSchoolClasses = async () => {
+        return apiDeleteSchoolClassIds(Array.from(selectedSchoolClassIds))
+    }
+    const getMessage = () => {
+        if (!language) return ''
+        return language.deleteMessage.replace('@n', String(selectedSchoolClassIds.size))
+    }
+    const onMutateSuccess = () => {
+        const queryKeys = [
+            'school-classes',
+        ]
+        queryKeys.forEach(key => {
+            queryClient.refetchQueries({ queryKey: [key] })
+        })
+    }
+    useEffect(() => {
+        setSelectedSchoolClassIds(new Set())
+    }, [queryData.data])
+    useEffect(() => {
+        if (!searchParams.get('search') && !queryDebounce) return
+        if (queryDebounce === '') searchParams.delete('search')
+        else searchParams.set('search', queryDebounce)
+        setSearchParams(searchParams)
+    }, [queryDebounce, searchParams, setSearchParams])
     return (
         <>
+            {insertMode === true ?
+                <CreateSchoolClass
+                    onMutateSuccess={onMutateSuccess}
+                    setInsertMode={setInsertMode}
+                /> : null}
+            {showPopUpMode === true ?
+                <YesNoPopUp
+                    message={getMessage()}
+                    mutateFunction={handleDeleteSchoolClasses}
+                    setShowPopUpMode={setShowPopUpMode}
+                    onMutateSuccess={onMutateSuccess}
+                    langYes={language?.langYes}
+                    langNo={language?.langNo}
+                /> : null}
             <div
                 className={
                     [
@@ -58,7 +100,7 @@ export default function SchoolClasses() {
                                 ].join(' ')
                             }
                                 onClick={() => {
-                                    // setInsertMode(true)
+                                    setInsertMode(true)
                                 }}
                             >
                                 <RiAddFill /> {language?.add}
@@ -99,7 +141,7 @@ export default function SchoolClasses() {
                         selectedSchoolClassIds.size > 0 && permissions.has('user_delete') ?
                             <div
                                 onClick={() => {
-                                    // setShowPopUpMode(true)
+                                    setShowPopUpMode(true)
                                 }}
                                 className={
                                     [
