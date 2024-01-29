@@ -20,7 +20,7 @@ class SchoolClassController extends Controller
         $user = $this->getUser();
         abort_if(!$user->hasPermission('school_class_view'), 403);
 
-        $school_classes = SchoolClass::withCount('students');
+        $school_classes = SchoolClass::with(['faculty']);
 
         try {
             if ($request->search != null) {
@@ -66,7 +66,7 @@ class SchoolClassController extends Controller
         abort_if(!$user->hasPermission('school_class_view'), 403);
 
         try {
-            $data = SchoolClass::withCount('students')->findOrFail($id);
+            $data = SchoolClass::with(['faculty'])->findOrFail($id);
             return Reply::successWithData($data, '');
         } catch (\Throwable $error) {
             Log::error($error->getMessage());

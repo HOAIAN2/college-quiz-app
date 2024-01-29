@@ -5,7 +5,7 @@ import {
     RxCross2
 } from 'react-icons/rx'
 import { apiAutoCompleteFaculty } from '../api/faculty'
-import { apiAutoCompleteClass } from '../api/school-class'
+import { apiAutoCompleteSchoolClass } from '../api/school-class'
 import { apiCreateUser } from '../api/user'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
@@ -43,7 +43,7 @@ export default function CreateUser({
     const classQueryData = useQuery({
         queryKey: ['class-query', debounceQueryClass],
         queryFn: () => {
-            return apiAutoCompleteClass(debounceQueryClass)
+            return apiAutoCompleteSchoolClass(debounceQueryClass)
         },
         enabled: debounceQueryClass ? true : false
     })

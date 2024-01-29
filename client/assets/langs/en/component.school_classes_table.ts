@@ -1,0 +1,14 @@
+const lang = {
+    header: {
+        id: 'ID',
+        name: 'Name',
+        shortcode: 'Shortcode',
+        faculty: 'Faculty'
+    },
+    filter: {
+        perPage: 'Rows',
+        search: 'Search'
+    },
+}
+export default lang
+export type ComponentSchoolClassesTableLang = typeof lang

@@ -3,7 +3,7 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
 import { RxCross2 } from 'react-icons/rx'
 import { apiAutoCompleteFaculty } from '../api/faculty'
-import { apiAutoCompleteClass } from '../api/school-class'
+import { apiAutoCompleteSchoolClass } from '../api/school-class'
 import { apiGetUserById, apiUpdateUser } from '../api/user'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
@@ -26,11 +26,11 @@ export default function ViewUser({
 }: ViewUserProps) {
     const [hide, setHide] = useState(true)
     const language = useLanguage<ComponentViewUserLang>('component.view_user')
-    const { user, permissions } = useAppContext()
+    const { permissions } = useAppContext()
     const [queryClass, setQueryClass] = useState('')
     const [queryFaculty, setQueryFaculty] = useState('')
     const debouceQueryClass = useDebounce(queryClass, 200) as string
-    const debouceQueryFaculty = useDebounce(queryFaculty, 200) as string
+    const debounceQueryFaculty = useDebounce(queryFaculty, 200) as string
     const queryClient = useQueryClient()
     const handleTurnOffImportMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -46,13 +46,13 @@ export default function ViewUser({
     })
     const classQueryData = useQuery({
         queryKey: ['class-query', debouceQueryClass],
-        queryFn: () => apiAutoCompleteClass(debouceQueryClass),
+        queryFn: () => apiAutoCompleteSchoolClass(debouceQueryClass),
         enabled: debouceQueryClass && permissions.has('school_class_view') ? true : false
     })
     const facultyQueryData = useQuery({
-        queryKey: ['faculty-query', debouceQueryFaculty],
-        queryFn: () => apiAutoCompleteFaculty(debouceQueryFaculty),
-        enabled: debouceQueryFaculty && permissions.has('faculty_view') ? true : false
+        queryKey: ['faculty-query', debounceQueryFaculty],
+        queryFn: () => apiAutoCompleteFaculty(debounceQueryFaculty),
+        enabled: debounceQueryFaculty && permissions.has('faculty_view') ? true : false
     })
     const getParentElement = (element: HTMLInputElement) => {
         let parent = element.parentElement as HTMLElement
@@ -68,7 +68,7 @@ export default function ViewUser({
     }
     const handleUpdateUser = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
         e.preventDefault()
-        if (user.user?.role.name !== 'admin') return
+        if (!permissions.has('user_update')) return
         document.querySelector(styles['form-data'])?.querySelectorAll('input[name]').forEach(node => {
             const element = node as HTMLInputElement
             element.classList.remove(styles['error'])
@@ -259,13 +259,12 @@ export default function ViewUser({
                                             </div>
                                             : queryData.data.role.name === 'teacher' ?
                                                 <div className={styles['wrap-item']}>
-                                                    <label className={styles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
+                                                    <label className={styles['required']} htmlFor='faculty'>{language?.faculty}</label>
                                                     <input
-                                                        id='faculty_id'
+                                                        id='faculty'
                                                         disabled={!permissions.has('user_update')}
                                                         defaultValue={queryData.data.faculty?.shortcode || ''}
-                                                        name='faculty_id'
-                                                        value={queryFaculty}
+                                                        name='faculty'
                                                         onInput={(e) => { setQueryFaculty(e.currentTarget.value) }}
                                                         className={
                                                             [
@@ -358,7 +357,7 @@ export default function ViewUser({
                                             <label htmlFor='password'>{language?.password}</label>
                                             <input
                                                 id='password'
-                                                readOnly={user.user?.role.name === 'admin' ? false : true}
+                                                disabled={!permissions.has('user_update')}
                                                 placeholder={language?.leaveBlank}
                                                 name='password'
                                                 className={

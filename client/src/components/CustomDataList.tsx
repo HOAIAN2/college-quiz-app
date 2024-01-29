@@ -26,7 +26,7 @@ export default function CustomDataList({
     onInput
 }: CustomDataListProps) {
     const customDataListRef = useRef<HTMLDivElement>(null)
-    const [value, SetValue] = useState<string>('')
+    const [value, SetValue] = useState<string>(defaultOption?.value || '')
     const [currentText, setCurrentText] = useState(defaultOption?.label || '')
     return (
         <div ref={customDataListRef}

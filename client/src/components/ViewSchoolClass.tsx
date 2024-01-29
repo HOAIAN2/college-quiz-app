@@ -1,33 +1,31 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
-import { apiGetFacultyById, apiUpdateFaculty } from '../api/faculty'
-import { apiAutoCompleteUser } from '../api/user'
+import { apiAutoCompleteFaculty } from '../api/faculty'
+import { apiGetSchoolClassById, apiUpdateSchoolClass } from '../api/school-class'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentViewFacultyLang } from '../models/lang'
+import { ComponentViewSchoolClassLang } from '../models/lang'
 import styles from '../styles/global/ViewModel.module.css'
-import languageUtils from '../utils/languageUtils'
-import CustomDataList from './CustomDataList'
 import Loading from './Loading'
 
-type ViewFacultyProps = {
+type ViewSchoolClassProps = {
     id: number
     onMutateSuccess: () => void
     setViewMode: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function ViewFaculty({
+export default function ViewSchoolClass({
     id,
     onMutateSuccess,
     setViewMode
-}: ViewFacultyProps) {
+}: ViewSchoolClassProps) {
     const [hide, setHide] = useState(true)
-    const language = useLanguage<ComponentViewFacultyLang>('component.view_faculty')
+    const language = useLanguage<ComponentViewSchoolClassLang>('component.view_faculty')
     const { permissions } = useAppContext()
-    const [queryUser, setQueryUser] = useState('')
-    const debounceQueryUser = useDebounce(queryUser, 200) as string
+    const [queryFaculty, setQueryFaculty] = useState('')
+    const debounceQueryFaculty = useDebounce(queryFaculty, 200) as string
     const queryClient = useQueryClient()
     const handleTurnOffImportMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -38,15 +36,13 @@ export default function ViewFaculty({
         }, timing)
     }
     const queryData = useQuery({
-        queryKey: ['faculty', id],
-        queryFn: () => apiGetFacultyById(id)
+        queryKey: ['school-class', id],
+        queryFn: () => apiGetSchoolClassById(id)
     })
-    const userQueryData = useQuery({
-        queryKey: ['user-auto-complete', debounceQueryUser],
-        queryFn: () => {
-            return apiAutoCompleteUser('teacher', debounceQueryUser)
-        },
-        enabled: debounceQueryUser && permissions.has('user_view') ? true : false
+    const facultyQueryData = useQuery({
+        queryKey: ['faculty-query', debounceQueryFaculty],
+        queryFn: () => apiAutoCompleteFaculty(debounceQueryFaculty),
+        enabled: debounceQueryFaculty && permissions.has('faculty_view') ? true : false
     })
     const getParentElement = (element: HTMLInputElement) => {
         let parent = element.parentElement as HTMLElement
@@ -60,9 +56,9 @@ export default function ViewFaculty({
             getParentElement(element).removeAttribute('data-error')
         }
     }
-    const handleUpdateFaculty = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
+    const handleUpdateSchoolClass = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
         e.preventDefault()
-        if (!permissions.has('faculty_update')) return
+        if (!permissions.has('school_class_update')) return
         document.querySelector(styles['form-data'])?.querySelectorAll('input[name]').forEach(node => {
             const element = node as HTMLInputElement
             element.classList.remove(styles['error'])
@@ -70,10 +66,10 @@ export default function ViewFaculty({
         })
         const form = e.target as HTMLFormElement
         const formData = new FormData(form)
-        await apiUpdateFaculty(formData, id)
+        await apiUpdateSchoolClass(formData, id)
     }
     const { mutate, isPending } = useMutation({
-        mutationFn: handleUpdateFaculty,
+        mutationFn: handleUpdateSchoolClass,
         onError: (error: object) => {
             if (typeof error === 'object') {
                 for (const key in error) {
@@ -90,8 +86,8 @@ export default function ViewFaculty({
     useEffect(() => {
         setHide(false)
         return () => {
-            queryClient.removeQueries({ queryKey: ['faculty', id] })
-            queryClient.removeQueries({ queryKey: ['user-auto-complete'] })
+            queryClient.removeQueries({ queryKey: ['school-class', id] })
+            queryClient.removeQueries({ queryKey: ['faculty-auto-complete'] })
         }
     }, [id, queryClient])
     return (
@@ -145,7 +141,7 @@ export default function ViewFaculty({
                                             <label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
                                             <input
                                                 id='shortcode'
-                                                disabled={!permissions.has('faculty_update')}
+                                                disabled={!permissions.has('school_class_update')}
                                                 defaultValue={queryData.data.shortcode}
                                                 name='shortcode'
                                                 className={
@@ -159,7 +155,7 @@ export default function ViewFaculty({
                                             <label className={styles['required']} htmlFor='name'>{language?.name}</label>
                                             <input
                                                 id='name'
-                                                disabled={!permissions.has('faculty_update')}
+                                                disabled={!permissions.has('school_class_update')}
                                                 defaultValue={queryData.data.name}
                                                 name='name'
                                                 className={
@@ -170,24 +166,34 @@ export default function ViewFaculty({
                                                 } type='text' />
                                         </div>
                                         <div className={styles['wrap-item']}>
-                                            <label htmlFor='email'>{language?.email}</label>
+                                            <label className={styles['required']} htmlFor='faculty'>{language?.faculty}</label>
                                             <input
-                                                id='email'
-                                                disabled={!permissions.has('faculty_update')}
-                                                defaultValue={queryData.data.email || ''}
-                                                name='email'
+                                                id='faculty'
+                                                disabled={!permissions.has('school_class_update')}
+                                                defaultValue={queryData.data.faculty?.shortcode || ''}
+                                                name='faculty'
+                                                onInput={(e) => { setQueryFaculty(e.currentTarget.value) }}
                                                 className={
                                                     [
                                                         'input-d',
                                                         styles['input-item']
                                                     ].join(' ')
-                                                } type='text' />
+                                                }
+                                                list='facultyList'
+                                            />
+                                            <datalist id='facultyList'>
+                                                {
+                                                    facultyQueryData.data ? facultyQueryData.data.map(item => {
+                                                        return <option key={`faculty-${item.id}`} value={item.shortcode}>{item.name}</option>
+                                                    }) : null
+                                                }
+                                            </datalist>
                                         </div>
-                                        <div className={styles['wrap-item']}>
+                                        {/* <div className={styles['wrap-item']}>
                                             <label htmlFor='phone_number'>{language?.phoneNumber}</label>
                                             <input
                                                 id='phone_number'
-                                                disabled={!permissions.has('faculty_update')}
+                                                disabled={!permissions.has('school_class_update')}
                                                 defaultValue={queryData.data.phoneNumber || ''}
                                                 name='phone_number'
                                                 className={
@@ -196,34 +202,10 @@ export default function ViewFaculty({
                                                         styles['input-item']
                                                     ].join(' ')
                                                 } type='text' />
-                                        </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label htmlFor='leader'>{language?.leader}</label>
-                                            <CustomDataList
-                                                name='leader'
-                                                defaultOption={
-                                                    {
-                                                        label: languageUtils.getFullName(queryData.data.leader?.firstName, queryData.data.leader?.lastName),
-                                                        value: queryData.data.leader?.shortcode || ''
-                                                    }
-                                                }
-                                                onInput={e => { setQueryUser(e.currentTarget.value) }}
-                                                options={userQueryData.data ? userQueryData.data.map(item => {
-                                                    return {
-                                                        label: languageUtils.getFullName(item.firstName, item.lastName),
-                                                        value: item.shortcode
-                                                    }
-                                                }) : []}
-                                                className={
-                                                    [
-                                                        styles['custom-select']
-                                                    ].join(' ')
-                                                }
-                                            />
-                                        </div>
+                                        </div> */}
                                     </div>
                                     {
-                                        permissions.has('faculty_update') ?
+                                        permissions.has('school_class_update') ?
                                             <div className={styles['action-items']}>
                                                 <button name='save'
                                                     className={

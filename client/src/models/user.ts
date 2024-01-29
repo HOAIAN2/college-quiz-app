@@ -1,6 +1,6 @@
-import { SchoolClass } from './class'
 import { Faculty } from './faculty'
 import { Role, RoleName } from './role'
+import { SchoolClass } from './school-class'
 
 export type User = {
     id: number
