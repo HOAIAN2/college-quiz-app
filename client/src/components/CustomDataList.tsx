@@ -7,6 +7,7 @@ type Option = {
 }
 
 type CustomDataListProps = {
+    name?: string
     defaultOption?: Option
     options: Option[]
     className?: string
@@ -16,6 +17,7 @@ type CustomDataListProps = {
 }
 
 export default function CustomDataList({
+    name,
     defaultOption,
     options,
     className,
@@ -24,6 +26,7 @@ export default function CustomDataList({
     onInput
 }: CustomDataListProps) {
     const customDataListRef = useRef<HTMLDivElement>(null)
+    const [value, SetValue] = useState<string>('')
     const [currentText, setCurrentText] = useState(defaultOption?.label || '')
     return (
         <div ref={customDataListRef}
@@ -40,6 +43,7 @@ export default function CustomDataList({
                 ].join(' ')
             }
         >
+            <input type="text" hidden value={value} name={name} onInput={() => { }} />
             <input type="text"
                 className={
                     [
@@ -72,6 +76,7 @@ export default function CustomDataList({
                                     onClick={() => {
                                         onChange && onChange(option)
                                         setCurrentText(option.label || '')
+                                        SetValue(option.value)
                                     }}
                                     className={
                                         [

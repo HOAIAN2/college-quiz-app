@@ -28,7 +28,6 @@ export default function ViewFaculty({
     const { user, permissions } = useAppContext()
     const [queryUser, setQueryUser] = useState('')
     const debounceQueryUser = useDebounce(queryUser, 200) as string
-    const [leaderShortcode, setLeaderShortcode] = useState<string>()
     const queryClient = useQueryClient()
     const handleTurnOffImportMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -71,7 +70,6 @@ export default function ViewFaculty({
         })
         const form = e.target as HTMLFormElement
         const formData = new FormData(form)
-        formData.set('leader', leaderShortcode || '')
         await apiUpdateFaculty(formData, id)
     }
     const { mutate, isPending } = useMutation({
@@ -201,21 +199,8 @@ export default function ViewFaculty({
                                         </div>
                                         <div className={styles['wrap-item']}>
                                             <label htmlFor='leader'>{language?.leader}</label>
-                                            {/* <input
-                                                id='leader'
-                                                disabled={!permissions.has('faculty_update')}
-                                                defaultValue={languageUtils.getFullName(queryData.data.leader?.firstName, queryData.data.leader?.lastName)}
-                                                name='leader'
-                                                onInput={e => { setQueryUser(e.currentTarget.value) }}
-                                                className={
-                                                    [
-                                                        'input-d',
-                                                        styles['input-item']
-                                                    ].join(' ')
-                                                } type='text'
-                                                list='userList'
-                                            /> */}
                                             <CustomDataList
+                                                name='leader'
                                                 defaultOption={
                                                     {
                                                         label: languageUtils.getFullName(queryData.data.leader?.firstName, queryData.data.leader?.lastName),
@@ -229,20 +214,12 @@ export default function ViewFaculty({
                                                         value: item.shortcode
                                                     }
                                                 }) : []}
-                                                onChange={e => { setLeaderShortcode(e.value) }}
                                                 className={
                                                     [
                                                         styles['custom-select']
                                                     ].join(' ')
                                                 }
                                             />
-                                            {/* <datalist id='userList'>
-                                                {
-                                                    userQueryData.data ? userQueryData.data.map(item => {
-                                                        return <option key={`user-${item.id}`} value={item.shortcode}>{languageUtils.getFullName(item.firstName, item.lastName)}</option>
-                                                    }) : null
-                                                }
-                                            </datalist> */}
                                         </div>
                                     </div>
                                     {

@@ -23,7 +23,6 @@ export default function CreateFaculty({
     const language = useLanguage<ComponentCreateFacultyLang>('component.create_faculty')
     const [hide, setHide] = useState(true)
     const [queryUser, setQueryUser] = useState('')
-    const [leaderShortcode, setLeaderShortcode] = useState<string>()
     const debounceQueryUser = useDebounce(queryUser, 200) as string
     const handleTurnOffInsertMode = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -62,7 +61,6 @@ export default function CreateFaculty({
         const submitter = e.nativeEvent.submitter as HTMLButtonElement
         const form = e.target as HTMLFormElement
         const formData = new FormData(form)
-        formData.set('leader', leaderShortcode || '')
         await apiCreateFaculty(formData)
         if (submitter.name === 'save') handleTurnOffInsertMode()
         else form.reset()
@@ -174,19 +172,8 @@ export default function CreateFaculty({
                             </div>
                             <div className={styles['wrap-item']}>
                                 <label htmlFor='leader'>{language?.leader}</label>
-                                {/* <input
-                                    id='leader'
-                                    name='leader'
-                                    onInput={e => { setQueryUser(e.currentTarget.value) }}
-                                    className={
-                                        [
-                                            'input-d',
-                                            styles['input-item']
-                                        ].join(' ')
-                                    } type='text'
-                                    list='userList'
-                                /> */}
                                 <CustomDataList
+                                    name='leader'
                                     onInput={e => { setQueryUser(e.currentTarget.value) }}
                                     options={userQueryData.data ? userQueryData.data.map(item => {
                                         return {
@@ -194,23 +181,12 @@ export default function CreateFaculty({
                                             value: item.shortcode
                                         }
                                     }) : []}
-                                    onChange={e => { setLeaderShortcode(e.value) }}
                                     className={
                                         [
                                             styles['custom-select']
                                         ].join(' ')
                                     }
                                 />
-                                {/* <datalist id='userList'>
-                                    {
-                                        userQueryData.data ? userQueryData.data.map(item => {
-                                            return <option key={`user-${item.id}`}
-                                                value={languageUtils.getFullName(item.firstName, item.lastName)}>
-                                                {languageUtils.getFullName(item.firstName, item.lastName)}
-                                            </option>
-                                        }) : null
-                                    }
-                                </datalist> */}
                             </div>
                         </div>
                         <div className={styles['action-items']}>
