@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Model;
  * Class Semester
  * 
  * @property int $id
- * @property string $shortcode
  * @property string $name
  * @property Carbon $start_date
  * @property Carbon $end_date
@@ -29,16 +28,22 @@ class Semester extends Model
 {
 	protected $table = 'semesters';
 
+	const DATE_FORMAT = 'Y-m-d\TH:i:sP';
+
 	protected $casts = [
-		'start_date' => 'datetime',
-		'end_date' => 'datetime'
+		'start_date' => 'datetime:' . Semester::DATE_FORMAT,
+		'end_date' => 'datetime:' . Semester::DATE_FORMAT
 	];
 
 	protected $fillable = [
-		'shortcode',
 		'name',
 		'start_date',
 		'end_date'
+	];
+
+	protected $hidden = [
+		'created_at',
+		'updated_at'
 	];
 
 	public function courses()
