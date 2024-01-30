@@ -252,7 +252,7 @@ export default function ViewUser({
                                                         options={facultyQueryData.data ? facultyQueryData.data.map(item => {
                                                             return {
                                                                 label: item.name,
-                                                                value: String(item.id)
+                                                                value: item.id
                                                             }
                                                         }) : []}
                                                     />

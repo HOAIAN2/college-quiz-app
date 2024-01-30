@@ -205,14 +205,14 @@ export default function UsersTable({
                                                                 styles['column'],
                                                                 styles['medium']
                                                             ].join(' ')
-                                                        }>{user.schoolClass?.shortcode}</td>
+                                                        }>{user.schoolClass?.name}</td>
                                                         : role === 'teacher' ?
                                                             <td className={
                                                                 [
                                                                     styles['column'],
                                                                     styles['medium']
                                                                 ].join(' ')
-                                                            }>{user.faculty?.shortcode}</td>
+                                                            }>{user.faculty?.name}</td>
                                                             : null
                                                 }
                                                 <td className={
