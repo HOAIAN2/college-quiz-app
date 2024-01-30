@@ -25,7 +25,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'role' => ['required', 'string', 'in:student,teacher,admin'],
-            'shortcode' => ['required', 'string', 'unique:users', 'max:255'],
+            'shortcode' => ['required', 'string', 'unique:users', 'max:255', 'alpha_dash'],
             'email' => ['required', 'email', 'unique:users'],
             'first_name' => ['required', 'max:255'],
             'last_name' => ['required', 'max:255'],

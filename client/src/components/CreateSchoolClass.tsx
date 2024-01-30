@@ -152,7 +152,7 @@ export default function CreateSchoolClass({
                                     options={facultyQueryData.data ? facultyQueryData.data.map(item => {
                                         return {
                                             label: item.name,
-                                            value: item.shortcode
+                                            value: item.id
                                         }
                                     }) : []}
                                 />

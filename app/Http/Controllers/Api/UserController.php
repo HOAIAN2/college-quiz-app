@@ -50,27 +50,18 @@ class UserController extends Controller
 
         DB::beginTransaction();
         try {
-            $school_class = $request->school_class;
-            $faculty = $request->faculty;
             $data = collect($request->validated())->except(['role', 'school_class', 'faculty'])->toArray();
 
             $data['password'] = Hash::make($request->password);
             $data['role_id'] = Role::ROLES[$request->role];
             if ($request->role == 'student') {
-                $school_class_id = SchoolClass::where('shortcode', $school_class)->pluck('id')->first();
-                if ($school_class_id == null) return Reply::error('app.errors.classNotExists', [
-                    'shortcodes' => $school_class
-                ]);
-                $data['school_class_id'] = $school_class_id;
+                $data['school_class_id'] = $request->school_class;
             }
 
             if ($request->role == 'teacher') {
-                $faculty_id = Faculty::where('shortcode', $faculty)->pluck('id')->first();
-                if ($faculty_id == false) return Reply::error('app.errors.faucltyNotExists', [
-                    'shortcodes' => $faculty
-                ]);
-                $data['faculty'] = $faculty_id;
+                $data['faculty_id'] = $request->faculty;
             }
+            $data['birth_date'] = Carbon::parse($request->birth_date);
             User::create($data);
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
@@ -106,28 +97,19 @@ class UserController extends Controller
         try {
             $targetUser = User::with('role')->findOrFail($id);
 
-            $school_class = $request->school_class;
-            $faculty = $request->faculty;
             $data = collect($request->validated())->except(['password', 'school_class', 'faculty'])->toArray();
 
             if ($user->id == $id) $data['is_active'] = 1;
             if ($request->password != null) $data['password'] = Hash::make($request->password);
 
             if ($targetUser->role_id == Role::ROLES['student']) {
-                $school_class_id = SchoolClass::where('shortcode', $school_class)->pluck('id')->first();
-                if ($school_class_id == null) return Reply::error('app.errors.classNotExists', [
-                    'shortcodes' => $school_class
-                ]);
-                $data['school_class_id'] = $school_class_id;
+                $data['school_class_id'] = $request->school_class;
             }
 
             if ($targetUser->role_id == Role::ROLES['teacher']) {
-                $faculty_id = Faculty::where('shortcode', $faculty)->pluck('id')->first();
-                if ($faculty_id == false) return Reply::error('app.errors.faucltyNotExists', [
-                    'shortcodes' => $faculty
-                ]);
-                $data['faculty_id'] = $faculty_id;
+                $data['faculty_id'] = $request->faculty;
             }
+            $data['birth_date'] = Carbon::parse($request->birth_date);
             $targetUser->update($data);
             DB::commit();
             if ($data['is_active'] == 0) $targetUser->tokens()->delete();

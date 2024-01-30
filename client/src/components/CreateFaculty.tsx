@@ -178,7 +178,7 @@ export default function CreateFaculty({
                                     options={userQueryData.data ? userQueryData.data.map(item => {
                                         return {
                                             label: languageUtils.getFullName(item.firstName, item.lastName),
-                                            value: item.shortcode
+                                            value: item.id
                                         }
                                     }) : []}
                                     className={

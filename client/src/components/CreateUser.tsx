@@ -221,7 +221,7 @@ export default function CreateUser({
                                         options={classQueryData.data ? classQueryData.data.map(item => {
                                             return {
                                                 label: item.name,
-                                                value: item.shortcode
+                                                value: item.id
                                             }
                                         }) : []}
                                     />
@@ -235,7 +235,7 @@ export default function CreateUser({
                                             options={facultyQueryData.data ? facultyQueryData.data.map(item => {
                                                 return {
                                                     label: item.name,
-                                                    value: item.shortcode
+                                                    value: item.id
                                                 }
                                             }) : []}
                                         />

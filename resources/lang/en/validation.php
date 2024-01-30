@@ -6,6 +6,7 @@ return [
     'in' => 'The selected value for :attribute is invalid.',
     'unique' => 'The :attribute field already exists in the system.',
     'email' => 'The :attribute field must be a valid email address.',
+    'alpha_dash' => 'The :attribute field must only contain letters, numbers, dashes, and underscores.',
     'max' => [
         'string' => 'The :attribute field must not exceed :max characters.',
     ],

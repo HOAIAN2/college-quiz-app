@@ -204,14 +204,14 @@ export default function ViewFaculty({
                                                 defaultOption={
                                                     {
                                                         label: languageUtils.getFullName(queryData.data.leader?.firstName, queryData.data.leader?.lastName),
-                                                        value: queryData.data.leader?.shortcode || ''
+                                                        value: queryData.data.leader?.id || ''
                                                     }
                                                 }
                                                 onInput={e => { setQueryUser(e.currentTarget.value) }}
                                                 options={userQueryData.data ? userQueryData.data.map(item => {
                                                     return {
                                                         label: languageUtils.getFullName(item.firstName, item.lastName),
-                                                        value: item.shortcode
+                                                        value: item.id
                                                     }
                                                 }) : []}
                                                 className={

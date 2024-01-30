@@ -44,12 +44,7 @@ class SchoolClassController extends Controller
 
         DB::beginTransaction();
         try {
-            $faculty_id = Faculty::where('shortcode', '=', $request->faculty)
-                ->pluck('id')->first();
-            if ($faculty_id == false) return Reply::error('app.errors.faucltyNotExists', [
-                'shortcodes' => $request->faculty
-            ]);
-            $data['faculty_id'] = $faculty_id;
+            $data['faculty_id'] = $request->faculty;
             SchoolClass::create($data);
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');
@@ -85,14 +80,7 @@ class SchoolClassController extends Controller
         DB::beginTransaction();
         try {
             $school_class = SchoolClass::findOrFail($id);
-
-            $faculty_id = Faculty::where('shortcode', '=', $request->faculty)
-                ->pluck('id')->first();
-            if ($faculty_id == false) return Reply::error('app.errors.faucltyNotExists', [
-                'shortcodes' => $request->faculty
-            ]);
-
-            $data['faculty_id'] = $faculty_id;
+            $data['faculty_id'] = $request->faculty;
             $school_class->update($data);
             DB::commit();
             return Reply::successWithMessage('app.successes.recordSaveSuccess');

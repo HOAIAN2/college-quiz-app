@@ -232,12 +232,12 @@ export default function ViewUser({
                                                 <label className={styles['required']} htmlFor='school_class'>{language?.class}</label>
                                                 <CustomDataList
                                                     name='school_class'
-                                                    defaultOption={{ label: queryData.data.schoolClass?.name, value: queryData.data.schoolClass?.shortcode || '' }}
+                                                    defaultOption={{ label: queryData.data.schoolClass?.name, value: queryData.data.schoolClass?.id || '' }}
                                                     onInput={e => { setQueryClass(e.currentTarget.value) }}
                                                     options={classQueryData.data ? classQueryData.data.map(item => {
                                                         return {
                                                             label: item.name,
-                                                            value: item.shortcode
+                                                            value: String(item.id)
                                                         }
                                                     }) : []}
                                                 />
@@ -247,12 +247,12 @@ export default function ViewUser({
                                                     <label className={styles['required']} htmlFor='faculty'>{language?.faculty}</label>
                                                     <CustomDataList
                                                         name='faculty'
-                                                        defaultOption={{ label: queryData.data.faculty?.name, value: queryData.data.faculty?.shortcode || '' }}
+                                                        defaultOption={{ label: queryData.data.faculty?.name, value: queryData.data.faculty?.id || '' }}
                                                         onInput={e => { setQueryFaculty(e.currentTarget.value) }}
                                                         options={facultyQueryData.data ? facultyQueryData.data.map(item => {
                                                             return {
                                                                 label: item.name,
-                                                                value: item.shortcode
+                                                                value: String(item.id)
                                                             }
                                                         }) : []}
                                                     />

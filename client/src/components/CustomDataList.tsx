@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import styles from '../styles/CustomDataList.module.css'
 
 type Option = {
-    value: string
+    value: string | number
     label?: string
 }
 
@@ -26,7 +26,7 @@ export default function CustomDataList({
     onInput
 }: CustomDataListProps) {
     const customDataListRef = useRef<HTMLDivElement>(null)
-    const [value, SetValue] = useState<string>(defaultOption?.value || '')
+    const [value, SetValue] = useState<string | number>(defaultOption?.value || '')
     const [currentText, setCurrentText] = useState(defaultOption?.label || '')
     return (
         <div

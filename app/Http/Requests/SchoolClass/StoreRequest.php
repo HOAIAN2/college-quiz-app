@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'shortcode' => ['required', 'string', 'unique:school_classes'],
+            'shortcode' => ['required', 'string', 'unique:school_classes', 'alpha_dash'],
             'name' => ['required', 'string'],
             'faculty' => ['required', 'string']
         ];

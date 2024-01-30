@@ -48,10 +48,7 @@ class FacultyController extends Controller
 
         try {
             if ($request->leader != null) {
-                $leader_id = User::whereRoleId(Role::ROLES['teacher'])
-                    ->where('shortcode', '=', $request->leader)->pluck('id')
-                    ->firstOrFail();
-                $data['leader_id'] = $leader_id;
+                $data['leader_id'] = $request->leader;
             }
             Faculty::create($data);
             DB::commit();
@@ -91,10 +88,7 @@ class FacultyController extends Controller
         try {
             $faculty = Faculty::findOrFail($id);
             if ($request->leader != null) {
-                $leader_id = User::whereRoleId(Role::ROLES['teacher'])
-                    ->where('shortcode', '=', $request->leader)->pluck('id')
-                    ->firstOrFail();
-                $data['leader_id'] = $leader_id;
+                $data['leader_id'] = $request->leader;
             }
             $faculty->update($data);
             DB::commit();

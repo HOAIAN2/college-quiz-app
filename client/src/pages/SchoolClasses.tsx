@@ -217,7 +217,7 @@ export default function SchoolClasses() {
                             <SchoolClassesTable
                                 data={queryData.data}
                                 searchParams={searchParams}
-                                onMutateSuccess={() => { }}
+                                onMutateSuccess={onMutateSuccess}
                                 setSearchParams={setSearchParams}
                                 setSelectedRows={setSelectedSchoolClassIds}
                             />

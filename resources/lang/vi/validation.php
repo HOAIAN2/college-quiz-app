@@ -6,6 +6,7 @@ return [
     'in' => 'Giá trị đã chọn cho trường :attribute không hợp lệ.',
     'unique' => 'Trường :attribute đã tồn tại trong hệ thống.',
     'email' => 'Trường :attribute phải là địa chỉ email hợp lệ.',
+    'alpha_dash' => 'Trường :attribute chỉ được chứa chữ cái, số, dấu gạch ngang, và dấu gạch dưới.',
     'max' => [
         'string' => 'Trường :attribute không được vượt quá :max ký tự.',
     ],
