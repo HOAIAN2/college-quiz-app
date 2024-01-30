@@ -28,7 +28,7 @@ export default function Profile() {
     const handleOnInput = (e: React.FormEvent<HTMLFormElement>) => {
         const element = e.target as HTMLInputElement
         if (element) {
-            element.classList.remove(error)
+            element.classList.remove('error')
             getParentElement(element).removeAttribute('data-error')
         }
     }
@@ -37,7 +37,7 @@ export default function Profile() {
         if (!permissions.has('user_update')) return
         document.querySelector(styles['form-data'])?.querySelectorAll('input[name]').forEach(node => {
             const element = node as HTMLInputElement
-            element.classList.remove(error)
+            element.classList.remove('error')
             getParentElement(element).removeAttribute('data-error')
         })
         const form = e.target as HTMLFormElement
@@ -51,7 +51,7 @@ export default function Profile() {
                 for (const key in error) {
                     const element = document.querySelector(`input[data-selector='${key}'],[name='${key}']`) as HTMLInputElement
                     if (element) {
-                        element.classList.add(error)
+                        element.classList.add('error')
                         getParentElement(element).setAttribute('data-error', error[key as keyof typeof error][0] as string)
                     }
                 }
