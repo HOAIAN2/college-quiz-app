@@ -29,11 +29,7 @@ export default function CustomDataList({
     const [value, SetValue] = useState<string>(defaultOption?.value || '')
     const [currentText, setCurrentText] = useState(defaultOption?.label || '')
     return (
-        <div ref={customDataListRef}
-            onClick={() => {
-                if (disabled) return
-                customDataListRef.current?.classList.toggle(styles['hidden'])
-            }}
+        <div
             className={
                 [
                     styles['custom-datalist'],
@@ -43,8 +39,9 @@ export default function CustomDataList({
                 ].join(' ')
             }
         >
-            <input type="text" hidden value={value} name={name} onInput={() => { }} />
             <input type="text"
+                data-selector={name}
+                // name={name}
                 className={
                     [
                         'input-d',
@@ -59,10 +56,16 @@ export default function CustomDataList({
                     onInput && onInput(e)
                 }}
             />
+            <input type="text" hidden value={value} name={name} onInput={() => { }} />
             {
                 options.length != 0
                     ?
                     <div
+                        ref={customDataListRef}
+                        onClick={() => {
+                            if (disabled) return
+                            customDataListRef.current?.classList.add(styles['hidden'])
+                        }}
                         className={
                             [
                                 'input-d',

@@ -8,6 +8,7 @@ import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentViewSchoolClassLang } from '../models/lang'
 import styles from '../styles/global/ViewModel.module.css'
+import CustomDataList from './CustomDataList'
 import Loading from './Loading'
 
 type ViewSchoolClassProps = {
@@ -52,7 +53,7 @@ export default function ViewSchoolClass({
     const handleOnInput = (e: React.FormEvent<HTMLFormElement>) => {
         const element = e.target as HTMLInputElement
         if (element) {
-            element.classList.remove(styles['error'])
+            element.classList.remove('error')
             getParentElement(element).removeAttribute('data-error')
         }
     }
@@ -61,7 +62,7 @@ export default function ViewSchoolClass({
         if (!permissions.has('school_class_update')) return
         document.querySelector(styles['form-data'])?.querySelectorAll('input[name]').forEach(node => {
             const element = node as HTMLInputElement
-            element.classList.remove(styles['error'])
+            element.classList.remove('error')
             getParentElement(element).removeAttribute('data-error')
         })
         const form = e.target as HTMLFormElement
@@ -73,9 +74,9 @@ export default function ViewSchoolClass({
         onError: (error: object) => {
             if (typeof error === 'object') {
                 for (const key in error) {
-                    const element = document.querySelector(`input[name='${key}']`) as HTMLInputElement
+                    const element = document.querySelector(`input[data-selector='${key}'],[name='${key}']`) as HTMLInputElement
                     if (element) {
-                        element.classList.add(styles['error'])
+                        element.classList.add('error')
                         getParentElement(element).setAttribute('data-error', error[key as keyof typeof error][0] as string)
                     }
                 }
@@ -167,27 +168,17 @@ export default function ViewSchoolClass({
                                         </div>
                                         <div className={styles['wrap-item']}>
                                             <label className={styles['required']} htmlFor='faculty'>{language?.faculty}</label>
-                                            <input
-                                                id='faculty'
-                                                disabled={!permissions.has('school_class_update')}
-                                                defaultValue={queryData.data.faculty?.shortcode || ''}
+                                            <CustomDataList
                                                 name='faculty'
-                                                onInput={(e) => { setQueryFaculty(e.currentTarget.value) }}
-                                                className={
-                                                    [
-                                                        'input-d',
-                                                        styles['input-item']
-                                                    ].join(' ')
-                                                }
-                                                list='facultyList'
+                                                defaultOption={{ label: queryData.data.faculty?.name, value: queryData.data.faculty?.shortcode || '' }}
+                                                onInput={e => { setQueryFaculty(e.currentTarget.value) }}
+                                                options={facultyQueryData.data ? facultyQueryData.data.map(item => {
+                                                    return {
+                                                        label: item.name,
+                                                        value: item.shortcode
+                                                    }
+                                                }) : []}
                                             />
-                                            <datalist id='facultyList'>
-                                                {
-                                                    facultyQueryData.data ? facultyQueryData.data.map(item => {
-                                                        return <option key={`faculty-${item.id}`} value={item.shortcode}>{item.name}</option>
-                                                    }) : null
-                                                }
-                                            </datalist>
                                         </div>
                                     </div>
                                     {

@@ -47,7 +47,7 @@ export default function CreateFaculty({
     const handleOnInput = (e: React.FormEvent<HTMLFormElement>) => {
         const element = e.target as HTMLInputElement
         if (element) {
-            element.classList.remove(styles['error'])
+            element.classList.remove('error')
             getParentElement(element).removeAttribute('data-error')
         }
     }
@@ -55,7 +55,7 @@ export default function CreateFaculty({
         e.preventDefault()
         document.querySelector(styles['form-data'])?.querySelectorAll('input[name]').forEach(node => {
             const element = node as HTMLInputElement
-            element.classList.remove(styles['error'])
+            element.classList.remove('error')
             getParentElement(element).removeAttribute('data-error')
         })
         const submitter = e.nativeEvent.submitter as HTMLButtonElement
@@ -70,9 +70,9 @@ export default function CreateFaculty({
         onError: (error: object) => {
             if (typeof error === 'object') {
                 for (const key in error) {
-                    const element = document.querySelector(`input[name='${key}']`) as HTMLInputElement
+                    const element = document.querySelector(`input[data-selector='${key}'],[name='${key}']`) as HTMLInputElement
                     if (element) {
-                        element.classList.add(styles['error'])
+                        element.classList.add('error')
                         getParentElement(element).setAttribute('data-error', error[key as keyof typeof error][0] as string)
                     }
                 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\DeleteRequest;
 use App\Http\Requests\SchoolClass\GetAllRequest;
 use App\Http\Requests\SchoolClass\StoreRequest;
+use App\Http\Requests\SchoolClass\UpdateRequest;
 use App\Models\Faculty;
 use App\Models\SchoolClass;
 use Illuminate\Http\Request;
@@ -75,11 +76,11 @@ class SchoolClassController extends Controller
         }
     }
 
-    public function update(StoreRequest $request, string $id)
+    public function update(UpdateRequest $request, string $id)
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission('school_class_update'), 403);
-        $data = collect($request->validated())->except('faculty');
+        $data = collect($request->validated())->except('faculty')->toArray();
 
         DB::beginTransaction();
         try {

@@ -61,7 +61,7 @@ request.interceptors.response.use(
             }
             return Promise.reject(error)
         }
-        if (error.code?.startsWith('ERR')) {
+        if (error.code?.startsWith('ERR_NETWORK')) {
             toast.error(error.message)
             return Promise.reject(error)
         }

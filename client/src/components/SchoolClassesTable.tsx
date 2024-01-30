@@ -162,7 +162,7 @@ export default function SchoolClassesTable({
                                                         styles['column'],
                                                         styles['medium']
                                                     ].join(' ')
-                                                }>{schoolClass.faculty.shortcode}</td>
+                                                }>{schoolClass.faculty.name}</td>
                                             </tr>
                                         )
                                     }) : null
