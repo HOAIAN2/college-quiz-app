@@ -45,12 +45,12 @@ export default function ViewUser({
         queryFn: () => apiGetUserById(id)
     })
     const classQueryData = useQuery({
-        queryKey: ['class-query', debouceQueryClass],
+        queryKey: ['school-class-auto-complete', debouceQueryClass],
         queryFn: () => apiAutoCompleteSchoolClass(debouceQueryClass),
         enabled: debouceQueryClass && permissions.has('school_class_view') ? true : false
     })
     const facultyQueryData = useQuery({
-        queryKey: ['faculty-query', debounceQueryFaculty],
+        queryKey: ['faculty-auto-complete', debounceQueryFaculty],
         queryFn: () => apiAutoCompleteFaculty(debounceQueryFaculty),
         enabled: debounceQueryFaculty && permissions.has('faculty_view') ? true : false
     })
@@ -111,8 +111,8 @@ export default function ViewUser({
         setHide(false)
         return () => {
             queryClient.removeQueries({ queryKey: ['user', id] })
-            queryClient.removeQueries({ queryKey: ['class-query'] })
-            queryClient.removeQueries({ queryKey: ['faculty-query'] })
+            queryClient.removeQueries({ queryKey: ['school-class-auto-complete'] })
+            queryClient.removeQueries({ queryKey: ['faculty-auto-complete'] })
         }
     }, [queryClient, id])
     return (

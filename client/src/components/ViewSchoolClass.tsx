@@ -40,7 +40,7 @@ export default function ViewSchoolClass({
         queryFn: () => apiGetSchoolClassById(id)
     })
     const facultyQueryData = useQuery({
-        queryKey: ['faculty-query', debounceQueryFaculty],
+        queryKey: ['faculty-auto-complete', debounceQueryFaculty],
         queryFn: () => apiAutoCompleteFaculty(debounceQueryFaculty),
         enabled: debounceQueryFaculty && permissions.has('faculty_view') ? true : false
     })
