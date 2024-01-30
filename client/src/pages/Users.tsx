@@ -73,10 +73,6 @@ export default function Users({
             queryClient.refetchQueries({ queryKey: [key] })
         })
     }
-    const getMessage = () => {
-        if (!language) return ''
-        return language.deleteMessage.replace('@n', String(selectedUserIds.size))
-    }
     useEffect(() => {
         setSelectedUserIds(new Set())
     }, [queryData.data])
@@ -106,7 +102,7 @@ export default function Users({
                 /> : null}
             {showPopUpMode === true ?
                 <YesNoPopUp
-                    message={getMessage()}
+                    message={language?.deleteMessage.replace('@n', String(selectedUserIds.size)) || ''}
                     mutateFunction={handleDeleteUsers}
                     setShowPopUpMode={setShowPopUpMode}
                     onMutateSuccess={onMutateSuccess}

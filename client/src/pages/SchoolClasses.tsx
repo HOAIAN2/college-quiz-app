@@ -43,10 +43,6 @@ export default function SchoolClasses() {
     const handleDeleteSchoolClasses = async () => {
         return apiDeleteSchoolClassIds(Array.from(selectedSchoolClassIds))
     }
-    const getMessage = () => {
-        if (!language) return ''
-        return language.deleteMessage.replace('@n', String(selectedSchoolClassIds.size))
-    }
     const onMutateSuccess = () => {
         const queryKeys = [
             'school-classes',
@@ -73,7 +69,7 @@ export default function SchoolClasses() {
                 /> : null}
             {showPopUpMode === true ?
                 <YesNoPopUp
-                    message={getMessage()}
+                    message={language?.deleteMessage.replace('@n', String(selectedSchoolClassIds.size)) || ''}
                     mutateFunction={handleDeleteSchoolClasses}
                     setShowPopUpMode={setShowPopUpMode}
                     onMutateSuccess={onMutateSuccess}

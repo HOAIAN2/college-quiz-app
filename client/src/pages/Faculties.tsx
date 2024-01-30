@@ -42,10 +42,6 @@ export default function Faculties() {
     const handleDeleteFaculties = async () => {
         return apiDeleteFacultiesByIds(Array.from(selectedFacultyIds))
     }
-    const getMessage = () => {
-        if (!language) return ''
-        return language.deleteMessage.replace('@n', String(selectedFacultyIds.size))
-    }
     const onMutateSuccess = () => {
         const queryKeys = [
             'faculties',
@@ -72,7 +68,7 @@ export default function Faculties() {
                 /> : null}
             {showPopUpMode === true ?
                 <YesNoPopUp
-                    message={getMessage()}
+                    message={language?.deleteMessage.replace('@n', String(selectedFacultyIds.size)) || ''}
                     mutateFunction={handleDeleteFaculties}
                     setShowPopUpMode={setShowPopUpMode}
                     onMutateSuccess={onMutateSuccess}
