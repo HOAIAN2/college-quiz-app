@@ -1,6 +1,6 @@
 import {
-  QueryClient,
-  QueryClientProvider,
+    QueryClient,
+    QueryClientProvider,
 } from '@tanstack/react-query'
 import { Suspense, lazy } from 'react'
 import 'react-datetime/css/react-datetime.css'
@@ -21,103 +21,103 @@ const Faculties = lazy(() => import('./pages/Faculties'))
 const SchoolClasses = lazy(() => import('./pages/SchoolClasses'))
 
 const router = createBrowserRouter([
-  {
-    errorElement: <NotFound />,
-    children: [
-      {
-        path: 'auth',
-        element: <AuthLayout />,
+    {
+        errorElement: <NotFound />,
         children: [
-          {
-            path: 'login',
-            element: <Login />
-          }
+            {
+                path: 'auth',
+                element: <AuthLayout />,
+                children: [
+                    {
+                        path: 'login',
+                        element: <Login />
+                    }
+                ]
+            },
+            {
+                path: '/',
+                element: <DashboardLayout />,
+                children: [
+                    {
+                        index: true,
+                        element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>,
+                    },
+                    {
+                        path: 'subjects',
+                        element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>
+                    },
+                    {
+                        path: 'profile',
+                        element: <Profile />
+                    },
+                    {
+                        path: 'faculties',
+                        element: <Suspense fallback={<SuspenseLoading />}><Faculties /></Suspense>
+                    },
+                    {
+                        path: 'school-classes',
+                        element: <Suspense fallback={<SuspenseLoading />}><SchoolClasses /></Suspense>
+                    },
+                    {
+                        path: 'courses',
+                        element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>
+                    },
+                    {
+                        path: 'profile',
+                        element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>
+                    },
+                    {
+                        path: 'exams',
+                        element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>
+                    },
+                    {
+                        path: 'questions',
+                        element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>
+                    },
+                    {
+                        path: 'teachers',
+                        element: <Suspense fallback={<SuspenseLoading />}><Users role='teacher' /></Suspense>
+                    },
+                    {
+                        path: 'students',
+                        element: <Suspense fallback={<SuspenseLoading />}><Users role='student' /></Suspense>
+                    },
+                    {
+                        path: 'permissions',
+                        children: [
+                            {
+                                index: true,
+                                element: <Suspense fallback={<SuspenseLoading />}><Permisisons /></Suspense>
+                            },
+                            {
+                                path: ':id',
+                                element: <Suspense fallback={<SuspenseLoading />}><RolePermissions /></Suspense>
+                            },
+                        ],
+                    },
+                ]
+            }
         ]
-      },
-      {
-        path: '/',
-        element: <DashboardLayout />,
-        children: [
-          {
-            index: true,
-            element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>,
-          },
-          {
-            path: 'subjects',
-            element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>
-          },
-          {
-            path: 'profile',
-            element: <Profile />
-          },
-          {
-            path: 'faculties',
-            element: <Suspense fallback={<SuspenseLoading />}><Faculties /></Suspense>
-          },
-          {
-            path: 'school-classes',
-            element: <Suspense fallback={<SuspenseLoading />}><SchoolClasses /></Suspense>
-          },
-          {
-            path: 'courses',
-            element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>
-          },
-          {
-            path: 'profile',
-            element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>
-          },
-          {
-            path: 'exams',
-            element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>
-          },
-          {
-            path: 'questions',
-            element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>
-          },
-          {
-            path: 'teachers',
-            element: <Suspense fallback={<SuspenseLoading />}><Users role='teacher' /></Suspense>
-          },
-          {
-            path: 'students',
-            element: <Suspense fallback={<SuspenseLoading />}><Users role='student' /></Suspense>
-          },
-          {
-            path: 'permissions',
-            children: [
-              {
-                index: true,
-                element: <Suspense fallback={<SuspenseLoading />}><Permisisons /></Suspense>
-              },
-              {
-                path: ':id',
-                element: <Suspense fallback={<SuspenseLoading />}><RolePermissions /></Suspense>
-              },
-            ],
-          },
-        ]
-      }
-    ]
-  }
+    }
 ])
 const queryClient = new QueryClient()
 function App() {
-  return (
-    <>
-      <Toaster
-        richColors
-        closeButton
-        visibleToasts={5}
-        position='bottom-left'
-        toastOptions={{
-          duration: 3000
-        }}
-      />
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    </>
-  )
+    return (
+        <>
+            <Toaster
+                richColors
+                closeButton
+                visibleToasts={5}
+                position='bottom-left'
+                toastOptions={{
+                    duration: 3000
+                }}
+            />
+            <QueryClientProvider client={queryClient}>
+                <RouterProvider router={router} />
+            </QueryClientProvider>
+        </>
+    )
 }
 
 export default App

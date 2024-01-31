@@ -92,11 +92,3 @@
     cursor: default;
     pointer-events: none;
 }
-
-/* @media (width<=800px) {
-    .import-user-form {
-        width: 100%;
-        height: 100%;
-        border-radius: 0px;
-    }
-} */
