@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Course
- * 
+ *
  * @property int $id
  * @property int $teacher_id
  * @property int $subject_id
@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Semester $semester
  * @property Subject $subject
  * @property User $teacher

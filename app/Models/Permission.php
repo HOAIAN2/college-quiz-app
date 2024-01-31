@@ -12,12 +12,12 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Permission
- * 
+ *
  * @property int $id
  * @property string $name
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Collection|Role[] $roles
  *
  * @package App\Models
@@ -33,6 +33,6 @@ class Permission extends Model
 	public function roles()
 	{
 		return $this->belongsToMany(Role::class, 'role_permissions')
-					->withTimestamps();
+			->withTimestamps();
 	}
 }

@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Faculty
- * 
+ *
  * @property int $id
  * @property string $shortcode
  * @property string $name
@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $leader_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property User|null $leader
  * @property Collection|SchoolClass[] $school_classes
  * @property Collection|User[] $users

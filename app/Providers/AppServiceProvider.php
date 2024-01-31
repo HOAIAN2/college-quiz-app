@@ -9,22 +9,22 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
-    public function register(): void
-    {
-        //
-    }
+	/**
+	 * Register any application services.
+	 */
+	public function register(): void
+	{
+		//
+	}
 
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
-    {
-        if (env('APP_DEBUG') == true)
-            DB::listen(function (QueryExecuted $query) {
-                Log::channel('stderr')->info("{$query->sql} => {$query->time} ms");
-            });
-    }
+	/**
+	 * Bootstrap any application services.
+	 */
+	public function boot(): void
+	{
+		if (env('APP_DEBUG') == true)
+			DB::listen(function (QueryExecuted $query) {
+				Log::channel('stderr')->info("{$query->sql} => {$query->time} ms");
+			});
+	}
 }

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Question
- * 
+ *
  * @property int $id
  * @property int $created_by
  * @property int $chapter_id
@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $content
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Chapter $chapter
  * @property User $created_by
  * @property Collection|Exam[] $exams

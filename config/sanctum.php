@@ -4,7 +4,7 @@ use Laravel\Sanctum\Sanctum;
 
 return [
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Stateful Domains
     |--------------------------------------------------------------------------
@@ -15,13 +15,13 @@ return [
     |
     */
 
-    'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', sprintf(
-        '%s%s',
-        'localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,::1',
-        Sanctum::currentApplicationUrlWithPort()
-    ))),
+	'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', sprintf(
+		'%s%s',
+		'localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,::1',
+		Sanctum::currentApplicationUrlWithPort()
+	))),
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Sanctum Guards
     |--------------------------------------------------------------------------
@@ -33,9 +33,9 @@ return [
     |
     */
 
-    'guard' => ['web'],
+	'guard' => ['web'],
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Expiration Minutes
     |--------------------------------------------------------------------------
@@ -46,9 +46,9 @@ return [
     |
     */
 
-    'expiration' => null,
+	'expiration' => null,
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Sanctum Middleware
     |--------------------------------------------------------------------------
@@ -59,9 +59,9 @@ return [
     |
     */
 
-    'middleware' => [
-        'verify_csrf_token' => App\Http\Middleware\VerifyCsrfToken::class,
-        'encrypt_cookies' => App\Http\Middleware\EncryptCookies::class,
-    ],
+	'middleware' => [
+		'verify_csrf_token' => App\Http\Middleware\VerifyCsrfToken::class,
+		'encrypt_cookies' => App\Http\Middleware\EncryptCookies::class,
+	],
 
 ];

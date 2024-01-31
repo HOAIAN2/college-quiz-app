@@ -1,8 +1,8 @@
 const lang = {
-    shortcode: 'Shortcode',
-    name: 'Name',
-    faculty: 'Faculty',
-    save: 'Save',
-    saveMore: 'Save more'
+	shortcode: 'Shortcode',
+	name: 'Name',
+	faculty: 'Faculty',
+	save: 'Save',
+	saveMore: 'Save more'
 }
 export default lang

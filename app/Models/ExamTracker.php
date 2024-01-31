@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class ExamTracker
- * 
+ *
  * @property int $id
  * @property int $user_id
  * @property int $exam_id
@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool $is_correct
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property QuestionOption $question_option
  * @property Exam $exam
  * @property ExamQuestion $exam_question

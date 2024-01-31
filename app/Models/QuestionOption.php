@@ -12,14 +12,14 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class QuestionOption
- * 
+ *
  * @property int $id
  * @property int $question_id
  * @property string $content
  * @property bool $is_correct
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Question $question
  * @property Collection|ExamTracker[] $exam_trackers
  *

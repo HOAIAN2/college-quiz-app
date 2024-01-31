@@ -11,12 +11,12 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class RolePermission
- * 
+ *
  * @property int $role_id
  * @property int $permission_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Permission $permission
  * @property Role $role
  *

@@ -17,7 +17,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 /**
  * Class User
- * 
+ *
  * @property int $id
  * @property int $role_id
  * @property string $shortcode
@@ -36,7 +36,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @method static Builder|User whereEmail($value)
  * @method static Builder|User[] whereRoleId($value)
  *

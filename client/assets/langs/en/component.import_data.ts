@@ -1,5 +1,5 @@
 const lang = {
-    save: 'Save',
-    downloadTemplate: 'Download template file'
+	save: 'Save',
+	downloadTemplate: 'Download template file'
 }
 export default lang

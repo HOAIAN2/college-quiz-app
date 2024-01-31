@@ -14,14 +14,14 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class SchoolClass
- * 
+ *
  * @property int $id
  * @property string $shortcode
  * @property string $name
  * @property int|null $faculty_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Faculty|null $faculty
  * @property Collection|User[] $students
  *

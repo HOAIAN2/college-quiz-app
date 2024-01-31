@@ -2,7 +2,7 @@
 
 return [
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Default Configurations
     |--------------------------------------------------------------------------
@@ -12,9 +12,9 @@ return [
     |
     */
 
-    '*' => [
+	'*' => [
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Model Files Location
         |--------------------------------------------------------------------------
@@ -25,9 +25,9 @@ return [
         |
         */
 
-        'path' => app_path('Models'),
+		'path' => app_path('Models'),
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Model Namespace
         |--------------------------------------------------------------------------
@@ -38,9 +38,9 @@ return [
         |
         */
 
-        'namespace' => 'App\Models',
+		'namespace' => 'App\Models',
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Parent Class
         |--------------------------------------------------------------------------
@@ -52,9 +52,9 @@ return [
         |
         */
 
-        'parent' => Illuminate\Database\Eloquent\Model::class,
+		'parent' => Illuminate\Database\Eloquent\Model::class,
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Traits
         |--------------------------------------------------------------------------
@@ -67,12 +67,12 @@ return [
         |
         */
 
-        'use' => [
-            // Reliese\Database\Eloquent\BitBooleans::class,
-            // Reliese\Database\Eloquent\BlamableBehavior::class,
-        ],
+		'use' => [
+			// Reliese\Database\Eloquent\BitBooleans::class,
+			// Reliese\Database\Eloquent\BlamableBehavior::class,
+		],
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Model Connection
         |--------------------------------------------------------------------------
@@ -83,9 +83,9 @@ return [
         |
         */
 
-        'connection' => false,
+		'connection' => false,
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Timestamps
         |--------------------------------------------------------------------------
@@ -99,17 +99,17 @@ return [
         |
         */
 
-        'timestamps' => true,
+		'timestamps' => true,
 
-        // 'timestamps' => [
-        //     'enabled' => true,
-        //     'fields' => [
-        //         'CREATED_AT' => 'created_at',
-        //         'UPDATED_AT' => 'updated_at',
-        //     ]
-        // ],
+		// 'timestamps' => [
+		//     'enabled' => true,
+		//     'fields' => [
+		//         'CREATED_AT' => 'created_at',
+		//         'UPDATED_AT' => 'updated_at',
+		//     ]
+		// ],
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Soft Deletes
         |--------------------------------------------------------------------------
@@ -123,14 +123,14 @@ return [
         |
         */
 
-        'soft_deletes' => true,
+		'soft_deletes' => true,
 
-        // 'soft_deletes' => [
-        //     'enabled' => true,
-        //     'field' => 'deleted_at',
-        // ],
+		// 'soft_deletes' => [
+		//     'enabled' => true,
+		//     'field' => 'deleted_at',
+		// ],
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Date Format
         |--------------------------------------------------------------------------
@@ -141,9 +141,9 @@ return [
         |
         */
 
-        'date_format' => 'Y-m-d H:i:s',
+		'date_format' => 'Y-m-d H:i:s',
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Pagination
         |--------------------------------------------------------------------------
@@ -154,9 +154,9 @@ return [
         |
         */
 
-        'per_page' => 15,
+		'per_page' => 15,
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Base Files
         |--------------------------------------------------------------------------
@@ -170,9 +170,9 @@ return [
         |
         */
 
-        'base_files' => false,
+		'base_files' => false,
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Snake Attributes
         |--------------------------------------------------------------------------
@@ -183,9 +183,9 @@ return [
         |
         */
 
-        'snake_attributes' => true,
+		'snake_attributes' => true,
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Indent options
         |--------------------------------------------------------------------------
@@ -196,9 +196,9 @@ return [
         |
         */
 
-        'indent_with_space' => 0,
+		'indent_with_space' => 0,
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Qualified Table Names
         |--------------------------------------------------------------------------
@@ -214,9 +214,9 @@ return [
         |   i.e. if class name(plural) matches table name, then table name will not be added
         */
 
-        'qualified_tables' => false,
+		'qualified_tables' => false,
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Hidden Attributes
         |--------------------------------------------------------------------------
@@ -228,11 +228,11 @@ return [
         |
         */
 
-        'hidden' => [
-            '*secret*', '*password', '*token',
-        ],
+		'hidden' => [
+			'*secret*', '*password', '*token',
+		],
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Mass Assignment Guarded Attributes
         |--------------------------------------------------------------------------
@@ -244,11 +244,11 @@ return [
         |
         */
 
-        'guarded' => [
-            // 'created_by', 'updated_by'
-        ],
+		'guarded' => [
+			// 'created_by', 'updated_by'
+		],
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Casts
         |--------------------------------------------------------------------------
@@ -263,11 +263,11 @@ return [
         |
         */
 
-        'casts' => [
-            '*_json' => 'json',
-        ],
+		'casts' => [
+			'*_json' => 'json',
+		],
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Excluded Tables
         |--------------------------------------------------------------------------
@@ -279,15 +279,15 @@ return [
         |
         */
 
-        'except' => [
-            'migrations',
-            'failed_jobs',
-            'password_resets',
-            'personal_access_tokens',
-            'password_reset_tokens',
-        ],
+		'except' => [
+			'migrations',
+			'failed_jobs',
+			'password_resets',
+			'personal_access_tokens',
+			'password_reset_tokens',
+		],
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Specified Tables
         |--------------------------------------------------------------------------
@@ -297,11 +297,11 @@ return [
         |
         */
 
-        'only' => [
-            // 'users',
-        ],
+		'only' => [
+			// 'users',
+		],
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Table Prefix
         |--------------------------------------------------------------------------
@@ -311,9 +311,9 @@ return [
         |
         */
 
-        'table_prefix' => '',
+		'table_prefix' => '',
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Lower table name before doing studly
         |--------------------------------------------------------------------------
@@ -323,9 +323,9 @@ return [
         |
         */
 
-        'lower_table_name_first' => false,
+		'lower_table_name_first' => false,
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Model Names
         |--------------------------------------------------------------------------
@@ -341,11 +341,9 @@ return [
         |     'billing_invoices' => 'Invoice',
         */
 
-        'model_names' => [
+		'model_names' => [],
 
-        ],
-
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Relation Name Strategy
         |--------------------------------------------------------------------------
@@ -372,10 +370,10 @@ return [
         |                       generates Post::user() and User::posts()
         */
 
-        'relation_name_strategy' => 'related',
-        // 'relation_name_strategy' => 'foreign_key',
+		'relation_name_strategy' => 'related',
+		// 'relation_name_strategy' => 'foreign_key',
 
-        /*
+		/*
          |--------------------------------------------------------------------------
          | Determines need or not to generate constants with properties names like
          |
@@ -393,9 +391,9 @@ return [
          | that helps to avoid typos in strings when typing field names and allows to use
          | code competition with available model's field names.
          */
-        'with_property_constants' => false,
+		'with_property_constants' => false,
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Disable Pluralization Name
         |--------------------------------------------------------------------------
@@ -403,9 +401,9 @@ return [
         | You can disable pluralization tables and relations
         |
         */
-        'pluralize' => true,
+		'pluralize' => true,
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Disable Pluralization Except For Certain Tables
         |--------------------------------------------------------------------------
@@ -413,10 +411,8 @@ return [
         | You can enable pluralization for certain tables
         |
         */
-        'override_pluralize_for' => [
-
-        ],
-        /*
+		'override_pluralize_for' => [],
+		/*
         |--------------------------------------------------------------------------
         | Move $fillable property to base files
         |--------------------------------------------------------------------------
@@ -424,9 +420,9 @@ return [
         | if you want the $fillable to be generated in base files
         |
         */
-        'fillable_in_base_files' => false,
+		'fillable_in_base_files' => false,
 
-        /*
+		/*
         |--------------------------------------------------------------------------
         | Generate return types for relation methods.
         |--------------------------------------------------------------------------
@@ -436,10 +432,10 @@ return [
         | NOTE: This requires PHP 7.0 or later.
         |
         */
-        'enable_return_types' => false,
-    ],
+		'enable_return_types' => false,
+	],
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Database Specifics
     |--------------------------------------------------------------------------
@@ -451,24 +447,24 @@ return [
     |
     */
 
-    // 'shop' => [
-    //     'path' => app_path(),
-    //     'namespace' => 'App',
-    //     'snake_attributes' => false,
-    //     'qualified_tables' => true,
-    //     'use' => [
-    //         Reliese\Database\Eloquent\BitBooleans::class,
-    //     ],
-    //     'except' => ['migrations'],
-    //     'only' => ['users'],
-    //      // Table Specifics Bellow:
-    //     'user' => [
-    //      // Don't use any default trait
-    //         'use' => [],
-    //     ]
-    // ],
+	// 'shop' => [
+	//     'path' => app_path(),
+	//     'namespace' => 'App',
+	//     'snake_attributes' => false,
+	//     'qualified_tables' => true,
+	//     'use' => [
+	//         Reliese\Database\Eloquent\BitBooleans::class,
+	//     ],
+	//     'except' => ['migrations'],
+	//     'only' => ['users'],
+	//      // Table Specifics Bellow:
+	//     'user' => [
+	//      // Don't use any default trait
+	//         'use' => [],
+	//     ]
+	// ],
 
-    /*
+	/*
     |--------------------------------------------------------------------------
     | Connection Specifics
     |--------------------------------------------------------------------------
@@ -493,18 +489,18 @@ return [
     |
     */
 
-//    'connections' => [
-//        'read_only_external' => [
-//            'parent' => \App\Models\ReadOnlyModel::class,
-//            'connection' => true,
-//            'users' => [
-//                'connection' => false,
-//            ],
-//            'my_other_database' => [
-//                'password_resets' => [
-//                    'connection' => false,
-//                ]
-//            ]
-//        ],
-//    ],
+	//    'connections' => [
+	//        'read_only_external' => [
+	//            'parent' => \App\Models\ReadOnlyModel::class,
+	//            'connection' => true,
+	//            'users' => [
+	//                'connection' => false,
+	//            ],
+	//            'my_other_database' => [
+	//                'password_resets' => [
+	//                    'connection' => false,
+	//                ]
+	//            ]
+	//        ],
+	//    ],
 ];

@@ -12,14 +12,14 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Chapter
- * 
+ *
  * @property int $id
  * @property int $subject_id
  * @property int $chapter_number
  * @property string $name
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Subject $subject
  * @property Collection|Question[] $questions
  *

@@ -11,13 +11,13 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Enrollment
- * 
+ *
  * @property int $id
  * @property int $course_id
  * @property int $student_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Course $course
  * @property User $user
  *

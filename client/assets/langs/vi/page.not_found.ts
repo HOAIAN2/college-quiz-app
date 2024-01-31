@@ -1,4 +1,4 @@
 const lang = {
-    home: 'Trang chủ'
+	home: 'Trang chủ'
 }
 export default lang

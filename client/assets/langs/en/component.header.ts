@@ -1,5 +1,5 @@
 const lang = {
-    profile: 'Profile',
-    logout: 'Logout',
+	profile: 'Profile',
+	logout: 'Logout',
 }
 export default lang

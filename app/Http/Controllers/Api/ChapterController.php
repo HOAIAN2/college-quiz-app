@@ -12,71 +12,71 @@ use Illuminate\Support\Facades\Log;
 
 class ChapterController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+	/**
+	 * Display a listing of the resource.
+	 */
+	public function index()
+	{
+		//
+	}
 
-    public function store(StoreRequest $request)
-    {
-        $user = $this->getUser();
-        abort_if(!$user->hasPermission('subject_create'), 403);
+	public function store(StoreRequest $request)
+	{
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('subject_create'), 403);
 
-        DB::beginTransaction();
-        try {
-            Chapter::create($request->validated());
-            DB::commit();
-            return Reply::successWithMessage('app.successes.recordSaveSuccess');
-        } catch (\Throwable $error) {
-            Log::error($error->getMessage());
-            DB::rollBack();
-            if ($this->isDevelopment) return Reply::error($error->getMessage());
-            return Reply::error('app.errors.somethingWentWrong', [], 500);
-        }
-    }
+		DB::beginTransaction();
+		try {
+			Chapter::create($request->validated());
+			DB::commit();
+			return Reply::successWithMessage('app.successes.recordSaveSuccess');
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			DB::rollBack();
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.somethingWentWrong', [], 500);
+		}
+	}
 
-    public function show(string $id)
-    {
-        //
-    }
+	public function show(string $id)
+	{
+		//
+	}
 
-    public function update(UpdateRequest $request, string $id)
-    {
-        $user = $this->getUser();
-        abort_if(!$user->hasPermission('subject_update'), 403);
+	public function update(UpdateRequest $request, string $id)
+	{
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('subject_update'), 403);
 
-        DB::beginTransaction();
-        try {
-            $chapter = Chapter::findOrFail($id);
-            $chapter->update($request->validated());
-            DB::commit();
-            return Reply::successWithMessage('app.successes.recordSaveSuccess');
-        } catch (\Throwable $error) {
-            Log::error($error->getMessage());
-            DB::rollBack();
-            if ($this->isDevelopment) return Reply::error($error->getMessage());
-            return Reply::error('app.errors.somethingWentWrong', [], 500);
-        }
-    }
+		DB::beginTransaction();
+		try {
+			$chapter = Chapter::findOrFail($id);
+			$chapter->update($request->validated());
+			DB::commit();
+			return Reply::successWithMessage('app.successes.recordSaveSuccess');
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			DB::rollBack();
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.somethingWentWrong', [], 500);
+		}
+	}
 
-    public function destroy(string $id)
-    {
-        $user = $this->getUser();
-        abort_if(!$user->hasPermission('subject_delete'), 403);
+	public function destroy(string $id)
+	{
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('subject_delete'), 403);
 
-        DB::beginTransaction();
-        try {
-            Chapter::destroy($id);
-            DB::commit();
-            return Reply::successWithMessage('app.successes.recordDeleteSuccess');
-        } catch (\Throwable $error) {
-            Log::error($error->getMessage());
-            DB::rollBack();
-            if ($this->isDevelopment) return Reply::error($error->getMessage());
-            return Reply::error('app.errors.somethingWentWrong', [], 500);
-        }
-    }
+		DB::beginTransaction();
+		try {
+			Chapter::destroy($id);
+			DB::commit();
+			return Reply::successWithMessage('app.successes.recordDeleteSuccess');
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			DB::rollBack();
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.somethingWentWrong', [], 500);
+		}
+	}
 }

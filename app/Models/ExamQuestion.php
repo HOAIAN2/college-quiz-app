@@ -11,13 +11,13 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class ExamQuestion
- * 
+ *
  * @property int $id
  * @property int $exam_id
  * @property int $question_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Exam $exam
  * @property Question $question
  *

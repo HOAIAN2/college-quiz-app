@@ -8,32 +8,32 @@ import useAppContext from '../hooks/useAppContext'
 import styles from '../styles/DashboardLayout.module.css'
 
 export default function DashboardLayout() {
-    const { user, permissions } = useAppContext()
-    const [checking, setChecking] = useState(true)
-    const navigate = useNavigate()
-    useEffect(() => {
-        apiGetUser()
-            .then(data => {
-                user.setUser(data.user)
-                permissions.setItems(data.permissions)
-                setChecking(false)
-                document.querySelector('.pre-load-container')?.classList.add('hide')
-            })
-            .catch(() => {
-                setChecking(false)
-                navigate('/auth/login')
-            })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-    if (checking) return null
-    return (
-        <div className={styles['dashboard-layout']}>
-            <Header />
-            <div className={styles['dashboard-content']}>
-                <NavBar />
-                <Outlet />
-            </div>
-            <Footer />
-        </div>
-    )
+	const { user, permissions } = useAppContext()
+	const [checking, setChecking] = useState(true)
+	const navigate = useNavigate()
+	useEffect(() => {
+		apiGetUser()
+			.then(data => {
+				user.setUser(data.user)
+				permissions.setItems(data.permissions)
+				setChecking(false)
+				document.querySelector('.pre-load-container')?.classList.add('hide')
+			})
+			.catch(() => {
+				setChecking(false)
+				navigate('/auth/login')
+			})
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+	if (checking) return null
+	return (
+		<div className={styles['dashboard-layout']}>
+			<Header />
+			<div className={styles['dashboard-content']}>
+				<NavBar />
+				<Outlet />
+			</div>
+			<Footer />
+		</div>
+	)
 }

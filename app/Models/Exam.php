@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Exam
- * 
+ *
  * @property int $id
  * @property int $course_id
  * @property string $name
@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $exam_time
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Course $course
  * @property Collection|Question[] $questions
  * @property Collection|ExamTracker[] $exam_trackers

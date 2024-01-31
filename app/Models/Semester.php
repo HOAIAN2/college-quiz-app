@@ -12,14 +12,14 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Semester
- * 
+ *
  * @property int $id
  * @property string $name
  * @property Carbon $start_date
  * @property Carbon $end_date
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Collection|Course[] $courses
  *
  * @package App\Models

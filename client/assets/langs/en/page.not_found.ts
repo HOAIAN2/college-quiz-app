@@ -1,4 +1,4 @@
 const lang = {
-    home: 'Home'
+	home: 'Home'
 }
 export default lang

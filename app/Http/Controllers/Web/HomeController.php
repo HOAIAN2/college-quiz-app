@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\App;
 
 class HomeController extends Controller
 {
-    public function index()
-    {
-        $data = [];
-        $data['lang'] = App::getLocale();
-        $data['description'] = trans('app.meta.description');
-        $data['keywords'] = trans('app.meta.keywords');
-        $data['title'] = env('APP_NAME');
-        $data['app_url'] = env('APP_URL');
-        return view('index', $data);
-    }
+	public function index()
+	{
+		$data = [];
+		$data['lang'] = App::getLocale();
+		$data['description'] = trans('app.meta.description');
+		$data['keywords'] = trans('app.meta.keywords');
+		$data['title'] = env('APP_NAME');
+		$data['app_url'] = env('APP_URL');
+		return view('index', $data);
+	}
 }

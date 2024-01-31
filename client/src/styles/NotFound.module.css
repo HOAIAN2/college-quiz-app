@@ -1,22 +1,22 @@
 .not-found {
-    width: 100%;
-    height: calc(100% - 75px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+	width: 100%;
+	height: calc(100% - 75px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 .not-found>.title {
-    font-size: 240px;
-    font-weight: 600;
-    user-select: none;
+	font-size: 240px;
+	font-weight: 600;
+	user-select: none;
 }
 
 .not-found>.go-home {
-    min-width: 80px;
-    width: fit-content;
-    height: 40px;
-    text-align: center;
-    font-size: 24px;
+	min-width: 80px;
+	width: fit-content;
+	height: 40px;
+	text-align: center;
+	font-size: 24px;
 }

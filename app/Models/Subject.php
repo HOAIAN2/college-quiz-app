@@ -13,13 +13,13 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Subject
- * 
+ *
  * @property int $id
  * @property string $shortcode
  * @property string $name
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Collection|Chapter[] $chapters
  * @property Collection|Course[] $courses
  *
