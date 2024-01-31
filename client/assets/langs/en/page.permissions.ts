@@ -5,4 +5,3 @@ const lang = {
 }
 
 export default lang
-export type PagePermissionsLang = typeof lang

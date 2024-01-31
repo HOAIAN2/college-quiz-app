@@ -10,4 +10,3 @@ const lang = {
     }
 }
 export default lang
-export type PageDashBoardLang = typeof lang

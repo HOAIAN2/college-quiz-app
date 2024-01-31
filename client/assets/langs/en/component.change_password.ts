@@ -6,4 +6,3 @@ const lang = {
     save: 'Save',
 }
 export default lang
-export type ComponentChangePassword = typeof lang

@@ -6,4 +6,3 @@ const lang = {
     saveMore: 'Lưu thêm'
 }
 export default lang
-export type ComponentViewSchoolClassLang = typeof lang

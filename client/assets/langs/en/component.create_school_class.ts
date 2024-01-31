@@ -7,4 +7,3 @@ const lang = {
     saveMore: 'Save more'
 }
 export default lang
-export type ComponentCreateSchoolClassLang = typeof lang

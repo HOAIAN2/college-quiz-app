@@ -15,4 +15,3 @@ const lang = {
     langNo: 'No'
 }
 export default lang
-export type PageSchoolClassesLang = typeof lang

@@ -13,4 +13,3 @@ const lang = {
     },
 }
 export default lang
-export type ComponentFacultiesTableLang = typeof lang

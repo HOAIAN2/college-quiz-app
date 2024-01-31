@@ -11,4 +11,3 @@ const lang = {
     },
 }
 export default lang
-export type ComponentSchoolClassesTableLang = typeof lang

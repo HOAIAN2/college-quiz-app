@@ -30,4 +30,3 @@ export const lang = {
     }
 }
 export default lang
-export type PageProfileLang = typeof lang

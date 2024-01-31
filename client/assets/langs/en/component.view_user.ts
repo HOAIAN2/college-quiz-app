@@ -26,4 +26,3 @@ const lang = {
     save: 'Save'
 }
 export default lang
-export type ComponentViewUserLang = typeof lang

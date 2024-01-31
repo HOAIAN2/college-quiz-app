@@ -11,4 +11,3 @@ const lang = {
 }
 
 export default lang
-export type PageDashboardLang = typeof lang

@@ -8,4 +8,3 @@ const lang = {
 }
 
 export default lang
-export type PageRolePermissionsLang = typeof lang

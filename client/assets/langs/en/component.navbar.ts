@@ -12,4 +12,3 @@ const lang = {
     permission: 'Permission'
 }
 export default lang
-export type ComponentNavBarLang = typeof lang

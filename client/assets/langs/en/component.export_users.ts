@@ -8,4 +8,3 @@ const lang = {
     save: 'Save'
 }
 export default lang
-export type ComponentExportUsersLang = typeof lang

@@ -9,4 +9,3 @@ const lang = {
     saveMore: 'Save more'
 }
 export default lang
-export type ComponentCreateFacultyLang = typeof lang

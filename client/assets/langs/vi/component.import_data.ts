@@ -3,4 +3,3 @@ const lang = {
     downloadTemplate: 'Tải file mẫu'
 }
 export default lang
-export type ComponentImportDataLang = typeof lang

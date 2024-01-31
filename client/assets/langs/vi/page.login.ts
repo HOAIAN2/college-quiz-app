@@ -4,4 +4,3 @@ const lang = {
     password: 'Mật khẩu'
 }
 export default lang
-export type PageLoginLang = typeof lang

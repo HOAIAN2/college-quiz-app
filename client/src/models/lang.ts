@@ -1,23 +1,23 @@
-export { type ComponentChangePassword } from '../../assets/langs/en/component.change_password'
-export { type ComponentCreateFacultyLang } from '../../assets/langs/en/component.create_faculty'
-export { type ComponentCreateSchoolClassLang } from '../../assets/langs/en/component.create_school_class'
-export { type ComponentCreateUserLang } from '../../assets/langs/en/component.create_user'
-export { type ComponentExportUsersLang } from '../../assets/langs/en/component.export_users'
-export { type ComponentFacultiesTableLang } from '../../assets/langs/en/component.faculties_table'
-export { type ComponentHeaderLang } from '../../assets/langs/en/component.header'
-export { type ComponentImportDataLang } from '../../assets/langs/en/component.import_data'
-export { type ComponentNavBarLang } from '../../assets/langs/en/component.navbar'
-export { type ComponentSchoolClassesTableLang } from '../../assets/langs/en/component.school_classes_table'
-export { type ComponentUsersTableLang } from '../../assets/langs/en/component.users_table'
-export { type ComponentViewFacultyLang } from '../../assets/langs/en/component.view_faculty'
-export { type ComponentViewSchoolClassLang } from '../../assets/langs/en/component.view_school_class'
-export { type ComponentViewUserLang } from '../../assets/langs/en/component.view_user'
-export { type PageDashBoardLang } from '../../assets/langs/en/page.dashboard'
-export { type PageFacultiesLang } from '../../assets/langs/en/page.faculties'
-export { type PageLoginLang } from '../../assets/langs/en/page.login'
-export { type PageNotFoundLang } from '../../assets/langs/en/page.not_found'
-export { type PagePermissionsLang } from '../../assets/langs/en/page.permissions'
-export { type PageProfileLang } from '../../assets/langs/en/page.profile'
-export { type PageRolePermissionsLang } from '../../assets/langs/en/page.role_permissions'
-export { type PageSchoolClassesLang } from '../../assets/langs/en/page.school_classes'
-export { type PageUsersLang } from '../../assets/langs/en/page.users'
+export type ComponentChangePassword = typeof import('../../assets/langs/en/component.change_password').default
+export type ComponentCreateFacultyLang = typeof import('../../assets/langs/en/component.create_faculty').default
+export type ComponentCreateSchoolClassLang = typeof import('../../assets/langs/en/component.create_school_class').default
+export type ComponentCreateUserLang = typeof import('../../assets/langs/en/component.create_user').default
+export type ComponentExportUsersLang = typeof import('../../assets/langs/en/component.export_users').default
+export type ComponentFacultiesTableLang = typeof import('../../assets/langs/en/component.faculties_table').default
+export type ComponentHeaderLang = typeof import('../../assets/langs/en/component.header').default
+export type ComponentImportDataLang = typeof import('../../assets/langs/en/component.import_data').default
+export type ComponentNavBarLang = typeof import('../../assets/langs/en/component.navbar').default
+export type ComponentSchoolClassesTableLang = typeof import('../../assets/langs/en/component.school_classes_table').default
+export type ComponentUsersTableLang = typeof import('../../assets/langs/en/component.users_table').default
+export type ComponentViewFacultyLang = typeof import('../../assets/langs/en/component.view_faculty').default
+export type ComponentViewSchoolClassLang = typeof import('../../assets/langs/en/component.view_school_class').default
+export type ComponentViewUserLang = typeof import('../../assets/langs/en/component.view_user').default
+export type PageDashBoardLang = typeof import('../../assets/langs/en/page.dashboard').default
+export type PageFacultiesLang = typeof import('../../assets/langs/en/page.faculties').default
+export type PageLoginLang = typeof import('../../assets/langs/en/page.login').default
+export type PageNotFoundLang = typeof import('../../assets/langs/en/page.not_found').default
+export type PagePermissionsLang = typeof import('../../assets/langs/en/page.permissions').default
+export type PageProfileLang = typeof import('../../assets/langs/en/page.profile').default
+export type PageRolePermissionsLang = typeof import('../../assets/langs/en/page.role_permissions').default
+export type PageSchoolClassesLang = typeof import('../../assets/langs/en/page.school_classes').default
+export type PageUsersLang = typeof import('../../assets/langs/en/page.users').default

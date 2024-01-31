@@ -8,4 +8,3 @@ const lang = {
     saveMore: 'Save more'
 }
 export default lang
-export type ComponentViewFacultyLang = typeof lang

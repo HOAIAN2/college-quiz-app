@@ -22,4 +22,3 @@ const lang = {
     saveMore: 'Save more'
 }
 export default lang
-export type ComponentCreateUserLang = typeof lang

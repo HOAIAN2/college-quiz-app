@@ -3,4 +3,3 @@ const lang = {
     logout: 'Đăng xuất',
 }
 export default lang
-export type ComponentHeaderLang = typeof lang
