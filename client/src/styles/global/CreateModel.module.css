@@ -74,15 +74,13 @@
 .wrap-item {
 	position: relative;
 	margin-left: 20px;
-	height: 75px;
+	height: 90px;
 	flex: 0 0 30%;
 }
 
-.wrap-item::before {
+.wrap-item::after {
 	content: attr(data-error);
 	width: fit-content;
-	position: absolute;
-	bottom: -10px;
 	color: red;
 }
 
@@ -132,9 +130,5 @@
 		flex-direction: column;
 		padding-right: 20px;
 		gap: 20px;
-	}
-
-	.wrap-item::before {
-		bottom: -20px;
 	}
 }
