@@ -16,7 +16,7 @@ class Locale
 	 */
 	public function handle(Request $request, Closure $next): Response
 	{
-		$accept_language = $request->header('Accept-Language');
+		$accept_language = $request->getPreferredLanguage();
 		if ($accept_language != null) {
 			if (Str::startsWith($accept_language, 'en')) app()->setLocale('en');
 			else app()->setLocale($accept_language);
