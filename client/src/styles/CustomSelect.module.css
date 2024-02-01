@@ -11,8 +11,8 @@
 	cursor: default;
 }
 
-.custom-select.hidden {
-	overflow: hidden;
+.hidden {
+	display: none;
 }
 
 .select-dropbox {
