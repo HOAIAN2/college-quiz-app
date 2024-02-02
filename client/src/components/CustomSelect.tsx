@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import styles from '../styles/CustomSelect.module.css'
 
 type Option = {
-	value: string | number
+	value: string
 	label?: string
 }
 type CustomSelectProps = {
