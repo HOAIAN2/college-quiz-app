@@ -43,16 +43,12 @@ export default function CreateUser({
 	}
 	const classQueryData = useQuery({
 		queryKey: ['school-class-auto-complete', debounceQueryClass],
-		queryFn: () => {
-			return apiAutoCompleteSchoolClass(debounceQueryClass)
-		},
+		queryFn: () => apiAutoCompleteSchoolClass(debounceQueryClass),
 		enabled: debounceQueryClass ? true : false
 	})
 	const facultyQueryData = useQuery({
 		queryKey: ['faculty-auto-complete', debounceQueryFaculty],
-		queryFn: () => {
-			return apiAutoCompleteFaculty(debounceQueryFaculty)
-		},
+		queryFn: () => apiAutoCompleteFaculty(debounceQueryFaculty),
 		enabled: debounceQueryFaculty ? true : false
 	})
 	const getParentElement = (element: HTMLInputElement) => {

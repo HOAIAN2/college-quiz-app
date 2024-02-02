@@ -43,9 +43,7 @@ export default function ViewFaculty({
 	})
 	const userQueryData = useQuery({
 		queryKey: ['user-auto-complete', debounceQueryUser],
-		queryFn: () => {
-			return apiAutoCompleteUser('teacher', debounceQueryUser)
-		},
+		queryFn: () => apiAutoCompleteUser('teacher', debounceQueryUser),
 		enabled: debounceQueryUser && permissions.has('user_view') ? true : false
 	})
 	const getParentElement = (element: HTMLInputElement) => {

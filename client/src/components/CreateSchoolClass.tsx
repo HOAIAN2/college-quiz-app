@@ -32,9 +32,7 @@ export default function CreateSchoolClass({
 	}
 	const facultyQueryData = useQuery({
 		queryKey: ['faculty-auto-complete', debounceQueryFaculty],
-		queryFn: () => {
-			return apiAutoCompleteFaculty(debounceQueryFaculty)
-		},
+		queryFn: () => apiAutoCompleteFaculty(debounceQueryFaculty),
 		enabled: debounceQueryFaculty ? true : false
 	})
 	const getParentElement = (element: HTMLInputElement) => {

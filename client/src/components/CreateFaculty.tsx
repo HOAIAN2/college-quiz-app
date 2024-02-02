@@ -34,9 +34,7 @@ export default function CreateFaculty({
 	}
 	const userQueryData = useQuery({
 		queryKey: ['user-auto-complete', debounceQueryUser],
-		queryFn: () => {
-			return apiAutoCompleteUser('teacher', debounceQueryUser)
-		},
+		queryFn: () => apiAutoCompleteUser('teacher', debounceQueryUser),
 		enabled: debounceQueryUser ? true : false
 	})
 	const getParentElement = (element: HTMLInputElement) => {
