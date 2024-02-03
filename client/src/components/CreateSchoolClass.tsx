@@ -3,6 +3,7 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
 import { apiAutoCompleteFaculty } from '../api/faculty'
 import { apiCreateSchoolClass } from '../api/school-class'
+import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateSchoolClassLang } from '../models/lang'
@@ -21,7 +22,7 @@ export default function CreateSchoolClass({
 	const language = useLanguage<ComponentCreateSchoolClassLang>('component.create_school_class')
 	const [hide, setHide] = useState(true)
 	const [queryFaculty, setQueryFaculty] = useState('')
-	const debounceQueryFaculty = useDebounce(queryFaculty, 200) as string
+	const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE) as string
 	const handleTurnOffInsertMode = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
 		const timing = Number(transitionTiming.replace('s', '')) * 1000

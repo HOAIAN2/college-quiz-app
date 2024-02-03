@@ -7,6 +7,7 @@ import {
 import { apiAutoCompleteFaculty } from '../api/faculty'
 import { apiAutoCompleteSchoolClass } from '../api/school-class'
 import { apiCreateUser } from '../api/user'
+import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateUserLang } from '../models/lang'
@@ -30,8 +31,8 @@ export default function CreateUser({
 	const [hide, setHide] = useState(true)
 	const [queryClass, setQueryClass] = useState('')
 	const [queryFaculty, setQueryFaculty] = useState('')
-	const debounceQueryClass = useDebounce(queryClass, 200) as string
-	const debounceQueryFaculty = useDebounce(queryFaculty, 200) as string
+	const debounceQueryClass = useDebounce(queryClass, AUTO_COMPLETE_DEBOUNCE) as string
+	const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE) as string
 	const queryClient = useQueryClient()
 	const handleTurnOffInsertMode = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')

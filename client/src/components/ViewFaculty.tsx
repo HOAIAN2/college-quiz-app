@@ -3,6 +3,7 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
 import { apiGetFacultyById, apiUpdateFaculty } from '../api/faculty'
 import { apiAutoCompleteUser } from '../api/user'
+import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
@@ -27,7 +28,7 @@ export default function ViewFaculty({
 	const language = useLanguage<ComponentViewFacultyLang>('component.view_faculty')
 	const { permissions } = useAppContext()
 	const [queryUser, setQueryUser] = useState('')
-	const debounceQueryUser = useDebounce(queryUser, 200) as string
+	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE) as string
 	const queryClient = useQueryClient()
 	const handleTurnOffImportMode = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')

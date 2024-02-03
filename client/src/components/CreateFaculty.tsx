@@ -3,6 +3,7 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
 import { apiCreateFaculty } from '../api/faculty'
 import { apiAutoCompleteUser } from '../api/user'
+import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateFacultyLang } from '../models/lang'
@@ -23,7 +24,7 @@ export default function CreateFaculty({
 	const language = useLanguage<ComponentCreateFacultyLang>('component.create_faculty')
 	const [hide, setHide] = useState(true)
 	const [queryUser, setQueryUser] = useState('')
-	const debounceQueryUser = useDebounce(queryUser, 200) as string
+	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE) as string
 	const handleTurnOffInsertMode = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
 		const timing = Number(transitionTiming.replace('s', '')) * 1000

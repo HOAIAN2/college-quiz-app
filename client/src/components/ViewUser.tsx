@@ -5,6 +5,7 @@ import { RxCross2 } from 'react-icons/rx'
 import { apiAutoCompleteFaculty } from '../api/faculty'
 import { apiAutoCompleteSchoolClass } from '../api/school-class'
 import { apiGetUserById, apiUpdateUser } from '../api/user'
+import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
@@ -30,8 +31,8 @@ export default function ViewUser({
 	const { permissions } = useAppContext()
 	const [queryClass, setQueryClass] = useState('')
 	const [queryFaculty, setQueryFaculty] = useState('')
-	const debouceQueryClass = useDebounce(queryClass, 200) as string
-	const debounceQueryFaculty = useDebounce(queryFaculty, 200) as string
+	const debouceQueryClass = useDebounce(queryClass, AUTO_COMPLETE_DEBOUNCE) as string
+	const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE) as string
 	const queryClient = useQueryClient()
 	const handleTurnOffImportMode = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
