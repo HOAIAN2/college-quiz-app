@@ -60,10 +60,9 @@ export default function CreateUser({
 	}
 	const handleCreateUser = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
-		document.querySelector(styles['form-data'])?.querySelectorAll('input[name]').forEach(node => {
-			const element = node as HTMLInputElement
-			element.classList.remove('error')
-			getParentElement(element).removeAttribute('data-error')
+		document.querySelector(styles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
+			node.classList.remove('error')
+			getParentElement(node).removeAttribute('data-error')
 		})
 		const submitter = e.nativeEvent.submitter as HTMLButtonElement
 		const form = e.target as HTMLFormElement
@@ -85,7 +84,7 @@ export default function CreateUser({
 		onError: (error: object) => {
 			if (typeof error === 'object') {
 				for (const key in error) {
-					const element = document.querySelector(`input[data-selector='${key}'],[name='${key}']`) as HTMLInputElement
+					const element = document.querySelector<HTMLInputElement>(`input[data-selector='${key}'],[name='${key}']`)
 					if (element) {
 						element.classList.add('error')
 						getParentElement(element).setAttribute('data-error', error[key as keyof typeof error][0] as string)
@@ -102,8 +101,8 @@ export default function CreateUser({
 	useEffect(() => {
 		setHide(false)
 		return () => {
-			queryClient.removeQueries({ queryKey: ['school-class-auto-complete'] })
-			queryClient.removeQueries({ queryKey: ['faculty-auto-complete'] })
+			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_FACULTY] })
+			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_SCHOOL_CLASS] })
 		}
 	}, [queryClient])
 	return (

@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
 import { apiCreateFaculty } from '../api/faculty'
@@ -26,6 +26,7 @@ export default function CreateFaculty({
 	const [hide, setHide] = useState(true)
 	const [queryUser, setQueryUser] = useState('')
 	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE) as string
+	const queryClient = useQueryClient()
 	const handleTurnOffInsertMode = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
@@ -53,10 +54,9 @@ export default function CreateFaculty({
 	}
 	const handleCreateFaculty = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
-		document.querySelector(styles['form-data'])?.querySelectorAll('input[name]').forEach(node => {
-			const element = node as HTMLInputElement
-			element.classList.remove('error')
-			getParentElement(element).removeAttribute('data-error')
+		document.querySelector(styles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
+			node.classList.remove('error')
+			getParentElement(node).removeAttribute('data-error')
 		})
 		const submitter = e.nativeEvent.submitter as HTMLButtonElement
 		const form = e.target as HTMLFormElement
@@ -70,7 +70,7 @@ export default function CreateFaculty({
 		onError: (error: object) => {
 			if (typeof error === 'object') {
 				for (const key in error) {
-					const element = document.querySelector(`input[data-selector='${key}'],[name='${key}']`) as HTMLInputElement
+					const element = document.querySelector<HTMLInputElement>(`input[data-selector='${key}'],[name='${key}']`)
 					if (element) {
 						element.classList.add('error')
 						getParentElement(element).setAttribute('data-error', error[key as keyof typeof error][0] as string)
@@ -82,7 +82,10 @@ export default function CreateFaculty({
 	})
 	useEffect(() => {
 		setHide(false)
-	}, [])
+		return () => {
+			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_USER] })
+		}
+	}, [queryClient])
 	return (
 		<div className={
 			[
