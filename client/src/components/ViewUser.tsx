@@ -32,8 +32,8 @@ export default function ViewUser({
 	const { permissions } = useAppContext()
 	const [queryClass, setQueryClass] = useState('')
 	const [queryFaculty, setQueryFaculty] = useState('')
-	const debouceQueryClass = useDebounce(queryClass, AUTO_COMPLETE_DEBOUNCE) as string
-	const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE) as string
+	const debouceQueryClass = useDebounce(queryClass, AUTO_COMPLETE_DEBOUNCE)
+	const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE)
 	const queryClient = useQueryClient()
 	const handleTurnOffImportMode = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')

@@ -25,7 +25,7 @@ export default function Faculties() {
 	const [searchParams, setSearchParams] = useSearchParams()
 	const queryClient = useQueryClient()
 	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
-	const queryDebounce = useDebounce(searchQuery) as string
+	const queryDebounce = useDebounce(searchQuery)
 	const [selectedFacultyIds, setSelectedFacultyIds] = useState<Set<string | number>>(new Set())
 	const queryData = useQuery({
 		queryKey: [

@@ -25,7 +25,7 @@ export default function CreateFaculty({
 	const language = useLanguage<ComponentCreateFacultyLang>('component.create_faculty')
 	const [hide, setHide] = useState(true)
 	const [queryUser, setQueryUser] = useState('')
-	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE) as string
+	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
 	const queryClient = useQueryClient()
 	const handleTurnOffInsertMode = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')

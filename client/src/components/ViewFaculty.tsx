@@ -29,7 +29,7 @@ export default function ViewFaculty({
 	const language = useLanguage<ComponentViewFacultyLang>('component.view_faculty')
 	const { permissions } = useAppContext()
 	const [queryUser, setQueryUser] = useState('')
-	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE) as string
+	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
 	const queryClient = useQueryClient()
 	const handleTurnOffImportMode = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')

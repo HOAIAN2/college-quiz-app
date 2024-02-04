@@ -26,7 +26,7 @@ export default function SchoolClasses() {
 	const [showPopUpMode, setShowPopUpMode] = useState(false)
 	const [selectedSchoolClassIds, setSelectedSchoolClassIds] = useState<Set<string | number>>(new Set())
 	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
-	const queryDebounce = useDebounce(searchQuery) as string
+	const queryDebounce = useDebounce(searchQuery)
 	const queryClient = useQueryClient()
 	const queryData = useQuery({
 		queryKey: [

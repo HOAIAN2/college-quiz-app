@@ -23,7 +23,7 @@ export default function CreateSchoolClass({
 	const language = useLanguage<ComponentCreateSchoolClassLang>('component.create_school_class')
 	const [hide, setHide] = useState(true)
 	const [queryFaculty, setQueryFaculty] = useState('')
-	const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE) as string
+	const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE)
 	const queryClient = useQueryClient()
 	const handleTurnOffInsertMode = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
