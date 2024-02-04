@@ -4,6 +4,7 @@ import { RxCross2 } from 'react-icons/rx'
 import { apiAutoCompleteFaculty } from '../api/faculty'
 import { apiGetSchoolClassById, apiUpdateSchoolClass } from '../api/school-class'
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
+import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
@@ -38,11 +39,11 @@ export default function ViewSchoolClass({
 		}, timing)
 	}
 	const queryData = useQuery({
-		queryKey: ['school-class', id],
+		queryKey: [queryKeys.SCHOOL_CLASS_DETAIL, id],
 		queryFn: () => apiGetSchoolClassById(id)
 	})
 	const facultyQueryData = useQuery({
-		queryKey: ['faculty-auto-complete', debounceQueryFaculty],
+		queryKey: [queryKeys.AUTO_COMPLETE_FACULTY, { search: debounceQueryFaculty }],
 		queryFn: () => apiAutoCompleteFaculty(debounceQueryFaculty),
 		enabled: debounceQueryFaculty && permissions.has('faculty_view') ? true : false
 	})

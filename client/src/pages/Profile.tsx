@@ -6,6 +6,7 @@ import ChangePassword from '../components/ChangePassword'
 import CustomSelect from '../components/CustomSelect'
 import Loading from '../components/Loading'
 import SuspenseLoading from '../components/SuspenseLoading'
+import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { PageProfileLang } from '../models/lang'
@@ -17,7 +18,7 @@ export default function Profile() {
 	const [changePasswordMode, setChangePasswordMode] = useState(false)
 	const queryClient = useQueryClient()
 	const queryData = useQuery({
-		queryKey: ['current-user'],
+		queryKey: [queryKeys.PAGE_PROFILE],
 		queryFn: apiGetUser,
 	})
 	const getParentElement = (element: HTMLInputElement) => {

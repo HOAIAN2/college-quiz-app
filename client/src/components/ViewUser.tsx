@@ -6,6 +6,7 @@ import { apiAutoCompleteFaculty } from '../api/faculty'
 import { apiAutoCompleteSchoolClass } from '../api/school-class'
 import { apiGetUserById, apiUpdateUser } from '../api/user'
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
+import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
@@ -43,16 +44,16 @@ export default function ViewUser({
 		}, timing)
 	}
 	const queryData = useQuery({
-		queryKey: ['user', id],
+		queryKey: [queryKeys.USER_DETAIL, { id: id }],
 		queryFn: () => apiGetUserById(id)
 	})
 	const classQueryData = useQuery({
-		queryKey: ['school-class-auto-complete', debouceQueryClass],
+		queryKey: [queryKeys.AUTO_COMPLETE_SCHOOL_CLASS, { search: debouceQueryClass }],
 		queryFn: () => apiAutoCompleteSchoolClass(debouceQueryClass),
 		enabled: debouceQueryClass && permissions.has('school_class_view') ? true : false
 	})
 	const facultyQueryData = useQuery({
-		queryKey: ['faculty-auto-complete', debounceQueryFaculty],
+		queryKey: [queryKeys.AUTO_COMPLETE_FACULTY, { saerch: debounceQueryFaculty }],
 		queryFn: () => apiAutoCompleteFaculty(debounceQueryFaculty),
 		enabled: debounceQueryFaculty && permissions.has('faculty_view') ? true : false
 	})

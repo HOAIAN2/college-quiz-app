@@ -18,6 +18,7 @@ import ImportData from '../components/ImportData'
 import Loading from '../components/Loading'
 import UsersTable from '../components/UsersTable'
 import YesNoPopUp from '../components/YesNoPopUp'
+import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
@@ -44,10 +45,14 @@ export default function Users({
 	const queryDebounce = useDebounce(searchQuery) as string
 	const queryClient = useQueryClient()
 	const queryData = useQuery({
-		queryKey: [role,
-			searchParams.get('page') || '1',
-			searchParams.get('per_page') || '10',
-			searchParams.get('search')
+		queryKey: [
+			queryKeys.PAGE_USERS,
+			{
+				role: role,
+				page: searchParams.get('page') || '1',
+				perPage: searchParams.get('per_page') || '10',
+				search: searchParams.get('search')
+			}
 		],
 		queryFn: () => apiGetUsersByType({
 			role: role,
@@ -63,13 +68,7 @@ export default function Users({
 		return apiDeleteUserByIds(Array.from(selectedUserIds))
 	}
 	const onMutateSuccess = () => {
-		const queryKeys = [
-			'dashboard',
-			'student',
-			'teacher',
-			'admin'
-		]
-		queryKeys.forEach(key => {
+		[queryKeys.PAGE_USERS, queryKeys.PAGE_DASHBOARD].forEach(key => {
 			queryClient.refetchQueries({ queryKey: [key] })
 		})
 	}

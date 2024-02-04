@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { apiGetRolePermissions, apiUpdateRolePermissions } from '../api/role-permission'
 import Loading from '../components/Loading'
+import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { PageRolePermissionsLang } from '../models/lang'
@@ -13,7 +14,7 @@ export default function RolePermissions() {
 	const language = useLanguage<PageRolePermissionsLang>('page.role_permissions')
 	const { id } = useParams()
 	const queryData = useQuery({
-		queryKey: ['role-permissions', id],
+		queryKey: [queryKeys.PAGE_ROLE_PERMISSIONS, { id: id }],
 		queryFn: () => apiGetRolePermissions(Number(id))
 	})
 	const handleUpdatePermission = async (e: React.FormEvent<HTMLFormElement>) => {

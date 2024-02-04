@@ -10,6 +10,7 @@ import CustomSelect from '../components/CustomSelect'
 import FacultiesTable from '../components/FacultiesTable'
 import Loading from '../components/Loading'
 import YesNoPopUp from '../components/YesNoPopUp'
+import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
@@ -28,10 +29,12 @@ export default function Faculties() {
 	const [selectedFacultyIds, setSelectedFacultyIds] = useState<Set<string | number>>(new Set())
 	const queryData = useQuery({
 		queryKey: [
-			'faculties',
-			searchParams.get('page') || '1',
-			searchParams.get('per_page') || '10',
-			searchParams.get('search')
+			queryKeys.PAGE_FACULTIES,
+			{
+				page: searchParams.get('page') || '1',
+				perPage: searchParams.get('per_page') || '10',
+				search: searchParams.get('search')
+			},
 		],
 		queryFn: () => apiGetFaculties({
 			page: Number(searchParams.get('page')),
@@ -43,10 +46,7 @@ export default function Faculties() {
 		return apiDeleteFacultiesByIds(Array.from(selectedFacultyIds))
 	}
 	const onMutateSuccess = () => {
-		const queryKeys = [
-			'faculties',
-		]
-		queryKeys.forEach(key => {
+		[queryKeys.PAGE_FACULTIES].forEach(key => {
 			queryClient.refetchQueries({ queryKey: [key] })
 		})
 	}

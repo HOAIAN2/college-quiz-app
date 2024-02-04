@@ -3,6 +3,7 @@ import { LuUsers2 } from 'react-icons/lu'
 import { Link } from 'react-router-dom'
 import { apiGetRolePermissionCount } from '../api/role-permission'
 import Loading from '../components/Loading'
+import { queryKeys } from '../constants/query-keys'
 import useLanguage from '../hooks/useLanguage'
 import { PagePermissionsLang } from '../models/lang'
 import styles from '../styles/Permissions.module.css'
@@ -10,7 +11,7 @@ import styles from '../styles/Permissions.module.css'
 export default function Permisisons() {
 	const language = useLanguage<PagePermissionsLang>('page.permissions')
 	const queryData = useQuery({
-		queryKey: ['permissions'],
+		queryKey: [queryKeys.PAGE_PERMISSIONS],
 		queryFn: apiGetRolePermissionCount
 	})
 	return (

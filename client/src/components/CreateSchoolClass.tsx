@@ -4,6 +4,7 @@ import { RxCross2 } from 'react-icons/rx'
 import { apiAutoCompleteFaculty } from '../api/faculty'
 import { apiCreateSchoolClass } from '../api/school-class'
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
+import { queryKeys } from '../constants/query-keys'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateSchoolClassLang } from '../models/lang'
@@ -32,7 +33,7 @@ export default function CreateSchoolClass({
 		}, timing)
 	}
 	const facultyQueryData = useQuery({
-		queryKey: ['faculty-auto-complete', debounceQueryFaculty],
+		queryKey: [queryKeys.AUTO_COMPLETE_FACULTY, { search: debounceQueryFaculty }],
 		queryFn: () => apiAutoCompleteFaculty(debounceQueryFaculty),
 		enabled: debounceQueryFaculty ? true : false
 	})

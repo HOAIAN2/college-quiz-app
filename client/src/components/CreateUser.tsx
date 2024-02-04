@@ -8,6 +8,7 @@ import { apiAutoCompleteFaculty } from '../api/faculty'
 import { apiAutoCompleteSchoolClass } from '../api/school-class'
 import { apiCreateUser } from '../api/user'
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
+import { queryKeys } from '../constants/query-keys'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateUserLang } from '../models/lang'
@@ -43,12 +44,12 @@ export default function CreateUser({
 		}, timing)
 	}
 	const classQueryData = useQuery({
-		queryKey: ['school-class-auto-complete', debounceQueryClass],
+		queryKey: [queryKeys.AUTO_COMPLETE_SCHOOL_CLASS, { search: debounceQueryClass }],
 		queryFn: () => apiAutoCompleteSchoolClass(debounceQueryClass),
 		enabled: debounceQueryClass ? true : false
 	})
 	const facultyQueryData = useQuery({
-		queryKey: ['faculty-auto-complete', debounceQueryFaculty],
+		queryKey: [queryKeys.AUTO_COMPLETE_FACULTY, { search: debounceQueryFaculty }],
 		queryFn: () => apiAutoCompleteFaculty(debounceQueryFaculty),
 		enabled: debounceQueryFaculty ? true : false
 	})

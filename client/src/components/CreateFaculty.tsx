@@ -4,6 +4,7 @@ import { RxCross2 } from 'react-icons/rx'
 import { apiCreateFaculty } from '../api/faculty'
 import { apiAutoCompleteUser } from '../api/user'
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
+import { queryKeys } from '../constants/query-keys'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateFacultyLang } from '../models/lang'
@@ -34,7 +35,7 @@ export default function CreateFaculty({
 		}, timing)
 	}
 	const userQueryData = useQuery({
-		queryKey: ['user-auto-complete', debounceQueryUser],
+		queryKey: [queryKeys.AUTO_COMPLETE_USER, { search: debounceQueryUser }],
 		queryFn: () => apiAutoCompleteUser('teacher', debounceQueryUser),
 		enabled: debounceQueryUser ? true : false
 	})

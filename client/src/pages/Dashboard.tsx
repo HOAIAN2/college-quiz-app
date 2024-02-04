@@ -8,6 +8,7 @@ import {
 import { apiGetDashboard } from '../api/dashboard'
 import DashboardCard from '../components/DashboardCard'
 import Loading from '../components/Loading'
+import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { PageDashBoardLang } from '../models/lang'
@@ -17,7 +18,7 @@ export default function Dashboard() {
 	const { permissions } = useAppContext()
 	const language = useLanguage<PageDashBoardLang>('page.dashboard')
 	const queryData = useQuery({
-		queryKey: ['dashboard'],
+		queryKey: [queryKeys.PAGE_DASHBOARD],
 		queryFn: apiGetDashboard
 	})
 	return (

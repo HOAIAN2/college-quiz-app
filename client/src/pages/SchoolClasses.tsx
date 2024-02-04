@@ -11,6 +11,7 @@ import CustomSelect from '../components/CustomSelect'
 import Loading from '../components/Loading'
 import SchoolClassesTable from '../components/SchoolClassesTable'
 import YesNoPopUp from '../components/YesNoPopUp'
+import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
@@ -29,10 +30,12 @@ export default function SchoolClasses() {
 	const queryClient = useQueryClient()
 	const queryData = useQuery({
 		queryKey: [
-			'school-classes',
-			searchParams.get('page') || '1',
-			searchParams.get('per_page') || '10',
-			searchParams.get('search')
+			queryKeys.PAGE_SCHOOL_CLASSES,
+			{
+				page: searchParams.get('page') || '1',
+				perPage: searchParams.get('per_page') || '10',
+				search: searchParams.get('search')
+			},
 		],
 		queryFn: () => apiGetSchoolClasses({
 			page: Number(searchParams.get('page')),
@@ -44,10 +47,7 @@ export default function SchoolClasses() {
 		return apiDeleteSchoolClassIds(Array.from(selectedSchoolClassIds))
 	}
 	const onMutateSuccess = () => {
-		const queryKeys = [
-			'school-classes',
-		]
-		queryKeys.forEach(key => {
+		[queryKeys.PAGE_SCHOOL_CLASSES].forEach(key => {
 			queryClient.refetchQueries({ queryKey: [key] })
 		})
 	}
