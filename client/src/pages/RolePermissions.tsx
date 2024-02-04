@@ -51,7 +51,8 @@ export default function RolePermissions() {
 	}, [DOM.titleRef, language, queryData.data])
 	useEffect(() => {
 		queryData.refetch()
-	}, [language, queryData])
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [language])
 	return (
 		<div
 			className={
