@@ -21,7 +21,7 @@ export default function YesNoPopUp({
     langNo
 }: YesNoPopUpProps) {
     const [hide, setHide] = useState(true)
-    const handleTurnOffImportMode = () => {
+    const handleClosePopUp = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
         const timing = Number(transitionTiming.replace('s', '')) * 1000
         setHide(true)
@@ -33,7 +33,7 @@ export default function YesNoPopUp({
         mutationFn: mutateFunction,
         onSuccess: () => {
             onMutateSuccess()
-            handleTurnOffImportMode()
+            handleClosePopUp()
         }
     })
     useEffect(() => {
@@ -58,7 +58,7 @@ export default function YesNoPopUp({
                 <div className={styles['header']}>
                     <h2></h2>
                     <div className={styles['esc-button']}
-                        onClick={handleTurnOffImportMode}
+                        onClick={handleClosePopUp}
                     >
                         <RxCross2 />
                     </div>
@@ -82,7 +82,7 @@ export default function YesNoPopUp({
                     </div>
                     <div className={styles['action-items']}>
                         <button
-                            onClick={handleTurnOffImportMode}
+                            onClick={handleClosePopUp}
                             className={
                                 [
                                     'action-item-d-white-border-red',

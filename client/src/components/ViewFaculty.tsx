@@ -31,7 +31,7 @@ export default function ViewFaculty({
 	const [queryUser, setQueryUser] = useState('')
 	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
 	const queryClient = useQueryClient()
-	const handleTurnOffImportMode = () => {
+	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
 		setHide(true)
@@ -113,7 +113,7 @@ export default function ViewFaculty({
 				<div className={styles['header']}>
 					<h2 className={styles['title']}>{queryData.data?.name}</h2>
 					<div className={styles['esc-button']}
-						onClick={handleTurnOffImportMode}
+						onClick={handleClosePopUp}
 					>
 						<RxCross2 />
 					</div>

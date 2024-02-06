@@ -20,7 +20,7 @@ export default function ExportUsers({
 }: ExportUsersProps) {
     const language = useLanguage<ComponentExportUsersLang>('component.export_users')
     const [hide, setHide] = useState(true)
-    const handleTurnOffImportMode = () => {
+    const handleClosePopUp = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
         const timing = Number(transitionTiming.replace('s', '')) * 1000
         setHide(true)
@@ -73,7 +73,7 @@ export default function ExportUsers({
                 <div className={styles['header']}>
                     <h2 className={styles['title']}>{language?.selectFields}</h2>
                     <div className={styles['esc-button']}
-                        onClick={handleTurnOffImportMode}
+                        onClick={handleClosePopUp}
                     >
                         <RxCross2 />
                     </div>

@@ -25,7 +25,7 @@ export default function CreateSchoolClass({
 	const [queryFaculty, setQueryFaculty] = useState('')
 	const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE)
 	const queryClient = useQueryClient()
-	const handleTurnOffInsertMode = () => {
+	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
 		setHide(true)
@@ -60,7 +60,7 @@ export default function CreateSchoolClass({
 		const form = e.target as HTMLFormElement
 		const formData = new FormData(form)
 		await apiCreateSchoolClass(formData)
-		if (submitter.name === 'save') handleTurnOffInsertMode()
+		if (submitter.name === 'save') handleClosePopUp()
 		else form.reset()
 	}
 	const { mutate, isPending } = useMutation({
@@ -103,7 +103,7 @@ export default function CreateSchoolClass({
 				<div className={styles['header']}>
 					<h2 className={styles['title']}>{language?.create}</h2>
 					<div className={styles['esc-button']}
-						onClick={handleTurnOffInsertMode}
+						onClick={handleClosePopUp}
 					>
 						<RxCross2 />
 					</div>

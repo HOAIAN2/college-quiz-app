@@ -27,7 +27,7 @@ export default function CreateFaculty({
 	const [queryUser, setQueryUser] = useState('')
 	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
 	const queryClient = useQueryClient()
-	const handleTurnOffInsertMode = () => {
+	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
 		setHide(true)
@@ -62,7 +62,7 @@ export default function CreateFaculty({
 		const form = e.target as HTMLFormElement
 		const formData = new FormData(form)
 		await apiCreateFaculty(formData)
-		if (submitter.name === 'save') handleTurnOffInsertMode()
+		if (submitter.name === 'save') handleClosePopUp()
 		else form.reset()
 	}
 	const { mutate, isPending } = useMutation({
@@ -105,7 +105,7 @@ export default function CreateFaculty({
 				<div className={styles['header']}>
 					<h2 className={styles['title']}>{language?.create}</h2>
 					<div className={styles['esc-button']}
-						onClick={handleTurnOffInsertMode}
+						onClick={handleClosePopUp}
 					>
 						<RxCross2 />
 					</div>

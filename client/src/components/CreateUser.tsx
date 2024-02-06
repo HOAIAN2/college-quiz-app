@@ -35,7 +35,7 @@ export default function CreateUser({
 	const debounceQueryClass = useDebounce(queryClass, AUTO_COMPLETE_DEBOUNCE)
 	const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE)
 	const queryClient = useQueryClient()
-	const handleTurnOffInsertMode = () => {
+	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
 		setHide(true)
@@ -69,7 +69,7 @@ export default function CreateUser({
 		const formData = new FormData(form)
 		formData.append('role', role !== undefined ? role : 'student')
 		await apiCreateUser(formData)
-		if (submitter.name === 'save') handleTurnOffInsertMode()
+		if (submitter.name === 'save') handleClosePopUp()
 		else form.reset()
 	}
 	const handleOnInput = (e: React.FormEvent<HTMLFormElement>) => {
@@ -129,7 +129,7 @@ export default function CreateUser({
 						].join(' ')
 					}</h2>
 					<div className={styles['esc-button']}
-						onClick={handleTurnOffInsertMode}
+						onClick={handleClosePopUp}
 					>
 						<RxCross2 />
 					</div>

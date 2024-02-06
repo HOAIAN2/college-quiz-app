@@ -18,7 +18,7 @@ export default function ChangePassword({
     const [hide, setHide] = useState(true)
     const buttonRef = useRef<HTMLButtonElement>(null)
     const navigate = useNavigate()
-    const handleTurnOffInsertMode = () => {
+    const handleClosePopUp = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
         const timing = Number(transitionTiming.replace('s', '')) * 1000
         setHide(true)
@@ -73,7 +73,7 @@ export default function ChangePassword({
                 <div className={styles['header']}>
                     <h2 className={styles['title']}>{language?.title}</h2>
                     <div className={styles['esc-button']}
-                        onClick={handleTurnOffInsertMode}
+                        onClick={handleClosePopUp}
                     >
                         <RxCross2 />
                     </div>

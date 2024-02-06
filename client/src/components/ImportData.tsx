@@ -29,7 +29,7 @@ export default function ImportData({
     const [hide, setHide] = useState(true)
     const [file, setFile] = useState<File>()
     const inputFileRef = useRef<HTMLInputElement>(null)
-    const handleTurnOffImportMode = () => {
+    const handleClosePopUp = () => {
         const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
         const timing = Number(transitionTiming.replace('s', '')) * 1000
         setHide(true)
@@ -85,7 +85,7 @@ export default function ImportData({
                 <div className={styles['header']}>
                     <h2 className={styles['title']}>{title}</h2>
                     <div className={styles['esc-button']}
-                        onClick={handleTurnOffImportMode}
+                        onClick={handleClosePopUp}
                     >
                         <RxCross2 />
                     </div>

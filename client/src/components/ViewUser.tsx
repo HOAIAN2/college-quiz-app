@@ -35,7 +35,7 @@ export default function ViewUser({
 	const debouceQueryClass = useDebounce(queryClass, AUTO_COMPLETE_DEBOUNCE)
 	const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE)
 	const queryClient = useQueryClient()
-	const handleTurnOffImportMode = () => {
+	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
 		setHide(true)
@@ -131,7 +131,7 @@ export default function ViewUser({
 				<div className={styles['header']}>
 					<h2 className={styles['title']}>{languageUtils.getFullName(queryData.data?.firstName, queryData.data?.lastName)}</h2>
 					<div className={styles['esc-button']}
-						onClick={handleTurnOffImportMode}
+						onClick={handleClosePopUp}
 					>
 						<RxCross2 />
 					</div>
