@@ -7,6 +7,7 @@
 	overflow-y: auto;
 	transition: var(--transition-timing-medium);
 	z-index: 10;
+	user-select: none;
 }
 
 .hide {
