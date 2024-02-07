@@ -86,10 +86,14 @@ export default function ViewSchoolClass({
 	})
 	useEffect(() => {
 		setHide(false)
+		document.addEventListener('keydown', e => {
+			if (e.key === 'Escape') handleClosePopUp()
+		}, { once: true })
 		return () => {
 			queryClient.removeQueries({ queryKey: [queryKeys.SCHOOL_CLASS_DETAIL, { id: id }] })
 			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_FACULTY] })
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id, queryClient])
 	return (
 		<div

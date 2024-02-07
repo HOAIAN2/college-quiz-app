@@ -87,10 +87,14 @@ export default function ViewFaculty({
 	})
 	useEffect(() => {
 		setHide(false)
+		document.addEventListener('keydown', e => {
+			if (e.key === 'Escape') handleClosePopUp()
+		}, { once: true })
 		return () => {
 			queryClient.removeQueries({ queryKey: [queryKeys.FACULTY_DETAIL, { id: id }] })
 			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_USER] })
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id, queryClient])
 	return (
 		<div
