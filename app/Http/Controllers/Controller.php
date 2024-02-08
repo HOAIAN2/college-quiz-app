@@ -6,8 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class Controller extends BaseController
@@ -42,15 +42,7 @@ class Controller extends BaseController
 			&& env('TOKEN_LIFETIME') != null
 			&& $is_api_call == true
 		) {
-			$interval = Carbon::now()->subMinutes(env('TOKEN_LIFETIME'));
-			DB::table('personal_access_tokens')
-				->where(function ($query) use ($interval) {
-					$query->where('last_used_at', '<', $interval)
-						->orWhere(function ($query) use ($interval) {
-							$query->where('created_at', '<', $interval)
-								->whereNull('last_used_at');
-						});
-				})->delete();
+			Artisan::call('app:clear-unsed-tokens');
 			Cache::put('last_clear_tokens_at', $now->format('Y-m-d H:i:s'));
 		}
 	}
