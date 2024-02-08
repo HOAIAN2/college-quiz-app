@@ -1,4 +1,4 @@
-const lang = {
+export default {
 	create: 'Tạo khoa',
 	shortcode: 'Mã số',
 	email: 'Email',
@@ -8,4 +8,3 @@ const lang = {
 	save: 'Lưu',
 	saveMore: 'Lưu thêm'
 }
-export default lang

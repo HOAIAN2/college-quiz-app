@@ -1,4 +1,4 @@
-const lang = {
+export default {
 	header: {
 		id: 'ID',
 		name: 'Họ tên',
@@ -19,4 +19,3 @@ const lang = {
 		inactive: 'Không hoạt động',
 	}
 }
-export default lang

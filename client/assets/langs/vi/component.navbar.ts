@@ -1,4 +1,4 @@
-const lang = {
+export default {
 	dashboard: 'Tổng quan',
 	subjects: 'Môn học',
 	courses: 'Khóa học',
@@ -11,4 +11,3 @@ const lang = {
 	students: 'Học sinh',
 	permission: 'Phân quyền'
 }
-export default lang

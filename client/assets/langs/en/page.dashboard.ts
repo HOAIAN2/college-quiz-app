@@ -1,4 +1,4 @@
-const lang = {
+export default {
 	items: {
 		numberOfTeachers: 'Number of teachers',
 		numberOfStudents: 'Number of students',
@@ -9,4 +9,3 @@ const lang = {
 		examInThisMonth: 'Exams in this month'
 	}
 }
-export default lang

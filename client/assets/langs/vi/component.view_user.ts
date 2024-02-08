@@ -1,4 +1,4 @@
-const lang = {
+export default {
 	student: 'Học sinh',
 	teacher: 'Giáo viên',
 	admin: 'Admin',
@@ -25,4 +25,3 @@ const lang = {
 	leaveBlank: 'Để trống để giữ nguyên',
 	save: 'Lưu'
 }
-export default lang

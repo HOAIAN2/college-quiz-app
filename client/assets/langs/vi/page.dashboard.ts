@@ -1,4 +1,4 @@
-const lang = {
+export default {
 	items: {
 		numberOfTeachers: 'Số lượng giáo viên',
 		numberOfStudents: 'Số lượng học sinh',
@@ -9,5 +9,3 @@ const lang = {
 		examInThisMonth: 'Bài thi tháng này'
 	}
 }
-
-export default lang

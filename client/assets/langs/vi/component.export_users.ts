@@ -1,4 +1,4 @@
-const lang = {
+export default {
 	selectFields: 'Chọn trường',
 	student: 'Học sinh',
 	teacher: 'Giáo viên',
@@ -7,4 +7,3 @@ const lang = {
 	deselectAll: 'Bỏ chọn hết',
 	save: 'Lưu'
 }
-export default lang

@@ -1,4 +1,4 @@
-const lang = {
+export default {
 	create: 'Create school class',
 	shortcode: 'Shortcode',
 	name: 'Name',
@@ -6,4 +6,3 @@ const lang = {
 	save: 'Save',
 	saveMore: 'Save more'
 }
-export default lang

@@ -1,4 +1,4 @@
-export const lang = {
+export default {
 	student: 'Học sinh',
 	teacher: 'Giáo viên',
 	admin: 'Admin',
@@ -29,4 +29,3 @@ export const lang = {
 		changePassword: 'Đổi mật khẩu'
 	}
 }
-export default lang

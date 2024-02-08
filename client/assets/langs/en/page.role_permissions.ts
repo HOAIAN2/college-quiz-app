@@ -1,4 +1,4 @@
-const lang = {
+export default {
 	teacher: 'Teacher',
 	student: 'Student',
 	permissions: 'Permissions',
@@ -6,5 +6,3 @@ const lang = {
 	studentPermissions: 'Student permissions',
 	save: 'Save'
 }
-
-export default lang

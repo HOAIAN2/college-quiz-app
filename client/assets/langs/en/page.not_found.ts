@@ -1,4 +1,3 @@
-const lang = {
+export default {
 	home: 'Home'
 }
-export default lang

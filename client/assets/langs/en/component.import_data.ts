@@ -1,5 +1,4 @@
-const lang = {
+export default {
 	save: 'Save',
 	downloadTemplate: 'Download template file'
 }
-export default lang

@@ -1,4 +1,4 @@
-const lang = {
+export default {
 	create: 'Tạo',
 	student: 'Học sinh',
 	teacher: 'Giáo viên',
@@ -21,4 +21,3 @@ const lang = {
 	save: 'Lưu',
 	saveMore: 'Lưu thêm'
 }
-export default lang

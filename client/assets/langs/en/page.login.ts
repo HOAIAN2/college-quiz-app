@@ -1,6 +1,5 @@
-const lang = {
+export default {
 	login: 'Login',
 	email: 'Email',
 	password: 'Password'
 }
-export default lang

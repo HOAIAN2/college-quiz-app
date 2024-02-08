@@ -1,4 +1,4 @@
-const lang = {
+export default {
 	shortcode: 'Shortcode',
 	email: 'Email',
 	phoneNumber: 'Phone number',
@@ -7,4 +7,3 @@ const lang = {
 	save: 'Save',
 	saveMore: 'Save more'
 }
-export default lang

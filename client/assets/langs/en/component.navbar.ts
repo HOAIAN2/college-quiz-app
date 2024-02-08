@@ -1,4 +1,4 @@
-const lang = {
+export default {
 	dashboard: 'Dashboard',
 	subjects: 'Subjects',
 	courses: 'Course',
@@ -11,4 +11,3 @@ const lang = {
 	students: 'Students',
 	permission: 'Permission'
 }
-export default lang

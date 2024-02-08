@@ -1,4 +1,4 @@
-const lang = {
+export default {
 	add: 'Add',
 	import: 'Import',
 	export: 'Export',
@@ -14,4 +14,3 @@ const lang = {
 	langYes: 'Yes',
 	langNo: 'No'
 }
-export default lang

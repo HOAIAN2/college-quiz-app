@@ -1,4 +1,4 @@
-const lang = {
+export default {
 	student: 'Student',
 	teacher: 'Teacher',
 	admin: 'Admin',
@@ -25,4 +25,3 @@ const lang = {
 	leaveBlank: 'Leave blank to remain unchanged',
 	save: 'Save'
 }
-export default lang

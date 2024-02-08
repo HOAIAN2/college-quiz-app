@@ -1,4 +1,4 @@
-const lang = {
+export default {
 	header: {
 		id: 'ID',
 		name: 'Tên',
@@ -10,4 +10,3 @@ const lang = {
 		search: 'Tìm kiếm'
 	},
 }
-export default lang

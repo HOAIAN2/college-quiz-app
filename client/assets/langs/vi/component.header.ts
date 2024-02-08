@@ -1,5 +1,4 @@
-const lang = {
+export default {
 	profile: 'Cá nhân',
 	logout: 'Đăng xuất',
 }
-export default lang
