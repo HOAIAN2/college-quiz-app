@@ -40,5 +40,5 @@ export function AppProvider({ children }: { children: ReactNode }) {
 		<AppContext.Provider value={contextValue}>
 			{children}
 		</AppContext.Provider>
-	);
+	)
 }
