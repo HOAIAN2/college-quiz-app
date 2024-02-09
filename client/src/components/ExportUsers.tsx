@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
 import { apiExportUsers, apiGetUserExportableFields } from '../api/user'
+import { queryKeys } from '../constants/query-keys'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentExportUsersLang } from '../models/lang'
 import { RoleName } from '../models/role'
@@ -29,7 +30,7 @@ export default function ExportUsers({
 		}, timing)
 	}
 	const queryData = useQuery({
-		queryKey: ['export-user'],
+		queryKey: [queryKeys.USER_EXPORTABLE_FIELDS],
 		queryFn: () => apiGetUserExportableFields(role)
 	})
 	const handleExportUsers = (e: React.FormEvent<HTMLFormElement>) => {
