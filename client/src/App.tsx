@@ -100,8 +100,10 @@ const router = createBrowserRouter([
 		]
 	}
 ])
+
 const queryClient = new QueryClient()
-function App() {
+
+export default function App() {
 	return (
 		<>
 			<Toaster
@@ -119,5 +121,3 @@ function App() {
 		</>
 	)
 }
-
-export default App
