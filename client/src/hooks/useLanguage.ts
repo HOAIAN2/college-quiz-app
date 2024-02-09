@@ -9,6 +9,6 @@ export default function useLanguage<T>(langFile: string) {
 			.then((data) => {
 				setLanguage(data.default as T)
 			})
-	})
+	}, [appLanguage.language, langFile])
 	return language
 }
