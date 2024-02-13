@@ -63,10 +63,6 @@ const router = createBrowserRouter([
 						element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>
 					},
 					{
-						path: 'profile',
-						element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>
-					},
-					{
 						path: 'exams',
 						element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>
 					},
