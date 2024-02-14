@@ -24,7 +24,7 @@ class SubjectController extends Controller
 			if ($request->search != null) {
 				$subjects = $subjects->search($request->search);
 			}
-			$subjects = $subjects->paginate();
+			$subjects = $subjects->get();
 			return Reply::successWithData($subjects, '');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());

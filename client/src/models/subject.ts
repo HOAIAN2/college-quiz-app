@@ -8,3 +8,8 @@ export type Subject = {
 export type SubjectDetail = Subject & {
 	chapters: Chapter[]
 }
+export type QuerySubjectType = {
+	page?: number
+	perPage?: number,
+	search?: string
+}

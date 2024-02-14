@@ -21,3 +21,4 @@ export type PageProfileLang = typeof import('../../assets/langs/en/page.profile'
 export type PageRolePermissionsLang = typeof import('../../assets/langs/en/page.role_permissions').default
 export type PageSchoolClassesLang = typeof import('../../assets/langs/en/page.school_classes').default
 export type PageUsersLang = typeof import('../../assets/langs/en/page.users').default
+export type PageSubjectsLang = typeof import('../../assets/langs/en/page.subjects').default
