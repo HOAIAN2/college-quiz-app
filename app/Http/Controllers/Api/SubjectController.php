@@ -57,7 +57,7 @@ class SubjectController extends Controller
 		abort_if(!$user->hasPermission('subject_view'), 403);
 
 		try {
-			$subject = Subject::with(['chapters', 'courses'])->findOrFail($id);
+			$subject = Subject::with(['chapters'])->findOrFail($id);
 			return Reply::successWithData($subject, '');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
