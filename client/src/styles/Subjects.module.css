@@ -58,7 +58,7 @@
 }
 
 .subject-card {
-	flex: 0 0 calc(25% - 20px);
+	flex: 0 0 calc(25% - 15px);
 	min-width: 160px;
 	height: 150px;
 	display: flex;
@@ -88,7 +88,7 @@
 
 @media (width<=1000px) {
 	.subject-card {
-		flex: 0 0 calc(50% - 20px);
+		flex: 0 0 calc(50% - 10px);
 	}
 }
 
