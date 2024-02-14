@@ -60,10 +60,6 @@
 	transition: var(--transition-timing-fast);
 }
 
-/* .list-item:hover {
-    border-left: 5px solid var(--color-blue);
-} */
-
 .list-item>svg {
 	font-size: 24px;
 	margin-left: 10px;
@@ -73,6 +69,16 @@
 .list-item>a {
 	font-size: 24px;
 	margin-left: 15px;
+}
+
+@media (width>=500px) {
+	.nav-bar:hover::-webkit-scrollbar-thumb {
+		display: unset;
+	}
+
+	.nav-bar::-webkit-scrollbar-thumb {
+		display: none;
+	}
 }
 
 @media (width<=800px) {
