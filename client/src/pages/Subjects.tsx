@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { BiExport, BiImport } from 'react-icons/bi'
+import { LuBookOpenCheck } from 'react-icons/lu'
 import { RiAddFill } from 'react-icons/ri'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { apiGetSubjects } from '../api/subject'
 import CustomSelect from '../components/CustomSelect'
+import Loading from '../components/Loading'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
@@ -39,7 +41,6 @@ export default function Subjects() {
 		else searchParams.set('search', queryDebounce)
 		setSearchParams(searchParams)
 	}, [queryDebounce, searchParams, setSearchParams])
-	queryData.data && console.log(queryData.data)
 	return (
 		<>
 			<div
@@ -101,6 +102,9 @@ export default function Subjects() {
 					}
 				</div>
 				<div className={styles['page-content']}>
+					{queryData.isLoading ?
+						<Loading />
+						: null}
 					<div className={styles['filter-form']}>
 						<div className={styles['wrap-input-item']}>
 							<label htmlFor="">{language?.filter.perPage}</label>
@@ -159,6 +163,28 @@ export default function Subjects() {
 									].join(' ')
 								} type="text" />
 						</div>
+					</div>
+					<div className={styles['subjects-container']}>
+						{queryData.data ?
+							queryData.data.map(item => {
+								return (
+									<Link
+										key={`subject-${item.id}`}
+										to={String(item.id)}
+										className={
+											[
+												'dashboard-card-d',
+												styles['subject-card'],
+											].join(' ')
+										}>
+										<div className={styles['card-top']}>
+											<LuBookOpenCheck />
+											{item.name}
+										</div>
+										<div className={styles['card-bottom']}>{item.shortcode}</div>
+									</Link>
+								)
+							}) : null}
 					</div>
 				</div>
 			</div>

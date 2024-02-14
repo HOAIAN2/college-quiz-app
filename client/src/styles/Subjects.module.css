@@ -1,6 +1,8 @@
 .page-content {
 	width: 100%;
 	height: calc(100% - 50px);
+	position: relative;
+	/* overflow-y: auto; */
 }
 
 .filter-form {
@@ -45,3 +47,49 @@
 	width: 80%;
 	height: 80%;
 }
+
+.subjects-container {
+	height: calc(100% - 100px);
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	overflow-y: auto;
+}
+
+.subject-card {
+	flex: 0 0 calc(25% - 20px);
+	min-width: 160px;
+	height: 150px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	border-radius: var(--border-radius-low);
+	border-left: 5px solid;
+	border-color: var(--color-soft-magenta);
+}
+
+.subject-card>.card-top {
+	height: 50%;
+	font-size: 20px;
+	padding: 0px 20px 0px 20px;
+}
+
+.subject-card>.card-top>svg {
+	position: relative;
+	top: 4px;
+	margin-right: 10px;
+}
+
+.subject-card>.card-bottom {
+	font-size: 20px;
+	margin-left: 20px;
+}
+
+@media (width<=1000px) {
+	.subject-card {
+		flex: 0 0 calc(50% - 20px);
+	}
+}
+
+@media (width<=800px) {}

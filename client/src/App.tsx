@@ -20,6 +20,7 @@ const RolePermissions = lazy(() => import('./pages/RolePermissions'))
 const Faculties = lazy(() => import('./pages/Faculties'))
 const SchoolClasses = lazy(() => import('./pages/SchoolClasses'))
 const Subjects = lazy(() => import('./pages/Subjects'))
+const Subject = lazy(() => import('./pages/Subject'))
 
 const router = createBrowserRouter([
 	{
@@ -45,7 +46,16 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'subjects',
-						element: <Suspense fallback={<SuspenseLoading />}><Subjects /></Suspense>
+						children: [
+							{
+								index: true,
+								element: <Suspense fallback={<SuspenseLoading />}><Subjects /></Suspense>
+							},
+							{
+								path: ':id',
+								element: <Suspense fallback={<SuspenseLoading />}><Subject /></Suspense>
+							}
+						]
 					},
 					{
 						path: 'profile',
