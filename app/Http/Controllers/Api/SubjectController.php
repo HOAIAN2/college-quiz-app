@@ -18,7 +18,7 @@ class SubjectController extends Controller
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('subject_view'), 403);
 
-		$subjects = Subject::withCount(['chapters', 'courses']);
+		$subjects = Subject::select('*');
 
 		try {
 			if ($request->search != null) {
