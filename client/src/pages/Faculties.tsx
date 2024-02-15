@@ -32,13 +32,13 @@ export default function Faculties() {
 			{
 				page: searchParams.get('page') || '1',
 				perPage: searchParams.get('per_page') || '10',
-				search: searchParams.get('search')
+				search: queryDebounce
 			},
 		],
 		queryFn: () => apiGetFaculties({
 			page: Number(searchParams.get('page')),
 			perPage: Number(searchParams.get('per_page')),
-			search: searchParams.get('search') as string
+			search: queryDebounce
 		})
 	})
 	const handleDeleteFaculties = async () => {

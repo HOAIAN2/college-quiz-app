@@ -20,11 +20,7 @@ export default function Subjects() {
 	const language = useLanguage<PageSubjectsLang>('page.subjects')
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_SUBJECTS, { search: queryDebounce }],
-		queryFn: () => apiGetSubjects({
-			page: Number(searchParams.get('page')),
-			perPage: Number(searchParams.get('per_page')),
-			search: searchParams.get('search') as string
-		})
+		queryFn: () => apiGetSubjects(queryDebounce)
 	})
 	useEffect(() => {
 		if (!searchParams.get('search') && !queryDebounce) return

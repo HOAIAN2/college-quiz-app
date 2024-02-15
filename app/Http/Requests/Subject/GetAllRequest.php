@@ -24,8 +24,6 @@ class GetAllRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'per_page' => ['required', 'integer', 'in:10,20,30,40,50'],
-			'page' => ['nullable', 'integer'],
 			'search' => ['nullable', 'string'],
 		];
 	}

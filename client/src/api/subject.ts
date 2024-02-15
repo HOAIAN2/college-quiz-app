@@ -1,15 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import request from '../config/api'
 import { ApiResponseWithData } from '../models/response'
-import { QuerySubjectType, Subject, SubjectDetail } from '../models/subject'
+import { Subject, SubjectDetail } from '../models/subject'
 
-export async function apiGetSubjects(query?: QuerySubjectType) {
+export async function apiGetSubjects(query: string) {
 	try {
 		const res = await request.get('/subject', {
 			params: {
-				page: query?.page || 1,
-				per_page: query?.perPage || 10,
-				search: query?.search
+				search: query
 			}
 		})
 		const { data } = res.data as ApiResponseWithData<Subject[]>

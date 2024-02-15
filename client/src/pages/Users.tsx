@@ -51,14 +51,14 @@ export default function Users({
 				role: role,
 				page: searchParams.get('page') || '1',
 				perPage: searchParams.get('per_page') || '10',
-				search: searchParams.get('search')
+				search: queryDebounce
 			}
 		],
 		queryFn: () => apiGetUsersByType({
 			role: role,
 			page: Number(searchParams.get('page')),
 			perPage: Number(searchParams.get('per_page')),
-			search: searchParams.get('search') as string
+			search: queryDebounce
 		})
 	})
 	const importFunction = async (file: File) => {
