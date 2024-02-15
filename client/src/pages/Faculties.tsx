@@ -1,6 +1,5 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
-import { BiExport, BiImport } from 'react-icons/bi'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RiAddFill } from 'react-icons/ri'
 import { useSearchParams } from 'react-router-dom'
@@ -102,7 +101,7 @@ export default function Faculties() {
 							</div>
 							: null
 					}
-					{
+					{/* {
 						permissions.has('faculty_create') ?
 							<div className={
 								[
@@ -116,8 +115,8 @@ export default function Faculties() {
 								<BiImport /> {language?.import}
 							</div>
 							: null
-					}
-					{
+					} */}
+					{/* {
 						permissions.has('faculty_view') ?
 							<div className={
 								[
@@ -131,7 +130,7 @@ export default function Faculties() {
 								<BiExport /> {language?.export}
 							</div>
 							: null
-					}
+					} */}
 					{
 						selectedFacultyIds.size > 0 && permissions.has('user_delete') ?
 							<div

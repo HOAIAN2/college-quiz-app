@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
-import { BiExport, BiImport } from 'react-icons/bi'
 import { LuBookOpenCheck } from 'react-icons/lu'
 import { RiAddFill } from 'react-icons/ri'
 import { Link, useSearchParams } from 'react-router-dom'
@@ -20,12 +19,7 @@ export default function Subjects() {
 	const queryDebounce = useDebounce(searchQuery)
 	const language = useLanguage<PageSubjectsLang>('page.subjects')
 	const queryData = useQuery({
-		queryKey: [
-			queryKeys.PAGE_SUBJECTS,
-			{
-				search: searchParams.get('search')
-			}
-		],
+		queryKey: [queryKeys.PAGE_SUBJECTS, { search: queryDebounce }],
 		queryFn: () => apiGetSubjects({
 			page: Number(searchParams.get('page')),
 			perPage: Number(searchParams.get('per_page')),
@@ -67,7 +61,7 @@ export default function Subjects() {
 							</div>
 							: null
 					}
-					{
+					{/* {
 						permissions.has('user_create') ?
 							<div className={
 								[
@@ -81,8 +75,8 @@ export default function Subjects() {
 								<BiImport /> {language?.import}
 							</div>
 							: null
-					}
-					{
+					} */}
+					{/* {
 						permissions.has('user_view') ?
 							<div className={
 								[
@@ -96,7 +90,7 @@ export default function Subjects() {
 								<BiExport /> {language?.export}
 							</div>
 							: null
-					}
+					} */}
 				</div>
 				<div className={styles['page-content']}>
 					{queryData.isLoading ?
