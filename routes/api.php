@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ChapterController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Api\RolePermissionController;
@@ -77,7 +78,7 @@ Route::prefix('/subject')->middleware('auth:sanctum')
 	});
 
 Route::prefix('/chapter')->middleware('auth:sanctum')
-	->controller(SubjectController::class)->group(function () {
+	->controller(ChapterController::class)->group(function () {
 		Route::put('/{id}', 'update');
 		Route::delete('/{id}', 'destroy');
 		Route::post('/', 'store');
