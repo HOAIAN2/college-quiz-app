@@ -1,9 +1,10 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { LuBookOpenCheck } from 'react-icons/lu'
 import { RiAddFill } from 'react-icons/ri'
 import { Link, useSearchParams } from 'react-router-dom'
 import { apiGetSubjects } from '../api/subject'
+import CreateSubject from '../components/CreateSubject'
 import Loading from '../components/Loading'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
@@ -18,6 +19,8 @@ export default function Subjects() {
 	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
 	const queryDebounce = useDebounce(searchQuery)
 	const language = useLanguage<PageSubjectsLang>('page.subjects')
+	const [insertMode, setInsertMode] = useState(false)
+	const queryClient = useQueryClient()
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_SUBJECTS, { search: queryDebounce }],
 		queryFn: () => apiGetSubjects(queryDebounce)
@@ -28,8 +31,18 @@ export default function Subjects() {
 		else searchParams.set('search', queryDebounce)
 		setSearchParams(searchParams)
 	}, [queryDebounce, searchParams, setSearchParams])
+	const onMutateSuccess = () => {
+		[queryKeys.PAGE_SUBJECTS].forEach(key => {
+			queryClient.refetchQueries({ queryKey: [key] })
+		})
+	}
 	return (
 		<>
+			{insertMode === true ?
+				<CreateSubject
+					onMutateSuccess={onMutateSuccess}
+					setInsertMode={setInsertMode}
+				/> : null}
 			<div
 				className={
 					[
@@ -49,9 +62,9 @@ export default function Subjects() {
 									'action-item-d'
 								].join(' ')
 							}
-							// onClick={() => {
-							// 	setInsertMode(true)
-							// }}
+								onClick={() => {
+									setInsertMode(true)
+								}}
 							>
 								<RiAddFill /> {language?.add}
 							</div>
