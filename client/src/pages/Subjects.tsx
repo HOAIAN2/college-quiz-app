@@ -23,8 +23,6 @@ export default function Subjects() {
 		queryKey: [
 			queryKeys.PAGE_SUBJECTS,
 			{
-				page: searchParams.get('page') || '1',
-				perPage: searchParams.get('per_page') || '10',
 				search: searchParams.get('search')
 			}
 		],
