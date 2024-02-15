@@ -6,6 +6,7 @@ use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Subject\GetAllRequest;
 use App\Http\Requests\Subject\StoreRequest;
+use App\Http\Requests\Subject\UpdateRequest;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -66,7 +67,7 @@ class SubjectController extends Controller
 		}
 	}
 
-	public function update(Request $request, string $id)
+	public function update(UpdateRequest $request, string $id)
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('subject_update'), 403);

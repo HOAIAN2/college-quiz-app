@@ -82,7 +82,7 @@ export default function Profile() {
 		].join(' ')
 	useEffect(() => {
 		return () => {
-			queryClient.removeQueries({ queryKey: ['current-user'] })
+			queryClient.removeQueries({ queryKey: [queryKeys.PAGE_PROFILE] })
 		}
 	}, [queryClient])
 	if (!queryData.data) return <SuspenseLoading />
