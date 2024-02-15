@@ -5,14 +5,13 @@ import { LuBookOpenCheck } from 'react-icons/lu'
 import { RiAddFill } from 'react-icons/ri'
 import { Link, useSearchParams } from 'react-router-dom'
 import { apiGetSubjects } from '../api/subject'
-import CustomSelect from '../components/CustomSelect'
 import Loading from '../components/Loading'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { PageSubjectsLang } from '../models/lang'
-import styles from '../styles/Subjects.module.css'
+import styles from '../styles/global/CardPage.module.css'
 
 export default function Subjects() {
 	const { permissions } = useAppContext()
@@ -107,48 +106,6 @@ export default function Subjects() {
 						: null}
 					<div className={styles['filter-form']}>
 						<div className={styles['wrap-input-item']}>
-							<label htmlFor="">{language?.filter.perPage}</label>
-							<CustomSelect
-								defaultOption={
-									{
-										label: searchParams.get('per_page') || '10',
-										value: searchParams.get('per_page') || '10'
-									}
-								}
-								options={[
-									{
-										label: '10',
-										value: '10'
-									},
-									{
-										label: '20',
-										value: '20'
-									},
-									{
-										label: '30',
-										value: '30'
-									},
-									{
-										label: '40',
-										value: '40'
-									},
-									{
-										label: '50',
-										value: '50'
-									},
-								]}
-								onChange={(option) => {
-									searchParams.set('per_page', option.value)
-									setSearchParams(searchParams)
-								}}
-								className={
-									[
-										styles['custom-select']
-									].join(' ')
-								}
-							/>
-						</div>
-						<div className={styles['wrap-input-item']}>
 							<label htmlFor="">{language?.filter.search}</label>
 							<input
 								onInput={(e) => {
@@ -164,7 +121,7 @@ export default function Subjects() {
 								} type="text" />
 						</div>
 					</div>
-					<div className={styles['subjects-container']}>
+					<div className={styles['card-container']}>
 						{queryData.data ?
 							queryData.data.map(item => {
 								return (
@@ -174,7 +131,7 @@ export default function Subjects() {
 										className={
 											[
 												'dashboard-card-d',
-												styles['subject-card'],
+												styles['card'],
 											].join(' ')
 										}>
 										<div className={styles['card-top']}>

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import request from '../config/api'
 import { ApiResponseWithData } from '../models/response'
-import { QuerySubjectType, Subject } from '../models/subject'
+import { QuerySubjectType, Subject, SubjectDetail } from '../models/subject'
 
 export async function apiGetSubjects(query?: QuerySubjectType) {
 	try {
@@ -13,6 +13,16 @@ export async function apiGetSubjects(query?: QuerySubjectType) {
 			}
 		})
 		const { data } = res.data as ApiResponseWithData<Subject[]>
+		return data
+	} catch (error: any) {
+		throw new Error(error.message)
+	}
+}
+
+export async function apiGetSubjectById(id: string | number) {
+	try {
+		const res = await request.get('/subject/' + id)
+		const { data } = res.data as ApiResponseWithData<SubjectDetail>
 		return data
 	} catch (error: any) {
 		throw new Error(error.message)
