@@ -71,16 +71,6 @@
 	margin-left: 15px;
 }
 
-@media (width>=500px) {
-	.nav-bar:hover::-webkit-scrollbar-thumb {
-		display: unset;
-	}
-
-	.nav-bar::-webkit-scrollbar-thumb {
-		display: none;
-	}
-}
-
 @media (width<=800px) {
 	.nav-bar {
 		position: fixed;
