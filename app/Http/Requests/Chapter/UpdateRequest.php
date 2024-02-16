@@ -24,7 +24,6 @@ class UpdateRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'chapter_number' => ['required', 'string', 'max:255'],
 			'name' => ['required', 'string', 'max:255'],
 		];
 	}
