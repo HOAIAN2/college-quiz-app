@@ -3,6 +3,7 @@
 return [
 	'required' => 'Vui lòng nhập đầy đủ :attribute.',
 	'string' => 'Trường :attribute phải là một chuỗi ký tự.',
+	'integer' => 'Trường :attribute phải là số nguyên',
 	'in' => 'Giá trị đã chọn cho trường :attribute không hợp lệ.',
 	'unique' => 'Trường :attribute đã tồn tại trong hệ thống.',
 	'email' => 'Trường :attribute phải là địa chỉ email hợp lệ.',
@@ -30,6 +31,7 @@ return [
 		'school_class' => 'lớp học',
 		'faculty' => 'khoa',
 		'password' => 'mật khẩu',
+		'chapter_number' => 'số chương'
 	],
 	'custom' => [
 		'role' => [
@@ -58,5 +60,8 @@ return [
 			'confirmed' => 'Xác nhận mật khẩu không khớp.',
 			'min' => 'Mật khẩu phải chứa ít nhất :min ký tự.',
 		],
+		'chapter_number' => [
+			'unique' => 'Môn học đã tồn tại chương này'
+		]
 	],
 ];

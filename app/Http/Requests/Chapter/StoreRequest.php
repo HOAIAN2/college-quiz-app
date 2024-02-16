@@ -4,6 +4,7 @@ namespace App\Http\Requests\Chapter;
 
 use App\Traits\CustomValidateResponse;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRequest extends FormRequest
 {
@@ -25,7 +26,12 @@ class StoreRequest extends FormRequest
 	{
 		return [
 			'subject_id' => ['required', 'integer'],
-			'chapter_number' => ['required', 'string', 'max:255'],
+			'chapter_number' => [
+				'required', 'integer', 'min:1',
+				Rule::unique('chapters')->where(function ($query) {
+					return $query->where('subject_id', $this->subject_id);
+				})->ignore($this->id),
+			],
 			'name' => ['required', 'string', 'max:255'],
 		];
 	}

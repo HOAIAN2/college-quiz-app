@@ -3,6 +3,7 @@
 return [
 	'required' => 'Please enter the :attribute.',
 	'string' => 'The :attribute field must be a string.',
+	'integer' => 'The :attribute number field must be an integer.',
 	'in' => 'The selected value for :attribute is invalid.',
 	'unique' => 'The :attribute field already exists in the system.',
 	'email' => 'The :attribute field must be a valid email address.',
@@ -30,6 +31,7 @@ return [
 		'school_class' => 'school class',
 		'faculty' => 'faculty',
 		'password' => 'password',
+		'chapter_number' => 'chapter number'
 	],
 	'custom' => [
 		'role' => [
@@ -58,5 +60,8 @@ return [
 			'confirmed' => 'The password confirmation does not match.',
 			'min' => 'The password must contain at least :min characters.',
 		],
+		'chapter_number' => [
+			'unique' => 'This chapter already exists for the subject.',
+		]
 	],
 ];
