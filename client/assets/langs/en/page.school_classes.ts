@@ -10,7 +10,7 @@ export default {
 		perPage: 'Rows',
 		search: 'Search'
 	},
-	deleteMessage: 'Are you sure you want to delete @n records? This action cannot be undone.',
+	deleteMessage: 'Are you sure you want to delete this subject? This action cannot be undone.',
 	langYes: 'Yes',
 	langNo: 'No'
 }

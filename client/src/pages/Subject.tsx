@@ -1,8 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { SyntheticEvent, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { apiGetSubjectById, apiUpdateSubject } from '../api/subject'
+import { SyntheticEvent, useEffect, useState } from 'react'
+import { LuBookOpenCheck } from 'react-icons/lu'
+import { MdDeleteOutline } from 'react-icons/md'
+import { useNavigate, useParams } from 'react-router-dom'
+import { apiDeleteSubject, apiGetSubjectById, apiUpdateSubject } from '../api/subject'
 import Loading from '../components/Loading'
+import YesNoPopUp from '../components/YesNoPopUp'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
@@ -14,6 +17,8 @@ export default function Subject() {
 	const { permissions } = useAppContext()
 	const language = useLanguage<PageSubjectLang>('page.subject')
 	const queryClient = useQueryClient()
+	const [showDeletePopUp, setShowDeletePoUp] = useState(false)
+	const navigate = useNavigate()
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_SUBJECT, { id: id }],
 		queryFn: () => apiGetSubjectById(String(id))
@@ -32,7 +37,7 @@ export default function Subject() {
 	}
 	const handleUpdateUser = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
-		if (!permissions.has('user_update')) return
+		if (!permissions.has('subject_update')) return
 		document.querySelector(styles['form-data'])?.querySelectorAll('input[name]').forEach(node => {
 			const element = node as HTMLInputElement
 			element.classList.remove('error')
@@ -56,13 +61,31 @@ export default function Subject() {
 			}
 		},
 	})
+	const handleDeletetSubject = async () => {
+		return await apiDeleteSubject(String(id))
+	}
+	const onMutateSuccess = () => {
+		[queryKeys.PAGE_SUBJECTS].forEach(key => {
+			queryClient.refetchQueries({ queryKey: [key] })
+		})
+		navigate('/subjects')
+	}
 	useEffect(() => {
 		return () => {
 			queryClient.removeQueries({ queryKey: [queryKeys.PAGE_SUBJECT, { id: id }] })
 		}
-	}, [queryClient])
+	}, [id, queryClient])
 	return (
 		<>
+			{showDeletePopUp === true ?
+				<YesNoPopUp
+					message={language?.deleteMessage || ''}
+					mutateFunction={handleDeletetSubject}
+					setShowPopUpMode={setShowDeletePoUp}
+					onMutateSuccess={onMutateSuccess}
+					langYes={language?.langYes}
+					langNo={language?.langNo}
+				/> : null}
 			<div className={
 				[
 					'dashboard-d',
@@ -101,7 +124,7 @@ export default function Subject() {
 											<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 											<input
 												id='shortcode'
-												disabled={!permissions.has('user_update')}
+												disabled={!permissions.has('subject_update')}
 												defaultValue={queryData.data.shortcode}
 												name='shortcode'
 												className={
@@ -115,7 +138,7 @@ export default function Subject() {
 											<label className={styles['required']} htmlFor='name'>{language?.name}</label>
 											<input
 												id='name'
-												disabled={!permissions.has('user_update')}
+												disabled={!permissions.has('subject_update')}
 												defaultValue={queryData.data.name}
 												name='name'
 												className={
@@ -127,7 +150,7 @@ export default function Subject() {
 										</div>
 									</div>
 									{
-										permissions.has('user_update') ?
+										permissions.has('subject_update') ?
 											<div className={styles['action-items']}>
 												<button name='save'
 													className={
@@ -142,6 +165,48 @@ export default function Subject() {
 									}
 								</form>
 							</div>
+							<div className={styles['header']}>
+								<h2 className={styles['title']}>{language?.chapters}</h2>
+							</div>
+							<div className={styles['chapters-container']}>
+								{
+									queryData.data.chapters.map(chapter => {
+										return (
+											<div
+												key={`chapter-${chapter.id}`}
+												className={
+													[
+														'dashboard-card-d',
+														styles['card'],
+													].join(' ')
+												}>
+												<div className={styles['card-top']}>
+													<LuBookOpenCheck />
+													{chapter.name}
+												</div>
+												<div className={styles['card-bottom']}>{chapter.chapterNumber}</div>
+											</div>
+										)
+									})
+								}
+							</div>
+							{
+								permissions.has('subject_delete') ?
+									<div className={styles['action-items']}>
+										<div
+											onClick={() => {
+												setShowDeletePoUp(true)
+											}}
+											className={
+												[
+													'action-item-d-white-border-red'
+												].join(' ')
+											}>
+											<MdDeleteOutline /> {language?.delete}
+										</div>
+									</div>
+									: null
+							}
 						</> : null
 				}
 			</div >

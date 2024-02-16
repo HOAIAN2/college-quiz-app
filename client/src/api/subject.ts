@@ -48,3 +48,14 @@ export async function apiUpdateSubject(formData: FormData, id: string | number) 
 		throw new Error(message)
 	}
 }
+
+export async function apiDeleteSubject(id: string | number) {
+	try {
+		await request.delete('/subject/' + id)
+	} catch (error: any) {
+		if (!error.response) throw new Error(error.message)
+		const message = error.response.data.message
+		if (error.response.data.errors) return Promise.reject(error.response.data.errors)
+		throw new Error(message)
+	}
+}

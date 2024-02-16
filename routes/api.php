@@ -74,7 +74,7 @@ Route::prefix('/subject')->middleware('auth:sanctum')
 		Route::put('/{id}', 'update');
 		Route::get('/', 'index');
 		Route::post('/', 'store');
-		Route::delete('/', 'destroy');
+		Route::delete('/{id}', 'destroy');
 	});
 
 Route::prefix('/chapter')->middleware('auth:sanctum')

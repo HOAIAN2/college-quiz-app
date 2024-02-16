@@ -13,4 +13,5 @@ export default {
 	save: 'Save',
 	name: 'Name',
 	shortcode: 'Shortcode',
+	chapters: 'Chapters'
 }
