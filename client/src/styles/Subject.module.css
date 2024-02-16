@@ -99,7 +99,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: 20px;
-	padding: 20px;
+	padding: 10px;
 }
 
 .card {
@@ -138,4 +138,10 @@
 	}
 }
 
-@media (width<=800px) {}
+@media (width<=800px) {
+	.group-inputs {
+		flex-direction: column;
+		padding-right: 20px;
+		gap: 20px;
+	}
+}
