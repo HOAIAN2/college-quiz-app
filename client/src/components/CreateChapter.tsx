@@ -1,22 +1,24 @@
 import { useMutation } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
-import { apiCreateSubject } from '../api/subject'
+import { apiCreateChapter } from '../api/chapter'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentCreateSubjectLang } from '../models/lang'
+import { ComponentCreateChapterLang } from '../models/lang'
 import styles from '../styles/global/CreateModel.module.css'
 import Loading from './Loading'
 
-type CreateSubjectProps = {
+type CreateChapterProps = {
+	subjectId: number | string
 	onMutateSuccess: () => void
 	setInsertMode: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function CreateSubject({
+export default function CreateChapter({
+	subjectId,
 	onMutateSuccess,
 	setInsertMode
-}: CreateSubjectProps) {
-	const language = useLanguage<ComponentCreateSubjectLang>('component.create_subject')
+}: CreateChapterProps) {
+	const language = useLanguage<ComponentCreateChapterLang>('component.create_chapter')
 	const [hide, setHide] = useState(true)
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -38,7 +40,7 @@ export default function CreateSubject({
 			getParentElement(element).removeAttribute('data-error')
 		}
 	}
-	const handleCreateFaculty = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
+	const handleCreateChapter = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
 		document.querySelector(styles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
 			node.classList.remove('error')
@@ -47,12 +49,12 @@ export default function CreateSubject({
 		const submitter = e.nativeEvent.submitter as HTMLButtonElement
 		const form = e.target as HTMLFormElement
 		const formData = new FormData(form)
-		await apiCreateSubject(formData)
+		await apiCreateChapter(formData)
 		if (submitter.name === 'save') handleClosePopUp()
 		else form.reset()
 	}
 	const { mutate, isPending } = useMutation({
-		mutationFn: handleCreateFaculty,
+		mutationFn: handleCreateChapter,
 		onError: (error: object) => {
 			if (typeof error === 'object') {
 				for (const key in error) {
@@ -108,11 +110,12 @@ export default function CreateSubject({
 								styles['group-inputs']
 							].join(' ')
 						}>
+							<input readOnly hidden name='subject_id' value={subjectId} />
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
+								<label className={styles['required']} htmlFor='chapter_number'>{language?.chapterNumber}</label>
 								<input
-									id='shortcode'
-									name='shortcode'
+									id='chapter_number'
+									name='chapter_number'
 									className={
 										[
 											'input-d',

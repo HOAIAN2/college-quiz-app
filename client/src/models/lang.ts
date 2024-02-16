@@ -24,3 +24,4 @@ export type PageUsersLang = typeof import('../../assets/langs/en/page.users').de
 export type PageSubjectsLang = typeof import('../../assets/langs/en/page.subjects').default
 export type PageSubjectLang = typeof import('../../assets/langs/en/page.subject').default
 export type ComponentCreateSubjectLang = typeof import('../../assets/langs/en/component.create_subject').default
+export type ComponentCreateChapterLang = typeof import('../../assets/langs/en/component.create_chapter').default

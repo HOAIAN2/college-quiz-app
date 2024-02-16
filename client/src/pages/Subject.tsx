@@ -2,8 +2,10 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { LuBookOpenCheck } from 'react-icons/lu'
 import { MdDeleteOutline } from 'react-icons/md'
+import { RiAddFill } from 'react-icons/ri'
 import { useNavigate, useParams } from 'react-router-dom'
 import { apiDeleteSubject, apiGetSubjectById, apiUpdateSubject } from '../api/subject'
+import CreateChapter from '../components/CreateChapter'
 import Loading from '../components/Loading'
 import YesNoPopUp from '../components/YesNoPopUp'
 import { queryKeys } from '../constants/query-keys'
@@ -18,6 +20,7 @@ export default function Subject() {
 	const language = useLanguage<PageSubjectLang>('page.subject')
 	const queryClient = useQueryClient()
 	const [showDeletePopUp, setShowDeletePoUp] = useState(false)
+	const [insertMode, setInsertMode] = useState(false)
 	const navigate = useNavigate()
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_SUBJECT, { id: id }],
@@ -77,6 +80,12 @@ export default function Subject() {
 	}, [id, queryClient])
 	return (
 		<>
+			{insertMode === true ?
+				<CreateChapter
+					subjectId={String(id)}
+					onMutateSuccess={() => { queryData.refetch() }}
+					setInsertMode={setInsertMode}
+				/> : null}
 			{showDeletePopUp === true ?
 				<YesNoPopUp
 					message={language?.deleteMessage || ''}
@@ -168,6 +177,29 @@ export default function Subject() {
 							<div className={styles['header']}>
 								<h2 className={styles['title']}>{language?.chapters}</h2>
 							</div>
+							{
+								permissions.has('subject_update') ?
+									<div className={
+										[
+											'action-bar-d'
+										].join(' ')
+									}
+										style={{ paddingLeft: '20px' }}
+									>
+										<div className={
+											[
+												'action-item-d'
+											].join(' ')
+										}
+											onClick={() => {
+												setInsertMode(true)
+											}}
+										>
+											<RiAddFill /> {language?.add}
+										</div>
+									</div>
+									: null
+							}
 							<div className={styles['chapters-container']}>
 								{
 									queryData.data.chapters.map(chapter => {
