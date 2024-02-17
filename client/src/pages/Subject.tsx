@@ -67,6 +67,7 @@ export default function Subject() {
 				}
 			}
 		},
+		onSuccess: () => { queryData.refetch() }
 	})
 	const handleDeletetSubject = async () => {
 		return await apiDeleteSubject(String(id))
@@ -75,6 +76,7 @@ export default function Subject() {
 		[queryKeys.PAGE_SUBJECTS].forEach(key => {
 			queryClient.refetchQueries({ queryKey: [key] })
 		})
+		queryData.refetch()
 		navigate('/subjects')
 	}
 	useEffect(() => {
