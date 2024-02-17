@@ -148,7 +148,7 @@ export default function ViewChapter({
 											className={
 												[
 													'action-item-d',
-													// isPending ? 'button-submitting' : ''
+													isPending ? 'button-submitting' : ''
 												].join(' ')
 											}
 										>{language?.save}</button>

@@ -178,7 +178,7 @@ export default function Subject() {
 													className={
 														[
 															'action-item-d',
-															// isPending ? 'button-submitting' : ''
+															isPending ? 'button-submitting' : ''
 														].join(' ')
 													}
 												>{language?.save}</button>
