@@ -142,7 +142,7 @@ export default function CreateSchoolClass({
 									} type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='shortcode'>{language?.name}</label>
+								<label className={styles['required']} htmlFor='name'>{language?.name}</label>
 								<input
 									id='name'
 									name='name'
