@@ -86,10 +86,12 @@ export default function ViewSchoolClass({
 	})
 	useEffect(() => {
 		setHide(false)
-		document.addEventListener('keydown', e => {
-			if (e.key === 'Escape') handleClosePopUp()
-		}, { once: true })
+		const handleEscEvent = (e: KeyboardEvent) => {
+			if (e.key === 'Escape' && document.activeElement?.nodeName !== 'INPUT') handleClosePopUp()
+		}
+		document.addEventListener('keydown', handleEscEvent)
 		return () => {
+			document.removeEventListener('keydown', handleEscEvent)
 			queryClient.removeQueries({ queryKey: [queryKeys.SCHOOL_CLASS_DETAIL, { id: id }] })
 			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_FACULTY] })
 		}

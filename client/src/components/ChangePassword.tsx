@@ -56,6 +56,14 @@ export default function ChangePassword({
 	}
 	useEffect(() => {
 		setHide(false)
+		const handleEscEvent = (e: KeyboardEvent) => {
+			if (e.key === 'Escape' && document.activeElement?.nodeName !== 'INPUT') handleClosePopUp()
+		}
+		document.addEventListener('keydown', handleEscEvent)
+		return () => {
+			document.removeEventListener('keydown', handleEscEvent)
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 	return (
 		<div className={

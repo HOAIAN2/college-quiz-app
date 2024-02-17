@@ -80,10 +80,12 @@ export default function CreateSchoolClass({
 	})
 	useEffect(() => {
 		setHide(false)
-		document.addEventListener('keydown', e => {
-			if (e.key === 'Escape') handleClosePopUp()
-		}, { once: true })
+		const handleEscEvent = (e: KeyboardEvent) => {
+			if (e.key === 'Escape' && document.activeElement?.nodeName !== 'INPUT') handleClosePopUp()
+		}
+		document.addEventListener('keydown', handleEscEvent)
 		return () => {
+			document.removeEventListener('keydown', handleEscEvent)
 			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_FACULTY] })
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps

@@ -70,9 +70,13 @@ export default function CreateChapter({
 	})
 	useEffect(() => {
 		setHide(false)
-		document.addEventListener('keydown', e => {
-			if (e.key === 'Escape') handleClosePopUp()
-		}, { once: true })
+		const handleEscEvent = (e: KeyboardEvent) => {
+			if (e.key === 'Escape' && document.activeElement?.nodeName !== 'INPUT') handleClosePopUp()
+		}
+		document.addEventListener('keydown', handleEscEvent)
+		return () => {
+			document.removeEventListener('keydown', handleEscEvent)
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 	return (
