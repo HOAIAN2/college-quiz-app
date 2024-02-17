@@ -10,13 +10,13 @@ import Loading from './Loading'
 type CreateChapterProps = {
 	subjectId: number | string
 	onMutateSuccess: () => void
-	setInsertMode: React.Dispatch<React.SetStateAction<boolean>>
+	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function CreateChapter({
 	subjectId,
 	onMutateSuccess,
-	setInsertMode
+	setShowPopUp
 }: CreateChapterProps) {
 	const language = useLanguage<ComponentCreateChapterLang>('component.create_chapter')
 	const [hide, setHide] = useState(true)
@@ -25,7 +25,7 @@ export default function CreateChapter({
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
 		setHide(true)
 		setTimeout(() => {
-			setInsertMode(false)
+			setShowPopUp(false)
 		}, timing)
 	}
 	const getParentElement = (element: HTMLInputElement) => {

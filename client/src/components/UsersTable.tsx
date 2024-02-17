@@ -88,7 +88,7 @@ export default function UsersTable({
 				<ViewUser
 					id={userId}
 					onMutateSuccess={onMutateSuccess}
-					setViewMode={setViewMode}
+					setShowPopUp={setViewMode}
 				/> : null}
 			<div className={styles['table-content']}>
 				<table className={styles['main']}>

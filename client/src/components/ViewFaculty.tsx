@@ -17,13 +17,13 @@ import Loading from './Loading'
 type ViewFacultyProps = {
 	id: number
 	onMutateSuccess: () => void
-	setViewMode: React.Dispatch<React.SetStateAction<boolean>>
+	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function ViewFaculty({
 	id,
 	onMutateSuccess,
-	setViewMode
+	setShowPopUp
 }: ViewFacultyProps) {
 	const [hide, setHide] = useState(true)
 	const language = useLanguage<ComponentViewFacultyLang>('component.view_faculty')
@@ -36,7 +36,7 @@ export default function ViewFaculty({
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
 		setHide(true)
 		setTimeout(() => {
-			setViewMode(false)
+			setShowPopUp(false)
 		}, timing)
 	}
 	const queryData = useQuery({

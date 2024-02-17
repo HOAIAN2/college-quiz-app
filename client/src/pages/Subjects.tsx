@@ -41,7 +41,7 @@ export default function Subjects() {
 			{insertMode === true ?
 				<CreateSubject
 					onMutateSuccess={onMutateSuccess}
-					setInsertMode={setInsertMode}
+					setShowPopUp={setInsertMode}
 				/> : null}
 			<div
 				className={

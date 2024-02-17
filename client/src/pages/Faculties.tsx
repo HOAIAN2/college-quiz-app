@@ -19,8 +19,8 @@ import styles from '../styles/global/TablePage.module.css'
 export default function Faculties() {
 	const { permissions } = useAppContext()
 	const language = useLanguage<PageFacultiesLang>('page.faculties')
-	const [insertMode, setInsertMode] = useState(false)
-	const [showPopUpMode, setShowPopUpMode] = useState(false)
+	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
+	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
 	const [searchParams, setSearchParams] = useSearchParams()
 	const queryClient = useQueryClient()
 	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
@@ -60,16 +60,16 @@ export default function Faculties() {
 	}, [queryDebounce, searchParams, setSearchParams])
 	return (
 		<>
-			{insertMode === true ?
+			{showCreatePopUp === true ?
 				<CreateFaculty
 					onMutateSuccess={onMutateSuccess}
-					setInsertMode={setInsertMode}
+					setShowPopup={setShowCreatePopUp}
 				/> : null}
-			{showPopUpMode === true ?
+			{showDeletePopUp === true ?
 				<YesNoPopUp
 					message={language?.deleteMessage.replace('@n', String(selectedFacultyIds.size)) || ''}
 					mutateFunction={handleDeleteFaculties}
-					setShowPopUpMode={setShowPopUpMode}
+					setShowPopUp={setShowDeletePopUp}
 					onMutateSuccess={onMutateSuccess}
 					langYes={language?.langYes}
 					langNo={language?.langNo}
@@ -94,7 +94,7 @@ export default function Faculties() {
 								].join(' ')
 							}
 								onClick={() => {
-									setInsertMode(true)
+									setShowCreatePopUp(true)
 								}}
 							>
 								<RiAddFill /> {language?.add}
@@ -135,7 +135,7 @@ export default function Faculties() {
 						selectedFacultyIds.size > 0 && permissions.has('user_delete') ?
 							<div
 								onClick={() => {
-									setShowPopUpMode(true)
+									setShowDeletePopUp(true)
 								}}
 								className={
 									[

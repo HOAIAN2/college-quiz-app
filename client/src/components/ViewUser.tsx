@@ -20,12 +20,12 @@ import Loading from './Loading'
 type ViewUserProps = {
 	id: number
 	onMutateSuccess: () => void
-	setViewMode: React.Dispatch<React.SetStateAction<boolean>>
+	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 export default function ViewUser({
 	id,
 	onMutateSuccess,
-	setViewMode
+	setShowPopUp
 }: ViewUserProps) {
 	const [hide, setHide] = useState(true)
 	const language = useLanguage<ComponentViewUserLang>('component.view_user')
@@ -40,7 +40,7 @@ export default function ViewUser({
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
 		setHide(true)
 		setTimeout(() => {
-			setViewMode(false)
+			setShowPopUp(false)
 		}, timing)
 	}
 	const queryData = useQuery({

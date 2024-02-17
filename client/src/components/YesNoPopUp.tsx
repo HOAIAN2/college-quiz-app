@@ -8,7 +8,7 @@ type YesNoPopUpProps = {
 	message: string
 	mutateFunction: () => Promise<void>
 	onMutateSuccess: () => void
-	setShowPopUpMode: React.Dispatch<React.SetStateAction<boolean>>
+	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
 	langYes?: string
 	langNo?: string
 }
@@ -16,7 +16,7 @@ export default function YesNoPopUp({
 	message,
 	mutateFunction,
 	onMutateSuccess,
-	setShowPopUpMode,
+	setShowPopUp,
 	langYes,
 	langNo
 }: YesNoPopUpProps) {
@@ -26,7 +26,7 @@ export default function YesNoPopUp({
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
 		setHide(true)
 		setTimeout(() => {
-			setShowPopUpMode(false)
+			setShowPopUp(false)
 		}, timing)
 	}
 	const mutation = useMutation({

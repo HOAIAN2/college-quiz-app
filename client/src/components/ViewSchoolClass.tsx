@@ -16,13 +16,13 @@ import Loading from './Loading'
 type ViewSchoolClassProps = {
 	id: number
 	onMutateSuccess: () => void
-	setViewMode: React.Dispatch<React.SetStateAction<boolean>>
+	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function ViewSchoolClass({
 	id,
 	onMutateSuccess,
-	setViewMode
+	setShowPopUp
 }: ViewSchoolClassProps) {
 	const [hide, setHide] = useState(true)
 	const language = useLanguage<ComponentViewSchoolClassLang>('component.view_school_class')
@@ -35,7 +35,7 @@ export default function ViewSchoolClass({
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
 		setHide(true)
 		setTimeout(() => {
-			setViewMode(false)
+			setShowPopUp(false)
 		}, timing)
 	}
 	const queryData = useQuery({

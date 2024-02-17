@@ -35,10 +35,10 @@ export default function Users({
 }: UsersProps) {
 	const language = useLanguage<PageUsersLang>('page.users')
 	const { permissions } = useAppContext()
-	const [insertMode, setInsertMode] = useState(false)
-	const [exportMode, setExportMode] = useState(false)
-	const [importMode, setImportMode] = useState(false)
-	const [showPopUpMode, setShowPopUpMode] = useState(false)
+	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
+	const [showExportPopUp, setShowExportPopUp] = useState(false)
+	const [showImportPopUp, setShowImportPopUp] = useState(false)
+	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
 	const [selectedUserIds, setSelectedUserIds] = useState<Set<string | number>>(new Set())
 	const [searchParams, setSearchParams] = useSearchParams()
 	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
@@ -88,27 +88,27 @@ export default function Users({
 	}, [queryDebounce, searchParams, setSearchParams])
 	return (
 		<>
-			{insertMode === true ?
+			{showCreatePopUp === true ?
 				<CreateUser
 					role={role}
 					onMutateSuccess={onMutateSuccess}
-					setInsertMode={setInsertMode}
+					setShowPopUp={setShowCreatePopUp}
 				/> : null}
-			{exportMode === true ?
+			{showExportPopUp === true ?
 				<ExportUsers
 					role={role}
-					setExportMode={setExportMode}
+					setExportMode={setShowExportPopUp}
 				/> : null}
-			{showPopUpMode === true ?
+			{showDeletePopUp === true ?
 				<YesNoPopUp
 					message={language?.deleteMessage.replace('@n', String(selectedUserIds.size)) || ''}
 					mutateFunction={handleDeleteUsers}
-					setShowPopUpMode={setShowPopUpMode}
+					setShowPopUp={setShowDeletePopUp}
 					onMutateSuccess={onMutateSuccess}
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			{importMode === true ?
+			{showImportPopUp === true ?
 				<ImportData
 					title={[
 						language?.import,
@@ -118,7 +118,7 @@ export default function Users({
 					icon={<PiMicrosoftExcelLogoFill />}
 					teamplateUrl={importTemplateFileUrl[role]}
 					importFunction={importFunction}
-					setImportMode={setImportMode}
+					setImportMode={setShowImportPopUp}
 					onMutateSuccess={onMutateSuccess}
 				/> : null}
 			<div
@@ -141,7 +141,7 @@ export default function Users({
 								].join(' ')
 							}
 								onClick={() => {
-									setInsertMode(true)
+									setShowCreatePopUp(true)
 								}}
 							>
 								<RiAddFill /> {language?.add}
@@ -156,7 +156,7 @@ export default function Users({
 								].join(' ')
 							}
 								onClick={() => {
-									setImportMode(true)
+									setShowImportPopUp(true)
 								}}
 							>
 								<BiImport /> {language?.import}
@@ -171,7 +171,7 @@ export default function Users({
 								].join(' ')
 							}
 								onClick={() => {
-									setExportMode(true)
+									setShowExportPopUp(true)
 								}}
 							>
 								<BiExport /> {language?.export}
@@ -182,7 +182,7 @@ export default function Users({
 						selectedUserIds.size > 0 && permissions.has('user_delete') ?
 							<div
 								onClick={() => {
-									setShowPopUpMode(true)
+									setShowDeletePopUp(true)
 								}}
 								className={
 									[

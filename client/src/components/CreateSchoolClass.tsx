@@ -14,11 +14,11 @@ import Loading from './Loading'
 
 type CreateSchoolClassProps = {
 	onMutateSuccess: () => void
-	setInsertMode: React.Dispatch<React.SetStateAction<boolean>>
+	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 export default function CreateSchoolClass({
 	onMutateSuccess,
-	setInsertMode
+	setShowPopUp
 }: CreateSchoolClassProps) {
 	const language = useLanguage<ComponentCreateSchoolClassLang>('component.create_school_class')
 	const [hide, setHide] = useState(true)
@@ -30,7 +30,7 @@ export default function CreateSchoolClass({
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
 		setHide(true)
 		setTimeout(() => {
-			setInsertMode(false)
+			setShowPopUp(false)
 		}, timing)
 	}
 	const facultyQueryData = useQuery({

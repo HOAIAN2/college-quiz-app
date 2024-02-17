@@ -84,13 +84,13 @@ export default function Subject() {
 				<CreateChapter
 					subjectId={String(id)}
 					onMutateSuccess={() => { queryData.refetch() }}
-					setInsertMode={setInsertMode}
+					setShowPopUp={setInsertMode}
 				/> : null}
 			{showDeletePopUp === true ?
 				<YesNoPopUp
 					message={language?.deleteMessage || ''}
 					mutateFunction={handleDeletetSubject}
-					setShowPopUpMode={setShowDeletePoUp}
+					setShowPopUp={setShowDeletePoUp}
 					onMutateSuccess={onMutateSuccess}
 					langYes={language?.langYes}
 					langNo={language?.langNo}

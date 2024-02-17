@@ -90,7 +90,7 @@ export default function Profile() {
 		<>
 			{changePasswordMode === true ?
 				<ChangePassword
-					setInsertMode={setChangePasswordMode}
+					setShowPopup={setChangePasswordMode}
 				/> : null}
 			<div className={
 				[

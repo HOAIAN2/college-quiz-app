@@ -81,7 +81,7 @@ export default function SchoolClassesTable({
 				<ViewSchoolClass
 					id={schoolClassId}
 					onMutateSuccess={onMutateSuccess}
-					setViewMode={setViewMode}
+					setShowPopUp={setViewMode}
 				/> : null}
 			<div className={styles['table-content']}>
 				<table className={styles['main']}>

@@ -21,12 +21,12 @@ import Loading from './Loading'
 type CreateUserProps = {
 	role: RoleName
 	onMutateSuccess: () => void
-	setInsertMode: React.Dispatch<React.SetStateAction<boolean>>
+	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 export default function CreateUser({
 	role,
 	onMutateSuccess,
-	setInsertMode
+	setShowPopUp
 }: CreateUserProps) {
 	const language = useLanguage<ComponentCreateUserLang>('component.create_user')
 	const [hide, setHide] = useState(true)
@@ -40,7 +40,7 @@ export default function CreateUser({
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
 		setHide(true)
 		setTimeout(() => {
-			setInsertMode(false)
+			setShowPopUp(false)
 		}, timing)
 	}
 	const classQueryData = useQuery({

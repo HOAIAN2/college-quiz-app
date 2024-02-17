@@ -9,12 +9,12 @@ import Loading from './Loading'
 
 type CreateSubjectProps = {
 	onMutateSuccess: () => void
-	setInsertMode: React.Dispatch<React.SetStateAction<boolean>>
+	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function CreateSubject({
 	onMutateSuccess,
-	setInsertMode
+	setShowPopUp
 }: CreateSubjectProps) {
 	const language = useLanguage<ComponentCreateSubjectLang>('component.create_subject')
 	const [hide, setHide] = useState(true)
@@ -23,7 +23,7 @@ export default function CreateSubject({
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
 		setHide(true)
 		setTimeout(() => {
-			setInsertMode(false)
+			setShowPopUp(false)
 		}, timing)
 	}
 	const getParentElement = (element: HTMLInputElement) => {

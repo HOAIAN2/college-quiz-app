@@ -21,8 +21,8 @@ export default function SchoolClasses() {
 	const { permissions } = useAppContext()
 	const language = useLanguage<PageFacultiesLang>('page.school_classes')
 	const [searchParams, setSearchParams] = useSearchParams()
-	const [insertMode, setInsertMode] = useState(false)
-	const [showPopUpMode, setShowPopUpMode] = useState(false)
+	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
+	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
 	const [selectedSchoolClassIds, setSelectedSchoolClassIds] = useState<Set<string | number>>(new Set())
 	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
 	const queryDebounce = useDebounce(searchQuery)
@@ -61,16 +61,16 @@ export default function SchoolClasses() {
 	}, [queryDebounce, searchParams, setSearchParams])
 	return (
 		<>
-			{insertMode === true ?
+			{showCreatePopUp === true ?
 				<CreateSchoolClass
 					onMutateSuccess={onMutateSuccess}
-					setInsertMode={setInsertMode}
+					setShowPopUp={setShowCreatePopUp}
 				/> : null}
-			{showPopUpMode === true ?
+			{showDeletePopUp === true ?
 				<YesNoPopUp
 					message={language?.deleteMessage.replace('@n', String(selectedSchoolClassIds.size)) || ''}
 					mutateFunction={handleDeleteSchoolClasses}
-					setShowPopUpMode={setShowPopUpMode}
+					setShowPopUp={setShowDeletePopUp}
 					onMutateSuccess={onMutateSuccess}
 					langYes={language?.langYes}
 					langNo={language?.langNo}
@@ -95,7 +95,7 @@ export default function SchoolClasses() {
 								].join(' ')
 							}
 								onClick={() => {
-									setInsertMode(true)
+									setShowCreatePopUp(true)
 								}}
 							>
 								<RiAddFill /> {language?.add}
@@ -136,7 +136,7 @@ export default function SchoolClasses() {
 						selectedSchoolClassIds.size > 0 && permissions.has('user_delete') ?
 							<div
 								onClick={() => {
-									setShowPopUpMode(true)
+									setShowDeletePopUp(true)
 								}}
 								className={
 									[

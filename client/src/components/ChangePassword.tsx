@@ -7,10 +7,10 @@ import { ComponentChangePassword } from '../models/lang'
 import styles from '../styles/ChangePassword.module.css'
 
 type ChangePasswordProps = {
-	setInsertMode: React.Dispatch<React.SetStateAction<boolean>>
+	setShowPopup: React.Dispatch<React.SetStateAction<boolean>>
 }
 export default function ChangePassword({
-	setInsertMode
+	setShowPopup
 }: ChangePasswordProps) {
 	const language = useLanguage<ComponentChangePassword>('component.change_password')
 	const [blockSubmit, setBlockSubmit] = useState(true)
@@ -23,7 +23,7 @@ export default function ChangePassword({
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
 		setHide(true)
 		setTimeout(() => {
-			setInsertMode(false)
+			setShowPopup(false)
 		}, timing)
 	}
 	const handlePreventSubmit = (e: React.FormEvent<HTMLFormElement>) => {
