@@ -76,7 +76,6 @@ export default function Subject() {
 		[queryKeys.PAGE_SUBJECTS].forEach(key => {
 			queryClient.refetchQueries({ queryKey: [key] })
 		})
-		queryData.refetch()
 		navigate('/subjects')
 	}
 	useEffect(() => {
