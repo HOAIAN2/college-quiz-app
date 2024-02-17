@@ -7,10 +7,12 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { apiDeleteSubject, apiGetSubjectById, apiUpdateSubject } from '../api/subject'
 import CreateChapter from '../components/CreateChapter'
 import Loading from '../components/Loading'
+import ViewChapter from '../components/ViewChapter'
 import YesNoPopUp from '../components/YesNoPopUp'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
+import { Chapter } from '../models/chapter'
 import { PageSubjectLang } from '../models/lang'
 import styles from '../styles/Subject.module.css'
 
@@ -18,9 +20,11 @@ export default function Subject() {
 	const { id } = useParams()
 	const { permissions } = useAppContext()
 	const language = useLanguage<PageSubjectLang>('page.subject')
+	const [currentChapter, setCurrentChapter] = useState<Chapter>()
 	const queryClient = useQueryClient()
 	const [showDeletePopUp, setShowDeletePoUp] = useState(false)
-	const [insertMode, setInsertMode] = useState(false)
+	const [showViewChapterPopUp, setShowViewChapterPopUp] = useState(false)
+	const [showCreateChapterPopUp, setShowCreateChapterPopUp] = useState(false)
 	const navigate = useNavigate()
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_SUBJECT, { id: id }],
@@ -80,11 +84,20 @@ export default function Subject() {
 	}, [id, queryClient])
 	return (
 		<>
-			{insertMode === true ?
+			{
+				showViewChapterPopUp && currentChapter ?
+					<ViewChapter
+						data={currentChapter}
+						onMutateSuccess={() => { queryData.refetch() }}
+						setShowPopUp={setShowViewChapterPopUp}
+					/>
+					: null
+			}
+			{showCreateChapterPopUp === true ?
 				<CreateChapter
 					subjectId={String(id)}
 					onMutateSuccess={() => { queryData.refetch() }}
-					setShowPopUp={setInsertMode}
+					setShowPopUp={setShowCreateChapterPopUp}
 				/> : null}
 			{showDeletePopUp === true ?
 				<YesNoPopUp
@@ -192,7 +205,7 @@ export default function Subject() {
 											].join(' ')
 										}
 											onClick={() => {
-												setInsertMode(true)
+												setShowCreateChapterPopUp(true)
 											}}
 										>
 											<RiAddFill /> {language?.add}
@@ -211,7 +224,12 @@ export default function Subject() {
 														'dashboard-card-d',
 														styles['card'],
 													].join(' ')
-												}>
+												}
+												onClick={() => {
+													setCurrentChapter(chapter)
+													setShowViewChapterPopUp(true)
+												}}
+											>
 												<div className={styles['card-top']}>
 													<LuBookOpenCheck />
 													{chapter.name}
