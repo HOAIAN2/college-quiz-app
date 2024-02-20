@@ -78,6 +78,8 @@ export default function Subject() {
 		})
 		navigate('/subjects')
 	}
+	const defaultChapterNumber = queryData.data && queryData.data.chapters.length !== 0
+		? Math.max(...queryData.data.chapters.map(chapter => chapter.chapterNumber)) + 1 : 1
 	useEffect(() => {
 		return () => {
 			queryClient.removeQueries({ queryKey: [queryKeys.PAGE_SUBJECT, { id: id }] })
@@ -96,7 +98,7 @@ export default function Subject() {
 			}
 			{showCreateChapterPopUp === true ?
 				<CreateChapter
-					defaultChapterNumber={queryData.data ? queryData.data.chapters.length + 1 : undefined}
+					defaultChapterNumber={defaultChapterNumber}
 					subjectId={String(id)}
 					onMutateSuccess={() => { queryData.refetch() }}
 					setShowPopUp={setShowCreateChapterPopUp}
