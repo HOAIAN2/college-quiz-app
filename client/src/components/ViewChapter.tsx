@@ -125,7 +125,8 @@ export default function ViewChapter({
 									<label className={styles['required']} htmlFor='chapter_number'>{language?.chapterNumber}</label>
 									<input
 										id='chapter_number'
-										disabled
+										name='chapter_number'
+										disabled={!permissions.has('subject_update')}
 										defaultValue={data.chapterNumber}
 										className={
 											[
@@ -138,7 +139,7 @@ export default function ViewChapter({
 									<label className={styles['required']} htmlFor='name'>{language?.name}</label>
 									<input
 										id='name'
-										disabled={!permissions.has('faculty_update')}
+										disabled={!permissions.has('subject_update')}
 										defaultValue={data.name}
 										name='name'
 										className={
@@ -150,7 +151,7 @@ export default function ViewChapter({
 								</div>
 							</div>
 							{
-								permissions.has('faculty_update') ?
+								permissions.has('subject_update') ?
 									<div className={styles['action-items']}>
 										<button name='save'
 											className={

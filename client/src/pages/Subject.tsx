@@ -216,29 +216,32 @@ export default function Subject() {
 							}
 							<div className={styles['chapters-container']}>
 								{
-									queryData.data.chapters.map(chapter => {
-										return (
-											<div
-												key={`chapter-${chapter.id}`}
-												className={
-													[
-														'dashboard-card-d',
-														styles['card'],
-													].join(' ')
-												}
-												onClick={() => {
-													setCurrentChapter(chapter)
-													setShowViewChapterPopUp(true)
-												}}
-											>
-												<div className={styles['card-top']}>
-													<LuBookOpenCheck />
-													{chapter.name}
+									queryData.data.chapters.sort((a, b) =>
+										a.chapterNumber - b.chapterNumber
+									)
+										.map(chapter => {
+											return (
+												<div
+													key={`chapter-${chapter.id}`}
+													className={
+														[
+															'dashboard-card-d',
+															styles['card'],
+														].join(' ')
+													}
+													onClick={() => {
+														setCurrentChapter(chapter)
+														setShowViewChapterPopUp(true)
+													}}
+												>
+													<div className={styles['card-top']}>
+														<LuBookOpenCheck />
+														{chapter.name}
+													</div>
+													<div className={styles['card-bottom']}>{chapter.chapterNumber}</div>
 												</div>
-												<div className={styles['card-bottom']}>{chapter.chapterNumber}</div>
-											</div>
-										)
-									})
+											)
+										})
 								}
 							</div>
 							{
