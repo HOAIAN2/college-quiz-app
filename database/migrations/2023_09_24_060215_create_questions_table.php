@@ -14,12 +14,14 @@ return new class extends Migration
 		Schema::create('questions', function (Blueprint $table) {
 			$table->id();
 			$table->unsignedBigInteger('created_by')->nullable();
-			$table->unsignedBigInteger('chapter_id');
+			$table->unsignedBigInteger('subject_id');
+			$table->unsignedBigInteger('chapter_id')->nullable();
 			$table->enum('level', ['easy', 'medium', 'hard', 'expert'])->default('easy');
 			$table->text('content');
 			$table->timestamps();
 			$table->foreign('created_by')->references('id')->on('users')->nullOnDelete();
-			$table->foreign('chapter_id')->references('id')->on('chapters')->cascadeOnDelete();
+			$table->foreign('subject_id')->references('id')->on('subjects')->cascadeOnDelete();
+			$table->foreign('chapter_id')->references('id')->on('chapters')->nullOnDelete();
 		});
 	}
 

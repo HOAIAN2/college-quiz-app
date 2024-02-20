@@ -14,19 +14,19 @@ use Illuminate\Database\Eloquent\Model;
  * Class Question
  *
  * @property int $id
- * @property int $created_by
- * @property int $chapter_id
+ * @property int|null $created_by
+ * @property int $subject_id
+ * @property int|null $chapter_id
  * @property string $level
  * @property string $content
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
- * @property Chapter $chapter
- * @property User $created_by
+ * @property Chapter|null $chapter
+ * @property User|null $user
+ * @property Subject $subject
  * @property Collection|Exam[] $exams
- * @property Collection|ExamTracker[] $exam_trackers
  * @property Collection|QuestionOption[] $question_options
- * @method bool contains_option($id)
  *
  * @package App\Models
  */
@@ -36,19 +36,16 @@ class Question extends Model
 
 	protected $casts = [
 		'created_by' => 'int',
+		'subject_id' => 'int',
 		'chapter_id' => 'int'
 	];
 
 	protected $fillable = [
 		'created_by',
+		'subject_id',
 		'chapter_id',
 		'level',
 		'content'
-	];
-
-	protected $hidden = [
-		'created_at',
-		'updated_at'
 	];
 
 	public function chapter()
@@ -56,9 +53,14 @@ class Question extends Model
 		return $this->belongsTo(Chapter::class);
 	}
 
-	public function created_by()
+	public function user()
 	{
 		return $this->belongsTo(User::class, 'created_by');
+	}
+
+	public function subject()
+	{
+		return $this->belongsTo(Subject::class);
 	}
 
 	public function exams()
@@ -68,15 +70,11 @@ class Question extends Model
 			->withTimestamps();
 	}
 
-	public function exam_trackers()
-	{
-		return $this->hasMany(ExamTracker::class);
-	}
-
 	public function question_options()
 	{
 		return $this->hasMany(QuestionOption::class);
 	}
+
 	public function contains_option($id)
 	{
 		return $this->id == QuestionOption::find($id)->question_id;
