@@ -96,6 +96,7 @@ export default function Subject() {
 			}
 			{showCreateChapterPopUp === true ?
 				<CreateChapter
+					defaultChapterNumber={queryData.data ? queryData.data.chapters.length + 1 : undefined}
 					subjectId={String(id)}
 					onMutateSuccess={() => { queryData.refetch() }}
 					setShowPopUp={setShowCreateChapterPopUp}

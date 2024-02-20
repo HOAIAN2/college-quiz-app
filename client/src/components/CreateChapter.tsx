@@ -8,12 +8,14 @@ import styles from '../styles/global/CreateModel.module.css'
 import Loading from './Loading'
 
 type CreateChapterProps = {
+	defaultChapterNumber?: number
 	subjectId: number | string
 	onMutateSuccess: () => void
 	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function CreateChapter({
+	defaultChapterNumber,
 	subjectId,
 	onMutateSuccess,
 	setShowPopUp
@@ -124,6 +126,7 @@ export default function CreateChapter({
 								<input
 									id='chapter_number'
 									name='chapter_number'
+									defaultValue={defaultChapterNumber}
 									className={
 										[
 											'input-d',
