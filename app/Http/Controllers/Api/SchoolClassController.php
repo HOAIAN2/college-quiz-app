@@ -8,7 +8,6 @@ use App\Http\Requests\DeleteRequest;
 use App\Http\Requests\SchoolClass\GetAllRequest;
 use App\Http\Requests\SchoolClass\StoreRequest;
 use App\Http\Requests\SchoolClass\UpdateRequest;
-use App\Models\Faculty;
 use App\Models\SchoolClass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

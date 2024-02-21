@@ -9,8 +9,6 @@ use App\Http\Requests\Faculty\GetAllRequest;
 use App\Http\Requests\Faculty\StoreRequest;
 use App\Http\Requests\Faculty\UpdateRequest;
 use App\Models\Faculty;
-use App\Models\Role;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
