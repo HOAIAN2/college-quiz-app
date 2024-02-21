@@ -12,14 +12,6 @@ use Illuminate\Support\Facades\Log;
 
 class ChapterController extends Controller
 {
-	/**
-	 * Display a listing of the resource.
-	 */
-	public function index()
-	{
-		//
-	}
-
 	public function store(StoreRequest $request)
 	{
 		$user = $this->getUser();
@@ -36,11 +28,6 @@ class ChapterController extends Controller
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.somethingWentWrong', [], 500);
 		}
-	}
-
-	public function show(string $id)
-	{
-		//
 	}
 
 	public function update(UpdateRequest $request, string $id)

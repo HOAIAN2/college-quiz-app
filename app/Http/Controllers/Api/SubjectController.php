@@ -8,7 +8,6 @@ use App\Http\Requests\Subject\GetAllRequest;
 use App\Http\Requests\Subject\StoreRequest;
 use App\Http\Requests\Subject\UpdateRequest;
 use App\Models\Subject;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
