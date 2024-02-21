@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property Collection|Chapter[] $chapters
  * @property Collection|Course[] $courses
+ * @property Collection|Question[] $questions
  *
  * @package App\Models
  */
@@ -53,5 +54,10 @@ class Subject extends Model
 	public function courses()
 	{
 		return $this->hasMany(Course::class);
+	}
+
+	public function questions()
+	{
+		return $this->hasMany(Question::class);
 	}
 }
