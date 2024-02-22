@@ -19,7 +19,7 @@ export default function Subjects() {
 	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
 	const queryDebounce = useDebounce(searchQuery)
 	const language = useLanguage<PageSubjectsLang>('page.subjects')
-	const [insertMode, setInsertMode] = useState(false)
+	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
 	const queryClient = useQueryClient()
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_SUBJECTS, { search: queryDebounce }],
@@ -38,10 +38,10 @@ export default function Subjects() {
 	}
 	return (
 		<>
-			{insertMode === true ?
+			{showCreatePopUp === true ?
 				<CreateSubject
 					onMutateSuccess={onMutateSuccess}
-					setShowPopUp={setInsertMode}
+					setShowPopUp={setShowCreatePopUp}
 				/> : null}
 			<div
 				className={
@@ -63,7 +63,7 @@ export default function Subjects() {
 								].join(' ')
 							}
 								onClick={() => {
-									setInsertMode(true)
+									setShowCreatePopUp(true)
 								}}
 							>
 								<RiAddFill /> {language?.add}
