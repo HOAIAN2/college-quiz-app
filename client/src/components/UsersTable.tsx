@@ -30,7 +30,7 @@ export default function UsersTable({
 }: UsersTableProps) {
 	const { permissions } = useAppContext()
 	const language = useLanguage<ComponentUsersTableLang>('component.users_table')
-	const [viewMode, setViewMode] = useState(false)
+	const [showViewPopUp, setShowViewPopUp] = useState(false)
 	const [checkAll, setCheckAll] = useState(false)
 	const [userId, setUserId] = useState<number>(0)
 	const handleViewUser = (id: number, e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => {
@@ -51,7 +51,7 @@ export default function UsersTable({
 			return
 		}
 		setUserId(id)
-		setViewMode(true)
+		setShowViewPopUp(true)
 	}
 	const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const currentTarget = e.currentTarget
@@ -84,11 +84,11 @@ export default function UsersTable({
 	}, [data])
 	return (
 		<>
-			{viewMode === true ?
+			{showViewPopUp === true ?
 				<ViewUser
 					id={userId}
 					onMutateSuccess={onMutateSuccess}
-					setShowPopUp={setViewMode}
+					setShowPopUp={setShowViewPopUp}
 				/> : null}
 			<div className={styles['table-content']}>
 				<table className={styles['main']}>
