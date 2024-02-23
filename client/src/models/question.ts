@@ -14,3 +14,14 @@ export type QueryQuestionType = {
 	chapterId: string | number
 	search?: string
 }
+
+export type QuestionOption = {
+	id: number
+	question_id: number
+	content: string
+	is_correct: boolean
+}
+
+export type QuestionDetail = Question & {
+	questionOptions: QuestionOption[]
+}
