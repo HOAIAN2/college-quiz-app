@@ -21,6 +21,7 @@ const Faculties = lazy(() => import('./pages/Faculties'))
 const SchoolClasses = lazy(() => import('./pages/SchoolClasses'))
 const Subjects = lazy(() => import('./pages/Subjects'))
 const Subject = lazy(() => import('./pages/Subject'))
+const Questions = lazy(() => import('./pages/Questions'))
 
 const router = createBrowserRouter([
 	{
@@ -79,7 +80,12 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'questions',
-						element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>
+						children: [
+							{
+								path: ':id',
+								element: <Suspense fallback={<SuspenseLoading />}><Questions /></Suspense>
+							}
+						],
 					},
 					{
 						path: 'teachers',

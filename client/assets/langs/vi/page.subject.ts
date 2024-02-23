@@ -13,5 +13,6 @@ export default {
 	save: 'Lưu',
 	name: 'Tên',
 	shortcode: 'Mã số',
-	chapters: 'Chương'
+	chapters: 'Chương',
+	questions: 'Câu hỏi'
 }

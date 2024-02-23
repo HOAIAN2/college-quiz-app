@@ -3,7 +3,7 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 import { LuBookOpenCheck } from 'react-icons/lu'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RiAddFill } from 'react-icons/ri'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { apiDeleteSubject, apiGetSubjectById, apiUpdateSubject } from '../api/subject'
 import CreateChapter from '../components/CreateChapter'
 import Loading from '../components/Loading'
@@ -264,6 +264,13 @@ export default function Subject() {
 									</div>
 									: null
 							}
+							<Link
+								to={`/questions/${id}`}
+								className={styles['header']}>
+								<h2 className={styles['title']}>
+									{language?.questions}
+								</h2>
+							</Link>
 						</> : null
 				}
 			</div >

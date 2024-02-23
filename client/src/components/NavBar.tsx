@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import {
-	AiOutlineQuestionCircle,
+	// AiOutlineQuestionCircle,
 	AiOutlineUser
 } from 'react-icons/ai'
 import { GrCertificate } from 'react-icons/gr'
@@ -76,12 +76,12 @@ export default function NavBar() {
 			icon: <GrCertificate />,
 			isActive: permissions.has('course_view')
 		},
-		{
-			name: language?.questions,
-			to: 'questions',
-			icon: <AiOutlineQuestionCircle />,
-			isActive: permissions.has('question_view')
-		},
+		// {
+		// 	name: language?.questions,
+		// 	to: 'questions',
+		// 	icon: <AiOutlineQuestionCircle />,
+		// 	isActive: permissions.has('question_view')
+		// },
 		{
 			name: language?.exams,
 			to: 'exams',
