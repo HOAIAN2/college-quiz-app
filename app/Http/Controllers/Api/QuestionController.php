@@ -80,7 +80,17 @@ class QuestionController extends Controller
 	 */
 	public function show(string $id)
 	{
-		//
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('question_view'), 403);
+
+		try {
+			$data = Question::with(['question_options'])->findOrFail($id);
+			return Reply::successWithData($data);
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.somethingWentWrong', [], 500);
+		}
 	}
 
 	/**
@@ -88,7 +98,7 @@ class QuestionController extends Controller
 	 */
 	public function update(Request $request, string $id)
 	{
-		//
+		return $id;
 	}
 
 	/**
@@ -96,6 +106,19 @@ class QuestionController extends Controller
 	 */
 	public function destroy(string $id)
 	{
-		//
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('question_delete'), 403);
+
+		DB::beginTransaction();
+		try {
+			Question::destroy($id);
+			DB::commit();
+			return Reply::successWithMessage('app.successes.recordDeleteSuccess');
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			DB::rollBack();
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.somethingWentWrong', [], 500);
+		}
 	}
 }
