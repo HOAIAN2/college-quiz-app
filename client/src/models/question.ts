@@ -7,6 +7,8 @@ export type Question = {
 	chapterId?: number | null
 	level: QuestionLevel
 	content: string
+	createdAt: string
+	updatedAt: string
 }
 
 export type QueryQuestionType = {
@@ -17,9 +19,9 @@ export type QueryQuestionType = {
 
 export type QuestionOption = {
 	id: number
-	question_id: number
+	questionId: number
 	content: string
-	is_correct: boolean
+	isCorrect: boolean
 }
 
 export type QuestionDetail = Question & {
