@@ -2,6 +2,7 @@
 import request from '../config/api'
 import { ApiResponseWithData, Pagination } from '../models/response'
 import { QuerySchoolClassType, SchoolClass, SchoolClassDetail } from '../models/school-class'
+import encodeFormData from '../utils/encodeFormData'
 
 export async function apiAutoCompleteSchoolClass(search: string) {
 	try {
@@ -44,10 +45,7 @@ export async function apiGetSchoolClassById(id: string | number) {
 }
 export async function apiUpdateSchoolClass(formData: FormData, id: string | number) {
 	try {
-		const data = new URLSearchParams();
-		for (const pair of formData) {
-			data.append(pair[0], pair[1] as string);
-		}
+		const data = encodeFormData(formData)
 		await request.put('/school-class/' + id, data, {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'

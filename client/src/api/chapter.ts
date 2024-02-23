@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import request from '../config/api'
+import encodeFormData from '../utils/encodeFormData'
 
 export async function apiCreateChapter(formData: FormData) {
 	try {
@@ -14,10 +15,7 @@ export async function apiCreateChapter(formData: FormData) {
 
 export async function apiUpdateChapter(formData: FormData, id: string | number) {
 	try {
-		const data = new URLSearchParams();
-		for (const pair of formData) {
-			data.append(pair[0], pair[1] as string);
-		}
+		const data = encodeFormData(formData)
 		await request.put('/chapter/' + id, data, {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'

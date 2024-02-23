@@ -6,9 +6,9 @@ use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Question\GetAllRequest;
 use App\Http\Requests\Question\StoreRequest;
+use App\Http\Requests\Question\UpdateRequest;
 use App\Models\Question;
 use App\Models\QuestionOption;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -95,9 +95,36 @@ class QuestionController extends Controller
 	/**
 	 * Update the specified resource in storage.
 	 */
-	public function update(Request $request, string $id)
+	public function update(UpdateRequest $request, string $id)
 	{
-		return $id;
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('question_update'), 403);
+		$data = collect($request->validated())
+			->except(['true_option'])->toArray();
+
+		DB::beginTransaction();
+		try {
+			$targetQuestion = Question::findOrFail($id);
+			$targetQuestion->update($data);
+
+			if (
+				$request->true_option != null
+				&& $targetQuestion->hasOption($request->true_option)
+			) {
+				QuestionOption::where('question_id', '=', $id)->update([
+					'is_correct' => false
+				]);
+				QuestionOption::where('id', '=', $request->true_option)->update([
+					'is_correct' => true
+				]);
+			}
+			DB::commit();
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			DB::rollBack();
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.somethingWentWrong', [], 500);
+		}
 	}
 
 	/**

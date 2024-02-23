@@ -9,6 +9,7 @@ import {
 	UserDetail,
 	UserWithPermissions
 } from '../models/user'
+import encodeFormData from '../utils/encodeFormData'
 import tokenUtils from '../utils/tokenUtils'
 
 export async function apiGetUser() {
@@ -36,10 +37,7 @@ export async function apiCreateUser(formData: FormData) {
 }
 export async function apiUpdateUser(formData: FormData, id: string | number) {
 	try {
-		const data = new URLSearchParams();
-		for (const pair of formData) {
-			data.append(pair[0], pair[1] as string);
-		}
+		const data = encodeFormData(formData)
 		await request.put('/user/' + id, data, {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'

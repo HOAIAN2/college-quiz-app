@@ -82,7 +82,7 @@ class Question extends Model
 		return $this->hasMany(QuestionOption::class);
 	}
 
-	public function contains_option($id)
+	public function hasOption($id)
 	{
 		return $this->id == QuestionOption::find($id)->question_id;
 	}

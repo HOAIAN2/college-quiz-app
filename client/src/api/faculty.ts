@@ -2,6 +2,7 @@
 import request from '../config/api'
 import { Faculty, FacultyDetail, QueryFacultyType } from '../models/faculty'
 import { ApiResponseWithData, Pagination } from '../models/response'
+import encodeFormData from '../utils/encodeFormData'
 
 export async function apiAutoCompleteFaculty(search: string) {
 	try {
@@ -45,10 +46,7 @@ export async function apiCreateFaculty(formData: FormData) {
 }
 export async function apiUpdateFaculty(formData: FormData, id: string | number) {
 	try {
-		const data = new URLSearchParams();
-		for (const pair of formData) {
-			data.append(pair[0], pair[1] as string);
-		}
+		const data = encodeFormData(formData)
 		await request.put('/faculty/' + id, data, {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'

@@ -2,6 +2,7 @@
 import request from '../config/api'
 import { ApiResponseWithData } from '../models/response'
 import { Subject, SubjectDetail } from '../models/subject'
+import encodeFormData from '../utils/encodeFormData'
 
 export async function apiGetSubjects(query: string) {
 	try {
@@ -40,7 +41,12 @@ export async function apiCreateSubject(formData: FormData) {
 
 export async function apiUpdateSubject(formData: FormData, id: string | number) {
 	try {
-		await request.put('/subject/' + id, formData)
+		const data = encodeFormData(formData)
+		await request.put('/subject/' + id, data, {
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		})
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message)
 		const message = error.response.data.message

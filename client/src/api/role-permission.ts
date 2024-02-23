@@ -28,7 +28,7 @@ export async function apiGetRolePermissions(id: number) {
 
 export async function apiUpdateRolePermissions(id: number | string, permissionIds: (number | string)[]) {
 	try {
-		const data = new URLSearchParams();
+		const data = new URLSearchParams()
 		permissionIds.forEach(item => {
 			data.append('ids[]', String(item))
 		})
