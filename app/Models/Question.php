@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Traits\Searchable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -32,7 +33,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Question extends Model
 {
+	use Searchable;
 	protected $table = 'questions';
+
+	protected $searchable = [
+		'content',
+		'question_options.content'
+	];
 
 	protected $casts = [
 		'created_by' => 'int',
