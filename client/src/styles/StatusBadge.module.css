@@ -10,7 +10,6 @@
 	width: 8px;
 	aspect-ratio: 1;
 	position: absolute;
-	background-color: white;
 	border-radius: 50%;
 	top: 50%;
 	left: 3px;
@@ -31,4 +30,12 @@
 
 .green::before {
 	background: var(--color-green);
+}
+
+.yellow {
+	background: var(--color-soft-yellow);
+}
+
+.yellow::before {
+	background: var(--color-yellow);
 }

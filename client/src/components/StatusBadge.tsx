@@ -1,7 +1,7 @@
 import style from '../styles/StatusBadge.module.css'
 
 type StatusBadgeProps = {
-	color: 'red' | 'green'
+	color: 'red' | 'green' | 'yellow'
 	content?: string
 }
 export default function StatusBadge({
