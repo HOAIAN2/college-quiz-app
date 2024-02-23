@@ -23,8 +23,7 @@ class QuestionController extends Controller
 		abort_if(!$user->hasPermission('question_view'), 403);
 
 		try {
-			$data = Question::with(['question_options'])
-				->where('subject_id', '=', $request->subject_id);
+			$data = Question::where('subject_id', '=', $request->subject_id);
 			if ($request->chapter_id != null) {
 				$data = $data->where('chapter_id', '=', $request->chapter_id);
 			}
