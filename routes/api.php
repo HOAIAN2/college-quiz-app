@@ -95,4 +95,5 @@ Route::prefix('/role-permission')->middleware('auth:sanctum')
 Route::prefix('/question')->middleware('auth:sanctum')
 	->controller(QuestionController::class)->group(function () {
 		Route::get('/', 'index');
+		Route::post('/', 'store');
 	});

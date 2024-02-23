@@ -65,14 +65,14 @@ export async function apiImportUsers(file: File, role: RoleName) {
 		throw new Error(message)
 	}
 }
-export async function apiGetUsersByType(query?: QueryUserType) {
+export async function apiGetUsersByType(query: QueryUserType) {
 	try {
 		const res = await request.get('/user/query', {
 			params: {
-				role: query?.role,
-				page: query?.page || 1,
-				per_page: query?.perPage || 10,
-				search: query?.search
+				role: query.role,
+				page: query.page || 1,
+				per_page: query.perPage || 10,
+				search: query.search
 			}
 		})
 		const { data } = res.data as ApiResponseWithData<Pagination<UserDetail>>
