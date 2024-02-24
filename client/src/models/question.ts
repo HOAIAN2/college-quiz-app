@@ -13,7 +13,7 @@ export type Question = {
 
 export type QueryQuestionType = {
 	subjectId: string | number
-	chapterId: string | number
+	chapterId: string | number | null
 	search?: string
 }
 

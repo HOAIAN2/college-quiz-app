@@ -27,7 +27,7 @@ class QuestionController extends Controller
 			if ($request->search != null) {
 				$data = $data->search($request->search);
 			}
-			return Reply::successWithData($data->get());
+			return Reply::successWithData($data->get(), '');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());

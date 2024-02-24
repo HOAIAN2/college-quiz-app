@@ -8,7 +8,9 @@ export async function apiGetQuestions(query: QueryQuestionType) {
 	try {
 		const res = await request.get('/question', {
 			params: {
-				search: query
+				subject_id: query.subjectId,
+				chapter_id: query.chapterId,
+				search: query.search
 			}
 		})
 		const { data } = res.data as ApiResponseWithData<Question[]>
