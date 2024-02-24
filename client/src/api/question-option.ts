@@ -29,7 +29,6 @@ export async function apiUpdateQuestion(formData: FormData, id: string | number)
 	}
 }
 
-
 export async function apiDeleteQuestionOption(id: string | number) {
 	try {
 		await request.delete('/question-option/' + id)
