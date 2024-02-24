@@ -1,26 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import request from '../config/api'
-import { QueryQuestionType, Question, QuestionDetail } from '../models/question'
-import { ApiResponseWithData } from '../models/response'
 import encodeFormData from '../utils/encodeFormData'
 
-export async function apiGetQuestions(query: QueryQuestionType) {
+export async function apiCreateQuestionOption(formData: FormData) {
 	try {
-		const res = await request.get('/question', {
-			params: {
-				search: query
-			}
-		})
-		const { data } = res.data as ApiResponseWithData<Question[]>
-		return data
-	} catch (error: any) {
-		throw new Error(error.message)
-	}
-}
-
-export async function apiCreateQuestion(formData: FormData) {
-	try {
-		await request.post('/question', formData)
+		await request.post('/question-option', formData)
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message)
 		const message = error.response.data.message
@@ -29,20 +13,10 @@ export async function apiCreateQuestion(formData: FormData) {
 	}
 }
 
-export async function apiGetQuestionById(id: string | number) {
-	try {
-		const res = await request.get('/question/' + id)
-		const { data } = res.data as ApiResponseWithData<QuestionDetail>
-		return data
-	} catch (error: any) {
-		throw new Error(error.message)
-	}
-}
-
 export async function apiUpdateQuestion(formData: FormData, id: string | number) {
 	try {
 		const data = encodeFormData(formData)
-		await request.put('/question/' + id, data, {
+		await request.put('/question-option/' + id, data, {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}
@@ -55,9 +29,10 @@ export async function apiUpdateQuestion(formData: FormData, id: string | number)
 	}
 }
 
-export async function apiDeleteQuestion(id: string | number) {
+
+export async function apiDeleteQuestionOption(id: string | number) {
 	try {
-		await request.delete('/question/' + id)
+		await request.delete('/question-option/' + id)
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message)
 		const message = error.response.data.message
