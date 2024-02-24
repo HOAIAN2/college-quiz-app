@@ -39,16 +39,19 @@ class QuestionOptionController extends Controller
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('question_update'), 403);
+		$data = $request->validated();
 
 		DB::beginTransaction();
 		try {
-			QuestionOption::where('id', '=', $id)->update($request->validated());
+			$targetQuestionOption = QuestionOption::findOrFail($id);
+
 			if ($request->is_correct == 1) {
-				QuestionOption::where('question_id', '=', $request->question_id)
-					->where('id', '<>', $id)->update([
+				QuestionOption::where('question_id', '=', $targetQuestionOption->question_id)
+					->update([
 						'is_correct' => false
 					]);
 			}
+			$targetQuestionOption->update($data);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.recordSaveSuccess');
 		} catch (\Throwable $error) {
