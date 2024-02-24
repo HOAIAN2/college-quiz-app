@@ -264,13 +264,17 @@ export default function Subject() {
 									</div>
 									: null
 							}
-							<Link
-								to={`/questions/${id}`}
-								className={styles['header']}>
-								<h2 className={styles['title']}>
-									{language?.questions}
-								</h2>
-							</Link>
+							{
+								permissions.has('question_view') ?
+									<Link
+										to={`/questions/${id}`}
+										className={styles['header']}>
+										<h2 className={styles['title']}>
+											{language?.questions}
+										</h2>
+									</Link>
+									: null
+							}
 						</> : null
 				}
 			</div >
