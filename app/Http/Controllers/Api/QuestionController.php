@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\Log;
 
 class QuestionController extends Controller
 {
-	/**
-	 * Display a listing of the resource.
-	 */
 	public function index(GetAllRequest $request)
 	{
 		$user = $this->getUser();
@@ -38,9 +35,6 @@ class QuestionController extends Controller
 		}
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 */
 	public function store(StoreRequest $request)
 	{
 		$user = $this->getUser();
@@ -74,9 +68,6 @@ class QuestionController extends Controller
 		}
 	}
 
-	/**
-	 * Display the specified resource.
-	 */
 	public function show(string $id)
 	{
 		$user = $this->getUser();
@@ -92,9 +83,6 @@ class QuestionController extends Controller
 		}
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 */
 	public function update(UpdateRequest $request, string $id)
 	{
 		$user = $this->getUser();
@@ -119,6 +107,7 @@ class QuestionController extends Controller
 				]);
 			}
 			DB::commit();
+			return Reply::successWithMessage('app.successes.recordSaveSuccess');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
@@ -127,9 +116,6 @@ class QuestionController extends Controller
 		}
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 */
 	public function destroy(string $id)
 	{
 		$user = $this->getUser();

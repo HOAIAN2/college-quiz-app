@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\ChapterController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Api\QuestionController;
+use App\Http\Controllers\Api\QuestionOptionController;
 use App\Http\Controllers\Api\RolePermissionController;
 use App\Http\Controllers\Api\SchoolClassController;
 use App\Http\Controllers\Api\SubjectController;
@@ -98,5 +99,12 @@ Route::prefix('/question')->middleware('auth:sanctum')
 		Route::put('/{id}', 'update');
 		Route::delete('/{id}', 'destroy');
 		Route::get('/', 'index');
+		Route::post('/', 'store');
+	});
+
+Route::prefix('/question-option')->middleware('auth:sanctum')
+	->controller(QuestionOptionController::class)->group(function () {
+		Route::put('/{id}', 'update');
+		Route::delete('/{id}', 'destroy');
 		Route::post('/', 'store');
 	});
