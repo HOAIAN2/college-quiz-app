@@ -10,5 +10,11 @@ export default {
 	unselect: 'Unselect',
 	deleteMessage: 'Are you sure you want to delete @n records? This action cannot be undone.',
 	langYes: 'Yes',
-	langNo: 'No'
+	langNo: 'No',
+	questionLevel: {
+		easy: 'Easy',
+		medium: 'Medium',
+		hard: 'Hard',
+		expert: 'Expert',
+	}
 }

@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
+import { AiOutlineQuestionCircle } from 'react-icons/ai'
 import { RiAddFill } from 'react-icons/ri'
 import { useLocation, useParams, useSearchParams } from 'react-router-dom'
 import { apiGetQuestions } from '../api/question'
@@ -133,12 +134,11 @@ export default function Questions() {
 						</div>
 					</div>
 					<div className={styles['card-container']}>
-						{/* {queryData.data ?
+						{queryData.data ?
 							queryData.data.map(item => {
 								return (
-									<Link
+									<div
 										key={`subject-${item.id}`}
-										to={String(item.id)}
 										className={
 											[
 												'dashboard-card-d',
@@ -146,13 +146,15 @@ export default function Questions() {
 											].join(' ')
 										}>
 										<div className={styles['card-top']}>
-											<LuBookOpenCheck />
-											{item.name}
+											<AiOutlineQuestionCircle />
+											{item.content}
 										</div>
-										<div className={styles['card-bottom']}>{item.shortcode}</div>
-									</Link>
+										<div className={styles['card-bottom']}>
+											{language?.questionLevel[item.level]}
+										</div>
+									</div>
 								)
-							}) : null} */}
+							}) : null}
 					</div>
 				</div>
 			</div>
