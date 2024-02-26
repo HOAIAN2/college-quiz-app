@@ -11,6 +11,7 @@ export default {
 		expert: 'Expert',
 	},
 	addOption: 'Add option',
+	answer: 'Answer',
 	save: 'Save',
 	saveMore: 'Save more'
 }

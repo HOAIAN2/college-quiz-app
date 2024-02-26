@@ -11,6 +11,7 @@ export default {
 		expert: 'Rất khó',
 	},
 	addOption: 'Thêm lựa chọn',
+	answer: 'Câu trả lời',
 	save: 'Lưu',
 	saveMore: 'Lưu thêm'
 }

@@ -6,6 +6,7 @@ import { apiCreateQuestion } from '../api/question'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateQuestionLang } from '../models/lang'
 import { SubjectDetail } from '../models/subject'
+import styles from '../styles/CreateQuestion.module.css'
 import globalStyles from '../styles/global/CreateModel.module.css'
 import CustomSelect from './CustomSelect'
 import Loading from './Loading'
@@ -235,18 +236,27 @@ export default function CreateQuestion({
 									</div>
 								}
 							</div>
-							<div>
+							<div className={styles['options-container']}>
 								{options.map((option, index) => {
 									return (
-										<div key={option.key}>
-											<div
+										<div
+											key={option.key}
+											className={styles['wrap-textarea']}
+										>
+											<div className={styles['label']}
 												onClick={() => {
 													setTrueOptionIndex(index)
-												}}>ádasdasdasd
+												}}>{`${language?.answer} ${index + 1}`}
 											</div>
-											<input
+											<textarea
+												className={
+													[
+														'input-d',
+														styles['textarea']
+													].join(' ')
+												}
 												name='options[]'
-												type='text' />
+											></textarea>
 										</div>
 									)
 								})}
