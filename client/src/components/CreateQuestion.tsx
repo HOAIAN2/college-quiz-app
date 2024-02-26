@@ -28,6 +28,7 @@ export default function CreateQuestion({
 }: CreateQuestionProps) {
 	const [hide, setHide] = useState(true)
 	const [options, setOptions] = useState<Option[]>([])
+	const [trueOptionIndex, setTrueOptionIndex] = useState<number>()
 	const language = useLanguage<ComponentCreateQuestionLang>('component.create_question')
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -122,6 +123,7 @@ export default function CreateQuestion({
 					}}
 						onInput={handleOnInput}
 						className={globalStyles['form-data']}>
+						<input name='true_option' disabled hidden value={trueOptionIndex} />
 						<div className={
 							[
 								globalStyles['group-inputs']
@@ -231,9 +233,14 @@ export default function CreateQuestion({
 								}
 							</div>
 							<div>
-								{options.map(option => {
+								{options.map((option, index) => {
 									return (
 										<div key={option.key}>
+											<div
+												onClick={() => {
+													setTrueOptionIndex(index)
+												}}>ádasdasdasd
+											</div>
 											<input
 												name='options[]'
 												type='text' />
