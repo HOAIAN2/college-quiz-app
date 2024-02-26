@@ -5,6 +5,7 @@ import { RiAddFill } from 'react-icons/ri'
 import { useLocation, useParams, useSearchParams } from 'react-router-dom'
 import { apiGetQuestions } from '../api/question'
 import { apiGetSubjectById } from '../api/subject'
+import CreateQuestion from '../components/CreateQuestion'
 import CustomSelect from '../components/CustomSelect'
 import Loading from '../components/Loading'
 import { queryKeys } from '../constants/query-keys'
@@ -19,6 +20,7 @@ export default function Questions() {
 	const { state } = useLocation() as { state: SubjectDetail | null }
 	const [subjectDetail, setSubjectDetail] = useState(state)
 	const [searchParams, setSearchParams] = useSearchParams()
+	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
 	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
 	const queryDebounce = useDebounce(searchQuery)
 	const { permissions } = useAppContext()
@@ -52,6 +54,12 @@ export default function Questions() {
 	if (!subjectDetail) return null
 	return (
 		<>
+			{showCreatePopUp === true ?
+				<CreateQuestion
+					onMutateSuccess={() => { }}
+					setShowPopUp={setShowCreatePopUp}
+					subjectDetail={subjectDetail}
+				/> : null}
 			<div
 				className={
 					[
@@ -72,7 +80,7 @@ export default function Questions() {
 								].join(' ')
 							}
 								onClick={() => {
-									// setShowCreatePopUp(true)
+									setShowCreatePopUp(true)
 								}}
 							>
 								<RiAddFill /> {language?.add}
