@@ -1,11 +1,12 @@
 import { useMutation } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
+import { RiAddFill } from 'react-icons/ri'
 import { RxCross2 } from 'react-icons/rx'
 import { apiCreateQuestion } from '../api/question'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateQuestionLang } from '../models/lang'
 import { SubjectDetail } from '../models/subject'
-import styles from '../styles/CreateQuestion.module.css'
+import globalStyles from '../styles/global/CreateModel.module.css'
 import CustomSelect from './CustomSelect'
 import Loading from './Loading'
 
@@ -15,12 +16,18 @@ type CreateQuestionProps = {
 	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 
+type Option = {
+	key: string,
+	content: string
+}
+
 export default function CreateQuestion({
 	subjectDetail,
 	onMutateSuccess,
 	setShowPopUp
 }: CreateQuestionProps) {
 	const [hide, setHide] = useState(true)
+	const [options, setOptions] = useState<Option[]>([])
 	const language = useLanguage<ComponentCreateQuestionLang>('component.create_question')
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -32,7 +39,7 @@ export default function CreateQuestion({
 	}
 	const getParentElement = (element: HTMLInputElement) => {
 		let parent = element.parentElement as HTMLElement
-		while (!parent.classList.contains(styles['wrap-item'])) parent = parent.parentElement as HTMLElement
+		while (!parent.classList.contains(globalStyles['wrap-item'])) parent = parent.parentElement as HTMLElement
 		return parent
 	}
 	const handleOnInput = (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,7 +51,7 @@ export default function CreateQuestion({
 	}
 	const handleCreateQuestion = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
-		document.querySelector(styles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
+		document.querySelector(globalStyles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
 			node.classList.remove('error')
 			getParentElement(node).removeAttribute('data-error')
 		})
@@ -84,8 +91,8 @@ export default function CreateQuestion({
 	return (
 		<div className={
 			[
-				styles['create-model-container'],
-				hide ? styles['hide'] : ''
+				globalStyles['create-model-container'],
+				hide ? globalStyles['hide'] : ''
 			].join(' ')
 		}>
 			{
@@ -93,13 +100,13 @@ export default function CreateQuestion({
 			}
 			<div className={
 				[
-					styles['create-model-form'],
-					hide ? styles['hide'] : ''
+					globalStyles['create-model-form'],
+					hide ? globalStyles['hide'] : ''
 				].join(' ')
 			}>
-				<div className={styles['header']}>
-					<h2 className={styles['title']}>{language?.create}</h2>
-					<div className={styles['esc-button']}
+				<div className={globalStyles['header']}>
+					<h2 className={globalStyles['title']}>{language?.create}</h2>
+					<div className={globalStyles['esc-button']}
 						onClick={handleClosePopUp}
 					>
 						<RxCross2 />
@@ -107,20 +114,20 @@ export default function CreateQuestion({
 				</div>
 				<div className={
 					[
-						styles['form-content']
+						globalStyles['form-content']
 					].join(' ')
 				}>
 					<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 						mutate(e)
 					}}
 						onInput={handleOnInput}
-						className={styles['form-data']}>
+						className={globalStyles['form-data']}>
 						<div className={
 							[
-								styles['group-inputs']
+								globalStyles['group-inputs']
 							].join(' ')
 						}>
-							<div className={styles['wrap-item']}>
+							<div className={globalStyles['wrap-item']}>
 								<label htmlFor="">{language?.chapter}</label>
 								<CustomSelect
 									defaultOption={
@@ -145,13 +152,13 @@ export default function CreateQuestion({
 									}}
 									className={
 										[
-											styles['custom-select']
+											globalStyles['custom-select']
 										].join(' ')
 									}
 								/>
 							</div>
-							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor="">{language?.level}</label>
+							<div className={globalStyles['wrap-item']}>
+								<label className={globalStyles['required']} htmlFor="">{language?.level}</label>
 								<CustomSelect
 									defaultOption={
 										{
@@ -172,28 +179,85 @@ export default function CreateQuestion({
 									}}
 									className={
 										[
-											styles['custom-select']
+											globalStyles['custom-select']
 										].join(' ')
 									}
 								/>
 							</div>
 							<div className={
 								[
-									styles['wrap-item'],
-									styles['textarea']
+									globalStyles['wrap-item'],
+									globalStyles['textarea']
 								].join(' ')
 							}>
-								<label className={styles['required']} htmlFor='password'>{language?.content}</label>
+								<label className={globalStyles['required']} htmlFor='password'>{language?.content}</label>
 								<textarea name='content' id='content'
 									className={
 										[
 											'input-d',
-											styles['input-item'],
+											globalStyles['input-item'],
 										].join(' ')
 									}
 									cols={30} rows={50}>
 								</textarea>
 							</div>
+							<div
+								style={{ paddingLeft: '20px' }}
+								className={
+									[
+										'action-bar-d'
+									].join(' ')
+								}>
+								{
+									<div
+										style={{ width: 'fit-content' }}
+										className={
+											[
+												'action-item-d'
+											].join(' ')
+										}
+										onClick={() => {
+											setOptions([
+												...options,
+												{
+													key: new Date().getTime().toString(),
+													content: ''
+												}
+											])
+										}}
+									>
+										<RiAddFill /> {language?.addOption}
+									</div>
+								}
+							</div>
+							<div>
+								{options.map(option => {
+									return (
+										<div key={option.key}>
+											<input
+												name='options[]'
+												type='text' />
+										</div>
+									)
+								})}
+							</div>
+						</div>
+						<div className={globalStyles['action-items']}>
+							<button name='save'
+								className={
+									[
+										'action-item-d',
+										isPending ? 'button-submitting' : ''
+									].join(' ')
+								}>{language?.save}</button>
+							<button name='save-more'
+								className={
+									[
+										'action-item-d-white',
+										isPending ? 'button-submitting' : ''
+									].join(' ')
+								}
+							>{language?.saveMore}</button>
 						</div>
 					</form>
 				</div>

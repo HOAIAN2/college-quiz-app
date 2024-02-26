@@ -10,6 +10,7 @@ export default {
 		hard: 'Hard',
 		expert: 'Expert',
 	},
+	addOption: 'Add option',
 	save: 'Save',
 	saveMore: 'Save more'
 }

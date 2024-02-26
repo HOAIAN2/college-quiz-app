@@ -10,6 +10,7 @@ export default {
 		hard: 'Khó',
 		expert: 'Rất khó',
 	},
+	addOption: 'Thêm lựa chọn',
 	save: 'Lưu',
 	saveMore: 'Lưu thêm'
 }
