@@ -123,7 +123,8 @@ export default function CreateQuestion({
 					}}
 						onInput={handleOnInput}
 						className={globalStyles['form-data']}>
-						<input name='true_option' disabled hidden value={trueOptionIndex} />
+						<input name='true_option' readOnly hidden value={trueOptionIndex} />
+						<input name='subject_id' readOnly hidden value={subjectDetail.id} />
 						<div className={
 							[
 								globalStyles['group-inputs']
@@ -132,6 +133,7 @@ export default function CreateQuestion({
 							<div className={globalStyles['wrap-item']}>
 								<label htmlFor="">{language?.chapter}</label>
 								<CustomSelect
+									name='chapter_id'
 									defaultOption={
 										{
 											label: language?.unselect,
@@ -162,6 +164,7 @@ export default function CreateQuestion({
 							<div className={globalStyles['wrap-item']}>
 								<label className={globalStyles['required']} htmlFor="">{language?.level}</label>
 								<CustomSelect
+									name='level'
 									defaultOption={
 										{
 											label: language?.questionLevel.easy,

@@ -31,7 +31,8 @@ return [
 		'school_class' => 'school class',
 		'faculty' => 'faculty',
 		'password' => 'password',
-		'chapter_number' => 'chapter number'
+		'chapter_number' => 'chapter number',
+		'content' => 'content'
 	],
 	'custom' => [
 		'role' => [

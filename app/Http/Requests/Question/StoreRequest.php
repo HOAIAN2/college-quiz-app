@@ -23,6 +23,7 @@ class StoreRequest extends FormRequest
 	 */
 	public function rules(): array
 	{
+		$maxIndex = $this->options != null ? count($this->options) - 1 : 0;
 		return [
 			'subject_id' => ['required'],
 			'chapter_id' => ['nullable'],
@@ -30,7 +31,7 @@ class StoreRequest extends FormRequest
 			'content' => ['required'],
 			'options' => ['required', 'array', 'min:2'],
 			'options.*' => ['string'],
-			'true_option' => ['required', 'integer', 'min:0', 'max:' . count($this->options) - 1]
+			'true_option' => ['required', 'integer', 'min:0', 'max:' . $maxIndex]
 		];
 	}
 }

@@ -31,7 +31,8 @@ return [
 		'school_class' => 'lớp học',
 		'faculty' => 'khoa',
 		'password' => 'mật khẩu',
-		'chapter_number' => 'số chương'
+		'chapter_number' => 'số chương',
+		'content' => 'nội dung'
 	],
 	'custom' => [
 		'role' => [
