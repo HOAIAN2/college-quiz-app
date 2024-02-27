@@ -29,7 +29,7 @@ export default function CreateQuestion({
 }: CreateQuestionProps) {
 	const [hide, setHide] = useState(true)
 	const [options, setOptions] = useState<Option[]>([])
-	const [trueOptionIndex, setTrueOptionIndex] = useState<number>()
+	const [trueOptionKey, setTrueOptionKey] = useState<string>()
 	const language = useLanguage<ComponentCreateQuestionLang>('component.create_question')
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -124,7 +124,7 @@ export default function CreateQuestion({
 					}}
 						onInput={handleOnInput}
 						className={globalStyles['form-data']}>
-						<input name='true_option' readOnly hidden value={trueOptionIndex} />
+						<input name='true_option' readOnly hidden value={options.findIndex(option => option.key === trueOptionKey)} />
 						<input name='subject_id' readOnly hidden value={subjectDetail.id} />
 						<div className={
 							[
@@ -196,7 +196,7 @@ export default function CreateQuestion({
 									globalStyles['textarea']
 								].join(' ')
 							}>
-								<label className={globalStyles['required']} htmlFor='password'>{language?.content}</label>
+								<label className={globalStyles['required']} htmlFor='content'>{language?.content}</label>
 								<textarea name='content' id='content'
 									className={
 										[
@@ -236,31 +236,39 @@ export default function CreateQuestion({
 									</div>
 								}
 							</div>
-							<div className={styles['options-container']}>
-								{options.map((option, index) => {
-									return (
-										<div
-											key={option.key}
-											className={styles['wrap-textarea']}
-										>
-											<div className={styles['label']}
-												onClick={() => {
-													setTrueOptionIndex(index)
-												}}>{`${language?.answer} ${index + 1}`}
-											</div>
-											<textarea
-												className={
-													[
-														'input-d',
-														styles['textarea']
-													].join(' ')
-												}
-												name='options[]'
-											></textarea>
-										</div>
-									)
-								})}
-							</div>
+						</div>
+						<div className={globalStyles['group-inputs']}>
+							{options.map((option, index) => {
+								return (
+									<div
+										key={option.key}
+										className={
+											[
+												styles['textarea-group'],
+												globalStyles['wrap-item'],
+												globalStyles['textarea'],
+											].join(' ')
+										}>
+										<label style={{ cursor: 'pointer' }}
+											className={globalStyles['required']}
+											onClick={() => {
+												setTrueOptionKey(String(option.key))
+											}}
+										>{`${language?.answer} ${index + 1}`}</label>
+										<textarea name='options[]'
+											className={
+												[
+													'input-d',
+													globalStyles['input-item'],
+													styles['textarea'],
+													option.key === trueOptionKey ? styles['active'] : ''
+												].join(' ')
+											}
+											cols={30} rows={50}>
+										</textarea>
+									</div>
+								)
+							})}
 						</div>
 						<div className={globalStyles['action-items']}>
 							<button name='save'
@@ -281,7 +289,7 @@ export default function CreateQuestion({
 						</div>
 					</form>
 				</div>
-			</div>
-		</div>
+			</div >
+		</div >
 	)
 }
