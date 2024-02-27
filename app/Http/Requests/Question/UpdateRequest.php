@@ -23,12 +23,14 @@ class UpdateRequest extends FormRequest
 	 */
 	public function rules(): array
 	{
+		$maxIndex = $this->options != null ? count($this->options) - 1 : 0;
 		return [
-			'subject_id' => ['required'],
 			'chapter_id' => ['nullable'],
 			'level' => ['required', 'in:easy,medium,hard,expert'],
 			'content' => ['required'],
-			'true_option' => ['nullable', 'integer'] # id of question_options
+			'options' => ['required', 'array', 'min:2'],
+			'options.*' => ['string'],
+			'true_option' => ['required', 'integer', 'min:0', 'max:' . $maxIndex],
 		];
 	}
 }

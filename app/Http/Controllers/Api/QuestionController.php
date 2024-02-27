@@ -89,25 +89,25 @@ class QuestionController extends Controller
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('question_update'), 403);
 		$data = collect($request->validated())
-			->except(['true_option'])->toArray();
+			->except([
+				'options',
+				'true_option',
+			])->toArray();
 		$data['last_updated_by'] = $user->id;
 
 		DB::beginTransaction();
 		try {
 			$targetQuestion = Question::findOrFail($id);
 			$targetQuestion->update($data);
+			$question_options = $targetQuestion->question_options;
 
-			if (
-				$request->true_option != null
-				&& $targetQuestion->hasOption($request->true_option)
-			) {
-				QuestionOption::where('question_id', '=', $id)->update([
-					'is_correct' => false
-				]);
-				QuestionOption::where('id', '=', $request->true_option)->update([
-					'is_correct' => true
+			foreach ($question_options as $key => $option) {
+				$option->update([
+					'content' => $request->options[$key],
+					'is_correct' => $request->true_option == $key
 				]);
 			}
+
 			DB::commit();
 			return Reply::successWithMessage('app.successes.recordSaveSuccess');
 		} catch (\Throwable $error) {
