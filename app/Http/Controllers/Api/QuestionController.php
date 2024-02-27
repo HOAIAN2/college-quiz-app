@@ -90,6 +90,7 @@ class QuestionController extends Controller
 		abort_if(!$user->hasPermission('question_update'), 403);
 		$data = collect($request->validated())
 			->except(['true_option'])->toArray();
+		$data['last_updated_by'] = $user->id;
 
 		DB::beginTransaction();
 		try {
