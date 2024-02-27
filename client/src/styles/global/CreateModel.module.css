@@ -86,7 +86,9 @@
 .wrap-item.textarea>.input-item {
 	padding: 20px;
 	min-height: 70px;
-	resize: vertical;
+	/* resize: vertical; */
+	resize: none;
+	overflow: hidden;
 }
 
 .wrap-item::after {

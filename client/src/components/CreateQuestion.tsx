@@ -8,6 +8,7 @@ import { ComponentCreateQuestionLang } from '../models/lang'
 import { SubjectDetail } from '../models/subject'
 import styles from '../styles/CreateQuestion.module.css'
 import globalStyles from '../styles/global/CreateModel.module.css'
+import { autoSizeTextArea } from '../utils/autoSizeTextArea'
 import CustomSelect from './CustomSelect'
 import Loading from './Loading'
 
@@ -180,9 +181,9 @@ export default function CreateQuestion({
 											}
 										}) : []
 									}
-									onChange={(option) => {
-										console.log(option)
-									}}
+									// onChange={(option) => {
+									// 	console.log(option)
+									// }}
 									className={
 										[
 											globalStyles['custom-select']
@@ -197,7 +198,9 @@ export default function CreateQuestion({
 								].join(' ')
 							}>
 								<label className={globalStyles['required']} htmlFor='content'>{language?.content}</label>
-								<textarea name='content' id='content'
+								<textarea
+									onInput={autoSizeTextArea}
+									name='content' id='content'
 									className={
 										[
 											'input-d',
@@ -255,7 +258,9 @@ export default function CreateQuestion({
 												setTrueOptionKey(String(option.key))
 											}}
 										>{`${language?.answer} ${index + 1}`}</label>
-										<textarea name='options[]'
+										<textarea
+											onInput={autoSizeTextArea}
+											name='options[]'
 											className={
 												[
 													'input-d',
