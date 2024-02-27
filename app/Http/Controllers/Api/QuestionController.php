@@ -44,6 +44,7 @@ class QuestionController extends Controller
 			'options',
 			'true_option'
 		])->toArray();
+		$question_data['created_by'] = $user->id;
 
 		DB::beginTransaction();
 		try {

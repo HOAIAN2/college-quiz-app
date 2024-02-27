@@ -2,7 +2,8 @@ type QuestionLevel = 'easy' | 'medium' | 'hard' | 'expert'
 
 export type Question = {
 	id: number
-	createdBy?: number | null
+	createdBy: number | null
+	lastUpdatedBy: number | null
 	subjectId: number
 	chapterId?: number | null
 	level: QuestionLevel
