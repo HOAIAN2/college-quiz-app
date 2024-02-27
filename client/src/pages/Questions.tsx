@@ -141,28 +141,30 @@ export default function Questions() {
 								} type="text" />
 						</div>
 					</div>
-					<div className={styles['card-container']}>
-						{queryData.data ?
-							queryData.data.map(item => {
-								return (
-									<div
-										key={`subject-${item.id}`}
-										className={
-											[
-												'dashboard-card-d',
-												styles['card'],
-											].join(' ')
-										}>
-										<div className={styles['card-top']}>
-											<AiOutlineQuestionCircle />
-											{item.content}
+					<div className={styles['wrap-card-container']}>
+						<div className={styles['card-container']}>
+							{queryData.data ?
+								queryData.data.map(item => {
+									return (
+										<div
+											key={`subject-${item.id}`}
+											className={
+												[
+													'dashboard-card-d',
+													styles['card'],
+												].join(' ')
+											}>
+											<div className={styles['card-top']}>
+												<AiOutlineQuestionCircle />
+												{item.content}
+											</div>
+											<div className={styles['card-bottom']}>
+												{language?.questionLevel[item.level]}
+											</div>
 										</div>
-										<div className={styles['card-bottom']}>
-											{language?.questionLevel[item.level]}
-										</div>
-									</div>
-								)
-							}) : null}
+									)
+								}) : null}
+						</div>
 					</div>
 				</div>
 			</div>

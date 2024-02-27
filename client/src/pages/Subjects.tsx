@@ -122,27 +122,29 @@ export default function Subjects() {
 								} type="text" />
 						</div>
 					</div>
-					<div className={styles['card-container']}>
-						{queryData.data ?
-							queryData.data.map(item => {
-								return (
-									<Link
-										key={`subject-${item.id}`}
-										to={String(item.id)}
-										className={
-											[
-												'dashboard-card-d',
-												styles['card'],
-											].join(' ')
-										}>
-										<div className={styles['card-top']}>
-											<LuBookOpenCheck />
-											{item.name}
-										</div>
-										<div className={styles['card-bottom']}>{item.shortcode}</div>
-									</Link>
-								)
-							}) : null}
+					<div className={styles['wrap-card-container']}>
+						<div className={styles['card-container']}>
+							{queryData.data ?
+								queryData.data.map(item => {
+									return (
+										<Link
+											key={`subject-${item.id}`}
+											to={String(item.id)}
+											className={
+												[
+													'dashboard-card-d',
+													styles['card'],
+												].join(' ')
+											}>
+											<div className={styles['card-top']}>
+												<LuBookOpenCheck />
+												{item.name}
+											</div>
+											<div className={styles['card-bottom']}>{item.shortcode}</div>
+										</Link>
+									)
+								}) : null}
+						</div>
 					</div>
 				</div>
 			</div>

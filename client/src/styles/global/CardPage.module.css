@@ -48,13 +48,18 @@
 	height: 80%;
 }
 
-.card-container {
+.wrap-card-container {
 	height: calc(100% - 100px);
+	overflow-y: auto;
+}
+
+.card-container {
+	/* height: calc(100% - 100px); */
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 20px;
-	overflow-y: auto;
+	/* overflow-y: auto; */
 }
 
 .card {
