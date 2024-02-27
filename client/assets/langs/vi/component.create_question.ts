@@ -12,6 +12,7 @@ export default {
 	},
 	addOption: 'Thêm lựa chọn',
 	answer: 'Câu trả lời',
+	delete: 'Xóa',
 	save: 'Lưu',
 	saveMore: 'Lưu thêm'
 }

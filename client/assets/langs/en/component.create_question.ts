@@ -12,6 +12,7 @@ export default {
 	},
 	addOption: 'Add option',
 	answer: 'Answer',
+	delete: 'Delete',
 	save: 'Save',
 	saveMore: 'Save more'
 }

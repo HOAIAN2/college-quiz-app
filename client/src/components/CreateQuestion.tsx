@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
+import { MdDeleteOutline } from 'react-icons/md'
 import { RiAddFill } from 'react-icons/ri'
 import { RxCross2 } from 'react-icons/rx'
 import { apiCreateQuestion } from '../api/question'
@@ -271,6 +272,17 @@ export default function CreateQuestion({
 											}
 											cols={30} rows={50}>
 										</textarea>
+										<div
+											onClick={() => {
+												setOptions(options.filter(item => item.key !== option.key))
+											}}
+											className={
+												[
+													'action-item-d-white-border-red'
+												].join(' ')
+											}>
+											<MdDeleteOutline /> {language?.delete}
+										</div>
 									</div>
 								)
 							})}
