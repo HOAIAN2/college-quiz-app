@@ -56,7 +56,7 @@ export default function Questions() {
 		<>
 			{showCreatePopUp === true ?
 				<CreateQuestion
-					onMutateSuccess={() => { }}
+					onMutateSuccess={() => { queryData.refetch() }}
 					setShowPopUp={setShowCreatePopUp}
 					subjectDetail={subjectDetail}
 				/> : null}
