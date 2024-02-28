@@ -5,6 +5,7 @@ import { apiCreateChapter } from '../api/chapter'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateChapterLang } from '../models/lang'
 import styles from '../styles/global/CreateModel.module.css'
+import FormUtils from '../utils/FormUtils'
 import Loading from './Loading'
 
 type CreateChapterProps = {
@@ -30,23 +31,19 @@ export default function CreateChapter({
 			setShowPopUp(false)
 		}, timing)
 	}
-	const getParentElement = (element: HTMLInputElement) => {
-		let parent = element.parentElement as HTMLElement
-		while (!parent.classList.contains(styles['wrap-item'])) parent = parent.parentElement as HTMLElement
-		return parent
-	}
+	const formUtils = new FormUtils(styles)
 	const handleOnInput = (e: React.FormEvent<HTMLFormElement>) => {
 		const element = e.target as HTMLInputElement
 		if (element) {
 			element.classList.remove('error')
-			getParentElement(element).removeAttribute('data-error')
+			formUtils.getParentElement(element).removeAttribute('data-error')
 		}
 	}
 	const handleCreateChapter = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
 		document.querySelector(styles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
 			node.classList.remove('error')
-			getParentElement(node).removeAttribute('data-error')
+			formUtils.getParentElement(node).removeAttribute('data-error')
 		})
 		const submitter = e.nativeEvent.submitter as HTMLButtonElement
 		const form = e.target as HTMLFormElement
@@ -57,17 +54,7 @@ export default function CreateChapter({
 	}
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleCreateChapter,
-		onError: (error: object) => {
-			if (typeof error === 'object') {
-				for (const key in error) {
-					const element = document.querySelector<HTMLInputElement>(`input[data-selector='${key}'],[name='${key}']`)
-					if (element) {
-						element.classList.add('error')
-						getParentElement(element).setAttribute('data-error', error[key as keyof typeof error][0] as string)
-					}
-				}
-			}
-		},
+		onError: (error: object) => { formUtils.showFormError(error) },
 		onSuccess: onMutateSuccess
 	})
 	useEffect(() => {

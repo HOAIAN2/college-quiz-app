@@ -14,6 +14,7 @@ import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateUserLang } from '../models/lang'
 import { RoleName } from '../models/role'
 import styles from '../styles/global/CreateModel.module.css'
+import FormUtils from '../utils/FormUtils'
 import CustomDataList from './CustomDataList'
 import CustomSelect from './CustomSelect'
 import Loading from './Loading'
@@ -43,6 +44,7 @@ export default function CreateUser({
 			setShowPopUp(false)
 		}, timing)
 	}
+	const formUtils = new FormUtils(styles)
 	const classQueryData = useQuery({
 		queryKey: [queryKeys.AUTO_COMPLETE_SCHOOL_CLASS, { search: debounceQueryClass }],
 		queryFn: () => apiAutoCompleteSchoolClass(debounceQueryClass),
@@ -53,16 +55,11 @@ export default function CreateUser({
 		queryFn: () => apiAutoCompleteFaculty(debounceQueryFaculty),
 		enabled: debounceQueryFaculty ? true : false
 	})
-	const getParentElement = (element: HTMLInputElement) => {
-		let parent = element.parentElement as HTMLElement
-		while (!parent.classList.contains(styles['wrap-item'])) parent = parent.parentElement as HTMLElement
-		return parent
-	}
 	const handleCreateUser = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
 		document.querySelector(styles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
 			node.classList.remove('error')
-			getParentElement(node).removeAttribute('data-error')
+			formUtils.getParentElement(node).removeAttribute('data-error')
 		})
 		const submitter = e.nativeEvent.submitter as HTMLButtonElement
 		const form = e.target as HTMLFormElement
@@ -76,22 +73,12 @@ export default function CreateUser({
 		const element = e.target as HTMLInputElement
 		if (element) {
 			element.classList.remove('error')
-			getParentElement(element).removeAttribute('data-error')
+			formUtils.getParentElement(element).removeAttribute('data-error')
 		}
 	}
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleCreateUser,
-		onError: (error: object) => {
-			if (typeof error === 'object') {
-				for (const key in error) {
-					const element = document.querySelector<HTMLInputElement>(`input[data-selector='${key}'],[name='${key}']`)
-					if (element) {
-						element.classList.add('error')
-						getParentElement(element).setAttribute('data-error', error[key as keyof typeof error][0] as string)
-					}
-				}
-			}
-		},
+		onError: (error: object) => { formUtils.showFormError(error) },
 		onSuccess: onMutateSuccess
 	})
 	const options = [

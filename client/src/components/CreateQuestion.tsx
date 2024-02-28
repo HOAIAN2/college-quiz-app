@@ -9,6 +9,7 @@ import { ComponentCreateQuestionLang } from '../models/lang'
 import { SubjectDetail } from '../models/subject'
 import styles from '../styles/CreateQuestion.module.css'
 import globalStyles from '../styles/global/CreateModel.module.css'
+import FormUtils from '../utils/FormUtils'
 import { autoSizeTextArea } from '../utils/autoSizeTextArea'
 import CustomSelect from './CustomSelect'
 import Loading from './Loading'
@@ -41,23 +42,19 @@ export default function CreateQuestion({
 			setShowPopUp(false)
 		}, timing)
 	}
-	const getParentElement = (element: HTMLInputElement) => {
-		let parent = element.parentElement as HTMLElement
-		while (!parent.classList.contains(globalStyles['wrap-item'])) parent = parent.parentElement as HTMLElement
-		return parent
-	}
+	const formUtils = new FormUtils(globalStyles)
 	const handleOnInput = (e: React.FormEvent<HTMLFormElement>) => {
 		const element = e.target as HTMLInputElement
 		if (element) {
 			element.classList.remove('error')
-			getParentElement(element).removeAttribute('data-error')
+			formUtils.getParentElement(element).removeAttribute('data-error')
 		}
 	}
 	const handleCreateQuestion = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
 		document.querySelector(globalStyles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
 			node.classList.remove('error')
-			getParentElement(node).removeAttribute('data-error')
+			formUtils.getParentElement(node).removeAttribute('data-error')
 		})
 		const submitter = e.nativeEvent.submitter as HTMLButtonElement
 		const form = e.target as HTMLFormElement
@@ -68,17 +65,7 @@ export default function CreateQuestion({
 	}
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleCreateQuestion,
-		onError: (error: object) => {
-			if (typeof error === 'object') {
-				for (const key in error) {
-					const element = document.querySelector<HTMLInputElement>(`input[data-selector='${key}'],[name='${key}']`)
-					if (element) {
-						element.classList.add('error')
-						getParentElement(element).setAttribute('data-error', error[key as keyof typeof error][0] as string)
-					}
-				}
-			}
-		},
+		onError: (error: object) => { formUtils.showFormError(error) },
 		onSuccess: onMutateSuccess
 	})
 	useEffect(() => {
