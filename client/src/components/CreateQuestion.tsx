@@ -43,13 +43,6 @@ export default function CreateQuestion({
 		}, timing)
 	}
 	const formUtils = new FormUtils(globalStyles)
-	const handleOnInput = (e: React.FormEvent<HTMLFormElement>) => {
-		const element = e.target as HTMLInputElement
-		if (element) {
-			element.classList.remove('error')
-			formUtils.getParentElement(element).removeAttribute('data-error')
-		}
-	}
 	const handleCreateQuestion = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
 		document.querySelector(globalStyles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
@@ -111,7 +104,7 @@ export default function CreateQuestion({
 					<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 						mutate(e)
 					}}
-						onInput={handleOnInput}
+						onInput={(e) => { formUtils.handleOnInput(e) }}
 						className={globalStyles['form-data']}>
 						<input name='true_option' readOnly hidden value={options.findIndex(option => option.key === trueOptionKey)} />
 						<input name='subject_id' readOnly hidden value={subjectDetail.id} />

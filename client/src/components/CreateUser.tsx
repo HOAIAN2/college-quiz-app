@@ -69,13 +69,6 @@ export default function CreateUser({
 		if (submitter.name === 'save') handleClosePopUp()
 		else form.reset()
 	}
-	const handleOnInput = (e: React.FormEvent<HTMLFormElement>) => {
-		const element = e.target as HTMLInputElement
-		if (element) {
-			element.classList.remove('error')
-			formUtils.getParentElement(element).removeAttribute('data-error')
-		}
-	}
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleCreateUser,
 		onError: (error: object) => { formUtils.showFormError(error) },
@@ -135,7 +128,7 @@ export default function CreateUser({
 					<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 						mutate(e)
 					}}
-						onInput={handleOnInput}
+						onInput={(e) => { formUtils.handleOnInput(e) }}
 						className={styles['form-data']}>
 						<div className={
 							[

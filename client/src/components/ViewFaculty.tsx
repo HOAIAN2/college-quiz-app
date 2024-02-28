@@ -50,13 +50,6 @@ export default function ViewFaculty({
 		queryFn: () => apiAutoCompleteUser('teacher', debounceQueryUser),
 		enabled: debounceQueryUser && permissions.has('user_view') ? true : false
 	})
-	const handleOnInput = (e: React.FormEvent<HTMLFormElement>) => {
-		const element = e.target as HTMLInputElement
-		if (element) {
-			element.classList.remove('error')
-			formUtils.getParentElement(element).removeAttribute('data-error')
-		}
-	}
 	const handleUpdateFaculty = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
 		document.querySelector(styles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
@@ -125,7 +118,7 @@ export default function ViewFaculty({
 								<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 									mutate(e)
 								}}
-									onInput={handleOnInput}
+									onInput={(e) => { formUtils.handleOnInput(e) }}
 									className={styles['form-data']}>
 									<div className={
 										[
