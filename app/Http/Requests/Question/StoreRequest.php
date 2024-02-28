@@ -30,7 +30,7 @@ class StoreRequest extends FormRequest
 			'level' => ['required', 'in:easy,medium,hard,expert'],
 			'content' => ['required'],
 			'options' => ['required', 'array', 'min:2'],
-			'options.*' => ['string'],
+			'options.*' => ['required'],
 			'true_option' => ['required', 'integer', 'min:0', 'max:' . $maxIndex]
 		];
 	}
