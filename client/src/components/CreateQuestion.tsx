@@ -113,7 +113,7 @@ export default function CreateQuestion({
 								globalStyles['group-inputs']
 							].join(' ')
 						}>
-							<div className={globalStyles['wrap-item']}>
+							<div style={{ zIndex: 2 }} className={globalStyles['wrap-item']}>
 								<label htmlFor="">{language?.chapter}</label>
 								<CustomSelect
 									name='chapter_id'
