@@ -11,6 +11,9 @@ return [
 	'max' => [
 		'string' => 'Trường :attribute không được vượt quá :max ký tự.',
 	],
+	'min' => [
+		'array' => 'Trường :attribute phải có ít nhất :min mục.'
+	],
 	'size' => [
 		'string' => 'Trường :attribute phải luôn có 10 ký tự',
 	],
@@ -63,6 +66,9 @@ return [
 		],
 		'chapter_number' => [
 			'unique' => 'Môn học đã tồn tại chương này'
+		],
+		'options.*' => [
+			'required' => 'Vui lòng nhập nội dung đáp án'
 		]
 	],
 ];

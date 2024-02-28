@@ -11,6 +11,9 @@ return [
 	'max' => [
 		'string' => 'The :attribute field must not exceed :max characters.',
 	],
+	'min' => [
+		'array' => 'The :attribute field must have at least :min items.'
+	],
 	'size' => [
 		'string' => 'The :attribute field must be 10 characters.'
 	],
@@ -63,6 +66,9 @@ return [
 		],
 		'chapter_number' => [
 			'unique' => 'This chapter already exists for the subject.',
+		],
+		'options.*' => [
+			'required' => 'Please enter the answer content'
 		]
 	],
 ];
