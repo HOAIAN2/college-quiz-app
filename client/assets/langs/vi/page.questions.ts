@@ -16,5 +16,6 @@ export default {
 		medium: 'Trung bình',
 		hard: 'Khó',
 		expert: 'Rất khó',
-	}
+	},
+	title: 'Câu hỏi @subject'
 }

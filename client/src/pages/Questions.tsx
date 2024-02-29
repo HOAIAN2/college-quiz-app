@@ -23,7 +23,7 @@ export default function Questions() {
 	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
 	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
 	const queryDebounce = useDebounce(searchQuery)
-	const { permissions } = useAppContext()
+	const { permissions, DOM } = useAppContext()
 	const { id } = useParams()
 	const language = useLanguage<PageQuestionsLang>('page.questions')
 	const queryData = useQuery({
@@ -51,6 +51,12 @@ export default function Questions() {
 		else searchParams.set('search', queryDebounce)
 		setSearchParams(searchParams)
 	}, [queryDebounce, searchParams, setSearchParams])
+	useEffect(() => {
+		if (language) {
+			document.title = language?.title.replace('@subject', subjectDetail?.name || '')
+			if (DOM.titleRef.current) DOM.titleRef.current.textContent = document.title
+		}
+	}, [subjectDetail, language, DOM.titleRef])
 	if (!subjectDetail) return null
 	return (
 		<>

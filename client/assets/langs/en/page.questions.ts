@@ -16,5 +16,6 @@ export default {
 		medium: 'Medium',
 		hard: 'Hard',
 		expert: 'Expert',
-	}
+	},
+	title: '@subject questions'
 }
