@@ -69,6 +69,9 @@ return [
 		],
 		'options.*' => [
 			'required' => 'Please enter the answer content'
+		],
+		'true_option' => [
+			'*' => 'Please select the correct answer for this question.'
 		]
 	],
 ];

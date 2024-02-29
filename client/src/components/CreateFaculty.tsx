@@ -46,7 +46,7 @@ export default function CreateFaculty({
 		e.preventDefault()
 		document.querySelector(styles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
 			node.classList.remove('error')
-			formUtils.getParentElement(node).removeAttribute('data-error')
+			formUtils.getParentElement(node)?.removeAttribute('data-error')
 		})
 		const submitter = e.nativeEvent.submitter as HTMLButtonElement
 		const form = e.target as HTMLFormElement

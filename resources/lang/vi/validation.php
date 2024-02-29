@@ -69,6 +69,9 @@ return [
 		],
 		'options.*' => [
 			'required' => 'Vui lòng nhập nội dung đáp án'
+		],
+		'true_option' => [
+			'*' => 'Vui lòng chọn đáp án đúng cho câu hỏi này'
 		]
 	],
 ];

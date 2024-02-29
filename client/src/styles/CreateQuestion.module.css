@@ -1,12 +1,16 @@
-.active {
-	border: 1px solid var(--color-soft-green);
-	border-radius: var(--border-radius-low);
-	box-shadow: 0px 0px 5px var(--color-soft-green);
-}
-
 .textarea-group {
 	flex: 0 0 calc(50% - 35px) !important;
 	height: fit-content;
+}
+
+.wrap-label {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.wrap-label>svg {
+	color: var(--color-soft-green);
 }
 
 .textarea {

@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
+import { FaRegCircleCheck } from 'react-icons/fa6'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RiAddFill } from 'react-icons/ri'
 import { RxCross2 } from 'react-icons/rx'
@@ -47,7 +48,7 @@ export default function CreateQuestion({
 		e.preventDefault()
 		document.querySelector(globalStyles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
 			node.classList.remove('error')
-			formUtils.getParentElement(node).removeAttribute('data-error')
+			formUtils.getParentElement(node)?.removeAttribute('data-error')
 		})
 		const submitter = e.nativeEvent.submitter as HTMLButtonElement
 		const form = e.target as HTMLFormElement
@@ -233,13 +234,25 @@ export default function CreateQuestion({
 												globalStyles['textarea'],
 											].join(' ')
 										}>
-										<label style={{ cursor: 'pointer' }}
-											className={globalStyles['required']}
-											onClick={() => {
-												setTrueOptionKey(String(option.key))
-											}}
-										>{`${language?.answer} ${index + 1}`}</label>
+										<div className={
+											[
+												styles['wrap-label'],
+											].join(' ')
+										}>
+											<label style={{ cursor: 'pointer' }}
+												className={globalStyles['required']}
+												onClick={() => {
+													setTrueOptionKey(String(option.key))
+												}}
+											>{`${language?.answer} ${index + 1}`}</label>
+											{
+												option.key === trueOptionKey ?
+													<FaRegCircleCheck />
+													: null
+											}
+										</div>
 										<textarea
+											data-selector={`options.${index}`}
 											onInput={autoSizeTextArea}
 											name='options[]'
 											className={
@@ -247,7 +260,6 @@ export default function CreateQuestion({
 													'input-d',
 													globalStyles['input-item'],
 													styles['textarea'],
-													option.key === trueOptionKey ? styles['active'] : ''
 												].join(' ')
 											}
 											cols={30} rows={50}>

@@ -54,7 +54,7 @@ export default function ViewFaculty({
 		e.preventDefault()
 		document.querySelector(styles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
 			node.classList.remove('error')
-			formUtils.getParentElement(node).removeAttribute('data-error')
+			formUtils.getParentElement(node)?.removeAttribute('data-error')
 		})
 		const form = e.target as HTMLFormElement
 		const formData = new FormData(form)

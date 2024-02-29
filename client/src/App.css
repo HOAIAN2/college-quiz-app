@@ -35,6 +35,7 @@
 	background-color: var(--color-blue);
 	color: white;
 	padding: 10px;
+	user-select: none;
 	transition: 0.4s;
 }
 
@@ -53,6 +54,7 @@
 	border-radius: var(--border-radius-low);
 	background-color: white;
 	padding: 10px;
+	user-select: none;
 	transition: 0.4s;
 }
 
@@ -67,6 +69,7 @@
 	border-radius: var(--border-radius-low);
 	background-color: white;
 	padding: 10px;
+	user-select: none;
 	transition: 0.4s;
 }
 
