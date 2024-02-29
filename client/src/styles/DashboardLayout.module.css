@@ -5,5 +5,6 @@
 
 .dashboard-content {
 	display: flex;
-	height: calc(100% - (100px + 75px));
+	height: calc(100% - 75px);
+	/* height: calc(100% - (100px + 75px)); */
 }
