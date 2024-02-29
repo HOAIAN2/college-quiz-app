@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from '../styles/CustomDataList.module.css'
 
 type Option = {
@@ -28,6 +28,19 @@ export default function CustomDataList({
 	const customDataListRef = useRef<HTMLDivElement>(null)
 	const [value, SetValue] = useState<string | number>(defaultOption?.value || '')
 	const [currentText, setCurrentText] = useState(defaultOption?.label || '')
+	useEffect(() => {
+		const handleClickOutside = (e: MouseEvent) => {
+			const element = e.target as HTMLElement
+			if (element && !customDataListRef.current?.contains(element)) {
+				customDataListRef.current?.classList.add(styles['hidden'])
+			}
+			// else customDataListRef.current?.classList.remove(styles['hidden'])
+		}
+		document.addEventListener('click', handleClickOutside)
+		return () => {
+			document.removeEventListener('click', handleClickOutside)
+		}
+	}, [])
 	return (
 		<div
 			className={
@@ -39,7 +52,7 @@ export default function CustomDataList({
 				].join(' ')
 			}
 		>
-			<input type="text"
+			<input
 				data-selector={name}
 				// name={name}
 				className={
