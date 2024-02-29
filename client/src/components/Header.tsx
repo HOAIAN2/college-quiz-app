@@ -45,7 +45,7 @@ export default function Header() {
 		const handleClickOutside = (e: MouseEvent) => {
 			const element = e.target as HTMLElement
 			if (element && !dropContainerRef.current?.contains(element)) {
-				// dropContainerRef.current?.classList.remove(styles['show'])
+				dropContainerRef.current?.classList.remove(styles['show'])
 			}
 		}
 		document.addEventListener('click', handleClickOutside)
@@ -79,18 +79,20 @@ export default function Header() {
 				{
 					user.user ?
 						<>
-							<div onClick={handleToggle} className={styles['right-item']}>
+							<div
+								ref={dropContainerRef}
+								onClick={handleToggle} className={styles['right-item']}>
 								<AiOutlineUser />
-							</div>
-							<div onClick={handleToggle} className={styles['drop-down']} ref={dropContainerRef}>
-								<Link to='/profile' className={styles['drop-item']}
-									title={languageUtils.getFullName(user.user?.firstName, user.user?.lastName)}>
-									<AiOutlineUser />
-									<span>{language?.profile}</span>
-								</Link>
-								<div onClick={handleLogout} className={styles['drop-item']}>
-									<BiLogOut />
-									<span>{language?.logout}</span>
+								<div onClick={handleToggle} className={styles['drop-down']}>
+									<Link to='/profile' className={styles['drop-item']}
+										title={languageUtils.getFullName(user.user?.firstName, user.user?.lastName)}>
+										<AiOutlineUser />
+										<span>{language?.profile}</span>
+									</Link>
+									<div onClick={handleLogout} className={styles['drop-item']}>
+										<BiLogOut />
+										<span>{language?.logout}</span>
+									</div>
 								</div>
 							</div>
 						</> : null
