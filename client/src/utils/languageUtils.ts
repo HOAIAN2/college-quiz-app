@@ -6,6 +6,14 @@ const languagesSupported = [
 ]
 
 const languageUtils = {
+	languageCodeName: languagesSupported.map(item => {
+		return {
+			value: item,
+			label: new Intl.DisplayNames([item], {
+				type: 'language'
+			}).of(item)
+		}
+	}),
 	getLanguage() {
 		const localLanguage = localStorage.getItem(LANG_KEY) as string
 		if (languagesSupported.includes(localLanguage)) return localLanguage

@@ -16,16 +16,6 @@ import navBarStyles from '../styles/NavBar.module.css'
 import languageUtils from '../utils/languageUtils'
 import CustomSelect from './CustomSelect'
 
-const languageOptions = [
-	{
-		value: 'vi',
-		label: 'Tiếng Việt'
-	},
-	{
-		value: 'en',
-		label: 'English'
-	},
-]
 export default function Header() {
 	const { DOM, user, appLanguage } = useAppContext()
 	const language = useLanguage<ComponentHeaderLang>('component.header')
@@ -71,8 +61,8 @@ export default function Header() {
 			<div className={styles['right-items']}>
 				<div>
 					<CustomSelect
-						defaultOption={languageOptions.find(lang => lang.value === appLanguage.language)!}
-						options={languageOptions}
+						defaultOption={languageUtils.languageCodeName.find(lang => lang.value === appLanguage.language)!}
+						options={languageUtils.languageCodeName}
 						className={styles['select-language']}
 						onChange={option => {
 							appLanguage.setLanguage(option.value)
