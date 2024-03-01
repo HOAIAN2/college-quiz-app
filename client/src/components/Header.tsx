@@ -57,11 +57,16 @@ export default function Header() {
 		<header className={styles['header']}>
 			<div id='loader'></div>
 			<div className={styles['left-items']}>
-				<div className={styles['toggle']} onClick={() => {
-					DOM.sideBarRef.current?.classList.toggle(navBarStyles['hide'])
-				}}>
-					<PiSidebarSimpleLight />
-				</div>
+				{
+					user.user ?
+						<>
+							<div className={styles['toggle']} onClick={() => {
+								DOM.sideBarRef.current?.classList.toggle(navBarStyles['hide'])
+							}}>
+								<PiSidebarSimpleLight />
+							</div>
+						</> : null
+				}
 				<h1 ref={DOM.titleRef} className={styles['app-title']}></h1>
 			</div>
 			<div className={styles['right-items']}>
