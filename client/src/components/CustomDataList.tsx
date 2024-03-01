@@ -26,15 +26,16 @@ export default function CustomDataList({
 	onInput
 }: CustomDataListProps) {
 	const customDataListRef = useRef<HTMLDivElement>(null)
+	const customDataListContainerRef = useRef<HTMLDivElement>(null)
 	const [value, SetValue] = useState<string | number>(defaultOption?.value || '')
 	const [currentText, setCurrentText] = useState(defaultOption?.label || '')
 	useEffect(() => {
 		const handleClickOutside = (e: MouseEvent) => {
 			const element = e.target as HTMLElement
-			if (element && !customDataListRef.current?.contains(element)) {
+			if (element && !customDataListContainerRef.current?.contains(element)) {
 				customDataListRef.current?.classList.add(styles['hidden'])
 			}
-			// else customDataListRef.current?.classList.remove(styles['hidden'])
+			else customDataListRef.current?.classList.remove(styles['hidden'])
 		}
 		document.addEventListener('click', handleClickOutside)
 		return () => {
@@ -43,6 +44,7 @@ export default function CustomDataList({
 	}, [])
 	return (
 		<div
+			ref={customDataListContainerRef}
 			className={
 				[
 					styles['custom-datalist'],
