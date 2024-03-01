@@ -37,7 +37,7 @@ export default function Header() {
 				navigate(0)
 			})
 	}
-	const handleToggle = () => {
+	const handleToggleDropdownProfile = () => {
 		profileDropdownRef.current?.classList.toggle(styles['show'])
 	}
 	useEffect(() => {
@@ -85,9 +85,9 @@ export default function Header() {
 						<>
 							<div
 								ref={profileDropdownRef}
-								onClick={handleToggle} className={styles['right-item']}>
+								onClick={handleToggleDropdownProfile} className={styles['right-item']}>
 								<AiOutlineUser />
-								<div onClick={handleToggle} className={styles['drop-down']}>
+								<div onClick={handleToggleDropdownProfile} className={styles['drop-down']}>
 									<Link to='/profile' className={styles['drop-item']}
 										title={languageUtils.getFullName(user.user?.firstName, user.user?.lastName)}>
 										<AiOutlineUser />
