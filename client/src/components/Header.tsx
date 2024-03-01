@@ -29,9 +29,8 @@ const languageOptions = [
 export default function Header() {
 	const { DOM, user, appLanguage } = useAppContext()
 	const language = useLanguage<ComponentHeaderLang>('component.header')
-	// const profileDropdownRef = useRef<HTMLDivElement>(null)
+	const profileDropdownRef = useRef<HTMLDivElement>(null)
 	const navigate = useNavigate()
-	const dropContainerRef = useRef<HTMLDivElement>(null)
 	const handleLogout = () => {
 		apiLogout()
 			.finally(() => {
@@ -39,13 +38,13 @@ export default function Header() {
 			})
 	}
 	const handleToggle = () => {
-		dropContainerRef.current?.classList.toggle(styles['show'])
+		profileDropdownRef.current?.classList.toggle(styles['show'])
 	}
 	useEffect(() => {
 		const handleClickOutside = (e: MouseEvent) => {
 			const element = e.target as HTMLElement
-			if (element && !dropContainerRef.current?.contains(element)) {
-				dropContainerRef.current?.classList.remove(styles['show'])
+			if (element && !profileDropdownRef.current?.contains(element)) {
+				profileDropdownRef.current?.classList.remove(styles['show'])
 			}
 		}
 		document.addEventListener('click', handleClickOutside)
@@ -85,7 +84,7 @@ export default function Header() {
 					user.user ?
 						<>
 							<div
-								ref={dropContainerRef}
+								ref={profileDropdownRef}
 								onClick={handleToggle} className={styles['right-item']}>
 								<AiOutlineUser />
 								<div onClick={handleToggle} className={styles['drop-down']}>
