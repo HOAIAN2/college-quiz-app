@@ -1,5 +1,5 @@
 export default {
-	create: 'Tạo câu hỏi',
+	title: 'Xem câu hỏi',
 	chapter: 'Chương',
 	content: 'Nội dung',
 	level: 'Độ khó',
@@ -14,5 +14,7 @@ export default {
 	answer: 'Câu trả lời',
 	delete: 'Xóa',
 	save: 'Lưu',
-	saveMore: 'Lưu thêm'
+	deleteMessage: 'Bạn có chắc chắn muốn xóa câu hỏi này? Hành động này không thể hoàn tác.',
+	langYes: 'Có',
+	langNo: 'Không'
 }

@@ -1,5 +1,5 @@
 export default {
-	create: 'Create question',
+	title: 'View question',
 	chapter: 'Chapter',
 	content: 'Content',
 	level: 'Difficulty level',
@@ -14,5 +14,7 @@ export default {
 	answer: 'Answer',
 	delete: 'Delete',
 	save: 'Save',
-	saveMore: 'Save more'
+	deleteMessage: 'Are you sure you want to delete this question? This action cannot be undone.',
+	langYes: 'Yes',
+	langNo: 'No'
 }

@@ -68,7 +68,7 @@ export default function Questions() {
 					id={questionId}
 					subjectDetail={subjectDetail}
 					setShowPopUp={setShowViewPopUp}
-					onMutateSuccess={() => { }}
+					onMutateSuccess={() => { queryData.refetch() }}
 				/>
 				: null
 			}
