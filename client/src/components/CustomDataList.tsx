@@ -35,7 +35,7 @@ export default function CustomDataList({
 			if (element && !customDataListContainerRef.current?.contains(element)) {
 				customDataListRef.current?.classList.add(styles['hidden'])
 			}
-			else customDataListRef.current?.classList.remove(styles['hidden'])
+			// else customDataListRef.current?.classList.remove(styles['hidden'])
 		}
 		document.addEventListener('click', handleClickOutside)
 		return () => {
@@ -55,6 +55,9 @@ export default function CustomDataList({
 			}
 		>
 			<input
+				onClick={() => {
+					customDataListRef.current?.classList.remove(styles['hidden'])
+				}}
 				data-selector={name}
 				// name={name}
 				className={
