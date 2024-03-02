@@ -79,17 +79,22 @@ export default function ViewQuestion({
 	}, [id])
 	useEffect(() => {
 		if (queryData.data) {
-			setOptions(queryData.data.questionOptions.map(item => {
+			const questionOptions = queryData.data.questionOptions.map(item => {
 				return {
 					key: item.id.toString(),
+					content: item.content,
+					isCorrect: item.isCorrect
+				}
+			})
+			setOptions(questionOptions.map(item => {
+				return {
+					key: item.key,
 					content: item.content
 				}
 			}))
-			setTrueOptionKey(queryData.data.questionOptions.findIndex(item => item.isCorrect).toString())
+			setTrueOptionKey(questionOptions.find(item => item.isCorrect)?.key)
 		}
 	}, [queryData.data])
-	console.log(trueOptionKey)
-	console.log(options)
 	return (
 		<div
 			className={
