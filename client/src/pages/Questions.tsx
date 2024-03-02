@@ -8,6 +8,7 @@ import { apiGetSubjectById } from '../api/subject'
 import CreateQuestion from '../components/CreateQuestion'
 import CustomSelect from '../components/CustomSelect'
 import Loading from '../components/Loading'
+import ViewQuestion from '../components/ViewQuestion'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
@@ -22,6 +23,8 @@ export default function Questions() {
 	const [searchParams, setSearchParams] = useSearchParams()
 	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
 	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
+	const [questionId, setQuestionId] = useState<number>(0)
+	const [showViewPopUp, setShowViewPopUp] = useState(false)
 	const queryDebounce = useDebounce(searchQuery)
 	const { permissions, DOM } = useAppContext()
 	const { id } = useParams()
@@ -60,6 +63,15 @@ export default function Questions() {
 	if (!subjectDetail) return null
 	return (
 		<>
+			{showViewPopUp === true ?
+				<ViewQuestion
+					id={questionId}
+					subjectDetail={subjectDetail}
+					setShowPopUp={setShowViewPopUp}
+					onMutateSuccess={() => { }}
+				/>
+				: null
+			}
 			{showCreatePopUp === true ?
 				<CreateQuestion
 					onMutateSuccess={() => { queryData.refetch() }}
@@ -153,6 +165,10 @@ export default function Questions() {
 								queryData.data.map(item => {
 									return (
 										<div
+											onClick={() => {
+												setQuestionId(item.id)
+												setShowViewPopUp(true)
+											}}
 											key={`subject-${item.id}`}
 											className={
 												[

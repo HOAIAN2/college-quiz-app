@@ -78,17 +78,30 @@
 	flex: 0 0 30%;
 }
 
+.wrap-item.textarea {
+	flex: 0 0 95%;
+	height: fit-content;
+}
+
+.wrap-item.textarea>.input-item {
+	padding: 20px;
+	min-height: 70px;
+	/* resize: vertical; */
+	resize: none;
+	overflow: hidden;
+}
+
 .wrap-item::after {
 	content: attr(data-error);
 	width: fit-content;
 	color: red;
 }
 
-.wrap-item>label {
+label {
 	display: block;
 }
 
-.wrap-item>label.required::after {
+label.required::after {
 	content: "*";
 	color: red;
 	margin-left: 5px;

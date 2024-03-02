@@ -76,7 +76,7 @@ class QuestionController extends Controller
 
 		try {
 			$data = Question::with(['question_options'])->findOrFail($id);
-			return Reply::successWithData($data);
+			return Reply::successWithData($data, '');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());

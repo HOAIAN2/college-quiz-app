@@ -29,3 +29,4 @@ export type ComponentViewChapterLang = typeof import('../../assets/langs/en/comp
 export type ComponentLoadingLang = typeof import('../../assets/langs/en/component.loading').default
 export type PageQuestionsLang = typeof import('../../assets/langs/en/page.questions').default
 export type ComponentCreateQuestionLang = typeof import('../../assets/langs/en/component.create_question').default
+export type ComponentViewQuestionLang = typeof import('../../assets/langs/en/component.view_question').default
