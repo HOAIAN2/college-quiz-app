@@ -6,6 +6,7 @@ import { RiAddFill } from 'react-icons/ri'
 import { RxCross2 } from 'react-icons/rx'
 import { apiDeleteQuestion, apiGetQuestionById, apiUpdateQuestion } from '../api/question'
 import { queryKeys } from '../constants/query-keys'
+import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentViewQuestionLang } from '../models/lang'
 import { SubjectDetail } from '../models/subject'
@@ -35,6 +36,7 @@ export default function ViewQuestion({
 	onMutateSuccess,
 	setShowPopUp
 }: ViewQuestionProps) {
+	const { permissions } = useAppContext()
 	const [hide, setHide] = useState(true)
 	const [options, setOptions] = useState<Option[]>([])
 	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
@@ -165,6 +167,7 @@ export default function ViewQuestion({
 												<label htmlFor="">{language?.chapter}</label>
 												<CustomSelect
 													name='chapter_id'
+													disabled={!permissions.has('question_update')}
 													defaultOption={
 														{
 															label: subjectDetail.chapters.find(item => item.id == queryData.data.chapterId)?.name || language?.unselect,
@@ -182,9 +185,6 @@ export default function ViewQuestion({
 																label: `${chapter.chapterNumber}. ${chapter.name}`
 															}))]
 													}
-													onChange={(option) => {
-														console.log(option)
-													}}
 													className={
 														[
 															globalStyles['custom-select']
@@ -196,6 +196,7 @@ export default function ViewQuestion({
 												<label className={globalStyles['required']} htmlFor="">{language?.level}</label>
 												<CustomSelect
 													name='level'
+													disabled={!permissions.has('question_update')}
 													defaultOption={
 														{
 															label: language?.questionLevel[queryData.data.level],
@@ -210,9 +211,6 @@ export default function ViewQuestion({
 															}
 														}) : []
 													}
-													// onChange={(option) => {
-													// 	console.log(option)
-													// }}
 													className={
 														[
 															globalStyles['custom-select']
@@ -228,6 +226,7 @@ export default function ViewQuestion({
 											}>
 												<label className={globalStyles['required']} htmlFor='content'>{language?.content}</label>
 												<textarea
+													disabled={!permissions.has('question_update')}
 													defaultValue={queryData.data.content}
 													onInput={autoSizeTextArea}
 													name='content' id='content'
@@ -240,35 +239,38 @@ export default function ViewQuestion({
 													cols={30} rows={50}>
 												</textarea>
 											</div>
-											<div
-												style={{ paddingLeft: '20px' }}
-												className={
-													[
-														'action-bar-d'
-													].join(' ')
-												}>
-												{
+											{
+												permissions.has('question_update') ?
 													<div
-														style={{ width: 'fit-content' }}
+														style={{ paddingLeft: '20px' }}
 														className={
 															[
-																'action-item-d'
+																'action-bar-d'
 															].join(' ')
-														}
-														onClick={() => {
-															setOptions([
-																...options,
-																{
-																	key: new Date().getTime().toString(),
-																	content: ''
+														}>
+														{
+															<div
+																style={{ width: 'fit-content' }}
+																className={
+																	[
+																		'action-item-d'
+																	].join(' ')
 																}
-															])
-														}}
-													>
-														<RiAddFill /> {language?.addOption}
-													</div>
-												}
-											</div>
+																onClick={() => {
+																	setOptions([
+																		...options,
+																		{
+																			key: new Date().getTime().toString(),
+																			content: ''
+																		}
+																	])
+																}}
+															>
+																<RiAddFill /> {language?.addOption}
+															</div>
+														}
+													</div> : null
+											}
 										</div>
 										<div className={globalStyles['group-inputs']}>
 											{options.map((option, index) => {
@@ -304,6 +306,7 @@ export default function ViewQuestion({
 															data-selector={`options.${index}`}
 															onInput={autoSizeTextArea}
 															name='options[]'
+															disabled={!permissions.has('question_update')}
 															className={
 																[
 																	'input-d',
@@ -313,42 +316,48 @@ export default function ViewQuestion({
 															}
 															cols={30} rows={50}>
 														</textarea>
-														<div
-															onClick={() => {
-																setOptions(options.filter(item => item.key !== option.key))
-															}}
-															className={
-																[
-																	'action-item-d-white-border-red'
-																].join(' ')
-															}>
-															<MdDeleteOutline /> {language?.delete}
-														</div>
+														{
+															permissions.has('question_update') ?
+																<div
+																	onClick={() => {
+																		setOptions(options.filter(item => item.key !== option.key))
+																	}}
+																	className={
+																		[
+																			'action-item-d-white-border-red'
+																		].join(' ')
+																	}>
+																	<MdDeleteOutline /> {language?.delete}
+																</div> : null
+														}
 													</div>
 												)
 											})}
 										</div>
-										<div className={globalStyles['action-items']}>
-											<button name='save'
-												className={
-													[
-														'action-item-d',
-														isPending ? 'button-submitting' : ''
-													].join(' ')
-												}>{language?.save}</button>
-											<button
-												type='button'
-												onClick={() => {
-													setShowDeletePopUp(true)
-												}}
-												className={
-													[
-														'action-item-d-white-border-red'
-													].join(' ')
-												}>
-												<MdDeleteOutline /> {language?.delete}
-											</button>
-										</div>
+										{
+											permissions.has('question_update') ?
+												<div className={globalStyles['action-items']}>
+													<button name='save'
+														className={
+															[
+																'action-item-d',
+																isPending ? 'button-submitting' : ''
+															].join(' ')
+														}>{language?.save}</button>
+													<button
+														type='button'
+														onClick={() => {
+															setShowDeletePopUp(true)
+														}}
+														className={
+															[
+																'action-item-d-white-border-red'
+															].join(' ')
+														}>
+														<MdDeleteOutline /> {language?.delete}
+													</button>
+												</div> : null
+										}
 									</form>
 								) : null
 							}
