@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Traits\Searchable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -26,10 +27,16 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Semester extends Model
 {
+	use Searchable;
 	protected $table = 'semesters';
 
 	const DATE_FORMAT = 'Y-m-d\TH:i:sP';
 
+	protected $searchable = [
+		'name',
+		'start_date',
+		'end_date',
+	];
 	protected $casts = [
 		'start_date' => 'datetime:' . Semester::DATE_FORMAT,
 		'end_date' => 'datetime:' . Semester::DATE_FORMAT

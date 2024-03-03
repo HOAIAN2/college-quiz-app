@@ -6,6 +6,7 @@ use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Semester\StoreRequest;
 use App\Models\Semester;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -25,7 +26,8 @@ class SemesterController extends Controller
 			if ($request->search != null) {
 				$data = $data->search($request->search);
 			}
-			return Reply::successWithData($data->get(), '');
+			$data = $data->latest('id')->get();
+			return Reply::successWithData($data, '');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -43,6 +45,8 @@ class SemesterController extends Controller
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('semester_create'), 403);
 		$data = $request->validated();
+		$data['start_date'] = Carbon::parse($request->start_date);
+		$data['end_date'] = Carbon::parse($request->end_date);
 
 		DB::beginTransaction();
 		try {

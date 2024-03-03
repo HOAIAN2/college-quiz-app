@@ -5,6 +5,7 @@ import {
 } from 'react-icons/ai'
 import { GrCertificate } from 'react-icons/gr'
 import { LuSchool } from 'react-icons/lu'
+import { MdOutlineStickyNote2 } from 'react-icons/md'
 import {
 	PiBooks,
 	PiChalkboardTeacherLight,
@@ -75,6 +76,12 @@ export default function NavBar() {
 			to: 'courses',
 			icon: <GrCertificate />,
 			isActive: permissions.has('course_view')
+		},
+		{
+			name: language?.semester,
+			to: 'semesters',
+			icon: <MdOutlineStickyNote2 />,
+			isActive: permissions.has('semester_view')
 		},
 		// {
 		// 	name: language?.questions,

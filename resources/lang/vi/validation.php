@@ -19,7 +19,8 @@ return [
 	],
 	'regex' => 'Trường :attribute có định dạng không hợp lệ',
 	'date' => 'Trường :attribute phải là ngày hợp lệ.',
-	'before' => 'Trường :attribute phải là ngày trước ngày hôm nay.',
+	'before' => 'Trường :attribute phải là ngày trước ngày :date.',
+	'after' => 'Trường :attribute phải là ngày sau ngày :date.',
 	'required_if' => 'Trường :attribute là bắt buộc khi :other là :value.',
 	'attributes' => [
 		'name' => 'Tên',
@@ -35,7 +36,9 @@ return [
 		'faculty' => 'khoa',
 		'password' => 'mật khẩu',
 		'chapter_number' => 'số chương',
-		'content' => 'nội dung'
+		'content' => 'nội dung',
+		'start_date' => 'ngày bắt đầu',
+		'end_date' => 'ngày kết thúc',
 	],
 	'custom' => [
 		'role' => [

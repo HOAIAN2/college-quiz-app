@@ -9,5 +9,6 @@ export default {
 	questions: 'Questions',
 	teachers: 'Teachers',
 	students: 'Students',
-	permission: 'Permission'
+	permission: 'Permission',
+	semester: 'Semester'
 }

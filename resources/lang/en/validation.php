@@ -19,7 +19,8 @@ return [
 	],
 	'regex' => 'The :attribute field format is invalid.',
 	'date' => 'The :attribute field must be a valid date.',
-	'before' => 'The :attribute field must be a date before today.',
+	'before' => 'The :attribute field must be a date before :date.',
+	'after' => 'The :attribute field must be a date after :date.',
 	'required_if' => 'The :attribute field is required when :other is :value.',
 	'attributes' => [
 		'name' => 'name',
@@ -35,7 +36,9 @@ return [
 		'faculty' => 'faculty',
 		'password' => 'password',
 		'chapter_number' => 'chapter number',
-		'content' => 'content'
+		'content' => 'content',
+		'start_date' => 'start date',
+		'end_date' => 'end date',
 	],
 	'custom' => [
 		'role' => [

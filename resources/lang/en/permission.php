@@ -32,4 +32,8 @@ return [
 	'exam_update' => 'Update Exam',
 	'exam_delete' => 'Delete Exam',
 	'exam_submit' => 'Submit Exam',
+	'semester_view' => 'View Semester',
+	'semester_create' => 'Create Semester',
+	'semester_update' => 'Update Semester',
+	'semester_delete' => 'Delete Semester',
 ];

@@ -9,5 +9,6 @@ export default {
 	questions: 'Câu hỏi',
 	teachers: 'Giáo viên',
 	students: 'Học sinh',
-	permission: 'Phân quyền'
+	permission: 'Phân quyền',
+	semester: 'Học kỳ'
 }

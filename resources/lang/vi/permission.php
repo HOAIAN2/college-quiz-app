@@ -32,4 +32,8 @@ return [
 	'exam_update' => 'Cập Nhật Bài Thi',
 	'exam_delete' => 'Xóa Bài Thi',
 	'exam_submit' => 'Nộp Bài Thi',
+	'semester_view' => 'Xem Học Kỳ',
+	'semester_create' => 'Tạo Học Kỳ',
+	'semester_update' => 'Cập Nhật Học Kỳ',
+	'semester_delete' => 'Xóa Học Kỳ',
 ];
