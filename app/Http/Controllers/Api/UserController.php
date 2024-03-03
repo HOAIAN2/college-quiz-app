@@ -40,7 +40,6 @@ class UserController extends Controller
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.somethingWentWrong', [], 500);
 		}
-		return Reply::successWithData($data, '');
 	}
 
 	public function store(StoreRequest $request)

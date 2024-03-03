@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Api\QuestionController;
 use App\Http\Controllers\Api\RolePermissionController;
 use App\Http\Controllers\Api\SchoolClassController;
+use App\Http\Controllers\Api\SemesterController;
 use App\Http\Controllers\Api\SubjectController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
@@ -94,6 +95,15 @@ Route::prefix('/role-permission')->middleware('auth:sanctum')
 
 Route::prefix('/question')->middleware('auth:sanctum')
 	->controller(QuestionController::class)->group(function () {
+		Route::get('/{id}', 'show');
+		Route::put('/{id}', 'update');
+		Route::delete('/{id}', 'destroy');
+		Route::get('/', 'index');
+		Route::post('/', 'store');
+	});
+
+Route::prefix('/semester')->middleware('auth:sanctum')
+	->controller(SemesterController::class)->group(function () {
 		Route::get('/{id}', 'show');
 		Route::put('/{id}', 'update');
 		Route::delete('/{id}', 'destroy');
