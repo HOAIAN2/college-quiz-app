@@ -1,11 +1,10 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { LuBookOpenCheck } from 'react-icons/lu'
 import { RiAddFill } from 'react-icons/ri'
 import { Link, useSearchParams } from 'react-router-dom'
 import { apiGetCourses } from '../api/course'
 import { apiAutoCompleteSemester } from '../api/semester'
-import CreateSubject from '../components/CreateSubject'
 import CustomDataList from '../components/CustomDataList'
 import Loading from '../components/Loading'
 import { queryKeys } from '../constants/query-keys'
@@ -23,8 +22,8 @@ export default function Courses() {
 	const [querySemester, setQuerySemester] = useState('')
 	const debounceQuerySemester = useDebounce(querySemester)
 	const language = useLanguage<PageCoursesLang>('page.courses')
-	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
-	const queryClient = useQueryClient()
+	// const [showCreatePopUp, setShowCreatePopUp] = useState(false)
+	// const queryClient = useQueryClient()
 	const queryData = useQuery({
 		queryKey: [queryKeys.COURSES_PAGE, {
 			search: queryDebounce,
@@ -46,18 +45,18 @@ export default function Courses() {
 		else searchParams.set('search', queryDebounce)
 		setSearchParams(searchParams)
 	}, [queryDebounce, searchParams, setSearchParams])
-	const onMutateSuccess = () => {
-		[queryKeys.COURSES_PAGE].forEach(key => {
-			queryClient.refetchQueries({ queryKey: [key] })
-		})
-	}
+	// const onMutateSuccess = () => {
+	// 	[queryKeys.COURSES_PAGE].forEach(key => {
+	// 		queryClient.refetchQueries({ queryKey: [key] })
+	// 	})
+	// }
 	return (
 		<>
-			{showCreatePopUp === true ?
+			{/* {showCreatePopUp === true ?
 				<CreateSubject
 					onMutateSuccess={onMutateSuccess}
 					setShowPopUp={setShowCreatePopUp}
-				/> : null}
+				/> : null} */}
 			<div
 				className={
 					[
@@ -78,7 +77,7 @@ export default function Courses() {
 								].join(' ')
 							}
 								onClick={() => {
-									setShowCreatePopUp(true)
+									// setShowCreatePopUp(true)
 								}}
 							>
 								<RiAddFill /> {language?.add}
