@@ -13,9 +13,6 @@ use Illuminate\Support\Facades\Log;
 
 class SemesterController extends Controller
 {
-	/**
-	 * Display a listing of the resource.
-	 */
 	public function index(Request $request)
 	{
 		$user = $this->getUser();
@@ -36,9 +33,6 @@ class SemesterController extends Controller
 		return Reply::successWithData($data, '');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 */
 	public function store(StoreRequest $request)
 	{
 
@@ -61,9 +55,6 @@ class SemesterController extends Controller
 		}
 	}
 
-	/**
-	 * Display the specified resource.
-	 */
 	public function show(string $id)
 	{
 		$user = $this->getUser();
@@ -79,9 +70,6 @@ class SemesterController extends Controller
 		}
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 */
 	public function update(StoreRequest $request, string $id)
 	{
 		$user = $this->getUser();
@@ -101,9 +89,6 @@ class SemesterController extends Controller
 		}
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 */
 	public function destroy(string $id)
 	{
 		$user = $this->getUser();
@@ -117,6 +102,22 @@ class SemesterController extends Controller
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.somethingWentWrong', [], 500);
+		}
+	}
+
+	public function autocomplete(Request $request)
+	{
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('semester_view'), 403);
+
+		try {
+			$semesters = Semester::where('end_date', '>=', Carbon::now())
+				->search($request->search)->take(5)->get();
+			return Reply::successWithData($semesters, '');
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.somethingWentWrong', [], 500);
 		}

@@ -128,6 +128,7 @@ export async function apiExportUsers(role: RoleName, fields: (string)[]) {
 		throw new Error(error.message)
 	}
 }
+
 export async function apiAutoCompleteUser(role: RoleName, search: string) {
 	try {
 		const res = await request.get('/user/complete', {

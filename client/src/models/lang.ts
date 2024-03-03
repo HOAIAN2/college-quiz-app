@@ -33,3 +33,4 @@ export type ComponentViewQuestionLang = typeof import('../../assets/langs/en/com
 export type ComponentCreateSemesterLang = typeof import('../../assets/langs/en/component.create_semester').default
 export type ComponentViewSemesterLang = typeof import('../../assets/langs/en/component.view_semester').default
 export type PageSemestersLang = typeof import('../../assets/langs/en/page.semesters').default
+export type PageCoursesLang = typeof import('../../assets/langs/en/page.courses').default

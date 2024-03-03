@@ -24,7 +24,7 @@ class GetAllRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'semester_id' => ['required', 'integer'],
+			'semester_id' => ['nullable', 'integer'],
 			'search' => ['nullable']
 		];
 	}

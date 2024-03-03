@@ -6,3 +6,8 @@ export type Course = {
 	shortcode: string
 	name: string
 }
+
+export type QueryCourseType = {
+	semesterId?: number
+	search?: string
+}

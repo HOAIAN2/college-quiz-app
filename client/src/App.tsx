@@ -23,6 +23,7 @@ const Subjects = lazy(() => import('./pages/Subjects'))
 const Subject = lazy(() => import('./pages/Subject'))
 const Questions = lazy(() => import('./pages/Questions'))
 const Semesters = lazy(() => import('./pages/Semesters'))
+const Courses = lazy(() => import('./pages/Courses'))
 
 const router = createBrowserRouter([
 	{
@@ -73,7 +74,7 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'courses',
-						element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>
+						element: <Suspense fallback={<SuspenseLoading />}><Courses /></Suspense>
 					},
 					{
 						path: 'semesters',

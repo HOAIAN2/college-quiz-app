@@ -105,6 +105,7 @@ Route::prefix('/question')->middleware('auth:sanctum')
 
 Route::prefix('/semester')->middleware('auth:sanctum')
 	->controller(SemesterController::class)->group(function () {
+		Route::get('/complete', 'autocomplete');
 		Route::get('/{id}', 'show');
 		Route::put('/{id}', 'update');
 		Route::delete('/{id}', 'destroy');
