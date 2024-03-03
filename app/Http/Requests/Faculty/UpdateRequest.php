@@ -29,7 +29,7 @@ class UpdateRequest extends FormRequest
 			'name' => ['required', 'string'],
 			'email' => ['nullable', 'email'],
 			'phone_number' => ['nullable', 'string', 'regex:/^0\d{9}$/'],
-			'leader' => ['nullable', 'string']
+			'leader_id' => ['nullable', 'integer']
 		];
 	}
 }

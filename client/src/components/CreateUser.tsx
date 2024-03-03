@@ -197,9 +197,9 @@ export default function CreateUser({
 							</div>
 							{role === 'student' ?
 								<div style={{ zIndex: 2 }} className={styles['wrap-item']}>
-									<label className={styles['required']} htmlFor='school_class'>{language?.class}</label>
+									<label className={styles['required']} htmlFor='school_class_id'>{language?.class}</label>
 									<CustomDataList
-										name='school_class'
+										name='school_class_id'
 										onInput={e => { setQueryClass(e.currentTarget.value) }}
 										options={classQueryData.data ? classQueryData.data.map(item => {
 											return {
@@ -211,9 +211,9 @@ export default function CreateUser({
 								</div>
 								: role === 'teacher' ?
 									<div style={{ zIndex: 2 }} className={styles['wrap-item']}>
-										<label className={styles['required']} htmlFor='faculty'>{language?.faculty}</label>
+										<label className={styles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
 										<CustomDataList
-											name='faculty'
+											name='faculty_id'
 											onInput={e => { setQueryFaculty(e.currentTarget.value) }}
 											options={facultyQueryData.data ? facultyQueryData.data.map(item => {
 												return {

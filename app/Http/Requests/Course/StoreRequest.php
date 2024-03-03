@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\SchoolClass;
+namespace App\Http\Requests\Course;
 
 use App\Traits\CustomValidateResponse;
 use Illuminate\Foundation\Http\FormRequest;
@@ -24,9 +24,11 @@ class StoreRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'shortcode' => ['required', 'string', 'unique:school_classes', 'alpha_dash:ascii'],
-			'name' => ['required', 'string'],
-			'faculty_id' => ['required', 'integer']
+			'teacher_id' => ['required', 'integer'],
+			'subject_id' => ['required', 'integer'],
+			'semester_id' => ['required', 'integer'],
+			'shortcode' => ['required'],
+			'name' => ['required']
 		];
 	}
 }

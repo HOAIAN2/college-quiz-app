@@ -182,9 +182,9 @@ export default function ViewFaculty({
 												} type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
-											<label htmlFor='leader'>{language?.leader}</label>
+											<label htmlFor='leader_id'>{language?.leader}</label>
 											<CustomDataList
-												name='leader'
+												name='leader_id'
 												defaultOption={
 													{
 														label: languageUtils.getFullName(queryData.data.leader?.firstName, queryData.data.leader?.lastName),

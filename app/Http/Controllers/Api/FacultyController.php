@@ -41,13 +41,10 @@ class FacultyController extends Controller
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('faculty_create'), 403);
-		$data = collect($request->validated())->except(['leader'])->toArray();
+		$data = $request->validated();
 		DB::beginTransaction();
 
 		try {
-			if ($request->leader != null) {
-				$data['leader_id'] = $request->leader;
-			}
 			Faculty::create($data);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.recordSaveSuccess');
@@ -80,14 +77,11 @@ class FacultyController extends Controller
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('faculty_update'), 403);
-		$data = collect($request->validated())->except(['leader'])->toArray();
+		$data = $request->validated();
 		DB::beginTransaction();
 
 		try {
 			$faculty = Faculty::findOrFail($id);
-			if ($request->leader != null) {
-				$data['leader_id'] = $request->leader;
-			}
 			$faculty->update($data);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.recordSaveSuccess');

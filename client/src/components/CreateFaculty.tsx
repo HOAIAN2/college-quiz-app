@@ -160,9 +160,9 @@ export default function CreateFaculty({
 									} type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
-								<label htmlFor='leader'>{language?.leader}</label>
+								<label htmlFor='leader_id'>{language?.leader}</label>
 								<CustomDataList
-									name='leader'
+									name='leader_id'
 									onInput={e => { setQueryUser(e.currentTarget.value) }}
 									options={userQueryData.data ? userQueryData.data.map(item => {
 										return {

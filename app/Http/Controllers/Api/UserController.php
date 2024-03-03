@@ -49,16 +49,16 @@ class UserController extends Controller
 
 		DB::beginTransaction();
 		try {
-			$data = collect($request->validated())->except(['role', 'school_class', 'faculty'])->toArray();
+			$data = collect($request->validated())->except(['role', 'school_class_id', 'faculty_id'])->toArray();
 
 			$data['password'] = Hash::make($request->password);
 			$data['role_id'] = Role::ROLES[$request->role];
 			if ($request->role == 'student') {
-				$data['school_class_id'] = $request->school_class;
+				$data['school_class_id'] = $request->school_class_id;
 			}
 
 			if ($request->role == 'teacher') {
-				$data['faculty_id'] = $request->faculty;
+				$data['faculty_id'] = $request->faculty_id;
 			}
 			$data['birth_date'] = Carbon::parse($request->birth_date);
 			User::create($data);
@@ -96,17 +96,17 @@ class UserController extends Controller
 		try {
 			$targetUser = User::with('role')->findOrFail($id);
 
-			$data = collect($request->validated())->except(['password', 'school_class', 'faculty'])->toArray();
+			$data = collect($request->validated())->except(['password', 'school_class_id', 'faculty_id'])->toArray();
 
 			if ($user->id == $id) $data['is_active'] = 1;
 			if ($request->password != null) $data['password'] = Hash::make($request->password);
 
 			if ($targetUser->role_id == Role::ROLES['student']) {
-				$data['school_class_id'] = $request->school_class;
+				$data['school_class_id'] = $request->school_class_id;
 			}
 
 			if ($targetUser->role_id == Role::ROLES['teacher']) {
-				$data['faculty_id'] = $request->faculty;
+				$data['faculty_id'] = $request->faculty_id;
 			}
 			$data['birth_date'] = Carbon::parse($request->birth_date);
 			$targetUser->update($data);
@@ -327,8 +327,8 @@ class UserController extends Controller
 	{
 		$store_request = new StoreRequest();
 		$rules = collect($store_request->rules())->except([
-			'school_class',
-			'faculty'
+			'school_class_id',
+			'faculty_id'
 		])->toArray();
 		$validator = Validator::make($record, $rules);
 

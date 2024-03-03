@@ -2,25 +2,55 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helper\Reply;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Course\GetAllRequest;
+use App\Models\Course;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CourseController extends Controller
 {
-	/**
-	 * Display a listing of the resource.
-	 */
-	public function index()
+	public function index(GetAllRequest $request)
 	{
-		//
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('course_view'), 403);
+
+		try {
+			$data = Course::where('semester_id', '=', $request->semester_id);
+			if ($request->search != null) {
+				$data = $data->search($request->search);
+			}
+			return Reply::successWithData($data->get(), '');
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.somethingWentWrong', [], 500);
+		}
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 */
 	public function store(Request $request)
 	{
-		//
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('course_create'), 403);
+		$data = $request->validated();
+
+		DB::beginTransaction();
+		try {
+			User::whereRoleId(Role::ROLES['teacher'])
+				->select('id')->firstOrFail($request->teacher_id);
+			Course::create($data);
+			DB::commit();
+			return Reply::successWithMessage('app.successes.recordSaveSuccess');
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			DB::rollBack();
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.failToSaveRecord', [], 500);
+		}
 	}
 
 	/**

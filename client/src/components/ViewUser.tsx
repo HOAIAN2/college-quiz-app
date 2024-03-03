@@ -215,9 +215,9 @@ export default function ViewUser({
 										</div>
 										{queryData.data.role.name === 'student' ?
 											<div style={{ zIndex: 3 }} className={styles['wrap-item']}>
-												<label className={styles['required']} htmlFor='school_class'>{language?.class}</label>
+												<label className={styles['required']} htmlFor='school_class_id'>{language?.class}</label>
 												<CustomDataList
-													name='school_class'
+													name='school_class_id'
 													defaultOption={
 														{
 															label: queryData.data.schoolClass?.name,
@@ -235,9 +235,9 @@ export default function ViewUser({
 											</div>
 											: queryData.data.role.name === 'teacher' ?
 												<div style={{ zIndex: 3 }} className={styles['wrap-item']}>
-													<label className={styles['required']} htmlFor='faculty'>{language?.faculty}</label>
+													<label className={styles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
 													<CustomDataList
-														name='faculty'
+														name='faculty_id'
 														defaultOption={
 															{
 																label: queryData.data.faculty?.name,

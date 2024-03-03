@@ -27,7 +27,7 @@ class UpdateRequest extends FormRequest
 		return [
 			'shortcode' => ['required', 'string', 'unique:school_classes,shortcode,' . $parameters['id'], 'alpha_dash:ascii'],
 			'name' => ['required', 'string'],
-			'faculty' => ['required', 'string']
+			'faculty_id' => ['required', 'integer']
 		];
 	}
 }

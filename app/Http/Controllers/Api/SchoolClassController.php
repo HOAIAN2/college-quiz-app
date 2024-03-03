@@ -39,11 +39,10 @@ class SchoolClassController extends Controller
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('school_class_create'), 403);
-		$data = collect($request->validated())->except('faculty')->toArray();
+		$data = $request->validated();
 
 		DB::beginTransaction();
 		try {
-			$data['faculty_id'] = $request->faculty;
 			SchoolClass::create($data);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.recordSaveSuccess');
@@ -74,12 +73,11 @@ class SchoolClassController extends Controller
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('school_class_update'), 403);
-		$data = collect($request->validated())->except('faculty')->toArray();
+		$data = $request->validated();
 
 		DB::beginTransaction();
 		try {
 			$school_class = SchoolClass::findOrFail($id);
-			$data['faculty_id'] = $request->faculty;
 			$school_class->update($data);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.recordSaveSuccess');

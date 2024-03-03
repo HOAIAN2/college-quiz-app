@@ -32,8 +32,8 @@ return [
 		'address' => 'address',
 		'phone_number' => 'phone number',
 		'birth_date' => 'birth date',
-		'school_class' => 'school class',
-		'faculty' => 'faculty',
+		'school_class_id' => 'school class',
+		'faculty_id' => 'faculty',
 		'password' => 'password',
 		'chapter_number' => 'chapter number',
 		'content' => 'content',
@@ -57,10 +57,10 @@ return [
 		'birth_date' => [
 			'before' => 'The birth date must be a date before today.',
 		],
-		'school_class' => [
+		'school_class_id' => [
 			'required_if' => 'The school class field is required when the role is student.',
 		],
-		'faculty' => [
+		'faculty_id' => [
 			'required_if' => 'The faculty field is required when the role is teacher.',
 		],
 		'password' => [

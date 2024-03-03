@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ChapterController;
+use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Api\QuestionController;
@@ -104,6 +105,15 @@ Route::prefix('/question')->middleware('auth:sanctum')
 
 Route::prefix('/semester')->middleware('auth:sanctum')
 	->controller(SemesterController::class)->group(function () {
+		Route::get('/{id}', 'show');
+		Route::put('/{id}', 'update');
+		Route::delete('/{id}', 'destroy');
+		Route::get('/', 'index');
+		Route::post('/', 'store');
+	});
+
+Route::prefix('/course')->middleware('auth:sanctum')
+	->controller(CourseController::class)->group(function () {
 		Route::get('/{id}', 'show');
 		Route::put('/{id}', 'update');
 		Route::delete('/{id}', 'destroy');

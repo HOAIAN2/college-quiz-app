@@ -33,8 +33,8 @@ class UpdateRequest extends FormRequest
 			'gender' => ['required', 'in:male,female'],
 			'address' => ['required', 'string', 'max:255'],
 			'birth_date' => ['required', 'date', 'before:today'],
-			'school_class' => ['required_if:role,student', 'max:255'],
-			'faculty' => ['required_if:role,teacher', 'max:255'],
+			'school_class_id' => ['required_if:role,student', 'max:255'],
+			'faculty_id' => ['required_if:role,teacher', 'max:255'],
 			'is_active' => ['required', 'in:1,0'],
 			'password' => ['nullable', 'min:8']
 		];

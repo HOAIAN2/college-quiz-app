@@ -153,9 +153,9 @@ export default function ViewSchoolClass({
 												} type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='faculty'>{language?.faculty}</label>
+											<label className={styles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
 											<CustomDataList
-												name='faculty'
+												name='faculty_id'
 												defaultOption={
 													{
 														label: queryData.data.faculty?.name,
