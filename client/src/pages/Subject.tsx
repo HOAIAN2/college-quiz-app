@@ -15,6 +15,7 @@ import useLanguage from '../hooks/useLanguage'
 import { Chapter } from '../models/chapter'
 import { PageSubjectLang } from '../models/lang'
 import styles from '../styles/Subject.module.css'
+import FormUtils from '../utils/FormUtils'
 
 export default function Subject() {
 	const { id } = useParams()
@@ -26,47 +27,26 @@ export default function Subject() {
 	const [showViewChapterPopUp, setShowViewChapterPopUp] = useState(false)
 	const [showCreateChapterPopUp, setShowCreateChapterPopUp] = useState(false)
 	const navigate = useNavigate()
+	const formUtils = new FormUtils(styles)
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_SUBJECT, { id: id }],
 		queryFn: () => apiGetSubjectById(String(id))
 	})
-	const getParentElement = (element: HTMLInputElement) => {
-		let parent = element.parentElement as HTMLElement
-		while (!parent.classList.contains(styles['wrap-item'])) parent = parent.parentElement as HTMLElement
-		return parent
-	}
-	const handleOnInput = (e: React.FormEvent<HTMLFormElement>) => {
-		const element = e.target as HTMLInputElement
-		if (element) {
-			element.classList.remove('error')
-			getParentElement(element).removeAttribute('data-error')
-		}
-	}
-	const handleUpdateUser = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
+	const handleUpdateSubject = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
 		if (!permissions.has('subject_update')) return
 		document.querySelector(styles['form-data'])?.querySelectorAll('input[name]').forEach(node => {
 			const element = node as HTMLInputElement
 			element.classList.remove('error')
-			getParentElement(element).removeAttribute('data-error')
+			formUtils.getParentElement(element)?.removeAttribute('data-error')
 		})
 		const form = e.target as HTMLFormElement
 		const formData = new FormData(form)
 		queryData.data && await apiUpdateSubject(formData, queryData.data.id)
 	}
 	const { mutate, isPending } = useMutation({
-		mutationFn: handleUpdateUser,
-		onError: (error: object) => {
-			if (typeof error === 'object') {
-				for (const key in error) {
-					const element = document.querySelector(`input[data-selector='${key}'],[name='${key}']`) as HTMLInputElement
-					if (element) {
-						element.classList.add('error')
-						getParentElement(element).setAttribute('data-error', error[key as keyof typeof error][0] as string)
-					}
-				}
-			}
-		},
+		mutationFn: handleUpdateSubject,
+		onError: (error: object) => { formUtils.showFormError(error) },
 		onSuccess: () => { queryData.refetch() }
 	})
 	const handleDeletetSubject = async () => {
@@ -138,7 +118,7 @@ export default function Subject() {
 								<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 									mutate(e)
 								}}
-									onInput={handleOnInput}
+									onInput={e => { formUtils.handleOnInput(e) }}
 									className={styles['form-data']}>
 									<input name='is_active' defaultValue='1' hidden />
 									<div className={
