@@ -6,6 +6,7 @@ import { useSearchParams } from 'react-router-dom'
 import { apiGetSemesters } from '../api/semester'
 import CreateSemester from '../components/CreateSemester'
 import Loading from '../components/Loading'
+import ViewSemester from '../components/ViewSemester'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
@@ -20,6 +21,8 @@ export default function Semesters() {
 	const queryDebounce = useDebounce(searchQuery)
 	const language = useLanguage<PageSemestersLang>('page.subjects')
 	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
+	const [semesterId, setSemesterId] = useState(0)
+	const [showViewPopUp, setShowViewPoUp] = useState(false)
 	const queryClient = useQueryClient()
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_SEMESTERS, { search: queryDebounce }],
@@ -43,6 +46,13 @@ export default function Semesters() {
 					onMutateSuccess={onMutateSuccess}
 					setShowPopup={setShowCreatePopUp}
 				/> : null}
+			{showViewPopUp === true ?
+				<ViewSemester
+					id={semesterId}
+					onMutateSuccess={onMutateSuccess}
+					setShowPopup={setShowViewPoUp}
+				/>
+				: null}
 			<div
 				className={
 					[
@@ -128,8 +138,11 @@ export default function Semesters() {
 								queryData.data.map(item => {
 									return (
 										<div
-											key={`subject-${item.id}`}
-											// to={String(item.id)}
+											key={`semester-${item.id}`}
+											onClick={() => {
+												setShowViewPoUp(true)
+												setSemesterId(item.id)
+											}}
 											className={
 												[
 													'dashboard-card-d',
