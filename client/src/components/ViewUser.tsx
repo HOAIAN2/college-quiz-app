@@ -295,7 +295,7 @@ export default function ViewUser({
 												inputProps={
 													{
 														id: 'birth_date',
-														disabled: !permissions.has('user_view'),
+														disabled: !permissions.has('user_update'),
 														name: 'birth_date',
 														className: [
 															'input-d',

@@ -6,5 +6,6 @@ export default {
 	delete: 'Xóa',
 	deleteMessage: 'Bạn có chắc chắn muốn xóa học kỳ này? Hành động này không thể hoàn tác.',
 	langYes: 'Có',
-	langNo: 'Không'
+	langNo: 'Không',
+	courses: 'Khóa học'
 }

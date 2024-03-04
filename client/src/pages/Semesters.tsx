@@ -2,11 +2,11 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { LuBookOpenCheck } from 'react-icons/lu'
 import { RiAddFill } from 'react-icons/ri'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { apiGetSemesters } from '../api/semester'
 import CreateSemester from '../components/CreateSemester'
 import Loading from '../components/Loading'
-import ViewSemester from '../components/ViewSemester'
+// import ViewSemester from '../components/ViewSemester'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
@@ -21,8 +21,8 @@ export default function Semesters() {
 	const queryDebounce = useDebounce(searchQuery)
 	const language = useLanguage<PageSemestersLang>('page.subjects')
 	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
-	const [semesterId, setSemesterId] = useState(0)
-	const [showViewPopUp, setShowViewPoUp] = useState(false)
+	// const [semesterId, setSemesterId] = useState(0)
+	// const [showViewPopUp, setShowViewPoUp] = useState(false)
 	const queryClient = useQueryClient()
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_SEMESTERS, { search: queryDebounce }],
@@ -46,13 +46,13 @@ export default function Semesters() {
 					onMutateSuccess={onMutateSuccess}
 					setShowPopup={setShowCreatePopUp}
 				/> : null}
-			{showViewPopUp === true ?
+			{/* {showViewPopUp === true ?
 				<ViewSemester
 					id={semesterId}
 					onMutateSuccess={onMutateSuccess}
 					setShowPopup={setShowViewPoUp}
 				/>
-				: null}
+				: null} */}
 			<div
 				className={
 					[
@@ -137,12 +137,13 @@ export default function Semesters() {
 							{queryData.data ?
 								queryData.data.map(item => {
 									return (
-										<div
+										<Link
+											to={String(item.id)}
 											key={`semester-${item.id}`}
-											onClick={() => {
-												setShowViewPoUp(true)
-												setSemesterId(item.id)
-											}}
+											// onClick={() => {
+											// 	setShowViewPoUp(true)
+											// 	setSemesterId(item.id)
+											// }}
 											className={
 												[
 													'dashboard-card-d',
@@ -161,7 +162,7 @@ export default function Semesters() {
 													].join(' - ')
 												}
 											</div>
-										</div>
+										</Link>
 									)
 								}) : null}
 						</div>

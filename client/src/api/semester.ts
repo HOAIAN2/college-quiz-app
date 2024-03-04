@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import request from '../config/api'
 import { ApiResponseWithData } from '../models/response'
-import { Semester, SemesterDetail } from '../models/semester'
+import { Semester } from '../models/semester'
 import encodeFormData from '../utils/encodeFormData'
 
 export async function apiGetSemesters(query: string) {
@@ -21,7 +21,7 @@ export async function apiGetSemesters(query: string) {
 export async function apiGetSemesterById(id: string | number) {
 	try {
 		const res = await request.get('/semester/' + id)
-		const { data } = res.data as ApiResponseWithData<SemesterDetail>
+		const { data } = res.data as ApiResponseWithData<Semester>
 		return data
 	} catch (error: any) {
 		throw new Error(error.message)

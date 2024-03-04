@@ -61,7 +61,7 @@ class SemesterController extends Controller
 		abort_if(!$user->hasPermission('semester_view'), 403);
 
 		try {
-			$semester = Semester::with(['courses'])->findOrFail($id);
+			$semester = Semester::findOrFail($id);
 			return Reply::successWithData($semester, '');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());

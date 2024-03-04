@@ -23,7 +23,7 @@ export default function Subject() {
 	const language = useLanguage<PageSubjectLang>('page.subject')
 	const [currentChapter, setCurrentChapter] = useState<Chapter>()
 	const queryClient = useQueryClient()
-	const [showDeletePopUp, setShowDeletePoUp] = useState(false)
+	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
 	const [showViewChapterPopUp, setShowViewChapterPopUp] = useState(false)
 	const [showCreateChapterPopUp, setShowCreateChapterPopUp] = useState(false)
 	const navigate = useNavigate()
@@ -87,7 +87,7 @@ export default function Subject() {
 				<YesNoPopUp
 					message={language?.deleteMessage || ''}
 					mutateFunction={handleDeletetSubject}
-					setShowPopUp={setShowDeletePoUp}
+					setShowPopUp={setShowDeletePopUp}
 					onMutateSuccess={onMutateSuccess}
 					langYes={language?.langYes}
 					langNo={language?.langNo}
@@ -232,7 +232,7 @@ export default function Subject() {
 									<div className={styles['action-items']}>
 										<div
 											onClick={() => {
-												setShowDeletePoUp(true)
+												setShowDeletePopUp(true)
 											}}
 											className={
 												[

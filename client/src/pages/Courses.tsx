@@ -2,54 +2,56 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { LuBookOpenCheck } from 'react-icons/lu'
 import { RiAddFill } from 'react-icons/ri'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom'
 import { apiGetCourses } from '../api/course'
-import { apiAutoCompleteSemester } from '../api/semester'
-import CustomDataList from '../components/CustomDataList'
+import { apiGetSemesterById } from '../api/semester'
 import Loading from '../components/Loading'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { PageCoursesLang } from '../models/lang'
+import { Semester } from '../models/semester'
 import styles from '../styles/global/CardPage.module.css'
 
 export default function Courses() {
-	const { permissions } = useAppContext()
+	const { state } = useLocation() as { state: Semester | null }
+	const [semesterDetail, setSemesterDetail] = useState(state)
+	const { permissions, DOM } = useAppContext()
+	const { id } = useParams()
 	const [searchParams, setSearchParams] = useSearchParams()
 	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
 	const queryDebounce = useDebounce(searchQuery)
-	const [querySemester, setQuerySemester] = useState('')
-	const debounceQuerySemester = useDebounce(querySemester)
 	const language = useLanguage<PageCoursesLang>('page.courses')
-	// const [showCreatePopUp, setShowCreatePopUp] = useState(false)
-	// const queryClient = useQueryClient()
 	const queryData = useQuery({
 		queryKey: [queryKeys.COURSES_PAGE, {
 			search: queryDebounce,
-			semesterId: Number(searchParams.get('semester_id'))
+			semesterId: Number(id)
 		}],
 		queryFn: () => apiGetCourses({
 			search: queryDebounce,
-			semesterId: Number(searchParams.get('semester_id')) || undefined
+			semesterId: Number(id) || undefined
 		})
 	})
-	const semesterQueryData = useQuery({
-		queryKey: [queryKeys.AUTO_COMPLETE_SEMESTER, { search: debounceQuerySemester }],
-		queryFn: () => apiAutoCompleteSemester(debounceQuerySemester),
-		enabled: debounceQuerySemester ? true : false
-	})
+	useEffect(() => {
+		apiGetSemesterById(String(id))
+			.then(res => {
+				setSemesterDetail(res)
+			})
+	}, [id])
 	useEffect(() => {
 		if (!searchParams.get('search') && !queryDebounce) return
 		if (queryDebounce === '') searchParams.delete('search')
 		else searchParams.set('search', queryDebounce)
 		setSearchParams(searchParams)
 	}, [queryDebounce, searchParams, setSearchParams])
-	// const onMutateSuccess = () => {
-	// 	[queryKeys.COURSES_PAGE].forEach(key => {
-	// 		queryClient.refetchQueries({ queryKey: [key] })
-	// 	})
-	// }
+	useEffect(() => {
+		if (language) {
+			document.title = language?.title.replace('@semester', semesterDetail?.name || '')
+			if (DOM.titleRef.current) DOM.titleRef.current.textContent = document.title
+		}
+	}, [semesterDetail, language, DOM.titleRef])
+	if (!semesterDetail) return null
 	return (
 		<>
 			{/* {showCreatePopUp === true ?
@@ -84,66 +86,12 @@ export default function Courses() {
 							</div>
 							: null
 					}
-					{/* {
-						permissions.has('user_create') ?
-							<div className={
-								[
-									'action-item-d-white'
-								].join(' ')
-							}
-							// onClick={() => {
-							// 	setImportMode(true)
-							// }}
-							>
-								<BiImport /> {language?.import}
-							</div>
-							: null
-					} */}
-					{/* {
-						permissions.has('user_view') ?
-							<div className={
-								[
-									'action-item-d-white'
-								].join(' ')
-							}
-							// onClick={() => {
-							// 	setExportMode(true)
-							// }}
-							>
-								<BiExport /> {language?.export}
-							</div>
-							: null
-					} */}
 				</div>
 				<div className={styles['page-content']}>
 					{queryData.isLoading ?
 						<Loading />
 						: null}
 					<div className={styles['filter-form']}>
-						<div className={styles['wrap-input-item']}>
-							<label htmlFor='semester_id'>{language?.filter.semester}</label>
-							<CustomDataList
-								name='semester_id'
-								onInput={e => {
-									setQuerySemester(e.currentTarget.value)
-								}}
-								options={semesterQueryData.data ? semesterQueryData.data.map(item => {
-									return {
-										label: item.name,
-										value: String(item.id)
-									}
-								}) : []}
-								onChange={(option) => {
-									searchParams.set('semester_id', option.value)
-									setSearchParams(searchParams)
-								}}
-								className={
-									[
-										styles['custom-select']
-									].join(' ')
-								}
-							/>
-						</div>
 						<div className={styles['wrap-input-item']}>
 							<label htmlFor="">{language?.filter.search}</label>
 							<input

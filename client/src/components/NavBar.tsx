@@ -3,7 +3,7 @@ import {
 	// AiOutlineQuestionCircle,
 	AiOutlineUser
 } from 'react-icons/ai'
-import { GrCertificate } from 'react-icons/gr'
+// import { GrCertificate } from 'react-icons/gr'
 import { LuSchool } from 'react-icons/lu'
 import { MdOutlineStickyNote2 } from 'react-icons/md'
 import {
@@ -71,12 +71,12 @@ export default function NavBar() {
 			icon: <SiGoogleclassroom />,
 			isActive: permissions.has('school_class_view')
 		},
-		{
-			name: language?.courses,
-			to: 'courses',
-			icon: <GrCertificate />,
-			isActive: permissions.has('course_view')
-		},
+		// {
+		// 	name: language?.courses,
+		// 	to: 'courses',
+		// 	icon: <GrCertificate />,
+		// 	isActive: permissions.has('course_view')
+		// },
 		{
 			name: language?.semester,
 			to: 'semesters',

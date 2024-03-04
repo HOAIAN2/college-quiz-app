@@ -24,6 +24,8 @@ const Subject = lazy(() => import('./pages/Subject'))
 const Questions = lazy(() => import('./pages/Questions'))
 const Semesters = lazy(() => import('./pages/Semesters'))
 const Courses = lazy(() => import('./pages/Courses'))
+const Course = lazy(() => import('./pages/Course'))
+const Semester = lazy(() => import('./pages/Semester'))
 
 const router = createBrowserRouter([
 	{
@@ -74,11 +76,34 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'courses',
-						element: <Suspense fallback={<SuspenseLoading />}><Courses /></Suspense>
+						children: [
+							{
+								path: ':id',
+								element: <Suspense fallback={<SuspenseLoading />}><Course /></Suspense>
+							}
+						],
 					},
 					{
 						path: 'semesters',
-						element: <Suspense fallback={<SuspenseLoading />}><Semesters /></Suspense>
+						children: [
+							{
+								index: true,
+								element: <Suspense fallback={<SuspenseLoading />}><Semesters /></Suspense>
+							},
+							{
+								path: ':id',
+								children: [
+									{
+										index: true,
+										element: <Suspense fallback={<SuspenseLoading />}><Semester /></Suspense>,
+									},
+									{
+										path: 'courses',
+										element: <Suspense fallback={<SuspenseLoading />}><Courses /></Suspense>,
+									}
+								]
+							}
+						]
 					},
 					{
 						path: 'exams',
