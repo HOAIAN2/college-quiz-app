@@ -73,6 +73,7 @@ Route::prefix('/faculty')->middleware('auth:sanctum')
 
 Route::prefix('/subject')->middleware('auth:sanctum')
 	->controller(SubjectController::class)->group(function () {
+		Route::get('/complete', 'autocomplete');
 		Route::get('/{id}', 'show');
 		Route::put('/{id}', 'update');
 		Route::delete('/{id}', 'destroy');

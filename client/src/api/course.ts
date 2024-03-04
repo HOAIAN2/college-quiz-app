@@ -28,16 +28,16 @@ export async function apiGetCourses(query: QueryCourseType) {
 // 	}
 // }
 
-// export async function apiCreateSemester(formData: FormData) {
-// 	try {
-// 		await request.post('/semester', formData)
-// 	} catch (error: any) {
-// 		if (!error.response) throw new Error(error.message)
-// 		const message = error.response.data.message
-// 		if (error.response.data.errors) return Promise.reject(error.response.data.errors)
-// 		throw new Error(message)
-// 	}
-// }
+export async function apiCreateCourse(formData: FormData) {
+	try {
+		await request.post('/course', formData)
+	} catch (error: any) {
+		if (!error.response) throw new Error(error.message)
+		const message = error.response.data.message
+		if (error.response.data.errors) return Promise.reject(error.response.data.errors)
+		throw new Error(message)
+	}
+}
 
 // export async function apiUpdateSemester(formData: FormData, id: string | number) {
 // 	try {

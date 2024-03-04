@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Course\GetAllRequest;
+use App\Http\Requests\Course\StoreRequest;
 use App\Models\Course;
 use App\Models\Role;
 use App\Models\User;
@@ -24,7 +25,8 @@ class CourseController extends Controller
 			if ($request->search != null) {
 				$data = $data->search($request->search);
 			}
-			return Reply::successWithData($data->get(), '');
+			$data = $data->latest('id')->get();
+			return Reply::successWithData($data, '');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -32,7 +34,7 @@ class CourseController extends Controller
 		}
 	}
 
-	public function store(Request $request)
+	public function store(StoreRequest $request)
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('course_create'), 403);
@@ -53,25 +55,16 @@ class CourseController extends Controller
 		}
 	}
 
-	/**
-	 * Display the specified resource.
-	 */
 	public function show(string $id)
 	{
 		//
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 */
 	public function update(Request $request, string $id)
 	{
 		//
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 */
 	public function destroy(string $id)
 	{
 		//

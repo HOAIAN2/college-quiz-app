@@ -102,4 +102,19 @@ class SubjectController extends Controller
 			return Reply::error('app.errors.somethingWentWrong', [], 500);
 		}
 	}
+
+	public function autocomplete(Request $request)
+	{
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('subject_view'), 403);
+
+		try {
+			$users = Subject::search($request->search)->take(5)->get();
+			return Reply::successWithData($users, '');
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.somethingWentWrong', [], 500);
+		}
+	}
 }

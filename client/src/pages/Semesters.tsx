@@ -44,7 +44,7 @@ export default function Semesters() {
 			{showCreatePopUp === true ?
 				<CreateSemester
 					onMutateSuccess={onMutateSuccess}
-					setShowPopup={setShowCreatePopUp}
+					setShowPopUp={setShowCreatePopUp}
 				/> : null}
 			{/* {showViewPopUp === true ?
 				<ViewSemester

@@ -193,7 +193,7 @@ export default function Semester() {
 							{
 								permissions.has('course_view') ?
 									<Link
-										to={`/courses/${id}`}
+										to={'courses'}
 										state={queryData.data}
 										className={styles['header']}>
 										<h2 className={styles['title']}>

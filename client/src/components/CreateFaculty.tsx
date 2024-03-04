@@ -16,12 +16,12 @@ import Loading from './Loading'
 
 type CreateFacultyProps = {
 	onMutateSuccess: () => void
-	setShowPopup: React.Dispatch<React.SetStateAction<boolean>>
+	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function CreateFaculty({
 	onMutateSuccess,
-	setShowPopup
+	setShowPopUp
 }: CreateFacultyProps) {
 	const language = useLanguage<ComponentCreateFacultyLang>('component.create_faculty')
 	const [hide, setHide] = useState(true)
@@ -33,7 +33,7 @@ export default function CreateFaculty({
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
 		setHide(true)
 		setTimeout(() => {
-			setShowPopup(false)
+			setShowPopUp(false)
 		}, timing)
 	}
 	const formUtils = new FormUtils(styles)

@@ -65,3 +65,19 @@ export async function apiDeleteSubject(id: string | number) {
 		throw new Error(message)
 	}
 }
+
+export async function apiAutoCompleteSubject(search: string) {
+	try {
+		const res = await request.get('/subject/complete', {
+			params: {
+				search: search
+			}
+		})
+		const { data } = res.data as ApiResponseWithData<Subject[]>
+		return data
+	} catch (error: any) {
+		if (!error.response) throw new Error(error.message)
+		const message = error.response.data.message
+		throw new Error(message)
+	}
+}

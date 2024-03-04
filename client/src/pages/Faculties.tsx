@@ -63,7 +63,7 @@ export default function Faculties() {
 			{showCreatePopUp === true ?
 				<CreateFaculty
 					onMutateSuccess={onMutateSuccess}
-					setShowPopup={setShowCreatePopUp}
+					setShowPopUp={setShowCreatePopUp}
 				/> : null}
 			{showDeletePopUp === true ?
 				<YesNoPopUp

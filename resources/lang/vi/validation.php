@@ -75,6 +75,11 @@ return [
 		],
 		'true_option' => [
 			'*' => 'Vui lòng chọn đáp án đúng cho câu hỏi này'
+		],
+		'options' => [
+			'min' => [
+				'array' => 'Vui lòng nhập ít nhất 2 câu trả lời'
+			]
 		]
 	],
 ];

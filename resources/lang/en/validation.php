@@ -75,6 +75,11 @@ return [
 		],
 		'true_option' => [
 			'*' => 'Please select the correct answer for this question.'
+		],
+		'options' => [
+			'min' => [
+				'array' => 'Please enter atleast 2 answers'
+			]
 		]
 	],
 ];

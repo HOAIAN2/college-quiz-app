@@ -5,6 +5,7 @@ import { RiAddFill } from 'react-icons/ri'
 import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom'
 import { apiGetCourses } from '../api/course'
 import { apiGetSemesterById } from '../api/semester'
+import CreateCourse from '../components/CreateCourse'
 import Loading from '../components/Loading'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
@@ -17,6 +18,7 @@ import styles from '../styles/global/CardPage.module.css'
 export default function Courses() {
 	const { state } = useLocation() as { state: Semester | null }
 	const [semesterDetail, setSemesterDetail] = useState(state)
+	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
 	const { permissions, DOM } = useAppContext()
 	const { id } = useParams()
 	const [searchParams, setSearchParams] = useSearchParams()
@@ -54,11 +56,12 @@ export default function Courses() {
 	if (!semesterDetail) return null
 	return (
 		<>
-			{/* {showCreatePopUp === true ?
-				<CreateSubject
-					onMutateSuccess={onMutateSuccess}
+			{showCreatePopUp === true ?
+				<CreateCourse
+					semesterId={Number(id)}
+					onMutateSuccess={() => { queryData.refetch() }}
 					setShowPopUp={setShowCreatePopUp}
-				/> : null} */}
+				/> : null}
 			<div
 				className={
 					[
@@ -79,7 +82,7 @@ export default function Courses() {
 								].join(' ')
 							}
 								onClick={() => {
-									// setShowCreatePopUp(true)
+									setShowCreatePopUp(true)
 								}}
 							>
 								<RiAddFill /> {language?.add}
@@ -115,7 +118,7 @@ export default function Courses() {
 									return (
 										<Link
 											key={`subject-${item.id}`}
-											to={String(item.id)}
+											to={`/courses/${item.id}`}
 											className={
 												[
 													'dashboard-card-d',
