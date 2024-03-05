@@ -14,5 +14,6 @@ export default {
 	answer: 'Câu trả lời',
 	delete: 'Xóa',
 	save: 'Lưu',
-	saveMore: 'Lưu thêm'
+	saveMore: 'Lưu thêm',
+	deleteOptionError: 'Phải có ít nhất 2 câu trả lời'
 }

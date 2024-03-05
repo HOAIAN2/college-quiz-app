@@ -4,6 +4,7 @@ import { FaRegCircleCheck } from 'react-icons/fa6'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RiAddFill } from 'react-icons/ri'
 import { RxCross2 } from 'react-icons/rx'
+import { toast } from 'sonner'
 import { apiCreateQuestion } from '../api/question'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateQuestionLang } from '../models/lang'
@@ -32,7 +33,9 @@ export default function CreateQuestion({
 	setShowPopUp
 }: CreateQuestionProps) {
 	const [hide, setHide] = useState(true)
-	const [options, setOptions] = useState<Option[]>([])
+	const [options, setOptions] = useState<Option[]>(new Array(2).fill(null).map(() => {
+		return { key: crypto.randomUUID(), content: '' }
+	}))
 	const [trueOptionKey, setTrueOptionKey] = useState<string>()
 	const language = useLanguage<ComponentCreateQuestionLang>('component.create_question')
 	const handleClosePopUp = () => {
@@ -135,9 +138,6 @@ export default function CreateQuestion({
 												label: `${chapter.chapterNumber}. ${chapter.name}`
 											}))]
 									}
-									onChange={(option) => {
-										console.log(option)
-									}}
 									className={
 										[
 											globalStyles['custom-select']
@@ -211,7 +211,7 @@ export default function CreateQuestion({
 											setOptions([
 												...options,
 												{
-													key: new Date().getTime().toString(),
+													key: crypto.randomUUID(),
 													content: ''
 												}
 											])
@@ -266,7 +266,10 @@ export default function CreateQuestion({
 										</textarea>
 										<div
 											onClick={() => {
-												setOptions(options.filter(item => item.key !== option.key))
+												if (options.length == 2) {
+													toast.error(language?.deleteOptionError)
+												}
+												else setOptions(options.filter(item => item.key !== option.key))
 											}}
 											className={
 												[

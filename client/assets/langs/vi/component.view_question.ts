@@ -16,5 +16,6 @@ export default {
 	save: 'Lưu',
 	deleteMessage: 'Bạn có chắc chắn muốn xóa câu hỏi này? Hành động này không thể hoàn tác.',
 	langYes: 'Có',
-	langNo: 'Không'
+	langNo: 'Không',
+	deleteOptionError: 'Phải có ít nhất 2 câu trả lời'
 }

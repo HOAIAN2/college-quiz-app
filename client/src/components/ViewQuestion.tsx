@@ -4,6 +4,7 @@ import { FaRegCircleCheck } from 'react-icons/fa6'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RiAddFill } from 'react-icons/ri'
 import { RxCross2 } from 'react-icons/rx'
+import { toast } from 'sonner'
 import { apiDeleteQuestion, apiGetQuestionById, apiUpdateQuestion } from '../api/question'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
@@ -260,7 +261,7 @@ export default function ViewQuestion({
 																	setOptions([
 																		...options,
 																		{
-																			key: new Date().getTime().toString(),
+																			key: crypto.randomUUID(),
 																			content: ''
 																		}
 																	])
@@ -320,7 +321,10 @@ export default function ViewQuestion({
 															permissions.has('question_update') ?
 																<div
 																	onClick={() => {
-																		setOptions(options.filter(item => item.key !== option.key))
+																		if (options.length == 2) {
+																			toast.error(language?.deleteOptionError)
+																		}
+																		else setOptions(options.filter(item => item.key !== option.key))
 																	}}
 																	className={
 																		[

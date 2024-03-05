@@ -14,5 +14,6 @@ export default {
 	answer: 'Answer',
 	delete: 'Delete',
 	save: 'Save',
-	saveMore: 'Save more'
+	saveMore: 'Save more',
+	deleteOptionError: 'There must be at least 2 answer options'
 }

@@ -16,5 +16,6 @@ export default {
 	save: 'Save',
 	deleteMessage: 'Are you sure you want to delete this question? This action cannot be undone.',
 	langYes: 'Yes',
-	langNo: 'No'
+	langNo: 'No',
+	deleteOptionError: 'There must be at least 2 answer options'
 }
