@@ -123,7 +123,7 @@ export default function Courses() {
 								queryData.data.map(item => {
 									return (
 										<Link
-											key={`subject-${item.id}`}
+											key={`course-${item.id}`}
 											to={`/courses/${item.id}`}
 											className={
 												[
