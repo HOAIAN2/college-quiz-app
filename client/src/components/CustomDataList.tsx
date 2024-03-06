@@ -27,7 +27,7 @@ export default function CustomDataList({
 }: CustomDataListProps) {
 	const customDataListRef = useRef<HTMLDivElement>(null)
 	const customDataListContainerRef = useRef<HTMLDivElement>(null)
-	const [value, SetValue] = useState<string | number>(defaultOption?.value || '')
+	const [value, setValue] = useState<string | number>(defaultOption?.value || '')
 	const [currentText, setCurrentText] = useState(defaultOption?.label || '')
 	useEffect(() => {
 		const handleClickOutside = (e: MouseEvent) => {
@@ -69,8 +69,10 @@ export default function CustomDataList({
 				value={currentText}
 				disabled={disabled}
 				onInput={e => {
+					const currentTarget = e.currentTarget
 					customDataListRef.current?.classList.remove(styles['hidden'])
-					setCurrentText(e.currentTarget.value)
+					setCurrentText(currentTarget.value)
+					if (!currentTarget.value) setValue('')
 					onInput && onInput(e)
 				}}
 			/>
@@ -97,7 +99,7 @@ export default function CustomDataList({
 									onClick={() => {
 										onChange && onChange(option)
 										setCurrentText(option.label || '')
-										SetValue(option.value)
+										setValue(option.value)
 									}}
 									className={
 										[
