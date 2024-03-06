@@ -27,6 +27,12 @@ const languageUtils = {
 	getFullName(firstName?: string, lastName?: string) {
 		if (this.getLanguage() === 'vi') return [lastName, firstName].join(' ')
 		return [firstName, lastName].join(' ')
+	},
+	getShortHand(content: string) {
+		return content.split(' ').map(item => {
+			if (!item) return undefined
+			return item.trim()[0].toUpperCase()
+		}).join('').replace(/Đ/g, 'D').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 	}
 }
 
