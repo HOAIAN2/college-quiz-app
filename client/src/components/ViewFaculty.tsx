@@ -191,6 +191,7 @@ export default function ViewFaculty({
 														value: queryData.data.leader ? String(queryData.data.leader.id) : ''
 													}
 												}
+												disabled={!permissions.has('faculty_update')}
 												onInput={e => { setQueryUser(e.currentTarget.value) }}
 												options={userQueryData.data ? userQueryData.data.map(item => {
 													return {

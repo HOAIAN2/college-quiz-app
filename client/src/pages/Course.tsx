@@ -1,10 +1,14 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { SyntheticEvent, useEffect } from 'react'
+import { SyntheticEvent, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { apiGetCourseById, apiUpdateCourse } from '../api/course'
+import { apiAutoCompleteUser } from '../api/user'
+import CustomDataList from '../components/CustomDataList'
 import Loading from '../components/Loading'
+import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
+import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { PageCourseLang } from '../models/lang'
 import styles from '../styles/Course.module.css'
@@ -15,10 +19,17 @@ export default function Course() {
 	const { id } = useParams()
 	const { DOM, permissions } = useAppContext()
 	const language = useLanguage<PageCourseLang>('page.course')
+	const [queryUser, setQueryUser] = useState('')
+	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
 	const formUtils = new FormUtils(styles)
 	const queryData = useQuery({
 		queryKey: [queryKeys.COURSE_PAGE, { id: id }],
 		queryFn: () => apiGetCourseById(String(id))
+	})
+	const userQueryData = useQuery({
+		queryKey: [queryKeys.AUTO_COMPLETE_SUBJECT, { search: debounceQueryUser }],
+		queryFn: () => apiAutoCompleteUser('teacher', debounceQueryUser),
+		enabled: debounceQueryUser ? true : false
 	})
 	const handleUpdateCourse = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
@@ -106,17 +117,28 @@ export default function Course() {
 									</div>
 									<div className={styles['wrap-item']}>
 										<label className={styles['required']} htmlFor='teacher_id'>{language?.teacher}</label>
-										<input
-											id='teacher_id'
-											disabled
-											defaultValue={languageUtils.getFullName(queryData.data.teacher.firstName, queryData.data.teacher.lastName)}
+										<CustomDataList
 											name='teacher_id'
+											onInput={e => { setQueryUser(e.currentTarget.value) }}
+											disabled={!permissions.has('course_update')}
+											defaultOption={
+												{
+													label: languageUtils.getFullName(queryData.data.teacher.firstName, queryData.data.teacher.lastName),
+													value: queryData.data ? String(queryData.data.teacherId) : ''
+												}
+											}
+											options={userQueryData.data ? userQueryData.data.map(item => {
+												return {
+													label: languageUtils.getFullName(item.firstName, item.lastName),
+													value: String(item.id)
+												}
+											}) : []}
 											className={
 												[
-													'input-d',
-													styles['input-item']
+													styles['custom-select']
 												].join(' ')
-											} type='text' />
+											}
+										/>
 									</div>
 									<div className={styles['wrap-item']}>
 										<label className={styles['required']}>{language?.subject}</label>
