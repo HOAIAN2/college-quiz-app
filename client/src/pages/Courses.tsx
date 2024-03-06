@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { LuBookOpenCheck } from 'react-icons/lu'
 import { RiAddFill } from 'react-icons/ri'
@@ -25,6 +25,7 @@ export default function Courses() {
 	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
 	const queryDebounce = useDebounce(searchQuery)
 	const language = useLanguage<PageCoursesLang>('page.courses')
+	const queryClient = useQueryClient()
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_COURSES, {
 			search: queryDebounce,
@@ -41,6 +42,11 @@ export default function Courses() {
 				setSemesterDetail(res)
 			})
 	}, [id])
+	const onMutateSuccess = () => {
+		[queryKeys.PAGE_COURSES, queryKeys.PAGE_DASHBOARD].forEach(key => {
+			queryClient.refetchQueries({ queryKey: [key] })
+		})
+	}
 	useEffect(() => {
 		if (!searchParams.get('search') && !queryDebounce) return
 		if (queryDebounce === '') searchParams.delete('search')
@@ -59,7 +65,7 @@ export default function Courses() {
 			{showCreatePopUp === true ?
 				<CreateCourse
 					semesterId={Number(id)}
-					onMutateSuccess={() => { queryData.refetch() }}
+					onMutateSuccess={onMutateSuccess}
 					setShowPopUp={setShowCreatePopUp}
 				/> : null}
 			<div

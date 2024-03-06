@@ -57,7 +57,7 @@ export default function Course() {
 		return apiDeleteCourse(String(id))
 	}
 	const onMutateSuccess = () => {
-		[queryKeys.PAGE_COURSES].forEach(key => {
+		[queryKeys.PAGE_COURSES, queryKeys.PAGE_DASHBOARD].forEach(key => {
 			queryClient.refetchQueries({ queryKey: [key] })
 		})
 		navigate('/semesters')
@@ -199,7 +199,7 @@ export default function Course() {
 													<button
 														type='button'
 														onClick={() => {
-															// setShowDeletePopUp(true)
+															setShowDeletePopUp(true)
 														}}
 														className={
 															[
