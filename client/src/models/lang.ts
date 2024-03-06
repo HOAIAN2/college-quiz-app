@@ -35,3 +35,4 @@ export type PageSemestersLang = typeof import('../../assets/langs/en/page.semest
 export type PageCoursesLang = typeof import('../../assets/langs/en/page.courses').default
 export type PageSemesterLang = typeof import('../../assets/langs/en/page.semester').default
 export type ComponentCreateCourseLang = typeof import('../../assets/langs/en/component.create_course').default
+export type PageCourseLang = typeof import('../../assets/langs/en/page.course').default

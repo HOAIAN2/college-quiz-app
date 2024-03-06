@@ -1,0 +1,147 @@
+.page-content {
+	width: 100%;
+	height: 100%;
+	/* height: calc(100% - 50px); */
+	position: relative;
+	background: white;
+	overflow-y: auto;
+}
+
+.header {
+	height: 50px;
+	padding: 20px;
+	display: flex;
+	align-items: center;
+}
+
+.header>.title {
+	font-size: larger;
+}
+
+.form-content {
+	width: 100%;
+	height: calc(fit-content + 50px);
+	/* background: white;
+    border-radius: var(--border-radius-low);
+    box-shadow: 0px 0px 10px var(--color-shadow); */
+}
+
+.form-data {
+	height: fit-content;
+	display: flex;
+	flex-direction: column;
+	/* justify-content: space-between; */
+	/* padding: 10px; */
+}
+
+.group-inputs {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.wrap-item {
+	position: relative;
+	margin-left: 20px;
+	height: 90px;
+	flex: 0 0 30%;
+}
+
+.wrap-item::after {
+	content: attr(data-error);
+	width: fit-content;
+	color: red;
+}
+
+.wrap-item>label {
+	display: block;
+}
+
+.wrap-item>label.required::after {
+	content: "*";
+	color: red;
+	margin-left: 5px;
+}
+
+.input-item {
+	height: 40px;
+	width: 100%;
+}
+
+.input-item.error {
+	border-color: red;
+}
+
+.custom-select {
+	width: 100%;
+	margin-left: 0;
+	z-index: 1;
+}
+
+.action-items {
+	margin-top: 10px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	flex-direction: row-reverse;
+	gap: 10px;
+}
+
+.pending {
+	opacity: 0.7;
+	cursor: default;
+	pointer-events: none;
+}
+
+.chapters-container {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	padding: 10px;
+}
+
+.card {
+	flex: 0 0 calc(25% - 15px);
+	min-width: 160px;
+	height: 150px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	border-radius: var(--border-radius-low);
+	border-left: 5px solid;
+	border-color: var(--color-soft-magenta);
+	cursor: pointer;
+}
+
+.card>.card-top {
+	height: 50%;
+	font-size: 20px;
+	padding: 0px 20px 0px 20px;
+}
+
+.card>.card-top>svg {
+	position: relative;
+	top: 4px;
+	margin-right: 10px;
+}
+
+.card>.card-bottom {
+	font-size: 20px;
+	margin-left: 20px;
+}
+
+@media (width<=1000px) {
+	.card {
+		flex: 0 0 calc(50% - 10px);
+	}
+}
+
+@media (width<=800px) {
+	.group-inputs {
+		flex-direction: column;
+		padding-right: 20px;
+		gap: 20px;
+	}
+}

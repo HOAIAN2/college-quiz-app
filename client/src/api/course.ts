@@ -2,6 +2,7 @@
 import request from '../config/api'
 import { Course, CourseDetail, QueryCourseType } from '../models/course'
 import { ApiResponseWithData } from '../models/response'
+import encodeFormData from '../utils/encodeFormData'
 
 export async function apiGetCourses(query: QueryCourseType) {
 	try {
@@ -39,21 +40,21 @@ export async function apiCreateCourse(formData: FormData) {
 	}
 }
 
-// export async function apiUpdateSemester(formData: FormData, id: string | number) {
-// 	try {
-// 		const data = encodeFormData(formData)
-// 		await request.put('/semester/' + id, data, {
-// 			headers: {
-// 				'Content-Type': 'application/x-www-form-urlencoded'
-// 			}
-// 		})
-// 	} catch (error: any) {
-// 		if (!error.response) throw new Error(error.message)
-// 		const message = error.response.data.message
-// 		if (error.response.data.errors) return Promise.reject(error.response.data.errors)
-// 		throw new Error(message)
-// 	}
-// }
+export async function apiUpdateCourse(formData: FormData, id: string | number) {
+	try {
+		const data = encodeFormData(formData)
+		await request.put('/course/' + id, data, {
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		})
+	} catch (error: any) {
+		if (!error.response) throw new Error(error.message)
+		const message = error.response.data.message
+		if (error.response.data.errors) return Promise.reject(error.response.data.errors)
+		throw new Error(message)
+	}
+}
 
 // export async function apiDeleteSemester(id: string | number) {
 // 	try {

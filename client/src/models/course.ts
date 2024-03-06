@@ -1,4 +1,6 @@
 import { EnrollmentDetail } from './enrollment'
+import { Subject } from './subject'
+import { User } from './user'
 
 export type Course = {
 	id: number
@@ -10,6 +12,8 @@ export type Course = {
 }
 
 export type CourseDetail = Course & {
+	teacher: User
+	subject: Subject
 	enrollments: EnrollmentDetail[]
 }
 

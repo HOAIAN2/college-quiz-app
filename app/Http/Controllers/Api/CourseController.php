@@ -61,7 +61,11 @@ class CourseController extends Controller
 		abort_if(!$user->hasPermission('course_view'), 403);
 
 		try {
-			$courses = Course::with(['enrollments.user'])->findOrFail($id);
+			$courses = Course::with([
+				'teacher',
+				'subject',
+				'enrollments.user'
+			])->findOrFail($id);
 			return Reply::successWithData($courses, '');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
