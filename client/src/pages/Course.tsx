@@ -28,7 +28,7 @@ export default function Course() {
 	const navigate = useNavigate()
 	const formUtils = new FormUtils(styles)
 	const queryData = useQuery({
-		queryKey: [queryKeys.COURSE_PAGE, { id: id }],
+		queryKey: [queryKeys.PAGE_COURSE, { id: id }],
 		queryFn: () => apiGetCourseById(String(id))
 	})
 	const userQueryData = useQuery({
@@ -57,14 +57,14 @@ export default function Course() {
 		return apiDeleteCourse(String(id))
 	}
 	const onMutateSuccess = () => {
-		[queryKeys.PAGE_SEMESTERS].forEach(key => {
+		[queryKeys.PAGE_COURSES].forEach(key => {
 			queryClient.refetchQueries({ queryKey: [key] })
 		})
 		navigate('/semesters')
 	}
 	useEffect(() => {
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.COURSE_PAGE, { id: id }] })
+			queryClient.removeQueries({ queryKey: [queryKeys.PAGE_COURSE, { id: id }] })
 		}
 	}, [id, queryClient])
 	useEffect(() => {

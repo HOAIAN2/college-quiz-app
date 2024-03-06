@@ -26,7 +26,7 @@ export default function Courses() {
 	const queryDebounce = useDebounce(searchQuery)
 	const language = useLanguage<PageCoursesLang>('page.courses')
 	const queryData = useQuery({
-		queryKey: [queryKeys.COURSES_PAGE, {
+		queryKey: [queryKeys.PAGE_COURSES, {
 			search: queryDebounce,
 			semesterId: Number(id)
 		}],
