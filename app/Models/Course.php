@@ -85,4 +85,14 @@ class Course extends Model
 	{
 		return $this->hasMany(Exam::class);
 	}
+
+	public function hasStudent(int $id)
+	{
+		return $this->enrollments()->where('student_id', '=', $id)->exists();
+	}
+
+	public function hasAnyStudentFromList(array $ids)
+	{
+		return $this->enrollments()->whereIn('student_id', $ids)->exists();
+	}
 }

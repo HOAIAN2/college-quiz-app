@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import request from '../config/api'
-import { Course, QueryCourseType } from '../models/course'
+import { Course, CourseDetail, QueryCourseType } from '../models/course'
 import { ApiResponseWithData } from '../models/response'
 
 export async function apiGetCourses(query: QueryCourseType) {
@@ -18,15 +18,15 @@ export async function apiGetCourses(query: QueryCourseType) {
 	}
 }
 
-// export async function apiGetSemesterById(id: string | number) {
-// 	try {
-// 		const res = await request.get('/semester/' + id)
-// 		const { data } = res.data as ApiResponseWithData<SemesterDetail>
-// 		return data
-// 	} catch (error: any) {
-// 		throw new Error(error.message)
-// 	}
-// }
+export async function apiGetCourseById(id: string | number) {
+	try {
+		const res = await request.get('/course/' + id)
+		const { data } = res.data as ApiResponseWithData<CourseDetail>
+		return data
+	} catch (error: any) {
+		throw new Error(error.message)
+	}
+}
 
 export async function apiCreateCourse(formData: FormData) {
 	try {

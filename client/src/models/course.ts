@@ -1,3 +1,5 @@
+import { EnrollmentDetail } from './enrollment'
+
 export type Course = {
 	id: number
 	teacherId: number
@@ -5,6 +7,10 @@ export type Course = {
 	semesterId: number
 	shortcode: string
 	name: string
+}
+
+export type CourseDetail = Course & {
+	enrollments: EnrollmentDetail[]
 }
 
 export type QueryCourseType = {

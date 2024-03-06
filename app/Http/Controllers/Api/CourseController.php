@@ -57,7 +57,17 @@ class CourseController extends Controller
 
 	public function show(string $id)
 	{
-		//
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('course_view'), 403);
+
+		try {
+			$courses = Course::with(['enrollments.user'])->findOrFail($id);
+			return Reply::successWithData($courses, '');
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.somethingWentWrong', [], 500);
+		}
 	}
 
 	public function update(Request $request, string $id)
