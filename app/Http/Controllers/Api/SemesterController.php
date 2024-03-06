@@ -74,11 +74,14 @@ class SemesterController extends Controller
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('semester_update'), 403);
+		$data = $request->validated();
+		$data['start_date'] = Carbon::parse($request->start_date);
+		$data['end_date'] = Carbon::parse($request->end_date);
 
 		DB::beginTransaction();
 		try {
 			$semester = Semester::findOrFail($id);
-			$semester->update($request->validated());
+			$semester->update($data);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.recordSaveSuccess');
 		} catch (\Throwable $error) {
