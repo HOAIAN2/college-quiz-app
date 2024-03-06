@@ -39,6 +39,7 @@ return [
 		'content' => 'nội dung',
 		'start_date' => 'ngày bắt đầu',
 		'end_date' => 'ngày kết thúc',
+		'teacher_id' => 'giáo viên'
 	],
 	'custom' => [
 		'role' => [

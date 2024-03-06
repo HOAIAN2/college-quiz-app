@@ -39,6 +39,7 @@ return [
 		'content' => 'content',
 		'start_date' => 'start date',
 		'end_date' => 'end date',
+		'teacher_id' => 'teacher'
 	],
 	'custom' => [
 		'role' => [

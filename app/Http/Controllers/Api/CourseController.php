@@ -6,6 +6,7 @@ use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Course\GetAllRequest;
 use App\Http\Requests\Course\StoreRequest;
+use App\Http\Requests\Course\UpdateRequest;
 use App\Models\Course;
 use App\Models\Role;
 use App\Models\User;
@@ -43,7 +44,7 @@ class CourseController extends Controller
 		DB::beginTransaction();
 		try {
 			User::whereRoleId(Role::ROLES['teacher'])
-				->select('id')->firstOrFail($request->teacher_id);
+				->select('id')->findOrFail($request->teacher_id);
 			Course::create($data);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.recordSaveSuccess');
@@ -74,9 +75,26 @@ class CourseController extends Controller
 		}
 	}
 
-	public function update(Request $request, string $id)
+	public function update(UpdateRequest $request, string $id)
 	{
-		//
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('course_update'), 403);
+		$data = $request->validated();
+		DB::beginTransaction();
+
+		try {
+			$targetCourse = Course::findOrFail($id);
+			User::whereRoleId(Role::ROLES['teacher'])
+				->select('id')->findOrFail($request->teacher_id);
+			$targetCourse->update($data);
+			DB::commit();
+			return Reply::successWithMessage('app.successes.recordSaveSuccess');
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			DB::rollBack();
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.failToSaveRecord', [], 500);
+		}
 	}
 
 	public function destroy(string $id)
