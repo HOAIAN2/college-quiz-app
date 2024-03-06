@@ -99,7 +99,20 @@ class CourseController extends Controller
 
 	public function destroy(string $id)
 	{
-		//
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('course_delete'), 403);
+
+		DB::beginTransaction();
+		try {
+			Course::destroy($id);
+			DB::commit();
+			return Reply::successWithMessage('app.successes.recordDeleteSuccess');
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			DB::rollBack();
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.somethingWentWrong', [], 500);
+		}
 	}
 	public function byUser(string $id)
 	{

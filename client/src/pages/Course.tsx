@@ -1,10 +1,12 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { apiGetCourseById, apiUpdateCourse } from '../api/course'
+import { MdDeleteOutline } from 'react-icons/md'
+import { useNavigate, useParams } from 'react-router-dom'
+import { apiDeleteCourse, apiGetCourseById, apiUpdateCourse } from '../api/course'
 import { apiAutoCompleteUser } from '../api/user'
 import CustomDataList from '../components/CustomDataList'
 import Loading from '../components/Loading'
+import YesNoPopUp from '../components/YesNoPopUp'
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
@@ -18,9 +20,12 @@ import languageUtils from '../utils/languageUtils'
 export default function Course() {
 	const { id } = useParams()
 	const { DOM, permissions } = useAppContext()
+	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
 	const language = useLanguage<PageCourseLang>('page.course')
 	const [queryUser, setQueryUser] = useState('')
 	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
+	const queryClient = useQueryClient()
+	const navigate = useNavigate()
 	const formUtils = new FormUtils(styles)
 	const queryData = useQuery({
 		queryKey: [queryKeys.COURSE_PAGE, { id: id }],
@@ -48,15 +53,37 @@ export default function Course() {
 		onError: (error: object) => { formUtils.showFormError(error) },
 		onSuccess: () => { queryData.refetch() }
 	})
+	const handleDeleteCourse = async () => {
+		return apiDeleteCourse(String(id))
+	}
+	const onMutateSuccess = () => {
+		[queryKeys.PAGE_SEMESTERS].forEach(key => {
+			queryClient.refetchQueries({ queryKey: [key] })
+		})
+		navigate('/semesters')
+	}
+	useEffect(() => {
+		return () => {
+			queryClient.removeQueries({ queryKey: [queryKeys.COURSE_PAGE, { id: id }] })
+		}
+	}, [id, queryClient])
 	useEffect(() => {
 		if (queryData.data && DOM.titleRef.current) {
 			document.title = queryData.data.name
 			DOM.titleRef.current.textContent = document.title
 		}
 	}, [DOM.titleRef, queryData.data])
-	queryData.data && console.log(queryData.data)
 	return (
 		<>
+			{showDeletePopUp === true ?
+				<YesNoPopUp
+					message={language?.deleteMessage || ''}
+					mutateFunction={handleDeleteCourse}
+					setShowPopUp={setShowDeletePopUp}
+					onMutateSuccess={onMutateSuccess}
+					langYes={language?.langYes}
+					langNo={language?.langNo}
+				/> : null}
 			<div className={
 				[
 					'dashboard-d',
@@ -154,16 +181,34 @@ export default function Course() {
 									</div>
 								</div>
 								{
-									permissions.has('course_update') ?
+									permissions.has('course_update') || permissions.has('course_delete') ?
 										<div className={styles['action-items']}>
-											<button name='save'
-												className={
-													[
-														'action-item-d',
-														isPending ? 'button-submitting' : ''
-													].join(' ')
-												}
-											>{language?.save}</button>
+											{
+												permissions.has('course_update') ?
+													<button name='save'
+														className={
+															[
+																'action-item-d',
+																isPending ? 'button-submitting' : ''
+															].join(' ')
+														}
+													>{language?.save}</button> : null
+											}
+											{
+												permissions.has('course_delete') ?
+													<button
+														type='button'
+														onClick={() => {
+															// setShowDeletePopUp(true)
+														}}
+														className={
+															[
+																'action-item-d-white-border-red'
+															].join(' ')
+														}>
+														<MdDeleteOutline /> {language?.delete}
+													</button> : null
+											}
 										</div>
 										: null
 								}

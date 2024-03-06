@@ -56,13 +56,13 @@ export async function apiUpdateCourse(formData: FormData, id: string | number) {
 	}
 }
 
-// export async function apiDeleteSemester(id: string | number) {
-// 	try {
-// 		await request.delete('/semester/' + id)
-// 	} catch (error: any) {
-// 		if (!error.response) throw new Error(error.message)
-// 		const message = error.response.data.message
-// 		if (error.response.data.errors) return Promise.reject(error.response.data.errors)
-// 		throw new Error(message)
-// 	}
-// }
+export async function apiDeleteCourse(id: string | number) {
+	try {
+		await request.delete('/course/' + id)
+	} catch (error: any) {
+		if (!error.response) throw new Error(error.message)
+		const message = error.response.data.message
+		if (error.response.data.errors) return Promise.reject(error.response.data.errors)
+		throw new Error(message)
+	}
+}
