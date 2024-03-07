@@ -156,16 +156,35 @@ export default function Subject() {
 										</div>
 									</div>
 									{
-										permissions.has('subject_update') ?
+										permissions.has('subject_update') || permissions.has('subject_delete') ?
 											<div className={styles['action-items']}>
-												<button name='save'
-													className={
-														[
-															'action-item-d',
-															isPending ? 'button-submitting' : ''
-														].join(' ')
-													}
-												>{language?.save}</button>
+												{
+													permissions.has('subject_update') ?
+														<button name='save'
+															className={
+																[
+																	'action-item-d',
+																	isPending ? 'button-submitting' : ''
+																].join(' ')
+															}
+														>{language?.save}</button> : null
+												}
+												{
+													permissions.has('subject_delete') ?
+														<button
+															type='button'
+															onClick={() => {
+																setShowDeletePopUp(true)
+															}}
+															className={
+																[
+																	'action-item-d-white-border-red'
+																].join(' ')
+															}>
+															<MdDeleteOutline /> {language?.delete}
+														</button>
+														: null
+												}
 											</div>
 											: null
 									}
@@ -227,23 +246,6 @@ export default function Subject() {
 										})
 								}
 							</div>
-							{
-								permissions.has('subject_delete') ?
-									<div className={styles['action-items']}>
-										<div
-											onClick={() => {
-												setShowDeletePopUp(true)
-											}}
-											className={
-												[
-													'action-item-d-white-border-red'
-												].join(' ')
-											}>
-											<MdDeleteOutline /> {language?.delete}
-										</div>
-									</div>
-									: null
-							}
 							{
 								permissions.has('question_view') ?
 									<Link
