@@ -1,4 +1,4 @@
-import { User } from './user'
+import { UserDetail } from './user'
 
 export type Enrollment = {
 	id: number,
@@ -7,5 +7,5 @@ export type Enrollment = {
 }
 
 export type EnrollmentDetail = Enrollment & {
-	user: User
+	user: UserDetail
 }
