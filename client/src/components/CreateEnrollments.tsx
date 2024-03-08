@@ -1,5 +1,10 @@
+import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
+import { apiGetAllStudent } from '../api/user'
+import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
+import { queryKeys } from '../constants/query-keys'
+import useDebounce from '../hooks/useDebounce'
 import styles from '../styles/CreateEnrollments.module.css'
 
 type CreateEnrollmentsProps = {
@@ -12,6 +17,8 @@ export default function CreateEnrollments({
 	setShowPopUp
 }: CreateEnrollmentsProps) {
 	const [hide, setHide] = useState(true)
+	const [queryUser, setQueryUser] = useState('')
+	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
 	const [selectedUserIds, setSelectedUserIds] = useState<Set<string | number>>(new Set())
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -21,6 +28,10 @@ export default function CreateEnrollments({
 			setShowPopUp(false)
 		}, timing)
 	}
+	const userQueryData = useQuery({
+		queryKey: [queryKeys.ALL_STUDENT, { search: debounceQueryUser }],
+		queryFn: () => apiGetAllStudent(debounceQueryUser),
+	})
 	useEffect(() => {
 		setHide(false)
 	}, [])
@@ -52,6 +63,9 @@ export default function CreateEnrollments({
 					[
 						styles['form-content']
 					].join(' ')
-				}></div></div></div>
+				}>
+				</div>
+			</div>
+		</div>
 	)
 }

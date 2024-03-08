@@ -25,6 +25,7 @@ export async function apiGetUser() {
 		throw new Error(message)
 	}
 }
+
 export async function apiCreateUser(formData: FormData) {
 	try {
 		await request.post('/user', formData)
@@ -35,6 +36,7 @@ export async function apiCreateUser(formData: FormData) {
 		throw new Error(message)
 	}
 }
+
 export async function apiUpdateUser(formData: FormData, id: string | number) {
 	try {
 		const data = encodeFormData(formData)
@@ -50,6 +52,7 @@ export async function apiUpdateUser(formData: FormData, id: string | number) {
 		throw new Error(message)
 	}
 }
+
 export async function apiImportUsers(file: File, role: RoleName) {
 	const data = new FormData()
 	data.append('role', role)
@@ -63,6 +66,7 @@ export async function apiImportUsers(file: File, role: RoleName) {
 		throw new Error(message)
 	}
 }
+
 export async function apiGetUsersByType(query: QueryUserType) {
 	try {
 		const res = await request.get('/user/query', {
@@ -79,6 +83,7 @@ export async function apiGetUsersByType(query: QueryUserType) {
 		throw new Error(error.message)
 	}
 }
+
 export async function apiGetUserById(id: string | number) {
 	try {
 		const res = await request.get('/user/' + id)
@@ -88,6 +93,7 @@ export async function apiGetUserById(id: string | number) {
 		throw new Error(error.message)
 	}
 }
+
 export async function apiDeleteUserByIds(ids: (string | number)[]) {
 	try {
 		await request.delete('/user', {
@@ -143,5 +149,19 @@ export async function apiAutoCompleteUser(role: RoleName, search: string) {
 		if (!error.response) throw new Error(error.message)
 		const message = error.response.data.message
 		throw new Error(message)
+	}
+}
+
+export async function apiGetAllStudent(search?: string) {
+	try {
+		const res = await request.get('/user/all-student', {
+			params: {
+				search: search
+			}
+		})
+		const { data } = res.data as ApiResponseWithData<UserDetail[]>
+		return data
+	} catch (error: any) {
+		throw new Error(error.message)
 	}
 }
