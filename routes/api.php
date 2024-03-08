@@ -126,9 +126,6 @@ Route::prefix('/course')->middleware('auth:sanctum')
 
 Route::prefix('/enrollment')->middleware('auth:sanctum')
 	->controller(EnrollmentController::class)->group(function () {
-		// Route::get('/{id}', 'show');
-		// Route::put('/{id}', 'update');
-		// Route::delete('/{id}', 'destroy');
-		// Route::get('/', 'index');
+		Route::delete('/', 'destroy');
 		Route::post('/', 'store');
 	});
