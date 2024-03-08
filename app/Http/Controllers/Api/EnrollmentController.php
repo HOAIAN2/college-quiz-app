@@ -34,6 +34,9 @@ class EnrollmentController extends Controller
 		DB::beginTransaction();
 		try {
 			$course = Course::findOrFail($request->course_id);
+			if (Carbon::now()->greaterThan($course->semester->end_date)) {
+				return Reply::error('app.errors.semesterEnd', [], 400);
+			}
 			if (!$course->hasAnyStudentFromList($request->student_ids)) {
 				$student_ids = $request->student_ids;
 				foreach ($student_ids as $student_id) {
@@ -79,7 +82,7 @@ class EnrollmentController extends Controller
 
 		DB::beginTransaction();
 		try {
-			$course = Course::with('semester')->findOrFail($request->course_id);
+			$course = Course::findOrFail($request->course_id);
 			if (Carbon::now()->greaterThan($course->semester->end_date)) {
 				return Reply::error('app.errors.semesterEnd', [], 400);
 			}
