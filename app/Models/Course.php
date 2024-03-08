@@ -95,4 +95,9 @@ class Course extends Model
 	{
 		return $this->enrollments()->whereIn('student_id', $ids)->exists();
 	}
+
+	public function isOver()
+	{
+		return $this->semester->isOver();
+	}
 }

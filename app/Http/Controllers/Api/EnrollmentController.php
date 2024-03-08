@@ -33,7 +33,7 @@ class EnrollmentController extends Controller
 		DB::beginTransaction();
 		try {
 			$course = Course::findOrFail($request->course_id);
-			if ($course->semester->isOver()) {
+			if ($course->isOver()) {
 				return Reply::error('app.errors.semesterEnd', [], 400);
 			}
 			if (!$course->hasAnyStudentFromList($request->student_ids)) {
@@ -82,7 +82,7 @@ class EnrollmentController extends Controller
 		DB::beginTransaction();
 		try {
 			$course = Course::findOrFail($request->course_id);
-			if ($course->semester->isOver()) {
+			if ($course->isOver()) {
 				return Reply::error('app.errors.semesterEnd', [], 400);
 			}
 			Enrollment::destroy($request->ids);
