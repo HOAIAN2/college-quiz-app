@@ -15,12 +15,12 @@ class Controller extends BaseController
 	use AuthorizesRequests, ValidatesRequests;
 
 	public bool $isDevelopment = false;
-	public int $autoCompleteLimit = 0;
+	public int $autoCompleteResultLimit = 0;
 
 	public function __construct()
 	{
 		if (env('APP_DEBUG') == true) $this->isDevelopment = true;
-		$this->autoCompleteLimit = env('AUTO_COMPLETE_LIMIT', 5);
+		$this->autoCompleteResultLimit = env('AUTO_COMPLETE_RESULT_LIMIT', 5);
 	}
 
 	public function __destruct()

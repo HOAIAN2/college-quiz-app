@@ -18,6 +18,7 @@ use App\Models\Role;
 use App\Models\SchoolClass;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -314,7 +315,25 @@ class UserController extends Controller
 
 		try {
 			$users = User::whereRoleId(Role::ROLES[$request->role])
-				->search($request->search)->take($this->autoCompleteLimit)->get();
+				->search($request->search)->take($this->autoCompleteResultLimit)->get();
+			return Reply::successWithData($users, '');
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.somethingWentWrong', [], 500);
+		}
+	}
+
+	public function getAllStudent(Request $request)
+	{
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('user_view'), 403);
+
+		try {
+			$users = User::with(['role', 'school_class', 'faculty'])
+				->whereRoleId(Role::ROLES['student'])
+				->search($request->search)
+				->get();
 			return Reply::successWithData($users, '');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());

@@ -109,7 +109,7 @@ class SubjectController extends Controller
 		abort_if(!$user->hasPermission('subject_view'), 403);
 
 		try {
-			$users = Subject::search($request->search)->take($this->autoCompleteLimit)->get();
+			$users = Subject::search($request->search)->take($this->autoCompleteResultLimit)->get();
 			return Reply::successWithData($users, '');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
