@@ -187,9 +187,6 @@ export default function Semester() {
 									}
 								</form>
 							</div>
-							{/* <div className={styles['header']}>
-								<h2 className={styles['title']}>{language?.chapters}</h2>
-							</div> */}
 							{
 								permissions.has('course_view') ?
 									<Link

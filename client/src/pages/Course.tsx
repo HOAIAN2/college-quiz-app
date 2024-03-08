@@ -1,9 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { MdDeleteOutline } from 'react-icons/md'
+import { PiStudent } from 'react-icons/pi'
+import { RiAddFill } from 'react-icons/ri'
 import { useNavigate, useParams } from 'react-router-dom'
 import { apiDeleteCourse, apiGetCourseById, apiUpdateCourse } from '../api/course'
 import { apiAutoCompleteUser } from '../api/user'
+import CreateEnrollments from '../components/CreateEnrollments'
 import CustomDataList from '../components/CustomDataList'
 import Loading from '../components/Loading'
 import YesNoPopUp from '../components/YesNoPopUp'
@@ -21,6 +24,7 @@ export default function Course() {
 	const { id } = useParams()
 	const { DOM, permissions } = useAppContext()
 	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
+	const [showAddStudentsPopUp, setShowAddStudentsPopUp] = useState(false)
 	const language = useLanguage<PageCourseLang>('page.course')
 	const [queryUser, setQueryUser] = useState('')
 	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
@@ -75,6 +79,12 @@ export default function Course() {
 	}, [DOM.titleRef, queryData.data])
 	return (
 		<>
+			{showAddStudentsPopUp ?
+				<CreateEnrollments
+					setShowPopUp={setShowAddStudentsPopUp}
+					onMutateSuccess={onMutateSuccess}
+				/> : null
+			}
 			{showDeletePopUp === true ?
 				<YesNoPopUp
 					message={language?.deleteMessage || ''}
@@ -95,125 +105,187 @@ export default function Course() {
 				}
 				{
 					queryData.data ?
-						<div className={
-							[
-								styles['form-content']
-							].join(' ')
-						}>
-							<div className={styles['header']}>
-								<h2 className={styles['title']}>{queryData.data.name}</h2>
-							</div>
-							<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
-								mutate(e)
-							}}
-								onInput={e => { formUtils.handleOnInput(e) }}
-								className={styles['form-data']}>
-								<input name='is_active' defaultValue='1' hidden />
-								<div className={
-									[
-										styles['group-inputs']
-									].join(' ')
-								}>
-									<div className={styles['wrap-item']}>
-										<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
-										<input
-											id='shortcode'
-											disabled={!permissions.has('course_update')}
-											defaultValue={queryData.data.shortcode}
-											name='shortcode'
-											className={
-												[
-													'input-d',
-													styles['input-item']
-												].join(' ')
-											} type='text' />
-									</div>
-									<div className={styles['wrap-item']}>
-										<label className={styles['required']} htmlFor='name'>{language?.name}</label>
-										<input
-											id='name'
-											disabled={!permissions.has('course_update')}
-											defaultValue={queryData.data.name}
-											name='name'
-											className={
-												[
-													'input-d',
-													styles['input-item']
-												].join(' ')
-											} type='text' />
-									</div>
-									<div className={styles['wrap-item']}>
-										<label className={styles['required']} htmlFor='teacher_id'>{language?.teacher}</label>
-										<CustomDataList
-											name='teacher_id'
-											onInput={e => { setQueryUser(e.currentTarget.value) }}
-											disabled={!permissions.has('course_update')}
-											defaultOption={
-												{
-													label: languageUtils.getFullName(queryData.data.teacher.firstName, queryData.data.teacher.lastName),
-													value: queryData.data ? String(queryData.data.teacherId) : ''
-												}
-											}
-											options={userQueryData.data ? userQueryData.data.map(item => {
-												return {
-													label: languageUtils.getFullName(item.firstName, item.lastName),
-													value: String(item.id)
-												}
-											}) : []}
-											className={
-												[
-													styles['custom-select']
-												].join(' ')
-											}
-										/>
-									</div>
-									<div className={styles['wrap-item']}>
-										<label className={styles['required']}>{language?.subject}</label>
-										<input
-											disabled
-											defaultValue={queryData.data.subject.name}
-											className={
-												[
-													'input-d',
-													styles['input-item']
-												].join(' ')
-											} type='text' />
-									</div>
+						<>
+							<div className={
+								[
+									styles['form-content']
+								].join(' ')
+							}>
+								<div className={styles['header']}>
+									<h2 className={styles['title']}>{queryData.data.name}</h2>
 								</div>
-								{
-									permissions.has('course_update') || permissions.has('course_delete') ?
-										<div className={styles['action-items']}>
-											{
-												permissions.has('course_update') ?
-													<button name='save'
-														className={
-															[
-																'action-item-d',
-																isPending ? 'button-submitting' : ''
-															].join(' ')
-														}
-													>{language?.save}</button> : null
-											}
-											{
-												permissions.has('course_delete') ?
-													<button
-														type='button'
-														onClick={() => {
-															setShowDeletePopUp(true)
-														}}
-														className={
-															[
-																'action-item-d-white-border-red'
-															].join(' ')
-														}>
-														<MdDeleteOutline /> {language?.delete}
-													</button> : null
-											}
+								<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
+									mutate(e)
+								}}
+									onInput={e => { formUtils.handleOnInput(e) }}
+									className={styles['form-data']}>
+									<input name='is_active' defaultValue='1' hidden />
+									<div className={
+										[
+											styles['group-inputs']
+										].join(' ')
+									}>
+										<div className={styles['wrap-item']}>
+											<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
+											<input
+												id='shortcode'
+												disabled={!permissions.has('course_update')}
+												defaultValue={queryData.data.shortcode}
+												name='shortcode'
+												className={
+													[
+														'input-d',
+														styles['input-item']
+													].join(' ')
+												} type='text' />
 										</div>
-										: null
+										<div className={styles['wrap-item']}>
+											<label className={styles['required']} htmlFor='name'>{language?.name}</label>
+											<input
+												id='name'
+												disabled={!permissions.has('course_update')}
+												defaultValue={queryData.data.name}
+												name='name'
+												className={
+													[
+														'input-d',
+														styles['input-item']
+													].join(' ')
+												} type='text' />
+										</div>
+										<div className={styles['wrap-item']}>
+											<label className={styles['required']} htmlFor='teacher_id'>{language?.teacher}</label>
+											<CustomDataList
+												name='teacher_id'
+												onInput={e => { setQueryUser(e.currentTarget.value) }}
+												disabled={!permissions.has('course_update')}
+												defaultOption={
+													{
+														label: languageUtils.getFullName(queryData.data.teacher.firstName, queryData.data.teacher.lastName),
+														value: queryData.data ? String(queryData.data.teacherId) : ''
+													}
+												}
+												options={userQueryData.data ? userQueryData.data.map(item => {
+													return {
+														label: languageUtils.getFullName(item.firstName, item.lastName),
+														value: String(item.id)
+													}
+												}) : []}
+												className={
+													[
+														styles['custom-select']
+													].join(' ')
+												}
+											/>
+										</div>
+										<div className={styles['wrap-item']}>
+											<label className={styles['required']}>{language?.subject}</label>
+											<input
+												disabled
+												defaultValue={queryData.data.subject.name}
+												className={
+													[
+														'input-d',
+														styles['input-item']
+													].join(' ')
+												} type='text' />
+										</div>
+									</div>
+									{
+										permissions.has('course_update') || permissions.has('course_delete') ?
+											<div className={styles['action-items']}>
+												{
+													permissions.has('course_update') ?
+														<button name='save'
+															className={
+																[
+																	'action-item-d',
+																	isPending ? 'button-submitting' : ''
+																].join(' ')
+															}
+														>{language?.save}</button> : null
+												}
+												{
+													permissions.has('course_delete') ?
+														<button
+															type='button'
+															onClick={() => {
+																setShowDeletePopUp(true)
+															}}
+															className={
+																[
+																	'action-item-d-white-border-red'
+																].join(' ')
+															}>
+															<MdDeleteOutline /> {language?.delete}
+														</button> : null
+												}
+											</div>
+											: null
+									}
+								</form>
+							</div>
+							<div className={styles['header']}>
+								<h2 className={styles['title']}>{language?.studentList}</h2>
+							</div>
+							{
+								permissions.has('course_update') ?
+									<div className={
+										[
+											'action-bar-d'
+										].join(' ')
+									}
+										style={{ paddingLeft: '20px' }}
+									>
+										<button
+											style={{ width: 'fit-content' }}
+											className={
+												[
+													'action-item-d'
+												].join(' ')
+											}
+											onClick={() => {
+												setShowAddStudentsPopUp(true)
+											}}
+										>
+											<RiAddFill /> {language?.addStudents}
+										</button>
+									</div>
+									: null
+							}
+							<div className={styles['enrollments-container']}>
+								{
+									queryData.data.enrollments
+										.map(enrollment => {
+											return (
+												<div
+													key={`enrollment-${enrollment.id}`}
+													className={
+														[
+															'dashboard-card-d',
+															styles['card'],
+														].join(' ')
+													}
+													onClick={() => {
+														// setCurrentChapter(chapter)
+														// setShowViewChapterPopUp(true)
+													}}
+												>
+													<div className={styles['card-left']}>
+														<PiStudent />
+														<span>
+															{languageUtils.getFullName(enrollment.user.firstName, enrollment.user.lastName)}
+														</span>
+													</div>
+													{/* <div className={styles['card-right']}>
+														{languageUtils.getFullName(enrollment.user.firstName, enrollment.user.lastName)}
+													</div> */}
+												</div>
+											)
+										})
 								}
-							</form>
-						</div>
+							</div>
+						</>
 						: null
 				}
 			</div>
