@@ -51,14 +51,12 @@ export default function Dashboard() {
 							icon={<PiChalkboardTeacherLight />}
 						/>
 						<DashboardCard
-							to={permissions.has('course_view') ? '/courses' : undefined}
 							color='green'
 							content={language?.items.numberOfCourses}
 							data={queryData.data?.numberOfCourses}
 							icon={<GrCertificate />}
 						/>
 						<DashboardCard
-							to={permissions.has('exam_view') ? '/exams' : undefined}
 							color='blue'
 							content={language?.items.examInThisMonth}
 							data={queryData.data?.examsInThisMonth}
