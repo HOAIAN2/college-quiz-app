@@ -314,7 +314,7 @@ class UserController extends Controller
 
 		try {
 			$users = User::whereRoleId(Role::ROLES[$request->role])
-				->search($request->search)->take(5)->get();
+				->search($request->search)->take($this->autoCompleteLimit)->get();
 			return Reply::successWithData($users, '');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());

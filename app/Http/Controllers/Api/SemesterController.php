@@ -117,7 +117,7 @@ class SemesterController extends Controller
 
 		try {
 			$semesters = Semester::where('end_date', '>=', Carbon::now())
-				->search($request->search)->take(5)->get();
+				->search($request->search)->take($this->autoCompleteLimit)->get();
 			return Reply::successWithData($semesters, '');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());

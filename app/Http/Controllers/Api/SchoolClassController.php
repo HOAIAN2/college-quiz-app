@@ -113,7 +113,7 @@ class SchoolClassController extends Controller
 		abort_if(!$user->hasPermission('school_class_view'), 403);
 
 		try {
-			$school_classes = SchoolClass::search($request->search)->take(5)->get();
+			$school_classes = SchoolClass::search($request->search)->take($this->autoCompleteLimit)->get();
 			return Reply::successWithData($school_classes, '');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());

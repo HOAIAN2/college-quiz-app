@@ -12,6 +12,7 @@ export default function CreateEnrollments({
 	setShowPopUp
 }: CreateEnrollmentsProps) {
 	const [hide, setHide] = useState(true)
+	const [selectedUserIds, setSelectedUserIds] = useState<Set<string | number>>(new Set())
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
