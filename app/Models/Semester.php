@@ -57,4 +57,9 @@ class Semester extends Model
 	{
 		return $this->hasMany(Course::class);
 	}
+
+	public function isOver()
+	{
+		return Carbon::now()->greaterThan($this->end_date);
+	}
 }

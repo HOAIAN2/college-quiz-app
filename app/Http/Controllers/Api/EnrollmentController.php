@@ -8,7 +8,6 @@ use App\Http\Requests\Enrollment\DeleteRequest;
 use App\Http\Requests\Enrollment\StoreRequest;
 use App\Models\Course;
 use App\Models\Enrollment;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -34,7 +33,7 @@ class EnrollmentController extends Controller
 		DB::beginTransaction();
 		try {
 			$course = Course::findOrFail($request->course_id);
-			if (Carbon::now()->greaterThan($course->semester->end_date)) {
+			if ($course->semester->isOver()) {
 				return Reply::error('app.errors.semesterEnd', [], 400);
 			}
 			if (!$course->hasAnyStudentFromList($request->student_ids)) {
@@ -83,7 +82,7 @@ class EnrollmentController extends Controller
 		DB::beginTransaction();
 		try {
 			$course = Course::findOrFail($request->course_id);
-			if (Carbon::now()->greaterThan($course->semester->end_date)) {
+			if ($course->semester->isOver()) {
 				return Reply::error('app.errors.semesterEnd', [], 400);
 			}
 			Enrollment::destroy($request->ids);

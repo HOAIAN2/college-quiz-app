@@ -9,8 +9,8 @@ use App\Http\Requests\Course\StoreRequest;
 use App\Http\Requests\Course\UpdateRequest;
 use App\Models\Course;
 use App\Models\Role;
+use App\Models\Semester;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -43,6 +43,10 @@ class CourseController extends Controller
 
 		DB::beginTransaction();
 		try {
+			$semester = Semester::findOrFail($request->semester_id);
+			if ($semester->isOver()) {
+				return Reply::error('app.errors.semesterEnd', [], 400);
+			}
 			User::whereRoleId(Role::ROLES['teacher'])
 				->select('id')->findOrFail($request->teacher_id);
 			Course::create($data);
@@ -86,6 +90,9 @@ class CourseController extends Controller
 
 		try {
 			$targetCourse = Course::findOrFail($id);
+			if ($targetCourse->semester->isOver()) {
+				return Reply::error('app.errors.semesterEnd', [], 400);
+			}
 			User::whereRoleId(Role::ROLES['teacher'])
 				->select('id')->findOrFail($request->teacher_id);
 			$targetCourse->update($data);
