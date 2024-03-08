@@ -276,9 +276,11 @@ export default function Course() {
 														<span>
 															{languageUtils.getFullName(enrollment.user.firstName, enrollment.user.lastName)}
 														</span>
+														<span>
+															{enrollment.user.schoolClass?.shortcode}
+														</span>
 													</div>
 													{/* <div className={styles['card-right']}>
-														{languageUtils.getFullName(enrollment.user.firstName, enrollment.user.lastName)}
 													</div> */}
 												</div>
 											)
