@@ -4,7 +4,6 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ChapterController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\DashboardController;
-use App\Http\Controllers\Api\EnrollmentController;
 use App\Http\Controllers\Api\FacultyController;
 use App\Http\Controllers\Api\QuestionController;
 use App\Http\Controllers\Api\RolePermissionController;
@@ -121,12 +120,7 @@ Route::prefix('/course')->middleware('auth:sanctum')
 		Route::get('/{id}', 'show');
 		Route::put('/{id}', 'update');
 		Route::delete('/{id}', 'destroy');
+		Route::put('/{id}/students', 'updateStudents');
 		Route::get('/', 'index');
-		Route::post('/', 'store');
-	});
-
-Route::prefix('/enrollment')->middleware('auth:sanctum')
-	->controller(EnrollmentController::class)->group(function () {
-		Route::delete('/', 'destroy');
 		Route::post('/', 'store');
 	});

@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Course\GetAllRequest;
 use App\Http\Requests\Course\StoreRequest;
 use App\Http\Requests\Course\UpdateRequest;
+use App\Http\Requests\Course\UpdateStudentsRequest;
 use App\Models\Course;
+use App\Models\Enrollment;
 use App\Models\Role;
 use App\Models\Semester;
 use App\Models\User;
@@ -123,6 +125,57 @@ class CourseController extends Controller
 			return Reply::error('app.errors.somethingWentWrong', [], 500);
 		}
 	}
+
+	public function updateStudents(UpdateStudentsRequest $request, string $id)
+	{
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('role_permission_grant'), 403);
+
+		DB::beginTransaction();
+		try {
+			$targetCourse = Course::findOrFail($id);
+			if ($targetCourse->semester->isOver()) {
+				return Reply::error('app.errors.semesterEnd', [], 400);
+			}
+
+			if ($request->student_ids == null) {
+				Enrollment::where('course_id', '=', $targetCourse->id)
+					->delete();
+			} else {
+				$will_be_deleted_student_ids = $targetCourse->enrollments()
+					->whereNotIn('student_id', $request->student_ids)
+					->pluck('student_id');
+
+				Enrollment::where('course_id', '=', $targetCourse->id)
+					->whereIn('student_id', $will_be_deleted_student_ids)
+					->delete();
+
+				$existing_student_ids = $targetCourse->enrollments()
+					->whereIn('student_id', $request->student_ids)
+					->pluck('student_id')->toArray();
+
+				$student_ids = User::whereRoleId(Role::ROLES['student'])
+					->whereIn('id', $request->student_ids)
+					->pluck('id');
+
+				foreach ($student_ids as $student_id) {
+					if (in_array($student_id, $existing_student_ids)) continue;
+					Enrollment::create([
+						'course_id' => $targetCourse->id,
+						'student_id' => $student_id
+					]);
+				}
+			}
+			DB::commit();
+			return Reply::successWithMessage('app.successes.recordSaveSuccess');
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			DB::rollBack();
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.somethingWentWrong', [], 500);
+		}
+	}
+
 	public function byUser(string $id)
 	{
 		// if ($data->user == null) return Reply::successWithData($data, '');

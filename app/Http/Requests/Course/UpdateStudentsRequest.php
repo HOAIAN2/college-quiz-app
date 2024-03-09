@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Enrollment;
+namespace App\Http\Requests\Course;
 
 use App\Traits\CustomValidateResponse;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DeleteRequest extends FormRequest
+class UpdateStudentsRequest extends FormRequest
 {
 	use CustomValidateResponse;
 	/**
@@ -24,9 +24,8 @@ class DeleteRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'course_id' => ['required', 'integer'],
-			'ids' => ['required', 'array'],
-			'ids.*' => ['required', 'integer', 'distinct'],
+			'student_ids' => ['nullable', 'array'],
+			'student_ids.*' => ['integer', 'distinct']
 		];
 	}
 }

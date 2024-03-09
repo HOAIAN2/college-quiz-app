@@ -25,7 +25,7 @@ class UpdateRequest extends FormRequest
 	{
 		return [
 			'ids' => ['nullable', 'array'],
-			'ids.*' => ['integer']
+			'ids.*' => ['integer', 'distinct']
 		];
 	}
 }
