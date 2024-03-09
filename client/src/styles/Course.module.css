@@ -110,7 +110,8 @@
 .card {
 	flex: 0 0 calc(25% - 15px);
 	min-width: 160px;
-	height: 75px;
+	min-height: 75px;
+	height: fit-content;
 	display: flex;
 	align-items: center;
 	border-radius: var(--border-radius-low);
@@ -121,15 +122,10 @@
 }
 
 
-.card>.card-left {
+.card>.card-content {
 	display: flex;
 	align-items: center;
-	gap: 20px;
-}
-
-.card>.card-left>svg,
-span {
-	font-size: 20px !important;
+	font-size: 20px;
 }
 
 @media (width<=1000px) {

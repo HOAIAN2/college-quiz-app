@@ -2,7 +2,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { LuPenSquare } from 'react-icons/lu'
 import { MdDeleteOutline } from 'react-icons/md'
-import { PiStudent } from 'react-icons/pi'
 import { useNavigate, useParams } from 'react-router-dom'
 import { apiDeleteCourse, apiGetCourseById, apiUpdateCourse } from '../api/course'
 import { apiAutoCompleteUser } from '../api/user'
@@ -261,8 +260,11 @@ export default function Course() {
 								{
 									queryData.data.enrollments
 										.map(enrollment => {
+											const fullName = languageUtils.getFullName(enrollment.user.firstName, enrollment.user.lastName)
+											const schoolClass = enrollment.user.schoolClass?.shortcode
 											return (
 												<div
+													title={[fullName, schoolClass].join(' ')}
 													key={`enrollment-${enrollment.id}`}
 													className={
 														[
@@ -270,22 +272,10 @@ export default function Course() {
 															styles['card'],
 														].join(' ')
 													}
-													onClick={() => {
-														// setCurrentChapter(chapter)
-														// setShowViewChapterPopUp(true)
-													}}
 												>
-													<div className={styles['card-left']}>
-														<PiStudent />
-														<span>
-															{languageUtils.getFullName(enrollment.user.firstName, enrollment.user.lastName)}
-														</span>
-														<span>
-															{enrollment.user.schoolClass?.shortcode}
-														</span>
+													<div className={styles['card-content']}>
+														{[fullName, `(${schoolClass})`].join(' ')}
 													</div>
-													{/* <div className={styles['card-right']}>
-													</div> */}
 												</div>
 											)
 										})
