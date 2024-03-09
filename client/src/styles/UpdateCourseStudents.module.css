@@ -69,18 +69,9 @@
 	width: 100%;
 }
 
-.input-item.error {
-	border-color: red;
-}
-
-.custom-select {
-	width: 100%;
-	margin-left: 0;
-	z-index: 1;
-}
-
 .joined-students-container {
 	width: 100%;
+	min-height: 50px;
 	height: fit-content;
 	border: 1px solid var(--color-shadow);
 	border-radius: var(--border-radius-low);
