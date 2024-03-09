@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
+import { LuPenSquare } from 'react-icons/lu'
 import { MdDeleteOutline } from 'react-icons/md'
 import { PiStudent } from 'react-icons/pi'
-import { RiAddFill } from 'react-icons/ri'
 import { useNavigate, useParams } from 'react-router-dom'
 import { apiDeleteCourse, apiGetCourseById, apiUpdateCourse } from '../api/course'
 import { apiAutoCompleteUser } from '../api/user'
@@ -60,7 +60,7 @@ export default function Course() {
 	const handleDeleteCourse = async () => {
 		return apiDeleteCourse(String(id))
 	}
-	const onMutateSuccess = () => {
+	const onDeleteCourseSuccess = () => {
 		[queryKeys.PAGE_COURSES, queryKeys.PAGE_DASHBOARD].forEach(key => {
 			queryClient.refetchQueries({ queryKey: [key] })
 		})
@@ -83,7 +83,7 @@ export default function Course() {
 				<UpdateCourseStudents
 					courseDetail={queryData.data}
 					setShowPopUp={setShowUpdateStudentsPopUp}
-					onMutateSuccess={onMutateSuccess}
+					onMutateSuccess={() => { queryData.refetch() }}
 				/> : null
 			}
 			{showDeletePopUp === true ?
@@ -91,7 +91,7 @@ export default function Course() {
 					message={language?.deleteMessage || ''}
 					mutateFunction={handleDeleteCourse}
 					setShowPopUp={setShowDeletePopUp}
-					onMutateSuccess={onMutateSuccess}
+					onMutateSuccess={onDeleteCourseSuccess}
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
@@ -239,17 +239,20 @@ export default function Course() {
 										style={{ paddingLeft: '20px' }}
 									>
 										<button
-											style={{ width: 'fit-content' }}
 											className={
 												[
-													'action-item-d'
+													'action-item-d',
+													styles['edit-students-button']
 												].join(' ')
 											}
 											onClick={() => {
 												setShowUpdateStudentsPopUp(true)
 											}}
 										>
-											<RiAddFill /> {language?.addStudents}
+											<LuPenSquare />
+											<span>
+												{language?.edit}
+											</span>
 										</button>
 									</div>
 									: null

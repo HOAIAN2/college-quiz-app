@@ -9,5 +9,5 @@ export default {
 	langYes: 'Có',
 	langNo: 'Không',
 	studentList: 'Danh sách sinh viên',
-	addStudents: 'Thêm sinh viên'
+	edit: 'Chỉnh sửa'
 }

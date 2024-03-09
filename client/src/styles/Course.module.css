@@ -88,6 +88,11 @@
 	gap: 10px;
 }
 
+.edit-students-button {
+	width: fit-content;
+	gap: 5px;
+}
+
 .pending {
 	opacity: 0.7;
 	cursor: default;

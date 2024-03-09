@@ -9,5 +9,5 @@ export default {
 	langYes: 'Yes',
 	langNo: 'No',
 	studentList: 'Student list',
-	addStudents: 'Thêm sinh viên'
+	edit: 'Edit'
 }

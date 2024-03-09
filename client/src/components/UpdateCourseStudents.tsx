@@ -133,43 +133,30 @@ export default function UpdateCourseStudents({
 							})
 						}
 					</ul>
-					{
-						userQueryData.data ?
-							<>
-								<label>{language?.allStudents}</label>
-								<ul className={styles['all-student-conatiner']}>
-									{userQueryData.data.map(user => {
-										if (students.find(student => student.id === user.id))
-											return null
-										return (
-											<li
-												onClick={() => {
-													const newStudents = structuredClone(students)
-													newStudents.push(user)
-													setStudents(newStudents)
-												}}
-												className={
-													[
-														'dashboard-card-d',
-														styles['card'],
-													].join(' ')
-												}
-												key={`user-${user.id}`}>
-												<div className={styles['card-left']}>
-													<PiStudent />
-													<span>
-														{languageUtils.getFullName(user.firstName, user.lastName)}
-													</span>
-													<span>
-														{user.schoolClass?.shortcode}
-													</span>
-												</div>
-											</li>
-										)
-									})}
-								</ul>
-							</> : null
-					}
+					<label>{language?.allStudents}</label>
+					<ul className={styles['all-student-conatiner']}>
+						{userQueryData.data ?
+							userQueryData.data
+								.filter(user => !students.find(student => student.id === user.id))
+								.map(user => (
+									<li
+										onClick={() => {
+											const newStudents = structuredClone(students);
+											newStudents.push(user);
+											setStudents(newStudents);
+										}}
+										className={['dashboard-card-d', styles['card']].join(' ')}
+										key={`user-${user.id}`}
+									>
+										<div className={styles['card-left']}>
+											<PiStudent />
+											<span>{languageUtils.getFullName(user.firstName, user.lastName)}</span>
+											<span>{user.schoolClass?.shortcode}</span>
+										</div>
+									</li>
+								)) : null
+						}
+					</ul>
 					<div className={styles['action-items']}>
 						<button
 							onClick={() => { mutate() }}
