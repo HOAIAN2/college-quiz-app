@@ -66,3 +66,19 @@ export async function apiDeleteCourse(id: string | number) {
 		throw new Error(message)
 	}
 }
+
+export async function apiUpdateCourseStudents(studentIds: (string | number)[], id: string | number) {
+	try {
+		const data = new URLSearchParams()
+		studentIds.forEach(item => {
+			data.append('student_ids[]', String(item))
+		})
+		await request.put(`/course/${id}/students`, data, {
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}
+		})
+	} catch (error: any) {
+		throw new Error(error.message)
+	}
+}
