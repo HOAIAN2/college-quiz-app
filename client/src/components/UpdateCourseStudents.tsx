@@ -95,7 +95,7 @@ export default function UpdateCourseStudents({
 						} type='text' />
 					<div className={styles['wrap-data-container']}>
 						<div className={styles['data-container']}>
-							<label style={{ marginTop: '10px' }}>{language?.joinedStudents}</label>
+							<label>{language?.joinedStudents}</label>
 							<ul className={
 								[
 									styles['joined-students-container']
