@@ -16,6 +16,6 @@ return [
 		'failToSaveRecord' => 'Fail to save record',
 		'classNotExists' => 'Class :shortcodes not exists',
 		'faucltyNotExists' => 'Fauclty :shortcodes not exists',
-		'semesterEnd' => 'Semester has ended."'
+		'semesterEnd' => 'Semester has ended'
 	],
 ];
