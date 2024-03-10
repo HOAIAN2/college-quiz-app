@@ -156,6 +156,7 @@ export default function ViewSchoolClass({
 											<label className={styles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
 											<CustomDataList
 												name='faculty_id'
+												disabled={!permissions.has('school_class_update')}
 												defaultOption={
 													{
 														label: queryData.data.faculty?.name,
