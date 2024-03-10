@@ -27,7 +27,6 @@
 	border-radius: var(--border-radius-low);
 	transform-origin: center center;
 	transition: var(--transition-timing-medium);
-	overflow-y: auto;
 }
 
 .update-course-students-form.hide {
@@ -55,12 +54,26 @@
 .form-content {
 	flex: 1;
 	padding: 20px;
+	height: calc(100% - 40px);
+}
+
+.wrap-data-container {
+	height: calc(100% - 100px);
+	overflow-y: auto;
+	margin-right: -5px;
+}
+
+/* .wrap-data-container::-webkit-scrollbar {
+	display: none;
+} */
+
+.data-container {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
 }
 
-.form-content>label {
+.data-container>label {
 	font-size: 20px !important;
 }
 
@@ -84,8 +97,8 @@
 	height: 50px;
 	margin: 5px;
 	display: inline-block;
-	background: var(--color-blue);
-	color: white;
+	/* background: var(--color-blue);
+	color: white; */
 	border-radius: var(--border-radius-low);
 	border: 1px solid var(--color-shadow);
 	cursor: pointer;
@@ -101,25 +114,21 @@
 }
 
 .all-student-conatiner {
-	height: 400px;
-	overflow: scroll;
-}
-
-.all-student-conatiner::-webkit-scrollbar {
-	display: none;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
 
 .card {
-	width: calc(100% - 5px);
+	width: 100%;
 	height: 50px;
 	display: flex;
 	align-items: center;
 	border-radius: var(--border-radius-low);
-	border-left: 5px solid;
-	border-color: var(--color-soft-magenta);
+	border: 1px solid var(--color-shadow);
+	border-left: 5px solid var(--color-soft-magenta);
 	cursor: pointer;
 	padding: 0px 20px 0px 20px;
-	margin: 10px 0px 10px 0px;
 }
 
 

@@ -93,70 +93,74 @@ export default function UpdateCourseStudents({
 								styles['input-item']
 							].join(' ')
 						} type='text' />
-					<label>{language?.joinedStudents}</label>
-					<ul className={
-						[
-							styles['joined-students-container']
-						].join(' ')
-					}>
-						{
-							students.map((student, index) => {
-								return (
-									<li
-										className={
-											[
-												styles['joined-student']
-											].join(' ')
-										}
-										key={`joined-student-${student.id}`}
-									>
-										<div>
-											<span>
-												{languageUtils.getFullName(student.firstName, student.lastName)}
-											</span>
-											<span>
-												{student.schoolClass?.shortcode}
-											</span>
-											<span
-												style={{ height: '20px' }}
-												onClick={() => {
-													const newStudents = structuredClone(students)
-													newStudents.splice(index, 1)
-													setStudents(newStudents)
-												}}
+					<div className={styles['wrap-data-container']}>
+						<div className={styles['data-container']}>
+							<label style={{ marginTop: '10px' }}>{language?.joinedStudents}</label>
+							<ul className={
+								[
+									styles['joined-students-container']
+								].join(' ')
+							}>
+								{
+									students.map((student, index) => {
+										return (
+											<li
+												className={
+													[
+														styles['joined-student']
+													].join(' ')
+												}
+												key={`joined-student-${student.id}`}
 											>
-												<RxCross2 />
-											</span>
-										</div>
-									</li>
-								)
-							})
-						}
-					</ul>
-					<label>{language?.allStudents}</label>
-					<ul className={styles['all-student-conatiner']}>
-						{userQueryData.data ?
-							userQueryData.data
-								.filter(user => !students.find(student => student.id === user.id))
-								.map(user => (
-									<li
-										onClick={() => {
-											const newStudents = structuredClone(students);
-											newStudents.push(user);
-											setStudents(newStudents);
-										}}
-										className={['dashboard-card-d', styles['card']].join(' ')}
-										key={`user-${user.id}`}
-									>
-										<div className={styles['card-left']}>
-											<PiStudent />
-											<span>{languageUtils.getFullName(user.firstName, user.lastName)}</span>
-											<span>{user.schoolClass?.shortcode}</span>
-										</div>
-									</li>
-								)) : null
-						}
-					</ul>
+												<div>
+													<span>
+														{languageUtils.getFullName(student.firstName, student.lastName)}
+													</span>
+													<span>
+														{student.schoolClass?.shortcode}
+													</span>
+													<span
+														style={{ height: '20px' }}
+														onClick={() => {
+															const newStudents = structuredClone(students)
+															newStudents.splice(index, 1)
+															setStudents(newStudents)
+														}}
+													>
+														<RxCross2 />
+													</span>
+												</div>
+											</li>
+										)
+									})
+								}
+							</ul>
+							<label>{language?.allStudents}</label>
+							<ul className={styles['all-student-conatiner']}>
+								{userQueryData.data ?
+									userQueryData.data
+										.filter(user => !students.find(student => student.id === user.id))
+										.map(user => (
+											<li
+												onClick={() => {
+													const newStudents = structuredClone(students);
+													newStudents.push(user);
+													setStudents(newStudents);
+												}}
+												className={['dashboard-card-d', styles['card']].join(' ')}
+												key={`user-${user.id}`}
+											>
+												<div className={styles['card-left']}>
+													<PiStudent />
+													<span>{languageUtils.getFullName(user.firstName, user.lastName)}</span>
+													<span>{user.schoolClass?.shortcode}</span>
+												</div>
+											</li>
+										)) : null
+								}
+							</ul>
+						</div>
+					</div>
 					<div className={styles['action-items']}>
 						<button
 							onClick={() => { mutate() }}
