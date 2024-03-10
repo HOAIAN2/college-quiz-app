@@ -333,6 +333,7 @@ class UserController extends Controller
 			$users = User::with(['role', 'school_class', 'faculty'])
 				->whereRoleId(Role::ROLES['student'])
 				->search($request->search)
+				->latest('id')
 				->take($this->autoCompleteResultLimit * 20)
 				->get();
 			return Reply::successWithData($users, '');
