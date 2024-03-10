@@ -10,7 +10,7 @@ import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentViewFacultyLang } from '../models/lang'
 import styles from '../styles/global/ViewModel.module.css'
-import FormUtils from '../utils/FormUtils'
+import createFormUtils from '../utils/createFormUtils'
 import languageUtils from '../utils/languageUtils'
 import CustomDataList from './CustomDataList'
 import Loading from './Loading'
@@ -32,6 +32,7 @@ export default function ViewFaculty({
 	const [queryUser, setQueryUser] = useState('')
 	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
 	const queryClient = useQueryClient()
+	const disabledUpdate = !permissions.has('faculty_update')
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
@@ -40,7 +41,7 @@ export default function ViewFaculty({
 			setShowPopUp(false)
 		}, timing)
 	}
-	const formUtils = new FormUtils(styles)
+	const formUtils = createFormUtils(styles)
 	const queryData = useQuery({
 		queryKey: [queryKeys.FACULTY_DETAIL, { id: id }],
 		queryFn: () => apiGetFacultyById(id)
@@ -129,7 +130,7 @@ export default function ViewFaculty({
 											<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 											<input
 												id='shortcode'
-												disabled={!permissions.has('faculty_update')}
+												disabled={disabledUpdate}
 												defaultValue={queryData.data.shortcode}
 												name='shortcode'
 												className={
@@ -143,7 +144,7 @@ export default function ViewFaculty({
 											<label className={styles['required']} htmlFor='name'>{language?.name}</label>
 											<input
 												id='name'
-												disabled={!permissions.has('faculty_update')}
+												disabled={disabledUpdate}
 												defaultValue={queryData.data.name}
 												name='name'
 												className={
@@ -157,7 +158,7 @@ export default function ViewFaculty({
 											<label htmlFor='email'>{language?.email}</label>
 											<input
 												id='email'
-												disabled={!permissions.has('faculty_update')}
+												disabled={disabledUpdate}
 												defaultValue={queryData.data.email || ''}
 												name='email'
 												className={
@@ -171,7 +172,7 @@ export default function ViewFaculty({
 											<label htmlFor='phone_number'>{language?.phoneNumber}</label>
 											<input
 												id='phone_number'
-												disabled={!permissions.has('faculty_update')}
+												disabled={disabledUpdate}
 												defaultValue={queryData.data.phoneNumber || ''}
 												name='phone_number'
 												className={
@@ -191,7 +192,7 @@ export default function ViewFaculty({
 														value: queryData.data.leader ? String(queryData.data.leader.id) : ''
 													}
 												}
-												disabled={!permissions.has('faculty_update')}
+												disabled={disabledUpdate}
 												onInput={e => { setQueryUser(e.currentTarget.value) }}
 												options={userQueryData.data ? userQueryData.data.map(item => {
 													return {

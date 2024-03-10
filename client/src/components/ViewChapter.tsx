@@ -8,7 +8,7 @@ import useLanguage from '../hooks/useLanguage'
 import { Chapter } from '../models/chapter'
 import { ComponentViewChapterLang } from '../models/lang'
 import styles from '../styles/global/ViewModel.module.css'
-import FormUtils from '../utils/FormUtils'
+import createFormUtils from '../utils/createFormUtils'
 import Loading from './Loading'
 import YesNoPopUp from './YesNoPopUp'
 
@@ -35,7 +35,8 @@ export default function ViewChapter({
 			setShowPopUp(false)
 		}, timing)
 	}
-	const formUtils = new FormUtils(styles)
+	const formUtils = createFormUtils(styles)
+	const disabledUpdate = !permissions.has('subject_update')
 	const handleUpdateChapter = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
 		document.querySelector(styles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
@@ -122,7 +123,7 @@ export default function ViewChapter({
 										<input
 											id='chapter_number'
 											name='chapter_number'
-											disabled={!permissions.has('subject_update')}
+											disabled={disabledUpdate}
 											defaultValue={data.chapterNumber}
 											className={
 												[
@@ -135,7 +136,7 @@ export default function ViewChapter({
 										<label className={styles['required']} htmlFor='name'>{language?.name}</label>
 										<input
 											id='name'
-											disabled={!permissions.has('subject_update')}
+											disabled={disabledUpdate}
 											defaultValue={data.name}
 											name='name'
 											className={

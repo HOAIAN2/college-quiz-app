@@ -14,7 +14,7 @@ import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateUserLang } from '../models/lang'
 import { RoleName } from '../models/role'
 import styles from '../styles/global/CreateModel.module.css'
-import FormUtils from '../utils/FormUtils'
+import createFormUtils from '../utils/createFormUtils'
 import CustomDataList from './CustomDataList'
 import CustomSelect from './CustomSelect'
 import Loading from './Loading'
@@ -44,7 +44,7 @@ export default function CreateUser({
 			setShowPopUp(false)
 		}, timing)
 	}
-	const formUtils = new FormUtils(styles)
+	const formUtils = createFormUtils(styles)
 	const classQueryData = useQuery({
 		queryKey: [queryKeys.AUTO_COMPLETE_SCHOOL_CLASS, { search: debounceQueryClass }],
 		queryFn: () => apiAutoCompleteSchoolClass(debounceQueryClass),

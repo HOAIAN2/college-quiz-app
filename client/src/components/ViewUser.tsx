@@ -12,7 +12,7 @@ import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentViewUserLang } from '../models/lang'
 import styles from '../styles/global/ViewModel.module.css'
-import FormUtils from '../utils/FormUtils'
+import createFormUtils from '../utils/createFormUtils'
 import languageUtils from '../utils/languageUtils'
 import CustomDataList from './CustomDataList'
 import CustomSelect from './CustomSelect'
@@ -44,7 +44,8 @@ export default function ViewUser({
 			setShowPopUp(false)
 		}, timing)
 	}
-	const formUtils = new FormUtils(styles)
+	const formUtils = createFormUtils(styles)
+	const disabledUpdate = !permissions.has('user_update')
 	const queryData = useQuery({
 		queryKey: [queryKeys.USER_DETAIL, { id: id }],
 		queryFn: () => apiGetUserById(id)
@@ -147,7 +148,7 @@ export default function ViewUser({
 											<label className={styles['required']} htmlFor='email'>{language?.email}</label>
 											<input
 												id='email'
-												disabled={!permissions.has('user_update')}
+												disabled={disabledUpdate}
 												defaultValue={queryData.data.email}
 												name='email'
 												className={
@@ -161,7 +162,7 @@ export default function ViewUser({
 											<label htmlFor='phone_number'>{language?.phoneNumber}</label>
 											<input
 												id='phone_number'
-												disabled={!permissions.has('user_update')}
+												disabled={disabledUpdate}
 												defaultValue={queryData.data.phoneNumber || ''}
 												name='phone_number'
 												className={
@@ -175,7 +176,7 @@ export default function ViewUser({
 											<label className={styles['required']} htmlFor='first_name'>{language?.firstName}</label>
 											<input
 												id='first_name'
-												disabled={!permissions.has('user_update')}
+												disabled={disabledUpdate}
 												defaultValue={queryData.data.firstName}
 												name='first_name'
 												className={
@@ -189,7 +190,7 @@ export default function ViewUser({
 											<label className={styles['required']} htmlFor='last_name'>{language?.lastName}</label>
 											<input
 												id='last_name'
-												disabled={!permissions.has('user_update')}
+												disabled={disabledUpdate}
 												defaultValue={queryData.data.lastName}
 												name='last_name'
 												className={
@@ -203,7 +204,7 @@ export default function ViewUser({
 											<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 											<input
 												id='shortcode'
-												disabled={!permissions.has('user_update')}
+												disabled={disabledUpdate}
 												defaultValue={queryData.data.shortcode}
 												name='shortcode'
 												className={
@@ -265,7 +266,7 @@ export default function ViewUser({
 													queryData.data.gender === 'male'
 														? genderOptions[0] : genderOptions[1]
 												}
-												disabled={!permissions.has('user_update')}
+												disabled={disabledUpdate}
 												options={genderOptions}
 												className={
 													[
@@ -278,7 +279,7 @@ export default function ViewUser({
 											<label className={styles['required']} htmlFor='address'>{language?.address}</label>
 											<input
 												id='address'
-												disabled={!permissions.has('user_update')}
+												disabled={disabledUpdate}
 												defaultValue={queryData.data.address}
 												name='address'
 												className={
@@ -295,7 +296,7 @@ export default function ViewUser({
 												inputProps={
 													{
 														id: 'birth_date',
-														disabled: !permissions.has('user_update'),
+														disabled: disabledUpdate,
 														name: 'birth_date',
 														className: [
 															'input-d',
@@ -315,7 +316,7 @@ export default function ViewUser({
 													queryData.data.isActive
 														? statusOptions[0] : statusOptions[1]
 												}
-												disabled={!permissions.has('user_update')}
+												disabled={disabledUpdate}
 												options={statusOptions}
 												className={
 													[
@@ -328,7 +329,7 @@ export default function ViewUser({
 											<label htmlFor='password'>{language?.password}</label>
 											<input
 												id='password'
-												disabled={!permissions.has('user_update')}
+												disabled={disabledUpdate}
 												placeholder={language?.leaveBlank}
 												name='password'
 												className={

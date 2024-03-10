@@ -9,7 +9,7 @@ import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateFacultyLang } from '../models/lang'
 import styles from '../styles/global/CreateModel.module.css'
-import FormUtils from '../utils/FormUtils'
+import createFormUtils from '../utils/createFormUtils'
 import languageUtils from '../utils/languageUtils'
 import CustomDataList from './CustomDataList'
 import Loading from './Loading'
@@ -36,7 +36,7 @@ export default function CreateFaculty({
 			setShowPopUp(false)
 		}, timing)
 	}
-	const formUtils = new FormUtils(styles)
+	const formUtils = createFormUtils(styles)
 	const userQueryData = useQuery({
 		queryKey: [queryKeys.AUTO_COMPLETE_USER, { search: debounceQueryUser }],
 		queryFn: () => apiAutoCompleteUser('teacher', debounceQueryUser),

@@ -11,7 +11,7 @@ import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { PageSemesterLang } from '../models/lang'
 import styles from '../styles/Semester.module.css'
-import FormUtils from '../utils/FormUtils'
+import createFormUtils from '../utils/createFormUtils'
 
 export default function Semester() {
 	const { permissions } = useAppContext()
@@ -20,7 +20,8 @@ export default function Semester() {
 	const navigate = useNavigate()
 	const language = useLanguage<PageSemesterLang>('page.semester')
 	const { id } = useParams()
-	const formUtils = new FormUtils(styles)
+	const formUtils = createFormUtils(styles)
+	const disabledUpdate = !permissions.has('semester_update')
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_SEMESTER, { id: id }],
 		queryFn: () => apiGetSemesterById(String(id))
@@ -104,7 +105,7 @@ export default function Semester() {
 											<input
 												id='name'
 												name='name'
-												disabled={!permissions.has('semester_update')}
+												disabled={disabledUpdate}
 												defaultValue={queryData.data.name}
 												className={
 													[
@@ -125,7 +126,7 @@ export default function Semester() {
 															'input-d',
 															styles['input-item']
 														].join(' '),
-														disabled: !permissions.has('semester_update')
+														disabled: disabledUpdate
 													}
 												}
 												closeOnSelect={true}
@@ -144,7 +145,7 @@ export default function Semester() {
 															'input-d',
 															styles['input-item']
 														].join(' '),
-														disabled: !permissions.has('semester_update')
+														disabled: disabledUpdate
 													}
 												}
 												closeOnSelect={true}

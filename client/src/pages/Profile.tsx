@@ -11,35 +11,25 @@ import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { PageProfileLang } from '../models/lang'
 import styles from '../styles/Profile.module.css'
+import createFormUtils from '../utils/createFormUtils'
 
 export default function Profile() {
 	const language = useLanguage<PageProfileLang>('page.profile')
 	const { user, appLanguage, permissions } = useAppContext()
 	const [changePasswordMode, setChangePasswordMode] = useState(false)
 	const queryClient = useQueryClient()
+	const formUtils = createFormUtils(styles)
+	const disabledUpdate = !permissions.has('user_update')
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_PROFILE],
 		queryFn: apiGetUser,
 	})
-	const getParentElement = (element: HTMLInputElement) => {
-		let parent = element.parentElement as HTMLElement
-		while (!parent.classList.contains(styles['wrap-item'])) parent = parent.parentElement as HTMLElement
-		return parent
-	}
-	const handleOnInput = (e: React.FormEvent<HTMLFormElement>) => {
-		const element = e.target as HTMLInputElement
-		if (element) {
-			element.classList.remove('error')
-			getParentElement(element).removeAttribute('data-error')
-		}
-	}
 	const handleUpdateUser = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
-		if (!permissions.has('user_update')) return
 		document.querySelector(styles['form-data'])?.querySelectorAll('input[name]').forEach(node => {
 			const element = node as HTMLInputElement
 			element.classList.remove('error')
-			getParentElement(element).removeAttribute('data-error')
+			formUtils.getParentElement(element)?.removeAttribute('data-error')
 		})
 		const form = e.target as HTMLFormElement
 		const formData = new FormData(form)
@@ -47,17 +37,7 @@ export default function Profile() {
 	}
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateUser,
-		onError: (error: object) => {
-			if (typeof error === 'object') {
-				for (const key in error) {
-					const element = document.querySelector(`input[data-selector='${key}'],[name='${key}']`) as HTMLInputElement
-					if (element) {
-						element.classList.add('error')
-						getParentElement(element).setAttribute('data-error', error[key as keyof typeof error][0] as string)
-					}
-				}
-			}
-		},
+		onError: (error: object) => { formUtils.showFormError(error) },
 		onSuccess: () => {
 			apiGetUser()
 				.then((data) => {
@@ -112,7 +92,7 @@ export default function Profile() {
 					<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 						mutate(e)
 					}}
-						onInput={handleOnInput}
+						onInput={e => { formUtils.handleOnInput(e) }}
 						className={styles['form-data']}>
 						<input name='is_active' defaultValue='1' hidden />
 						<div className={
@@ -124,7 +104,7 @@ export default function Profile() {
 								<label className={styles['required']} htmlFor='email'>{language?.email}</label>
 								<input
 									id='email'
-									disabled={!permissions.has('user_update')}
+									disabled={disabledUpdate}
 									defaultValue={queryData.data.user.email}
 									name='email'
 									className={
@@ -138,7 +118,7 @@ export default function Profile() {
 								<label htmlFor='phone_number'>{language?.phoneNumber}</label>
 								<input
 									id='phone_number'
-									disabled={!permissions.has('user_update')}
+									disabled={disabledUpdate}
 									defaultValue={queryData.data.user.phoneNumber || ''}
 									name='phone_number'
 									className={
@@ -152,7 +132,7 @@ export default function Profile() {
 								<label className={styles['required']} htmlFor='first_name'>{language?.firstName}</label>
 								<input
 									id='first_name'
-									disabled={!permissions.has('user_update')}
+									disabled={disabledUpdate}
 									defaultValue={queryData.data.user.firstName}
 									name='first_name'
 									className={
@@ -166,7 +146,7 @@ export default function Profile() {
 								<label className={styles['required']} htmlFor='last_name'>{language?.lastName}</label>
 								<input
 									id='last_name'
-									disabled={!permissions.has('user_update')}
+									disabled={disabledUpdate}
 									defaultValue={queryData.data.user.lastName}
 									name='last_name'
 									className={
@@ -180,7 +160,7 @@ export default function Profile() {
 								<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 								<input
 									id='shortcode'
-									disabled={!permissions.has('user_update')}
+									disabled={disabledUpdate}
 									defaultValue={queryData.data.user.shortcode}
 									name='shortcode'
 									className={
@@ -195,7 +175,7 @@ export default function Profile() {
 									<label className={styles['required']} htmlFor='school_class'>{language?.class}</label>
 									<input
 										id='school_class'
-										disabled={!permissions.has('user_update')}
+										disabled={disabledUpdate}
 										defaultValue={queryData.data.user.schoolClass?.shortcode || ''}
 										name='school_class'
 										className={
@@ -209,7 +189,7 @@ export default function Profile() {
 										<label className={styles['required']} htmlFor='faculty'>{language?.faculty}</label>
 										<input
 											id='faculty'
-											disabled={!permissions.has('user_update')}
+											disabled={disabledUpdate}
 											defaultValue={queryData.data.user.faculty?.shortcode || ''}
 											name='faculty'
 											className={
@@ -229,7 +209,7 @@ export default function Profile() {
 											? genderOptions[0] : genderOptions[1]
 									}
 									options={genderOptions}
-									disabled={!permissions.has('user_update')}
+									disabled={disabledUpdate}
 									className={
 										[
 											styles['custom-select']
@@ -241,7 +221,7 @@ export default function Profile() {
 								<label className={styles['required']} htmlFor='address'>{language?.address}</label>
 								<input
 									id='address'
-									disabled={!permissions.has('user_update')}
+									disabled={disabledUpdate}
 									defaultValue={queryData.data.user.address}
 									name='address'
 									className={
@@ -258,7 +238,7 @@ export default function Profile() {
 									inputProps={
 										{
 											id: 'birth_date',
-											disabled: !permissions.has('user_update'),
+											disabled: disabledUpdate,
 											name: 'birth_date',
 											className: [
 												'input-d',

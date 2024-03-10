@@ -6,7 +6,7 @@ import { apiCreateSemester } from '../api/semester'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateSemesterLang } from '../models/lang'
 import styles from '../styles/global/CreateModel.module.css'
-import FormUtils from '../utils/FormUtils'
+import createFormUtils from '../utils/createFormUtils'
 import Loading from './Loading'
 
 type CreateSemesterProps = {
@@ -28,7 +28,7 @@ export default function CreateSemester({
 			setShowPopUp(false)
 		}, timing)
 	}
-	const formUtils = new FormUtils(styles)
+	const formUtils = createFormUtils(styles)
 	const handleCreateFaculty = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
 		document.querySelector(styles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {

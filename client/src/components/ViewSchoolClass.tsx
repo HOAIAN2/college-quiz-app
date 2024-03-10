@@ -10,7 +10,7 @@ import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentViewSchoolClassLang } from '../models/lang'
 import styles from '../styles/global/ViewModel.module.css'
-import FormUtils from '../utils/FormUtils'
+import createFormUtils from '../utils/createFormUtils'
 import CustomDataList from './CustomDataList'
 import Loading from './Loading'
 
@@ -39,7 +39,8 @@ export default function ViewSchoolClass({
 			setShowPopUp(false)
 		}, timing)
 	}
-	const formUtils = new FormUtils(styles)
+	const disabledUpdate = !permissions.has('school_class_update')
+	const formUtils = createFormUtils(styles)
 	const queryData = useQuery({
 		queryKey: [queryKeys.SCHOOL_CLASS_DETAIL, id],
 		queryFn: () => apiGetSchoolClassById(id)
@@ -128,7 +129,7 @@ export default function ViewSchoolClass({
 											<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 											<input
 												id='shortcode'
-												disabled={!permissions.has('school_class_update')}
+												disabled={disabledUpdate}
 												defaultValue={queryData.data.shortcode}
 												name='shortcode'
 												className={
@@ -142,7 +143,7 @@ export default function ViewSchoolClass({
 											<label className={styles['required']} htmlFor='name'>{language?.name}</label>
 											<input
 												id='name'
-												disabled={!permissions.has('school_class_update')}
+												disabled={disabledUpdate}
 												defaultValue={queryData.data.name}
 												name='name'
 												className={
@@ -156,7 +157,7 @@ export default function ViewSchoolClass({
 											<label className={styles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
 											<CustomDataList
 												name='faculty_id'
-												disabled={!permissions.has('school_class_update')}
+												disabled={disabledUpdate}
 												defaultOption={
 													{
 														label: queryData.data.faculty?.name,

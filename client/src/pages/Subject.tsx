@@ -15,7 +15,7 @@ import useLanguage from '../hooks/useLanguage'
 import { Chapter } from '../models/chapter'
 import { PageSubjectLang } from '../models/lang'
 import styles from '../styles/Subject.module.css'
-import FormUtils from '../utils/FormUtils'
+import createFormUtils from '../utils/createFormUtils'
 
 export default function Subject() {
 	const { id } = useParams()
@@ -27,7 +27,7 @@ export default function Subject() {
 	const [showViewChapterPopUp, setShowViewChapterPopUp] = useState(false)
 	const [showCreateChapterPopUp, setShowCreateChapterPopUp] = useState(false)
 	const navigate = useNavigate()
-	const formUtils = new FormUtils(styles)
+	const formUtils = createFormUtils(styles)
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_SUBJECT, { id: id }],
 		queryFn: () => apiGetSubjectById(String(id))

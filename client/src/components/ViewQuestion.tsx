@@ -13,8 +13,8 @@ import { ComponentViewQuestionLang } from '../models/lang'
 import { SubjectDetail } from '../models/subject'
 import styles from '../styles/CreateQuestion.module.css'
 import globalStyles from '../styles/global/ViewModel.module.css'
-import FormUtils from '../utils/FormUtils'
 import { autoSizeTextArea } from '../utils/autoSizeTextArea'
+import createFormUtils from '../utils/createFormUtils'
 import CustomSelect from './CustomSelect'
 import Loading from './Loading'
 import YesNoPopUp from './YesNoPopUp'
@@ -52,7 +52,8 @@ export default function ViewQuestion({
 			setShowPopUp(false)
 		}, timing)
 	}
-	const formUtils = new FormUtils(globalStyles)
+	const formUtils = createFormUtils(globalStyles)
+	const disabledUpdate = !permissions.has('question_update')
 	const queryData = useQuery({
 		queryKey: [queryKeys.QUESTION_DETAIL, { id: id }],
 		queryFn: () => apiGetQuestionById(id)
@@ -168,7 +169,7 @@ export default function ViewQuestion({
 												<label htmlFor="">{language?.chapter}</label>
 												<CustomSelect
 													name='chapter_id'
-													disabled={!permissions.has('question_update')}
+													disabled={disabledUpdate}
 													defaultOption={
 														{
 															label: subjectDetail.chapters.find(item => item.id == queryData.data.chapterId)?.name || language?.unselect,
@@ -197,7 +198,7 @@ export default function ViewQuestion({
 												<label className={globalStyles['required']} htmlFor="">{language?.level}</label>
 												<CustomSelect
 													name='level'
-													disabled={!permissions.has('question_update')}
+													disabled={disabledUpdate}
 													defaultOption={
 														{
 															label: language?.questionLevel[queryData.data.level],
@@ -227,7 +228,7 @@ export default function ViewQuestion({
 											}>
 												<label className={globalStyles['required']} htmlFor='content'>{language?.content}</label>
 												<textarea
-													disabled={!permissions.has('question_update')}
+													disabled={disabledUpdate}
 													defaultValue={queryData.data.content}
 													onInput={autoSizeTextArea}
 													name='content' id='content'
@@ -307,7 +308,7 @@ export default function ViewQuestion({
 															data-selector={`options.${index}`}
 															onInput={autoSizeTextArea}
 															name='options[]'
-															disabled={!permissions.has('question_update')}
+															disabled={disabledUpdate}
 															className={
 																[
 																	'input-d',

@@ -16,7 +16,7 @@ import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { PageCourseLang } from '../models/lang'
 import styles from '../styles/Course.module.css'
-import FormUtils from '../utils/FormUtils'
+import createFormUtils from '../utils/createFormUtils'
 import languageUtils from '../utils/languageUtils'
 
 export default function Course() {
@@ -29,7 +29,8 @@ export default function Course() {
 	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
 	const queryClient = useQueryClient()
 	const navigate = useNavigate()
-	const formUtils = new FormUtils(styles)
+	const formUtils = createFormUtils(styles)
+	const disabledUpdate = !permissions.has('course_update')
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_COURSE, { id: id }],
 		queryFn: () => apiGetCourseById(String(id))
@@ -41,7 +42,6 @@ export default function Course() {
 	})
 	const handleUpdateCourse = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
-		if (!permissions.has('course_update')) return
 		document.querySelector(styles['form-data'])?.querySelectorAll('input[name]').forEach(node => {
 			const element = node as HTMLInputElement
 			element.classList.remove('error')
@@ -129,7 +129,7 @@ export default function Course() {
 											<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 											<input
 												id='shortcode'
-												disabled={!permissions.has('course_update')}
+												disabled={disabledUpdate}
 												defaultValue={queryData.data.shortcode}
 												name='shortcode'
 												className={
@@ -143,7 +143,7 @@ export default function Course() {
 											<label className={styles['required']} htmlFor='name'>{language?.name}</label>
 											<input
 												id='name'
-												disabled={!permissions.has('course_update')}
+												disabled={disabledUpdate}
 												defaultValue={queryData.data.name}
 												name='name'
 												className={
@@ -158,7 +158,7 @@ export default function Course() {
 											<CustomDataList
 												name='teacher_id'
 												onInput={e => { setQueryUser(e.currentTarget.value) }}
-												disabled={!permissions.has('course_update')}
+												disabled={disabledUpdate}
 												defaultOption={
 													{
 														label: languageUtils.getFullName(queryData.data.teacher.firstName, queryData.data.teacher.lastName),

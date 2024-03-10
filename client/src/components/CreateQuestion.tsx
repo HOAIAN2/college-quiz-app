@@ -11,8 +11,8 @@ import { ComponentCreateQuestionLang } from '../models/lang'
 import { SubjectDetail } from '../models/subject'
 import styles from '../styles/CreateQuestion.module.css'
 import globalStyles from '../styles/global/CreateModel.module.css'
-import FormUtils from '../utils/FormUtils'
 import { autoSizeTextArea } from '../utils/autoSizeTextArea'
+import createFormUtils from '../utils/createFormUtils'
 import CustomSelect from './CustomSelect'
 import Loading from './Loading'
 
@@ -46,7 +46,7 @@ export default function CreateQuestion({
 			setShowPopUp(false)
 		}, timing)
 	}
-	const formUtils = new FormUtils(globalStyles)
+	const formUtils = createFormUtils(globalStyles)
 	const handleCreateQuestion = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
 		document.querySelector(globalStyles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {

@@ -5,7 +5,7 @@ import { apiCreateChapter } from '../api/chapter'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateChapterLang } from '../models/lang'
 import styles from '../styles/global/CreateModel.module.css'
-import FormUtils from '../utils/FormUtils'
+import createFormUtils from '../utils/createFormUtils'
 import Loading from './Loading'
 
 type CreateChapterProps = {
@@ -31,7 +31,7 @@ export default function CreateChapter({
 			setShowPopUp(false)
 		}, timing)
 	}
-	const formUtils = new FormUtils(styles)
+	const formUtils = createFormUtils(styles)
 	const handleCreateChapter = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
 		document.querySelector(styles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
