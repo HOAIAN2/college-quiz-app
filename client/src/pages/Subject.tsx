@@ -156,7 +156,7 @@ export default function Subject() {
 										</div>
 									</div>
 									{
-										permissions.has('subject_update') || permissions.has('subject_delete') ?
+										permissions.hasAnyFormList(['subject_update', 'subject_delete']) ?
 											<div className={styles['action-items']}>
 												{
 													permissions.has('subject_update') ?

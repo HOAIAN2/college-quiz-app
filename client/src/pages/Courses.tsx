@@ -75,27 +75,32 @@ export default function Courses() {
 					].join(' ')
 				}
 			>
-				<div className={
-					[
-						'action-bar-d'
-					].join(' ')
-				}>
-					{
-						permissions.has('user_create') ?
-							<div className={
-								[
-									'action-item-d'
-								].join(' ')
+				{
+					permissions.hasAnyFormList(['course_create',])
+						?
+						<div className={
+							[
+								'action-bar-d'
+							].join(' ')
+						}>
+							{
+								permissions.has('course_create') ?
+									<div className={
+										[
+											'action-item-d'
+										].join(' ')
+									}
+										onClick={() => {
+											setShowCreatePopUp(true)
+										}}
+									>
+										<RiAddFill /> {language?.add}
+									</div>
+									: null
 							}
-								onClick={() => {
-									setShowCreatePopUp(true)
-								}}
-							>
-								<RiAddFill /> {language?.add}
-							</div>
-							: null
-					}
-				</div>
+						</div>
+						: null
+				}
 				<div className={styles['page-content']}>
 					{queryData.isLoading ?
 						<Loading />

@@ -128,72 +128,77 @@ export default function Users({
 					].join(' ')
 				}
 			>
-				<div className={
-					[
-						'action-bar-d'
-					].join(' ')
-				}>
-					{
-						permissions.has('user_create') ?
-							<div className={
-								[
-									'action-item-d'
-								].join(' ')
+				{
+					permissions.hasAnyFormList(['user_view', 'user_create', 'user_update', 'user_delete'])
+						?
+						<div className={
+							[
+								'action-bar-d'
+							].join(' ')
+						}>
+							{
+								permissions.has('user_create') ?
+									<div className={
+										[
+											'action-item-d'
+										].join(' ')
+									}
+										onClick={() => {
+											setShowCreatePopUp(true)
+										}}
+									>
+										<RiAddFill /> {language?.add}
+									</div>
+									: null
 							}
-								onClick={() => {
-									setShowCreatePopUp(true)
-								}}
-							>
-								<RiAddFill /> {language?.add}
-							</div>
-							: null
-					}
-					{
-						permissions.has('user_create') ?
-							<div className={
-								[
-									'action-item-d-white'
-								].join(' ')
+							{
+								permissions.has('user_create') ?
+									<div className={
+										[
+											'action-item-d-white'
+										].join(' ')
+									}
+										onClick={() => {
+											setShowImportPopUp(true)
+										}}
+									>
+										<BiImport /> {language?.import}
+									</div>
+									: null
 							}
-								onClick={() => {
-									setShowImportPopUp(true)
-								}}
-							>
-								<BiImport /> {language?.import}
-							</div>
-							: null
-					}
-					{
-						permissions.has('user_view') ?
-							<div className={
-								[
-									'action-item-d-white'
-								].join(' ')
+							{
+								permissions.has('user_view') ?
+									<div className={
+										[
+											'action-item-d-white'
+										].join(' ')
+									}
+										onClick={() => {
+											setShowExportPopUp(true)
+										}}
+									>
+										<BiExport /> {language?.export}
+									</div>
+									: null
 							}
-								onClick={() => {
-									setShowExportPopUp(true)
-								}}
-							>
-								<BiExport /> {language?.export}
-							</div>
-							: null
-					}
-					{
-						selectedUserIds.size > 0 && permissions.has('user_delete') ?
-							<div
-								onClick={() => {
-									setShowDeletePopUp(true)
-								}}
-								className={
-									[
-										'action-item-d-white-border-red'
-									].join(' ')
-								}>
-								<MdDeleteOutline /> {language?.delete}
-							</div>
-							: null
-					}
-				</div>
+							{
+								selectedUserIds.size > 0 && permissions.has('user_delete') ?
+									<div
+										onClick={() => {
+											setShowDeletePopUp(true)
+										}}
+										className={
+											[
+												'action-item-d-white-border-red'
+											].join(' ')
+										}>
+										<MdDeleteOutline /> {language?.delete}
+									</div>
+									: null
+							}
+						</div>
+						: null
+				}
 				<div className={styles['table-page-content']}>
 					<div className={styles['filter-form']}>
 						<div className={styles['wrap-input-item']}>

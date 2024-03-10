@@ -192,7 +192,7 @@ export default function Course() {
 										</div>
 									</div>
 									{
-										permissions.has('course_update') || permissions.has('course_delete') ?
+										permissions.hasAnyFormList(['course_update', 'course_delete']) ?
 											<div className={styles['action-items']}>
 												{
 													permissions.has('course_update') ?

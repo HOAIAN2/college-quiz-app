@@ -60,27 +60,30 @@ export default function Semesters() {
 					].join(' ')
 				}
 			>
-				<div className={
-					[
-						'action-bar-d'
-					].join(' ')
-				}>
-					{
-						permissions.has('user_create') ?
-							<div className={
-								[
-									'action-item-d'
-								].join(' ')
+				{
+					permissions.hasAnyFormList(['semester_create', 'semester_update', 'semester_delete'])
+						?
+						<div className={
+							[
+								'action-bar-d'
+							].join(' ')
+						}>
+							{
+								permissions.has('semester_create') ?
+									<div className={
+										[
+											'action-item-d'
+										].join(' ')
+									}
+										onClick={() => {
+											setShowCreatePopUp(true)
+										}}
+									>
+										<RiAddFill /> {language?.add}
+									</div>
+									: null
 							}
-								onClick={() => {
-									setShowCreatePopUp(true)
-								}}
-							>
-								<RiAddFill /> {language?.add}
-							</div>
-							: null
-					}
-					{/* {
+							{/* {
 						permissions.has('user_create') ?
 							<div className={
 								[
@@ -95,7 +98,7 @@ export default function Semesters() {
 							</div>
 							: null
 					} */}
-					{/* {
+							{/* {
 						permissions.has('user_view') ?
 							<div className={
 								[
@@ -110,7 +113,9 @@ export default function Semesters() {
 							</div>
 							: null
 					} */}
-				</div>
+						</div>
+						: null
+				}
 				<div className={styles['page-content']}>
 					{queryData.isLoading ?
 						<Loading />

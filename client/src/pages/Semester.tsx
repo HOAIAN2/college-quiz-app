@@ -154,7 +154,7 @@ export default function Semester() {
 									</div>
 
 									{
-										permissions.has('semester_update') || permissions.has('semester_delete') ?
+										permissions.hasAnyFormList(['semester_update', 'semester_delete']) ?
 											<div className={styles['action-items']}>
 												{
 													permissions.has('semester_update') ?

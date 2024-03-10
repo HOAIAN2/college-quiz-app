@@ -339,7 +339,7 @@ export default function ViewQuestion({
 											})}
 										</div>
 										{
-											permissions.has('question_update') ?
+											permissions.hasAnyFormList(['question_update', 'question_delete']) ?
 												<div className={globalStyles['action-items']}>
 													<button name='save'
 														className={

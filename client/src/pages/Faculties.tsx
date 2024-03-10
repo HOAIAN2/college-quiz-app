@@ -81,72 +81,47 @@ export default function Faculties() {
 					].join(' ')
 				}
 			>
-				<div className={
-					[
-						'action-bar-d'
-					].join(' ')
-				}>
-					{
-						permissions.has('faculty_create') ?
-							<div className={
-								[
-									'action-item-d'
-								].join(' ')
+				{
+					permissions.hasAnyFormList(['faculty_create', 'faculty_delete'])
+						?
+						<div className={
+							[
+								'action-bar-d'
+							].join(' ')
+						}>
+							{
+								permissions.has('faculty_create') ?
+									<div className={
+										[
+											'action-item-d'
+										].join(' ')
+									}
+										onClick={() => {
+											setShowCreatePopUp(true)
+										}}
+									>
+										<RiAddFill /> {language?.add}
+									</div>
+									: null
 							}
-								onClick={() => {
-									setShowCreatePopUp(true)
-								}}
-							>
-								<RiAddFill /> {language?.add}
-							</div>
-							: null
-					}
-					{/* {
-						permissions.has('faculty_create') ?
-							<div className={
-								[
-									'action-item-d-white'
-								].join(' ')
+							{
+								selectedFacultyIds.size > 0 && permissions.has('faculty_delete') ?
+									<div
+										onClick={() => {
+											setShowDeletePopUp(true)
+										}}
+										className={
+											[
+												'action-item-d-white-border-red'
+											].join(' ')
+										}>
+										<MdDeleteOutline /> {language?.delete}
+									</div>
+									: null
 							}
-								onClick={() => {
-									// setImportMode(true)
-								}}
-							>
-								<BiImport /> {language?.import}
-							</div>
-							: null
-					} */}
-					{/* {
-						permissions.has('faculty_view') ?
-							<div className={
-								[
-									'action-item-d-white'
-								].join(' ')
-							}
-								onClick={() => {
-									// setExportMode(true)
-								}}
-							>
-								<BiExport /> {language?.export}
-							</div>
-							: null
-					} */}
-					{
-						selectedFacultyIds.size > 0 && permissions.has('user_delete') ?
-							<div
-								onClick={() => {
-									setShowDeletePopUp(true)
-								}}
-								className={
-									[
-										'action-item-d-white-border-red'
-									].join(' ')
-								}>
-								<MdDeleteOutline /> {language?.delete}
-							</div>
-							: null
-					}
-				</div>
+						</div>
+						: null
+				}
 				<div className={styles['table-page-content']}>
 					<div className={styles['filter-form']}>
 						<div className={styles['wrap-input-item']}>

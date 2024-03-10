@@ -50,57 +50,32 @@ export default function Subjects() {
 					].join(' ')
 				}
 			>
-				<div className={
-					[
-						'action-bar-d'
-					].join(' ')
-				}>
-					{
-						permissions.has('user_create') ?
-							<div className={
-								[
-									'action-item-d'
-								].join(' ')
+				{
+					permissions.hasAnyFormList(['subject_create'])
+						?
+						<div className={
+							[
+								'action-bar-d'
+							].join(' ')
+						}>
+							{
+								permissions.has('subject_create') ?
+									<div className={
+										[
+											'action-item-d'
+										].join(' ')
+									}
+										onClick={() => {
+											setShowCreatePopUp(true)
+										}}
+									>
+										<RiAddFill /> {language?.add}
+									</div>
+									: null
 							}
-								onClick={() => {
-									setShowCreatePopUp(true)
-								}}
-							>
-								<RiAddFill /> {language?.add}
-							</div>
-							: null
-					}
-					{/* {
-						permissions.has('user_create') ?
-							<div className={
-								[
-									'action-item-d-white'
-								].join(' ')
-							}
-							// onClick={() => {
-							// 	setImportMode(true)
-							// }}
-							>
-								<BiImport /> {language?.import}
-							</div>
-							: null
-					} */}
-					{/* {
-						permissions.has('user_view') ?
-							<div className={
-								[
-									'action-item-d-white'
-								].join(' ')
-							}
-							// onClick={() => {
-							// 	setExportMode(true)
-							// }}
-							>
-								<BiExport /> {language?.export}
-							</div>
-							: null
-					} */}
-				</div>
+						</div>
+						: null
+				}
 				<div className={styles['page-content']}>
 					{queryData.isLoading ?
 						<Loading />
