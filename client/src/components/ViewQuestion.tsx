@@ -173,7 +173,7 @@ export default function ViewQuestion({
 													defaultOption={
 														{
 															label: subjectDetail.chapters.find(item => item.id == queryData.data.chapterId)?.name || language?.unselect,
-															value: String(subjectDetail.chapters.find(item => item.id == queryData.data.chapterId)?.id)
+															value: String(subjectDetail.chapters.find(item => item.id == queryData.data.chapterId)?.id || '')
 														}
 													}
 													options={

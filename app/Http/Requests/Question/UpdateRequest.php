@@ -25,7 +25,7 @@ class UpdateRequest extends FormRequest
 	{
 		$maxIndex = $this->options != null ? count($this->options) - 1 : 0;
 		return [
-			'chapter_id' => ['nullable'],
+			'chapter_id' => ['nullable', 'integer'],
 			'level' => ['required', 'in:easy,medium,hard,expert'],
 			'content' => ['required'],
 			'options' => ['required', 'array', 'min:2'],
