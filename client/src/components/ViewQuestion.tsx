@@ -166,15 +166,17 @@ export default function ViewQuestion({
 											].join(' ')
 										}>
 											<div style={{ zIndex: 2 }} className={globalStyles['wrap-item']}>
-												<label htmlFor="">{language?.chapter}</label>
+												<label htmlFor='chapter_id'>{language?.chapter}</label>
 												<CustomSelect
 													name='chapter_id'
 													disabled={disabledUpdate}
-													defaultOption={
-														{
-															label: subjectDetail.chapters.find(item => item.id == queryData.data.chapterId)?.name || language?.unselect,
-															value: String(subjectDetail.chapters.find(item => item.id == queryData.data.chapterId)?.id || '')
+													defaultOption={(() => {
+														const chapter = subjectDetail.chapters.find(item => item.id == queryData.data.chapterId)
+														return {
+															label: chapter?.name || language?.unselect,
+															value: String(chapter?.id || '')
 														}
+													})()
 													}
 													options={
 														[
