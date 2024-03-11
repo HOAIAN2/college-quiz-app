@@ -13,6 +13,7 @@ export default function RolePermissions() {
 	const { DOM, permissions } = useAppContext()
 	const language = useLanguage<PageRolePermissionsLang>('page.role_permissions')
 	const { id } = useParams()
+	const disabledUpdate = !permissions.has('role_permission_grant')
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_ROLE_PERMISSIONS, { id: id }],
 		queryFn: () => apiGetRolePermissions(Number(id))
@@ -25,7 +26,6 @@ export default function RolePermissions() {
 		formData.forEach(value => {
 			permissionIds.push(value.toString())
 		})
-		if (!permissions.has('role_permission_grant')) return
 		if (!id) return
 		await apiUpdateRolePermissions(id, permissionIds)
 	}
@@ -82,6 +82,7 @@ export default function RolePermissions() {
 											type='checkbox'
 											name='ids[]'
 											value={item.id}
+											disabled={disabledUpdate}
 											defaultChecked={hasPermission(item.name)}
 										/>
 										<label htmlFor={item.name} className={styles['label']}>{item.displayName}</label>
@@ -89,9 +90,14 @@ export default function RolePermissions() {
 								)
 							})}
 						</ul>
-						<div className={styles['action-items']}>
-							<button name='save' className='action-item-d'>{language?.save}</button>
-						</div>
+						{
+							permissions.has('role_permission_grant')
+								?
+								<div className={styles['action-items']}>
+									<button name='save' className='action-item-d'>{language?.save}</button>
+								</div>
+								: null
+						}
 					</form>
 					: null
 			}
