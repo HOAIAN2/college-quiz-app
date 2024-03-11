@@ -139,8 +139,10 @@ export default function NavBar() {
 								feature.to === window.location.pathname.split('/')[1] ? styles['current'] : ''
 							].join(' ')
 						}>
-							{feature.icon}
-							<Link to={feature.to}>{feature.name}</Link>
+							<Link to={feature.to}>
+								{feature.icon}
+								{feature.name}
+							</Link>
 						</li>
 					)
 				})
