@@ -33,8 +33,8 @@ export default function CreateQuestion({
 	setShowPopUp
 }: CreateQuestionProps) {
 	const [hide, setHide] = useState(true)
-	const [options, setOptions] = useState<Option[]>(new Array(2).fill(null).map(() => {
-		return { key: crypto.randomUUID(), content: '' }
+	const [options, setOptions] = useState<Option[]>(new Array(2).fill(null).map((_, index) => {
+		return { key: index.toString(), content: '' }
 	}))
 	const [trueOptionKey, setTrueOptionKey] = useState<string>()
 	const language = useLanguage<ComponentCreateQuestionLang>('component.create_question')
@@ -211,7 +211,7 @@ export default function CreateQuestion({
 											setOptions([
 												...options,
 												{
-													key: crypto.randomUUID(),
+													key: new Date().getTime().toString(),
 													content: ''
 												}
 											])

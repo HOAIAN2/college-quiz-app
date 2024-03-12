@@ -264,7 +264,7 @@ export default function ViewQuestion({
 																	setOptions([
 																		...options,
 																		{
-																			key: crypto.randomUUID(),
+																			key: new Date().getTime().toString(),
 																			content: ''
 																		}
 																	])
