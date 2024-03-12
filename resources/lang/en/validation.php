@@ -72,7 +72,8 @@ return [
 			'unique' => 'This chapter already exists for the subject.',
 		],
 		'options.*' => [
-			'required' => 'Please enter the answer content'
+			'required' => 'Please enter the answer content',
+			'distinct' => 'The answer content must be unique'
 		],
 		'true_option' => [
 			'*' => 'Please select the correct answer for this question.'

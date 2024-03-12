@@ -72,7 +72,8 @@ return [
 			'unique' => 'Môn học đã tồn tại chương này'
 		],
 		'options.*' => [
-			'required' => 'Vui lòng nhập nội dung đáp án'
+			'required' => 'Vui lòng nhập nội dung đáp án',
+			'distinct' => 'Nội dung câu trả lời không được trùng nhau'
 		],
 		'true_option' => [
 			'*' => 'Vui lòng chọn đáp án đúng cho câu hỏi này'

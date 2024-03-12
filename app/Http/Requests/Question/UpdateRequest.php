@@ -29,7 +29,7 @@ class UpdateRequest extends FormRequest
 			'level' => ['required', 'in:easy,medium,hard,expert'],
 			'content' => ['required'],
 			'options' => ['required', 'array', 'min:2'],
-			'options.*' => ['required'],
+			'options.*' => ['required', 'distinct'],
 			'true_option' => ['required', 'integer', 'min:0', 'max:' . $maxIndex],
 		];
 	}
