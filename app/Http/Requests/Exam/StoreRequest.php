@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
 		$chapter_ids_count = is_countable($this->chapter_ids) ? count($this->chapter_ids) : 0;
 		return [
 			'name' => ['required'],
-			'exam_date' => ['required', 'date'],
+			'exam_date' => ['required', 'date', 'after:today'],
 			'exam_time' => ['required', 'integer', 'min:0'],
 			'course_id' => ['required', 'integer'],
 			'chapter_ids' => ['required', 'array'],

@@ -10,7 +10,6 @@ use App\Models\Exam;
 use App\Models\ExamQuestion;
 use App\Models\Question;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -46,10 +45,10 @@ class ExamController extends Controller
 				->pluck('id');
 
 			if (count($request->chapter_ids) != count($chapter_ids)) {
-				throw new Exception('app.errors.failToSaveRecord', 1);
+				return Reply::error('app.errors.failToSaveRecord', [], 500);
 			}
 			$exam = Exam::create([
-				'course_id' => $request->ccourse_id,
+				'course_id' => $request->course_id,
 				'name' => $request->name,
 				'exam_date' => Carbon::parse($request->exam_date),
 				'exam_time' => $request->exam_time,
@@ -61,7 +60,7 @@ class ExamController extends Controller
 					->take($request->question_counts[$key])
 					->pluck('id');
 				if (count($question_ids) != $request->question_counts[$key]) {
-					throw new Exception('app.errors.failToSaveRecord', 1);
+					return Reply::error('app.errors.failToSaveRecord', [], 500);
 				}
 				foreach ($question_ids as $question_id) {
 					ExamQuestion::create([
