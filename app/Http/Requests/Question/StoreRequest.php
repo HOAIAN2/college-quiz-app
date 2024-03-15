@@ -23,7 +23,7 @@ class StoreRequest extends FormRequest
 	 */
 	public function rules(): array
 	{
-		$maxIndex = $this->options != null ? count($this->options) - 1 : 0;
+		$maxIndex = is_countable($this->options) ? count($this->options) - 1 : 0;
 		return [
 			'subject_id' => ['required'],
 			'chapter_id' => ['nullable'],
