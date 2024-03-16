@@ -101,6 +101,7 @@ class ExamController extends Controller
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_view'), 403);
+		$now = Carbon::now();
 
 		try {
 			$relations = [];
@@ -112,6 +113,7 @@ class ExamController extends Controller
 					# code...
 					break;
 				case Role::ROLES['teacher']:
+					$relations[] = '';
 					# code...
 					break;
 				default:
