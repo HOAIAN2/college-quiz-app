@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Exam;
 
 use App\Traits\CustomValidateResponse;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -23,10 +24,11 @@ class StoreRequest extends FormRequest
 	 */
 	public function rules(): array
 	{
+		$now = Carbon::now()->toDateTimeString();
 		$chapter_ids_count = is_countable($this->chapter_ids) ? count($this->chapter_ids) : 0;
 		return [
 			'name' => ['required'],
-			'exam_date' => ['required', 'date', 'after:today'],
+			'exam_date' => ['required', 'date', "after:$now"],
 			'exam_time' => ['required', 'integer', 'min:0'],
 			'course_id' => ['required', 'integer'],
 			'chapter_ids' => ['required', 'array'],
