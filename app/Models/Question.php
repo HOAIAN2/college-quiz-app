@@ -85,6 +85,7 @@ class Question extends Model
 
 	public function hasOption($id)
 	{
-		return $this->id == QuestionOption::find($id)->question_id;
+		return $this->id == QuestionOption::where('id', '=', $id)
+			->pluck('id')->first();
 	}
 }

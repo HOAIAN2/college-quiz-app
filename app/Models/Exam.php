@@ -72,7 +72,7 @@ class Exam extends Model
 	public function markAllTracker()
 	{
 		foreach ($this->exam_trackers as $exam_tracker) {
-			$exam_tracker->mark_tracker();
+			$exam_tracker->markTracker();
 		}
 	}
 }
