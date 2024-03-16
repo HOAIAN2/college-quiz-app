@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { LuPenSquare } from 'react-icons/lu'
 import { MdDeleteOutline } from 'react-icons/md'
+import { RiAddFill } from 'react-icons/ri'
 import { useNavigate, useParams } from 'react-router-dom'
 import { apiDeleteCourse, apiGetCourseById, apiUpdateCourse } from '../api/course'
 import { apiAutoCompleteUser } from '../api/user'
@@ -281,6 +282,32 @@ export default function Course() {
 										})
 								}
 							</div>
+							<div className={styles['header']}>
+								<h2 className={styles['title']}>{language?.examtList}</h2>
+							</div>
+							{
+								permissions.has('exam_create') ?
+									<div className={
+										[
+											'action-bar-d'
+										].join(' ')
+									}
+										style={{ paddingLeft: '20px' }}
+									>
+										<button className={
+											[
+												'action-item-d'
+											].join(' ')
+										}
+											onClick={() => {
+												// setShowCreatePopUp(true)
+											}}
+										>
+											<RiAddFill /> {language?.add}
+										</button>
+									</div>
+									: null
+							}
 						</>
 						: null
 				}

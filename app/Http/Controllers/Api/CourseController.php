@@ -73,7 +73,8 @@ class CourseController extends Controller
 				'subject',
 				'enrollments.user' => function ($query) {
 					$query->with(['role', 'school_class', 'faculty']);
-				}
+				},
+				'exams'
 			])->findOrFail($id);
 			return Reply::successWithData($courses, '');
 		} catch (\Throwable $error) {

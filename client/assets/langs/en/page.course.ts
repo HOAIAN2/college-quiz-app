@@ -9,5 +9,7 @@ export default {
 	langYes: 'Yes',
 	langNo: 'No',
 	studentList: 'Student list',
-	edit: 'Edit'
+	examtList: 'Exam list',
+	edit: 'Edit',
+	add: 'Add'
 }

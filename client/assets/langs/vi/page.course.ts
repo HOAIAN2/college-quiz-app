@@ -9,5 +9,7 @@ export default {
 	langYes: 'Có',
 	langNo: 'Không',
 	studentList: 'Danh sách sinh viên',
-	edit: 'Chỉnh sửa'
+	examtList: 'Danh sách bài thi',
+	edit: 'Chỉnh sửa',
+	add: 'Thêm'
 }

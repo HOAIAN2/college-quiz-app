@@ -1,4 +1,5 @@
 import { EnrollmentDetail } from './enrollment'
+import { Exam } from './exam'
 import { Subject } from './subject'
 import { User } from './user'
 
@@ -15,6 +16,7 @@ export type CourseDetail = Course & {
 	teacher: User
 	subject: Subject
 	enrollments: EnrollmentDetail[]
+	exams: Exam[]
 }
 
 export type QueryCourseType = {
