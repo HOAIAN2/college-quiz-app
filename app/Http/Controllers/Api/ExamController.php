@@ -9,6 +9,7 @@ use App\Models\Course;
 use App\Models\Exam;
 use App\Models\ExamQuestion;
 use App\Models\Question;
+use App\Models\Role;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,29 @@ class ExamController extends Controller
 {
 	public function index()
 	{
-		//
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('exam_view'), 403);
+
+		try {
+			switch ($user->role_id) {
+				case Role::ROLES['admin']:
+					# code...
+					break;
+				case Role::ROLES['student']:
+					# code...
+					break;
+				case Role::ROLES['teacher']:
+					# code...
+					break;
+				default:
+					# code...
+					break;
+			}
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.somethingWentWrong', [], 500);
+		}
 	}
 
 	public function store(StoreRequest $request)
@@ -76,7 +99,30 @@ class ExamController extends Controller
 
 	public function show(string $id)
 	{
-		//
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('exam_view'), 403);
+
+		try {
+			$relations = [];
+			switch ($user->role_id) {
+				case Role::ROLES['admin']:
+					# code...
+					break;
+				case Role::ROLES['student']:
+					# code...
+					break;
+				case Role::ROLES['teacher']:
+					# code...
+					break;
+				default:
+					# code...
+					break;
+			}
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.somethingWentWrong', [], 500);
+		}
 	}
 
 	public function update(Request $request, string $id)

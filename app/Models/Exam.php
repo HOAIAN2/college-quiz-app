@@ -63,7 +63,13 @@ class Exam extends Model
 		return $this->hasMany(ExamTracker::class);
 	}
 
-	public function mark_all_tracker()
+	public function isOver()
+	{
+		$over_at = Carbon::parse($this->exam_date)->addMinutes($this->exam_time);
+		return $over_at->greaterThan(Carbon::now());
+	}
+
+	public function markAllTracker()
 	{
 		foreach ($this->exam_trackers as $exam_tracker) {
 			$exam_tracker->mark_tracker();
