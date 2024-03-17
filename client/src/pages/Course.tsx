@@ -6,6 +6,7 @@ import { RiAddFill } from 'react-icons/ri'
 import { useNavigate, useParams } from 'react-router-dom'
 import { apiDeleteCourse, apiGetCourseById, apiUpdateCourse } from '../api/course'
 import { apiAutoCompleteUser } from '../api/user'
+import CreateExam from '../components/CreateExam'
 import CustomDataList from '../components/CustomDataList'
 import Loading from '../components/Loading'
 import UpdateCourseStudents from '../components/UpdateCourseStudents'
@@ -25,6 +26,7 @@ export default function Course() {
 	const { DOM, permissions } = useAppContext()
 	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
 	const [showUpdateStudentsPopUp, setShowUpdateStudentsPopUp] = useState(false)
+	const [showCreateExamPopUp, setShowCreateExamPopUp] = useState(false)
 	const language = useLanguage<PageCourseLang>('page.course')
 	const [queryUser, setQueryUser] = useState('')
 	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
@@ -83,6 +85,12 @@ export default function Course() {
 				<UpdateCourseStudents
 					courseDetail={queryData.data}
 					setShowPopUp={setShowUpdateStudentsPopUp}
+					onMutateSuccess={() => { queryData.refetch() }}
+				/> : null
+			}
+			{showCreateExamPopUp ?
+				<CreateExam
+					setShowPopUp={setShowCreateExamPopUp}
 					onMutateSuccess={() => { queryData.refetch() }}
 				/> : null
 			}
@@ -300,7 +308,7 @@ export default function Course() {
 											].join(' ')
 										}
 											onClick={() => {
-												// setShowCreatePopUp(true)
+												setShowCreateExamPopUp(true)
 											}}
 										>
 											<RiAddFill /> {language?.add}
