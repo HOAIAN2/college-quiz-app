@@ -39,7 +39,7 @@ export default function ViewChapter({
 	const disabledUpdate = !permissions.has('subject_update')
 	const handleUpdateChapter = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
-		document.querySelector(styles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
+		document.querySelector(`.${styles['form-data']}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
 			node.classList.remove('error')
 			formUtils.getParentElement(node)?.removeAttribute('data-error')
 		})

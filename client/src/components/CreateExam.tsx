@@ -1,15 +1,20 @@
+import { useMutation } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
+import Datetime from 'react-datetime'
 import { RxCross2 } from 'react-icons/rx'
+import { apiCreateExam } from '../api/exam'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateExamLang } from '../models/lang'
 import styles from '../styles/CreateExam.module.css'
+import createFormUtils from '../utils/createFormUtils'
+import Loading from './Loading'
 
 type CreateExamProps = {
 	onMutateSuccess: () => void
 	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 export default function CreateExam({
-	// onMutateSuccess,
+	onMutateSuccess,
 	setShowPopUp
 }: CreateExamProps) {
 	const [hide, setHide] = useState(true)
@@ -22,6 +27,23 @@ export default function CreateExam({
 			setShowPopUp(false)
 		}, timing)
 	}
+	const formUtils = createFormUtils(styles)
+	const handleCreateExam = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+		document.querySelector(`.${styles['form-data']}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
+			node.classList.remove('error')
+			formUtils.getParentElement(node)?.removeAttribute('data-error')
+		})
+		const form = e.target as HTMLFormElement
+		const formData = new FormData(form)
+		await apiCreateExam(formData)
+		handleClosePopUp()
+	}
+	const { mutate, isPending } = useMutation({
+		mutationFn: handleCreateExam,
+		onError: (error: object) => { formUtils.showFormError(error) },
+		onSuccess: onMutateSuccess
+	})
 	useEffect(() => {
 		setHide(false)
 	}, [])
@@ -34,7 +56,7 @@ export default function CreateExam({
 				].join(' ')
 			}>
 				{
-					// isPending ? <Loading /> : null
+					isPending ? <Loading /> : null
 				}
 				<div className={
 					[
@@ -55,13 +77,63 @@ export default function CreateExam({
 							styles['form-content']
 						].join(' ')
 					}>
-						<form className={styles['form-data']}>
+						<form
+							onSubmit={e => { mutate(e) }}
+							className={styles['form-data']}>
+							<div className={
+								[
+									styles['group-inputs']
+								].join(' ')
+							}>
+								<div className={styles['wrap-item']}>
+									<label className={styles['required']} htmlFor='name'>{language?.name}</label>
+									<input
+										id='name'
+										name='name'
+										className={
+											[
+												'input-d',
+												styles['input-item']
+											].join(' ')
+										} type='text' />
+								</div>
+								<div className={styles['wrap-item']}>
+									<label className={styles['required']} htmlFor='exam_date'>{language?.examDate}</label>
+									<Datetime
+										initialValue={new Date()}
+										inputProps={
+											{
+												id: 'exam_date',
+												name: 'exam_date',
+												className: [
+													'input-d',
+													styles['input-item']
+												].join(' ')
+											}
+										}
+										closeOnSelect={true}
+										timeFormat={true}
+									/>
+								</div>
+								<div className={styles['wrap-item']}>
+									<label className={styles['required']} htmlFor='exam_time'>{language?.examTime}</label>
+									<input
+										id='exam_time'
+										name='exam_time'
+										className={
+											[
+												'input-d',
+												styles['input-item']
+											].join(' ')
+										} type='number' />
+								</div>
+							</div>
 							<div className={styles['action-items']}>
 								<button name='save'
 									className={
 										[
 											'action-item-d',
-											// isPending ? 'button-submitting' : ''
+											isPending ? 'button-submitting' : ''
 										].join(' ')
 									}>{language?.save}</button>
 							</div>

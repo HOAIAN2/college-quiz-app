@@ -57,7 +57,7 @@ export default function CreateUser({
 	})
 	const handleCreateUser = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
-		document.querySelector(styles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
+		document.querySelector(`.${styles['form-data']}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
 			node.classList.remove('error')
 			formUtils.getParentElement(node)?.removeAttribute('data-error')
 		})

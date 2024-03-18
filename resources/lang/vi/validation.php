@@ -23,7 +23,7 @@ return [
 	'after' => 'Trường :attribute phải là ngày sau ngày :date.',
 	'required_if' => 'Trường :attribute là bắt buộc khi :other là :value.',
 	'attributes' => [
-		'name' => 'Tên',
+		'name' => 'tên',
 		'first_name' => 'tên',
 		'last_name' => 'họ',
 		'shortcode' => 'mã số',
@@ -39,7 +39,9 @@ return [
 		'content' => 'nội dung',
 		'start_date' => 'ngày bắt đầu',
 		'end_date' => 'ngày kết thúc',
-		'teacher_id' => 'giáo viên'
+		'teacher_id' => 'giáo viên',
+		'exam_date' => 'ngày thi',
+		'exam_time' => 'thời gian thi',
 	],
 	'custom' => [
 		'role' => [

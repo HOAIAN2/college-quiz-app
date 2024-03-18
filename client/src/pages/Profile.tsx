@@ -26,7 +26,7 @@ export default function Profile() {
 	})
 	const handleUpdateUser = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault()
-		document.querySelector(styles['form-data'])?.querySelectorAll('input[name]').forEach(node => {
+		document.querySelector(`.${styles['form-data']}`)?.querySelectorAll('input[name]').forEach(node => {
 			const element = node as HTMLInputElement
 			element.classList.remove('error')
 			formUtils.getParentElement(element)?.removeAttribute('data-error')
