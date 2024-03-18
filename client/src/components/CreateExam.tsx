@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
+import useLanguage from '../hooks/useLanguage'
+import { ComponentCreateExamLang } from '../models/lang'
 import styles from '../styles/CreateExam.module.css'
 
 type CreateExamProps = {
@@ -11,6 +13,7 @@ export default function CreateExam({
 	setShowPopUp
 }: CreateExamProps) {
 	const [hide, setHide] = useState(true)
+	const language = useLanguage<ComponentCreateExamLang>('component.create_exam')
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
@@ -40,7 +43,7 @@ export default function CreateExam({
 					].join(' ')
 				}>
 					<div className={styles['header']}>
-						<h2 className={styles['title']}>{'language?.title'}</h2>
+						<h2 className={styles['title']}>{language?.create}</h2>
 						<div className={styles['esc-button']}
 							onClick={handleClosePopUp}
 						>
@@ -51,7 +54,19 @@ export default function CreateExam({
 						[
 							styles['form-content']
 						].join(' ')
-					}></div>
+					}>
+						<form className={styles['form-data']}>
+							<div className={styles['action-items']}>
+								<button name='save'
+									className={
+										[
+											'action-item-d',
+											// isPending ? 'button-submitting' : ''
+										].join(' ')
+									}>{language?.save}</button>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</>

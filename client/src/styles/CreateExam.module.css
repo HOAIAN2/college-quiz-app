@@ -19,8 +19,8 @@
 }
 
 .create-exam-form {
-	width: 90%;
-	height: 90%;
+	width: 400px;
+	height: 60%;
 	border-radius: var(--border-radius-low);
 	box-shadow: 0px 0px 10px var(--color-shadow);
 	background-color: white;

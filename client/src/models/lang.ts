@@ -37,3 +37,4 @@ export type PageSemesterLang = typeof import('../../assets/langs/en/page.semeste
 export type ComponentCreateCourseLang = typeof import('../../assets/langs/en/component.create_course').default
 export type PageCourseLang = typeof import('../../assets/langs/en/page.course').default
 export type ComponentUpdateCourseStudentsLang = typeof import('../../assets/langs/en/component.update_course_students').default
+export type ComponentCreateExamLang = typeof import('../../assets/langs/en/component.create_exam').default
