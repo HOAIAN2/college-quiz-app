@@ -145,7 +145,9 @@ export default function CreateCourse({
 										].join(' ')
 									} type='text' />
 							</div>
-							<div className={styles['wrap-item']}>
+							<div
+								style={{ zIndex: 2 }}
+								className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='teacher_id'>{language?.teacher}</label>
 								<CustomDataList
 									name='teacher_id'

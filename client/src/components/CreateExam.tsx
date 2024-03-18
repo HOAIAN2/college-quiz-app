@@ -118,8 +118,13 @@ export default function CreateExam({
 								<div className={styles['wrap-item']}>
 									<label className={styles['required']} htmlFor='exam_time'>{language?.examTime}</label>
 									<input
+										onKeyDown={e => {
+											if (e.key === '.') e.preventDefault()
+										}}
 										id='exam_time'
 										name='exam_time'
+										min={0}
+										max={60 * 60 * 24}
 										className={
 											[
 												'input-d',

@@ -16,7 +16,7 @@ return new class extends Migration
 			$table->unsignedBigInteger('course_id');
 			$table->string('name');
 			$table->dateTime('exam_date');
-			$table->integer('exam_time');
+			$table->unsignedInteger('exam_time');
 			$table->timestamps();
 			$table->foreign('course_id')->references('id')->on('courses')->cascadeOnDelete();
 		});
