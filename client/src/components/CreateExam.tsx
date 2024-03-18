@@ -1,8 +1,10 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
 import { RxCross2 } from 'react-icons/rx'
 import { apiCreateExam } from '../api/exam'
+import { apiGetSubjectById } from '../api/subject'
+import { queryKeys } from '../constants/query-keys'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateExamLang } from '../models/lang'
 import styles from '../styles/CreateExam.module.css'
@@ -10,10 +12,12 @@ import createFormUtils from '../utils/createFormUtils'
 import Loading from './Loading'
 
 type CreateExamProps = {
+	subjectId: number
 	onMutateSuccess: () => void
 	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 export default function CreateExam({
+	subjectId,
 	onMutateSuccess,
 	setShowPopUp
 }: CreateExamProps) {
@@ -28,6 +32,10 @@ export default function CreateExam({
 		}, timing)
 	}
 	const formUtils = createFormUtils(styles)
+	const queryData = useQuery({
+		queryKey: [queryKeys.PAGE_SUBJECT, { id: subjectId }],
+		queryFn: () => apiGetSubjectById(subjectId)
+	})
 	const handleCreateExam = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		document.querySelector(`.${styles['form-data']}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
@@ -55,6 +63,9 @@ export default function CreateExam({
 					hide ? styles['hide'] : ''
 				].join(' ')
 			}>
+				{
+					queryData.isLoading ? <Loading /> : null
+				}
 				{
 					isPending ? <Loading /> : null
 				}
