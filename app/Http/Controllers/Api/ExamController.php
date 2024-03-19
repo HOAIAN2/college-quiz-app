@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Exam\StoreRequest;
+use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Exam;
 use App\Models\ExamQuestion;
@@ -55,29 +56,30 @@ class ExamController extends Controller
 			if ($course->isOver()) {
 				return Reply::error('app.errors.semesterEnd', [], 400);
 			}
-
-			$subject = $course->subject;
-			$chapter_ids = $subject->chapters()
-				->whereIn('id', $request->chapter_ids)
-				->pluck('id');
-
-			if (count($request->chapter_ids) != count($chapter_ids)) {
-				return Reply::error('app.errors.failToSaveRecord', [], 500);
-			}
+			$chapters = Chapter::withCount('questions')
+				->where('subject_id', '=', $course->subject_id)
+				->orderBy('chapter_number')
+				->get();
 			$exam = Exam::create([
 				'course_id' => $request->course_id,
 				'name' => $request->name,
 				'exam_date' => Carbon::parse($request->exam_date),
 				'exam_time' => $request->exam_time,
 			]);
-			foreach ($chapter_ids as $key => $chapter_id) {
-				$question_ids = Question::where('subject_id', '=', $subject->id)
-					->where('chapter_id', '=', $chapter_id)
+			foreach ($chapters as $key => $chapter) {
+				if (!(bool)$request->question_counts[$key]) {
+					continue;
+				}
+				$question_ids = Question::where('subject_id', '=', $course->subject_id)
+					->where('chapter_id', '=', $chapter->id)
 					->inRandomOrder()
 					->take($request->question_counts[$key])
 					->pluck('id');
 				if (count($question_ids) != $request->question_counts[$key]) {
-					return Reply::error('app.errors.failToSaveRecord', [], 500);
+					return Reply::error('app.errors.maxChapterQuestionCount', [
+						'name' => $chapter->name,
+						'number' => $chapter->questions_count
+					], 400);
 				}
 				foreach ($question_ids as $question_id) {
 					ExamQuestion::create([

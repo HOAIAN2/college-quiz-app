@@ -25,16 +25,13 @@ class StoreRequest extends FormRequest
 	public function rules(): array
 	{
 		$now = Carbon::now()->toDateTimeString();
-		$chapter_ids_count = is_countable($this->chapter_ids) ? count($this->chapter_ids) : 0;
 		return [
 			'name' => ['required'],
 			'exam_date' => ['required', 'date', "after:$now"],
 			'exam_time' => ['required', 'integer', 'min:0'],
 			'course_id' => ['required', 'integer'],
-			'chapter_ids' => ['required', 'array'],
-			'chapter_ids.*' => ['required', 'integer', 'distinct'],
-			'question_counts' => ['required', 'array', "min:$chapter_ids_count", "max:$chapter_ids_count"],
-			'question_counts.*' => ['required', 'integer', 'min:1'],
+			'question_counts' => ['required', 'array'],
+			'question_counts.*' => ['nullable', 'integer', 'min:1'],
 		];
 	}
 }

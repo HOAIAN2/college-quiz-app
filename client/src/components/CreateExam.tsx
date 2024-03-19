@@ -6,23 +6,24 @@ import { apiCreateExam } from '../api/exam'
 import { apiGetSubjectById } from '../api/subject'
 import { queryKeys } from '../constants/query-keys'
 import useLanguage from '../hooks/useLanguage'
+import { CourseDetail } from '../models/course'
 import { ComponentCreateExamLang } from '../models/lang'
 import styles from '../styles/CreateExam.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import Loading from './Loading'
 
 type CreateExamProps = {
-	subjectId: number
+	courseDetail: CourseDetail
 	onMutateSuccess: () => void
 	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 export default function CreateExam({
-	subjectId,
+	courseDetail,
 	onMutateSuccess,
 	setShowPopUp
 }: CreateExamProps) {
 	const [hide, setHide] = useState(true)
-	const [chapterIds, setChapterIds] = useState<Set<number>>(new Set())
+	const [totalQuestion, setTotalQuestion] = useState(0)
 	const language = useLanguage<ComponentCreateExamLang>('component.create_exam')
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -34,8 +35,8 @@ export default function CreateExam({
 	}
 	const formUtils = createFormUtils(styles)
 	const queryData = useQuery({
-		queryKey: [queryKeys.PAGE_SUBJECT, { id: subjectId }],
-		queryFn: () => apiGetSubjectById(subjectId)
+		queryKey: [queryKeys.PAGE_SUBJECT, { id: courseDetail.subjectId }],
+		queryFn: () => apiGetSubjectById(courseDetail.subjectId)
 	})
 	const handleCreateExam = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
@@ -45,9 +46,9 @@ export default function CreateExam({
 		})
 		const form = e.target as HTMLFormElement
 		const formData = new FormData(form)
-		chapterIds.forEach(chapterId => {
-			formData.append('chapter_ids[]', String(chapterId))
-		})
+		// chapterIds.forEach(chapterId => {
+		// 	formData.append('chapter_ids[]', String(chapterId))
+		// })
 		await apiCreateExam(formData)
 		handleClosePopUp()
 	}
@@ -95,6 +96,7 @@ export default function CreateExam({
 						<form
 							onSubmit={e => { mutate(e) }}
 							className={styles['form-data']}>
+							<input hidden readOnly name='course_id' value={courseDetail.id} />
 							<div className={
 								[
 									styles['group-inputs']
@@ -151,32 +153,26 @@ export default function CreateExam({
 									queryData.data ?
 										<>
 											<ul className={styles['question-count-container']}>
-												{queryData.data.chapters.map(chapter => {
+												{queryData.data.chapters.sort((a, b) =>
+													a.chapterNumber - b.chapterNumber
+												).map(chapter => {
 													return (
 														<li
 															className={styles['wrap-item']}
 															key={`chapter-${chapter.id}`}
 														>
-															<label htmlFor="">{`${chapter.chapterNumber}. ${chapter.name}`}</label>
+															<label>{`${chapter.chapterNumber}. ${chapter.name}`}</label>
 															<input
+																onInput={() => {
+																	const total = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="question_counts[]"]'))
+																		.reduce((total, current) => {
+																			return current.valueAsNumber ? total += current.valueAsNumber : total
+																		}, 0)
+																	setTotalQuestion(total)
+																}}
 																name='question_counts[]'
 																onKeyDown={e => {
 																	if (e.key === '.') e.preventDefault()
-																}}
-																onInput={(e) => {
-																	const target = e.currentTarget
-																	if (target.valueAsNumber) {
-																		setChapterIds(pre => {
-																			pre.add(chapter.id)
-																			return structuredClone(pre)
-																		})
-																	}
-																	else {
-																		setChapterIds(pre => {
-																			pre.delete(chapter.id)
-																			return structuredClone(pre)
-																		})
-																	}
 																}}
 																className={
 																	[
@@ -191,6 +187,9 @@ export default function CreateExam({
 													)
 												})}
 											</ul>
+											<div className={styles['wrap-item']}>
+												<span>{language?.totalQuestions}: {totalQuestion}</span>
+											</div>
 										</> : null
 								}
 							</div>

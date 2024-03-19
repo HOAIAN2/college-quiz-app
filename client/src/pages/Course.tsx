@@ -90,7 +90,7 @@ export default function Course() {
 			}
 			{showCreateExamPopUp && queryData.data ?
 				<CreateExam
-					subjectId={queryData.data.subjectId}
+					courseDetail={queryData.data}
 					setShowPopUp={setShowCreateExamPopUp}
 					onMutateSuccess={() => { queryData.refetch() }}
 				/> : null

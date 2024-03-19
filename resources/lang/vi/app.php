@@ -16,6 +16,7 @@ return [
 		'failToSaveRecord' => 'Lưu bản ghi thất bại',
 		'classNotExists' => 'Lớp :shortcodes không tồn tại',
 		'faucltyNotExists' => 'Khoa :shortcodes không tồn tại',
-		'semesterOver' => 'Học kỳ đã kết thúc'
+		'semesterOver' => 'Học kỳ đã kết thúc',
+		'maxChapterQuestionCount' => 'Chương :name chỉ có :number câu hỏi.',
 	],
 ];
