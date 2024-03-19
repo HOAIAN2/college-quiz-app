@@ -27,7 +27,7 @@
 	border-radius: var(--border-radius-low);
 	transform-origin: center center;
 	transition: var(--transition-timing-medium);
-	overflow-y: auto;
+	overflow-y: hidden;
 }
 
 .create-model-form.hide {
@@ -54,10 +54,14 @@
 
 .form-content {
 	flex: 1;
+	height: calc(100% - 40px);
+	overflow-y: auto;
 }
 
 .form-data {
-	height: calc(100% - 40px);
+	min-height: 100%;
+	height: fit-content;
+	/* height: calc(100% - 40px); */
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -123,7 +127,7 @@ label.required::after {
 }
 
 .action-items {
-	margin-top: 10px;
+	/* margin-top: 10px; */
 	height: 50px;
 	display: flex;
 	align-items: center;
@@ -139,8 +143,13 @@ label.required::after {
 	}
 
 	.group-inputs {
+		flex-wrap: unset;
 		flex-direction: column;
 		padding-right: 20px;
 		gap: 20px;
+	}
+
+	.wrap-item {
+		flex: unset;
 	}
 }
