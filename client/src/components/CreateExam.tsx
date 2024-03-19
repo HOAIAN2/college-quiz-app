@@ -22,6 +22,7 @@ export default function CreateExam({
 	setShowPopUp
 }: CreateExamProps) {
 	const [hide, setHide] = useState(true)
+	const [chapterIds, setChapterIds] = useState<Set<number>>(new Set())
 	const language = useLanguage<ComponentCreateExamLang>('component.create_exam')
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -44,6 +45,9 @@ export default function CreateExam({
 		})
 		const form = e.target as HTMLFormElement
 		const formData = new FormData(form)
+		chapterIds.forEach(chapterId => {
+			formData.append('chapter_ids[]', String(chapterId))
+		})
 		await apiCreateExam(formData)
 		handleClosePopUp()
 	}
@@ -143,6 +147,52 @@ export default function CreateExam({
 											].join(' ')
 										} type='number' />
 								</div>
+								{
+									queryData.data ?
+										<>
+											<ul className={styles['question-count-container']}>
+												{queryData.data.chapters.map(chapter => {
+													return (
+														<li
+															className={styles['wrap-item']}
+															key={`chapter-${chapter.id}`}
+														>
+															<label htmlFor="">{`${chapter.chapterNumber}. ${chapter.name}`}</label>
+															<input
+																name='question_counts[]'
+																onKeyDown={e => {
+																	if (e.key === '.') e.preventDefault()
+																}}
+																onInput={(e) => {
+																	const target = e.currentTarget
+																	if (target.valueAsNumber) {
+																		setChapterIds(pre => {
+																			pre.add(chapter.id)
+																			return structuredClone(pre)
+																		})
+																	}
+																	else {
+																		setChapterIds(pre => {
+																			pre.delete(chapter.id)
+																			return structuredClone(pre)
+																		})
+																	}
+																}}
+																className={
+																	[
+																		'input-d',
+																		styles['input-item']
+																	].join(' ')
+																}
+																type='number'
+																min={0}
+															/>
+														</li>
+													)
+												})}
+											</ul>
+										</> : null
+								}
 							</div>
 							<div className={styles['action-items']}>
 								<button name='save'
