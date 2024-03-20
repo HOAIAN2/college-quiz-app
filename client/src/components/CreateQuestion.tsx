@@ -221,8 +221,6 @@ export default function CreateQuestion({
 									</div>
 								}
 							</div>
-						</div>
-						<div className={globalStyles['group-inputs']}>
 							{options.map((option, index) => {
 								return (
 									<div
