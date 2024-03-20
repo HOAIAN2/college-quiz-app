@@ -16,7 +16,9 @@ export type CourseDetail = Course & {
 	teacher: User
 	subject: Subject
 	enrollments: EnrollmentDetail[]
-	exams: Exam[]
+	exams: Exam & {
+		questionsCount: number
+	}[]
 }
 
 export type QueryCourseType = {
