@@ -33,7 +33,7 @@ class FacultyController extends Controller
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong');
+			return Reply::error('app.errors.something_went_wrong');
 		}
 	}
 
@@ -47,12 +47,12 @@ class FacultyController extends Controller
 		try {
 			Faculty::create($data);
 			DB::commit();
-			return Reply::successWithMessage('app.successes.recordSaveSuccess');
+			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.failToSaveRecord', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 
@@ -69,7 +69,7 @@ class FacultyController extends Controller
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong');
+			return Reply::error('app.errors.something_went_wrong');
 		}
 	}
 
@@ -84,12 +84,12 @@ class FacultyController extends Controller
 			$faculty = Faculty::findOrFail($id);
 			$faculty->update($data);
 			DB::commit();
-			return Reply::successWithMessage('app.successes.recordSaveSuccess');
+			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.failToSaveRecord', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 
@@ -102,12 +102,12 @@ class FacultyController extends Controller
 		try {
 			Faculty::destroy($request->ids);
 			DB::commit();
-			return Reply::successWithMessage('app.successes.recordDeleteSuccess');
+			return Reply::successWithMessage('app.successes.record_delete_success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.failToSaveRecord', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 	public function autocomplete(Request $request)
@@ -121,7 +121,7 @@ class FacultyController extends Controller
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 }

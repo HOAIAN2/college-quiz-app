@@ -21,12 +21,12 @@ class ChapterController extends Controller
 		try {
 			Chapter::create($request->validated());
 			DB::commit();
-			return Reply::successWithMessage('app.successes.recordSaveSuccess');
+			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 
@@ -40,12 +40,12 @@ class ChapterController extends Controller
 			$chapter = Chapter::findOrFail($id);
 			$chapter->update($request->validated());
 			DB::commit();
-			return Reply::successWithMessage('app.successes.recordSaveSuccess');
+			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 
@@ -58,12 +58,12 @@ class ChapterController extends Controller
 		try {
 			Chapter::destroy($id);
 			DB::commit();
-			return Reply::successWithMessage('app.successes.recordDeleteSuccess');
+			return Reply::successWithMessage('app.successes.record_delete_success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 }

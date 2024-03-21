@@ -31,7 +31,7 @@ class SchoolClassController extends Controller
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong');
+			return Reply::error('app.errors.something_went_wrong');
 		}
 	}
 
@@ -45,12 +45,12 @@ class SchoolClassController extends Controller
 		try {
 			SchoolClass::create($data);
 			DB::commit();
-			return Reply::successWithMessage('app.successes.recordSaveSuccess');
+			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.failToSaveRecord', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 
@@ -65,7 +65,7 @@ class SchoolClassController extends Controller
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong');
+			return Reply::error('app.errors.something_went_wrong');
 		}
 	}
 
@@ -80,12 +80,12 @@ class SchoolClassController extends Controller
 			$school_class = SchoolClass::findOrFail($id);
 			$school_class->update($data);
 			DB::commit();
-			return Reply::successWithMessage('app.successes.recordSaveSuccess');
+			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.failToSaveRecord', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 
@@ -98,12 +98,12 @@ class SchoolClassController extends Controller
 		try {
 			SchoolClass::destroy($request->ids);
 			DB::commit();
-			return Reply::successWithMessage('app.successes.recordDeleteSuccess');
+			return Reply::successWithMessage('app.successes.record_delete_success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 
@@ -118,7 +118,7 @@ class SchoolClassController extends Controller
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 }

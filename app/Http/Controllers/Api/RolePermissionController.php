@@ -34,7 +34,7 @@ class RolePermissionController extends Controller
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 
@@ -57,7 +57,7 @@ class RolePermissionController extends Controller
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 
@@ -99,12 +99,12 @@ class RolePermissionController extends Controller
 				}
 			}
 			DB::commit();
-			return Reply::successWithMessage('app.successes.recordSaveSuccess');
+			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 }

@@ -33,7 +33,7 @@ class CourseController extends Controller
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 
@@ -47,18 +47,18 @@ class CourseController extends Controller
 		try {
 			$semester = Semester::findOrFail($request->semester_id);
 			if ($semester->isOver()) {
-				return Reply::error('app.errors.semesterEnd', [], 400);
+				return Reply::error('app.errors.semester_end', [], 400);
 			}
 			User::whereRoleId(Role::ROLES['teacher'])
 				->select('id')->findOrFail($request->teacher_id);
 			Course::create($data);
 			DB::commit();
-			return Reply::successWithMessage('app.successes.recordSaveSuccess');
+			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.failToSaveRecord', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 
@@ -82,7 +82,7 @@ class CourseController extends Controller
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 
@@ -96,18 +96,18 @@ class CourseController extends Controller
 		try {
 			$targetCourse = Course::findOrFail($id);
 			if ($targetCourse->semester->isOver()) {
-				return Reply::error('app.errors.semesterEnd', [], 400);
+				return Reply::error('app.errors.semester_end', [], 400);
 			}
 			User::whereRoleId(Role::ROLES['teacher'])
 				->select('id')->findOrFail($request->teacher_id);
 			$targetCourse->update($data);
 			DB::commit();
-			return Reply::successWithMessage('app.successes.recordSaveSuccess');
+			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.failToSaveRecord', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 
@@ -120,12 +120,12 @@ class CourseController extends Controller
 		try {
 			Course::destroy($id);
 			DB::commit();
-			return Reply::successWithMessage('app.successes.recordDeleteSuccess');
+			return Reply::successWithMessage('app.successes.record_delete_success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 
@@ -138,7 +138,7 @@ class CourseController extends Controller
 		try {
 			$targetCourse = Course::findOrFail($id);
 			if ($targetCourse->semester->isOver()) {
-				return Reply::error('app.errors.semesterEnd', [], 400);
+				return Reply::error('app.errors.semester_end', [], 400);
 			}
 
 			if ($request->student_ids == null) {
@@ -170,12 +170,12 @@ class CourseController extends Controller
 				}
 			}
 			DB::commit();
-			return Reply::successWithMessage('app.successes.recordSaveSuccess');
+			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 

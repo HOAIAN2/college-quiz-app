@@ -41,7 +41,7 @@ class ExamController extends Controller
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 
@@ -54,7 +54,7 @@ class ExamController extends Controller
 		try {
 			$course = Course::findOrFail($request->course_id);
 			if ($course->isOver()) {
-				return Reply::error('app.errors.semesterEnd', [], 400);
+				return Reply::error('app.errors.semester_end', [], 400);
 			}
 			$chapters = Chapter::withCount('questions')
 				->where('subject_id', '=', $course->subject_id)
@@ -76,7 +76,7 @@ class ExamController extends Controller
 					->take($request->question_counts[$key])
 					->pluck('id');
 				if (count($question_ids) != $request->question_counts[$key]) {
-					return Reply::error('app.errors.maxChapterQuestionCount', [
+					return Reply::error('app.errors.max_chapter_question_count', [
 						'name' => $chapter->name,
 						'number' => $chapter->questions_count
 					], 400);
@@ -90,12 +90,12 @@ class ExamController extends Controller
 			}
 
 			DB::commit();
-			return Reply::successWithMessage('app.successes.recordSaveSuccess');
+			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.failToSaveRecord', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 
@@ -125,7 +125,7 @@ class ExamController extends Controller
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 

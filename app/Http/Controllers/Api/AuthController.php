@@ -17,13 +17,13 @@ class AuthController extends Controller
 		try {
 			$user = User::with('role')->whereEmail($request->email)->first();
 			if (!$user) {
-				return Reply::error('auth.errors.emailNotFound', [], 404);
+				return Reply::error('auth.errors.email_not_found', [], 404);
 			}
 			if ($user->is_active == false) {
-				return Reply::error('auth.errors.accountDisabled');
+				return Reply::error('auth.errors.account_disabled');
 			}
 			if (!Hash::check($request->password, $user->password)) {
-				return Reply::error('auth.errors.passwordIncorrect');
+				return Reply::error('auth.errors.password_incorrect');
 			}
 			$token = $user->createToken("{$user->role->name} token")->plainTextToken;
 			return Reply::successWithData([
@@ -33,7 +33,7 @@ class AuthController extends Controller
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong');
+			return Reply::error('app.errors.something_went_wrong');
 		}
 	}
 
@@ -47,7 +47,7 @@ class AuthController extends Controller
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.somethingWentWrong');
+			return Reply::error('app.errors.something_went_wrong');
 		}
 	}
 
@@ -57,20 +57,20 @@ class AuthController extends Controller
 
 		try {
 			if (!Hash::check($request->current_password, $user->password)) {
-				return Reply::error('auth.errors.passwordIncorrect');
+				return Reply::error('auth.errors.password_incorrect');
 			}
 			if ($request->current_password == $request->password) {
-				return Reply::error('auth.errors.newPasswordIsSame');
+				return Reply::error('auth.errors.new_password_is_same');
 			}
 			$user->update([
 				'password' => Hash::make($request->password),
 			]);
 			$user->tokens()->delete();
-			return Reply::successWithMessage('auth.successes.changePasswordSuccess');
+			return Reply::successWithMessage('auth.successes.change_password_success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.failToSaveRecord', [], 500);
+			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
 }
