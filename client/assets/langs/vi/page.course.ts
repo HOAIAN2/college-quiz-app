@@ -11,5 +11,7 @@ export default {
 	studentList: 'Danh sách sinh viên',
 	examtList: 'Danh sách bài thi',
 	edit: 'Chỉnh sửa',
-	add: 'Thêm'
+	add: 'Thêm',
+	numberOfQuesions: '@number câu hỏi',
+	minutes: '@number phút',
 }

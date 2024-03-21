@@ -11,5 +11,7 @@ export default {
 	studentList: 'Student list',
 	examtList: 'Exam list',
 	edit: 'Edit',
-	add: 'Add'
+	add: 'Add',
+	numberOfQuesions: '@number questions',
+	minutes: '@number minutes',
 }

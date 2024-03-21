@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { LuPenSquare } from 'react-icons/lu'
 import { MdDeleteOutline } from 'react-icons/md'
+import { PiExam } from 'react-icons/pi'
 import { RiAddFill } from 'react-icons/ri'
 import { useNavigate, useParams } from 'react-router-dom'
 import { apiDeleteCourse, apiGetCourseById, apiUpdateCourse } from '../api/course'
@@ -23,7 +24,7 @@ import languageUtils from '../utils/languageUtils'
 
 export default function Course() {
 	const { id } = useParams()
-	const { DOM, permissions } = useAppContext()
+	const { DOM, permissions, appLanguage } = useAppContext()
 	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
 	const [showUpdateStudentsPopUp, setShowUpdateStudentsPopUp] = useState(false)
 	const [showCreateExamPopUp, setShowCreateExamPopUp] = useState(false)
@@ -317,6 +318,40 @@ export default function Course() {
 									</div>
 									: null
 							}
+							<div className={styles['exams-container']}>
+								{
+									queryData.data.exams
+										.map(exam => {
+											return (
+												<div
+													key={`exam-${exam.id}`}
+													className={
+														[
+															'dashboard-card-d',
+															styles['exam-card'],
+														].join(' ')
+													}
+												>
+													<div className={styles['card-section']}>
+														<PiExam />
+														{exam.name}
+													</div>
+													<div className={styles['card-section']}>
+														{new Date(exam.examDate).toLocaleString(appLanguage.language)}
+													</div>
+													<div className={styles['card-section']}>
+														{
+															[
+																language?.minutes.replace('@number', String(exam.examTime)),
+																language?.numberOfQuesions.replace('@number', String(exam.questionsCount))
+															].join(' ')
+														}
+													</div>
+												</div>
+											)
+										})
+								}
+							</div>
 						</>
 						: null
 				}

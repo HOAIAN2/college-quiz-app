@@ -99,7 +99,8 @@
 	pointer-events: none;
 }
 
-.enrollments-container {
+.enrollments-container,
+.exams-container {
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
@@ -128,8 +129,33 @@
 	font-size: 20px;
 }
 
+.exam-card {
+	flex: 0 0 calc(25% - 15px);
+	min-width: 160px;
+	height: 150px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	border-radius: var(--border-radius-low);
+	border-left: 5px solid;
+	border-color: var(--color-soft-magenta);
+	cursor: pointer;
+}
+
+.exam-card>.card-section {
+	font-size: 20px;
+}
+
+.exam-card>.card-section>svg {
+	position: relative;
+	top: 4px;
+	margin-right: 10px;
+}
+
 @media (width<=1000px) {
-	.card {
+
+	.card,
+	.exam-card {
 		flex: 0 0 calc(50% - 10px);
 	}
 }

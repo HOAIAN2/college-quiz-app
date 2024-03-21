@@ -156,13 +156,15 @@ export default function CreateExam({
 												{queryData.data.chapters.sort((a, b) =>
 													a.chapterNumber - b.chapterNumber
 												).map(chapter => {
+													const key = `chapter-${chapter.id}`
 													return (
 														<li
 															className={styles['wrap-item']}
-															key={`chapter-${chapter.id}`}
+															key={key}
 														>
-															<label>{`${chapter.chapterNumber}. ${chapter.name}`}</label>
+															<label htmlFor={key}>{`${chapter.chapterNumber}. ${chapter.name}`}</label>
 															<input
+																id={key}
 																onInput={() => {
 																	const total = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="question_counts[]"]'))
 																		.reduce((total, current) => {
