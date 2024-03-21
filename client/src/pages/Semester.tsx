@@ -42,7 +42,7 @@ export default function Semester() {
 		onSuccess: () => { }
 	})
 	const handleDeleteSemester = async () => {
-		return apiDeleteSemester(String(id))
+		await apiDeleteSemester(String(id))
 	}
 	const onMutateSuccess = () => {
 		[queryKeys.PAGE_SEMESTERS].forEach(key => {

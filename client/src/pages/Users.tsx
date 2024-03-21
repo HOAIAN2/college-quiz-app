@@ -65,7 +65,7 @@ export default function Users({
 		return apiImportUsers(file, role)
 	}
 	const handleDeleteUsers = async () => {
-		return apiDeleteUserByIds(Array.from(selectedUserIds))
+		await apiDeleteUserByIds(Array.from(selectedUserIds))
 	}
 	const onMutateSuccess = () => {
 		[queryKeys.PAGE_USERS, queryKeys.PAGE_DASHBOARD].forEach(key => {

@@ -50,7 +50,7 @@ export default function Subject() {
 		onSuccess: () => { queryData.refetch() }
 	})
 	const handleDeletetSubject = async () => {
-		return await apiDeleteSubject(String(id))
+		await apiDeleteSubject(String(id))
 	}
 	const onMutateSuccess = () => {
 		[queryKeys.PAGE_SUBJECTS].forEach(key => {

@@ -48,7 +48,7 @@ export default function ViewChapter({
 		await apiUpdateChapter(formData, data.id)
 	}
 	const handleDeleteChapter = async () => {
-		return apiDeleteChapter(data.id)
+		await apiDeleteChapter(data.id)
 	}
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateChapter,

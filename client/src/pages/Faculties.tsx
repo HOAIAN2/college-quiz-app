@@ -42,7 +42,7 @@ export default function Faculties() {
 		})
 	})
 	const handleDeleteFaculties = async () => {
-		return apiDeleteFacultiesByIds(Array.from(selectedFacultyIds))
+		await apiDeleteFacultiesByIds(Array.from(selectedFacultyIds))
 	}
 	const onMutateSuccess = () => {
 		[queryKeys.PAGE_FACULTIES].forEach(key => {

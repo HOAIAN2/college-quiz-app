@@ -74,7 +74,7 @@ export default function ViewQuestion({
 		onSuccess: onMutateSuccess
 	})
 	const handleDeleteQuestion = async () => {
-		return apiDeleteQuestion(id)
+		await apiDeleteQuestion(id)
 	}
 	useEffect(() => {
 		setHide(false)

@@ -43,7 +43,7 @@ export default function SchoolClasses() {
 		})
 	})
 	const handleDeleteSchoolClasses = async () => {
-		return apiDeleteSchoolClassIds(Array.from(selectedSchoolClassIds))
+		await apiDeleteSchoolClassIds(Array.from(selectedSchoolClassIds))
 	}
 	const onMutateSuccess = () => {
 		[queryKeys.PAGE_SCHOOL_CLASSES].forEach(key => {

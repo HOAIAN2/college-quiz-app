@@ -61,7 +61,7 @@ export default function Course() {
 		onSuccess: () => { queryData.refetch() }
 	})
 	const handleDeleteCourse = async () => {
-		return apiDeleteCourse(String(courseId))
+		await apiDeleteCourse(String(courseId))
 	}
 	const onDeleteCourseSuccess = () => {
 		[queryKeys.PAGE_COURSES, queryKeys.PAGE_DASHBOARD].forEach(key => {
