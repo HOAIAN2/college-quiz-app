@@ -66,29 +66,32 @@ class ExamController extends Controller
 				'exam_date' => Carbon::parse($request->exam_date),
 				'exam_time' => $request->exam_time,
 			]);
+			$question_ids = [];
 			foreach ($chapters as $key => $chapter) {
 				if (!(bool)$request->question_counts[$key]) {
 					continue;
 				}
-				$question_ids = Question::where('subject_id', '=', $course->subject_id)
+				$chapter_question_ids = Question::where('subject_id', '=', $course->subject_id)
 					->where('chapter_id', '=', $chapter->id)
 					->inRandomOrder()
 					->take($request->question_counts[$key])
 					->pluck('id');
-				if (count($question_ids) != $request->question_counts[$key]) {
+				if (count($chapter_question_ids) != $request->question_counts[$key]) {
 					return Reply::error('app.errors.max_chapter_question_count', [
 						'name' => $chapter->name,
 						'number' => $chapter->questions_count
 					], 400);
 				}
-				foreach ($question_ids as $question_id) {
-					ExamQuestion::create([
-						'exam_id' => $exam->id,
-						'question_id' => $question_id
-					]);
-				}
+				$question_ids = array_merge($question_ids, $chapter_question_ids);
 			}
-
+			# Random order all questions
+			shuffle($question_ids);
+			foreach ($question_ids as $question_id) {
+				ExamQuestion::create([
+					'exam_id' => $exam->id,
+					'question_id' => $question_id
+				]);
+			}
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Throwable $error) {
