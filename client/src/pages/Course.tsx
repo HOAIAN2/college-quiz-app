@@ -23,7 +23,7 @@ import createFormUtils from '../utils/createFormUtils'
 import languageUtils from '../utils/languageUtils'
 
 export default function Course() {
-	const { id } = useParams()
+	const { courseId } = useParams()
 	const { DOM, permissions, appLanguage } = useAppContext()
 	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
 	const [showUpdateStudentsPopUp, setShowUpdateStudentsPopUp] = useState(false)
@@ -36,8 +36,8 @@ export default function Course() {
 	const formUtils = createFormUtils(styles)
 	const disabledUpdate = !permissions.has('course_update')
 	const queryData = useQuery({
-		queryKey: [queryKeys.PAGE_COURSE, { id: id }],
-		queryFn: () => apiGetCourseById(String(id))
+		queryKey: [queryKeys.PAGE_COURSE, { id: courseId }],
+		queryFn: () => apiGetCourseById(String(courseId))
 	})
 	const userQueryData = useQuery({
 		queryKey: [queryKeys.AUTO_COMPLETE_SUBJECT, { search: debounceQueryUser }],
@@ -61,7 +61,7 @@ export default function Course() {
 		onSuccess: () => { queryData.refetch() }
 	})
 	const handleDeleteCourse = async () => {
-		return apiDeleteCourse(String(id))
+		return apiDeleteCourse(String(courseId))
 	}
 	const onDeleteCourseSuccess = () => {
 		[queryKeys.PAGE_COURSES, queryKeys.PAGE_DASHBOARD].forEach(key => {
@@ -71,9 +71,9 @@ export default function Course() {
 	}
 	useEffect(() => {
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.PAGE_COURSE, { id: id }] })
+			queryClient.removeQueries({ queryKey: [queryKeys.PAGE_COURSE, { id: courseId }] })
 		}
-	}, [id, queryClient])
+	}, [courseId, queryClient])
 	useEffect(() => {
 		if (queryData.data && DOM.titleRef.current) {
 			document.title = queryData.data.name

@@ -75,15 +75,6 @@ const router = createBrowserRouter([
 						element: <Suspense fallback={<SuspenseLoading />}><SchoolClasses /></Suspense>
 					},
 					{
-						path: 'courses',
-						children: [
-							{
-								path: ':id',
-								element: <Suspense fallback={<SuspenseLoading />}><Course /></Suspense>
-							}
-						],
-					},
-					{
 						path: 'semesters',
 						children: [
 							{
@@ -99,7 +90,16 @@ const router = createBrowserRouter([
 									},
 									{
 										path: 'courses',
-										element: <Suspense fallback={<SuspenseLoading />}><Courses /></Suspense>,
+										children: [
+											{
+												index: true,
+												element: <Suspense fallback={<SuspenseLoading />}><Courses /></Suspense>,
+											},
+											{
+												path: ':courseId',
+												element: <Suspense fallback={<SuspenseLoading />}><Course /></Suspense>
+											}
+										],
 									}
 								]
 							}

@@ -129,7 +129,7 @@ export default function Courses() {
 									return (
 										<Link
 											key={`course-${item.id}`}
-											to={`/courses/${item.id}`}
+											to={`${item.id}`}
 											className={
 												[
 													'dashboard-card-d',
