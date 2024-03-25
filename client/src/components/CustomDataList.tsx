@@ -1,10 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import { Option } from '../models/option'
 import styles from '../styles/CustomDataList.module.css'
-
-type Option = {
-	value: string
-	label?: string
-}
 
 type CustomDataListProps = {
 	name?: string

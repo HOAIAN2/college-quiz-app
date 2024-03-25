@@ -1,10 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { Option } from '../models/option'
 import styles from '../styles/CustomSelect.module.css'
 
-type Option = {
-	value: string
-	label?: string
-}
 type CustomSelectProps = {
 	name?: string
 	defaultOption: Option

@@ -9,6 +9,8 @@ import { queryKeys } from '../constants/query-keys'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateCourseLang } from '../models/lang'
+import { Option } from '../models/option'
+import { Semester } from '../models/semester'
 import styles from '../styles/global/CreateModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import languageUtils from '../utils/languageUtils'
@@ -16,12 +18,14 @@ import CustomDataList from './CustomDataList'
 import Loading from './Loading'
 
 type CreateCourseProps = {
-	semesterId: number
+	semester: Semester
+	numberOfCourses: number
 	onMutateSuccess: () => void
 	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
 }
 export default function CreateCourse({
-	semesterId,
+	semester,
+	numberOfCourses,
 	onMutateSuccess,
 	setShowPopUp
 }: CreateCourseProps) {
@@ -29,6 +33,7 @@ export default function CreateCourse({
 	const language = useLanguage<ComponentCreateCourseLang>('component.create_course')
 	const [queryUser, setQueryUser] = useState('')
 	const [querySubject, setQuerySubject] = useState('')
+	const [shortcode, setShortcode] = useState('')
 	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
 	const debounceQuerySubject = useDebounce(querySubject, AUTO_COMPLETE_DEBOUNCE)
 	const queryClient = useQueryClient()
@@ -69,6 +74,19 @@ export default function CreateCourse({
 		onError: (error: object) => { formUtils.showFormError(error) },
 		onSuccess: onMutateSuccess
 	})
+	const handleSetShortcode = (option: Option) => {
+		const startDate = new Date(semester.startDate)
+		const endDate = new Date(semester.endDate)
+		const name = [
+			startDate.getDate(),
+			startDate.getMonth() + 1,
+			endDate.getDate(),
+			endDate.getMonth() + 1,
+			languageUtils.getShortHand(option.label!),
+			numberOfCourses + 1
+		].join('')
+		setShortcode(name)
+	}
 	useEffect(() => {
 		setHide(false)
 		const handleEscEvent = (e: KeyboardEvent) => {
@@ -115,7 +133,7 @@ export default function CreateCourse({
 					}}
 						onInput={(e) => { formUtils.handleOnInput(e) }}
 						className={styles['form-data']}>
-						<input name='semester_id' value={semesterId} readOnly hidden />
+						<input name='semester_id' value={semester.id} readOnly hidden />
 						<div className={
 							[
 								styles['group-inputs']
@@ -126,6 +144,8 @@ export default function CreateCourse({
 								<input
 									id='shortcode'
 									name='shortcode'
+									value={shortcode}
+									onInput={e => { setShortcode(e.currentTarget.value) }}
 									className={
 										[
 											'input-d',
@@ -176,6 +196,7 @@ export default function CreateCourse({
 											value: String(item.id)
 										}
 									}) : []}
+									onChange={handleSetShortcode}
 									className={
 										[
 											styles['custom-select']

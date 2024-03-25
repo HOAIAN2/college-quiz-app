@@ -62,9 +62,10 @@ export default function Courses() {
 	if (!semesterDetail) return null
 	return (
 		<>
-			{showCreatePopUp === true ?
+			{showCreatePopUp && queryData.data ?
 				<CreateCourse
-					semesterId={Number(id)}
+					semester={semesterDetail}
+					numberOfCourses={queryData.data.length}
 					onMutateSuccess={onMutateSuccess}
 					setShowPopUp={setShowCreatePopUp}
 				/> : null}
