@@ -18,5 +18,6 @@ return [
 		'fauclty_not_exists' => 'Khoa :shortcodes không tồn tại',
 		'semester_over' => 'Học kỳ đã kết thúc',
 		'max_chapter_question_count' => 'Chương :name chỉ có :number câu hỏi.',
+		'exam_date_greater_than_semester' => 'Ngày thi phải trước :date.'
 	],
 ];

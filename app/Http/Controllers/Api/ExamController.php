@@ -70,8 +70,16 @@ class ExamController extends Controller
 		DB::beginTransaction();
 		try {
 			$course = Course::findOrFail($request->course_id);
+			$course_end_date = Carbon::parse($course->semester->end_date);
 			if ($course->isOver()) {
 				return Reply::error('app.errors.semester_end', [], 400);
+			}
+			$exam_date = Carbon::parse($request->exam_date);
+			if ($exam_date->greaterThanOrEqualTo($course_end_date)) {
+				// Change message
+				return Reply::error('app.errors.exam_date_greater_than_semester', [
+					'date' => $course_end_date
+				], 400);
 			}
 			$chapters = Chapter::withCount('questions')
 				->where('subject_id', '=', $course->subject_id)
@@ -80,7 +88,7 @@ class ExamController extends Controller
 			$exam = Exam::create([
 				'course_id' => $request->course_id,
 				'name' => $request->name,
-				'exam_date' => Carbon::parse($request->exam_date),
+				'exam_date' => $exam_date,
 				'exam_time' => $request->exam_time,
 			]);
 			$question_ids = [];
