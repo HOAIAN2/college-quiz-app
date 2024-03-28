@@ -82,7 +82,7 @@ class DashboardController extends Controller
 						->get();
 					break;
 				default:
-					# code...
+					return Reply::error('app.errors.something_went_wrong', [], 500);
 					break;
 			}
 			return Reply::successWithData($data, '');

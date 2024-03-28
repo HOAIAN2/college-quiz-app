@@ -22,22 +22,39 @@ class ExamController extends Controller
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_view'), 403);
+		$now = Carbon::now();
+		$relations = [
+			'course',
+			'course.subject',
+			'course.teacher',
+		];
 
 		try {
 			switch ($user->role_id) {
 				case Role::ROLES['admin']:
-					# code...
+					$data = Exam::with($relations)
+						->whereBetween('exam_date', [$now, $now->copy()->addWeek()])
+						->get();
 					break;
 				case Role::ROLES['student']:
-					# code...
+					$data = Exam::with($relations)
+						->whereHas('course.enrollments', function ($query) use ($user) {
+							$query->where('student_id', '=', $user->id);
+						})->whereBetween('exam_date', [$now, $now->copy()->addWeek()])
+						->get();
 					break;
 				case Role::ROLES['teacher']:
-					# code...
+					$data = Exam::with($relations)
+						->whereHas('course.teacher', function ($query) use ($user) {
+							$query->where('id', '=', $user->id);
+						})->whereBetween('exam_date', [$now, $now->copy()->addWeek()])
+						->get();
 					break;
 				default:
-					# code...
+					return Reply::error('app.errors.something_went_wrong', [], 500);
 					break;
 			}
+			return Reply::successWithData($data, '');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
