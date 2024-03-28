@@ -22,7 +22,7 @@
 @font-face {
 	font-family: "Alumni Sans";
 	src: url("/fonts/AlumniSans-Light.ttf");
-	font-weight: 500;
+	font-weight: 300;
 	font-style: normal;
 	font-display: swap;
 }
@@ -30,7 +30,7 @@
 @font-face {
 	font-family: "Alumni Sans";
 	src: url("/fonts/AlumniSans-Medium.ttf");
-	font-weight: Bold;
+	font-weight: 500;
 	font-style: normal;
 	font-display: swap;
 }
