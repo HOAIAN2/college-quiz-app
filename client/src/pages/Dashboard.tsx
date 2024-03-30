@@ -15,12 +15,17 @@ import { PageDashBoardLang } from '../models/lang'
 import styles from '../styles/Dashboard.module.css'
 
 export default function Dashboard() {
-	const { permissions } = useAppContext()
+	const { permissions, appLanguage } = useAppContext()
 	const language = useLanguage<PageDashBoardLang>('page.dashboard')
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_DASHBOARD],
 		queryFn: apiGetDashboard
 	})
+	const formatNumber = (number: number) => {
+		return number.toLocaleString(appLanguage.language, {
+			notation: 'compact'
+		})
+	}
 	return (
 		<div
 			className={
@@ -40,26 +45,26 @@ export default function Dashboard() {
 							to={permissions.has('user_view') ? '/students' : undefined}
 							color='magenta'
 							content={language?.items.numberOfStudents}
-							data={queryData.data?.numberOfStudents}
+							data={formatNumber(queryData.data?.numberOfStudents)}
 							icon={<PiStudent />}
 						/>
 						<DashboardCard
 							to={permissions.has('user_view') ? '/teachers' : undefined}
 							color='red'
 							content={language?.items.numberOfTeachers}
-							data={queryData.data?.numberOfTeachers}
+							data={formatNumber(queryData.data?.numberOfTeachers)}
 							icon={<PiChalkboardTeacherLight />}
 						/>
 						<DashboardCard
 							color='green'
 							content={language?.items.numberOfCourses}
-							data={queryData.data?.numberOfCourses}
+							data={formatNumber(queryData.data?.numberOfCourses)}
 							icon={<GrCertificate />}
 						/>
 						<DashboardCard
 							color='blue'
 							content={language?.items.examInThisMonth}
-							data={queryData.data?.examsInThisMonth}
+							data={formatNumber(queryData.data?.examsInThisMonth)}
 							icon={<PiExam />}
 						/>
 					</div> : null
