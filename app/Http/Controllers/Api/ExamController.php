@@ -76,7 +76,6 @@ class ExamController extends Controller
 			}
 			$exam_date = Carbon::parse($request->exam_date);
 			if ($exam_date->greaterThanOrEqualTo($course_end_date)) {
-				// Change message
 				return Reply::error('app.errors.exam_date_greater_than_semester', [
 					'date' => $course_end_date
 				], 400);
@@ -132,6 +131,11 @@ class ExamController extends Controller
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_view'), 403);
 		$now = Carbon::now();
+		$relations = [
+			'course',
+			'course.subject',
+			'course.teacher',
+		];
 
 		try {
 			$relations = [];
