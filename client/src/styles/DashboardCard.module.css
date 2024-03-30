@@ -11,7 +11,7 @@
 
 .dashboard-card>.card-top {
 	height: 50%;
-	font-size: 56px;
+	font-size: 38px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -19,7 +19,7 @@
 }
 
 .dashboard-card>.card-bottom {
-	font-size: 20px;
+	/* font-size: 16px; */
 	margin-left: 20px;
 }
 

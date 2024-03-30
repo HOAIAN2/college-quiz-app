@@ -135,6 +135,10 @@ label.required::after {
 	gap: 10px;
 }
 
+.action-items>button[name="save-more"] {
+	width: fit-content;
+}
+
 @media (width<=800px) {
 	.create-model-form {
 		width: 100%;

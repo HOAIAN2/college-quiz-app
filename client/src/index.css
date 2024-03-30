@@ -2,47 +2,13 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	scroll-behavior: smooth;
 }
 
 *:not(div.toast-close-icon):not(i):not(svg) {
-	font-family: "Alumni Sans";
-	font-size: 18px;
+	font-family: "Roboto";
+	font-size: 14px;
 }
-
-@font-face {
-	font-family: "Alumni Sans";
-	src: url("/fonts/AlumniSans-Regular.ttf");
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Alumni Sans";
-	src: url("/fonts/AlumniSans-Light.ttf");
-	font-weight: 300;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Alumni Sans";
-	src: url("/fonts/AlumniSans-Medium.ttf");
-	font-weight: 500;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Alumni Sans";
-	src: url("/fonts/AlumniSans-Bold.ttf");
-	font-weight: Bold;
-	font-style: normal;
-	font-display: swap;
-}
-
 
 :root {
 	--color-blue: rgb(56, 132, 247);

@@ -117,7 +117,7 @@
 
 .card>.card-top {
 	height: 50%;
-	font-size: 20px;
+	font-size: 16px;
 	padding: 0px 20px 0px 20px;
 }
 
@@ -128,7 +128,7 @@
 }
 
 .card>.card-bottom {
-	font-size: 20px;
+	/* font-size: 20px; */
 	margin-left: 20px;
 }
 

@@ -48,16 +48,16 @@
 }
 
 .item-left>svg {
-	font-size: 20px;
+	font-size: 16px;
 }
 
 .item-left>.name {
 	margin-left: 10px;
-	font-size: 20px;
+	font-size: 16px;
 }
 
 .item-right>.name {
-	font-size: 20px;
+	font-size: 16px;
 }
 
 .item-right>span:first-child {

@@ -30,7 +30,7 @@
 
 .permission-item>label {
 	margin-left: 10px;
-	font-size: 20px !important;
+	/* font-size: 20px !important; */
 }
 
 .permission-item>input {
