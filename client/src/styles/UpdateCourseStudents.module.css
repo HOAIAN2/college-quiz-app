@@ -81,7 +81,7 @@
 }
 
 .data-container>label {
-	font-size: 20px !important;
+	font-size: 16px !important;
 }
 
 .joined-students-container {
@@ -140,8 +140,7 @@
 	gap: 20px;
 }
 
-.card>.card-left>svg,
-span {
+.card>.card-left>svg {
 	font-size: 20px !important;
 }
 
