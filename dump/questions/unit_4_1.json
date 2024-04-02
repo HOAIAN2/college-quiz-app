@@ -1,0 +1,443 @@
+[
+	{
+		"content": "Beethoven’s Fifth Symphony _______next weekend.",
+		"answers": [
+			{
+				"content": "is going to be performed",
+				"is_correct": true
+			},
+			{
+				"content": "has been performed",
+				"is_correct": false
+			},
+			{
+				"content": "will be performing",
+				"is_correct": false
+			},
+			{
+				"content": "will have performed",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Our children _______to school by bus every morning.",
+		"answers": [
+			{
+				"content": "take",
+				"is_correct": false
+			},
+			{
+				"content": "are taken",
+				"is_correct": true
+			},
+			{
+				"content": "have taken",
+				"is_correct": false
+			},
+			{
+				"content": "are taking",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "I hate_______ personal questions by nearly acquainted friends.",
+		"answers": [
+			{
+				"content": "to be asking",
+				"is_correct": false
+			},
+			{
+				"content": "to be asked",
+				"is_correct": true
+			},
+			{
+				"content": "being asking",
+				"is_correct": false
+			},
+			{
+				"content": "of asking",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "“Those eggs of different colors are very artistic.” “Yes, they_______ in Russia”",
+		"answers": [
+			{
+				"content": "were painted",
+				"is_correct": true
+			},
+			{
+				"content": "were paint",
+				"is_correct": false
+			},
+			{
+				"content": "were painting",
+				"is_correct": false
+			},
+			{
+				"content": "painted",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Simon is going to visit his mother on his work next week.",
+		"answers": [
+			{
+				"content": "is going to visit",
+				"is_correct": false
+			},
+			{
+				"content": "is visited",
+				"is_correct": false
+			},
+			{
+				"content": "is going to be visited",
+				"is_correct": true
+			},
+			{
+				"content": "is going to visited",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "The postman will deliver newspaper next week.",
+		"answers": [
+			{
+				"content": "will be delivered",
+				"is_correct": true
+			},
+			{
+				"content": "will delivered",
+				"is_correct": false
+			},
+			{
+				"content": "will be delivering",
+				"is_correct": false
+			},
+			{
+				"content": "is delivered",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Jim was painting her picture with his patience at 8pm last night.",
+		"answers": [
+			{
+				"content": "was painted",
+				"is_correct": false
+			},
+			{
+				"content": "was been painted",
+				"is_correct": false
+			},
+			{
+				"content": "was been painting",
+				"is_correct": false
+			},
+			{
+				"content": "was being painted",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "They chose him as the best actor of the year.",
+		"answers": [
+			{
+				"content": "He was chosen as the best actor of the year.",
+				"is_correct": true
+			},
+			{
+				"content": "He is chosen as the best actor of the year by them.",
+				"is_correct": false
+			},
+			{
+				"content": "The best actor of the year was chosen by him.",
+				"is_correct": false
+			},
+			{
+				"content": "He was chose as the best actor of the year.",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Someone will pay you in ten days.",
+		"answers": [
+			{
+				"content": "You are paid in ten days.",
+				"is_correct": false
+			},
+			{
+				"content": "You will be pay in ten days.",
+				"is_correct": false
+			},
+			{
+				"content": "You will be paid by someone.           ",
+				"is_correct": false
+			},
+			{
+				"content": "You will be paid in ten days.",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "The teacher always advises us to study harder on the second term.",
+		"answers": [
+			{
+				"content": "We are always advise to study harder on the second term.",
+				"is_correct": false
+			},
+			{
+				"content": "We study harder on the second term because of the teacher.",
+				"is_correct": false
+			},
+			{
+				"content": "We are always advised to study harder on the second term by the teacher.",
+				"is_correct": true
+			},
+			{
+				"content": "We are studied harder on the second term.",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "The cat has broken many bowls and dishes.",
+		"answers": [
+			{
+				"content": "The cat has many broken bowls and dishes.",
+				"is_correct": false
+			},
+			{
+				"content": "Many bowls and dishes has been broken by the cat.",
+				"is_correct": false
+			},
+			{
+				"content": "Many bowls and dishes have been broken by the cat.",
+				"is_correct": true
+			},
+			{
+				"content": "Many bowls and dishes broke the cat.",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "A new museum _____ in this land before we came to live in Vietnam in 1999.",
+		"answers": [
+			{
+				"content": "was opened",
+				"is_correct": false
+			},
+			{
+				"content": "had been opened",
+				"is_correct": true
+			},
+			{
+				"content": "has been opened",
+				"is_correct": false
+			},
+			{
+				"content": "opened",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "They_______ time and money doing such a thing.",
+		"answers": [
+			{
+				"content": "were advising not to waste",
+				"is_correct": false
+			},
+			{
+				"content": "were advising not to be wasted",
+				"is_correct": false
+			},
+			{
+				"content": "were advised not to be wasted",
+				"is_correct": false
+			},
+			{
+				"content": "were advised not to waste",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "These students _______so much that they feel very tired and bored.",
+		"answers": [
+			{
+				"content": "are made to study",
+				"is_correct": true
+			},
+			{
+				"content": "are made study",
+				"is_correct": false
+			},
+			{
+				"content": "are made studying",
+				"is_correct": false
+			},
+			{
+				"content": "are made to be studied",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "The waiter brings me this dish.",
+		"answers": [
+			{
+				"content": "is brought for me/am brought this dish",
+				"is_correct": false
+			},
+			{
+				"content": "is brought to me/was brought this dish          ",
+				"is_correct": false
+			},
+			{
+				"content": "is brought to me/am brought this dish",
+				"is_correct": true
+			},
+			{
+				"content": "brought to me/am brought this dish",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Our friends send these postcards to us.",
+		"answers": [
+			{
+				"content": "are sent to us/ are sent these postcard",
+				"is_correct": true
+			},
+			{
+				"content": "were sent for us/ are sent with these postcard",
+				"is_correct": false
+			},
+			{
+				"content": "are sent us/ are sent with these postcard",
+				"is_correct": false
+			},
+			{
+				"content": "are sent us/ are sent to these postcard",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "You didn’t show me the special cameras.",
+		"answers": [
+			{
+				"content": "wasn’t showed me/ wasn’t showed",
+				"is_correct": false
+			},
+			{
+				"content": "wasn’t showed to me/ wasn’t showed",
+				"is_correct": true
+			},
+			{
+				"content": "didn’t be showed to me/ wasn’t showed",
+				"is_correct": false
+			},
+			{
+				"content": "wasn’t showed to me/ was not showed with",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "I ________ by my nephew last week.",
+		"answers": [
+			{
+				"content": "had painted the gate",
+				"is_correct": false
+			},
+			{
+				"content": "had the gate painting",
+				"is_correct": false
+			},
+			{
+				"content": "had the gate painted",
+				"is_correct": true
+			},
+			{
+				"content": "had the gate paint",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "People believe that 13 is an unlucky number.",
+		"answers": [
+			{
+				"content": "believes to be",
+				"is_correct": false
+			},
+			{
+				"content": "is believed to be",
+				"is_correct": true
+			},
+			{
+				"content": "is believed being        ",
+				"is_correct": false
+			},
+			{
+				"content": "is believed that being",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "He wants _________ by his students.",
+		"answers": [
+			{
+				"content": "to be done all the difficult exercises",
+				"is_correct": false
+			},
+			{
+				"content": "all the difficult exercises to be done",
+				"is_correct": true
+			},
+			{
+				"content": "all the difficult exercises be done",
+				"is_correct": false
+			},
+			{
+				"content": "to all the difficult exercises done",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "New sources of energy have been looking for as the number of fossil fuels continues to decrease.",
+		"answers": [
+			{
+				"content": "sources of energy      ",
+				"is_correct": false
+			},
+			{
+				"content": "continues",
+				"is_correct": false
+			},
+			{
+				"content": "been looking",
+				"is_correct": true
+			},
+			{
+				"content": "number",
+				"is_correct": false
+			}
+		]
+	}
+]

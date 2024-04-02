@@ -1,0 +1,338 @@
+[
+	{
+		"content": "He __________ her before.",
+		"answers": [
+			{
+				"content": "has never met",
+				"is_correct": true
+			},
+			{
+				"content": "never has met",
+				"is_correct": false
+			},
+			{
+				"content": "have never met",
+				"is_correct": false
+			},
+			{
+				"content": "never have met",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "She ___________  book for more than 2 hours.",
+		"answers": [
+			{
+				"content": "read",
+				"is_correct": false
+			},
+			{
+				"content": "is reading",
+				"is_correct": false
+			},
+			{
+				"content": "has read",
+				"is_correct": true
+			},
+			{
+				"content": "reads",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "__________ married yet?",
+		"answers": [
+			{
+				"content": "Did you get",
+				"is_correct": false
+			},
+			{
+				"content": "Have you got",
+				"is_correct": true
+			},
+			{
+				"content": "Do you get",
+				"is_correct": false
+			},
+			{
+				"content": "Are you getting",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Peter ________(not/see) his friend since last Christmas.",
+		"answers": [
+			{
+				"content": "doesn’t see",
+				"is_correct": false
+			},
+			{
+				"content": "didn’t see",
+				"is_correct": false
+			},
+			{
+				"content": "isn’t seeing",
+				"is_correct": false
+			},
+			{
+				"content": "hasn’t seen",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "We __________ this movie.",
+		"answers": [
+			{
+				"content": "already watch",
+				"is_correct": false
+			},
+			{
+				"content": "have watched already",
+				"is_correct": false
+			},
+			{
+				"content": "have already watched",
+				"is_correct": true
+			},
+			{
+				"content": "already have watched",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "He  _________  here for a long time.",
+		"answers": [
+			{
+				"content": "has not come",
+				"is_correct": true
+			},
+			{
+				"content": "isn’t coming",
+				"is_correct": false
+			},
+			{
+				"content": "didn’t come",
+				"is_correct": false
+			},
+			{
+				"content": "doesn’t come",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "You _________ your project yet, I suppose.",
+		"answers": [
+			{
+				"content": "done",
+				"is_correct": false
+			},
+			{
+				"content": "do",
+				"is_correct": false
+			},
+			{
+				"content": "aren't doing",
+				"is_correct": false
+			},
+			{
+				"content": "haven't done",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "He _________ that there are only four weeks to the end of term.",
+		"answers": [
+			{
+				"content": "is just realizing",
+				"is_correct": false
+			},
+			{
+				"content": "has just realized",
+				"is_correct": true
+			},
+			{
+				"content": "just realizes",
+				"is_correct": false
+			},
+			{
+				"content": "realizes just",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Tenda _________ here all his life.",
+		"answers": [
+			{
+				"content": "has lived  ",
+				"is_correct": true
+			},
+			{
+				"content": "lives",
+				"is_correct": false
+			},
+			{
+				"content": "is living",
+				"is_correct": false
+			},
+			{
+				"content": "lived",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "They _________ their house since they arrived last Monday.",
+		"answers": [
+			{
+				"content": "didn’t clean",
+				"is_correct": false
+			},
+			{
+				"content": "cleaned yet",
+				"is_correct": false
+			},
+			{
+				"content": "haven’t cleaned",
+				"is_correct": true
+			},
+			{
+				"content": "is not cleaning",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "She_________ to London a couple of times.",
+		"answers": [
+			{
+				"content": "has already traveled",
+				"is_correct": true
+			},
+			{
+				"content": "has traveled already",
+				"is_correct": false
+			},
+			{
+				"content": "already travels",
+				"is_correct": false
+			},
+			{
+				"content": "is already travelling",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "The bill isn’t right. They _______ a mistake.",
+		"answers": [
+			{
+				"content": "will make",
+				"is_correct": false
+			},
+			{
+				"content": "are making",
+				"is_correct": false
+			},
+			{
+				"content": "made",
+				"is_correct": false
+			},
+			{
+				"content": "have made",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "My mother ________ to start working next week.",
+		"answers": [
+			{
+				"content": "has decided just",
+				"is_correct": false
+			},
+			{
+				"content": "has just decided",
+				"is_correct": true
+			},
+			{
+				"content": "just decides",
+				"is_correct": false
+			},
+			{
+				"content": "decided just",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "________ money for your mother?",
+		"answers": [
+			{
+				"content": "Do you just pay",
+				"is_correct": false
+			},
+			{
+				"content": "Did you just pay",
+				"is_correct": false
+			},
+			{
+				"content": "Have you just paid",
+				"is_correct": true
+			},
+			{
+				"content": "Are you just paying",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "It is the second time he _______ his job.",
+		"answers": [
+			{
+				"content": "has lost",
+				"is_correct": true
+			},
+			{
+				"content": "lost",
+				"is_correct": false
+			},
+			{
+				"content": "loses",
+				"is_correct": false
+			},
+			{
+				"content": "has been losing",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "The cutting or replacement of trees downtown _____ arguments recently. ",
+		"answers": [
+			{
+				"content": "has caused ",
+				"is_correct": true
+			},
+			{
+				"content": "  have caused",
+				"is_correct": false
+			},
+			{
+				"content": "are creating",
+				"is_correct": false
+			},
+			{
+				"content": "created",
+				"is_correct": false
+			}
+		]
+	}
+]

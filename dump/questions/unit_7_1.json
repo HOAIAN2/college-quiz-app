@@ -1,0 +1,422 @@
+[
+	{
+		"content": "_______she was very hard working; she hardly earned enough to feed her family.",
+		"answers": [
+			{
+				"content": "In spite of    ",
+				"is_correct": false
+			},
+			{
+				"content": "Because     ",
+				"is_correct": false
+			},
+			{
+				"content": "Because of  ",
+				"is_correct": false
+			},
+			{
+				"content": "Although",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "______her poorness, she feels happy.",
+		"answers": [
+			{
+				"content": "Although    ",
+				"is_correct": false
+			},
+			{
+				"content": "Because      ",
+				"is_correct": false
+			},
+			{
+				"content": "If ",
+				"is_correct": false
+			},
+			{
+				"content": "In spite of",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "_____ she was very tired, she helped her brother with his homework.",
+		"answers": [
+			{
+				"content": "Because    ",
+				"is_correct": false
+			},
+			{
+				"content": "whether       ",
+				"is_correct": false
+			},
+			{
+				"content": "Although      ",
+				"is_correct": true
+			},
+			{
+				"content": "so",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "In spite _____, the baseball game was not cancelled.",
+		"answers": [
+			{
+				"content": "the rain",
+				"is_correct": false
+			},
+			{
+				"content": "of the rain",
+				"is_correct": true
+			},
+			{
+				"content": "it was raining",
+				"is_correct": false
+			},
+			{
+				"content": "there was a rain",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "The children slept well, despite _____.",
+		"answers": [
+			{
+				"content": "it was noise",
+				"is_correct": false
+			},
+			{
+				"content": "the noise",
+				"is_correct": true
+			},
+			{
+				"content": "of the noise",
+				"is_correct": false
+			},
+			{
+				"content": "noisy",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "_______ of the difficulty, they managed to climb to the top of the mountain.  ",
+		"answers": [
+			{
+				"content": "In spite",
+				"is_correct": true
+			},
+			{
+				"content": "Despite",
+				"is_correct": false
+			},
+			{
+				"content": "But",
+				"is_correct": false
+			},
+			{
+				"content": "Although",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "______ the car was cheap, it was in good condition.",
+		"answers": [
+			{
+				"content": "Although",
+				"is_correct": true
+			},
+			{
+				"content": "As",
+				"is_correct": false
+			},
+			{
+				"content": "Because",
+				"is_correct": false
+			},
+			{
+				"content": "If",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "____ repeated assurances that the product is safe; many people have stopped buying it.",
+		"answers": [
+			{
+				"content": "By         ",
+				"is_correct": false
+			},
+			{
+				"content": "Despite      ",
+				"is_correct": true
+			},
+			{
+				"content": "With         ",
+				"is_correct": false
+			},
+			{
+				"content": "For",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "We watched TV the whole evening ______ we had nothing better to do.",
+		"answers": [
+			{
+				"content": "because",
+				"is_correct": true
+			},
+			{
+				"content": "though",
+				"is_correct": false
+			},
+			{
+				"content": "so",
+				"is_correct": false
+			},
+			{
+				"content": "but",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "______ tomorrow is a public holiday; all the shops will be shut all day.",
+		"answers": [
+			{
+				"content": "As",
+				"is_correct": true
+			},
+			{
+				"content": "Just as",
+				"is_correct": false
+			},
+			{
+				"content": "Although",
+				"is_correct": false
+			},
+			{
+				"content": "When",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Though _______, they are good friends.",
+		"answers": [
+			{
+				"content": "their sometimes quarrel",
+				"is_correct": false
+			},
+			{
+				"content": "to have a quarrel sometimes",
+				"is_correct": false
+			},
+			{
+				"content": "they sometimes have a quarrel",
+				"is_correct": true
+			},
+			{
+				"content": "of having a quarrel sometimes",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "_____ he was in poor health, he worked just as hard as everyone else.  ",
+		"answers": [
+			{
+				"content": "But",
+				"is_correct": false
+			},
+			{
+				"content": "Even if",
+				"is_correct": false
+			},
+			{
+				"content": "If",
+				"is_correct": false
+			},
+			{
+				"content": "Although",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "True Blood is my favourite TV series, ____ I don't have much time to watch it often.",
+		"answers": [
+			{
+				"content": "although",
+				"is_correct": false
+			},
+			{
+				"content": "before",
+				"is_correct": false
+			},
+			{
+				"content": "if",
+				"is_correct": false
+			},
+			{
+				"content": "yet",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "________, he has continued to work on his thesis.",
+		"answers": [
+			{
+				"content": "Although all these problems",
+				"is_correct": false
+			},
+			{
+				"content": "Because there are problems",
+				"is_correct": false
+			},
+			{
+				"content": "Despite all these problems",
+				"is_correct": true
+			},
+			{
+				"content": "In spite of there are problems",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "_______ his injuries, he bears no animosity towards his attackers.",
+		"answers": [
+			{
+				"content": "Because of    ",
+				"is_correct": false
+			},
+			{
+				"content": "But for         ",
+				"is_correct": false
+			},
+			{
+				"content": "In spite of     ",
+				"is_correct": true
+			},
+			{
+				"content": "Without",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "_________ he wasn’t feeling very well, David was determined to take part in the inter-university athletics meet.",
+		"answers": [
+			{
+				"content": "Although",
+				"is_correct": true
+			},
+			{
+				"content": "While",
+				"is_correct": false
+			},
+			{
+				"content": "Where as",
+				"is_correct": false
+			},
+			{
+				"content": "yet",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Bob has been working very hard these days. ________, he can’t afford to buy a new car.",
+		"answers": [
+			{
+				"content": "While",
+				"is_correct": false
+			},
+			{
+				"content": "Even though",
+				"is_correct": false
+			},
+			{
+				"content": "Though",
+				"is_correct": false
+			},
+			{
+				"content": "Nevertheless",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "________ what she prepared for the job interview, Megan didn’t pass it.",
+		"answers": [
+			{
+				"content": "Because of     ",
+				"is_correct": false
+			},
+			{
+				"content": "In spite of",
+				"is_correct": true
+			},
+			{
+				"content": "Though",
+				"is_correct": false
+			},
+			{
+				"content": "However",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "In spite of ____________, he was determined to finish his work.",
+		"answers": [
+			{
+				"content": "was seriously ill",
+				"is_correct": false
+			},
+			{
+				"content": "be seriously ill",
+				"is_correct": false
+			},
+			{
+				"content": "his serious illness",
+				"is_correct": true
+			},
+			{
+				"content": "he was seriously ill",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Ann: Have you decided to get the job?",
+		"answers": [
+			{
+				"content": "although / but",
+				"is_correct": true
+			},
+			{
+				"content": "despite / and   ",
+				"is_correct": false
+			},
+			{
+				"content": "although / so   ",
+				"is_correct": false
+			},
+			{
+				"content": "despite / however",
+				"is_correct": false
+			}
+		]
+	}
+]

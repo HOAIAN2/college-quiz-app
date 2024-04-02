@@ -1,0 +1,464 @@
+[
+	{
+		"content": "Do you know the girl ______Tom is talking to?",
+		"answers": [
+			{
+				"content": "whom",
+				"is_correct": true
+			},
+			{
+				"content": "what",
+				"is_correct": false
+			},
+			{
+				"content": "which",
+				"is_correct": false
+			},
+			{
+				"content": "whose",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "The party_____we went to wasn't very enjoyable.",
+		"answers": [
+			{
+				"content": "who",
+				"is_correct": false
+			},
+			{
+				"content": "when",
+				"is_correct": false
+			},
+			{
+				"content": "which",
+				"is_correct": true
+			},
+			{
+				"content": "where",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "I need to find a painting ____ will match the rest of my room.",
+		"answers": [
+			{
+				"content": "whose",
+				"is_correct": false
+			},
+			{
+				"content": "whom",
+				"is_correct": false
+			},
+			{
+				"content": "who",
+				"is_correct": false
+			},
+			{
+				"content": "which",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "There are too many poor people ____ do not have enough to eat in the world.",
+		"answers": [
+			{
+				"content": "whose",
+				"is_correct": false
+			},
+			{
+				"content": "whom",
+				"is_correct": false
+			},
+			{
+				"content": "who",
+				"is_correct": true
+			},
+			{
+				"content": "which",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "The trees ____ have the beautiful flowers grow near the gate of the garden.",
+		"answers": [
+			{
+				"content": "whose",
+				"is_correct": false
+			},
+			{
+				"content": "whom",
+				"is_correct": false
+			},
+			{
+				"content": "who",
+				"is_correct": false
+			},
+			{
+				"content": "which",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "We went to Sandra’s party, ____ we enjoyed very much.",
+		"answers": [
+			{
+				"content": "which",
+				"is_correct": true
+			},
+			{
+				"content": "whom",
+				"is_correct": false
+			},
+			{
+				"content": "that",
+				"is_correct": false
+			},
+			{
+				"content": "who",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "What was the name of the girl ________ passport was stolen?",
+		"answers": [
+			{
+				"content": "whose",
+				"is_correct": true
+			},
+			{
+				"content": "who",
+				"is_correct": false
+			},
+			{
+				"content": "which",
+				"is_correct": false
+			},
+			{
+				"content": "when",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "This is an awful film. It is the worst_______I have ever seen.",
+		"answers": [
+			{
+				"content": "who",
+				"is_correct": false
+			},
+			{
+				"content": "that",
+				"is_correct": true
+			},
+			{
+				"content": "what",
+				"is_correct": false
+			},
+			{
+				"content": "whom",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "The reason _______ I phoned him was to invite him to my party.",
+		"answers": [
+			{
+				"content": "what",
+				"is_correct": false
+			},
+			{
+				"content": "whose",
+				"is_correct": false
+			},
+			{
+				"content": "why",
+				"is_correct": true
+			},
+			{
+				"content": "which",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Can you suggest a time at ____ it will be convenient to meet?",
+		"answers": [
+			{
+				"content": "which",
+				"is_correct": true
+			},
+			{
+				"content": "when",
+				"is_correct": false
+			},
+			{
+				"content": "why",
+				"is_correct": false
+			},
+			{
+				"content": "that",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "They are looking for the man and his dog ____ have lost the way in the forest.",
+		"answers": [
+			{
+				"content": "whose",
+				"is_correct": false
+			},
+			{
+				"content": "that",
+				"is_correct": true
+			},
+			{
+				"content": "which",
+				"is_correct": false
+			},
+			{
+				"content": "who",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "The Smiths, _____ house was destroyed in the explosion, were given rooms in the hotel.",
+		"answers": [
+			{
+				"content": "who's",
+				"is_correct": false
+			},
+			{
+				"content": "whom",
+				"is_correct": false
+			},
+			{
+				"content": "which",
+				"is_correct": false
+			},
+			{
+				"content": "whose",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "He often tells me something about his village, _____ he was born.",
+		"answers": [
+			{
+				"content": "where",
+				"is_correct": true
+			},
+			{
+				"content": "which",
+				"is_correct": false
+			},
+			{
+				"content": "that",
+				"is_correct": false
+			},
+			{
+				"content": "when",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Scotland has won their last five international matches. One of these matches was against England.",
+		"answers": [
+			{
+				"content": "which one",
+				"is_correct": false
+			},
+			{
+				"content": "one of which",
+				"is_correct": true
+			},
+			{
+				"content": "which",
+				"is_correct": false
+			},
+			{
+				"content": "one of where",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "The man who is standing there is a clown.",
+		"answers": [
+			{
+				"content": "is a standing clown",
+				"is_correct": false
+			},
+			{
+				"content": "stands there is a clown",
+				"is_correct": false
+			},
+			{
+				"content": "standing there is a clown",
+				"is_correct": true
+			},
+			{
+				"content": "is standing there a clown",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "The city which was destroyed during the war has now been rebuilt.",
+		"answers": [
+			{
+				"content": "which destroying",
+				"is_correct": false
+			},
+			{
+				"content": "destroyed  ",
+				"is_correct": true
+			},
+			{
+				"content": "which destroyed  ",
+				"is_correct": false
+			},
+			{
+				"content": "destroying  ",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "John, who is my friend, has studied English for ten years.",
+		"answers": [
+			{
+				"content": "my friend",
+				"is_correct": true
+			},
+			{
+				"content": "who my friend",
+				"is_correct": false
+			},
+			{
+				"content": "is my friend",
+				"is_correct": false
+			},
+			{
+				"content": "being my friend",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "She is the only student who gets the best mark in my class.",
+		"answers": [
+			{
+				"content": "whom getting",
+				"is_correct": false
+			},
+			{
+				"content": "gets",
+				"is_correct": false
+			},
+			{
+				"content": "to get ",
+				"is_correct": true
+			},
+			{
+				"content": "get",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "The last student that was interviewed was Tom.",
+		"answers": [
+			{
+				"content": "to interview was Tom",
+				"is_correct": false
+			},
+			{
+				"content": "was interviewed was Tom",
+				"is_correct": false
+			},
+			{
+				"content": "to be interviewed was Tom",
+				"is_correct": true
+			},
+			{
+				"content": "was Tom to be interviewed",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "My brother, who met you yesterday, works for a big firm.",
+		"answers": [
+			{
+				"content": "meet you yesterday",
+				"is_correct": false
+			},
+			{
+				"content": "to meet you yesterday",
+				"is_correct": false
+			},
+			{
+				"content": "met you yesterday",
+				"is_correct": false
+			},
+			{
+				"content": "meeting you yesterday",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "France, where is a very beautiful country, has many tourist attractions.   ",
+		"answers": [
+			{
+				"content": "where ",
+				"is_correct": true
+			},
+			{
+				"content": "  very beautiful",
+				"is_correct": false
+			},
+			{
+				"content": " has ",
+				"is_correct": false
+			},
+			{
+				"content": " attractions",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "It is much easier for a foreigner to become an American citizen if he has a close relative whoever is already an American. ",
+		"answers": [
+			{
+				"content": "much",
+				"is_correct": false
+			},
+			{
+				"content": "to become",
+				"is_correct": false
+			},
+			{
+				"content": "he has",
+				"is_correct": false
+			},
+			{
+				"content": "whoever  ",
+				"is_correct": true
+			}
+		]
+	}
+]

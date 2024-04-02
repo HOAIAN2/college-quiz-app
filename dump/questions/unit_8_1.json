@@ -1,0 +1,443 @@
+[
+	{
+		"content": "Tom isn't here _________ the moment. He'll be back _________five minutes.",
+		"answers": [
+			{
+				"content": "in/ on",
+				"is_correct": false
+			},
+			{
+				"content": "at/ on",
+				"is_correct": false
+			},
+			{
+				"content": "in/ in",
+				"is_correct": false
+			},
+			{
+				"content": "at/ in",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "The course begins _______7 January and ends _________10 March.",
+		"answers": [
+			{
+				"content": "on/on",
+				"is_correct": true
+			},
+			{
+				"content": "in/in",
+				"is_correct": false
+			},
+			{
+				"content": "at/at",
+				"is_correct": false
+			},
+			{
+				"content": "from/to",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Tom's grandmother died _______1977 _______ the age of 79.",
+		"answers": [
+			{
+				"content": "on/at",
+				"is_correct": false
+			},
+			{
+				"content": "in/ at",
+				"is_correct": true
+			},
+			{
+				"content": "at/in",
+				"is_correct": false
+			},
+			{
+				"content": "in/on",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Section 5 is _________ the first floor of the Prep School.",
+		"answers": [
+			{
+				"content": "at",
+				"is_correct": false
+			},
+			{
+				"content": "in",
+				"is_correct": false
+			},
+			{
+				"content": "on",
+				"is_correct": true
+			},
+			{
+				"content": "between",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Mary was born ______ 20th March _________1982.",
+		"answers": [
+			{
+				"content": "on/in",
+				"is_correct": true
+			},
+			{
+				"content": "on/on",
+				"is_correct": false
+			},
+			{
+				"content": "in/in",
+				"is_correct": false
+			},
+			{
+				"content": "in/on",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "She is reading ________ interesting book at present.",
+		"answers": [
+			{
+				"content": "x",
+				"is_correct": false
+			},
+			{
+				"content": "an",
+				"is_correct": true
+			},
+			{
+				"content": "a",
+				"is_correct": false
+			},
+			{
+				"content": "the",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "My mother thinks that this is ________ most expensive shop in this street.",
+		"answers": [
+			{
+				"content": "that",
+				"is_correct": false
+			},
+			{
+				"content": "an",
+				"is_correct": false
+			},
+			{
+				"content": "the",
+				"is_correct": true
+			},
+			{
+				"content": "a",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "I am on night duty. When you go to ________ bed, I go to ________ work.",
+		"answers": [
+			{
+				"content": "Ø/ Ø",
+				"is_correct": true
+			},
+			{
+				"content": "Ø/ the",
+				"is_correct": false
+			},
+			{
+				"content": "the/ a",
+				"is_correct": false
+			},
+			{
+				"content": "the/ Ø",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "We will be at _______ home in _______ hour. ",
+		"answers": [
+			{
+				"content": "Ø/the",
+				"is_correct": false
+			},
+			{
+				"content": "the/ Ø",
+				"is_correct": false
+			},
+			{
+				"content": "Ø/ Ø",
+				"is_correct": false
+			},
+			{
+				"content": "Ø/ an",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "After ________World War II, ______United Nations was formed.",
+		"answers": [
+			{
+				"content": "the/an",
+				"is_correct": false
+			},
+			{
+				"content": "the/the",
+				"is_correct": false
+			},
+			{
+				"content": "Ø/ the",
+				"is_correct": true
+			},
+			{
+				"content": "Ø/ Ø",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "At first, she was trained to be ____scriptwiter, but later she worked as_______secretary.  ",
+		"answers": [
+			{
+				"content": "a/a",
+				"is_correct": true
+			},
+			{
+				"content": "a/the",
+				"is_correct": false
+			},
+			{
+				"content": "the/a",
+				"is_correct": false
+			},
+			{
+				"content": "the/the",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "________ youngest boy has just started going to ________ school.",
+		"answers": [
+			{
+				"content": "A/ Ø",
+				"is_correct": false
+			},
+			{
+				"content": "A/the",
+				"is_correct": false
+			},
+			{
+				"content": "The/a",
+				"is_correct": false
+			},
+			{
+				"content": "The/ Ø",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "We’ll buy a smaller house when the children have grown _______ and left home.",
+		"answers": [
+			{
+				"content": "over",
+				"is_correct": false
+			},
+			{
+				"content": "on",
+				"is_correct": false
+			},
+			{
+				"content": "up",
+				"is_correct": true
+			},
+			{
+				"content": "down",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Fred is capable________ doing better work than he is doing at present.",
+		"answers": [
+			{
+				"content": "at",
+				"is_correct": false
+			},
+			{
+				"content": "of",
+				"is_correct": true
+			},
+			{
+				"content": "on",
+				"is_correct": false
+			},
+			{
+				"content": "about",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "My plan is similar_______ yours, but it is different__________ Ken’s.",
+		"answers": [
+			{
+				"content": "with/from",
+				"is_correct": false
+			},
+			{
+				"content": "to/to",
+				"is_correct": false
+			},
+			{
+				"content": "to/from",
+				"is_correct": true
+			},
+			{
+				"content": "with/to",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Mr. Green is responsible ________hiring employees.",
+		"answers": [
+			{
+				"content": "for",
+				"is_correct": true
+			},
+			{
+				"content": "with",
+				"is_correct": false
+			},
+			{
+				"content": "in",
+				"is_correct": false
+			},
+			{
+				"content": "about",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "I'm looking for ____ job. Did Mary get_____ job she applied for?",
+		"answers": [
+			{
+				"content": "the/the",
+				"is_correct": false
+			},
+			{
+				"content": "a/a",
+				"is_correct": false
+			},
+			{
+				"content": "a/the",
+				"is_correct": true
+			},
+			{
+				"content": "the/a",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "We live in______ big house in ______ middle of the village.",
+		"answers": [
+			{
+				"content": "the/the",
+				"is_correct": false
+			},
+			{
+				"content": "a/the",
+				"is_correct": true
+			},
+			{
+				"content": "a/a",
+				"is_correct": false
+			},
+			{
+				"content": "the/a",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "The Soviet Union was______ first country to send a man into ______ space.",
+		"answers": [
+			{
+				"content": "the/ the",
+				"is_correct": false
+			},
+			{
+				"content": "the/ Ø",
+				"is_correct": true
+			},
+			{
+				"content": "the/ a",
+				"is_correct": false
+			},
+			{
+				"content": "a/the",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "It is said the Robinhood robbed______ rich and gave the money to ______ poor.",
+		"answers": [
+			{
+				"content": "the/the",
+				"is_correct": true
+			},
+			{
+				"content": "the/a",
+				"is_correct": false
+			},
+			{
+				"content": "a/a",
+				"is_correct": false
+			},
+			{
+				"content": "a/the",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Many places _____ our city are heavily polluted.",
+		"answers": [
+			{
+				"content": "on",
+				"is_correct": false
+			},
+			{
+				"content": " in ",
+				"is_correct": true
+			},
+			{
+				"content": " at  ",
+				"is_correct": false
+			},
+			{
+				"content": "  upon",
+				"is_correct": false
+			}
+		]
+	}
+]

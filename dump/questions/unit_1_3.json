@@ -1,0 +1,317 @@
+[
+	{
+		"content": "At this time last year, I _______(attend) an  English course.",
+		"answers": [
+			{
+				"content": "attend",
+				"is_correct": false
+			},
+			{
+				"content": "was attending",
+				"is_correct": true
+			},
+			{
+				"content": "attended",
+				"is_correct": false
+			},
+			{
+				"content": "will attend",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "She _______ tennis at 4p.m yesterday.",
+		"answers": [
+			{
+				"content": "plays",
+				"is_correct": false
+			},
+			{
+				"content": "has been playing",
+				"is_correct": false
+			},
+			{
+				"content": "played",
+				"is_correct": false
+			},
+			{
+				"content": "was playing",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "What________ (you/do) at 8 p.m yesterday?",
+		"answers": [
+			{
+				"content": "did you do",
+				"is_correct": false
+			},
+			{
+				"content": "were you doing",
+				"is_correct": true
+			},
+			{
+				"content": "do you do",
+				"is_correct": false
+			},
+			{
+				"content": "have you done",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "While my father ________(read) books, my brother ________(listen) to music.",
+		"answers": [
+			{
+				"content": "was reading/ was listening",
+				"is_correct": true
+			},
+			{
+				"content": "was reading/listened",
+				"is_correct": false
+			},
+			{
+				"content": "read/listened",
+				"is_correct": false
+			},
+			{
+				"content": "read/was listening",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "At this time last year, my sister ______ a new car.",
+		"answers": [
+			{
+				"content": "would buy",
+				"is_correct": false
+			},
+			{
+				"content": "was buying",
+				"is_correct": true
+			},
+			{
+				"content": "bought",
+				"is_correct": false
+			},
+			{
+				"content": "had bought",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "When his wife  ________(arrive) at this house, he still ________(sleep).",
+		"answers": [
+			{
+				"content": "was arriving/still slept",
+				"is_correct": false
+			},
+			{
+				"content": "was arriving/was sleeping",
+				"is_correct": false
+			},
+			{
+				"content": "arrived/ was still sleeping",
+				"is_correct": true
+			},
+			{
+				"content": "arrived/still slept",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "He _________ in the garden when I came.",
+		"answers": [
+			{
+				"content": "wasn’t working",
+				"is_correct": true
+			},
+			{
+				"content": "didn’t work",
+				"is_correct": false
+			},
+			{
+				"content": "wasn’t work",
+				"is_correct": false
+			},
+			{
+				"content": "didn’t be working",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "When we _______(cross) the street, we saw an accident.",
+		"answers": [
+			{
+				"content": "have been crossing",
+				"is_correct": false
+			},
+			{
+				"content": "had been crossing",
+				"is_correct": false
+			},
+			{
+				"content": "were crossing",
+				"is_correct": true
+			},
+			{
+				"content": "crossed",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "While he was doing homework, his sister _______(learn) English.",
+		"answers": [
+			{
+				"content": "didn’t learned",
+				"is_correct": false
+			},
+			{
+				"content": "was being learned",
+				"is_correct": false
+			},
+			{
+				"content": "learned",
+				"is_correct": false
+			},
+			{
+				"content": "was learning",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "Faker suddenly _______(sit) down on the chair when I ________(paint) it.",
+		"answers": [
+			{
+				"content": "sat/was painting",
+				"is_correct": true
+			},
+			{
+				"content": "was sitting/ painted",
+				"is_correct": false
+			},
+			{
+				"content": "sat/painted",
+				"is_correct": false
+			},
+			{
+				"content": "was sitting/was painting",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "He _________ at college at that time last year.",
+		"answers": [
+			{
+				"content": "was being working",
+				"is_correct": false
+			},
+			{
+				"content": "worked",
+				"is_correct": false
+			},
+			{
+				"content": "was working",
+				"is_correct": true
+			},
+			{
+				"content": "has worked",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Marry ____________(wait) in the lobby, wasn’t she?",
+		"answers": [
+			{
+				"content": "was waited",
+				"is_correct": false
+			},
+			{
+				"content": "waited",
+				"is_correct": false
+			},
+			{
+				"content": "was waiting",
+				"is_correct": true
+			},
+			{
+				"content": "wasn’t waiting",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "It _________(snow) when I got up this morning.",
+		"answers": [
+			{
+				"content": "snowed",
+				"is_correct": false
+			},
+			{
+				"content": "was snowing",
+				"is_correct": true
+			},
+			{
+				"content": "has been snowing",
+				"is_correct": false
+			},
+			{
+				"content": "snows",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "The car _________(not/stop) as we ____________(cross) the road.",
+		"answers": [
+			{
+				"content": "wasn’t stopping/crossed",
+				"is_correct": false
+			},
+			{
+				"content": "wasn’t stopping/were crossing",
+				"is_correct": false
+			},
+			{
+				"content": "didn’t stop/crossed",
+				"is_correct": false
+			},
+			{
+				"content": "didn’t stop/ were crossing",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "What __________(you/do) when it __________(rain)all day before?",
+		"answers": [
+			{
+				"content": "were you doing/ rained",
+				"is_correct": true
+			},
+			{
+				"content": "were you doing/ was raining",
+				"is_correct": false
+			},
+			{
+				"content": "did you do/was raining",
+				"is_correct": false
+			},
+			{
+				"content": "did you do/ had been",
+				"is_correct": false
+			}
+		]
+	}
+]

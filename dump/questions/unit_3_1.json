@@ -1,0 +1,527 @@
+[
+	{
+		"content": "“I went to see him yesterday”, she said.",
+		"answers": [
+			{
+				"content": "goes",
+				"is_correct": false
+			},
+			{
+				"content": "had gone",
+				"is_correct": true
+			},
+			{
+				"content": "went",
+				"is_correct": false
+			},
+			{
+				"content": "has gone",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "“I don’t want to meet him again”, she said.",
+		"answers": [
+			{
+				"content": "will not want",
+				"is_correct": false
+			},
+			{
+				"content": "didn’t want",
+				"is_correct": true
+			},
+			{
+				"content": "doesn’t want",
+				"is_correct": false
+			},
+			{
+				"content": "hadn’t wanted",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "He asked me _______ swim.",
+		"answers": [
+			{
+				"content": "I can",
+				"is_correct": false
+			},
+			{
+				"content": "could I ",
+				"is_correct": false
+			},
+			{
+				"content": "I could",
+				"is_correct": false
+			},
+			{
+				"content": "if I could",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "Thu said all students _______ a meeting the following week.",
+		"answers": [
+			{
+				"content": "would have",
+				"is_correct": true
+			},
+			{
+				"content": "will have had",
+				"is_correct": false
+			},
+			{
+				"content": "will have",
+				"is_correct": false
+			},
+			{
+				"content": "would have had",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "He asked me ______ that film.",
+		"answers": [
+			{
+				"content": "have I ever seen",
+				"is_correct": false
+			},
+			{
+				"content": "whether I have ever seen",
+				"is_correct": false
+			},
+			{
+				"content": "I had ever seen",
+				"is_correct": false
+			},
+			{
+				"content": "if I had ever seen",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "She asked us ________ the next week.",
+		"answers": [
+			{
+				"content": "what were we going to do",
+				"is_correct": false
+			},
+			{
+				"content": "were we going to do",
+				"is_correct": false
+			},
+			{
+				"content": "what we were going to do",
+				"is_correct": true
+			},
+			{
+				"content": "what were we going to do",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "“What time does John get up?”, he asked me.",
+		"answers": [
+			{
+				"content": "what time John gets up",
+				"is_correct": false
+			},
+			{
+				"content": "what time John got up",
+				"is_correct": true
+			},
+			{
+				"content": "what time does John get up",
+				"is_correct": false
+			},
+			{
+				"content": "what time did John get up",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "He wondered _______ there the next day.",
+		"answers": [
+			{
+				"content": "if would he be",
+				"is_correct": false
+			},
+			{
+				"content": "whether would he be",
+				"is_correct": false
+			},
+			{
+				"content": "whether he would be",
+				"is_correct": true
+			},
+			{
+				"content": "he would be",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "I asked him _______ to buy souvenirs.",
+		"answers": [
+			{
+				"content": "where the best place was",
+				"is_correct": true
+			},
+			{
+				"content": "where was the best place",
+				"is_correct": false
+			},
+			{
+				"content": "where the best place is",
+				"is_correct": false
+			},
+			{
+				"content": "if the best place is",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "She asked her boyfriend _________ best.",
+		"answers": [
+			{
+				"content": "if dress he liked",
+				"is_correct": false
+			},
+			{
+				"content": "which dress did he like",
+				"is_correct": false
+			},
+			{
+				"content": "which dress he liked",
+				"is_correct": true
+			},
+			{
+				"content": "which dress he likes",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "\"If  I were you, I would kept silent”, he said to me.",
+		"answers": [
+			{
+				"content": "keeping silent",
+				"is_correct": false
+			},
+			{
+				"content": "keep silent",
+				"is_correct": false
+			},
+			{
+				"content": "kept silent",
+				"is_correct": false
+			},
+			{
+				"content": "to keep silent",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "The teacher asked, \"Who speaks English?\"",
+		"answers": [
+			{
+				"content": "who speak English",
+				"is_correct": false
+			},
+			{
+				"content": "who spoke English",
+				"is_correct": true
+			},
+			{
+				"content": "who did speak English",
+				"is_correct": false
+			},
+			{
+				"content": "to speak English",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "\"Has Caron talked to Kevin?\" my friend asked me.",
+		"answers": [
+			{
+				"content": "if Caron had talked",
+				"is_correct": true
+			},
+			{
+				"content": "did Caron talk",
+				"is_correct": false
+			},
+			{
+				"content": "if Caron talked",
+				"is_correct": false
+			},
+			{
+				"content": "Caron had talked",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "“You had better go to bed early”, she said.",
+		"answers": [
+			{
+				"content": "not to go to bed",
+				"is_correct": false
+			},
+			{
+				"content": "had better go to bed",
+				"is_correct": false
+			},
+			{
+				"content": "to go to bed",
+				"is_correct": true
+			},
+			{
+				"content": "go to bed",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "“ It’s really nice of you to help me”, Peter said to Jack.",
+		"answers": [
+			{
+				"content": "to help him",
+				"is_correct": false
+			},
+			{
+				"content": "helping him",
+				"is_correct": false
+			},
+			{
+				"content": "for helping him",
+				"is_correct": true
+			},
+			{
+				"content": "help him",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "“ Don’t play games on computer all day”, Tom’s mother said to him.",
+		"answers": [
+			{
+				"content": "him against playing games",
+				"is_correct": true
+			},
+			{
+				"content": "him not playing games",
+				"is_correct": false
+			},
+			{
+				"content": "him to play games",
+				"is_correct": false
+			},
+			{
+				"content": "not playing games",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "“I hear you passed your driving test.Congratulation!”, Peter said to me.",
+		"answers": [
+			{
+				"content": "to pass",
+				"is_correct": false
+			},
+			{
+				"content": "passing",
+				"is_correct": false
+			},
+			{
+				"content": "on passing",
+				"is_correct": true
+			},
+			{
+				"content": "for passing",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "“I’m sorry. I didn’t do my homework,” John said to his English teacher.",
+		"answers": [
+			{
+				"content": "to his English teacher for not doing",
+				"is_correct": true
+			},
+			{
+				"content": "his English teacher not to do",
+				"is_correct": false
+			},
+			{
+				"content": "for his English teacher not doing",
+				"is_correct": false
+			},
+			{
+				"content": "his English teacher for not doing",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "“I always want to become an engineer,” Mary said.",
+		"answers": [
+			{
+				"content": "for becoming",
+				"is_correct": false
+			},
+			{
+				"content": "becoming",
+				"is_correct": false
+			},
+			{
+				"content": "to become",
+				"is_correct": false
+			},
+			{
+				"content": "of becoming",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "\"You damaged my bicycle, John!\" said Mary.",
+		"answers": [
+			{
+				"content": "accused John to damage her bicycle",
+				"is_correct": false
+			},
+			{
+				"content": "accused damaging her bicycle",
+				"is_correct": false
+			},
+			{
+				"content": "accused John of damaging her bicycle",
+				"is_correct": true
+			},
+			{
+				"content": "accused of John for damaging her bicycle",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "“I only borrowed your car for some hours” the man said. ",
+		"answers": [
+			{
+				"content": "to borrow my car",
+				"is_correct": false
+			},
+			{
+				"content": "borrowing my car",
+				"is_correct": true
+			},
+			{
+				"content": "have borrowed my car",
+				"is_correct": false
+			},
+			{
+				"content": "borrowed my car",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "“Don’t forget to take the holiday,” John said.",
+		"answers": [
+			{
+				"content": "to take",
+				"is_correct": true
+			},
+			{
+				"content": "taking",
+				"is_correct": false
+			},
+			{
+				"content": "to taking",
+				"is_correct": false
+			},
+			{
+				"content": "for taking",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "“Certainly. I’ll take you to the zoo next Sunday,” he said. ",
+		"answers": [
+			{
+				"content": "insisted on taking",
+				"is_correct": true
+			},
+			{
+				"content": "insisted to take",
+				"is_correct": false
+			},
+			{
+				"content": "insisted for taking",
+				"is_correct": false
+			},
+			{
+				"content": "insisted taking",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "“If you wanted to take my bike, you should have asked me first” said Mike to his brother.",
+		"answers": [
+			{
+				"content": "on taking",
+				"is_correct": false
+			},
+			{
+				"content": "to take",
+				"is_correct": false
+			},
+			{
+				"content": "for taking",
+				"is_correct": true
+			},
+			{
+				"content": "taking",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "“It’s not a good idea to indulge the children so much”, Mr. Hoang said.",
+		"answers": [
+			{
+				"content": "to indulge",
+				"is_correct": false
+			},
+			{
+				"content": "to indulging",
+				"is_correct": true
+			},
+			{
+				"content": "indulging",
+				"is_correct": false
+			},
+			{
+				"content": "indulge",
+				"is_correct": false
+			}
+		]
+	}
+]

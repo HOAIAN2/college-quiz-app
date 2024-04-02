@@ -1,0 +1,527 @@
+[
+	{
+		"content": "If he________exercises, he________play soccer.",
+		"answers": [
+			{
+				"content": "doing/can",
+				"is_correct": false
+			},
+			{
+				"content": "does/could    ",
+				"is_correct": false
+			},
+			{
+				"content": "does/can",
+				"is_correct": true
+			},
+			{
+				"content": "did/could",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "If I________money, I________a new uniform.",
+		"answers": [
+			{
+				"content": "have/will buy",
+				"is_correct": false
+			},
+			{
+				"content": "has/will buy",
+				"is_correct": false
+			},
+			{
+				"content": "had/will buy",
+				"is_correct": false
+			},
+			{
+				"content": "had/would buy",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "If you ________ enough sleep, you ________ a headache.",
+		"answers": [
+			{
+				"content": "don’t get/get",
+				"is_correct": false
+			},
+			{
+				"content": "don’t get/got",
+				"is_correct": false
+			},
+			{
+				"content": "don’t get/will get",
+				"is_correct": true
+			},
+			{
+				"content": "get/would get",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "If water is heated to 100oC, it________to steam.",
+		"answers": [
+			{
+				"content": "turned",
+				"is_correct": false
+			},
+			{
+				"content": "will turn",
+				"is_correct": false
+			},
+			{
+				"content": "turn",
+				"is_correct": false
+			},
+			{
+				"content": "turns",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "If I __________the same problem you had as a child, I might not have succeeded in life as well as you have.",
+		"answers": [
+			{
+				"content": "have",
+				"is_correct": false
+			},
+			{
+				"content": "would have",
+				"is_correct": false
+			},
+			{
+				"content": "had had",
+				"is_correct": true
+			},
+			{
+				"content": "should have",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "If I had known you were asleep, I __________so much noise when I came in.",
+		"answers": [
+			{
+				"content": "didn’t make  ",
+				"is_correct": false
+			},
+			{
+				"content": "wouldn’t have made",
+				"is_correct": true
+			},
+			{
+				"content": "won’t make",
+				"is_correct": false
+			},
+			{
+				"content": "don’t make",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "If the tree hadn't been so high, he _____ it up to take his kite down.",
+		"answers": [
+			{
+				"content": "could have climbed",
+				"is_correct": true
+			},
+			{
+				"content": "climb",
+				"is_correct": false
+			},
+			{
+				"content": "is climbing",
+				"is_correct": false
+			},
+			{
+				"content": "climbed",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "If she ____ the truth, I think she’d never want to see you again.",
+		"answers": [
+			{
+				"content": "would know",
+				"is_correct": false
+			},
+			{
+				"content": "knows",
+				"is_correct": false
+			},
+			{
+				"content": "will know",
+				"is_correct": false
+			},
+			{
+				"content": "knew",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "I   ____ the police unless you ______",
+		"answers": [
+			{
+				"content": "will call/ don’t",
+				"is_correct": false
+			},
+			{
+				"content": "will call/ go out",
+				"is_correct": true
+			},
+			{
+				"content": "won’t call/don’t go out",
+				"is_correct": false
+			},
+			{
+				"content": "don’t call/go out",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Do you think there would be less conflict in the world if all people ______ the same language?",
+		"answers": [
+			{
+				"content": "don’t speak",
+				"is_correct": false
+			},
+			{
+				"content": "spoke",
+				"is_correct": true
+			},
+			{
+				"content": "speak",
+				"is_correct": false
+			},
+			{
+				"content": "have spoken",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Were he ten years younger, he _____ part in the voyage around the world.",
+		"answers": [
+			{
+				"content": "would take",
+				"is_correct": true
+			},
+			{
+				"content": "took",
+				"is_correct": false
+			},
+			{
+				"content": "will take",
+				"is_correct": false
+			},
+			{
+				"content": "takes",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "__________more help, I will call my neighbor.",
+		"answers": [
+			{
+				"content": "Needed  ",
+				"is_correct": false
+			},
+			{
+				"content": "Should I need",
+				"is_correct": true
+			},
+			{
+				"content": "I have needed",
+				"is_correct": false
+			},
+			{
+				"content": "I should need",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "__________the truth  yesterday, I would have saved myself a lot of time over the years.",
+		"answers": [
+			{
+				"content": "Had I known",
+				"is_correct": true
+			},
+			{
+				"content": "Did I know",
+				"is_correct": false
+			},
+			{
+				"content": "If I know",
+				"is_correct": false
+			},
+			{
+				"content": "If I would know",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "__________the truth  yesterday, I would have saved myself a lot of time over the years.",
+		"answers": [
+			{
+				"content": "Had I known      ",
+				"is_correct": true
+			},
+			{
+				"content": "Did I know",
+				"is_correct": false
+			},
+			{
+				"content": "If I know",
+				"is_correct": false
+			},
+			{
+				"content": "If I would know",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Had you told me that this was going to happen, I __________it.",
+		"answers": [
+			{
+				"content": "would have never believed",
+				"is_correct": true
+			},
+			{
+				"content": "would not believe",
+				"is_correct": false
+			},
+			{
+				"content": "hadn’t believed",
+				"is_correct": false
+			},
+			{
+				"content": "would have never been believed",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Unless you __________all of my questions, I can’t do anything to help you.",
+		"answers": [
+			{
+				"content": "answered",
+				"is_correct": false
+			},
+			{
+				"content": "answer",
+				"is_correct": true
+			},
+			{
+				"content": "would answer",
+				"is_correct": false
+			},
+			{
+				"content": "are answering",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "If he ________ me the reason yesterday, I ________ sad now. ",
+		"answers": [
+			{
+				"content": "had told/ wouldn’t be",
+				"is_correct": true
+			},
+			{
+				"content": "had told/ wouldn’t have been",
+				"is_correct": false
+			},
+			{
+				"content": "told/ wouldn’t be",
+				"is_correct": false
+			},
+			{
+				"content": "had told/ won’t be",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "She says if she _____ that the traffic lights were red she _____.",
+		"answers": [
+			{
+				"content": "had realized / would stop     ",
+				"is_correct": false
+			},
+			{
+				"content": "realized / could have stopped",
+				"is_correct": false
+			},
+			{
+				"content": "has realized / stopped",
+				"is_correct": false
+			},
+			{
+				"content": "had realized / would have stopped",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "You won't pass the examination_____ you study more.  ",
+		"answers": [
+			{
+				"content": "as long as",
+				"is_correct": false
+			},
+			{
+				"content": "unless",
+				"is_correct": true
+			},
+			{
+				"content": "if",
+				"is_correct": false
+			},
+			{
+				"content": "whether",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "It was much colder than we had thought. _____ we had taken more warm clothes.",
+		"answers": [
+			{
+				"content": "if",
+				"is_correct": false
+			},
+			{
+				"content": "unless",
+				"is_correct": false
+			},
+			{
+				"content": "but for",
+				"is_correct": false
+			},
+			{
+				"content": "if only",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "I would have crashed the car _____.",
+		"answers": [
+			{
+				"content": "unless you warned me",
+				"is_correct": false
+			},
+			{
+				"content": "in case you warn me",
+				"is_correct": false
+			},
+			{
+				"content": "if there were a warning",
+				"is_correct": false
+			},
+			{
+				"content": "but for your warning",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "_____ the boat leaves on time, we will arrive in Paris by the morning.",
+		"answers": [
+			{
+				"content": "If only",
+				"is_correct": false
+			},
+			{
+				"content": "Provided that",
+				"is_correct": true
+			},
+			{
+				"content": "But for",
+				"is_correct": false
+			},
+			{
+				"content": "Without",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "She acted as if she _________ him before.",
+		"answers": [
+			{
+				"content": "met",
+				"is_correct": false
+			},
+			{
+				"content": "would meet    ",
+				"is_correct": false
+			},
+			{
+				"content": "would have met",
+				"is_correct": false
+			},
+			{
+				"content": "had met",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "We're going to start painting the house tomorrow_____ it's not raining.  ",
+		"answers": [
+			{
+				"content": "provided",
+				"is_correct": true
+			},
+			{
+				"content": "unless",
+				"is_correct": false
+			},
+			{
+				"content": "whether",
+				"is_correct": false
+			},
+			{
+				"content": "until",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "George won't lend you any money_____ you promise to pay him back.  ",
+		"answers": [
+			{
+				"content": "providing",
+				"is_correct": false
+			},
+			{
+				"content": "if",
+				"is_correct": false
+			},
+			{
+				"content": "provided",
+				"is_correct": false
+			},
+			{
+				"content": "unless",
+				"is_correct": true
+			}
+		]
+	}
+]

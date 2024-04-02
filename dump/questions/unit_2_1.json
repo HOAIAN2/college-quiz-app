@@ -1,0 +1,737 @@
+[
+	{
+		"content": "I _______   Arthur three weeks ago.",
+		"answers": [
+			{
+				"content": "was meeting",
+				"is_correct": false
+			},
+			{
+				"content": "have met",
+				"is_correct": false
+			},
+			{
+				"content": "met",
+				"is_correct": true
+			},
+			{
+				"content": "had been meeting",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "My friend _______   me for what I had done for him.",
+		"answers": [
+			{
+				"content": "has thanked",
+				"is_correct": false
+			},
+			{
+				"content": "thanked",
+				"is_correct": true
+			},
+			{
+				"content": "thanks",
+				"is_correct": false
+			},
+			{
+				"content": "is thanking",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "People _______  English in most of Canada.",
+		"answers": [
+			{
+				"content": "have spoken",
+				"is_correct": false
+			},
+			{
+				"content": "have been speaking",
+				"is_correct": false
+			},
+			{
+				"content": "spoke",
+				"is_correct": false
+			},
+			{
+				"content": "speak",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "She ________ (play) the piano when our guests _______ (arrive) last night.",
+		"answers": [
+			{
+				"content": "was playing/ arrived",
+				"is_correct": true
+			},
+			{
+				"content": "played/ arrived",
+				"is_correct": false
+			},
+			{
+				"content": "was playing/ were arriving",
+				"is_correct": false
+			},
+			{
+				"content": "had played/arrived",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "(you/ see) ______Nam recently? – No, I (see)_______ him a year ago.",
+		"answers": [
+			{
+				"content": "Have you seen/have seen",
+				"is_correct": false
+			},
+			{
+				"content": "Have you seen/saw",
+				"is_correct": true
+			},
+			{
+				"content": "Did you see/saw",
+				"is_correct": false
+			},
+			{
+				"content": "Do you see/saw",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "My father _________ for 5 years.",
+		"answers": [
+			{
+				"content": "doesn’t smoke",
+				"is_correct": false
+			},
+			{
+				"content": "smoked",
+				"is_correct": false
+			},
+			{
+				"content": "didn’t smoke",
+				"is_correct": false
+			},
+			{
+				"content": "hasn’t smoked",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "The farmers______ in the field at the monent.   ",
+		"answers": [
+			{
+				"content": "are working",
+				"is_correct": true
+			},
+			{
+				"content": "work",
+				"is_correct": false
+			},
+			{
+				"content": "have been working",
+				"is_correct": false
+			},
+			{
+				"content": "have worked",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "By next month, I _______  my first novel.",
+		"answers": [
+			{
+				"content": "will be finishing",
+				"is_correct": false
+			},
+			{
+				"content": "will finish",
+				"is_correct": false
+			},
+			{
+				"content": "is going to finish",
+				"is_correct": false
+			},
+			{
+				"content": "will have finished",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "Be quiet! The teacher _______ (be) angry.",
+		"answers": [
+			{
+				"content": "is",
+				"is_correct": true
+			},
+			{
+				"content": "is being",
+				"is_correct": false
+			},
+			{
+				"content": "has been",
+				"is_correct": false
+			},
+			{
+				"content": "was",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "By the end of this March, I ________ English for 5 years.  And I will take some higher-level courses in an English centre.",
+		"answers": [
+			{
+				"content": "have studied",
+				"is_correct": false
+			},
+			{
+				"content": "have been studying",
+				"is_correct": false
+			},
+			{
+				"content": "will have been studying",
+				"is_correct": true
+			},
+			{
+				"content": "will study",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "He ________   his homework before he went to the cinema.",
+		"answers": [
+			{
+				"content": "has done",
+				"is_correct": false
+			},
+			{
+				"content": "had done",
+				"is_correct": true
+			},
+			{
+				"content": "did",
+				"is_correct": false
+			},
+			{
+				"content": "was doing",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "By noon, I _______ for her for two hours.",
+		"answers": [
+			{
+				"content": "will have waited",
+				"is_correct": true
+			},
+			{
+				"content": "will be waiting",
+				"is_correct": false
+			},
+			{
+				"content": "have been waiting",
+				"is_correct": false
+			},
+			{
+				"content": "have waited",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Up to now, the teacher ________  our class five tests.",
+		"answers": [
+			{
+				"content": "is giving",
+				"is_correct": false
+			},
+			{
+				"content": "will give",
+				"is_correct": false
+			},
+			{
+				"content": "gave",
+				"is_correct": false
+			},
+			{
+				"content": "has given",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "I’m preparing to support anything he ________ (say) tomorrow.",
+		"answers": [
+			{
+				"content": "will be saying",
+				"is_correct": false
+			},
+			{
+				"content": "says",
+				"is_correct": false
+			},
+			{
+				"content": "will say",
+				"is_correct": true
+			},
+			{
+				"content": "will have been saying",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Listen! I think someone _______ (knock) at the door.",
+		"answers": [
+			{
+				"content": "has been knocking",
+				"is_correct": false
+			},
+			{
+				"content": "is knocking",
+				"is_correct": true
+			},
+			{
+				"content": "knocks",
+				"is_correct": false
+			},
+			{
+				"content": "knocked",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "When her husband was in the army, Mary ______ to him twice a week.",
+		"answers": [
+			{
+				"content": "was reading",
+				"is_correct": false
+			},
+			{
+				"content": "wrote     ",
+				"is_correct": true
+			},
+			{
+				"content": "was written  ",
+				"is_correct": false
+			},
+			{
+				"content": "had written",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Since _______, I have heard nothing from him.",
+		"answers": [
+			{
+				"content": "he had left",
+				"is_correct": false
+			},
+			{
+				"content": "he has left        ",
+				"is_correct": false
+			},
+			{
+				"content": "he left ",
+				"is_correct": true
+			},
+			{
+				"content": "he was left",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "After I _______ lunch, I looked for my bag.",
+		"answers": [
+			{
+				"content": "had        ",
+				"is_correct": false
+			},
+			{
+				"content": "had had    ",
+				"is_correct": true
+			},
+			{
+				"content": "have has     ",
+				"is_correct": false
+			},
+			{
+				"content": "have had",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Henry _______ into the restaurant when the writer was having dinner.",
+		"answers": [
+			{
+				"content": "went          ",
+				"is_correct": true
+			},
+			{
+				"content": "was going ",
+				"is_correct": false
+			},
+			{
+				"content": "has gone    ",
+				"is_correct": false
+			},
+			{
+				"content": "did go",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "He will take the dog out for a walk as soon as he ______ dinner.",
+		"answers": [
+			{
+				"content": "finish        ",
+				"is_correct": false
+			},
+			{
+				"content": "finishing       ",
+				"is_correct": false
+			},
+			{
+				"content": "will finish    ",
+				"is_correct": false
+			},
+			{
+				"content": "has finished",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "The last time I ______ in New York, the weather was hot and humid.",
+		"answers": [
+			{
+				"content": "have been",
+				"is_correct": false
+			},
+			{
+				"content": "had been",
+				"is_correct": false
+			},
+			{
+				"content": "would be",
+				"is_correct": false
+			},
+			{
+				"content": "was",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "By 9 o'clock, we _______our homework.",
+		"answers": [
+			{
+				"content": "will have finished",
+				"is_correct": true
+			},
+			{
+				"content": "have finished",
+				"is_correct": false
+			},
+			{
+				"content": "will finish",
+				"is_correct": false
+			},
+			{
+				"content": "had finished",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Your suitcases are so heavy! I ______ them for you.",
+		"answers": [
+			{
+				"content": "am going to carry",
+				"is_correct": false
+			},
+			{
+				"content": "am carrying",
+				"is_correct": false
+			},
+			{
+				"content": "will carry",
+				"is_correct": true
+			},
+			{
+				"content": "carry",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "She isn’t here. She ______ in the living room.",
+		"answers": [
+			{
+				"content": "sits",
+				"is_correct": false
+			},
+			{
+				"content": "is sitting",
+				"is_correct": true
+			},
+			{
+				"content": "sat",
+				"is_correct": false
+			},
+			{
+				"content": "was sitting",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "When I see Tom tomorrow, I ________ him for that.",
+		"answers": [
+			{
+				"content": "remind",
+				"is_correct": false
+			},
+			{
+				"content": "reminded",
+				"is_correct": false
+			},
+			{
+				"content": "will remind",
+				"is_correct": true
+			},
+			{
+				"content": "would remind",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "When I entered his room, I saw him (sleep)_____ in a chair.",
+		"answers": [
+			{
+				"content": "sleeps",
+				"is_correct": false
+			},
+			{
+				"content": "sleeping",
+				"is_correct": true
+			},
+			{
+				"content": "sleep",
+				"is_correct": false
+			},
+			{
+				"content": "to sleep",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Look at those black clouds. It (rain)________",
+		"answers": [
+			{
+				"content": "is raining",
+				"is_correct": false
+			},
+			{
+				"content": "rains",
+				"is_correct": false
+			},
+			{
+				"content": "is going to rain",
+				"is_correct": true
+			},
+			{
+				"content": "will rain",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "I _______ (pick) you up when you (arrive)_______ at the airport at 9 a.m tomorrow.",
+		"answers": [
+			{
+				"content": "will pick/ arrive",
+				"is_correct": true
+			},
+			{
+				"content": "am going to pick/will arrive",
+				"is_correct": false
+			},
+			{
+				"content": "will pick/will arrive",
+				"is_correct": false
+			},
+			{
+				"content": "pick/will arrive",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Our house  ________ in the storm last night.",
+		"answers": [
+			{
+				"content": "would destroy",
+				"is_correct": false
+			},
+			{
+				"content": "destroyed",
+				"is_correct": false
+			},
+			{
+				"content": "was destroyed",
+				"is_correct": true
+			},
+			{
+				"content": "was going to destroy",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Don’t call him at 8 a.m tomorrow. He  _____ English then.",
+		"answers": [
+			{
+				"content": "is going to study",
+				"is_correct": false
+			},
+			{
+				"content": "will have studied",
+				"is_correct": false
+			},
+			{
+				"content": "will study",
+				"is_correct": false
+			},
+			{
+				"content": "will be studying ",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "Up to then, I _____ such a fat man.",
+		"answers": [
+			{
+				"content": "never see",
+				"is_correct": false
+			},
+			{
+				"content": "never saw",
+				"is_correct": false
+			},
+			{
+				"content": "have never seen",
+				"is_correct": true
+			},
+			{
+				"content": "have never been seeing",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "As we (cross)_____ the street, we (see)_____ the accident.",
+		"answers": [
+			{
+				"content": "crossed/saw",
+				"is_correct": false
+			},
+			{
+				"content": "crossed/were seeing",
+				"is_correct": false
+			},
+			{
+				"content": "were crossing/ were seeing",
+				"is_correct": false
+			},
+			{
+				"content": "were crossing/ saw",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "Our teacher told us that he (visit)_____ England in 2009.",
+		"answers": [
+			{
+				"content": "had visited",
+				"is_correct": true
+			},
+			{
+				"content": "has visited",
+				"is_correct": false
+			},
+			{
+				"content": "visited",
+				"is_correct": false
+			},
+			{
+				"content": "was visiting",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "They (live)________ in London from 1970 to 1990.",
+		"answers": [
+			{
+				"content": "live",
+				"is_correct": false
+			},
+			{
+				"content": "were living",
+				"is_correct": false
+			},
+			{
+				"content": "have lived",
+				"is_correct": false
+			},
+			{
+				"content": "lived",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "My daughter often says that she won’t get married until she (be)_____25 years old.",
+		"answers": [
+			{
+				"content": "is",
+				"is_correct": true
+			},
+			{
+				"content": "will be",
+				"is_correct": false
+			},
+			{
+				"content": "has been",
+				"is_correct": false
+			},
+			{
+				"content": "is going to be",
+				"is_correct": false
+			}
+		]
+	}
+]
