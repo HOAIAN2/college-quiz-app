@@ -182,10 +182,12 @@ export default function Questions() {
 												].join(' ')
 											}>
 											<div className={styles['card-top']}>
-												<AiOutlineQuestionCircle />
-												{item.content}
+												<p className={styles['content']}>
+													{item.content}
+												</p>
 											</div>
 											<div className={styles['card-bottom']}>
+												<AiOutlineQuestionCircle />
 												{language?.questionLevel[item.level]}
 											</div>
 										</div>

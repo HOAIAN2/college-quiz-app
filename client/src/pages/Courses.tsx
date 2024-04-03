@@ -138,10 +138,12 @@ export default function Courses() {
 												].join(' ')
 											}>
 											<div className={styles['card-top']}>
-												<LuBookOpenCheck />
 												{item.name}
 											</div>
-											<div className={styles['card-bottom']}>{item.shortcode}</div>
+											<div className={styles['card-bottom']}>
+												<LuBookOpenCheck />
+												{item.shortcode}
+											</div>
 										</Link>
 									)
 								}) : null}

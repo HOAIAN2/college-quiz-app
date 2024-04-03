@@ -112,10 +112,13 @@ export default function Subjects() {
 												].join(' ')
 											}>
 											<div className={styles['card-top']}>
-												<LuBookOpenCheck />
-												{item.name}
+												<p className={styles['content']}>
+													{item.name}
+												</p>
 											</div>
-											<div className={styles['card-bottom']}>{item.shortcode}</div>
+											<div className={styles['card-bottom']}>
+												<LuBookOpenCheck />
+												{item.shortcode}</div>
 										</Link>
 									)
 								}) : null}
