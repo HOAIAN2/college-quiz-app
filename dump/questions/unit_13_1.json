@@ -16,7 +16,7 @@
 			},
 			{
 				"content": "angrier and angrier",
-				"is_correct": false
+				"is_correct": true
 			}
 		]
 	},
@@ -25,7 +25,7 @@
 		"answers": [
 			{
 				"content": "less fat / more exercise                       ",
-				"is_correct": false
+				"is_correct": true
 			},
 			{
 				"content": "less and less fat / the more exercise",
@@ -58,7 +58,7 @@
 			},
 			{
 				"content": "more and more difficult",
-				"is_correct": false
+				"is_correct": true
 			}
 		]
 	},
@@ -71,7 +71,7 @@
 			},
 			{
 				"content": "better and better         ",
-				"is_correct": false
+				"is_correct": true
 			},
 			{
 				"content": "the more and more good        ",
@@ -88,7 +88,7 @@
 		"answers": [
 			{
 				"content": "younger and more intelligent than",
-				"is_correct": false
+				"is_correct": true
 			},
 			{
 				"content": "more young and intelligent than",
@@ -117,7 +117,7 @@
 			},
 			{
 				"content": "colder and colder",
-				"is_correct": false
+				"is_correct": true
 			},
 			{
 				"content": "more and more cold",
@@ -142,7 +142,7 @@
 			},
 			{
 				"content": "more and more panicked",
-				"is_correct": false
+				"is_correct": true
 			}
 		]
 	},
@@ -163,7 +163,7 @@
 			},
 			{
 				"content": "the later / the louder",
-				"is_correct": false
+				"is_correct": true
 			}
 		]
 	},
@@ -176,7 +176,7 @@
 			},
 			{
 				"content": "The hotter / the more",
-				"is_correct": false
+				"is_correct": true
 			},
 			{
 				"content": "The more and more hot / the more",
@@ -193,7 +193,7 @@
 		"answers": [
 			{
 				"content": "The more the merrier  ",
-				"is_correct": false
+				"is_correct": true
 			},
 			{
 				"content": "The more, the merrier",
@@ -218,7 +218,7 @@
 			},
 			{
 				"content": "The faster / the more probable",
-				"is_correct": false
+				"is_correct": true
 			},
 			{
 				"content": "The more and more fast / the more and more probable",
@@ -243,7 +243,7 @@
 			},
 			{
 				"content": "The richer / the happier",
-				"is_correct": false
+				"is_correct": true
 			},
 			{
 				"content": "Richer and richer / happier and happier",
@@ -256,7 +256,7 @@
 		"answers": [
 			{
 				"content": "the sooner we can leave         ",
-				"is_correct": false
+				"is_correct": true
 			},
 			{
 				"content": "we can leave sooner and sooner",
@@ -285,7 +285,7 @@
 			},
 			{
 				"content": "further",
-				"is_correct": false
+				"is_correct": true
 			},
 			{
 				"content": "farer",
@@ -310,7 +310,7 @@
 			},
 			{
 				"content": "as much money as",
-				"is_correct": false
+				"is_correct": true
 			}
 		]
 	},
@@ -327,7 +327,7 @@
 			},
 			{
 				"content": "one of the two largest",
-				"is_correct": false
+				"is_correct": true
 			},
 			{
 				"content": "one of the two larger",
@@ -344,7 +344,7 @@
 			},
 			{
 				"content": "more of an athlete than          ",
-				"is_correct": false
+				"is_correct": true
 			},
 			{
 				"content": "an athlete more than   ",
@@ -361,7 +361,7 @@
 		"answers": [
 			{
 				"content": "twice as big as            ",
-				"is_correct": false
+				"is_correct": true
 			},
 			{
 				"content": "as twice big as",
@@ -382,7 +382,7 @@
 		"answers": [
 			{
 				"content": "much more tired than",
-				"is_correct": false
+				"is_correct": true
 			},
 			{
 				"content": "many more tired than ",
@@ -411,7 +411,7 @@
 			},
 			{
 				"content": "the tallest                    ",
-				"is_correct": false
+				"is_correct": true
 			},
 			{
 				"content": "taller and taller",

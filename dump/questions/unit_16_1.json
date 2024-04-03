@@ -1,0 +1,353 @@
+[
+	{
+		"content": "_______ Peter gets here, we will congratulate him.",
+		"answers": [
+			{
+				"content": "As soon as                    ",
+				"is_correct": true
+			},
+			{
+				"content": "After          ",
+				"is_correct": false
+			},
+			{
+				"content": "No sooner            ",
+				"is_correct": false
+			},
+			{
+				"content": "Since",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "_______ I visit him, we talk about politics a lot.",
+		"answers": [
+			{
+				"content": "Until",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "She went on crying, with her head sunk into a pillow, and cried and cried _______ the pillow was wet through.",
+		"answers": [
+			{
+				"content": "while",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "I have not seen my dog _______ the storm struck the community.",
+		"answers": []
+	},
+	{
+		"content": "I have been learning English _______ I was twenty years old.",
+		"answers": [
+			{
+				"content": "till",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "I flew for the first time last year _______ I went to Brazil.",
+		"answers": [
+			{
+				"content": "as",
+				"is_correct": true
+			},
+			{
+				"content": "no sooner              ",
+				"is_correct": false
+			},
+			{
+				"content": "till",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "I'm not leaving _______ I get an apology from you.",
+		"answers": [
+			{
+				"content": "until",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Since I _______ to the town, I _______ home.",
+		"answers": [
+			{
+				"content": "moved/ have not returned  ",
+				"is_correct": true
+			},
+			{
+				"content": "will move/ will not returned",
+				"is_correct": false
+			},
+			{
+				"content": "have moved/ was not returning          ",
+				"is_correct": false
+			},
+			{
+				"content": "move/ am not returning",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "The teacher _______ before we arrived.",
+		"answers": [
+			{
+				"content": "will leave",
+				"is_correct": false
+			},
+			{
+				"content": "was leaving",
+				"is_correct": false
+			},
+			{
+				"content": "has left  ",
+				"is_correct": false
+			},
+			{
+				"content": "had left",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "I am going to speak with the boss when the meeting _______.",
+		"answers": [
+			{
+				"content": "will end        ",
+				"is_correct": false
+			},
+			{
+				"content": "ends",
+				"is_correct": true
+			},
+			{
+				"content": "is ending",
+				"is_correct": false
+			},
+			{
+				"content": "would end",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "While she _______ breakfast, I set the table.",
+		"answers": [
+			{
+				"content": "will make",
+				"is_correct": false
+			},
+			{
+				"content": "was making",
+				"is_correct": true
+			},
+			{
+				"content": "has made  ",
+				"is_correct": false
+			},
+			{
+				"content": "would be making",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "After Mariana _______ her exam, I _______ her out to eat.",
+		"answers": [
+			{
+				"content": "was finishing/ would take  ",
+				"is_correct": false
+			},
+			{
+				"content": "finished/ had taken",
+				"is_correct": false
+			},
+			{
+				"content": "will finish/ have taken    ",
+				"is_correct": false
+			},
+			{
+				"content": "has finished/ will take",
+				"is_correct": true
+			}
+		]
+	},
+	{
+		"content": "Mrs. Pike _______ the door before the customers arrived.",
+		"answers": [
+			{
+				"content": "had opened",
+				"is_correct": true
+			},
+			{
+				"content": "will open  ",
+				"is_correct": false
+			},
+			{
+				"content": "would open    ",
+				"is_correct": false
+			},
+			{
+				"content": "has opened",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Jones _______ after everyone _______.",
+		"answers": [
+			{
+				"content": "speaks / will eat",
+				"is_correct": false
+			},
+			{
+				"content": "will speak / has eaten",
+				"is_correct": true
+			},
+			{
+				"content": "is speaking / eats",
+				"is_correct": false
+			},
+			{
+				"content": "has spoken / will have eaten",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "We saw many beautiful birds _______ in the lake.",
+		"answers": [
+			{
+				"content": "when we are fishing",
+				"is_correct": false
+			},
+			{
+				"content": "while fishing",
+				"is_correct": true
+			},
+			{
+				"content": "while fished",
+				"is_correct": false
+			},
+			{
+				"content": "fishing",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "_______, Peter came to see me.",
+		"answers": [
+			{
+				"content": "While having dinner",
+				"is_correct": false
+			},
+			{
+				"content": "While I was having dinner",
+				"is_correct": true
+			},
+			{
+				"content": "When having dinner",
+				"is_correct": false
+			},
+			{
+				"content": "When I am having dinner",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "_______ my homework, I went to bed.",
+		"answers": [
+			{
+				"content": "After I had finished",
+				"is_correct": true
+			},
+			{
+				"content": "After finished",
+				"is_correct": false
+			},
+			{
+				"content": "Finished",
+				"is_correct": false
+			},
+			{
+				"content": "After had finished",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "_______ the dance, Jerry said good-bye to his girlfriend.",
+		"answers": [
+			{
+				"content": "Before left",
+				"is_correct": false
+			},
+			{
+				"content": "Before he leaves",
+				"is_correct": false
+			},
+			{
+				"content": "Before leaving",
+				"is_correct": true
+			},
+			{
+				"content": "Before he will leave",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "Mary will have finished all her work _______.",
+		"answers": [
+			{
+				"content": "as soon as her boss returned",
+				"is_correct": false
+			},
+			{
+				"content": "until her boss will return",
+				"is_correct": false
+			},
+			{
+				"content": "by the time her boss returns      ",
+				"is_correct": true
+			},
+			{
+				"content": "when her boss will return",
+				"is_correct": false
+			}
+		]
+	},
+	{
+		"content": "_______ for my train the morning, I met an old school friend.",
+		"answers": [
+			{
+				"content": "When I had been waiting      ",
+				"is_correct": false
+			},
+			{
+				"content": "While I was waiting",
+				"is_correct": true
+			},
+			{
+				"content": "As I will be waiting",
+				"is_correct": false
+			},
+			{
+				"content": "Until I had been waiting",
+				"is_correct": false
+			}
+		]
+	}
+]
