@@ -99,7 +99,8 @@ class ExamController extends Controller
 					->where('chapter_id', '=', $chapter->id)
 					->inRandomOrder()
 					->take($request->question_counts[$key])
-					->pluck('id');
+					->pluck('id')
+					->toArray();
 				if (count($chapter_question_ids) != $request->question_counts[$key]) {
 					return Reply::error('app.errors.max_chapter_question_count', [
 						'name' => $chapter->name,
