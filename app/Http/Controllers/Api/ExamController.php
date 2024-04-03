@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Exam\GetAllRequest;
 use App\Http\Requests\Exam\StoreRequest;
 use App\Models\Chapter;
 use App\Models\Course;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Log;
 
 class ExamController extends Controller
 {
-	public function index()
+	public function index(GetAllRequest $request)
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_view'), 403);
@@ -28,26 +29,36 @@ class ExamController extends Controller
 			'course.subject',
 			'course.teacher',
 		];
+		$step = $request->step;
 
 		try {
 			switch ($user->role_id) {
 				case Role::ROLES['admin']:
 					$data = Exam::with($relations)
-						->whereBetween('exam_date', [$now, $now->copy()->addWeek()])
+						->whereBetween('exam_date', [
+							$now,
+							$step == 'month' ? $now->copy()->addMonth() : $now->copy()->addWeek()
+						])
 						->get();
 					break;
 				case Role::ROLES['student']:
 					$data = Exam::with($relations)
 						->whereHas('course.enrollments', function ($query) use ($user) {
 							$query->where('student_id', '=', $user->id);
-						})->whereBetween('exam_date', [$now, $now->copy()->addWeek()])
+						})->whereBetween('exam_date', [
+							$now,
+							$step == 'month' ? $now->copy()->addMonth() : $now->copy()->addWeek()
+						])
 						->get();
 					break;
 				case Role::ROLES['teacher']:
 					$data = Exam::with($relations)
 						->whereHas('course.teacher', function ($query) use ($user) {
 							$query->where('id', '=', $user->id);
-						})->whereBetween('exam_date', [$now, $now->copy()->addWeek()])
+						})->whereBetween('exam_date', [
+							$now,
+							$step == 'month' ? $now->copy()->addMonth() : $now->copy()->addWeek()
+						])
 						->get();
 					break;
 				default:
