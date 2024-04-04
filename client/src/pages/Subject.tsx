@@ -1,6 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
-import { LuBookOpenCheck } from 'react-icons/lu'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RiAddFill } from 'react-icons/ri'
 import { Link, useNavigate, useParams } from 'react-router-dom'
@@ -237,10 +236,11 @@ export default function Subject() {
 													}}
 												>
 													<div className={styles['card-top']}>
-														<LuBookOpenCheck />
-														{chapter.name}
+														{`${chapter.chapterNumber}. ${chapter.name}`}
 													</div>
-													<div className={styles['card-bottom']}>{chapter.chapterNumber}</div>
+													<div className={styles['card-bottom']}>
+														{`${chapter.questionsCount} ${language?.questions.toLocaleLowerCase()}`}
+													</div>
 												</div>
 											)
 										})
