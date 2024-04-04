@@ -1,3 +1,6 @@
+import { Course } from './course'
+import { Subject } from './subject'
+
 export type Exam = {
 	id: number
 	courseId: number
@@ -6,4 +9,10 @@ export type Exam = {
 	examTime: number
 	createdAt: string
 	updatedAt: string
+}
+export type ExamDetail = Exam & {
+	questionsCount: number
+	course: Course & {
+		subject: Subject
+	}
 }

@@ -27,7 +27,7 @@ class ExamController extends Controller
 		$relations = [
 			'course',
 			'course.subject',
-			'course.teacher',
+			// 'course.teacher',
 		];
 		$step = $request->step;
 
@@ -148,7 +148,7 @@ class ExamController extends Controller
 		$relations = [
 			'course',
 			'course.subject',
-			'course.teacher',
+			// 'course.teacher',
 		];
 
 		try {
