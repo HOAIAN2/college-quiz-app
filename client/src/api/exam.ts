@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import request from '../config/api'
+import { ApiResponseWithData } from '../models/response'
 
-// export async function apiGetSemesters(query: string) {
-// 	try {
-// 		const res = await request.get('/semester', {
-// 			params: {
-// 				search: query
-// 			}
-// 		})
-// 		const { data } = res.data as ApiResponseWithData<Semester[]>
-// 		return data
-// 	} catch (error: any) {
-// 		throw new Error(error.message)
-// 	}
-// }
+export async function apiGetUpcommingExams() {
+	try {
+		const res = await request.get('/exam', {
+			params: {
+			}
+		})
+		const { data } = res.data as ApiResponseWithData<any>
+		return data
+	} catch (error: any) {
+		throw new Error(error.message)
+	}
+}
 
 // export async function apiGetSemesterById(id: string | number) {
 // 	try {
