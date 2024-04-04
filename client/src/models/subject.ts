@@ -6,5 +6,7 @@ export type Subject = {
 	name: string
 }
 export type SubjectDetail = Subject & {
-	chapters: Chapter[]
+	chapters: (Chapter & {
+		questionsCount: number
+	})[]
 }

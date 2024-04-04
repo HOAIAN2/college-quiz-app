@@ -114,7 +114,7 @@ class ExamController extends Controller
 					->toArray();
 				if (count($chapter_question_ids) != $request->question_counts[$key]) {
 					return Reply::error('app.errors.max_chapter_question_count', [
-						'name' => $chapter->name,
+						'name' => "$chapter->chapter_number. $chapter->name",
 						'number' => $chapter->questions_count
 					], 400);
 				}

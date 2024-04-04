@@ -4,5 +4,7 @@ export default {
 	examDate: 'Exam Date',
 	examTime: 'Exam Time',
 	totalQuestions: 'Total questions',
-	save: 'Save'
+	questions: 'Questions',
+	save: 'Save',
+	maxChapterQuestionCount: 'Chapter @name has only @questionNumber questions.'
 }

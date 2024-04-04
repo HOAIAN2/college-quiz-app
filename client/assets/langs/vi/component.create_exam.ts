@@ -4,5 +4,7 @@ export default {
 	examDate: 'Ngày thi',
 	examTime: 'Thời gian',
 	totalQuestions: 'Tổng số câu hỏi',
-	save: 'Lưu'
+	questions: 'Câu hỏi',
+	save: 'Lưu',
+	maxChapterQuestionCount: 'Chương @name chỉ có @questionNumber câu hỏi.'
 }

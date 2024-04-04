@@ -156,10 +156,10 @@ export default function Semesters() {
 												].join(' ')
 											}>
 											<div className={styles['card-top']}>
-												<LuBookOpenCheck />
 												{item.name}
 											</div>
 											<div className={styles['card-bottom']}>
+												<LuBookOpenCheck />
 												{
 													[
 														new Date(item.startDate).toLocaleDateString(appLanguage.language),

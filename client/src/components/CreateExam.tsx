@@ -2,6 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
 import { RxCross2 } from 'react-icons/rx'
+import { toast } from 'sonner'
 import { apiCreateExam } from '../api/exam'
 import { apiGetSubjectById } from '../api/subject'
 import { queryKeys } from '../constants/query-keys'
@@ -164,10 +165,18 @@ export default function CreateExam({
 															className={styles['wrap-item']}
 															key={key}
 														>
-															<label htmlFor={key}>{`${chapter.chapterNumber}. ${chapter.name}`}</label>
+															<label htmlFor={key}>
+																{`${chapter.chapterNumber}. ${chapter.name} (${chapter.questionsCount} ${language?.questions})`}
+															</label>
 															<input
 																id={key}
-																onInput={() => {
+																onInput={(e) => {
+																	const target = e.currentTarget
+																	if (target.valueAsNumber > chapter.questionsCount) {
+																		toast.error(language?.maxChapterQuestionCount
+																			.replace('@name', `${chapter.chapterNumber}. ${chapter.name}`)
+																			.replace('@questionNumber', String(chapter.questionsCount)))
+																	}
 																	const total = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="question_counts[]"]'))
 																		.reduce((total, current) => {
 																			return current.valueAsNumber ? total += current.valueAsNumber : total
