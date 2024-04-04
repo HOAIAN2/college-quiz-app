@@ -2,7 +2,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { LuPenSquare } from 'react-icons/lu'
 import { MdDeleteOutline } from 'react-icons/md'
-import { PiExam } from 'react-icons/pi'
 import { RiAddFill } from 'react-icons/ri'
 import { useNavigate, useParams } from 'react-router-dom'
 import { apiDeleteCourse, apiGetCourseById, apiUpdateCourse } from '../api/course'
@@ -324,6 +323,7 @@ export default function Course() {
 										.map(exam => {
 											return (
 												<div
+													title={exam.name}
 													key={`exam-${exam.id}`}
 													className={
 														[
@@ -333,8 +333,9 @@ export default function Course() {
 													}
 												>
 													<div className={styles['card-section']}>
-														<PiExam />
-														{exam.name}
+														<p>
+															{exam.name}
+														</p>
 													</div>
 													<div className={styles['card-section']}>
 														{new Date(exam.examDate).toLocaleString(appLanguage.language)}
