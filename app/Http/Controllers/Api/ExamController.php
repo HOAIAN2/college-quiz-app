@@ -281,7 +281,8 @@ class ExamController extends Controller
 				$query
 					->select('questions.id', 'content')
 					->with(['question_options' => function ($query) {
-						$query->select('id', 'question_id', 'content');
+						$query->select('id', 'question_id', 'content')
+							->inRandomOrder();
 					}])
 					->inRandomOrder();
 			}])
@@ -306,10 +307,36 @@ class ExamController extends Controller
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
+
 	public function submit(SubmitRequest $request, string $id)
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_submit'), 403);
 		$now = Carbon::now();
+
+		DB::beginTransaction();
+		try {
+			$exam = Exam::whereHas('course.enrollments', function ($query) use ($user) {
+				$query->where('student_id', '=', $user->id);
+			})->findOrFail($id);
+
+			$exam_date = Carbon::parse($exam->exam_date);
+			$exam_end_date = $exam_date->copy()->addMinutes($exam->exam_time);
+			if ($now->lessThan($exam_date)) {
+				return Reply::error('app.errors.exam_not_start');
+			}
+			if ($now->greaterThan($exam_end_date)) {
+				return Reply::error('app.errors.exam_has_end');
+			}
+
+			# Save and caculate score
+			DB::commit();
+			return Reply::successWithMessage('app.successes.record_delete_success');
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			DB::rollBack();
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.something_went_wrong', [], 500);
+		}
 	}
 }
