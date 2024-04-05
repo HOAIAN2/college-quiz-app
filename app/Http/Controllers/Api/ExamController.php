@@ -195,4 +195,37 @@ class ExamController extends Controller
 	{
 		//
 	}
+
+	public function test(string $id)
+	{
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('exam_submit'), 403);
+		$now = Carbon::now();
+
+		try {
+			$data = Exam::with(['questions' => function ($query) {
+				$query->with(['question_options' => function ($query) {
+					$query->select('id', 'content');
+				}])
+					->inRandomOrder();
+			}])
+				->whereHas('course.enrollments', function ($query) use ($user) {
+					$query->where('student_id', '=', $user->id);
+				})
+				->find($id);
+
+			$exam_date = Carbon::parse($data->exam_date);
+			if ($now->lessThan($exam_date)) {
+				return Reply::error('app.errors.exam_not_start');
+			}
+			if ($now->greaterThan($exam_date->copy()->addMinutes($data->exam_time))) {
+				return Reply::error('app.errors.exam_has_end');
+			}
+			return Reply::successWithData($data, '');
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.something_went_wrong', [], 500);
+		}
+	}
 }

@@ -18,6 +18,8 @@ return [
 		'fauclty_not_exists' => 'Fauclty :shortcodes not exists',
 		'semester_end' => 'Semester has ended',
 		'max_chapter_question_count' => 'Chapter :name has only :number questions.',
-		'exam_date_greater_than_semester' => 'Exam date must be before :date.'
+		'exam_date_greater_than_semester' => 'Exam date must be before :date.',
+		'exam_not_start' => 'The exam has not started yet',
+		'exam_has_end' => 'The exam has ended',
 	],
 ];
