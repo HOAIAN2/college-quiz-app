@@ -215,7 +215,7 @@ class ExamController extends Controller
 			}
 			$data = Exam::with(['questions' => function ($query) {
 				$query->with(['question_options' => function ($query) {
-					$query->select('id', 'content');
+					$query->select('id', 'question_id', 'content');
 				}])
 					->inRandomOrder();
 			}])
