@@ -6,6 +6,7 @@ use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Exam\GetAllRequest;
 use App\Http\Requests\Exam\StoreRequest;
+use App\Http\Requests\Exam\SubmitRequest;
 use App\Http\Requests\Exam\UpdateRequest;
 use App\Models\Chapter;
 use App\Models\Course;
@@ -14,7 +15,6 @@ use App\Models\ExamQuestion;
 use App\Models\Question;
 use App\Models\Role;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -305,5 +305,9 @@ class ExamController extends Controller
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
+	}
+	public function submit(SubmitRequest $request, string $id)
+	{
+		//
 	}
 }
