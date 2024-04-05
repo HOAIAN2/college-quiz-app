@@ -80,15 +80,15 @@ export default function Exams() {
 													styles['card'],
 												].join(' ')
 											}>
-											<div className={styles['card-top']}>
+											<div className={styles['card-section']}>
 												<p className={styles['content']}>
 													{item.name}
 												</p>
 											</div>
-											<div className={styles['card-bottom']}>
+											<div className={styles['card-section']}>
 												{new Date(item.examDate).toLocaleString(appLanguage.language)}
 											</div>
-											<div className={styles['card-bottom']}>
+											<div className={styles['card-section']}>
 												{item.course.subject.name}
 											</div>
 										</div>

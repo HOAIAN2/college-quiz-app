@@ -100,6 +100,18 @@
 	font-size: 18px;
 }
 
+.card-section {
+	padding: 0 10px 0 10px;
+}
+
+.card>.card-section>p {
+	font-size: 16px;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
 @media (width<=1000px) {
 	.card {
 		flex: 0 0 calc(50% - 10px);
