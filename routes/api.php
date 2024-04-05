@@ -128,10 +128,10 @@ Route::prefix('/course')->middleware('auth:sanctum')
 
 Route::prefix('/exam')->middleware('auth:sanctum')
 	->controller(ExamController::class)->group(function () {
+		Route::get('/do/{id}', 'questions');
 		Route::get('/{id}', 'show');
-		// Route::put('/{id}', 'update');
-		// Route::delete('/{id}', 'destroy');
-		// Route::put('/{id}/students', 'updateStudents');
+		Route::put('/{id}', 'update');
+		Route::delete('/{id}', 'destroy');
 		Route::get('/', 'index');
 		Route::post('/', 'store');
 	});

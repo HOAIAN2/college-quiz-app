@@ -195,10 +195,42 @@ class ExamController extends Controller
 
 	public function destroy(string $id)
 	{
-		//
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('exam_delete'), 403);
+
+		DB::beginTransaction();
+		try {
+			$exam = Exam::select('*');
+			switch ($user->role_id) {
+				case Role::ROLES['teacher']:
+					$exam = $exam->whereHas('course.teacher', function ($query) use ($user) {
+						$query->where('id', '=', $user->id);
+					})
+						->findOrFail($id);
+					break;
+				case Role::ROLES['admin']:
+					$exam = $exam->findOrFail($id);
+					break;
+				default:
+					return Reply::error('app.errors.something_went_wrong', [], 500);
+					break;
+			}
+			$exam_date = Carbon::parse($exam->exam_date);
+			if (Carbon::now()->greaterThan($exam_date)) {
+				return Reply::error('app.errors.exam_has_end');
+			}
+			$exam_date->delete();
+			DB::commit();
+			return Reply::successWithMessage('app.successes.record_delete_success');
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			DB::rollBack();
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.something_went_wrong', [], 500);
+		}
 	}
 
-	public function test(string $id)
+	public function questions(string $id)
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_submit'), 403);
