@@ -14,11 +14,13 @@ use App\Models\Question;
 use App\Models\Role;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ExamController extends Controller
 {
+	public $cacheKey = 'exam:@exam_id:-user:@user_id';
 	public function index(GetAllRequest $request)
 	{
 		$user = $this->getUser();
@@ -203,6 +205,14 @@ class ExamController extends Controller
 		$now = Carbon::now();
 
 		try {
+			$cache_key = str_replace(
+				['@exam_id', '@user_id'],
+				[$id, $user->id],
+				$this->cacheKey
+			);
+			if (Cache::has($cache_key)) {
+				return Reply::successWithData(Cache::get($cache_key));
+			}
 			$data = Exam::with(['questions' => function ($query) {
 				$query->with(['question_options' => function ($query) {
 					$query->select('id', 'content');
@@ -215,12 +225,14 @@ class ExamController extends Controller
 				->find($id);
 
 			$exam_date = Carbon::parse($data->exam_date);
+			$exam_end_date = $exam_date->copy()->addMinutes($data->exam_time);
 			if ($now->lessThan($exam_date)) {
 				return Reply::error('app.errors.exam_not_start');
 			}
-			if ($now->greaterThan($exam_date->copy()->addMinutes($data->exam_time))) {
+			if ($now->greaterThan($exam_end_date)) {
 				return Reply::error('app.errors.exam_has_end');
 			}
+			Cache::put($cache_key, $data, $exam_end_date);
 			return Reply::successWithData($data, '');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
