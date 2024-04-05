@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import request from '../config/api'
+import { ExamDetail, QueryExamType } from '../models/exam'
 import { ApiResponseWithData } from '../models/response'
 
-export async function apiGetUpcommingExams() {
+export async function apiGetUpcommingExams(query: QueryExamType) {
 	try {
 		const res = await request.get('/exam', {
 			params: {
+				step: query.step
 			}
 		})
-		const { data } = res.data as ApiResponseWithData<any>
+		const { data } = res.data as ApiResponseWithData<ExamDetail[]>
 		return data
 	} catch (error: any) {
 		throw new Error(error.message)

@@ -10,9 +10,14 @@ export type Exam = {
 	createdAt: string
 	updatedAt: string
 }
+
 export type ExamDetail = Exam & {
 	questionsCount: number
 	course: Course & {
 		subject: Subject
 	}
+}
+
+export type QueryExamType = {
+	step?: string
 }
