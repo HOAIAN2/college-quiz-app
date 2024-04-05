@@ -308,6 +308,8 @@ class ExamController extends Controller
 	}
 	public function submit(SubmitRequest $request, string $id)
 	{
-		//
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('exam_submit'), 403);
+		$now = Carbon::now();
 	}
 }
