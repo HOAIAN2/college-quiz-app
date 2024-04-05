@@ -108,7 +108,12 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'exams',
-						element: <Suspense fallback={<SuspenseLoading />}><Exams /></Suspense>
+						children: [
+							{
+								index: true,
+								element: <Suspense fallback={<SuspenseLoading />}><Exams /></Suspense>
+							},
+						],
 					},
 					{
 						path: 'questions',

@@ -35,36 +35,29 @@ class ExamController extends Controller
 		$step = $request->step;
 
 		try {
+			$data = Exam::with($relations)
+				->withCount(['questions'])
+				->whereBetween('exam_date', [
+					$now,
+					$step == 'month' ? $now->copy()->addMonth() : $now->copy()->addWeek()
+				])
+				->orderBy('exam_date');
 			switch ($user->role_id) {
 				case Role::ROLES['admin']:
-					$data = Exam::with($relations)
-						->withCount(['questions'])
-						->whereBetween('exam_date', [
-							$now,
-							$step == 'month' ? $now->copy()->addMonth() : $now->copy()->addWeek()
-						])
-						->get();
+					$data = $data->get();
 					break;
 				case Role::ROLES['student']:
-					$data = Exam::with($relations)
-						->withCount(['questions'])
+					$data = $data
 						->whereHas('course.enrollments', function ($query) use ($user) {
 							$query->where('student_id', '=', $user->id);
-						})->whereBetween('exam_date', [
-							$now,
-							$step == 'month' ? $now->copy()->addMonth() : $now->copy()->addWeek()
-						])
+						})
 						->get();
 					break;
 				case Role::ROLES['teacher']:
-					$data = Exam::with($relations)
-						->withCount(['questions'])
+					$data = $data
 						->whereHas('course.teacher', function ($query) use ($user) {
 							$query->where('id', '=', $user->id);
-						})->whereBetween('exam_date', [
-							$now,
-							$step == 'month' ? $now->copy()->addMonth() : $now->copy()->addWeek()
-						])
+						})
 						->get();
 					break;
 				default:
