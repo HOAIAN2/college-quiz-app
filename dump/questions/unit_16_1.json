@@ -21,37 +21,6 @@
 		]
 	},
 	{
-		"content": "_______ I visit him, we talk about politics a lot.",
-		"answers": [
-			{
-				"content": "Until",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "She went on crying, with her head sunk into a pillow, and cried and cried _______ the pillow was wet through.",
-		"answers": [
-			{
-				"content": "while",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "I have not seen my dog _______ the storm struck the community.",
-		"answers": []
-	},
-	{
-		"content": "I have been learning English _______ I was twenty years old.",
-		"answers": [
-			{
-				"content": "till",
-				"is_correct": true
-			}
-		]
-	},
-	{
 		"content": "I flew for the first time last year _______ I went to Brazil.",
 		"answers": [
 			{
@@ -64,15 +33,6 @@
 			},
 			{
 				"content": "till",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "I'm not leaving _______ I get an apology from you.",
-		"answers": [
-			{
-				"content": "until",
 				"is_correct": false
 			}
 		]

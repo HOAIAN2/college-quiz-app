@@ -231,23 +231,6 @@
 		]
 	},
 	{
-		"content": "I didn't get to see the end of that mystery movie on TV last night. How did it ________ out?",
-		"answers": [
-			{
-				"content": "make",
-				"is_correct": false
-			},
-			{
-				"content": "bring",
-				"is_correct": false
-			},
-			{
-				"content": "turn",
-				"is_correct": false
-			}
-		]
-	},
-	{
 		"content": "Jack is having his lawyer ________ up the contract to make sure that all of the legalities are properly dealt with.",
 		"answers": [
 			{

@@ -278,15 +278,17 @@ class ExamController extends Controller
 				return Reply::successWithData(Cache::get($cache_key));
 			}
 			$data = Exam::with(['questions' => function ($query) {
-				$query->with(['question_options' => function ($query) {
-					$query->select('id', 'question_id', 'content');
-				}])
+				$query
+					// ->select('id', 'content')
+					->with(['question_options' => function ($query) {
+						$query->select('id', 'question_id', 'content');
+					}])
 					->inRandomOrder();
 			}])
 				->whereHas('course.enrollments', function ($query) use ($user) {
 					$query->where('student_id', '=', $user->id);
 				})
-				->find($id);
+				->findOrFail($id);
 
 			$exam_date = Carbon::parse($data->exam_date);
 			$exam_end_date = $exam_date->copy()->addMinutes($data->exam_time);
