@@ -6,6 +6,7 @@ use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Exam\GetAllRequest;
 use App\Http\Requests\Exam\StoreRequest;
+use App\Http\Requests\Exam\UpdateRequest;
 use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Exam;
@@ -188,9 +189,40 @@ class ExamController extends Controller
 		}
 	}
 
-	public function update(Request $request, string $id)
+	public function update(UpdateRequest $request, string $id)
 	{
-		//
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('exam_update'), 403);
+
+		DB::beginTransaction();
+		try {
+			$target_exam = Exam::select('*');
+			switch ($user->role_id) {
+				case Role::ROLES['teacher']:
+					$target_exam = $target_exam->whereHas('course.teacher', function ($query) use ($user) {
+						$query->where('id', '=', $user->id);
+					})
+						->findOrFail($id);
+					break;
+				case Role::ROLES['admin']:
+					$target_exam = $target_exam->findOrFail($id);
+					break;
+				default:
+					return Reply::error('app.errors.something_went_wrong', [], 500);
+					break;
+			}
+			$exam_date = Carbon::parse($target_exam->exam_date);
+			if (Carbon::now()->greaterThan($exam_date)) {
+				return Reply::error('app.errors.exam_has_end');
+			}
+			$target_exam->update($request->validated());
+			DB::commit();
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			DB::rollBack();
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.something_went_wrong', [], 500);
+		}
 	}
 
 	public function destroy(string $id)
