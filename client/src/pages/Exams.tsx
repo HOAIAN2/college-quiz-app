@@ -4,12 +4,14 @@ import { apiGetUpcommingExams } from '../api/exam'
 import CustomSelect from '../components/CustomSelect'
 import Loading from '../components/Loading'
 import { queryKeys } from '../constants/query-keys'
+import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { PageExamsLang } from '../models/lang'
 import styles from '../styles/global/CardPage.module.css'
 
 export default function Exams() {
 	const [searchParams, setSearchParams] = useSearchParams()
+	const { appLanguage } = useAppContext()
 	const language = useLanguage<PageExamsLang>('page.exams')
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_EXAMS, {
@@ -19,7 +21,6 @@ export default function Exams() {
 			step: searchParams.get('step') || 'week'
 		})
 	})
-	queryData.data && console.log(queryData.data)
 	return (
 		<>
 			<div
@@ -63,6 +64,36 @@ export default function Exams() {
 									].join(' ')
 								}
 							/>
+						</div>
+					</div>
+					<div className={styles['wrap-card-container']}>
+						<div className={styles['card-container']}>
+							{queryData.data ?
+								queryData.data.map(item => {
+									return (
+										<div
+											key={`exam-${item.id}`}
+											// to={String(item.id)}
+											className={
+												[
+													'dashboard-card-d',
+													styles['card'],
+												].join(' ')
+											}>
+											<div className={styles['card-top']}>
+												<p className={styles['content']}>
+													{item.name}
+												</p>
+											</div>
+											<div className={styles['card-bottom']}>
+												{new Date(item.examDate).toLocaleString(appLanguage.language)}
+											</div>
+											<div className={styles['card-bottom']}>
+												{item.course.subject.name}
+											</div>
+										</div>
+									)
+								}) : null}
 						</div>
 					</div>
 				</div>
