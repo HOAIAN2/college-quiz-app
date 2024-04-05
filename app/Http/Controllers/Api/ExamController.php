@@ -279,7 +279,7 @@ class ExamController extends Controller
 			}
 			$data = Exam::with(['questions' => function ($query) {
 				$query
-					// ->select('id', 'content')
+					->select('questions.id', 'content')
 					->with(['question_options' => function ($query) {
 						$query->select('id', 'question_id', 'content');
 					}])
