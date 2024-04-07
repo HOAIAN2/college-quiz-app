@@ -112,6 +112,26 @@
 	overflow: hidden;
 }
 
+.badge {
+	border-radius: var(--border-radius-low);
+	color: white;
+	width: fit-content;
+	padding: 3px;
+}
+
+.badge.red {
+	background: var(--color-soft-red);
+}
+
+.badge.green {
+	background: var(--color-soft-green);
+}
+
+.badge.yellow {
+	background: var(--color-soft-yellow);
+	color: black;
+}
+
 @media (width<=1000px) {
 	.card {
 		flex: 0 0 calc(50% - 10px);

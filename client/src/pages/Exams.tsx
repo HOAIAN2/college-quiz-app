@@ -107,9 +107,24 @@ export default function Exams() {
 											<div className={styles['card-section']}>
 												{
 													isTimeWithinOneHour(new Date(item.examDate)) ?
-														countDown(new Date(item.examDate)) :
+														<div className={
+															[
+																styles['badge'],
+																styles['yellow']
+															].join(' ')
+														}>
+															{countDown(new Date(item.examDate))}
+														</div>
+														:
 														isOnTimeExam(new Date(item.examDate), item.examTime) ?
-															language?.inProgress
+															<div className={
+																[
+																	styles['badge'],
+																	styles['green']
+																].join(' ')
+															}>
+																{language?.inProgress}
+															</div>
 															: new Date(item.examDate).toLocaleString(appLanguage.language)
 												}
 											</div>
