@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { apiGetUpcommingExams } from '../api/exam'
 import CustomSelect from '../components/CustomSelect'
@@ -8,8 +9,10 @@ import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { PageExamsLang } from '../models/lang'
 import styles from '../styles/global/CardPage.module.css'
+import { countDown } from '../utils/countDown'
 
 export default function Exams() {
+	const [currentDateTime, setCurrentDateTime] = useState(new Date())
 	const [searchParams, setSearchParams] = useSearchParams()
 	const { appLanguage } = useAppContext()
 	const language = useLanguage<PageExamsLang>('page.exams')
@@ -21,6 +24,22 @@ export default function Exams() {
 			step: searchParams.get('step') || 'week'
 		})
 	})
+	const isTimeWithinOneHour = (dateTime: Date) => {
+		const oneHourMiliSeconds = 60 * 60 * 1000
+		const offset = dateTime.getTime() - currentDateTime.getTime()
+		return offset > 0 && offset < oneHourMiliSeconds
+	}
+	const isOnTimeExam = (examDate: Date, examTime: number) => {
+		const examEndTime = examDate.getTime() + examTime * 60 * 1000
+		return examDate.getTime() < currentDateTime.getTime()
+			&& currentDateTime.getTime() < examEndTime
+	}
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setCurrentDateTime(new Date())
+		}, 1000)
+		return () => clearInterval(interval)
+	}, [])
 	return (
 		<>
 			<div
@@ -86,7 +105,13 @@ export default function Exams() {
 												</p>
 											</div>
 											<div className={styles['card-section']}>
-												{new Date(item.examDate).toLocaleString(appLanguage.language)}
+												{
+													isTimeWithinOneHour(new Date(item.examDate)) ?
+														countDown(new Date(item.examDate)) :
+														isOnTimeExam(new Date(item.examDate), item.examTime) ?
+															language?.inProgress
+															: new Date(item.examDate).toLocaleString(appLanguage.language)
+												}
 											</div>
 											<div className={styles['card-section']}>
 												{item.course.subject.name}

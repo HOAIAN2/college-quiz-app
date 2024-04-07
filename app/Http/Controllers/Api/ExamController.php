@@ -32,16 +32,15 @@ class ExamController extends Controller
 			'course.subject',
 			// 'course.teacher',
 		];
-		$step = $request->step;
+		$endDate = $request->step == 'month' ? Carbon::now()->addMonth() : Carbon::now()->addWeek();
 
 		try {
 			$data = Exam::with($relations)
 				->withCount(['questions'])
-				->whereBetween('exam_date', [
-					$now,
-					$step == 'month' ? $now->copy()->addMonth() : $now->copy()->addWeek()
-				])
+				->where('exam_date', '<=', $endDate)
+				->whereRaw("DATE_ADD(exam_date, INTERVAL exam_time MINUTE) >= '{$now->toDateTimeString()}'")
 				->orderBy('exam_date');
+
 			switch ($user->role_id) {
 				case Role::ROLES['admin']:
 					$data = $data->get();
