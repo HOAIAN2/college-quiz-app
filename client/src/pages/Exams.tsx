@@ -1,18 +1,20 @@
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { apiGetUpcommingExams } from '../api/exam'
 import CustomSelect from '../components/CustomSelect'
 import Loading from '../components/Loading'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
+import useForceUpdate from '../hooks/useForceUpdate'
 import useLanguage from '../hooks/useLanguage'
 import { PageExamsLang } from '../models/lang'
 import styles from '../styles/global/CardPage.module.css'
 import { countDown } from '../utils/countDown'
+import timeUtils from '../utils/timeUtils'
 
 export default function Exams() {
-	const [currentDateTime, setCurrentDateTime] = useState(new Date())
+	const forceUpdate = useForceUpdate()
 	const [searchParams, setSearchParams] = useSearchParams()
 	const { appLanguage } = useAppContext()
 	const language = useLanguage<PageExamsLang>('page.exams')
@@ -24,22 +26,12 @@ export default function Exams() {
 			step: searchParams.get('step') || 'week'
 		})
 	})
-	const isTimeWithinOneHour = (dateTime: Date) => {
-		const oneHourMiliSeconds = 60 * 60 * 1000
-		const offset = dateTime.getTime() - currentDateTime.getTime()
-		return offset > 0 && offset < oneHourMiliSeconds
-	}
-	const isOnTimeExam = (examDate: Date, examTime: number) => {
-		const examEndTime = examDate.getTime() + examTime * 60 * 1000
-		return examDate.getTime() < currentDateTime.getTime()
-			&& currentDateTime.getTime() < examEndTime
-	}
 	useEffect(() => {
 		const interval = setInterval(() => {
-			setCurrentDateTime(new Date())
+			forceUpdate()
 		}, 1000)
 		return () => clearInterval(interval)
-	}, [])
+	}, [forceUpdate])
 	return (
 		<>
 			<div
@@ -106,7 +98,7 @@ export default function Exams() {
 											</div>
 											<div className={styles['card-section']}>
 												{
-													isTimeWithinOneHour(new Date(item.examDate)) ?
+													timeUtils.isTimeWithinOneHour(new Date(item.examDate)) ?
 														<div className={
 															[
 																styles['badge'],
@@ -116,7 +108,7 @@ export default function Exams() {
 															{countDown(new Date(item.examDate))}
 														</div>
 														:
-														isOnTimeExam(new Date(item.examDate), item.examTime) ?
+														timeUtils.isOnTimeExam(new Date(item.examDate), item.examTime) ?
 															<div className={
 																[
 																	styles['badge'],
