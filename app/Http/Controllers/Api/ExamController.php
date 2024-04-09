@@ -141,8 +141,8 @@ class ExamController extends Controller
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_view'), 403);
 		$relations = [
-			'course',
-			'course.subject',
+			// 'course',
+			// 'course.subject',
 			// 'course.teacher',
 		];
 
