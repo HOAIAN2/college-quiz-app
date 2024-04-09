@@ -344,25 +344,33 @@ export default function ViewQuestion({
 										{
 											permissions.hasAnyFormList(['question_update', 'question_delete']) ?
 												<div className={globalStyles['action-items']}>
-													<button name='save'
-														className={
-															[
-																'action-item-d',
-																isPending ? 'button-submitting' : ''
-															].join(' ')
-														}>{language?.save}</button>
-													<button
-														type='button'
-														onClick={() => {
-															setShowDeletePopUp(true)
-														}}
-														className={
-															[
-																'action-item-d-white-border-red'
-															].join(' ')
-														}>
-														<MdDeleteOutline /> {language?.delete}
-													</button>
+													{
+														permissions.has('question_update') ?
+															<button name='save'
+																className={
+																	[
+																		'action-item-d',
+																		isPending ? 'button-submitting' : ''
+																	].join(' ')
+																}>{language?.save}</button>
+															: null
+													}
+													{
+														permissions.has('question_delete') ?
+															<button
+																type='button'
+																onClick={() => {
+																	setShowDeletePopUp(true)
+																}}
+																className={
+																	[
+																		'action-item-d-white-border-red'
+																	].join(' ')
+																}>
+																<MdDeleteOutline /> {language?.delete}
+															</button>
+															: null
+													}
 												</div> : null
 										}
 									</form>

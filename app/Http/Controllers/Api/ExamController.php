@@ -183,6 +183,7 @@ class ExamController extends Controller
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_update'), 403);
+		$data = $request->validated();
 
 		DB::beginTransaction();
 		try {
@@ -205,8 +206,10 @@ class ExamController extends Controller
 			if (Carbon::now()->greaterThan($exam_date)) {
 				return Reply::error('app.errors.exam_has_end');
 			}
-			$target_exam->update($request->validated());
+			$data['exam_date'] = Carbon::parse($data['exam_date']);
+			$target_exam->update($data);
 			DB::commit();
+			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();

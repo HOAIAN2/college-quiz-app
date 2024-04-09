@@ -10,6 +10,7 @@ import CreateExam from '../components/CreateExam'
 import CustomDataList from '../components/CustomDataList'
 import Loading from '../components/Loading'
 import UpdateCourseStudents from '../components/UpdateCourseStudents'
+import ViewExam from '../components/ViewExam'
 import YesNoPopUp from '../components/YesNoPopUp'
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
 import { queryKeys } from '../constants/query-keys'
@@ -24,6 +25,8 @@ import languageUtils from '../utils/languageUtils'
 export default function Course() {
 	const { courseId } = useParams()
 	const { DOM, permissions, appLanguage } = useAppContext()
+	const [examId, setExamId] = useState<number>(0)
+	const [showViewExamPopUp, setShowViewExamPopUp] = useState(false)
 	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
 	const [showUpdateStudentsPopUp, setShowUpdateStudentsPopUp] = useState(false)
 	const [showCreateExamPopUp, setShowCreateExamPopUp] = useState(false)
@@ -81,6 +84,14 @@ export default function Course() {
 	}, [DOM.titleRef, queryData.data])
 	return (
 		<>
+			{
+				showViewExamPopUp ?
+					<ViewExam
+						id={examId}
+						setShowPopUp={setShowViewExamPopUp}
+						onMutateSuccess={() => { queryData.refetch() }}
+					/> : null
+			}
 			{showUpdateStudentsPopUp && queryData.data ?
 				<UpdateCourseStudents
 					courseDetail={queryData.data}
@@ -325,6 +336,10 @@ export default function Course() {
 												<div
 													title={exam.name}
 													key={`exam-${exam.id}`}
+													onClick={() => {
+														setExamId(exam.id)
+														setShowViewExamPopUp(true)
+													}}
 													className={
 														[
 															'dashboard-card-d',

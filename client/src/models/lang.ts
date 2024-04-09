@@ -39,3 +39,4 @@ export type PageCourseLang = typeof import('../../assets/langs/en/page.course').
 export type ComponentUpdateCourseStudentsLang = typeof import('../../assets/langs/en/component.update_course_students').default
 export type ComponentCreateExamLang = typeof import('../../assets/langs/en/component.create_exam').default
 export type PageExamsLang = typeof import('../../assets/langs/en/page.exams').default
+export type ComponentViewExamLang = typeof import('../../assets/langs/en/component.view_exam').default
