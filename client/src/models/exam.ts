@@ -12,7 +12,7 @@ export type Exam = {
 }
 
 export type ExamDetail = Exam & {
-	questionsCount: number
+	// questionsCount: number
 	course: Course & {
 		subject: Subject
 	}

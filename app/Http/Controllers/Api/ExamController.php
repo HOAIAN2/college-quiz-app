@@ -36,7 +36,7 @@ class ExamController extends Controller
 
 		try {
 			$data = Exam::with($relations)
-				->withCount(['questions'])
+				// ->withCount(['questions'])
 				->where('exam_date', '<=', $endDate)
 				->whereRaw("DATE_ADD(exam_date, INTERVAL exam_time MINUTE) >= '{$now->toDateTimeString()}'")
 				->orderBy('exam_date');
@@ -147,23 +147,21 @@ class ExamController extends Controller
 		];
 
 		try {
+			$data = Exam::with($relations);
+			// ->withCount(['questions']);
 			switch ($user->role_id) {
 				case Role::ROLES['admin']:
-					$data = Exam::with($relations)
-						->withCount(['questions'])
-						->findOrFail($id);
+					$data = $data->findOrFail($id);
 					break;
 				case Role::ROLES['student']:
-					$data = Exam::with($relations)
-						->withCount(['questions'])
+					$data = $data
 						->whereHas('course.enrollments', function ($query) use ($user) {
 							$query->where('student_id', '=', $user->id);
 						})
 						->findOrFail($id);
 					break;
 				case Role::ROLES['teacher']:
-					$data = Exam::with($relations)
-						->withCount(['questions'])
+					$data = $data
 						->whereHas('course.teacher', function ($query) use ($user) {
 							$query->where('id', '=', $user->id);
 						})
