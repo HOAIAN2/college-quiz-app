@@ -10,7 +10,6 @@ import useForceUpdate from '../hooks/useForceUpdate'
 import useLanguage from '../hooks/useLanguage'
 import { PageExamsLang } from '../models/lang'
 import styles from '../styles/global/CardPage.module.css'
-import { countDown } from '../utils/countDown'
 import timeUtils from '../utils/timeUtils'
 
 export default function Exams() {
@@ -105,7 +104,7 @@ export default function Exams() {
 																styles['yellow']
 															].join(' ')
 														}>
-															{countDown(new Date(item.examDate))}
+															{timeUtils.countDown(new Date(item.examDate))}
 														</div>
 														:
 														timeUtils.isOnTimeExam(new Date(item.examDate), item.examTime) ?

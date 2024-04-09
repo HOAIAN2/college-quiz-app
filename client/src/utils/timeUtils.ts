@@ -1,5 +1,11 @@
 
 const timeUtils = {
+	countDown(dateTime: Date) {
+		const timeRemaining = (dateTime.getTime() - new Date().getTime()) / 1000
+		const date = new Date(0)
+		date.setSeconds(timeRemaining)
+		return date.toISOString().substring(11, 19)
+	},
 	isTimeWithinOneHour(dateTime: Date) {
 		const currentDateTime = new Date()
 		const oneHourMiliSeconds = 60 * 60 * 1000
