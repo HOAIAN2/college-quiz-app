@@ -215,7 +215,11 @@ export default function CreateExam({
 											<div className={styles['wrap-item']}>
 												<span>{language?.totalQuestions}: {totalQuestion}</span>
 											</div>
-											<div className={styles['wrap-item']}>
+											<div className={[
+												styles['wrap-item'],
+												styles['data-container']
+											].join(' ')
+											}>
 												<label>{'Giám thị'}</label>
 												<input
 													placeholder={'Tìm Kiếm'}
