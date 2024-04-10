@@ -48,6 +48,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Collection|ExamTracker[] $exam_trackers
  * @property Collection|Faculty[] $faculties
  * @property Collection|Question[] $questions
+ * @property Collection|ExamQuestionsOrder[] $exam_questions_orders
+ * @property Collection|ExamSupervisor[] $exam_supervisors
  *
  * @package App\Models
  */
@@ -135,6 +137,16 @@ class User extends Authenticatable
 	public function questions()
 	{
 		return $this->hasMany(Question::class, 'created_by');
+	}
+
+	public function exam_questions_orders()
+	{
+		return $this->hasMany(ExamQuestionsOrder::class);
+	}
+
+	public function exam_supervisors()
+	{
+		return $this->hasMany(ExamSupervisor::class);
 	}
 
 	public function isAdmin()

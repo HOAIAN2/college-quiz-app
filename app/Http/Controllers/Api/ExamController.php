@@ -78,6 +78,7 @@ class ExamController extends Controller
 
 		DB::beginTransaction();
 		try {
+			// Thêm check giáo viên trong course mới được tạo
 			$course = Course::findOrFail($request->course_id);
 			$course_end_date = Carbon::parse($course->semester->end_date);
 			if ($course->isOver()) {
