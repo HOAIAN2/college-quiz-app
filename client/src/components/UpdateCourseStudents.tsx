@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { PiStudent } from 'react-icons/pi'
 import { RxCross2 } from 'react-icons/rx'
 import { apiUpdateCourseStudents } from '../api/course'
-import { apiGetAllStudent } from '../api/user'
+import { apiGetAllUser } from '../api/user'
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
 import { queryKeys } from '../constants/query-keys'
 import useDebounce from '../hooks/useDebounce'
@@ -44,7 +44,7 @@ export default function UpdateCourseStudents({
 	}
 	const userQueryData = useQuery({
 		queryKey: [queryKeys.ALL_STUDENT, { search: debounceQueryUser }],
-		queryFn: () => apiGetAllStudent(debounceQueryUser),
+		queryFn: () => apiGetAllUser('student', debounceQueryUser),
 	})
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateCourseStudents,

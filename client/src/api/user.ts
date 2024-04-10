@@ -152,11 +152,12 @@ export async function apiAutoCompleteUser(role: RoleName, search: string) {
 	}
 }
 
-export async function apiGetAllStudent(search?: string) {
+export async function apiGetAllUser(role: RoleName, search?: string) {
 	try {
-		const res = await request.get('/user/all-student', {
+		const res = await request.get('/user/all-user', {
 			params: {
-				search: search
+				search: search,
+				role: role
 			}
 		})
 		const { data } = res.data as ApiResponseWithData<UserDetail[]>

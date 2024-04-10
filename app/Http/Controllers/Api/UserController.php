@@ -9,6 +9,7 @@ use App\Http\Requests\DeleteRequest;
 use App\Http\Requests\User\AutoCompleteRequest;
 use App\Http\Requests\User\ExportableRequest;
 use App\Http\Requests\User\ExportRequest;
+use App\Http\Requests\User\GetAllRequest;
 use App\Http\Requests\User\GetByTypeRequest;
 use App\Http\Requests\User\ImportRequest;
 use App\Http\Requests\User\StoreRequest;
@@ -324,14 +325,14 @@ class UserController extends Controller
 		}
 	}
 
-	public function getAllStudent(Request $request)
+	public function getAllUsers(GetAllRequest $request)
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('user_view'), 403);
 
 		try {
 			$users = User::with(['role', 'school_class', 'faculty'])
-				->whereRoleId(Role::ROLES['student'])
+				->whereRoleId(Role::ROLES[$request->role])
 				->search($request->search)
 				->latest('id')
 				->take($this->autoCompleteResultLimit * 20)
