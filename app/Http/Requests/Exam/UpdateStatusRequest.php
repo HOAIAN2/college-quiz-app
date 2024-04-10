@@ -24,7 +24,7 @@ class UpdateStatusRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'status' => ['in:start,cancel']
+			'status' => ['required', 'in:start,cancel']
 		];
 	}
 }
