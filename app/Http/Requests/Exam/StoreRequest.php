@@ -32,6 +32,8 @@ class StoreRequest extends FormRequest
 			'course_id' => ['required', 'integer'],
 			'question_counts' => ['required', 'array'],
 			'question_counts.*' => ['nullable', 'integer', 'min:1'],
+			'supervisor_ids' => ['required', 'array'],
+			'question_counts.*' => ['required', 'integer'],
 		];
 	}
 }

@@ -5,12 +5,17 @@ import { RxCross2 } from 'react-icons/rx'
 import { toast } from 'sonner'
 import { apiCreateExam } from '../api/exam'
 import { apiGetSubjectById } from '../api/subject'
+import { apiGetAllUser } from '../api/user'
+import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
 import { queryKeys } from '../constants/query-keys'
+import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { CourseDetail } from '../models/course'
 import { ComponentCreateExamLang } from '../models/lang'
+import { UserDetail } from '../models/user'
 import styles from '../styles/CreateExam.module.css'
 import createFormUtils from '../utils/createFormUtils'
+import languageUtils from '../utils/languageUtils'
 import Loading from './Loading'
 
 type CreateExamProps = {
@@ -25,6 +30,9 @@ export default function CreateExam({
 }: CreateExamProps) {
 	const [hide, setHide] = useState(true)
 	const [totalQuestion, setTotalQuestion] = useState(0)
+	const [supervisors, setSupervisors] = useState<UserDetail[]>([])
+	const [queryUser, setQueryUser] = useState('')
+	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
 	const language = useLanguage<ComponentCreateExamLang>('component.create_exam')
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -39,6 +47,10 @@ export default function CreateExam({
 		queryKey: [queryKeys.PAGE_SUBJECT, { id: courseDetail.subjectId }],
 		queryFn: () => apiGetSubjectById(courseDetail.subjectId)
 	})
+	const userQueryData = useQuery({
+		queryKey: [queryKeys.ALL_TEACHER, { search: debounceQueryUser }],
+		queryFn: () => apiGetAllUser('teacher', debounceQueryUser),
+	})
 	const handleCreateExam = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		document.querySelector(`.${styles['form-data']}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
@@ -47,9 +59,9 @@ export default function CreateExam({
 		})
 		const form = e.target as HTMLFormElement
 		const formData = new FormData(form)
-		// chapterIds.forEach(chapterId => {
-		// 	formData.append('chapter_ids[]', String(chapterId))
-		// })
+		supervisors.forEach(supervisor => {
+			formData.append('supervisor_ids[]', String(supervisor.id))
+		})
 		await apiCreateExam(formData)
 		handleClosePopUp()
 	}
@@ -202,6 +214,83 @@ export default function CreateExam({
 											</ul>
 											<div className={styles['wrap-item']}>
 												<span>{language?.totalQuestions}: {totalQuestion}</span>
+											</div>
+											<div className={styles['wrap-item']}>
+												<label>{'Giám thị'}</label>
+												<input
+													placeholder={'Tìm Kiếm'}
+													onInput={e => {
+														setQueryUser(e.currentTarget.value)
+													}}
+													className={
+														[
+															'input-d',
+															styles['input-item']
+														].join(' ')
+													} type='text' />
+												<label>{'Giám thị đã tham gia'}</label>
+												<ul className={
+													[
+														styles['joined-supervisors-container']
+													].join(' ')
+												}>
+													{
+														supervisors.map((supervisor, index) => {
+															return (
+																<li
+																	className={
+																		[
+																			styles['joined-supervisor']
+																		].join(' ')
+																	}
+																	key={`joined-supervisor-${supervisor.id}`}
+																>
+																	<div>
+																		<span>
+																			{languageUtils.getFullName(supervisor.firstName, supervisor.lastName)}
+																		</span>
+																		<span>
+																			{supervisor.faculty?.shortcode}
+																		</span>
+																		<span
+																			style={{ height: '20px' }}
+																			onClick={() => {
+																				const newSupervisors = structuredClone(supervisors)
+																				newSupervisors.splice(index, 1)
+																				setSupervisors(newSupervisors)
+																			}}
+																		>
+																			<RxCross2 />
+																		</span>
+																	</div>
+																</li>
+															)
+														})
+													}
+												</ul>
+												<label>{'Toàn bộ giám thị'}</label>
+												<ul className={styles['all-supervisor-conatiner']}>
+													{userQueryData.data ?
+														userQueryData.data
+															.filter(user => !supervisors.find(supervisor => supervisor.id === user.id))
+															.map(user => (
+																<li
+																	onClick={() => {
+																		const newSupervisors = structuredClone(supervisors)
+																		newSupervisors.push(user)
+																		setSupervisors(newSupervisors)
+																	}}
+																	className={['dashboard-card-d', styles['card']].join(' ')}
+																	key={`user-${user.id}`}
+																>
+																	<div className={styles['card-left']}>
+																		<span>{languageUtils.getFullName(user.firstName, user.lastName)}</span>
+																		<span>{user.faculty?.name}</span>
+																	</div>
+																</li>
+															)) : null
+													}
+												</ul>
 											</div>
 										</> : null
 								}

@@ -14,8 +14,10 @@ use App\Models\Course;
 use App\Models\Exam;
 use App\Models\ExamQuestion;
 use App\Models\ExamQuestionsOrder;
+use App\Models\ExamSupervisor;
 use App\Models\Question;
 use App\Models\Role;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -127,6 +129,15 @@ class ExamController extends Controller
 				ExamQuestion::create([
 					'exam_id' => $exam->id,
 					'question_id' => $question_id
+				]);
+			}
+			$supervisor_ids = User::whereRoleId(Role::ROLES['teacher'])
+				->whereIn('id', $request->supervisor_ids)
+				->pluck('id');
+			foreach ($supervisor_ids as $supervisor_id) {
+				ExamSupervisor::create([
+					'exam_id' => $exam->id,
+					'user_id' => $supervisor_id
 				]);
 			}
 			DB::commit();

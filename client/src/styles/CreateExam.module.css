@@ -19,7 +19,7 @@
 }
 
 .create-exam-form {
-	width: 450px;
+	width: 500px;
 	height: 80%;
 	border-radius: var(--border-radius-low);
 	box-shadow: 0px 0px 10px var(--color-shadow);
@@ -139,6 +139,66 @@ label.required::after {
 	align-items: center;
 	flex-direction: row-reverse;
 	gap: 10px;
+}
+
+.joined-supervisors-container {
+	width: 100%;
+	min-height: 50px;
+	height: fit-content;
+	border: 1px solid var(--color-shadow);
+	border-radius: var(--border-radius-low);
+	box-shadow: 0px 0px 10px var(--color-shadow);
+	list-style-type: none;
+}
+
+.joined-supervisor {
+	width: fit-content;
+	height: 50px;
+	margin: 5px;
+	display: inline-block;
+	/* background: var(--color-blue);
+	color: white; */
+	border-radius: var(--border-radius-low);
+	border: 1px solid var(--color-shadow);
+	cursor: pointer;
+	padding: 0px 10px 0px 10px;
+}
+
+.joined-supervisor>div {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.all-supervisor-conatiner {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.card {
+	width: 100%;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	border-radius: var(--border-radius-low);
+	border: 1px solid var(--color-shadow);
+	border-left: 5px solid var(--color-soft-magenta);
+	cursor: pointer;
+	padding: 0px 20px 0px 20px;
+}
+
+
+.card>.card-left {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+
+.card>.card-left>svg {
+	font-size: 20px !important;
 }
 
 @media (width<=800px) {

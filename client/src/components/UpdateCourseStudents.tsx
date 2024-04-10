@@ -143,9 +143,9 @@ export default function UpdateCourseStudents({
 										.map(user => (
 											<li
 												onClick={() => {
-													const newStudents = structuredClone(students);
-													newStudents.push(user);
-													setStudents(newStudents);
+													const newStudents = structuredClone(students)
+													newStudents.push(user)
+													setStudents(newStudents)
 												}}
 												className={['dashboard-card-d', styles['card']].join(' ')}
 												key={`user-${user.id}`}
