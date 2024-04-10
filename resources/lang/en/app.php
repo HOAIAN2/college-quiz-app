@@ -21,5 +21,7 @@ return [
 		'exam_date_greater_than_semester' => 'Exam date must be before :date.',
 		'exam_not_start' => 'The exam has not started yet',
 		'exam_has_end' => 'The exam has ended',
+		'exam_has_start' => 'The exam has started',
+		'exam_has_cancel' => 'The exam has been canceled',
 	],
 ];

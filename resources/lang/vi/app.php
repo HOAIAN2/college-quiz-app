@@ -21,5 +21,7 @@ return [
 		'exam_date_greater_than_semester' => 'Ngày thi phải trước :date.',
 		'exam_not_start' => 'Bài thi chưa bắt đầu',
 		'exam_has_end' => 'Bài thi đã kết thúc',
+		'exam_has_start' => 'Bài thi đã bắt đầu',
+		'exam_has_cancel' => 'Bài thi đã bị hủy',
 	],
 ];

@@ -8,10 +8,12 @@ use App\Http\Requests\Exam\GetAllRequest;
 use App\Http\Requests\Exam\StoreRequest;
 use App\Http\Requests\Exam\SubmitRequest;
 use App\Http\Requests\Exam\UpdateRequest;
+use App\Http\Requests\Exam\UpdateStatusRequest;
 use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\Exam;
 use App\Models\ExamQuestion;
+use App\Models\ExamQuestionsOrder;
 use App\Models\Question;
 use App\Models\Role;
 use Carbon\Carbon;
@@ -203,8 +205,8 @@ class ExamController extends Controller
 					return Reply::error('app.errors.something_went_wrong', [], 500);
 					break;
 			}
-			$exam_date = Carbon::parse($target_exam->exam_date);
-			if (Carbon::now()->greaterThan($exam_date)) {
+			$exam_started_at = Carbon::parse($target_exam->started_at);
+			if (Carbon::now()->greaterThan($exam_started_at)) {
 				return Reply::error('app.errors.exam_has_end');
 			}
 			$data['exam_date'] = Carbon::parse($data['exam_date']);
@@ -241,13 +243,54 @@ class ExamController extends Controller
 					return Reply::error('app.errors.something_went_wrong', [], 500);
 					break;
 			}
-			$exam_date = Carbon::parse($exam->exam_date);
-			if (Carbon::now()->greaterThan($exam_date)) {
+			$exam_started_at = Carbon::parse($exam->started_at);
+			if (Carbon::now()->greaterThan($exam_started_at)) {
 				return Reply::error('app.errors.exam_has_end');
 			}
-			$exam_date->delete();
+			$exam->delete();
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_delete_success');
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			DB::rollBack();
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.something_went_wrong', [], 500);
+		}
+	}
+
+	public function updateStatus(UpdateStatusRequest $request, string $id)
+	{
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('exam_submit'), 403);
+		$now = Carbon::now();
+
+		DB::beginTransaction();
+		try {
+			$target_exam = Exam::findOrFail($id);
+			$has_update_status_permission = $target_exam->exam_supervisors()
+				->where('user_id', '=', $user->id)
+				->exists();
+			if (!$has_update_status_permission) {
+				return Reply::error('', [], 403);
+			}
+			switch ($request->status) {
+				case 'start':
+					if ($target_exam->started_at == null) {
+						$target_exam->update(['started_at' => $now]);
+					} else return Reply::error('exam_has_start');
+					break;
+				case 'cancel':
+					if ($target_exam->cancelled_at == null) {
+						$target_exam->update(['cancelled_at' => $now]);
+					} else return Reply::error('exam_has_cancel');
+					break;
+				default:
+					# code...
+					break;
+			}
+			DB::commit();
+			if ($request->status == 'start') return Reply::error('exam_has_start');
+			if ($request->status == 'cancel') return Reply::error('exam_has_cancel');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
@@ -262,7 +305,12 @@ class ExamController extends Controller
 		abort_if(!$user->hasPermission('exam_submit'), 403);
 		$now = Carbon::now();
 
+		DB::beginTransaction();
 		try {
+			$exam_questions_order = ExamQuestionsOrder::firstOrCreate([
+				'exam_id' => $id,
+				'user_id' => $user->id
+			]);
 			$cache_key = str_replace(
 				['@exam_id', '@user_id'],
 				[$id, $user->id],
@@ -271,32 +319,35 @@ class ExamController extends Controller
 			if (Cache::has($cache_key)) {
 				return Reply::successWithData(Cache::get($cache_key));
 			}
-			$data = Exam::with(['questions' => function ($query) {
+			$data = Exam::with(['questions' => function ($query) use ($exam_questions_order) {
 				$query
 					->select('questions.id', 'content')
-					->with(['question_options' => function ($query) {
+					->with(['question_options' => function ($query)  use ($exam_questions_order) {
 						$query->select('id', 'question_id', 'content')
-							->inRandomOrder();
+							->inRandomOrder($exam_questions_order->id);
 					}])
-					->inRandomOrder();
+					->inRandomOrder($exam_questions_order->id);
 			}])
 				->whereHas('course.enrollments', function ($query) use ($user) {
 					$query->where('student_id', '=', $user->id);
 				})
+				->whereNull('cancelled_at')
 				->findOrFail($id);
 
-			$exam_date = Carbon::parse($data->exam_date);
-			$exam_end_date = $exam_date->copy()->addMinutes($data->exam_time);
-			if ($now->lessThan($exam_date)) {
+			$exam_started_at = Carbon::parse($data->started_at);
+			$exam_ended_at = $exam_started_at->copy()->addMinutes($data->exam_time);
+			if ($now->lessThan($exam_started_at)) {
 				return Reply::error('app.errors.exam_not_start');
 			}
-			if ($now->greaterThan($exam_end_date)) {
+			if ($now->greaterThan($exam_ended_at)) {
 				return Reply::error('app.errors.exam_has_end');
 			}
-			Cache::put($cache_key, $data, $exam_end_date);
+			Cache::put($cache_key, $data, $exam_ended_at);
+			DB::commit();
 			return Reply::successWithData($data, '');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
+			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}

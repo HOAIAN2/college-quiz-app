@@ -128,6 +128,7 @@ Route::prefix('/course')->middleware('auth:sanctum')
 
 Route::prefix('/exam')->middleware('auth:sanctum')
 	->controller(ExamController::class)->group(function () {
+		Route::post('/{id}/status', 'updateStatus');
 		Route::get('/{id}/do', 'questions');
 		Route::post('/{id}/do', 'submit');
 		Route::get('/{id}', 'show');
