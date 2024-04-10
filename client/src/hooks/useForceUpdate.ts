@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
 export default function useForceUpdate() {
-	const [, setState] = useState<void>()
-	return setState
+	const [, setState] = useState(true)
+	return () => { setState(pre => !pre) }
 }
