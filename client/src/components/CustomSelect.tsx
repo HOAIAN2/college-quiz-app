@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import useAppContext from '../hooks/useAppContext'
 import { Option } from '../models/option'
 import styles from '../styles/CustomSelect.module.css'
 
@@ -19,12 +20,16 @@ export default function CustomSelect({
 	disabled,
 	onChange,
 }: CustomSelectProps) {
+	const { appLanguage } = useAppContext()
 	const customSelectRef = useRef<HTMLDivElement>(null)
 	const containerRef = useRef<HTMLDivElement>(null)
 	const [current, setCurrent] = useState(defaultOption)
 	useLayoutEffect(() => {
 		if (current.label == undefined) setCurrent(defaultOption)
 	}, [current, defaultOption])
+	useLayoutEffect(() => {
+		setCurrent(defaultOption)
+	}, [appLanguage.language, defaultOption])
 	useEffect(() => {
 		const handleClickOutside = (e: MouseEvent) => {
 			const element = e.target as HTMLElement
