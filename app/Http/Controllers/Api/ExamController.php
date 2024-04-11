@@ -431,7 +431,9 @@ class ExamController extends Controller
 		try {
 			$exam = Exam::whereHas('course.enrollments', function ($query) use ($user) {
 				$query->where('student_id', '=', $user->id);
-			})->findOrFail($id);
+			})
+				->whereNull('cancelled_at')
+				->findOrFail($id);
 
 			$exam_date = Carbon::parse($exam->exam_date);
 			$exam_end_date = $exam_date->copy()->addMinutes($exam->exam_time);
