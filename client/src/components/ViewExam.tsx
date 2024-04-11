@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
+import { MdDeleteOutline } from 'react-icons/md'
 import { RxCross2 } from 'react-icons/rx'
 import { apiGetExamById, apiUpdateExam } from '../api/exam'
 import { apiGetAllUser } from '../api/user'
@@ -9,7 +10,7 @@ import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentCreateExamLang } from '../models/lang'
+import { ComponentViewExamLang } from '../models/lang'
 import { UserDetail } from '../models/user'
 import styles from '../styles/CreateViewExam.module.css'
 import createFormUtils from '../utils/createFormUtils'
@@ -31,7 +32,7 @@ export default function ViewExam({
 	const [supervisors, setSupervisors] = useState<UserDetail[]>([])
 	const [queryUser, setQueryUser] = useState('')
 	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
-	const language = useLanguage<ComponentCreateExamLang>('component.create_exam')
+	const language = useLanguage<ComponentViewExamLang>('component.view_exam')
 	const queryClient = useQueryClient()
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
@@ -64,6 +65,12 @@ export default function ViewExam({
 		})
 		await apiUpdateExam(formData, id)
 		handleClosePopUp()
+	}
+	const isExamStarted = () => {
+		if (!queryData.data) return false
+		if (!queryData.data.startedAt) return false
+		const examStartedAt = new Date(queryData.data.startedAt)
+		return new Date().getTime() > examStartedAt.getTime()
 	}
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateExam,
@@ -103,7 +110,7 @@ export default function ViewExam({
 					].join(' ')
 				}>
 					<div className={styles['header']}>
-						<h2 className={styles['title']}>{language?.create}</h2>
+						<h2 className={styles['title']}>{language?.exam}</h2>
 						<div className={styles['esc-button']}
 							onClick={handleClosePopUp}
 						>
@@ -269,15 +276,39 @@ export default function ViewExam({
 												</> : null
 										}
 									</div>
-									<div className={styles['action-items']}>
-										<button name='save'
-											className={
-												[
-													'action-item-d',
-													isPending ? 'button-submitting' : ''
-												].join(' ')
-											}>{language?.save}</button>
-									</div>
+									{
+										permissions.hasAnyFormList(['exam_update', 'exam_delete']) && !isExamStarted() ?
+											<div className={styles['action-items']}>
+												{
+													permissions.has('exam_update') && !isExamStarted() ?
+														<button name='save'
+															className={
+																[
+																	'action-item-d',
+																	isPending ? 'button-submitting' : ''
+																].join(' ')
+															}
+														>{language?.save}
+														</button> : null
+												}
+												{
+													permissions.has('exam_delete') && !isExamStarted() ?
+														<button
+															type='button'
+															onClick={() => {
+																// setShowDeletePopUp(true)
+															}}
+															className={
+																[
+																	'action-item-d-white-border-red'
+																].join(' ')
+															}>
+															<MdDeleteOutline /> {language?.delete}
+														</button> : null
+												}
+											</div>
+											: null
+									}
 								</form>
 								: null
 						}

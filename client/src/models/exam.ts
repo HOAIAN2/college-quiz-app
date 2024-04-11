@@ -8,8 +8,8 @@ export type Exam = {
 	name: string
 	examDate: string
 	examTime: number
-	startedAt: string
-	canceledAt: number
+	startedAt: string | null
+	canceledAt: string | null
 	createdAt: string
 	updatedAt: string
 }

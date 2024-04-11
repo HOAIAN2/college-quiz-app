@@ -10,5 +10,5 @@ export default {
 	supervisors: 'Supervisors',
 	search: 'Search',
 	joinedSupervisors: 'Joined Supervisors',
-	allSupervisors: 'All Supervisors'
+	allSupervisors: 'All Supervisors',
 }

@@ -76,7 +76,7 @@ export default function CreateExam({
 		return () => {
 			queryClient.removeQueries({ queryKey: [queryKeys.ALL_TEACHER] })
 		}
-	}, [])
+	}, [queryClient])
 	return (
 		<>
 			<div className={
