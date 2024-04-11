@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
 import { RxCross2 } from 'react-icons/rx'
@@ -32,6 +32,7 @@ export default function ViewExam({
 	const [queryUser, setQueryUser] = useState('')
 	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
 	const language = useLanguage<ComponentCreateExamLang>('component.create_exam')
+	const queryClient = useQueryClient()
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
 		const timing = Number(transitionTiming.replace('s', '')) * 1000
@@ -76,7 +77,11 @@ export default function ViewExam({
 	}, [queryData.data])
 	useEffect(() => {
 		setHide(false)
-	}, [])
+		return () => {
+			queryClient.removeQueries({ queryKey: [queryKeys.EXAM, { id: id }] })
+			queryClient.removeQueries({ queryKey: [queryKeys.ALL_TEACHER] })
+		}
+	}, [id, queryClient])
 	return (
 		<>
 			<div className={

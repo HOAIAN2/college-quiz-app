@@ -213,7 +213,7 @@ class ExamController extends Controller
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_update'), 403);
-		$data = collect($request->validated())->except(['supervisor_ids']);
+		$data = collect($request->validated())->except(['supervisor_ids'])->toArray();
 
 		DB::beginTransaction();
 		try {
@@ -232,8 +232,12 @@ class ExamController extends Controller
 					return Reply::error('app.errors.something_went_wrong', [], 500);
 					break;
 			}
-			$exam_started_at = Carbon::parse($target_exam->started_at);
-			if (Carbon::now()->greaterThan($exam_started_at)) {
+			$exam_started_at = $target_exam->started_at != null
+				? Carbon::parse($target_exam->started_at) : null;
+			if (
+				$exam_started_at != null &&
+				Carbon::now()->greaterThan($exam_started_at)
+			) {
 				return Reply::error('app.errors.exam_has_end');
 			}
 			$data['exam_date'] = Carbon::parse($data['exam_date']);
@@ -300,9 +304,13 @@ class ExamController extends Controller
 					return Reply::error('app.errors.something_went_wrong', [], 500);
 					break;
 			}
-			$exam_started_at = Carbon::parse($exam->started_at);
-			if (Carbon::now()->greaterThan($exam_started_at)) {
-				return Reply::error('app.errors.exam_has_end');
+			$exam_started_at = $exam->started_at != null
+				? Carbon::parse($exam->started_at) : null;
+			if (
+				$exam_started_at != null &&
+				Carbon::now()->greaterThan($exam_started_at)
+			) {
+				return Reply::error('app.errors.exam_has_start');
 			}
 			$exam->delete();
 			DB::commit();
