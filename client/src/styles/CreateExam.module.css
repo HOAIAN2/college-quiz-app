@@ -128,10 +128,6 @@ label.required::after {
 	z-index: 1;
 }
 
-.question-count-container {
-	list-style-type: none;
-}
-
 .data-container {
 	display: flex;
 	flex-direction: column;

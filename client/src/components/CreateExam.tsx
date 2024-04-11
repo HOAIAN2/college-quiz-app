@@ -167,51 +167,49 @@ export default function CreateExam({
 								{
 									queryData.data ?
 										<>
-											<ul className={styles['question-count-container']}>
-												{queryData.data.chapters.sort((a, b) =>
-													a.chapterNumber - b.chapterNumber
-												).map(chapter => {
-													const key = `chapter-${chapter.id}`
-													return (
-														<li
-															className={styles['wrap-item']}
-															key={key}
-														>
-															<label htmlFor={key}>
-																{`${chapter.chapterNumber}. ${chapter.name} (${chapter.questionsCount} ${language?.questions})`}
-															</label>
-															<input
-																id={key}
-																onInput={(e) => {
-																	const target = e.currentTarget
-																	if (target.valueAsNumber > chapter.questionsCount) {
-																		toast.error(language?.maxChapterQuestionCount
-																			.replace('@name', `${chapter.chapterNumber}. ${chapter.name}`)
-																			.replace('@questionNumber', String(chapter.questionsCount)))
-																	}
-																	const total = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="question_counts[]"]'))
-																		.reduce((total, current) => {
-																			return current.valueAsNumber ? total += current.valueAsNumber : total
-																		}, 0)
-																	setTotalQuestion(total)
-																}}
-																name='question_counts[]'
-																onBeforeInput={(e: React.CompositionEvent<HTMLInputElement>) => {
-																	if (e.data === '.') e.preventDefault()
-																}}
-																className={
-																	[
-																		'input-d',
-																		styles['input-item']
-																	].join(' ')
+											{queryData.data.chapters.sort((a, b) =>
+												a.chapterNumber - b.chapterNumber
+											).map(chapter => {
+												const key = `chapter-${chapter.id}`
+												return (
+													<div
+														className={styles['wrap-item']}
+														key={key}
+													>
+														<label htmlFor={key}>
+															{`${chapter.chapterNumber}. ${chapter.name} (${chapter.questionsCount} ${language?.questions})`}
+														</label>
+														<input
+															id={key}
+															onInput={(e) => {
+																const target = e.currentTarget
+																if (target.valueAsNumber > chapter.questionsCount) {
+																	toast.error(language?.maxChapterQuestionCount
+																		.replace('@name', `${chapter.chapterNumber}. ${chapter.name}`)
+																		.replace('@questionNumber', String(chapter.questionsCount)))
 																}
-																type='number'
-																min={0}
-															/>
-														</li>
-													)
-												})}
-											</ul>
+																const total = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="question_counts[]"]'))
+																	.reduce((total, current) => {
+																		return current.valueAsNumber ? total += current.valueAsNumber : total
+																	}, 0)
+																setTotalQuestion(total)
+															}}
+															name='question_counts[]'
+															onBeforeInput={(e: React.CompositionEvent<HTMLInputElement>) => {
+																if (e.data === '.') e.preventDefault()
+															}}
+															className={
+																[
+																	'input-d',
+																	styles['input-item']
+																].join(' ')
+															}
+															type='number'
+															min={0}
+														/>
+													</div>
+												)
+											})}
 											<div className={styles['wrap-item']}>
 												<span>{language?.totalQuestions}: {totalQuestion}</span>
 											</div>
@@ -253,9 +251,9 @@ export default function CreateExam({
 																		<span>
 																			{languageUtils.getFullName(supervisor.firstName, supervisor.lastName)}
 																		</span>
-																		<span>
-																			{supervisor.faculty?.shortcode}
-																		</span>
+																		{/* <span>
+																			{supervisor.faculty?.name}
+																		</span> */}
 																		<span
 																			style={{ height: '20px' }}
 																			onClick={() => {
