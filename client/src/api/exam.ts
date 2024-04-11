@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import request from '../config/api'
-import { Exam, ExamDetail, QueryExamType } from '../models/exam'
+import { ExamDetail, ExamUpcoming, QueryExamType } from '../models/exam'
 import { ApiResponseWithData } from '../models/response'
 import encodeFormData from '../utils/encodeFormData'
 
@@ -11,7 +11,7 @@ export async function apiGetUpcommingExams(query: QueryExamType) {
 				step: query.step
 			}
 		})
-		const { data } = res.data as ApiResponseWithData<ExamDetail[]>
+		const { data } = res.data as ApiResponseWithData<ExamUpcoming[]>
 		return data
 	} catch (error: any) {
 		throw new Error(error.message)
@@ -21,7 +21,7 @@ export async function apiGetUpcommingExams(query: QueryExamType) {
 export async function apiGetExamById(id: string | number) {
 	try {
 		const res = await request.get('/exam/' + id)
-		const { data } = res.data as ApiResponseWithData<Exam>
+		const { data } = res.data as ApiResponseWithData<ExamDetail>
 		return data
 	} catch (error: any) {
 		throw new Error(error.message)

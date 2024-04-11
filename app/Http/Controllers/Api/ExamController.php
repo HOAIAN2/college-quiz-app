@@ -155,14 +155,15 @@ class ExamController extends Controller
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_view'), 403);
 		$relations = [
+			'exam_supervisors.user'
 			// 'course',
 			// 'course.subject',
 			// 'course.teacher',
 		];
 
 		try {
-			$data = Exam::with($relations);
-			// ->withCount(['questions']);
+			$data = Exam::with($relations)
+				->withCount(['questions']);
 			switch ($user->role_id) {
 				case Role::ROLES['admin']:
 					$data = $data->findOrFail($id);

@@ -13,7 +13,7 @@ import useLanguage from '../hooks/useLanguage'
 import { CourseDetail } from '../models/course'
 import { ComponentCreateExamLang } from '../models/lang'
 import { UserDetail } from '../models/user'
-import styles from '../styles/CreateExam.module.css'
+import styles from '../styles/CreateViewExam.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import languageUtils from '../utils/languageUtils'
 import Loading from './Loading'
@@ -77,7 +77,7 @@ export default function CreateExam({
 		<>
 			<div className={
 				[
-					styles['create-exam-container'],
+					styles['create-view-exam-container'],
 					hide ? styles['hide'] : ''
 				].join(' ')
 			}>
@@ -89,7 +89,7 @@ export default function CreateExam({
 				}
 				<div className={
 					[
-						styles['create-exam-form'],
+						styles['create-view-exam-form'],
 						hide ? styles['hide'] : ''
 					].join(' ')
 				}>

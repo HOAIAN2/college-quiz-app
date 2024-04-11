@@ -1,4 +1,4 @@
-.create-exam-container {
+.create-view-exam-container {
 	width: 100vw;
 	height: 100vh;
 	position: fixed;
@@ -14,11 +14,11 @@
 	transition-property: background, opacity;
 }
 
-.create-exam-container.hide {
+.create-view-exam-container.hide {
 	opacity: 0;
 }
 
-.create-exam-form {
+.create-view-exam-form {
 	width: 500px;
 	height: 80%;
 	border-radius: var(--border-radius-low);
@@ -30,7 +30,7 @@
 	overflow-y: hidden;
 }
 
-.create-exam-form.hide {
+.create-view-exam-form.hide {
 	opacity: 0;
 	scale: 0.9;
 }
@@ -205,7 +205,7 @@ label.required::after {
 
 
 @media (width<=800px) {
-	.create-exam-form {
+	.create-view-exam-form {
 		width: 100%;
 		height: 100%;
 		border-radius: 0px;
