@@ -6,5 +6,9 @@ export default {
 	totalQuestions: 'Total questions',
 	questions: 'Questions',
 	save: 'Save',
-	maxChapterQuestionCount: 'Chapter @name has only @questionNumber questions.'
+	maxChapterQuestionCount: 'Chapter @name has only @questionNumber questions.',
+	supervisors: 'Supervisors',
+	search: 'Search',
+	joinedSupervisors: 'Joined Supervisors',
+	allSupervisors: 'All Supervisors'
 }

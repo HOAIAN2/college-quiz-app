@@ -6,5 +6,9 @@ export default {
 	totalQuestions: 'Tổng số câu hỏi',
 	questions: 'Câu hỏi',
 	save: 'Lưu',
-	maxChapterQuestionCount: 'Chương @name chỉ có @questionNumber câu hỏi.'
+	maxChapterQuestionCount: 'Chương @name chỉ có @questionNumber câu hỏi.',
+	supervisors: 'Giám thị',
+	search: 'Tìm kiếm',
+	joinedSupervisors: 'Giám thị đã tham gia',
+	allSupervisors: 'Toàn bộ giám thị',
 }

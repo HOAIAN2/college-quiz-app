@@ -218,9 +218,9 @@ export default function CreateExam({
 												styles['data-container']
 											].join(' ')
 											}>
-												<label>{'Giám thị'}</label>
+												<label>{language?.supervisors}</label>
 												<input
-													placeholder={'Tìm Kiếm'}
+													placeholder={language?.search}
 													onInput={e => {
 														setQueryUser(e.currentTarget.value)
 													}}
@@ -230,7 +230,7 @@ export default function CreateExam({
 															styles['input-item']
 														].join(' ')
 													} type='text' />
-												<label>{'Giám thị đã tham gia'}</label>
+												<label>{language?.joinedSupervisors}</label>
 												<ul className={
 													[
 														styles['joined-supervisors-container']
@@ -270,7 +270,7 @@ export default function CreateExam({
 														})
 													}
 												</ul>
-												<label>{'Toàn bộ giám thị'}</label>
+												<label>{language?.allSupervisors}</label>
 												<ul className={styles['all-supervisor-conatiner']}>
 													{userQueryData.data ?
 														userQueryData.data
