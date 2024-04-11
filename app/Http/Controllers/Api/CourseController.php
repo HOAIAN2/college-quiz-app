@@ -94,13 +94,13 @@ class CourseController extends Controller
 		DB::beginTransaction();
 
 		try {
-			$targetCourse = Course::findOrFail($id);
-			if ($targetCourse->semester->isOver()) {
+			$target_course = Course::findOrFail($id);
+			if ($target_course->semester->isOver()) {
 				return Reply::error('app.errors.semester_end', [], 400);
 			}
 			User::whereRoleId(Role::ROLES['teacher'])
 				->select('id')->findOrFail($request->teacher_id);
-			$targetCourse->update($data);
+			$target_course->update($data);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Throwable $error) {
@@ -136,24 +136,24 @@ class CourseController extends Controller
 
 		DB::beginTransaction();
 		try {
-			$targetCourse = Course::findOrFail($id);
-			if ($targetCourse->semester->isOver()) {
+			$target_course = Course::findOrFail($id);
+			if ($target_course->semester->isOver()) {
 				return Reply::error('app.errors.semester_end', [], 400);
 			}
 
 			if ($request->student_ids == null) {
-				Enrollment::where('course_id', '=', $targetCourse->id)
+				Enrollment::where('course_id', '=', $target_course->id)
 					->delete();
 			} else {
-				$will_be_deleted_student_ids = $targetCourse->enrollments()
+				$will_be_deleted_student_ids = $target_course->enrollments()
 					->whereNotIn('student_id', $request->student_ids)
 					->pluck('student_id');
 
-				Enrollment::where('course_id', '=', $targetCourse->id)
+				Enrollment::where('course_id', '=', $target_course->id)
 					->whereIn('student_id', $will_be_deleted_student_ids)
 					->delete();
 
-				$existing_student_ids = $targetCourse->enrollments()
+				$existing_student_ids = $target_course->enrollments()
 					->whereIn('student_id', $request->student_ids)
 					->pluck('student_id')->toArray();
 
@@ -164,7 +164,7 @@ class CourseController extends Controller
 				foreach ($student_ids as $student_id) {
 					if (in_array($student_id, $existing_student_ids)) continue;
 					Enrollment::create([
-						'course_id' => $targetCourse->id,
+						'course_id' => $target_course->id,
 						'student_id' => $student_id
 					]);
 				}

@@ -198,7 +198,7 @@ class ExamController extends Controller
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_update'), 403);
-		$data = $request->validated();
+		$data = collect($request->validated())->except(['supervisor_ids']);
 
 		DB::beginTransaction();
 		try {
@@ -223,6 +223,36 @@ class ExamController extends Controller
 			}
 			$data['exam_date'] = Carbon::parse($data['exam_date']);
 			$target_exam->update($data);
+
+			# Update supervisors
+			if ($request->supervisor_ids == null) {
+				ExamSupervisor::where('exam_id', '=', $target_exam->id)
+					->delete();
+			} else {
+				$will_be_deleted_supervisor_ids = $target_exam->exam_supervisors()
+					->whereNotIn('user_id', $request->supervisor_ids)
+					->pluck('user_id');
+
+				ExamSupervisor::where('exam_id', '=', $target_exam->id)
+					->whereIn('user_id', $will_be_deleted_supervisor_ids)
+					->delete();
+
+				$existing_supervisor_ids = $target_exam->exam_supervisors()
+					->whereIn('user_id', $request->supervisor_ids)
+					->pluck('user_id')->toArray();
+
+				$supervisor_ids = User::whereRoleId(Role::ROLES['teacher'])
+					->whereIn('id', $request->supervisor_ids)
+					->pluck('id');
+
+				foreach ($supervisor_ids as $supervisor_id) {
+					if (in_array($supervisor_id, $existing_supervisor_ids)) continue;
+					ExamSupervisor::create([
+						'exam_id' => $target_exam->id,
+						'user_id' => $supervisor_id
+					]);
+				}
+			}
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Throwable $error) {

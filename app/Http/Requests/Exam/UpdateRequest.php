@@ -29,6 +29,7 @@ class UpdateRequest extends FormRequest
 			'name' => ['required'],
 			'exam_date' => ['required', 'date', "after:$now"],
 			'exam_time' => ['required', 'integer', 'min:0'],
+			'supervisor_ids' => ['required', 'array'],
 		];
 	}
 }
