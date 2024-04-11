@@ -340,6 +340,9 @@ class ExamController extends Controller
 			}
 			switch ($request->status) {
 				case 'start':
+					if ($target_exam->cancelled_at != null) {
+						return Reply::error('exam_has_cancel');
+					}
 					if ($target_exam->started_at == null) {
 						$target_exam->update(['started_at' => $now]);
 					} else return Reply::error('exam_has_start');
