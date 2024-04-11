@@ -82,8 +82,23 @@ class ExamController extends Controller
 
 		DB::beginTransaction();
 		try {
-			// Thêm check giáo viên trong course mới được tạo
-			$course = Course::findOrFail($request->course_id);
+			# Check permission
+			$course = Course::select('*');
+			switch ($user->role_id) {
+				case Role::ROLES['teacher']:
+					$course = $course->whereHas('teacher', function ($query) use ($user) {
+						$query->where('id', '=', $user->id);
+					})
+						->findOrFail($request->course_id);
+					break;
+				case Role::ROLES['admin']:
+					$course = $course->findOrFail($request->course_id);
+					break;
+				default:
+					return Reply::error('app.errors.something_went_wrong', [], 500);
+					break;
+			}
+
 			$course_end_date = Carbon::parse($course->semester->end_date);
 			if ($course->isOver()) {
 				return Reply::error('app.errors.semester_end', [], 400);
