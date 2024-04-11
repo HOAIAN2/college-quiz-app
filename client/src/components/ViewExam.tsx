@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RxCross2 } from 'react-icons/rx'
-import { apiGetExamById, apiUpdateExam } from '../api/exam'
+import { apiDeleteExam, apiGetExamById, apiUpdateExam } from '../api/exam'
 import { apiGetAllUser } from '../api/user'
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
 import { queryKeys } from '../constants/query-keys'
@@ -16,6 +16,7 @@ import styles from '../styles/CreateViewExam.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import languageUtils from '../utils/languageUtils'
 import Loading from './Loading'
+import YesNoPopUp from './YesNoPopUp'
 
 type ViewExamProps = {
 	id: number
@@ -31,6 +32,7 @@ export default function ViewExam({
 	const [hide, setHide] = useState(true)
 	const [supervisors, setSupervisors] = useState<UserDetail[]>([])
 	const [queryUser, setQueryUser] = useState('')
+	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
 	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
 	const language = useLanguage<ComponentViewExamLang>('component.view_exam')
 	const queryClient = useQueryClient()
@@ -66,6 +68,9 @@ export default function ViewExam({
 		await apiUpdateExam(formData, id)
 		handleClosePopUp()
 	}
+	const handleDeleteExam = async () => {
+		await apiDeleteExam(id)
+	}
 	const isExamStarted = () => {
 		if (!queryData.data) return false
 		if (!queryData.data.startedAt) return false
@@ -91,6 +96,15 @@ export default function ViewExam({
 	}, [id, queryClient])
 	return (
 		<>
+			{showDeletePopUp === true ?
+				<YesNoPopUp
+					message={language?.deleteMessage || ''}
+					mutateFunction={handleDeleteExam}
+					setShowPopUp={setShowDeletePopUp}
+					onMutateSuccess={() => { onMutateSuccess(); handleClosePopUp() }}
+					langYes={language?.langYes}
+					langNo={language?.langNo}
+				/> : null}
 			<div className={
 				[
 					styles['create-view-exam-container'],
@@ -296,7 +310,7 @@ export default function ViewExam({
 														<button
 															type='button'
 															onClick={() => {
-																// setShowDeletePopUp(true)
+																setShowDeletePopUp(true)
 															}}
 															className={
 																[
