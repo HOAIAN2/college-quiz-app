@@ -5,7 +5,7 @@ namespace App\Http\Requests\Course;
 use App\Traits\CustomValidateResponse;
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetAllRequest extends FormRequest
+class IndexRequest extends FormRequest
 {
 	use CustomValidateResponse;
 	/**

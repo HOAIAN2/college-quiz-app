@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Faculty;
+namespace App\Http\Requests\SchoolClass;
 
 use App\Traits\CustomValidateResponse;
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetAllRequest extends FormRequest
+class IndexRequest extends FormRequest
 {
 	use CustomValidateResponse;
 	/**

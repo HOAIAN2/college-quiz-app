@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DeleteRequest;
-use App\Http\Requests\Faculty\GetAllRequest;
+use App\Http\Requests\Faculty\IndexRequest;
 use App\Http\Requests\Faculty\StoreRequest;
 use App\Http\Requests\Faculty\UpdateRequest;
 use App\Models\Faculty;
@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Log;
 
 class FacultyController extends Controller
 {
-	public function index(GetAllRequest $request)
+	public function index(IndexRequest $request)
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('faculty_view'), 403);

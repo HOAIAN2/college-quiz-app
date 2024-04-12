@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Question\GetAllRequest;
+use App\Http\Requests\Question\IndexRequest;
 use App\Http\Requests\Question\StoreRequest;
 use App\Http\Requests\Question\UpdateRequest;
 use App\Models\Question;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Log;
 
 class QuestionController extends Controller
 {
-	public function index(GetAllRequest $request)
+	public function index(IndexRequest $request)
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('question_view'), 403);

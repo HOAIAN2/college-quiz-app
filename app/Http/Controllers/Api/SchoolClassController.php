@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DeleteRequest;
-use App\Http\Requests\SchoolClass\GetAllRequest;
+use App\Http\Requests\SchoolClass\IndexRequest;
 use App\Http\Requests\SchoolClass\StoreRequest;
 use App\Http\Requests\SchoolClass\UpdateRequest;
 use App\Models\SchoolClass;
@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Log;
 
 class SchoolClassController extends Controller
 {
-	public function index(GetAllRequest $request)
+	public function index(IndexRequest $request)
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('school_class_view'), 403);

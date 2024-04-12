@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Course\GetAllRequest;
+use App\Http\Requests\Course\IndexRequest;
 use App\Http\Requests\Course\StoreRequest;
 use App\Http\Requests\Course\UpdateRequest;
 use App\Http\Requests\Course\UpdateStudentsRequest;
@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Log;
 
 class CourseController extends Controller
 {
-	public function index(GetAllRequest $request)
+	public function index(IndexRequest $request)
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('course_view'), 403);
