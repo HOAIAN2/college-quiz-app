@@ -61,6 +61,9 @@ class ExamController extends Controller
 						->whereHas('course.teacher', function ($query) use ($user) {
 							$query->where('id', '=', $user->id);
 						})
+						->orWhereHas('exam_supervisors', function ($query) use ($user) {
+							$query->where('user_id', '=', $user->id);
+						})
 						->get();
 					break;
 				default:
