@@ -2,16 +2,18 @@
 
 namespace App\Http\Requests\Faculty;
 
+use App\Traits\CustomValidateResponse;
 use Illuminate\Foundation\Http\FormRequest;
 
 class IndexRequest extends FormRequest
 {
+	use CustomValidateResponse;
 	/**
 	 * Determine if the user is authorized to make this request.
 	 */
 	public function authorize(): bool
 	{
-		return false;
+		return true;
 	}
 
 	/**
