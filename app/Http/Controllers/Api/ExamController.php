@@ -409,6 +409,9 @@ class ExamController extends Controller
 				->whereHas('course.enrollments', function ($query) use ($user) {
 					$query->where('student_id', '=', $user->id);
 				})
+				->whereDoesntHave('exam_trackers', function ($query)  use ($user) {
+					$query->where('user_id', '=', $user->id);
+				})
 				->whereNotNull('started_at')
 				->whereNull('cancelled_at')
 				->findOrFail($id);
@@ -440,9 +443,16 @@ class ExamController extends Controller
 
 		DB::beginTransaction();
 		try {
+			$cache_key = str_replace(
+				['@exam_id', '@user_id'],
+				[$id, $user->id],
+				$this->cacheKey
+			);
+
 			$exam = Exam::whereHas('course.enrollments', function ($query) use ($user) {
 				$query->where('student_id', '=', $user->id);
 			})
+				->whereNotNull('started_at')
 				->whereNull('cancelled_at')
 				->findOrFail($id);
 
