@@ -409,10 +409,7 @@ class ExamController extends Controller
 				->whereHas('course.enrollments', function ($query) use ($user) {
 					$query->where('student_id', '=', $user->id);
 				})
-				->where(function ($query) use ($now) {
-					$query->whereNotNull('started_at')
-						->where('started_at', '>=', $now);
-				})
+				->whereNotNull('started_at')
 				->whereNull('cancelled_at')
 				->findOrFail($id);
 
