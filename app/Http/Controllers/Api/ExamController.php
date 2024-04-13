@@ -383,10 +383,6 @@ class ExamController extends Controller
 
 		DB::beginTransaction();
 		try {
-			$exam_questions_order = ExamQuestionsOrder::firstOrCreate([
-				'exam_id' => $id,
-				'user_id' => $user->id
-			]);
 			$cache_key = str_replace(
 				['@exam_id', '@user_id'],
 				[$id, $user->id],
@@ -395,6 +391,12 @@ class ExamController extends Controller
 			if (Cache::has($cache_key)) {
 				return Reply::successWithData(Cache::get($cache_key));
 			}
+
+			$exam_questions_order = ExamQuestionsOrder::firstOrCreate([
+				'exam_id' => $id,
+				'user_id' => $user->id
+			]);
+
 			$data = Exam::with(['questions' => function ($query) use ($exam_questions_order) {
 				$query
 					->select('questions.id', 'content')
