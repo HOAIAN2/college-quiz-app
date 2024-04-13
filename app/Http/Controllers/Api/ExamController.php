@@ -329,12 +329,13 @@ class ExamController extends Controller
 	public function updateStatus(UpdateStatusRequest $request, string $id)
 	{
 		$user = $this->getUser();
-		abort_if(!$user->hasPermission('exam_submit'), 403);
+		abort_if(!$user->hasPermission('exam_update'), 403);
 		$now = Carbon::now();
 
 		DB::beginTransaction();
 		try {
-			$target_exam = Exam::findOrFail($id);
+			$target_exam = Exam::where('exam_date', '>=', $now)
+				->findOrFail($id);
 			$has_update_status_permission = $target_exam->exam_supervisors()
 				->where('user_id', '=', $user->id)
 				->exists();
@@ -347,12 +348,16 @@ class ExamController extends Controller
 						return Reply::error('exam_has_cancel');
 					}
 					if ($target_exam->started_at == null) {
-						$target_exam->update(['started_at' => $now]);
+						$target_exam->update([
+							'started_at' => $now
+						]);
 					} else return Reply::error('exam_has_start');
 					break;
 				case 'cancel':
 					if ($target_exam->cancelled_at == null) {
-						$target_exam->update(['cancelled_at' => $now]);
+						$target_exam->update([
+							'cancelled_at' => $now
+						]);
 					} else return Reply::error('exam_has_cancel');
 					break;
 				default:
