@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import request from '../config/api'
-import { ExamDetail, ExamUpcoming, QueryExamType } from '../models/exam'
+import { ExamDetail, ExamInMonth, QueryExamType } from '../models/exam'
 import { ApiResponseWithData } from '../models/response'
 import encodeFormData from '../utils/encodeFormData'
 
-export async function apiGetUpcommingExams(query: QueryExamType) {
+export async function apiGetExamsByMonth(query: QueryExamType) {
 	try {
 		const res = await request.get('/exam', {
 			params: {
-				step: query.step
+				month: query.month,
+				year: query.year
 			}
 		})
-		const { data } = res.data as ApiResponseWithData<ExamUpcoming[]>
+		const { data } = res.data as ApiResponseWithData<ExamInMonth[]>
 		return data
 	} catch (error: any) {
 		throw new Error(error.message)

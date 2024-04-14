@@ -14,7 +14,7 @@ export type Exam = {
 	updatedAt: string
 }
 
-export type ExamUpcoming = Exam & {
+export type ExamInMonth = Exam & {
 	// questionsCount: number
 	course: Course & {
 		subject: Subject
@@ -34,5 +34,6 @@ export type ExamDetail = Exam & {
 }
 
 export type QueryExamType = {
-	step?: string
+	month?: string
+	year?: string
 }

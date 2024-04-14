@@ -1,8 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
+import moment from 'moment'
+import 'moment/dist/locale/vi'
 import { useEffect } from 'react'
+import Datetime from 'react-datetime'
 import { useSearchParams } from 'react-router-dom'
-import { apiGetUpcommingExams } from '../api/exam'
-import CustomSelect from '../components/CustomSelect'
+import { apiGetExamsByMonth } from '../api/exam'
 import Loading from '../components/Loading'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
@@ -10,6 +12,7 @@ import useForceUpdate from '../hooks/useForceUpdate'
 import useLanguage from '../hooks/useLanguage'
 import { PageExamsLang } from '../models/lang'
 import styles from '../styles/global/CardPage.module.css'
+import renderMonth from '../utils/renderMonth'
 import timeUtils from '../utils/timeUtils'
 
 export default function Exams() {
@@ -17,12 +20,24 @@ export default function Exams() {
 	const [searchParams, setSearchParams] = useSearchParams()
 	const { appLanguage } = useAppContext()
 	const language = useLanguage<PageExamsLang>('page.exams')
+	const monthYearFormat = moment.localeData()
+		.longDateFormat('L')
+		.replace(/D[\\/\-\\.]?/g, '')
+		.trim()
+	const initQueryDate = () => {
+		const year = searchParams.get('year')
+		const month = searchParams.get('month')
+		if (month && year) return new Date(Number(year), Number(month) - 1)
+		return new Date()
+	}
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_EXAMS, {
-			step: searchParams.get('step')
+			month: searchParams.get('month') || '',
+			year: searchParams.get('year') || ''
 		}],
-		queryFn: () => apiGetUpcommingExams({
-			step: searchParams.get('step') || 'week'
+		queryFn: () => apiGetExamsByMonth({
+			month: searchParams.get('month') || '',
+			year: searchParams.get('year') || ''
 		})
 	})
 	useEffect(() => {
@@ -46,33 +61,30 @@ export default function Exams() {
 						: null}
 					<div className={styles['filter-form']}>
 						<div className={styles['wrap-input-item']}>
-							{/* <label htmlFor="">{'language?.filter.search'}</label> */}
-							<CustomSelect
-								defaultOption={
+							<label htmlFor="month">{language?.month}</label>
+							<Datetime
+								renderMonth={renderMonth}
+								locale={appLanguage.language}
+								initialValue={initQueryDate()}
+								inputProps={
 									{
-										label: searchParams.get('step') === 'week' ? language?.upComingWeek : language?.upComingMonth,
-										value: searchParams.get('step') || 'week'
+										id: 'month',
+										name: 'month',
+										className: [
+											'input-d',
+											styles['input-item']
+										].join(' ')
 									}
 								}
-								options={[
-									{
-										label: language?.upComingMonth,
-										value: 'month'
-									},
-									{
-										label: language?.upComingWeek,
-										value: 'week'
-									},
-								]}
-								onChange={(option) => {
-									searchParams.set('step', option.value)
+								onChange={e => {
+									const date = new Date(e.toString())
+									searchParams.set('month', String(date.getMonth() + 1))
+									searchParams.set('year', String(date.getFullYear()))
 									setSearchParams(searchParams)
 								}}
-								className={
-									[
-										styles['custom-select']
-									].join(' ')
-								}
+								closeOnSelect={true}
+								dateFormat={monthYearFormat}
+								timeFormat={false}
 							/>
 						</div>
 					</div>

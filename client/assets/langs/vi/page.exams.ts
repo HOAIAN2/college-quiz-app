@@ -1,6 +1,5 @@
 export default {
-	upComingMonth: 'Tháng sắp tới',
-	upComingWeek: 'Tuần sắp tới',
+	month: 'Tháng',
 	minutes: 'Phút',
 	inProgress: 'Đang diễn ra'
 }

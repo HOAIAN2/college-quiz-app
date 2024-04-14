@@ -20,4 +20,4 @@ const timeUtils = {
 	}
 }
 
-export default timeUtils
+export default Object.freeze(timeUtils)

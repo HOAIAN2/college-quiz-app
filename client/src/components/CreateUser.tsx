@@ -15,6 +15,7 @@ import { ComponentCreateUserLang } from '../models/lang'
 import { RoleName } from '../models/role'
 import styles from '../styles/global/CreateModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
+import renderMonth from '../utils/renderMonth'
 import CustomDataList from './CustomDataList'
 import CustomSelect from './CustomSelect'
 import Loading from './Loading'
@@ -254,6 +255,7 @@ export default function CreateUser({
 								<label className={styles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
 								<Datetime
 									initialValue={new Date()}
+									renderMonth={renderMonth}
 									inputProps={
 										{
 											id: 'birth_date',

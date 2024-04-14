@@ -16,6 +16,7 @@ import { UserDetail } from '../models/user'
 import styles from '../styles/CreateViewExam.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import languageUtils from '../utils/languageUtils'
+import renderMonth from '../utils/renderMonth'
 import Loading from './Loading'
 
 type CreateExamProps = {
@@ -135,6 +136,7 @@ export default function CreateExam({
 									<label className={styles['required']} htmlFor='exam_date'>{language?.examDate}</label>
 									<Datetime
 										initialValue={new Date()}
+										renderMonth={renderMonth}
 										inputProps={
 											{
 												id: 'exam_date',

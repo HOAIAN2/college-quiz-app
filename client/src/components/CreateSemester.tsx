@@ -7,6 +7,7 @@ import useLanguage from '../hooks/useLanguage'
 import { ComponentCreateSemesterLang } from '../models/lang'
 import styles from '../styles/global/CreateModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
+import renderMonth from '../utils/renderMonth'
 import Loading from './Loading'
 
 type CreateSemesterProps = {
@@ -113,6 +114,7 @@ export default function CreateSemester({
 								<label className={styles['required']} htmlFor='start_date'>{language?.startDate}</label>
 								<Datetime
 									initialValue={new Date()}
+									renderMonth={renderMonth}
 									inputProps={
 										{
 											id: 'start_date',
@@ -131,6 +133,7 @@ export default function CreateSemester({
 								<label className={styles['required']} htmlFor='end_date'>{language?.endDate}</label>
 								<Datetime
 									initialValue={new Date()}
+									renderMonth={renderMonth}
 									inputProps={
 										{
 											id: 'end_date',

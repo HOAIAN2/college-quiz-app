@@ -12,6 +12,7 @@ import useLanguage from '../hooks/useLanguage'
 import { PageProfileLang } from '../models/lang'
 import styles from '../styles/Profile.module.css'
 import createFormUtils from '../utils/createFormUtils'
+import renderMonth from '../utils/renderMonth'
 
 export default function Profile() {
 	const language = useLanguage<PageProfileLang>('page.profile')
@@ -235,6 +236,7 @@ export default function Profile() {
 								<label className={styles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
 								<Datetime
 									initialValue={new Date(queryData.data.user.birthDate)}
+									renderMonth={renderMonth}
 									inputProps={
 										{
 											id: 'birth_date',

@@ -14,6 +14,7 @@ import { ComponentViewUserLang } from '../models/lang'
 import styles from '../styles/global/ViewModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import languageUtils from '../utils/languageUtils'
+import renderMonth from '../utils/renderMonth'
 import CustomDataList from './CustomDataList'
 import CustomSelect from './CustomSelect'
 import Loading from './Loading'
@@ -293,6 +294,7 @@ export default function ViewUser({
 											<label className={styles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
 											<Datetime
 												initialValue={new Date(queryData.data.birthDate)}
+												renderMonth={renderMonth}
 												inputProps={
 													{
 														id: 'birth_date',

@@ -1,6 +1,5 @@
 export default {
-	upComingMonth: 'Upcoming month',
-	upComingWeek: 'Upcoming week',
+	month: 'Month',
 	minutes: 'Minutes',
 	inProgress: 'In progress',
 }
