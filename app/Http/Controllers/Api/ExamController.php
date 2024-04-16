@@ -35,6 +35,7 @@ class ExamController extends Controller
 		$relations = [
 			'course',
 			'course.subject',
+			// 'exam_supervisors.user',
 			// 'course.teacher',
 		];
 		if ($request->month != null && $request->year != null) {

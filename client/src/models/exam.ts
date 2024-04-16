@@ -1,6 +1,6 @@
 import { Course } from './course'
 import { Subject } from './subject'
-import { UserDetail } from './user'
+import { User } from './user'
 
 export type Exam = {
 	id: number
@@ -19,6 +19,14 @@ export type ExamInMonth = Exam & {
 	course: Course & {
 		subject: Subject
 	}
+	// examSupervisors: {
+	// 	id: number
+	// 	examId: number
+	// 	userId: number
+	// 	createdAt: string
+	// 	updatedAt: string
+	// 	user: User
+	// }[]
 }
 
 export type ExamDetail = Exam & {
@@ -29,7 +37,7 @@ export type ExamDetail = Exam & {
 		userId: number
 		createdAt: string
 		updatedAt: string
-		user: UserDetail
+		user: User
 	}[]
 }
 

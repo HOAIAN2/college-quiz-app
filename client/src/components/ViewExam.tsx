@@ -11,7 +11,7 @@ import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentViewExamLang } from '../models/lang'
-import { UserDetail } from '../models/user'
+import { User } from '../models/user'
 import styles from '../styles/CreateViewExam.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import languageUtils from '../utils/languageUtils'
@@ -31,7 +31,7 @@ export default function ViewExam({
 }: ViewExamProps) {
 	const { permissions } = useAppContext()
 	const [hide, setHide] = useState(true)
-	const [supervisors, setSupervisors] = useState<UserDetail[]>([])
+	const [supervisors, setSupervisors] = useState<User[]>([])
 	const [queryUser, setQueryUser] = useState('')
 	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
 	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
@@ -54,6 +54,7 @@ export default function ViewExam({
 	const userQueryData = useQuery({
 		queryKey: [queryKeys.ALL_TEACHER, { search: debounceQueryUser }],
 		queryFn: () => apiGetAllUser('teacher', debounceQueryUser),
+		enabled: permissions.has('user_view') ? true : false
 	})
 	const handleUpdateExam = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
@@ -213,19 +214,23 @@ export default function ViewExam({
 														styles['data-container']
 													].join(' ')
 													}>
+														{/* <label>{language?.supervisors}</label> */}
+														{
+															permissions.has('user_view') ?
+																<input
+																	placeholder={language?.search}
+																	onInput={e => {
+																		setQueryUser(e.currentTarget.value)
+																	}}
+																	className={
+																		[
+																			'input-d',
+																			styles['input-item']
+																		].join(' ')
+																	} type='text' />
+																: null
+														}
 														<label>{language?.supervisors}</label>
-														<input
-															placeholder={language?.search}
-															onInput={e => {
-																setQueryUser(e.currentTarget.value)
-															}}
-															className={
-																[
-																	'input-d',
-																	styles['input-item']
-																].join(' ')
-															} type='text' />
-														<label>{language?.joinedSupervisors}</label>
 														<ul className={
 															[
 																styles['joined-supervisors-container']
@@ -252,6 +257,7 @@ export default function ViewExam({
 																				<span
 																					style={{ height: '20px' }}
 																					onClick={() => {
+																						if (!permissions.has('exam_update')) return
 																						const newSupervisors = structuredClone(supervisors)
 																						newSupervisors.splice(index, 1)
 																						setSupervisors(newSupervisors)
@@ -265,29 +271,34 @@ export default function ViewExam({
 																})
 															}
 														</ul>
-														<label>{language?.allSupervisors}</label>
-														<ul className={styles['all-supervisor-conatiner']}>
-															{userQueryData.data ?
-																userQueryData.data
-																	.filter(user => !supervisors.find(supervisor => supervisor.id === user.id))
-																	.map(user => (
-																		<li
-																			onClick={() => {
-																				const newSupervisors = structuredClone(supervisors)
-																				newSupervisors.push(user)
-																				setSupervisors(newSupervisors)
-																			}}
-																			className={['dashboard-card-d', styles['card']].join(' ')}
-																			key={`user-${user.id}`}
-																		>
-																			<div className={styles['card-left']}>
-																				<span>{languageUtils.getFullName(user.firstName, user.lastName)}</span>
-																				<span>{user.faculty?.name}</span>
-																			</div>
-																		</li>
-																	)) : null
-															}
-														</ul>
+														{
+															permissions.has('user_view') ?
+																<>
+																	<label>{language?.allSupervisors}</label>
+																	<ul className={styles['all-supervisor-conatiner']}>
+																		{userQueryData.data ?
+																			userQueryData.data
+																				.filter(user => !supervisors.find(supervisor => supervisor.id === user.id))
+																				.map(user => (
+																					<li
+																						onClick={() => {
+																							const newSupervisors = structuredClone(supervisors)
+																							newSupervisors.push(user)
+																							setSupervisors(newSupervisors)
+																						}}
+																						className={['dashboard-card-d', styles['card']].join(' ')}
+																						key={`user-${user.id}`}
+																					>
+																						<div className={styles['card-left']}>
+																							<span>{languageUtils.getFullName(user.firstName, user.lastName)}</span>
+																							<span>{user.faculty?.name}</span>
+																						</div>
+																					</li>
+																				)) : null
+																		}
+																	</ul>
+																</> : null
+														}
 													</div>
 												</> : null
 										}
