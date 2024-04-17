@@ -73,12 +73,12 @@ export default function ViewExam({
 	const handleDeleteExam = async () => {
 		await apiDeleteExam(id)
 	}
-	const isExamStarted = () => {
-		if (!queryData.data) return false
-		if (!queryData.data.startedAt) return false
-		const examStartedAt = new Date(queryData.data.startedAt)
-		return new Date().getTime() > examStartedAt.getTime()
-	}
+	// const isExamStarted = () => {
+	// 	if (!queryData.data) return false
+	// 	if (!queryData.data.startedAt) return false
+	// 	const examStartedAt = new Date(queryData.data.startedAt)
+	// 	return new Date().getTime() > examStartedAt.getTime()
+	// }
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateExam,
 		onError: (error: object) => { formUtils.showFormError(error) },
@@ -304,10 +304,10 @@ export default function ViewExam({
 										}
 									</div>
 									{
-										permissions.hasAnyFormList(['exam_update', 'exam_delete']) && !isExamStarted() ?
+										permissions.hasAnyFormList(['exam_update', 'exam_delete']) ?
 											<div className={styles['action-items']}>
 												{
-													permissions.has('exam_update') && !isExamStarted() ?
+													permissions.has('exam_update') ?
 														<button name='save'
 															className={
 																[
@@ -319,7 +319,7 @@ export default function ViewExam({
 														</button> : null
 												}
 												{
-													permissions.has('exam_delete') && !isExamStarted() ?
+													permissions.has('exam_delete') ?
 														<button
 															type='button'
 															onClick={() => {

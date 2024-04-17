@@ -3,7 +3,7 @@ import moment from 'moment'
 import 'moment/dist/locale/vi'
 import { useEffect } from 'react'
 import Datetime from 'react-datetime'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { apiGetExamsByMonth } from '../api/exam'
 import Loading from '../components/Loading'
 import { queryKeys } from '../constants/query-keys'
@@ -93,9 +93,9 @@ export default function Exams() {
 							{queryData.data ?
 								queryData.data.map(item => {
 									return (
-										<div
+										<Link
 											key={`exam-${item.id}`}
-											// to={String(item.id)}
+											to={String(item.id)}
 											className={
 												[
 													'dashboard-card-d',
@@ -134,7 +134,7 @@ export default function Exams() {
 											<div className={styles['card-section']}>
 												{item.course.subject.name}
 											</div>
-										</div>
+										</Link>
 									)
 								}) : null}
 						</div>
