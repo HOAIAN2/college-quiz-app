@@ -120,37 +120,52 @@ export default function Exam() {
 									</p>
 								</div> */}
 								{
-									permissions.hasAnyFormList(['semester_update', 'semester_delete']) ?
+									permissions.hasAnyFormList(['exam_update', 'exam_submit']) ?
 										<div className={styles['action-items']}>
 											{
-												permissions.has('semester_update') ?
-													<button
-														onClick={() => {
-															setShowStartExamPopUp(true)
-														}}
-														type='button'
-														className={
-															[
-																'action-item-d',
-																// isPending ? 'button-submitting' : ''
-															].join(' ')
-														}
-													>{'Bắt đầu'}</button> : null
+												permissions.has('exam_submit') ?
+													<>
+														<button
+															type='button'
+															className={
+																[
+																	'action-item-d',
+																	// isPending ? 'button-submitting' : ''
+																].join(' ')
+															}
+														>{'Làm bài'}
+														</button>
+													</> : null
 											}
 											{
-												permissions.has('semester_delete') ?
-													<button
-														type='button'
-														onClick={() => {
-															setShowCancelExamPopUp(true)
-														}}
-														className={
-															[
-																'action-item-d-white-border-red'
-															].join(' ')
-														}>
-														<MdOutlineCancel /> {'Hủy'}
-													</button> : null
+												permissions.has('exam_update') ?
+													<>
+														<button
+															onClick={() => {
+																setShowStartExamPopUp(true)
+															}}
+															type='button'
+															className={
+																[
+																	'action-item-d',
+																	// isPending ? 'button-submitting' : ''
+																].join(' ')
+															}
+														>{'Bắt đầu'}
+														</button>
+														<button
+															type='button'
+															onClick={() => {
+																setShowCancelExamPopUp(true)
+															}}
+															className={
+																[
+																	'action-item-d-white-border-red'
+																].join(' ')
+															}>
+															<MdOutlineCancel /> {'Hủy'}
+														</button>
+													</> : null
 											}
 										</div>
 										: null

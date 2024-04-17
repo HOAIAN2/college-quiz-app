@@ -10,6 +10,7 @@ import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useForceUpdate from '../hooks/useForceUpdate'
 import useLanguage from '../hooks/useLanguage'
+import { ExamInMonth } from '../models/exam'
 import { PageExamsLang } from '../models/lang'
 import styles from '../styles/global/CardPage.module.css'
 import renderMonth from '../utils/renderMonth'
@@ -29,6 +30,43 @@ export default function Exams() {
 		const month = searchParams.get('month')
 		if (month && year) return new Date(Number(year), Number(month) - 1)
 		return new Date()
+	}
+	const showExamStatus = (exam: ExamInMonth) => {
+		if (timeUtils.isTimeWithinOneHour(new Date(exam.examDate))) {
+			return (
+				<div className={
+					[
+						styles['badge'],
+						styles['yellow']
+					].join(' ')
+				}>
+					{timeUtils.countDown(new Date(exam.examDate))}
+				</div>
+			)
+		}
+		if (timeUtils.isOnTimeExam(new Date(exam.examDate), exam.examTime)) {
+			if (exam.canceledAt != null) {
+				return (
+					'Đã bị hủy'
+				)
+			}
+			if (exam.startedAt == null) {
+				return (
+					'Chờ bắt đầu'
+				)
+			}
+			return (
+				<div className={
+					[
+						styles['badge'],
+						styles['green']
+					].join(' ')
+				}>
+					{language?.inProgress}
+				</div>
+			)
+		}
+		return new Date(exam.examDate).toLocaleString(appLanguage.language)
 	}
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_EXAMS, {
@@ -108,28 +146,7 @@ export default function Exams() {
 												</p>
 											</div>
 											<div className={styles['card-section']}>
-												{
-													timeUtils.isTimeWithinOneHour(new Date(item.examDate)) ?
-														<div className={
-															[
-																styles['badge'],
-																styles['yellow']
-															].join(' ')
-														}>
-															{timeUtils.countDown(new Date(item.examDate))}
-														</div>
-														:
-														timeUtils.isOnTimeExam(new Date(item.examDate), item.examTime) ?
-															<div className={
-																[
-																	styles['badge'],
-																	styles['green']
-																].join(' ')
-															}>
-																{language?.inProgress}
-															</div>
-															: new Date(item.examDate).toLocaleString(appLanguage.language)
-												}
+												{showExamStatus(item)}
 											</div>
 											<div className={styles['card-section']}>
 												{item.course.subject.name}
