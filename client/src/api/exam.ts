@@ -66,3 +66,16 @@ export async function apiDeleteExam(id: string | number) {
 		throw new Error(message)
 	}
 }
+
+export async function apiUpdateExamStatus(status: 'start' | 'cancel', id: string | number) {
+	const formData = new FormData()
+	formData.append('status', status)
+	try {
+		await request.post(`/exam/${id}/status`, formData)
+	} catch (error: any) {
+		if (!error.response) throw new Error(error.message)
+		const message = error.response.data.message
+		if (error.response.data.errors) return Promise.reject(error.response.data.errors)
+		throw new Error(message)
+	}
+}

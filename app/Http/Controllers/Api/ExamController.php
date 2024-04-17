@@ -354,39 +354,38 @@ class ExamController extends Controller
 
 		DB::beginTransaction();
 		try {
-			$target_exam = Exam::where('exam_date', '>=', $now)
-				->findOrFail($id);
+			$target_exam = Exam::findOrFail($id);
 			$has_update_status_permission = $target_exam->exam_supervisors()
 				->where('user_id', '=', $user->id)
 				->exists();
-			if (!$has_update_status_permission) {
+			if (!$user->isAdmin() && !$has_update_status_permission) {
 				return Reply::error('', [], 403);
 			}
 			switch ($request->status) {
 				case 'start':
 					if ($target_exam->cancelled_at != null) {
-						return Reply::error('exam_has_cancel');
+						return Reply::error('app.errors.exam_has_cancel');
 					}
 					if ($target_exam->started_at == null) {
 						$target_exam->update([
 							'started_at' => $now
 						]);
-					} else return Reply::error('exam_has_start');
+					} else return Reply::error('app.errors.exam_has_start');
 					break;
 				case 'cancel':
 					if ($target_exam->cancelled_at == null) {
 						$target_exam->update([
 							'cancelled_at' => $now
 						]);
-					} else return Reply::error('exam_has_cancel');
+					} else return Reply::error('app.errors.exam_has_cancel');
 					break;
 				default:
 					# code...
 					break;
 			}
 			DB::commit();
-			if ($request->status == 'start') return Reply::error('exam_has_start');
-			if ($request->status == 'cancel') return Reply::error('exam_has_cancel');
+			if ($request->status == 'start') return Reply::successWithMessage('app.successes.success');
+			if ($request->status == 'cancel') return Reply::successWithMessage('app.successes.success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
