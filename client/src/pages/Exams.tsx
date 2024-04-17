@@ -32,6 +32,18 @@ export default function Exams() {
 		return new Date()
 	}
 	const showExamStatus = (exam: ExamInMonth) => {
+		if (exam.canceledAt != null) {
+			return (
+				<div className={
+					[
+						styles['badge'],
+						styles['red']
+					].join(' ')
+				}>
+					{language?.cancelled}
+				</div>
+			)
+		}
 		if (timeUtils.isTimeWithinOneHour(new Date(exam.examDate))) {
 			return (
 				<div className={
@@ -44,17 +56,18 @@ export default function Exams() {
 				</div>
 			)
 		}
-		if (timeUtils.isOnTimeExam(new Date(exam.examDate), exam.examTime)) {
-			if (exam.canceledAt != null) {
-				return (
-					'Đã bị hủy'
-				)
-			}
-			if (exam.startedAt == null) {
-				return (
-					'Chờ bắt đầu'
-				)
-			}
+		if (exam.startedAt == null) {
+			return (
+				<div className={
+					[
+						styles['badge'],
+						styles['yellow']
+					].join(' ')
+				}>
+					{language?.pendingStart}
+				</div>
+			)
+		} else if (timeUtils.isOnTimeExam(new Date(exam.startedAt), exam.examTime)) {
 			return (
 				<div className={
 					[
