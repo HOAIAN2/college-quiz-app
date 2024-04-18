@@ -366,6 +366,9 @@ class ExamController extends Controller
 					if ($target_exam->cancelled_at != null) {
 						return Reply::error('app.errors.exam_has_cancel');
 					}
+					if ($now->lessThan(Carbon::parse($target_exam->exam_date))) {
+						return Reply::error('app.errors.not_yet_time_for_exam');
+					}
 					if ($target_exam->started_at == null) {
 						$target_exam->update([
 							'started_at' => $now
