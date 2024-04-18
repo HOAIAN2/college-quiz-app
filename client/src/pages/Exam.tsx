@@ -34,7 +34,7 @@ export default function Exam() {
 		<>
 			{showStartExamPopUp === true ?
 				<YesNoPopUp
-					message={'Bắt đầu bài thi ngay ?'}
+					message={language?.startMessage || ''}
 					mutateFunction={handleStartExam}
 					setShowPopUp={setShowStartExamPopUp}
 					onMutateSuccess={onMutateSuccess}
@@ -43,7 +43,7 @@ export default function Exam() {
 				/> : null}
 			{showCancelExamPopUp === true ?
 				<YesNoPopUp
-					message={'Hủy bài thi ?'}
+					message={language?.cancelMessage || ''}
 					mutateFunction={handleCancelExam}
 					setShowPopUp={setShowCancelExamPopUp}
 					onMutateSuccess={onMutateSuccess}
@@ -68,7 +68,7 @@ export default function Exam() {
 								].join(' ')
 							}>
 								<div className={styles['header']}>
-									<h2 className={styles['title']}>{'Bài thi'}</h2>
+									<h2 className={styles['title']}>{language?.exam}</h2>
 								</div>
 								<div className={styles['exam-info']}>
 									<div className={
@@ -96,7 +96,7 @@ export default function Exam() {
 												styles['supervisors-container'],
 											].join(' ')
 											}>
-											<label htmlFor='name'>{'Giám thị'}</label>
+											<label htmlFor='name'>{language?.supervisors}</label>
 											<p>
 												{queryData.data.examSupervisors.map(supervisor => {
 													return (
@@ -108,17 +108,6 @@ export default function Exam() {
 										</div>
 									</div>
 								</div>
-								{/* <div className={styles['wrap-item']}>
-									<label htmlFor='name'>{'Giám thị'}</label>
-									<p>
-										{queryData.data.examSupervisors.map(supervisor => {
-											return (
-												languageUtils.getFullName(supervisor.user.firstName, supervisor.user.lastName)
-											)
-										}).join(', ')
-										}
-									</p>
-								</div> */}
 								{
 									permissions.hasAnyFormList(['exam_update', 'exam_submit']) ?
 										<div className={styles['action-items']}>
@@ -133,7 +122,7 @@ export default function Exam() {
 																	// isPending ? 'button-submitting' : ''
 																].join(' ')
 															}
-														>{'Làm bài'}
+														>{language?.doExam}
 														</button>
 													</> : null
 											}
@@ -151,7 +140,7 @@ export default function Exam() {
 																	// isPending ? 'button-submitting' : ''
 																].join(' ')
 															}
-														>{'Bắt đầu'}
+														>{language?.startExam}
 														</button>
 														<button
 															type='button'
@@ -163,7 +152,7 @@ export default function Exam() {
 																	'action-item-d-white-border-red'
 																].join(' ')
 															}>
-															<MdOutlineCancel /> {'Hủy'}
+															<MdOutlineCancel /> {language?.cancelExam}
 														</button>
 													</> : null
 											}

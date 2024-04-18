@@ -82,6 +82,11 @@
 	gap: 10px;
 }
 
+.action-items>button {
+	min-width: 80px;
+	width: fit-content;
+}
+
 .pending {
 	opacity: 0.7;
 	cursor: default;
