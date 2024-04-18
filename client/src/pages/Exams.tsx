@@ -32,24 +32,25 @@ export default function Exams() {
 		return new Date()
 	}
 	const showExamStatus = (exam: ExamInMonth) => {
+		const examDate = new Date(exam.examDate)
 		const getClassNames = (color: string) => [styles['badge'], styles[color]].join(' ')
 		if (exam.cancelledAt != null) {
 			return <div className={getClassNames('red')}>{language?.cancelled}</div>
 		}
-		if (timeUtils.isTimeWithinOneHour(new Date(exam.examDate))) {
+		if (timeUtils.isTimeWithinOneHour(examDate)) {
 			return (
 				<div className={getClassNames('yellow')}>
-					{timeUtils.countDown(new Date(exam.examDate))}
+					{timeUtils.countDown(examDate)}
 				</div>
 			)
 		}
-		if (exam.startedAt == null) {
+		if (exam.startedAt == null && new Date().getTime() > examDate.getTime()) {
 			return <div className={getClassNames('yellow')}>{language?.pendingStart}</div>
 		}
-		if (timeUtils.isOnTimeExam(new Date(exam.startedAt), exam.examTime)) {
+		if (exam.startedAt != null && timeUtils.isOnTimeExam(new Date(exam.startedAt), exam.examTime)) {
 			return <div className={getClassNames('green')}>{language?.inProgress}</div>
 		}
-		return new Date(exam.examDate).toLocaleString(appLanguage.language)
+		return examDate.toLocaleString(appLanguage.language)
 	}
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_EXAMS, {
