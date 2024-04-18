@@ -9,7 +9,7 @@ export type Exam = {
 	examDate: string
 	examTime: number
 	startedAt: string | null
-	canceledAt: string | null
+	cancelledAt: string | null
 	createdAt: string
 	updatedAt: string
 }

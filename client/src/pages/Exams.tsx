@@ -32,52 +32,22 @@ export default function Exams() {
 		return new Date()
 	}
 	const showExamStatus = (exam: ExamInMonth) => {
-		if (exam.canceledAt != null) {
-			return (
-				<div className={
-					[
-						styles['badge'],
-						styles['red']
-					].join(' ')
-				}>
-					{language?.cancelled}
-				</div>
-			)
+		const getClassNames = (color: string) => [styles['badge'], styles[color]].join(' ')
+		if (exam.cancelledAt != null) {
+			return <div className={getClassNames('red')}>{language?.cancelled}</div>
 		}
 		if (timeUtils.isTimeWithinOneHour(new Date(exam.examDate))) {
 			return (
-				<div className={
-					[
-						styles['badge'],
-						styles['yellow']
-					].join(' ')
-				}>
+				<div className={getClassNames('yellow')}>
 					{timeUtils.countDown(new Date(exam.examDate))}
 				</div>
 			)
 		}
 		if (exam.startedAt == null) {
-			return (
-				<div className={
-					[
-						styles['badge'],
-						styles['yellow']
-					].join(' ')
-				}>
-					{language?.pendingStart}
-				</div>
-			)
-		} else if (timeUtils.isOnTimeExam(new Date(exam.startedAt), exam.examTime)) {
-			return (
-				<div className={
-					[
-						styles['badge'],
-						styles['green']
-					].join(' ')
-				}>
-					{language?.inProgress}
-				</div>
-			)
+			return <div className={getClassNames('yellow')}>{language?.pendingStart}</div>
+		}
+		if (timeUtils.isOnTimeExam(new Date(exam.startedAt), exam.examTime)) {
+			return <div className={getClassNames('green')}>{language?.inProgress}</div>
 		}
 		return new Date(exam.examDate).toLocaleString(appLanguage.language)
 	}
