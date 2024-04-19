@@ -17,6 +17,11 @@ class Controller extends BaseController
 	public bool $isDevelopment = false;
 	public int $autoCompleteResultLimit = 0;
 
+	public $tasks = [
+		'app:clear-unsed-tokens',
+		'app:cancel-late-exams'
+	];
+
 	public function __construct()
 	{
 		if (env('APP_DEBUG') == true) $this->isDevelopment = true;
@@ -25,27 +30,28 @@ class Controller extends BaseController
 
 	public function __destruct()
 	{
-		$this->clearUnusedTokens();
+		$this->runTasks();
 	}
 
-	public function clearUnusedTokens()
+	public function runTasks()
 	{
-		$clear_token_interval = env('CLEAR_TOKENS_INTERVAL', 60);
-		$now = Carbon::now();
+		$run_tasks_interval = env('RUN_TASK_INTERVAL', 1);
 		$is_api_call = Str::startsWith(request()->path(), 'api');
+		$now = Carbon::now();
 
-		$last_clear_tokens_at = Cache::has('last_clear_tokens_at')
-			? Carbon::parse(Cache::get('last_clear_tokens_at'))
+		$last_run_tasks_at = Cache::has('last_run_tasks_at')
+			? Carbon::parse(Cache::get('last_run_tasks_at'))
 			: $now;
-		if ($last_clear_tokens_at == $now) Cache::put('last_clear_tokens_at', $now->format('Y-m-d H:i:s'));
+		if ($last_run_tasks_at == $now) Cache::put('last_run_tasks_at', $now->format('Y-m-d H:i:s'));
 
 		if (
-			$now->diffInSeconds($last_clear_tokens_at) > $clear_token_interval
-			&& env('TOKEN_LIFETIME') != null
-			&& $is_api_call == true
+			$now->diffInSeconds($last_run_tasks_at) > $run_tasks_interval
+			&& $is_api_call
 		) {
-			Artisan::call('app:clear-unsed-tokens');
-			Cache::put('last_clear_tokens_at', $now->format('Y-m-d H:i:s'));
+			foreach ($this->tasks as $task) {
+				Artisan::call($task);
+			}
+			Cache::put('last_run_tasks_at', $now->format('Y-m-d H:i:s'));
 		}
 	}
 

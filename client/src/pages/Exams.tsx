@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 import moment from 'moment'
-import 'moment/dist/locale/vi'
 import { useEffect } from 'react'
 import Datetime from 'react-datetime'
 import { Link, useSearchParams } from 'react-router-dom'
