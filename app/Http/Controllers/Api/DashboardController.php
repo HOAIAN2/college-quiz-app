@@ -27,15 +27,18 @@ class DashboardController extends Controller
 						$query->whereDate('start_date', '<=', $now)
 							->whereDate('end_date', '>=', $now);
 					})->count();
-					$data->exams_in_this_month = Exam::whereBetween('exam_date', [now()->startOfMonth(), now()->endOfMonth()])
+					$data->exams_in_this_month = Exam::whereBetween(
+						'exam_date',
+						[now()->startOfMonth(), now()->endOfMonth()]
+					)
 						->count();
 					# Get render data
-					$data->exams_in_next_week = Exam::with([
-						'course',
-						'course.subject',
-						'course.teacher',
-					])->whereBetween('exam_date', [$now, $now->copy()->addWeek()])
-						->get();
+					// $data->exams_in_next_week = Exam::with([
+					// 	'course',
+					// 	'course.subject',
+					// 	'course.teacher',
+					// ])->whereBetween('exam_date', [$now, $now->copy()->addWeek()])
+					// 	->get();
 					break;
 				case Role::ROLES['teacher']:
 					# Get Count for 4 card in Dashboard
@@ -50,14 +53,14 @@ class DashboardController extends Controller
 					})->whereBetween('exam_date', [now()->startOfMonth(), now()->endOfMonth()])
 						->count();
 					# Get render data
-					$data->exams_in_next_week = Exam::with([
-						'course',
-						'course.subject',
-						'course.teacher',
-					])->whereHas('course.teacher', function ($query) use ($user) {
-						$query->where('id', '=', $user->id);
-					})->whereBetween('exam_date', [$now, $now->copy()->addWeek()])
-						->get();
+					// $data->exams_in_next_week = Exam::with([
+					// 	'course',
+					// 	'course.subject',
+					// 	'course.teacher',
+					// ])->whereHas('course.teacher', function ($query) use ($user) {
+					// 	$query->where('id', '=', $user->id);
+					// })->whereBetween('exam_date', [$now, $now->copy()->addWeek()])
+					// 	->get();
 					break;
 				case Role::ROLES['student']:
 					# Get Count for 4 card in Dashboard
@@ -69,17 +72,19 @@ class DashboardController extends Controller
 					})->count();
 					$data->exams_in_this_month = Exam::whereHas('course.enrollments', function ($query) use ($user) {
 						$query->where('student_id', '=', $user->id);
-					})->whereBetween('exam_date', [now()->startOfMonth(), now()->endOfMonth()])
-						->count();
+					})->whereBetween('exam_date', [
+						now()->startOfMonth(),
+						now()->endOfMonth()
+					])->count();
 					# Get render data
-					$data->exams_in_next_week = Exam::with([
-						'course',
-						'course.subject',
-						'course.teacher',
-					])->whereHas('course.enrollments', function ($query) use ($user) {
-						$query->where('student_id', '=', $user->id);
-					})->whereBetween('exam_date', [$now, $now->copy()->addWeek()])
-						->get();
+					// $data->exams_in_next_week = Exam::with([
+					// 	'course',
+					// 	'course.subject',
+					// 	'course.teacher',
+					// ])->whereHas('course.enrollments', function ($query) use ($user) {
+					// 	$query->where('student_id', '=', $user->id);
+					// })->whereBetween('exam_date', [$now, $now->copy()->addWeek()])
+					// 	->get();
 					break;
 				default:
 					return Reply::error('app.errors.something_went_wrong', [], 500);
