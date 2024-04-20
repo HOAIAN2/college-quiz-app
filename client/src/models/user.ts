@@ -33,6 +33,6 @@ export type UserWithPermissions = {
 export type QueryUserType = {
 	role: RoleName
 	page?: number
-	perPage?: number,
+	perPage?: number
 	search?: string
 }

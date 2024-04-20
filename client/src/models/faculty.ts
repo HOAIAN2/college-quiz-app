@@ -17,6 +17,6 @@ export type FacultyDetail = Faculty & {
 
 export type QueryFacultyType = {
 	page?: number
-	perPage?: number,
+	perPage?: number
 	search?: string
 }

@@ -14,6 +14,6 @@ export type SchoolClassDetail = SchoolClass & {
 }
 export type QuerySchoolClassType = {
 	page?: number
-	perPage?: number,
+	perPage?: number
 	search?: string
 }

@@ -13,6 +13,6 @@ export type SemesterDetail = Semester & {
 
 export type QuerySemesterType = {
 	page?: number
-	perPage?: number,
+	perPage?: number
 	search?: string
 }
