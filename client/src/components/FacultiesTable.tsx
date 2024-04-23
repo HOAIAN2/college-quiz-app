@@ -28,7 +28,7 @@ export default function FacultiesTable({
 	const { permissions } = useAppContext()
 	const [checkAll, setCheckAll] = useState(false)
 	const language = useLanguage<ComponentFacultiesTableLang>('component.faculties_table')
-	const [viewMode, setViewMode] = useState(false)
+	const [showViewPopUp, setShowViewPopUp] = useState(false)
 	const [facultyId, seFacultyId] = useState<number>(0)
 	const handleViewFaculty = (id: number, e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => {
 		const target = e.target as Element
@@ -48,7 +48,7 @@ export default function FacultiesTable({
 			return
 		}
 		seFacultyId(id)
-		setViewMode(true)
+		setShowViewPopUp(true)
 	}
 	const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const currentTarget = e.currentTarget
@@ -78,11 +78,11 @@ export default function FacultiesTable({
 	}
 	return (
 		<>
-			{viewMode === true ?
+			{showViewPopUp === true ?
 				<ViewFaculty
 					id={facultyId}
 					onMutateSuccess={onMutateSuccess}
-					setShowPopUp={setViewMode}
+					setShowPopUp={setShowViewPopUp}
 				/> : null}
 			<div className={styles['table-content']}>
 				<table className={styles['main']}>

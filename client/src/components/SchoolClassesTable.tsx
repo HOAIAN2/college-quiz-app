@@ -27,7 +27,7 @@ export default function SchoolClassesTable({
 	const { permissions } = useAppContext()
 	const [checkAll, setCheckAll] = useState(false)
 	const language = useLanguage<ComponentSchoolClassesTableLang>('component.school_classes_table')
-	const [viewMode, setViewMode] = useState(false)
+	const [showViewPopUp, setShowViewPopUp] = useState(false)
 	const [schoolClassId, setSchoolClassId] = useState<number>(0)
 	const handleViewSchoolClass = (id: number, e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => {
 		const target = e.target as Element
@@ -47,7 +47,7 @@ export default function SchoolClassesTable({
 			return
 		}
 		setSchoolClassId(id)
-		setViewMode(true)
+		setShowViewPopUp(true)
 	}
 	const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const currentTarget = e.currentTarget
@@ -77,11 +77,11 @@ export default function SchoolClassesTable({
 	}
 	return (
 		<>
-			{viewMode === true ?
+			{showViewPopUp === true ?
 				<ViewSchoolClass
 					id={schoolClassId}
 					onMutateSuccess={onMutateSuccess}
-					setShowPopUp={setViewMode}
+					setShowPopUp={setShowViewPopUp}
 				/> : null}
 			<div className={styles['table-content']}>
 				<table className={styles['main']}>
