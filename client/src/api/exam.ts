@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import request from '../config/api'
-import { ExamDetail, ExamInMonth, QueryExamType } from '../models/exam'
+import { ExamDetail, ExamInMonth, ExamWithQuestion, QueryExamType } from '../models/exam'
 import { ApiResponseWithData } from '../models/response'
 import encodeFormData from '../utils/encodeFormData'
 
@@ -72,6 +72,19 @@ export async function apiUpdateExamStatus(status: 'start' | 'cancel', id: string
 	formData.append('status', status)
 	try {
 		await request.post(`/exam/${id}/status`, formData)
+	} catch (error: any) {
+		if (!error.response) throw new Error(error.message)
+		const message = error.response.data.message
+		if (error.response.data.errors) return Promise.reject(error.response.data.errors)
+		throw new Error(message)
+	}
+}
+
+export async function apiGetExamQuestions(id: string | number) {
+	try {
+		const res = await request.get(`/exam/${id}/do`)
+		const { data } = res.data as ApiResponseWithData<ExamWithQuestion>
+		return data
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message)
 		const message = error.response.data.message

@@ -41,6 +41,10 @@ export type ExamDetail = Exam & {
 	}[]
 }
 
+export type ExamWithQuestion = Exam & {
+	//
+}
+
 export type QueryExamType = {
 	month?: string
 	year?: string
