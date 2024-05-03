@@ -6,7 +6,7 @@ import { queryKeys } from '../constants/query-keys'
 export default function TakeExam() {
 	const { id } = useParams()
 	const queryData = useQuery({
-		queryKey: [queryKeys.EXAM_QUESTIONS],
+		queryKey: [queryKeys.EXAM_QUESTIONS, { examId: id }],
 		queryFn: () => apiGetExamQuestions(String(id))
 	})
 	if (queryData.data) console.log(queryData.data)
