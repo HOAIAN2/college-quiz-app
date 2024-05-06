@@ -4,6 +4,7 @@ import { apiGetExamQuestions } from '../api/exam'
 import ExamQuestion from '../components/ExamQuestion'
 import Loading from '../components/Loading'
 import { queryKeys } from '../constants/query-keys'
+import styles from '../styles/TakeExam.module.css'
 
 export default function TakeExam() {
 	const { id } = useParams()
@@ -17,16 +18,17 @@ export default function TakeExam() {
 			{
 				queryData.data ?
 					<>
-						{
-							queryData.data.questions.map(question => {
-								return (
-									<ExamQuestion question={question} />
-								)
-							})
-						}
+						<div className={styles['take-exam-container']}>
+							{
+								queryData.data.questions.map(question => {
+									return (
+										<ExamQuestion question={question} />
+									)
+								})
+							}
+						</div>
 					</> : null
 			}
-			<div>TakeExam</div>
 		</>
 	)
 }
