@@ -12,3 +12,15 @@
 .question-option {
 	font-size: 16px !important;
 }
+
+.question-option-container {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.question-option-container>svg {
+	font-size: 16px !important;
+	color: green;
+}

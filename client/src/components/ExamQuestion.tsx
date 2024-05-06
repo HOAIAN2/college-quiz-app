@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { MdOutlineRadioButtonChecked } from 'react-icons/md'
 import { ExamQuestion as TExamQuestion } from '../models/exam'
 import styles from '../styles/ExamQuestion.module.css'
 
@@ -9,6 +11,7 @@ export default function ExamQuestion({
 	index,
 	question
 }: ExamQuestionProps) {
+	const [checkedIndex, setCheckedIndex] = useState(-1)
 	return (
 		<div className={styles['exam-question-container']}>
 			<span className={styles['question-content']}>
@@ -17,12 +20,29 @@ export default function ExamQuestion({
 			{
 				question.questionOptions.map((option, i) => {
 					return (
-						<div className={styles['question-option']}
+						<div
+							onClick={() => {
+								setCheckedIndex(i)
+							}}
+							className={
+								[
+									styles['question-option-container']
+								].join(' ')
+							}
 							key={`exam-question-option-${option.id}`}
 						>
-							<span className={styles['question-option']}>
+							<span className={
+								[
+									styles['question-option']
+								].join(' ')
+							}>
 								{i + 1}. {option.content}
 							</span>
+							{
+								checkedIndex === i ?
+									<MdOutlineRadioButtonChecked />
+									: null
+							}
 						</div>
 					)
 				})
