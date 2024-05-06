@@ -411,7 +411,7 @@ class ExamController extends Controller
 				$this->cacheKey
 			);
 			if (Cache::has($cache_key)) {
-				return Reply::successWithData(Cache::get($cache_key));
+				return Reply::successWithData(Cache::get($cache_key), '');
 			}
 
 			$exam_questions_order = ExamQuestionsOrder::firstOrCreate([

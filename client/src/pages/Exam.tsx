@@ -115,6 +115,7 @@ export default function Exam() {
 												permissions.has('exam_submit') && queryData.data.startedAt !== null ?
 													<>
 														<Link
+															style={{ width: 'fit-content' }}
 															to='take'
 															type='button'
 															className={

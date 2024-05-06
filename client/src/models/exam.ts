@@ -1,4 +1,5 @@
 import { Course } from './course'
+import { QuestionDetail } from './question'
 import { Subject } from './subject'
 import { User } from './user'
 
@@ -42,10 +43,30 @@ export type ExamDetail = Exam & {
 }
 
 export type ExamWithQuestion = Exam & {
-	//
+	questions: ExamQuestion[]
 }
-
 export type QueryExamType = {
 	month?: string
 	year?: string
+}
+
+export type ExamQuestion = QuestionDetail & {
+	id: number
+	content: string
+	pivot: Pivot
+	questionOptions: QuestionOption[]
+}
+
+type Pivot = {
+	examId: number
+	questionId: number
+	id: number
+	createdAt: string
+	updatedAt: string
+}
+
+type QuestionOption = {
+	id: number
+	questionId: number
+	content: string
 }
