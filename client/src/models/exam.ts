@@ -1,5 +1,4 @@
 import { Course } from './course'
-import { QuestionDetail } from './question'
 import { Subject } from './subject'
 import { User } from './user'
 
@@ -50,7 +49,7 @@ export type QueryExamType = {
 	year?: string
 }
 
-export type ExamQuestion = QuestionDetail & {
+export type ExamQuestion = {
 	id: number
 	content: string
 	pivot: Pivot

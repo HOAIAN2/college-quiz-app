@@ -20,9 +20,13 @@ export default function TakeExam() {
 					<>
 						<div className={styles['take-exam-container']}>
 							{
-								queryData.data.questions.map(question => {
+								queryData.data.questions.map((question, index) => {
 									return (
-										<ExamQuestion question={question} />
+										<ExamQuestion
+											index={index}
+											key={`exam-question-${question.id}`}
+											question={question}
+										/>
 									)
 								})
 							}
