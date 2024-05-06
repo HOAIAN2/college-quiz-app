@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import moment from 'moment'
 import { useState } from 'react'
 import { MdOutlineCancel } from 'react-icons/md'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { apiGetExamById, apiUpdateExamStatus } from '../api/exam'
 import Loading from '../components/Loading'
 import YesNoPopUp from '../components/YesNoPopUp'
@@ -112,9 +112,10 @@ export default function Exam() {
 									permissions.hasAnyFormList(['exam_update', 'exam_submit']) ?
 										<div className={styles['action-items']}>
 											{
-												permissions.has('exam_submit') ?
+												permissions.has('exam_submit') && queryData.data.startedAt !== null ?
 													<>
-														<button
+														<Link
+															to='take'
 															type='button'
 															className={
 																[
@@ -123,7 +124,7 @@ export default function Exam() {
 																].join(' ')
 															}
 														>{language?.doExam}
-														</button>
+														</Link>
 													</> : null
 											}
 											{
