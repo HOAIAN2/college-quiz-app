@@ -1,21 +1,28 @@
 import { useState } from 'react'
 import { MdOutlineRadioButtonChecked } from 'react-icons/md'
+import useLanguage from '../hooks/useLanguage'
 import { ExamQuestion as TExamQuestion } from '../models/exam'
+import { ComponentExamQuestionLang } from '../models/lang'
 import styles from '../styles/ExamQuestion.module.css'
 
 type ExamQuestionProps = {
 	index: number
 	question: TExamQuestion
+	answerIndex: number
+	setAnswers: React.Dispatch<React.SetStateAction<number[]>>
 }
 export default function ExamQuestion({
 	index,
-	question
+	question,
+	answerIndex,
+	setAnswers
 }: ExamQuestionProps) {
-	const [checkedIndex, setCheckedIndex] = useState(-1)
+	const [checkedIndex, setCheckedIndex] = useState(answerIndex)
+	const language = useLanguage<ComponentExamQuestionLang>('component.exam_question')
 	return (
 		<div className={styles['exam-question-container']}>
 			<span className={styles['question-content']}>
-				Câu {index + 1}. {question.content}
+				{language?.question} {index + 1}. {question.content}
 			</span>
 			{
 				question.questionOptions.map((option, i) => {
@@ -23,6 +30,10 @@ export default function ExamQuestion({
 						<div
 							onClick={() => {
 								setCheckedIndex(i)
+								setAnswers(pre => {
+									pre[index] = i
+									return structuredClone(pre)
+								})
 							}}
 							className={
 								[

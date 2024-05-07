@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { apiGetExamQuestions } from '../api/exam'
 import ExamQuestion from '../components/ExamQuestion'
@@ -13,6 +13,20 @@ import timeUtils from '../utils/timeUtils'
 
 export default function TakeExam() {
 	const { id } = useParams()
+	const localStorageKey = `exam_${id}`
+	const [answers, setAnswers] = useState<number[]>(() => {
+		const data = localStorage.getItem(localStorageKey)
+		if (data === null) {
+			localStorage.setItem(localStorageKey, '[]')
+			return []
+		}
+		const decodedData = JSON.parse(data)
+		if (!Array.isArray(decodedData) || decodedData.some(i => !Number.isInteger(i))) {
+			localStorage.setItem(localStorageKey, '[]')
+			return []
+		}
+		return decodedData
+	})
 	const language = useLanguage<PageTakeExamLang>('page.take_exam')
 	const forceUpdate = useForceUpdate()
 	const queryData = useQuery({
@@ -28,7 +42,16 @@ export default function TakeExam() {
 	useEffect(() => {
 		if (!queryData.data) return
 		document.title = queryData.data.name
-	})
+		if (answers.length !== queryData.data.questions.length) {
+			answers.length = queryData.data.questions.length
+			answers.fill(-1)
+			setAnswers(structuredClone(answers))
+			localStorage.setItem(localStorageKey, JSON.stringify(answers))
+		}
+		else {
+			localStorage.setItem(localStorageKey, JSON.stringify(answers))
+		}
+	}, [answers, localStorageKey, queryData.data])
 	return (
 		<>
 			{queryData.isLoading ? < Loading /> : null}
@@ -61,15 +84,17 @@ export default function TakeExam() {
 										queryData.data.questions.map((question, index) => {
 											return (
 												<ExamQuestion
-													index={index}
 													key={`exam-question-${question.id}`}
+													index={index}
 													question={question}
+													answerIndex={answers[index]}
+													setAnswers={setAnswers}
 												/>
 											)
 										})
 									}
 								</div>
-								{language?.numberOfQuestionsAnswered}: 23/23
+								{language?.numberOfQuestionsAnswered}: {answers.filter(i => i !== -1).length}/{answers.length}
 								<div className={styles['action-items']}>
 									<button name='save'
 										className={
