@@ -64,7 +64,7 @@ export default function Exams() {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			forceUpdate()
-		}, 1000)
+		}, 500)
 		return () => clearInterval(interval)
 	}, [forceUpdate])
 	return (

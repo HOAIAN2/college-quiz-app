@@ -6,3 +6,36 @@
 	gap: 20px;
 	overflow: auto;
 }
+
+.data-container {
+	width: 100%;
+	height: fit-content;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.title {
+	display: flex;
+	justify-content: space-between;
+}
+
+.title>span {
+	font-size: 18px !important;
+	font-weight: bold;
+}
+
+.questions-container {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.action-items {
+	/* margin-top: 10px; */
+	height: 50px;
+	display: flex;
+	align-items: center;
+	flex-direction: row-reverse;
+	gap: 10px;
+}
