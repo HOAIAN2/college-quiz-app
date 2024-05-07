@@ -17,10 +17,11 @@
 
 .title {
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
+	gap: 10px;
 }
 
-.title>span {
+.title>div {
 	font-size: 18px !important;
 	font-weight: bold;
 }

@@ -6,11 +6,14 @@ import ExamQuestion from '../components/ExamQuestion'
 import Loading from '../components/Loading'
 import { queryKeys } from '../constants/query-keys'
 import useForceUpdate from '../hooks/useForceUpdate'
+import useLanguage from '../hooks/useLanguage'
+import { PageTakeExamLang } from '../models/lang'
 import styles from '../styles/TakeExam.module.css'
 import timeUtils from '../utils/timeUtils'
 
 export default function TakeExam() {
 	const { id } = useParams()
+	const language = useLanguage<PageTakeExamLang>('page.take_exam')
 	const forceUpdate = useForceUpdate()
 	const queryData = useQuery({
 		queryKey: [queryKeys.EXAM_QUESTIONS, { examId: id }],
@@ -25,7 +28,7 @@ export default function TakeExam() {
 	useEffect(() => {
 		if (!queryData.data) return
 		document.title = queryData.data.name
-	}, [queryData.data])
+	})
 	return (
 		<>
 			{queryData.isLoading ? < Loading /> : null}
@@ -43,12 +46,12 @@ export default function TakeExam() {
 										styles['title']
 									].join(' ')
 								}>
-									<span>
+									<div>
 										{queryData.data.name}
-									</span>
-									<span>
-										{timeUtils.countDown(new Date(Date.parse(queryData.data.startedAt!) + queryData.data.examTime * 60000))}
-									</span>
+									</div>
+									<div>
+										{language?.timeLeft}: {timeUtils.countDown(new Date(Date.parse(queryData.data.startedAt!) + queryData.data.examTime * 60000))}
+									</div>
 								</div>
 								<div className={[
 									styles['questions-container']
@@ -66,6 +69,7 @@ export default function TakeExam() {
 										})
 									}
 								</div>
+								{language?.numberOfQuestionsAnswered}: 23/23
 								<div className={styles['action-items']}>
 									<button name='save'
 										className={
@@ -73,7 +77,8 @@ export default function TakeExam() {
 												'action-item-d',
 												// isPending ? 'button-submitting' : ''
 											].join(' ')
-										}>{'Nộp'}</button>
+										}>{language?.submit}
+									</button>
 								</div>
 							</div>
 						</div>
