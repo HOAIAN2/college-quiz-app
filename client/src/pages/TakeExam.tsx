@@ -9,6 +9,7 @@ import useForceUpdate from '../hooks/useForceUpdate'
 import useLanguage from '../hooks/useLanguage'
 import { PageTakeExamLang } from '../models/lang'
 import styles from '../styles/TakeExam.module.css'
+import isValidJson from '../utils/isValidJson'
 import timeUtils from '../utils/timeUtils'
 
 export default function TakeExam() {
@@ -16,7 +17,7 @@ export default function TakeExam() {
 	const localStorageKey = `exam_${id}`
 	const [answers, setAnswers] = useState<number[]>(() => {
 		const data = localStorage.getItem(localStorageKey)
-		if (!data) {
+		if (data === null || !isValidJson(data)) {
 			localStorage.setItem(localStorageKey, '[]')
 			return []
 		}
