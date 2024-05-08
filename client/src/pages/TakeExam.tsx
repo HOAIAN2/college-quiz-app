@@ -16,7 +16,7 @@ export default function TakeExam() {
 	const localStorageKey = `exam_${id}`
 	const [answers, setAnswers] = useState<number[]>(() => {
 		const data = localStorage.getItem(localStorageKey)
-		if (data === null) {
+		if (!data) {
 			localStorage.setItem(localStorageKey, '[]')
 			return []
 		}
