@@ -43,11 +43,10 @@ export default function TakeExam() {
 	useEffect(() => {
 		if (!queryData.data) return
 		document.title = queryData.data.name
-		if (answers.length !== queryData.data.questions.length) {
-			answers.length = queryData.data.questions.length
-			answers.fill(-1)
-			setAnswers(structuredClone(answers))
-			localStorage.setItem(localStorageKey, JSON.stringify(answers))
+		const newAnswers = Array(queryData.data.questions.length).fill(-1)
+		if (answers.length !== newAnswers.length) {
+			setAnswers(newAnswers)
+			localStorage.setItem(localStorageKey, JSON.stringify(newAnswers))
 		}
 		else {
 			localStorage.setItem(localStorageKey, JSON.stringify(answers))
