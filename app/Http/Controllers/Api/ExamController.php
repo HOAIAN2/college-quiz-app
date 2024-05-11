@@ -462,6 +462,8 @@ class ExamController extends Controller
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_submit'), 403);
 		$now = Carbon::now();
+		// $data = $request->validated();
+		$answers = $request->answers;
 
 		DB::beginTransaction();
 		try {
@@ -470,10 +472,24 @@ class ExamController extends Controller
 				[$id, $user->id],
 				$this->cacheKey
 			);
+			$exam_questions_order = ExamQuestionsOrder::where('exam_id', '=', $id)
+				->where('user_id', '=', $user->id)
+				->firstOrFail();
 
-			$exam = Exam::whereHas('course.enrollments', function ($query) use ($user) {
-				$query->where('student_id', '=', $user->id);
-			})
+			$exam = Exam::with(['questions' => function ($query) use ($exam_questions_order) {
+				$query->select('questions.id')
+					->with(['question_options' => function ($query)  use ($exam_questions_order) {
+						$query->select('id', 'question_id')
+							->inRandomOrder($exam_questions_order->id);
+					}])
+					->inRandomOrder($exam_questions_order->id);
+			}])
+				->whereHas('course.enrollments', function ($query) use ($user) {
+					$query->where('student_id', '=', $user->id);
+				})
+				->whereDoesntHave('exam_trackers', function ($query)  use ($user) {
+					$query->where('user_id', '=', $user->id);
+				})
 				->whereNotNull('started_at')
 				->whereNull('cancelled_at')
 				->findOrFail($id);
@@ -483,8 +499,14 @@ class ExamController extends Controller
 			if ($now->lessThan($exam_date)) {
 				return Reply::error('app.errors.exam_not_start');
 			}
+
 			if ($now->greaterThan($exam_end_date)) {
 				return Reply::error('app.errors.exam_has_end');
+			}
+
+			foreach ($exam->questions as $key => $question) {
+				$answer = $answers[$key];
+				$question->question_options[$answer];
 			}
 
 			# Save and caculate score
