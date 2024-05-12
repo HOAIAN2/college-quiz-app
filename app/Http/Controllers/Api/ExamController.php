@@ -510,12 +510,12 @@ class ExamController extends Controller
 				ExamTracker::create([
 					'user_id' => $user->id,
 					'exam_id' => $exam->id,
-					'question_id' => $question->id,
+					'question_id' => $question->pivot->id,
 					'answer_id' => $question_option->id,
 					'is_correct' => $question_option->is_correct
 				]);
 			}
-
+			Cache::forget($cache_key);
 			# Save and caculate score
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');

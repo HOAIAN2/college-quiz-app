@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { apiGetExamQuestions } from '../api/exam'
+import { useNavigate, useParams } from 'react-router-dom'
+import { apiGetExamQuestions, apiSubmitExam } from '../api/exam'
 import ExamQuestion from '../components/ExamQuestion'
 import Loading from '../components/Loading'
+import YesNoPopUp from '../components/YesNoPopUp'
 import { queryKeys } from '../constants/query-keys'
 import useForceUpdate from '../hooks/useForceUpdate'
 import useLanguage from '../hooks/useLanguage'
@@ -15,6 +16,7 @@ import timeUtils from '../utils/timeUtils'
 export default function TakeExam() {
 	const { id } = useParams()
 	const localStorageKey = `exam_${id}`
+	const [showSubmitPopUp, setShowSubmitPopUp] = useState(false)
 	const [answers, setAnswers] = useState<number[]>(() => {
 		const data = localStorage.getItem(localStorageKey)
 		if (data === null || !isValidJson(data)) {
@@ -29,11 +31,21 @@ export default function TakeExam() {
 		return decodedData
 	})
 	const language = useLanguage<PageTakeExamLang>('page.take_exam')
+	const navigate = useNavigate()
 	const forceUpdate = useForceUpdate()
 	const queryData = useQuery({
 		queryKey: [queryKeys.EXAM_QUESTIONS, { examId: id }],
 		queryFn: () => apiGetExamQuestions(String(id))
 	})
+	const timeLeft = queryData.data ?
+		timeUtils.countDown(new Date(Date.parse(queryData.data.startedAt!) + queryData.data.examTime * 60000)) : ''
+	const handleSubmitExam = async () => {
+		await apiSubmitExam(String(id), answers)
+	}
+	const onMutateSuccess = () => {
+		localStorage.removeItem(localStorageKey)
+		navigate(`/exams/${id}`)
+	}
 	useEffect(() => {
 		const interval = setInterval(() => {
 			forceUpdate()
@@ -54,6 +66,16 @@ export default function TakeExam() {
 	}, [answers, localStorageKey, queryData.data])
 	return (
 		<>
+			{showSubmitPopUp ?
+				<YesNoPopUp
+					mutateFunction={handleSubmitExam}
+					setShowPopUp={setShowSubmitPopUp}
+					langYes={language?.langYes}
+					langNo={language?.langNo}
+					message={language?.submitMessage.replace('@time', timeLeft) || ''}
+					onMutateSuccess={onMutateSuccess}
+				/> : null
+			}
 			{queryData.isLoading ? < Loading /> : null}
 			{
 				queryData.data ?
@@ -73,7 +95,7 @@ export default function TakeExam() {
 										{queryData.data.name}
 									</div>
 									<div>
-										{language?.timeLeft}: {timeUtils.countDown(new Date(Date.parse(queryData.data.startedAt!) + queryData.data.examTime * 60000))}
+										{language?.timeLeft}: {timeLeft}
 									</div>
 								</div>
 								<div className={[
@@ -97,6 +119,7 @@ export default function TakeExam() {
 								{language?.numberOfQuestionsAnswered}: {answers.filter(i => i !== -1).length}/{answers.length}
 								<div className={styles['action-items']}>
 									<button name='save'
+										onClick={() => { setShowSubmitPopUp(true) }}
 										className={
 											[
 												'action-item-d',
