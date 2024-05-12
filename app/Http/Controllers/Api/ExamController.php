@@ -15,6 +15,7 @@ use App\Models\Exam;
 use App\Models\ExamQuestion;
 use App\Models\ExamQuestionsOrder;
 use App\Models\ExamSupervisor;
+use App\Models\ExamTracker;
 use App\Models\Question;
 use App\Models\Role;
 use App\Models\User;
@@ -479,7 +480,7 @@ class ExamController extends Controller
 			$exam = Exam::with(['questions' => function ($query) use ($exam_questions_order) {
 				$query->select('questions.id')
 					->with(['question_options' => function ($query)  use ($exam_questions_order) {
-						$query->select('id', 'question_id')
+						$query->select('id', 'question_id', 'is_correct')
 							->inRandomOrder($exam_questions_order->id);
 					}])
 					->inRandomOrder($exam_questions_order->id);
@@ -506,7 +507,14 @@ class ExamController extends Controller
 
 			foreach ($exam->questions as $key => $question) {
 				$answer = $answers[$key];
-				$question->question_options[$answer];
+				$question_option = $question->question_options[$answer];
+				ExamTracker::create([
+					'user_id' => $user->id,
+					'exam_id' => $exam->id,
+					'question_id' => $question->id,
+					'answer_id' => $question_option->id,
+					'is_correct' => $question_option->is_correct
+				]);
 			}
 
 			# Save and caculate score
