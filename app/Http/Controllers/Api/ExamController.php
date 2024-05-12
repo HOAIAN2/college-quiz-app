@@ -463,7 +463,6 @@ class ExamController extends Controller
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_submit'), 403);
 		$now = Carbon::now();
-		// $data = $request->validated();
 		$answers = $request->answers;
 
 		DB::beginTransaction();
@@ -519,7 +518,7 @@ class ExamController extends Controller
 
 			# Save and caculate score
 			DB::commit();
-			return Reply::successWithMessage('app.successes.record_delete_success');
+			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
