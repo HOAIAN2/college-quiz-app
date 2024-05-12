@@ -21,7 +21,7 @@ export default function ExamQuestion({
 	const language = useLanguage<ComponentExamQuestionLang>('component.exam_question')
 	return (
 		<div className={styles['exam-question-container']}>
-			<input hidden name='answers[]' value={checkedIndex} onChange={() => { }} />
+			{/* <input hidden name='answers[]' value={checkedIndex} onChange={() => { }} /> */}
 			<span className={styles['question-content']}>
 				{language?.question} {index + 1}. {question.content}
 			</span>

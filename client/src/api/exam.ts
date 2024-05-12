@@ -82,9 +82,22 @@ export async function apiUpdateExamStatus(status: 'start' | 'cancel', id: string
 
 export async function apiGetExamQuestions(id: string | number) {
 	try {
-		const res = await request.get(`/exam/${id}/do`)
+		const res = await request.get(`/exam/${id}/questions`)
 		const { data } = res.data as ApiResponseWithData<ExamWithQuestion>
 		return data
+	} catch (error: any) {
+		if (!error.response) throw new Error(error.message)
+		const message = error.response.data.message
+		if (error.response.data.errors) return Promise.reject(error.response.data.errors)
+		throw new Error(message)
+	}
+}
+
+export async function apiSubmitExam(id: string | number, answers: number[]) {
+	const formData = new FormData()
+	answers.forEach(answer => { formData.append('answers[]', String(answer)) })
+	try {
+		await request.post(`/exam/${id}/submit`, formData)
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message)
 		const message = error.response.data.message
