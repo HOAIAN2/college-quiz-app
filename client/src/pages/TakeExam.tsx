@@ -63,6 +63,9 @@ export default function TakeExam() {
 		else {
 			localStorage.setItem(localStorageKey, JSON.stringify(answers))
 		}
+		return () => {
+			if (answers.length === 0) localStorage.removeItem(localStorageKey)
+		}
 	}, [answers, localStorageKey, queryData.data])
 	return (
 		<>
