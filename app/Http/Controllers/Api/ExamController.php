@@ -129,7 +129,7 @@ class ExamController extends Controller
 			]);
 			$question_ids = [];
 			foreach ($chapters as $key => $chapter) {
-				if (!(bool)$request->question_counts[$key]) {
+				if ($request->question_counts[$key] == null) {
 					continue;
 				}
 				$chapter_question_ids = Question::where('subject_id', '=', $course->subject_id)
@@ -497,6 +497,7 @@ class ExamController extends Controller
 			foreach ($exam->questions as $key => $question) {
 				$answer = $answers[$key];
 				$question_option = $question->question_options[$answer];
+				error_log($question_option->is_correct);
 				ExamTracker::create([
 					'user_id' => $user->id,
 					'exam_id' => $exam->id,

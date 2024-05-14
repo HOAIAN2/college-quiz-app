@@ -43,3 +43,4 @@ export type ComponentViewExamLang = typeof import('../../assets/langs/en/compone
 export type PageExamLang = typeof import('../../assets/langs/en/page.exam').default
 export type PageTakeExamLang = typeof import('../../assets/langs/en/page.take_exam').default
 export type ComponentExamQuestionLang = typeof import('../../assets/langs/en/component.exam_question').default
+export type ComponentScorePopUpLang = typeof import('../../assets/langs/en/component.score_pop_up').default

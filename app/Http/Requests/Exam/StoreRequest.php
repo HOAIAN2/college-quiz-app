@@ -33,7 +33,7 @@ class StoreRequest extends FormRequest
 			'question_counts' => ['required', 'array'],
 			'question_counts.*' => ['nullable', 'integer', 'min:1'],
 			'supervisor_ids' => ['required', 'array'],
-			'question_counts.*' => ['required', 'integer'],
+			'question_counts.*' => ['nullable', 'integer'],
 		];
 	}
 }

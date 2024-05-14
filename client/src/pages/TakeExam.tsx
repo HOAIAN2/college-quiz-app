@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { apiGetExamQuestions, apiSubmitExam } from '../api/exam'
 import ExamQuestion from '../components/ExamQuestion'
 import Loading from '../components/Loading'
@@ -9,6 +9,7 @@ import YesNoPopUp from '../components/YesNoPopUp'
 import { queryKeys } from '../constants/query-keys'
 import useForceUpdate from '../hooks/useForceUpdate'
 import useLanguage from '../hooks/useLanguage'
+import { ExamResult } from '../models/exam'
 import { PageTakeExamLang } from '../models/lang'
 import styles from '../styles/TakeExam.module.css'
 import isValidJson from '../utils/isValidJson'
@@ -18,6 +19,7 @@ export default function TakeExam() {
 	const { id } = useParams()
 	const localStorageKey = `exam_${id}`
 	const [showSubmitPopUp, setShowSubmitPopUp] = useState(false)
+	const [examResult, setExamResult] = useState<ExamResult>()
 	const [answers, setAnswers] = useState<number[]>(() => {
 		const data = localStorage.getItem(localStorageKey)
 		if (data === null || !isValidJson(data)) {
@@ -32,26 +34,22 @@ export default function TakeExam() {
 		return decodedData
 	})
 	const language = useLanguage<PageTakeExamLang>('page.take_exam')
-	const navigate = useNavigate()
 	const forceUpdate = useForceUpdate()
 	const queryData = useQuery({
 		queryKey: [queryKeys.EXAM_QUESTIONS, { examId: id }],
-		queryFn: () => apiGetExamQuestions(String(id))
+		queryFn: () => apiGetExamQuestions(String(id)),
+		enabled: examResult === undefined,
 	})
 	const timeLeft = queryData.data ?
 		timeUtils.countDown(new Date(Date.parse(queryData.data.startedAt!) + queryData.data.examTime * 60000)) : ''
-	// const handleSubmitExam = async () => {
-	// 	await apiSubmitExam(String(id), answers)
-	// }
 	const { mutateAsync } = useMutation({
 		mutationFn: () => apiSubmitExam(String(id), answers),
 		onSuccess: (data) => {
-			console.log(data)
+			setExamResult(data)
 		},
 	})
 	const onMutateSuccess = () => {
-		// localStorage.removeItem(localStorageKey)
-		// navigate(`/exams/${id}`)
+		localStorage.removeItem(localStorageKey)
 	}
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -76,7 +74,13 @@ export default function TakeExam() {
 	}, [answers, localStorageKey, queryData.data])
 	return (
 		<>
-			<ScorePopUp />
+			{
+				examResult ?
+					<ScorePopUp
+						data={examResult}
+						backURL={`/exams/${id}`}
+					/> : null
+			}
 			{showSubmitPopUp ?
 				<YesNoPopUp
 					mutateFunction={mutateAsync}
@@ -84,7 +88,7 @@ export default function TakeExam() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 					message={language?.submitMessage.replace('@time', timeLeft) || ''}
-					onMutateSuccess={onMutateSuccess}
+					onMutateSuccess={(onMutateSuccess)}
 				/> : null
 			}
 			{queryData.isLoading ? < Loading /> : null}

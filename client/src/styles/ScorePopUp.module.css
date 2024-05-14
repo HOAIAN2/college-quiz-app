@@ -25,3 +25,57 @@
 	transition: var(--transition-timing-medium);
 	overflow-y: hidden;
 }
+
+.title {
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.title>h2 {
+	font-size: 18px !important;
+	text-align: center;
+}
+
+.content-data {
+	height: calc(100% - 40px);
+	/* display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center; */
+}
+
+.group-data {
+	height: calc(100% - 60px);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
+
+.group-data>svg {
+	font-size: 96px;
+	color: var(--color-soft-yellow);
+}
+
+.score {
+	font-size: 32px !important;
+	font-weight: bold;
+}
+
+
+.action-items {
+	/* margin-top: 10px; */
+	height: 60px;
+	display: flex;
+	align-items: center;
+	flex-direction: row-reverse;
+	gap: 10px;
+}
+
+.action-items>button {
+	width: 80px;
+	height: 40px;
+}
