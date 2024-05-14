@@ -112,7 +112,9 @@ export default function Exam() {
 									permissions.hasAnyFormList(['exam_update', 'exam_submit']) ?
 										<div className={styles['action-items']}>
 											{
-												permissions.has('exam_submit') && queryData.data.startedAt !== null ?
+												permissions.has('exam_submit')
+													&& queryData.data.startedAt !== null
+													&& !queryData.data.examTrackersCount ?
 													<>
 														<Link
 															style={{ width: 'fit-content' }}
@@ -131,19 +133,23 @@ export default function Exam() {
 											{
 												permissions.has('exam_update') ?
 													<>
-														<button
-															onClick={() => {
-																setShowStartExamPopUp(true)
-															}}
-															type='button'
-															className={
-																[
-																	'action-item-d',
-																	// isPending ? 'button-submitting' : ''
-																].join(' ')
-															}
-														>{language?.startExam}
-														</button>
+														{
+															permissions.has('exam_update') && queryData.data.startedAt === null ?
+																<button
+																	onClick={() => {
+																		setShowStartExamPopUp(true)
+																	}}
+																	type='button'
+																	className={
+																		[
+																			'action-item-d',
+																			// isPending ? 'button-submitting' : ''
+																		].join(' ')
+																	}
+																>{language?.startExam}
+																</button>
+																: null
+														}
 														<button
 															type='button'
 															onClick={() => {

@@ -31,6 +31,7 @@ export type ExamInMonth = Exam & {
 
 export type ExamDetail = Exam & {
 	questionsCount: number
+	examTrackersCount?: number
 	examSupervisors: {
 		id: number
 		examId: number

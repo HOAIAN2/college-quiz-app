@@ -178,37 +178,40 @@ class ExamController extends Controller
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_view'), 403);
 		$relations = [
-			'exam_supervisors.user'
-			// 'course',
-			// 'course.subject',
-			// 'course.teacher',
+			'exam_supervisors.user',
+		];
+		$with_counts = [
+			'questions',
 		];
 
 		try {
-			$data = Exam::with($relations)
-				->withCount(['questions']);
+			$data = Exam::with($relations);
 			switch ($user->role_id) {
 				case Role::ROLES['admin']:
-					$data = $data->findOrFail($id);
 					break;
 				case Role::ROLES['student']:
+					$with_counts['exam_trackers'] = function ($query) use ($user) {
+						$query->where('user_id', '=', $user->id);
+					};
+
 					$data = $data
 						->whereHas('course.enrollments', function ($query) use ($user) {
 							$query->where('student_id', '=', $user->id);
-						})
-						->findOrFail($id);
+						});
 					break;
 				case Role::ROLES['teacher']:
 					$data = $data
 						->whereHas('course.teacher', function ($query) use ($user) {
 							$query->where('id', '=', $user->id);
-						})
-						->findOrFail($id);
+						});
 					break;
 				default:
 					return Reply::error('app.errors.something_went_wrong', [], 500);
 					break;
 			}
+			$data = $data
+				->withCount($with_counts)
+				->findOrFail($id);
 			return Reply::successWithData($data, '');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
