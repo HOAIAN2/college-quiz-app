@@ -491,6 +491,9 @@ class ExamController extends Controller
 				return Reply::error('app.errors.exam_has_end');
 			}
 
+			# Save and caculate score
+			$correct_count = 0;
+
 			foreach ($exam->questions as $key => $question) {
 				$answer = $answers[$key];
 				$question_option = $question->question_options[$answer];
@@ -501,10 +504,15 @@ class ExamController extends Controller
 					'answer_id' => $question_option->id,
 					'is_correct' => $question_option->is_correct
 				]);
+				if ($question_option->is_correct) $correct_count++;
 			}
+			$result_data = [
+				'correct_count' => $correct_count,
+				'question_count' => count($exam->questions)
+			];
 			Cache::forget($cache_key);
-			# Save and caculate score
 			DB::commit();
+			return Reply::successWithData($result_data, '');
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
@@ -512,5 +520,12 @@ class ExamController extends Controller
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
+	}
+
+	public function result(string $id)
+	{
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('exam_view'), 403);
+		$now = Carbon::now();
 	}
 }
