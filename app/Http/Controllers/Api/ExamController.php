@@ -45,22 +45,6 @@ class ExamController extends Controller
 		}
 
 		try {
-			// $data = Exam::with($relations)
-			// 	// ->withCount(['questions'])
-			// 	->where('exam_date', '<=', $end_date)
-			// 	// ->where(function ($query) use ($now) {
-			// 	// 	$query->whereNotNull('started_at')
-			// 	// 		->where('started_at', '>=', $now)
-			// 	// 		->whereRaw("DATE_ADD(started_at, INTERVAL exam_time MINUTE) >= '{$now->toDateTimeString()}'");
-			// 	// })
-			// 	->orWhere(function ($query) use ($now) {
-			// 		$query->whereNotNull('started_at')
-			// 			->where('started_at', '>=', $now)
-			// 			->whereRaw("DATE_ADD(started_at, INTERVAL exam_time MINUTE) >= '{$now->toDateTimeString()}'");
-			// 	})
-			// 	// ->whereRaw("DATE_ADD(started_at, INTERVAL exam_time MINUTE) >= '{$now->toDateTimeString()}'")
-			// 	->orderBy('exam_date');
-
 			$data = Exam::with($relations)
 				->whereMonth('exam_date', '=', $date->month)
 				->whereYear('exam_date', '=', $date->year)
