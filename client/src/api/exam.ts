@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import request from '../config/api'
-import { ExamDetail, ExamInMonth, ExamWithQuestion, QueryExamType } from '../models/exam'
+import { ExamDetail, ExamInMonth, ExamResult, ExamWithQuestion, QueryExamType } from '../models/exam'
 import { ApiResponseWithData } from '../models/response'
 import encodeFormData from '../utils/encodeFormData'
 
@@ -97,7 +97,9 @@ export async function apiSubmitExam(id: string | number, answers: number[]) {
 	const formData = new FormData()
 	answers.forEach(answer => { formData.append('answers[]', String(answer)) })
 	try {
-		await request.post(`/exam/${id}/submit`, formData)
+		const res = await request.post(`/exam/${id}/submit`, formData)
+		const { data } = res.data as ApiResponseWithData<ExamResult>
+		return data
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message)
 		const message = error.response.data.message

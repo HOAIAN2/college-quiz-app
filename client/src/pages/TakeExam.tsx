@@ -1,9 +1,10 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { apiGetExamQuestions, apiSubmitExam } from '../api/exam'
 import ExamQuestion from '../components/ExamQuestion'
 import Loading from '../components/Loading'
+import ScorePopUp from '../components/ScorePopUp'
 import YesNoPopUp from '../components/YesNoPopUp'
 import { queryKeys } from '../constants/query-keys'
 import useForceUpdate from '../hooks/useForceUpdate'
@@ -39,12 +40,18 @@ export default function TakeExam() {
 	})
 	const timeLeft = queryData.data ?
 		timeUtils.countDown(new Date(Date.parse(queryData.data.startedAt!) + queryData.data.examTime * 60000)) : ''
-	const handleSubmitExam = async () => {
-		await apiSubmitExam(String(id), answers)
-	}
+	// const handleSubmitExam = async () => {
+	// 	await apiSubmitExam(String(id), answers)
+	// }
+	const { mutateAsync } = useMutation({
+		mutationFn: () => apiSubmitExam(String(id), answers),
+		onSuccess: (data) => {
+			console.log(data)
+		},
+	})
 	const onMutateSuccess = () => {
-		localStorage.removeItem(localStorageKey)
-		navigate(`/exams/${id}`)
+		// localStorage.removeItem(localStorageKey)
+		// navigate(`/exams/${id}`)
 	}
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -69,9 +76,10 @@ export default function TakeExam() {
 	}, [answers, localStorageKey, queryData.data])
 	return (
 		<>
+			<ScorePopUp />
 			{showSubmitPopUp ?
 				<YesNoPopUp
-					mutateFunction={handleSubmitExam}
+					mutateFunction={mutateAsync}
 					setShowPopUp={setShowSubmitPopUp}
 					langYes={language?.langYes}
 					langNo={language?.langNo}

@@ -56,7 +56,10 @@ export type ExamQuestion = {
 	pivot: Pivot
 	questionOptions: QuestionOption[]
 }
-
+export type ExamResult = {
+	correctCount: number
+	questionCount: number
+}
 type Pivot = {
 	examId: number
 	questionId: number

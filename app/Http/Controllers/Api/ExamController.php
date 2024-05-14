@@ -507,6 +507,9 @@ class ExamController extends Controller
 				if ($question_option->is_correct) $correct_count++;
 			}
 			$result_data = [
+				// 'exam_name' => $exam->name,
+				// 'exam_date' => $exam_date->format(Exam::DATE_FORMAT),
+				// 'exam_time' => $exam->exam_time,
 				'correct_count' => $correct_count,
 				'question_count' => count($exam->questions)
 			];

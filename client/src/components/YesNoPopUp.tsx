@@ -6,7 +6,7 @@ import Loading from './Loading'
 
 type YesNoPopUpProps = {
 	message: string
-	mutateFunction: () => Promise<void>
+	mutateFunction: () => Promise<unknown>
 	onMutateSuccess: () => void
 	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
 	langYes?: string
