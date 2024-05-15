@@ -1,4 +1,5 @@
 import { FaFaceMeh, FaFaceSmile, FaFaceTired } from 'react-icons/fa6'
+import { TiArrowBack } from 'react-icons/ti'
 import { useNavigate } from 'react-router-dom'
 import useLanguage from '../hooks/useLanguage'
 import { ExamResult } from '../models/exam'
@@ -45,7 +46,7 @@ export default function ScorePopUp({
 									'button-d'
 								].join(' ')
 							}>
-							{/* <TiArrowBack /> */}
+							<TiArrowBack />
 							{language?.goBack}
 						</button>
 					</div>

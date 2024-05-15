@@ -76,6 +76,11 @@
 }
 
 .action-items>button {
-	width: 80px;
+	width: fit-content;
+	min-width: 80px;
 	height: 40px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	padding: 0px 10px 00px 10px;
 }

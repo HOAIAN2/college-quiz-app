@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { apiGetExamQuestions, apiSubmitExam } from '../api/exam'
@@ -20,6 +20,7 @@ export default function TakeExam() {
 	const localStorageKey = `exam_${id}`
 	const [showSubmitPopUp, setShowSubmitPopUp] = useState(false)
 	const [examResult, setExamResult] = useState<ExamResult>()
+	const queryClient = useQueryClient()
 	const [answers, setAnswers] = useState<number[]>(() => {
 		const data = localStorage.getItem(localStorageKey)
 		if (data === null || !isValidJson(data)) {
@@ -69,9 +70,11 @@ export default function TakeExam() {
 			localStorage.setItem(localStorageKey, JSON.stringify(answers))
 		}
 		return () => {
+			queryClient.removeQueries({ queryKey: [queryKeys.EXAM_QUESTIONS, { examId: id }] })
+			queryClient.refetchQueries({ queryKey: [queryKeys.EXAM, { id: id }] })
 			if (answers.length === 0) localStorage.removeItem(localStorageKey)
 		}
-	}, [answers, localStorageKey, queryData.data])
+	}, [answers, id, localStorageKey, queryClient, queryData.data])
 	return (
 		<>
 			{
