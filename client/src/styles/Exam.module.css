@@ -85,6 +85,9 @@
 .action-items>button {
 	min-width: 80px;
 	width: fit-content;
+	display: flex;
+	align-items: center;
+	gap: 5px;
 }
 
 .pending {

@@ -70,9 +70,11 @@ export default function TakeExam() {
 			localStorage.setItem(localStorageKey, JSON.stringify(answers))
 		}
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.EXAM_QUESTIONS, { examId: id }] })
-			queryClient.refetchQueries({ queryKey: [queryKeys.EXAM, { id: id }] })
-			if (answers.length === 0) localStorage.removeItem(localStorageKey)
+			if (answers.length === 0) {
+				localStorage.removeItem(localStorageKey)
+				queryClient.refetchQueries({ queryKey: [queryKeys.EXAM, { id: id }] })
+				queryClient.removeQueries({ queryKey: [queryKeys.EXAM_QUESTIONS, { examId: id }] })
+			}
 		}
 	}, [answers, id, localStorageKey, queryClient, queryData.data])
 	return (

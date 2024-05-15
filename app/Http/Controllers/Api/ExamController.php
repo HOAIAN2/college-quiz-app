@@ -497,7 +497,6 @@ class ExamController extends Controller
 			foreach ($exam->questions as $key => $question) {
 				$answer = $answers[$key];
 				$question_option = $question->question_options[$answer];
-				error_log($question_option->is_correct);
 				ExamTracker::create([
 					'user_id' => $user->id,
 					'exam_id' => $exam->id,
