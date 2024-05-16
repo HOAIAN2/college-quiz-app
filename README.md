@@ -1,9 +1,14 @@
 # College-Quiz-App
 
+## Technologies
+
+- Laravel 11
+- React 18
+
 ## Prerequisites
 
 - Nodejs (only for Dev)
-- PHP 8.1 or later
+- PHP 8.2 or later
 - MySQL / MariaDB
 
 ## Installation
@@ -12,7 +17,7 @@
 git clone https://github.com/HOAIAN2/college-quiz-app.git
 ```
 
-- Run `prepare.sh` to generate .env file and install libs for server and client.
+- Run `install.sh` to generate .env file and install libs for server and client.
 - Edit Enviroment variables in .env file.
 
 ``` env
