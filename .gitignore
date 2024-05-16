@@ -52,3 +52,4 @@ client/*.local
 *.njsproj
 *.sln
 *.sw?
+.phpactor.json

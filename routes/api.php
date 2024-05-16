@@ -137,3 +137,8 @@ Route::prefix('/exam')->middleware('auth:sanctum')
 		Route::get('/', 'index');
 		Route::post('/', 'store');
 	});
+
+
+Route::get('/test', function () {
+	return 'asdasd';
+});
