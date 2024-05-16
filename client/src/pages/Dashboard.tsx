@@ -22,6 +22,7 @@ export default function Dashboard() {
 		queryFn: apiGetDashboard
 	})
 	const formatNumber = (number: number) => {
+		if (!number) return 0
 		return number.toLocaleString(appLanguage.language, {
 			notation: 'compact'
 		})

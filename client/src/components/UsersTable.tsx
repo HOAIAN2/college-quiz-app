@@ -9,6 +9,7 @@ import { Pagination } from '../models/response'
 import { RoleName } from '../models/role'
 import { UserDetail } from '../models/user'
 import styles from '../styles/global/Table.module.css'
+import languageUtils from '../utils/languageUtils'
 import StatusBadge from './StatusBadge'
 import ViewUser from './ViewUser'
 
@@ -196,7 +197,7 @@ export default function UsersTable({
 													].join(' ')
 												}>
 													{user.gender == 'male' ? <GiMale /> : <GiFemale />}
-													{`${user.lastName} ${user.firstName}`}
+													{languageUtils.getFullName(user.firstName, user.lastName)}
 												</td>
 												{
 													role === 'student' ?
