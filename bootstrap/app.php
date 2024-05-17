@@ -12,6 +12,10 @@ return Application::configure(basePath: dirname(__DIR__))
 		health: '/up',
 	)
 	->withMiddleware(function (Middleware $middleware) {
+		$middleware->validateCsrfTokens(except: [
+			'*',
+		]);
+
 		$middleware->use([
 			// \Illuminate\Http\Middleware\TrustHosts::class,
 			\Illuminate\Http\Middleware\TrustProxies::class,
