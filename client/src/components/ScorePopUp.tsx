@@ -9,10 +9,13 @@ import styles from '../styles/ScorePopUp.module.css'
 type ScorePopUpProps = {
 	data: ExamResult
 	backURL: string
+	setShowPopUp?: React.Dispatch<React.SetStateAction<boolean>>
 }
+
 export default function ScorePopUp({
 	data,
-	backURL
+	backURL,
+	setShowPopUp
 }: ScorePopUpProps) {
 	const language = useLanguage<ComponentScorePopUpLang>('component.score_pop_up')
 	const navigate = useNavigate()
@@ -21,6 +24,10 @@ export default function ScorePopUp({
 		if (percent >= 0.7) return <FaFaceSmile />
 		if (percent >= 0.5) return <FaFaceMeh />
 		return <FaFaceTired />
+	}
+	const handleClosePopUp = () => {
+		if (setShowPopUp) return setShowPopUp(true)
+		navigate(backURL)
 	}
 	return (
 		<div className={styles['score-popup-container']}>
@@ -40,7 +47,7 @@ export default function ScorePopUp({
 					</div>
 					<div className={styles['action-items']}>
 						<button
-							onClick={() => { navigate(backURL) }}
+							onClick={handleClosePopUp}
 							className={
 								[
 									'button-d'
