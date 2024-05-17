@@ -10,7 +10,7 @@ import styles from '../styles/ScorePopUp.module.css'
 
 type ScorePopUpProps = {
 	data: ExamResult
-	backURL: string
+	backURL?: string
 	hideConfetti?: boolean
 	setShowPopUp?: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -31,7 +31,7 @@ export default function ScorePopUp({
 		})
 	const handleClosePopUp = () => {
 		if (setShowPopUp) return setShowPopUp(true)
-		navigate(backURL)
+		if (backURL) return navigate(backURL)
 	}
 	const renderScore = () => {
 		const percent = data.correctCount / data.questionCount
