@@ -10,3 +10,4 @@ export const API_HOST = env.DEV === true ?
 	window.location.origin.replace(window.location.port, VITE_DEV_SERVER_PORT) :
 	window.location.origin
 export const AUTO_COMPLETE_DEBOUNCE = Number(env.VITE_AUTO_COMPLETE_DEBOUNCE)
+export const BASE_SCORE_SCALE = Number(env.VITE_BASE_SCORE_SCALE)

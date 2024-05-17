@@ -16,7 +16,7 @@
 
 .score-content {
 	width: 300px;
-	height: 300px;
+	height: 400px;
 	border-radius: var(--border-radius-low);
 	box-shadow: 0px 0px 10px var(--color-shadow);
 	background-color: white;
@@ -56,16 +56,41 @@
 	gap: 20px;
 }
 
+.score {
+	width: max-content;
+	aspect-ratio: 1;
+	padding: 10px;
+	border-radius: 50%;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: min(22px, 3.5vh) !important;
+	font-weight: bold;
+	box-shadow: 0px 0px 10px var(--color-shadow);
+}
+
+.score.green {
+	background: var(--color-soft-green);
+}
+
+.score.yellow {
+	background: var(--color-soft-yellow);
+}
+
+.score.red {
+	background: var(--color-soft-red);
+}
+
 .group-data>svg {
 	font-size: 96px;
 	color: var(--color-soft-yellow);
 }
 
-.score {
+.correct-count {
 	font-size: 32px !important;
 	font-weight: bold;
 }
-
 
 .action-items {
 	/* margin-top: 10px; */
