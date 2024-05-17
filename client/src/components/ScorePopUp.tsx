@@ -2,6 +2,7 @@ import confetti from 'canvas-confetti'
 import { TiArrowBack } from 'react-icons/ti'
 import { useNavigate } from 'react-router-dom'
 import { BASE_SCORE_SCALE } from '../config/env'
+import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { ExamResult } from '../models/exam'
 import { ComponentScorePopUpLang } from '../models/lang'
@@ -20,9 +21,14 @@ export default function ScorePopUp({
 	hideConfetti,
 	setShowPopUp
 }: ScorePopUpProps) {
+	const { appLanguage } = useAppContext()
 	const language = useLanguage<ComponentScorePopUpLang>('component.score_pop_up')
 	const navigate = useNavigate()
-	const score = (data.correctCount / data.questionCount * BASE_SCORE_SCALE).toFixed(2) + `/${BASE_SCORE_SCALE}`
+	const score = Number((data.correctCount / data.questionCount * BASE_SCORE_SCALE)
+		.toFixed(2))
+		.toLocaleString(appLanguage.language, {
+			notation: 'compact'
+		})
 	const handleClosePopUp = () => {
 		if (setShowPopUp) return setShowPopUp(true)
 		navigate(backURL)
@@ -78,7 +84,6 @@ export default function ScorePopUp({
 				}>
 					<div className={styles['group-data']}>
 						{renderScore()}
-						{/* {renderFace(data.correctCount, data.questionCount)} */}
 						<div>{language?.numberOfCorrectQuestion}</div>
 						<div className={styles['correct-count']}>{data.correctCount}/{data.questionCount}</div>
 					</div>
