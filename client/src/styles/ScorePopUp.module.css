@@ -16,7 +16,7 @@
 
 .score-content {
 	width: 300px;
-	height: 400px;
+	height: fit-content;
 	border-radius: var(--border-radius-low);
 	box-shadow: 0px 0px 10px var(--color-shadow);
 	background-color: white;
@@ -53,43 +53,56 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	gap: 20px;
+	/* gap: 20px; */
+}
+
+.group-items {
+	flex: 0 0 calc(25% - 20px);
+	width: 80%;
+	padding: 20px;
+	height: 150px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	/* background: var(--color-white); */
+	/* border-radius: var(--border-radius-medium); */
+	/* box-shadow: 0px 0px 10px var(--color-shadow); */
+	/* border: 1px solid; */
+}
+
+.label {
+	font-size: 20px !important;
+	font-weight: bold;
 }
 
 .score {
 	width: max-content;
-	aspect-ratio: 1;
+	/* aspect-ratio: 1; */
 	padding: 10px;
-	border-radius: 50%;
+	border-radius: var(--border-radius-low);
 	color: white;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: min(22px, 3.5vh) !important;
+	/* font-size: min(24px, 3.5vh) !important; */
+	font-size: 32px !important;
 	font-weight: bold;
-	box-shadow: 0px 0px 10px var(--color-shadow);
 }
 
 .score.green {
 	background: var(--color-soft-green);
+	box-shadow: 0px 0px 5px var(--color-soft-green);
 }
 
 .score.yellow {
 	background: var(--color-soft-yellow);
+	box-shadow: 0px 0px 5px var(--color-soft-yellow);
 }
 
 .score.red {
 	background: var(--color-soft-red);
-}
-
-.group-data>svg {
-	font-size: 96px;
-	color: var(--color-soft-yellow);
-}
-
-.correct-count {
-	font-size: 32px !important;
-	font-weight: bold;
+	box-shadow: 0px 0px 5px var(--color-soft-red);
 }
 
 .action-items {

@@ -83,9 +83,13 @@ export default function ScorePopUp({
 					].join(' ')
 				}>
 					<div className={styles['group-data']}>
-						{renderScore()}
-						<div>{language?.numberOfCorrectQuestion}</div>
-						<div className={styles['correct-count']}>{data.correctCount}/{data.questionCount}</div>
+						<div className={styles['group-items']}>
+							<div className={styles['label']}>{language?.score}</div>
+							{renderScore()}
+						</div>
+						<div className={styles['group-items']}>
+							<div className={styles['label']}>{language?.numberOfCorrectQuestion}: {data.correctCount}/{data.questionCount}</div>
+						</div>
 					</div>
 					<div className={styles['action-items']}>
 						<button
