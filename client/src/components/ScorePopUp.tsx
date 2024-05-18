@@ -28,7 +28,7 @@ export default function ScorePopUp({
 		.toFixed(2))
 		.toLocaleString(appLanguage.language, {
 			notation: 'compact'
-		})
+		}) + `/${BASE_SCORE_SCALE}`
 	const handleClosePopUp = () => {
 		if (setShowPopUp) return setShowPopUp(true)
 		if (backURL) return navigate(backURL)
