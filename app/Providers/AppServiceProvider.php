@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
 
 		if (env('APP_DEBUG') == true)
 			DB::listen(function (QueryExecuted $query) {
-				Log::channel('stderr')->info("{$query->sql} => {$query->time} ms");
+				Log::info("{$query->sql} => {$query->time} ms");
 			});
 	}
 }
