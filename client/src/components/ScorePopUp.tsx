@@ -42,7 +42,7 @@ export default function ScorePopUp({
 		}
 		const colorClass = getColorClass()
 		return (
-			<div className={`${styles.score} ${colorClass}`}>
+			<div className={`${styles['score']} ${colorClass}`}>
 				{score}
 			</div>
 		)
