@@ -1,10 +1,11 @@
 {
-	"name": "laravel/laravel",
+	"name": "hoaian/college-quiz-app",
 	"type": "project",
-	"description": "The skeleton application for the Laravel framework.",
+	"description": "College Quiz App API build with Laravel",
 	"keywords": [
 		"laravel",
-		"framework"
+		"framework",
+		"college"
 	],
 	"license": "MIT",
 	"require": {

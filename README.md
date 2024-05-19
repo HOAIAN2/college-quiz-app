@@ -53,6 +53,8 @@ VITE_OVERRIDE_HTTP_METHOD=true
 
 ## Deploy
 
+Run Deploy file to build and compress all necessary files to app.tar.gz
+
 ```console
 ./deploy.sh
 ```
@@ -63,6 +65,24 @@ VITE_OVERRIDE_HTTP_METHOD=true
 
 ## Demo
 
-![Desktop](./img/College-Quiz-App_D.jpg)
+### Students UI
 
-![Mobile](./img/College-Quiz-App_M.jpg)
+![Demo](./img/Screenshot%202024-05-19%20092946.jpg)
+
+### Course UI
+
+![Demo](./img/Screenshot%202024-05-19%20093057.jpg)
+
+### Exams UI
+
+![Demo](./img/Screenshot%202024-05-19%20093427.jpg)
+
+![Demo](./img/Screenshot%202024-05-19%20094618.jpg)
+
+### Take Exam UI
+
+![Demo](./img/Screenshot%202024-05-19%20094643.jpg)
+
+### Exam Result UI
+
+![Demo](./img/Screenshot%202024-05-19%20094703.jpg)
