@@ -11,3 +11,4 @@ export const API_HOST = env.DEV === true ?
 	window.location.origin
 export const AUTO_COMPLETE_DEBOUNCE = Number(env.VITE_AUTO_COMPLETE_DEBOUNCE)
 export const BASE_SCORE_SCALE = Number(env.VITE_BASE_SCORE_SCALE)
+export const REFETCH_OFFSET_MINUTES = Number(env.VITE_REFETCH_OFFSET_MINUTES)

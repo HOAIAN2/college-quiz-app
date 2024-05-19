@@ -1,13 +1,15 @@
 import { useQuery } from '@tanstack/react-query'
 import moment from 'moment'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MdOutlineCancel } from 'react-icons/md'
 import { Link, useParams } from 'react-router-dom'
 import { apiGetExamById, apiUpdateExamStatus } from '../api/exam'
 import Loading from '../components/Loading'
 import YesNoPopUp from '../components/YesNoPopUp'
+import { REFETCH_OFFSET_MINUTES } from '../config/env'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
+import useForceUpdate from '../hooks/useForceUpdate'
 import useLanguage from '../hooks/useLanguage'
 import { PageExamLang } from '../models/lang'
 import styles from '../styles/Exam.module.css'
@@ -18,6 +20,7 @@ export default function Exam() {
 	const [showStartExamPopUp, setShowStartExamPopUp] = useState(false)
 	const [showCancelExamPopUp, setShowCancelExamPopUp] = useState(false)
 	const language = useLanguage<PageExamLang>('page.exam')
+	const forceUpdate = useForceUpdate()
 	const { id } = useParams()
 	const handleStartExam = async () => {
 		await apiUpdateExamStatus('start', String(id))
@@ -29,6 +32,18 @@ export default function Exam() {
 	const queryData = useQuery({
 		queryKey: [queryKeys.EXAM, { id: id }],
 		queryFn: () => apiGetExamById(String(id)),
+	})
+	useEffect(() => {
+		const { data } = queryData
+		const refetchOffsetMinutes = REFETCH_OFFSET_MINUTES * 60 * 1000
+		if (data && !data.cancelledAt && !data.startedAt) {
+			const offset = new Date(queryData.data.examDate).getTime() - new Date().getTime()
+			if (offset < refetchOffsetMinutes)
+				setTimeout(() => {
+					queryData.refetch()
+					forceUpdate()
+				}, 1000)
+		}
 	})
 	return (
 		<>
