@@ -17,17 +17,23 @@
 git clone https://github.com/HOAIAN2/college-quiz-app.git
 ```
 
-- Run `install.sh` to generate .env file and install libs for server and client.
+- Run `install.sh` to generate .env file and install libs for both server and client.
 - Edit Enviroment variables in .env file.
 
 ``` env
-DB_CONNECTION=mysql
+DB_CONNECTION=mariadb
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=college-quiz-app
 DB_USERNAME=admin
 DB_PASSWORD=123456789
 ````
+
+- Remember to update your correct timezone
+
+``` env
+APP_TIMEZONE=UTC
+```
 
 - Create databse, seed data
 
@@ -57,6 +63,12 @@ Run Deploy file to build and compress all necessary files to app.tar.gz
 
 ```console
 ./deploy.sh
+```
+
+Run `composer install` to continue development or just use this everytime.
+
+```console
+./build && ./deploy.sh && composer install
 ```
 
 ## Databse Diagram
