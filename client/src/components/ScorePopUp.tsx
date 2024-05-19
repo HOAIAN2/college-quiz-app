@@ -34,28 +34,15 @@ export default function ScorePopUp({
 		if (backURL) return navigate(backURL)
 	}
 	const renderScore = () => {
-		const percent = data.correctCount / data.questionCount
-		if (percent >= 0.7) return (
-			<div className={[
-				styles['score'],
-				styles['green']
-			].join(' ')}>
-				{score}
-			</div>
-		)
-		if (percent >= 0.5) return (
-			<div className={[
-				styles['score'],
-				styles['yellow']
-			].join(' ')}>
-				{score}
-			</div>
-		)
+		const percent = data.correctCount / data.questionCount;
+		const getColorClass = () => {
+			if (percent >= 0.7) return styles['green']
+			if (percent >= 0.5) return styles['yellow']
+			return styles['red']
+		}
+		const colorClass = getColorClass()
 		return (
-			<div className={[
-				styles['score'],
-				styles['red']
-			].join(' ')}>
+			<div className={`${styles.score} ${colorClass}`}>
 				{score}
 			</div>
 		)
