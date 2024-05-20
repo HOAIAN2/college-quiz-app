@@ -529,6 +529,31 @@ class ExamController extends Controller
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_view'), 403);
-		$now = Carbon::now();
+
+		try {
+			$data = [];
+			$exam = Exam::with('course.enrollments.user')->findOrFail($id);
+			$question_count = $exam->questions()->count();
+			$students = $exam->course->enrollments->pluck('user');
+
+			foreach ($students as $student) {
+				$correct_count = ExamTracker::where('exam_id', '=', $id)
+					->where('user_id', '=', $student->id)
+					->where('is_correct', '=', true)
+					->count();
+				$data[] = [
+					'first_name' => $student->first_name,
+					'last_name' => $student->last_name,
+					'school_class_shortcode' => $student->school_class->shortcode,
+					'question_count' => $question_count,
+					'correct_count' => $correct_count,
+				];
+			}
+			return Reply::successWithData($data, '');
+		} catch (\Throwable $error) {
+			Log::error($error->getMessage());
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.something_went_wrong', [], 500);
+		}
 	}
 }
