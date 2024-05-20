@@ -7,7 +7,8 @@ import { API_HOST, OVERRIDE_HTTP_METHOD } from './env'
 const ignoreLoaders: string[] = []
 
 const request = axios.create({
-	baseURL: API_HOST + '/api/'
+	baseURL: API_HOST + '/api/',
+	adapter: ['fetch', 'xhr', 'http']
 })
 
 request.interceptors.request.use(config => {
