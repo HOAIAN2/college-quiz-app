@@ -17,10 +17,15 @@
 	cursor: pointer;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	gap: 5px;
 }
+
 
 .question-option-container>svg {
 	font-size: 16px !important;
-	color: green;
+	color: unset;
+}
+
+.question-option-container.checked>svg {
+	color: var(--color-blue);
 }

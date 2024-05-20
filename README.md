@@ -93,8 +93,8 @@ Run `composer install` to continue development or just use this everytime.
 
 ### Take Exam UI
 
-![Demo](./img/Screenshot%202024-05-19%20094643.jpg)
+![Demo](./img/Screenshot%202024-05-20%20144619.jpg)
 
 ### Exam Result UI
 
-![Demo](./img/Screenshot%202024-05-19%20094703.jpg)
+![Demo](./img/Screenshot%202024-05-20%20144710.jpg)
