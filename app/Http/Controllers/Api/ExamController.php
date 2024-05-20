@@ -532,7 +532,27 @@ class ExamController extends Controller
 
 		try {
 			$data = [];
-			$exam = Exam::with('course.enrollments.user')->findOrFail($id);
+			$exam = Exam::with('course.enrollments.user');
+			switch ($user->role_id) {
+				case Role::ROLES['admin']:
+					break;
+				case Role::ROLES['student']:
+					$exam = $exam
+						->whereHas('course.enrollments', function ($query) use ($user) {
+							$query->where('student_id', '=', $user->id);
+						});
+					break;
+				case Role::ROLES['teacher']:
+					$exam = $exam
+						->whereHas('course.teacher', function ($query) use ($user) {
+							$query->where('id', '=', $user->id);
+						});
+					break;
+				default:
+					return Reply::error('app.errors.something_went_wrong', [], 500);
+					break;
+			}
+			$exam = $exam->findOrFail($id);
 			$question_count = $exam->questions()->count();
 			$students = $exam->course->enrollments->pluck('user');
 
