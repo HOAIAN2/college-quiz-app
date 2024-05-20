@@ -131,14 +131,10 @@ Route::prefix('/exam')->middleware('auth:sanctum')
 		Route::post('/{id}/status', 'updateStatus');
 		Route::get('/{id}/questions', 'questions');
 		Route::post('/{id}/submit', 'submit');
+		Route::get('/{id}/result', 'result');
 		Route::get('/{id}', 'show');
 		Route::put('/{id}', 'update');
 		Route::delete('/{id}', 'destroy');
 		Route::get('/', 'index');
 		Route::post('/', 'store');
 	});
-
-
-Route::get('/test', function () {
-	return 'asdasd';
-});
