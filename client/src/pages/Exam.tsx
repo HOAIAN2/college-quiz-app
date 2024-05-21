@@ -6,7 +6,7 @@ import { Link, useParams } from 'react-router-dom'
 import { apiGetExamById, apiUpdateExamStatus } from '../api/exam'
 import Loading from '../components/Loading'
 import YesNoPopUp from '../components/YesNoPopUp'
-import { REFETCH_OFFSET_MINUTES } from '../config/env'
+import { BASE_SCORE_SCALE, REFETCH_OFFSET_MINUTES } from '../config/env'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useForceUpdate from '../hooks/useForceUpdate'
@@ -37,6 +37,13 @@ export default function Exam() {
 		queryData.data.result.find(item => item.studentId === user.user!.id)
 			?.correctCount !== null
 		: false
+	const caculateScore = (correctCount: number, questionCount: number) => {
+		return Number((correctCount / questionCount * BASE_SCORE_SCALE)
+			.toFixed(2))
+			.toLocaleString(appLanguage.language, {
+				notation: 'compact'
+			}) + `/${BASE_SCORE_SCALE}`
+	}
 	useEffect(() => {
 		const { data } = queryData
 		const refetchOffsetMinutes = REFETCH_OFFSET_MINUTES * 60 * 1000
@@ -187,6 +194,58 @@ export default function Exam() {
 										</div>
 										: null
 								}
+							</div>
+							<div className={styles['result-container']}>
+								<div className={styles['header']}>
+									<h2 className={styles['title']}>{language?.exam}</h2>
+								</div>
+								<div className={
+									[
+										'action-bar-d'
+									].join(' ')
+								}
+									style={{ marginBottom: '20px' }}
+								>
+									<button
+										className={
+											[
+												queryData.isFetching ? 'button-submitting' : '',
+												'action-item-d',
+											].join(' ')
+										}
+										onClick={() => { queryData.refetch() }}
+									>
+										Tải lại
+									</button>
+								</div>
+								<div className={styles['table-container']}>
+									<table className={styles['table']}>
+										<thead>
+											<tr>
+												<th className={styles['name']}>Họ Tên</th>
+												<th className={styles['school-class']}>Lớp</th>
+												<th className={styles['score']}>Điểm số</th>
+											</tr>
+										</thead>
+										<tbody>
+											{
+												queryData.data.result.map(item => {
+													return (
+														<tr key={`exam-result-${item.studentId}`}>
+															<td>{languageUtils.getFullName(item.firstName, item.lastName)}</td>
+															<td>{item.schoolClassShortcode}</td>
+															<td>
+																{item.correctCount === null
+																	? 'Chưa nộp bài' :
+																	caculateScore(item.correctCount, item.questionCount)}
+															</td>
+														</tr>
+													)
+												})
+											}
+										</tbody>
+									</table>
+								</div>
 							</div>
 						</> : null
 				}

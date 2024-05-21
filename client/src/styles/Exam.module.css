@@ -5,11 +5,12 @@
 	position: relative;
 	background: white;
 	overflow-y: auto;
+	padding: 20px;
 }
 
 .header {
 	height: 50px;
-	padding: 20px;
+	/* padding: 20px; */
 	display: flex;
 	align-items: center;
 }
@@ -43,7 +44,6 @@
 
 .wrap-item {
 	position: relative;
-	margin-left: 20px;
 	height: 90px;
 	flex: 0 0 30%;
 }
@@ -94,6 +94,64 @@
 	opacity: 0.7;
 	cursor: default;
 	pointer-events: none;
+}
+
+.result-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	/* padding-left: 20px; */
+}
+
+.table-container {
+	/* max-width: 100%; */
+	/* margin: 0 auto; */
+	margin-bottom: 30px;
+	width: fit-content;
+	height: fit-content;
+	padding: 15px;
+	border-radius: var(--border-radius-low);
+	box-shadow: 0px 0px 10px var(--color-shadow);
+	border: 1px solid var(--color-white);
+	background: white;
+	overflow-x: auto;
+}
+
+.table {
+	display: block;
+	width: fit-content;
+	height: fit-content;
+	border-collapse: collapse;
+}
+
+.table>tbody {
+	width: fit-content;
+}
+
+.table>tbody>tr,
+th {
+	height: 30px;
+}
+
+.table>tbody>tr {
+	border-bottom: 1px solid var(--color-shadow);
+	cursor: pointer;
+}
+
+.table>tbody>tr:hover {
+	opacity: 0.8;
+}
+
+th.name {
+	width: 200px;
+}
+
+th.school-class {
+	width: 100px;
+}
+
+th.score {
+	width: 100px;
 }
 
 @media (width<=800px) {
