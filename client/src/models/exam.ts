@@ -22,8 +22,8 @@ export type ExamInMonth = Exam & {
 
 export type ExamDetail = Exam & {
 	questionsCount: number
-	examTrackersCount?: number
 	result: {
+		studentId: number
 		firstName: string
 		lastName: string
 		schoolClassShortcode: string

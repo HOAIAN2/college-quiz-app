@@ -190,10 +190,6 @@ class ExamController extends Controller
 				case Role::ROLES['admin']:
 					break;
 				case Role::ROLES['student']:
-					$with_counts['exam_trackers'] = function ($query) use ($user) {
-						$query->where('user_id', '=', $user->id);
-					};
-
 					$data = $data
 						->whereHas('course.enrollments', function ($query) use ($user) {
 							$query->where('student_id', '=', $user->id);
@@ -225,6 +221,7 @@ class ExamController extends Controller
 					->where('is_correct', '=', true)
 					->count() : null;
 				$result[] = [
+					'student_id' => $student->id,
 					'first_name' => $student->first_name,
 					'last_name' => $student->last_name,
 					'school_class_shortcode' => $student->school_class->shortcode,

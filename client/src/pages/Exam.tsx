@@ -16,7 +16,7 @@ import styles from '../styles/Exam.module.css'
 import languageUtils from '../utils/languageUtils'
 
 export default function Exam() {
-	const { appLanguage, permissions } = useAppContext()
+	const { user, appLanguage, permissions } = useAppContext()
 	const [showStartExamPopUp, setShowStartExamPopUp] = useState(false)
 	const [showCancelExamPopUp, setShowCancelExamPopUp] = useState(false)
 	const language = useLanguage<PageExamLang>('page.exam')
@@ -33,6 +33,10 @@ export default function Exam() {
 		queryKey: [queryKeys.EXAM, { id: id }],
 		queryFn: () => apiGetExamById(String(id)),
 	})
+	const isSubmitted = queryData.data ?
+		queryData.data.result.find(item => item.studentId === user.user!.id)
+			?.correctCount !== null
+		: false
 	useEffect(() => {
 		const { data } = queryData
 		const refetchOffsetMinutes = REFETCH_OFFSET_MINUTES * 60 * 1000
@@ -129,7 +133,8 @@ export default function Exam() {
 											{
 												permissions.has('exam_submit')
 													&& queryData.data.startedAt !== null
-													&& !queryData.data.examTrackersCount ?
+													// && !queryData.data.examTrackersCount
+													&& !isSubmitted ?
 													<>
 														<Link
 															style={{ width: 'fit-content' }}
