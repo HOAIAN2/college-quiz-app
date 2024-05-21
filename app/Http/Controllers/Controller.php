@@ -26,16 +26,16 @@ class Controller extends BaseController
 	{
 		if (env('APP_DEBUG') == true) $this->isDevelopment = true;
 		$this->autoCompleteResultLimit = env('AUTO_COMPLETE_RESULT_LIMIT', 5);
+		$this->runTasks();
 	}
 
 	public function __destruct()
 	{
-		$this->runTasks();
 	}
 
 	public function runTasks()
 	{
-		$run_tasks_interval = env('RUN_TASK_INTERVAL', 1);
+		$run_tasks_interval = (int)env('RUN_TASK_INTERVAL', 60);
 		$is_api_call = Str::startsWith(request()->path(), 'api');
 		$now = Carbon::now();
 
@@ -43,9 +43,8 @@ class Controller extends BaseController
 			? Carbon::parse(Cache::get('last_run_tasks_at'))
 			: $now;
 		if ($last_run_tasks_at == $now) Cache::put('last_run_tasks_at', $now->format('Y-m-d H:i:s'));
-
 		if (
-			$now->diffInSeconds($last_run_tasks_at) > $run_tasks_interval
+			$last_run_tasks_at->addSeconds($run_tasks_interval)->lessThan($now)
 			&& $is_api_call
 		) {
 			foreach ($this->tasks as $task) {
