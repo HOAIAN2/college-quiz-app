@@ -84,6 +84,9 @@ return [
 			'min' => [
 				'array' => 'Please enter atleast 2 answers'
 			]
+		],
+		'supervisor_ids' => [
+			'required' => 'Please select at least one supervisor'
 		]
 	],
 ];

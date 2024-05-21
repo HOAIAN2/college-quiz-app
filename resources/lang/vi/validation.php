@@ -84,6 +84,9 @@ return [
 			'min' => [
 				'array' => 'Vui lòng nhập ít nhất 2 câu trả lời'
 			]
+		],
+		'supervisor_ids' => [
+			'required' => 'Vui lòng chọn ít nhất 1 giám thị'
 		]
 	],
 ];
