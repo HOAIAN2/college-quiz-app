@@ -15,23 +15,21 @@ export type Exam = {
 }
 
 export type ExamInMonth = Exam & {
-	// questionsCount: number
 	course: Course & {
 		subject: Subject
 	}
-	// examSupervisors: {
-	// 	id: number
-	// 	examId: number
-	// 	userId: number
-	// 	createdAt: string
-	// 	updatedAt: string
-	// 	user: User
-	// }[]
 }
 
 export type ExamDetail = Exam & {
 	questionsCount: number
 	examTrackersCount?: number
+	result: {
+		firstName: string
+		lastName: string
+		schoolClassShortcode: string
+		questionCount: number
+		correctCount: number | null
+	}[]
 	examSupervisors: {
 		id: number
 		examId: number
@@ -56,10 +54,12 @@ export type ExamQuestion = {
 	pivot: Pivot
 	questionOptions: QuestionOption[]
 }
+
 export type ExamResult = {
 	correctCount: number
 	questionCount: number
 }
+
 type Pivot = {
 	examId: number
 	questionId: number

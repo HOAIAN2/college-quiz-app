@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 
 class Controller extends BaseController
@@ -24,7 +25,7 @@ class Controller extends BaseController
 
 	public function __construct()
 	{
-		if (env('APP_DEBUG') == true) $this->isDevelopment = true;
+		if (Config::get('app.debug', true) == true) $this->isDevelopment = true;
 		$this->autoCompleteResultLimit = env('AUTO_COMPLETE_RESULT_LIMIT', 5);
 		$this->runTasks();
 	}

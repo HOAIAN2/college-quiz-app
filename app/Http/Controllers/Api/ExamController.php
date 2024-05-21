@@ -212,6 +212,27 @@ class ExamController extends Controller
 			$data = $data
 				->withCount($with_counts)
 				->findOrFail($id);
+			$result = [];
+			$question_count = $data->questions()->count();
+			$students = Course::findOrFail($data->course_id)->enrollments->pluck('user');
+
+			foreach ($students as $student) {
+				$is_submitted = ExamTracker::where('exam_id', '=', $id)
+					->where('user_id', '=', $student->id)
+					->exists();
+				$correct_count = $is_submitted == true ? ExamTracker::where('exam_id', '=', $id)
+					->where('user_id', '=', $student->id)
+					->where('is_correct', '=', true)
+					->count() : null;
+				$result[] = [
+					'first_name' => $student->first_name,
+					'last_name' => $student->last_name,
+					'school_class_shortcode' => $student->school_class->shortcode,
+					'question_count' => $question_count,
+					'correct_count' => $correct_count,
+				];
+			}
+			$data->result = $result;
 			return Reply::successWithData($data, '');
 		} catch (\Throwable $error) {
 			Log::error($error->getMessage());
@@ -557,10 +578,13 @@ class ExamController extends Controller
 			$students = $exam->course->enrollments->pluck('user');
 
 			foreach ($students as $student) {
-				$correct_count = ExamTracker::where('exam_id', '=', $id)
+				$is_submitted = ExamTracker::where('exam_id', '=', $id)
+					->where('user_id', '=', $student->id)
+					->exists();
+				$correct_count = $is_submitted == true ? ExamTracker::where('exam_id', '=', $id)
 					->where('user_id', '=', $student->id)
 					->where('is_correct', '=', true)
-					->count();
+					->count() : null;
 				$data[] = [
 					'first_name' => $student->first_name,
 					'last_name' => $student->last_name,
