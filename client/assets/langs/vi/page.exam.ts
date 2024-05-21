@@ -12,5 +12,14 @@ export default {
 	cancelMessage: 'Hủy bài thi ngay?',
 	startExam: 'Bắt đầu bài thi',
 	cancelExam: 'Hủy bài thi',
-	doExam: 'Làm bài thi'
+	doExam: 'Làm bài thi',
+	reload: 'Tải lại',
+	schoolClass: 'Lớp',
+	genders: {
+		male: 'Nam',
+		female: 'Nữ',
+		gender: 'Giới tính'
+	},
+	score: 'Điểm số',
+	didNotSubmitted: 'Chưa nộp bài',
 }

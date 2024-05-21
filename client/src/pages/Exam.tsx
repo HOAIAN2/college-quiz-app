@@ -215,16 +215,33 @@ export default function Exam() {
 										}
 										onClick={() => { queryData.refetch() }}
 									>
-										Tải lại
+										{language?.reload}
 									</button>
 								</div>
 								<div className={styles['table-container']}>
 									<table className={styles['table']}>
 										<thead>
 											<tr>
-												<th className={styles['name']}>Họ Tên</th>
-												<th className={styles['school-class']}>Lớp</th>
-												<th className={styles['score']}>Điểm số</th>
+												<th className={
+													[
+														styles['column'],
+														styles['super-large'],
+													].join(' ')
+												}>{language?.name}</th>
+												<th className={
+													[
+														styles['column'],
+														styles['medium'],
+													].join(' ')
+												}>{language?.schoolClass}</th>
+												<th className={[
+													styles['column'],
+													styles['medium'],
+												].join(' ')}>{language?.genders.gender}</th>
+												<th className={[
+													styles['column'],
+													styles['medium'],
+												].join(' ')}>{language?.score}</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -232,11 +249,32 @@ export default function Exam() {
 												queryData.data.result.map(item => {
 													return (
 														<tr key={`exam-result-${item.studentId}`}>
-															<td>{languageUtils.getFullName(item.firstName, item.lastName)}</td>
-															<td>{item.schoolClassShortcode}</td>
-															<td>
+															<td className={
+																[
+																	styles['column'],
+																	styles['super-large'],
+																].join(' ')
+															}>{languageUtils.getFullName(item.firstName, item.lastName)}</td>
+															<td className={
+																[
+																	styles['column'],
+																	styles['medium'],
+																].join(' ')
+															}>{item.schoolClassShortcode}</td>
+															<td className={
+																[
+																	styles['column'],
+																	styles['medium'],
+																].join(' ')
+															}>{language?.genders[item.gender]}</td>
+															<td className={
+																[
+																	styles['column'],
+																	styles['medium'],
+																].join(' ')
+															}>
 																{item.correctCount === null
-																	? 'Chưa nộp bài' :
+																	? language?.didNotSubmitted :
 																	caculateScore(item.correctCount, item.questionCount)}
 															</td>
 														</tr>

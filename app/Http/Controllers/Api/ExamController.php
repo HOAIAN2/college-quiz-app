@@ -225,6 +225,7 @@ class ExamController extends Controller
 					'first_name' => $student->first_name,
 					'last_name' => $student->last_name,
 					'school_class_shortcode' => $student->school_class->shortcode,
+					'gender' => $student->gender,
 					'question_count' => $question_count,
 					'correct_count' => $correct_count,
 				];

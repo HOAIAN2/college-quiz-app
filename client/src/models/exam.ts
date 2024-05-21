@@ -27,6 +27,7 @@ export type ExamDetail = Exam & {
 		firstName: string
 		lastName: string
 		schoolClassShortcode: string
+		gender: 'male' | 'female'
 		questionCount: number
 		correctCount: number | null
 	}[]

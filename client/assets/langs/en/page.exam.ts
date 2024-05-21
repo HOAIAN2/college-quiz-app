@@ -12,5 +12,14 @@ export default {
 	cancelMessage: 'Cancel the exam now?',
 	startExam: 'Start Exam',
 	cancelExam: 'Cancel Exam',
-	doExam: 'Take Exam'
+	doExam: 'Take Exam',
+	reload: 'Reload',
+	schoolClass: 'Class',
+	genders: {
+		male: 'Male',
+		female: 'Female',
+		gender: 'Gender'
+	},
+	score: 'Score',
+	didNotSubmitted: 'Not submitted',
 }

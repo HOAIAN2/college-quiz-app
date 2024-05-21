@@ -142,7 +142,7 @@ th {
 	opacity: 0.8;
 }
 
-th.name {
+/* th.name {
 	width: 200px;
 }
 
@@ -152,6 +152,36 @@ th.school-class {
 
 th.score {
 	width: 100px;
+} */
+
+.column {
+	white-space: nowrap;
+	height: 30px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.column.tiny {
+	width: 30px;
+}
+
+.column.small {
+	width: 50px;
+}
+
+.column.medium {
+	width: 100px;
+	/* padding-left: 15px; */
+}
+
+.column.large {
+	width: 150px;
+	/* padding-left: 15px; */
+}
+
+.column.super-large {
+	width: 250px;
+	/* padding-left: 15px; */
 }
 
 @media (width<=800px) {
