@@ -67,16 +67,10 @@ export default function ViewSchoolClass({
 	})
 	useEffect(() => {
 		setHide(false)
-		const handleEscEvent = (e: KeyboardEvent) => {
-			if (e.key === 'Escape' && document.activeElement?.nodeName !== 'INPUT') handleClosePopUp()
-		}
-		document.addEventListener('keydown', handleEscEvent)
 		return () => {
-			document.removeEventListener('keydown', handleEscEvent)
 			queryClient.removeQueries({ queryKey: [queryKeys.SCHOOL_CLASS_DETAIL, { id: id }] })
 			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_FACULTY] })
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id, queryClient])
 	return (
 		<div

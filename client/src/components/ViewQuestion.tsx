@@ -78,16 +78,10 @@ export default function ViewQuestion({
 	}
 	useEffect(() => {
 		setHide(false)
-		const handleEscEvent = (e: KeyboardEvent) => {
-			if (e.key === 'Escape' && document.activeElement?.nodeName !== 'INPUT') handleClosePopUp()
-		}
-		document.addEventListener('keydown', handleEscEvent)
 		return () => {
 			queryClient.removeQueries({ queryKey: [queryKeys.QUESTION_DETAIL, { id: id }] })
-			document.removeEventListener('keydown', handleEscEvent)
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [id])
+	}, [id, queryClient])
 	useEffect(() => {
 		if (queryData.data) {
 			const questionOptions = queryData.data.questionOptions.map(item => {
