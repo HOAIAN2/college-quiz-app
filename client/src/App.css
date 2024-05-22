@@ -3,7 +3,7 @@
 	width: calc(100% - 230px);
 	height: 100%;
 	padding: 10px;
-	background-color: var(--color-background);
+	background: var(--color-background);
 }
 
 .dashboard-card-d {

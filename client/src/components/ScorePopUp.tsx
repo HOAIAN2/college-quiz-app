@@ -1,12 +1,11 @@
 import confetti from 'canvas-confetti'
 import { TiArrowBack } from 'react-icons/ti'
 import { useNavigate } from 'react-router-dom'
-import { BASE_SCORE_SCALE } from '../config/env'
-import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { ExamResult } from '../models/exam'
 import { ComponentScorePopUpLang } from '../models/lang'
 import styles from '../styles/ScorePopUp.module.css'
+import caculateScore from '../utils/caculateScore'
 
 type ScorePopUpProps = {
 	data: ExamResult
@@ -21,14 +20,9 @@ export default function ScorePopUp({
 	hideConfetti,
 	setShowPopUp
 }: ScorePopUpProps) {
-	const { appLanguage } = useAppContext()
 	const language = useLanguage<ComponentScorePopUpLang>('component.score_pop_up')
 	const navigate = useNavigate()
-	const score = Number((data.correctCount / data.questionCount * BASE_SCORE_SCALE)
-		.toFixed(2))
-		.toLocaleString(appLanguage.language, {
-			notation: 'compact'
-		}) + `/${BASE_SCORE_SCALE}`
+	const score = caculateScore(data.correctCount, data.questionCount)
 	const handleClosePopUp = () => {
 		if (setShowPopUp) return setShowPopUp(true)
 		if (backURL) return navigate(backURL)

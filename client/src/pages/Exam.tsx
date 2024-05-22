@@ -1,18 +1,20 @@
 import { useQuery } from '@tanstack/react-query'
 import moment from 'moment'
 import { useEffect, useState } from 'react'
+import { AiOutlineReload } from 'react-icons/ai'
 import { MdOutlineCancel } from 'react-icons/md'
 import { Link, useParams } from 'react-router-dom'
 import { apiGetExamById, apiUpdateExamStatus } from '../api/exam'
 import Loading from '../components/Loading'
 import YesNoPopUp from '../components/YesNoPopUp'
-import { BASE_SCORE_SCALE, REFETCH_OFFSET_MINUTES } from '../config/env'
+import { REFETCH_OFFSET_MINUTES } from '../config/env'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useForceUpdate from '../hooks/useForceUpdate'
 import useLanguage from '../hooks/useLanguage'
 import { PageExamLang } from '../models/lang'
 import styles from '../styles/Exam.module.css'
+import caculateScore from '../utils/caculateScore'
 import languageUtils from '../utils/languageUtils'
 
 export default function Exam() {
@@ -38,13 +40,13 @@ export default function Exam() {
 		queryData.data.result.find(item => item.studentId === user.user!.id)
 			?.correctCount !== null
 		: false
-	const caculateScore = (correctCount: number, questionCount: number) => {
-		return Number((correctCount / questionCount * BASE_SCORE_SCALE)
-			.toFixed(2))
-			.toLocaleString(appLanguage.language, {
-				notation: 'compact'
-			}) + `/${BASE_SCORE_SCALE}`
-	}
+	// const caculateScore = (correctCount: number, questionCount: number) => {
+	// 	return Number((correctCount / questionCount * BASE_SCORE_SCALE)
+	// 		.toFixed(2))
+	// 		.toLocaleString(appLanguage.language, {
+	// 			notation: 'compact'
+	// 		}) + `/${BASE_SCORE_SCALE}`
+	// }
 	useEffect(() => {
 		const { data } = queryData
 		const refetchOffsetMinutes = REFETCH_OFFSET_MINUTES * 60 * 1000
@@ -212,10 +214,12 @@ export default function Exam() {
 											[
 												queryData.isFetching ? 'button-submitting' : '',
 												'action-item-d',
+												styles['button']
 											].join(' ')
 										}
 										onClick={() => { queryData.refetch() }}
 									>
+										<AiOutlineReload />
 										{language?.refresh}
 									</button>
 								</div>

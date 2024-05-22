@@ -249,7 +249,7 @@ export default function Subject() {
 							{
 								permissions.has('question_view') ?
 									<Link
-										to={`/questions/${id}`}
+										to={`questions`}
 										state={queryData.data}
 										className={styles['header']}>
 										<h2 className={styles['title']}>

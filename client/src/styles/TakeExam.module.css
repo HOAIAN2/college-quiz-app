@@ -5,6 +5,7 @@
 	flex-direction: column;
 	gap: 20px;
 	overflow: auto;
+	background: var(--color-background);
 }
 
 .data-container {

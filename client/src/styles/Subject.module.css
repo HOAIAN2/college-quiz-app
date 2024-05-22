@@ -3,7 +3,7 @@
 	height: 100%;
 	/* height: calc(100% - 50px); */
 	position: relative;
-	background: white;
+	/* background: white; */
 	overflow-y: auto;
 }
 

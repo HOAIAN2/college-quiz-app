@@ -2,8 +2,8 @@
 	width: 100%;
 	height: 100%;
 	/* height: calc(100% - 50px); */
-	position: relative;
-	background: white;
+	/* position: relative; */
+	/* background: white; */
 	overflow-y: auto;
 }
 

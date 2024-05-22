@@ -28,6 +28,14 @@ const languageUtils = {
 		if (this.getLanguage() === 'vi') return [lastName, firstName].join(' ')
 		return [firstName, lastName].join(' ')
 	},
+	getLetterFromIndex(index: number) {
+		let letters = '';
+		while (index >= 0) {
+			letters = String.fromCharCode((index % 26) + 65) + letters
+			index = Math.floor(index / 26) - 1
+		}
+		return letters
+	},
 	getShortHand(content: string) {
 		return content.split(' ').map(item => {
 			if (!item) return undefined

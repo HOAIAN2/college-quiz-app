@@ -3,7 +3,7 @@
 	height: 100%;
 	/* height: calc(100% - 50px); */
 	position: relative;
-	background: white;
+	/* background: white; */
 	overflow-y: auto;
 	padding: 20px;
 }
@@ -171,6 +171,12 @@ th {
 .column.super-large {
 	width: 250px;
 	/* padding-left: 15px; */
+}
+
+.button {
+	width: fit-content;
+	display: flex;
+	gap: 5px;
 }
 
 @media (width<=800px) {

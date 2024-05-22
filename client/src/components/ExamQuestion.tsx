@@ -4,6 +4,7 @@ import useLanguage from '../hooks/useLanguage'
 import { ExamQuestion as TExamQuestion } from '../models/exam'
 import { ComponentExamQuestionLang } from '../models/lang'
 import styles from '../styles/ExamQuestion.module.css'
+import languageUtils from '../utils/languageUtils'
 
 type ExamQuestionProps = {
 	index: number
@@ -52,7 +53,7 @@ export default function ExamQuestion({
 									styles['question-option']
 								].join(' ')
 							}>
-								{i + 1}. {option.content}
+								{languageUtils.getLetterFromIndex(i)}. {option.content}
 							</span>
 						</div>
 					)
