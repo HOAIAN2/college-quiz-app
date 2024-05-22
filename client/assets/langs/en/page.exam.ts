@@ -13,7 +13,8 @@ export default {
 	startExam: 'Start Exam',
 	cancelExam: 'Cancel Exam',
 	doExam: 'Take Exam',
-	reload: 'Reload',
+	result: 'Result',
+	refresh: 'Refresh',
 	schoolClass: 'Class',
 	genders: {
 		male: 'Male',

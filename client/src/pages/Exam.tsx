@@ -32,6 +32,7 @@ export default function Exam() {
 	const queryData = useQuery({
 		queryKey: [queryKeys.EXAM, { id: id }],
 		queryFn: () => apiGetExamById(String(id)),
+		refetchOnWindowFocus: false
 	})
 	const isSubmitted = queryData.data ?
 		queryData.data.result.find(item => item.studentId === user.user!.id)
@@ -197,7 +198,7 @@ export default function Exam() {
 							</div>
 							<div className={styles['result-container']}>
 								<div className={styles['header']}>
-									<h2 className={styles['title']}>{language?.exam}</h2>
+									<h2 className={styles['title']}>{language?.result}</h2>
 								</div>
 								<div className={
 									[
@@ -215,7 +216,7 @@ export default function Exam() {
 										}
 										onClick={() => { queryData.refetch() }}
 									>
-										{language?.reload}
+										{language?.refresh}
 									</button>
 								</div>
 								<div className={styles['table-container']}>

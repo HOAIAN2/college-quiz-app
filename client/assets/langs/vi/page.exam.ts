@@ -13,7 +13,8 @@ export default {
 	startExam: 'Bắt đầu bài thi',
 	cancelExam: 'Hủy bài thi',
 	doExam: 'Làm bài thi',
-	reload: 'Tải lại',
+	result: 'Kết quả',
+	refresh: 'Làm mới',
 	schoolClass: 'Lớp',
 	genders: {
 		male: 'Nam',

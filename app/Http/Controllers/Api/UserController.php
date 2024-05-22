@@ -19,7 +19,6 @@ use App\Models\Role;
 use App\Models\SchoolClass;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -199,18 +198,18 @@ class UserController extends Controller
 
 				if ($request->role == 'student') {
 					$school_class_id = SchoolClass::where('shortcode', $row[0])->pluck('id')->first();
-					$record['school_class_id'] = $school_class_id;
+					$validated_record['school_class_id'] = $school_class_id;
 					if ($school_class_id == null) $non_exists_classes[] = $row[0];
 				}
 
 				if ($request->role == 'teacher') {
 					$faculty_id = Faculty::where('shortcode', $row[0])->pluck('id')->first();
-					$record['faculty_id'] = $faculty_id;
+					$validated_record['faculty_id'] = $faculty_id;
 					if ($faculty_id == null) $non_exists_faculties[] = $row[0];
 				}
 
 				$validated_record = collect($validated_record)->except(['role'])->toArray();
-				$validated_record['password'] = Hash::make($request->password);
+				$validated_record['password'] = Hash::make($record['password']);
 				$validated_record['role_id'] = $role_id;
 
 				$data[] = $validated_record;

@@ -111,8 +111,8 @@
 	height: fit-content;
 	padding: 15px;
 	border-radius: var(--border-radius-low);
-	box-shadow: 0px 0px 10px var(--color-shadow);
-	border: 1px solid var(--color-white);
+	/* box-shadow: 0px 0px 10px var(--color-shadow); */
+	border: 1px solid var(--color-gray);
 	background: white;
 	overflow-x: auto;
 }
@@ -142,18 +142,6 @@ th {
 	opacity: 0.8;
 }
 
-/* th.name {
-	width: 200px;
-}
-
-th.school-class {
-	width: 100px;
-}
-
-th.score {
-	width: 100px;
-} */
-
 .column {
 	white-space: nowrap;
 	height: 30px;
@@ -171,6 +159,7 @@ th.score {
 
 .column.medium {
 	width: 100px;
+	text-align: center;
 	/* padding-left: 15px; */
 }
 
