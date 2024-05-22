@@ -152,9 +152,3 @@ th {
 .table-links>.link-content>button.next-previous>svg {
 	margin-top: 5px;
 }
-
-/* @media(width<=800px) {
-    .table-content {
-        width: 95%;
-    }
-} */

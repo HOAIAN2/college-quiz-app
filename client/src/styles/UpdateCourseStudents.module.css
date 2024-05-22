@@ -70,10 +70,6 @@
 	overflow-y: auto;
 }
 
-/* .wrap-data-container::-webkit-scrollbar {
-	display: none;
-} */
-
 .data-container {
 	display: flex;
 	flex-direction: column;

@@ -1,9 +1,7 @@
 import { useEffect } from 'react'
 import {
-	// AiOutlineQuestionCircle,
 	AiOutlineUser
 } from 'react-icons/ai'
-// import { GrCertificate } from 'react-icons/gr'
 import { LuSchool } from 'react-icons/lu'
 import { MdOutlineStickyNote2 } from 'react-icons/md'
 import {
@@ -120,7 +118,7 @@ export default function NavBar() {
 		}
 	})
 	return (
-		<div ref={DOM.sideBarRef} className={
+		<nav ref={DOM.sideBarRef} className={
 			[
 				styles['nav-bar'],
 				window.innerWidth < 800 ? styles['hide'] : ''
@@ -147,6 +145,6 @@ export default function NavBar() {
 					)
 				})
 			}</ul>
-		</div>
+		</nav>
 	)
 }

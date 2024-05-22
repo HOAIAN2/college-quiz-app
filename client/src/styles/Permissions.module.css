@@ -19,7 +19,6 @@
 .list-item {
 	list-style-type: none;
 	height: 75px;
-	/* width: 45%; */
 	flex: 0 0 calc(50% - 10px);
 	display: flex;
 	align-items: center;

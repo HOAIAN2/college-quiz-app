@@ -75,12 +75,10 @@
 	margin-left: 10px;
 	display: flex;
 	align-items: center;
-	/* flex: 1; */
 }
 
 .wrap-item>.label {
 	margin: 0 10px 0 10px;
-	/* margin-right: 10px; */
 	font-size: 16px;
 }
 

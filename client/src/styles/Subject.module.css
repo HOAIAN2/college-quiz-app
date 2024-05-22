@@ -1,9 +1,7 @@
 .page-content {
 	width: 100%;
 	height: 100%;
-	/* height: calc(100% - 50px); */
 	position: relative;
-	/* background: white; */
 	overflow-y: auto;
 }
 
@@ -21,17 +19,12 @@
 .form-content {
 	width: 100%;
 	height: calc(fit-content + 50px);
-	/* background: white;
-    border-radius: var(--border-radius-low);
-    box-shadow: 0px 0px 10px var(--color-shadow); */
 }
 
 .form-data {
 	height: fit-content;
 	display: flex;
 	flex-direction: column;
-	/* justify-content: space-between; */
-	/* padding: 10px; */
 }
 
 .group-inputs {
@@ -128,7 +121,6 @@
 }
 
 .card>.card-bottom {
-	/* font-size: 20px; */
 	margin-left: 20px;
 }
 

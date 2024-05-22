@@ -40,13 +40,6 @@ export default function Exam() {
 		queryData.data.result.find(item => item.studentId === user.user!.id)
 			?.correctCount !== null
 		: false
-	// const caculateScore = (correctCount: number, questionCount: number) => {
-	// 	return Number((correctCount / questionCount * BASE_SCORE_SCALE)
-	// 		.toFixed(2))
-	// 		.toLocaleString(appLanguage.language, {
-	// 			notation: 'compact'
-	// 		}) + `/${BASE_SCORE_SCALE}`
-	// }
 	useEffect(() => {
 		const { data } = queryData
 		const refetchOffsetMinutes = REFETCH_OFFSET_MINUTES * 60 * 1000
@@ -93,7 +86,7 @@ export default function Exam() {
 						<>
 							<div className={
 								[
-									styles['form-content']
+									styles['exam-info-container'],
 								].join(' ')
 							}>
 								<div className={styles['header']}>
@@ -143,7 +136,6 @@ export default function Exam() {
 											{
 												permissions.has('exam_submit')
 													&& queryData.data.startedAt !== null
-													// && !queryData.data.examTrackersCount
 													&& !isSubmitted ?
 													<>
 														<Link
@@ -198,7 +190,11 @@ export default function Exam() {
 										: null
 								}
 							</div>
-							<div className={styles['result-container']}>
+							<div className={
+								[
+									styles['result-container'],
+								].join(' ')
+							}>
 								<div className={styles['header']}>
 									<h2 className={styles['title']}>{language?.result}</h2>
 								</div>

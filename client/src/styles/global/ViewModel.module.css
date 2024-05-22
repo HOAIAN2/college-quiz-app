@@ -61,7 +61,6 @@
 .form-data {
 	min-height: 100%;
 	height: fit-content;
-	/* height: calc(100% - 40px); */
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -90,7 +89,6 @@
 .wrap-item.textarea>.input-item {
 	padding: 20px;
 	min-height: 70px;
-	/* resize: vertical; */
 	resize: none;
 	overflow: hidden;
 }
