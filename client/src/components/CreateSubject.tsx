@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
+import { FiSave } from 'react-icons/fi'
 import { RxCross2 } from 'react-icons/rx'
 import { apiCreateSubject } from '../api/subject'
 import useLanguage from '../hooks/useLanguage'
@@ -120,7 +121,7 @@ export default function CreateSubject({
 										'action-item-d',
 										isPending ? 'button-submitting' : ''
 									].join(' ')
-								}>{language?.save}</button>
+								}><FiSave />{language?.save}</button>
 							<button name='save-more'
 								className={
 									[
@@ -128,7 +129,7 @@ export default function CreateSubject({
 										isPending ? 'button-submitting' : ''
 									].join(' ')
 								}
-							>{language?.saveMore}</button>
+							><FiSave />{language?.saveMore}</button>
 						</div>
 					</form>
 				</div>

@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
+import { FiSave } from 'react-icons/fi'
 import { RxCross2 } from 'react-icons/rx'
 import { apiAutoCompleteFaculty } from '../api/faculty'
 import { apiGetSchoolClassById, apiUpdateSchoolClass } from '../api/school-class'
@@ -177,7 +178,7 @@ export default function ViewSchoolClass({
 															isPending ? 'button-submitting' : ''
 														].join(' ')
 													}
-												>{language?.save}</button>
+												><FiSave />{language?.save}</button>
 											</div>
 											: null
 									}

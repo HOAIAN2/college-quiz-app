@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
+import { FiSave } from 'react-icons/fi'
 import { RxCross2 } from 'react-icons/rx'
 import { apiCreateCourse } from '../api/course'
 import { apiAutoCompleteSubject } from '../api/subject'
@@ -206,7 +207,7 @@ export default function CreateCourse({
 										'action-item-d',
 										isPending ? 'button-submitting' : ''
 									].join(' ')
-								}>{language?.save}</button>
+								}><FiSave />{language?.save}</button>
 							<button name='save-more'
 								className={
 									[
@@ -214,7 +215,7 @@ export default function CreateCourse({
 										isPending ? 'button-submitting' : ''
 									].join(' ')
 								}
-							>{language?.saveMore}</button>
+							><FiSave />{language?.saveMore}</button>
 						</div>
 					</form>
 				</div>

@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
+import { FiSave } from 'react-icons/fi'
 import { LuPenSquare } from 'react-icons/lu'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RiAddFill } from 'react-icons/ri'
@@ -224,7 +225,7 @@ export default function Course() {
 																	isPending ? 'button-submitting' : ''
 																].join(' ')
 															}
-														>{language?.save}</button> : null
+														><FiSave />{language?.save}</button> : null
 												}
 												{
 													permissions.has('course_delete') ?

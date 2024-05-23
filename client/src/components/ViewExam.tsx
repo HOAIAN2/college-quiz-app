@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
+import { FiSave } from 'react-icons/fi'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RxCross2 } from 'react-icons/rx'
 import { apiDeleteExam, apiGetExamById, apiUpdateExam } from '../api/exam'
@@ -315,7 +316,7 @@ export default function ViewExam({
 																	isPending ? 'button-submitting' : ''
 																].join(' ')
 															}
-														>{language?.save}
+														><FiSave />{language?.save}
 														</button> : null
 												}
 												{

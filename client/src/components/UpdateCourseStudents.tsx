@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
+import { FiSave } from 'react-icons/fi'
 import { PiStudent } from 'react-icons/pi'
 import { RxCross2 } from 'react-icons/rx'
 import { apiUpdateCourseStudents } from '../api/course'
@@ -169,7 +170,7 @@ export default function UpdateCourseStudents({
 									'action-item-d',
 									isPending ? 'button-submitting' : ''
 								].join(' ')
-							}>{language?.save}</button>
+							}><FiSave />{language?.save}</button>
 					</div>
 				</div>
 			</div>

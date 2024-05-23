@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
+import { FiSave } from 'react-icons/fi'
 import { RxCross2 } from 'react-icons/rx'
 import { toast } from 'sonner'
 import { apiCreateExam } from '../api/exam'
@@ -310,7 +311,7 @@ export default function CreateExam({
 											'action-item-d',
 											isPending ? 'button-submitting' : ''
 										].join(' ')
-									}>{language?.save}</button>
+									}><FiSave />{language?.save}</button>
 							</div>
 						</form>
 					</div>

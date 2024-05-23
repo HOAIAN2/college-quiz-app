@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
+import { FiSave } from 'react-icons/fi'
 import { RxCross2 } from 'react-icons/rx'
 import { apiCreateSemester } from '../api/semester'
 import useLanguage from '../hooks/useLanguage'
@@ -148,7 +149,7 @@ export default function CreateSemester({
 										'action-item-d',
 										isPending ? 'button-submitting' : ''
 									].join(' ')
-								}>{language?.save}</button>
+								}><FiSave />{language?.save}</button>
 							<button name='save-more'
 								className={
 									[
@@ -156,7 +157,7 @@ export default function CreateSemester({
 										isPending ? 'button-submitting' : ''
 									].join(' ')
 								}
-							>{language?.saveMore}</button>
+							><FiSave />{language?.saveMore}</button>
 						</div>
 					</form>
 				</div>

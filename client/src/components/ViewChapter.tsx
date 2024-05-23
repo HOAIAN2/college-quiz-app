@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
+import { FiSave } from 'react-icons/fi'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RxCross2 } from 'react-icons/rx'
 import { apiDeleteChapter, apiUpdateChapter } from '../api/chapter'
@@ -149,7 +150,7 @@ export default function ViewChapter({
 														isPending ? 'button-submitting' : ''
 													].join(' ')
 												}
-											>{language?.save}</button>
+											><FiSave />{language?.save}</button>
 											<button
 												type='button'
 												onClick={() => {

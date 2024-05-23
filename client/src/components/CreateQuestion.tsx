@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { FaRegCircleCheck } from 'react-icons/fa6'
+import { FiSave } from 'react-icons/fi'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RiAddFill } from 'react-icons/ri'
 import { RxCross2 } from 'react-icons/rx'
@@ -279,7 +280,7 @@ export default function CreateQuestion({
 										'action-item-d',
 										isPending ? 'button-submitting' : ''
 									].join(' ')
-								}>{language?.save}</button>
+								}><FiSave />{language?.save}</button>
 							<button name='save-more'
 								className={
 									[
@@ -287,7 +288,7 @@ export default function CreateQuestion({
 										isPending ? 'button-submitting' : ''
 									].join(' ')
 								}
-							>{language?.saveMore}</button>
+							><FiSave />{language?.saveMore}</button>
 						</div>
 					</form>
 				</div>

@@ -1,6 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
+import { FiSave } from 'react-icons/fi'
+import { PiKey } from 'react-icons/pi'
 import { apiGetUser, apiUpdateUser } from '../api/user'
 import ChangePassword from '../components/ChangePassword'
 import CustomSelect from '../components/CustomSelect'
@@ -254,7 +256,7 @@ export default function Profile() {
 												isPending ? 'button-submitting' : ''
 											].join(' ')
 										}
-									>{language?.save}</button>
+									><FiSave /> {language?.save}</button>
 								</div>
 								: null
 						}
@@ -267,11 +269,12 @@ export default function Profile() {
 					<button
 						className={
 							[
-								'button-d',
-								styles['button']
+								'action-item-d',
 							].join(' ')
 						}
-						onClick={() => { setShowChangePasswordPopUp(true) }}>{language?.otherSection.changePassword}</button>
+						onClick={() => { setShowChangePasswordPopUp(true) }}>
+						<PiKey />{language?.otherSection.changePassword}
+					</button>
 				</div>
 			</div>
 		</>
