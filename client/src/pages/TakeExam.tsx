@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
+import { TbSend } from 'react-icons/tb'
 import { useParams } from 'react-router-dom'
 import { apiGetExamQuestions, apiSubmitExam } from '../api/exam'
 import ExamQuestion from '../components/ExamQuestion'
@@ -162,7 +163,7 @@ export default function TakeExam() {
 												'action-item-d',
 												// isPending ? 'button-submitting' : ''
 											].join(' ')
-										}>{language?.submit}
+										}><TbSend /> {language?.submit}
 									</button>
 								</div>
 							</div>

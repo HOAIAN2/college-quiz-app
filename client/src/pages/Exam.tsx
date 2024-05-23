@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import moment from 'moment'
 import { useState } from 'react'
-import { AiOutlineReload } from 'react-icons/ai'
-import { LuAlarmClock } from 'react-icons/lu'
-import { MdOutlineCancel } from 'react-icons/md'
+import { ImCancelCircle } from 'react-icons/im'
+import { LuAlarmClock, LuRefreshCw } from 'react-icons/lu'
 import { Link, useParams } from 'react-router-dom'
 import { apiGetExamById, apiUpdateExamStatus } from '../api/exam'
 import Loading from '../components/Loading'
@@ -180,7 +179,7 @@ export default function Exam() {
 																	'action-item-d-white-border-red'
 																].join(' ')
 															}>
-															<MdOutlineCancel /> {language?.cancelExam}
+															<ImCancelCircle /> {language?.cancelExam}
 														</button>
 													</> : null
 											}
@@ -207,13 +206,13 @@ export default function Exam() {
 										className={
 											[
 												queryData.isFetching ? 'button-submitting' : '',
+												queryData.isFetching ? styles['refreshing'] : '',
 												'action-item-d',
-												styles['button']
 											].join(' ')
 										}
 										onClick={() => { queryData.refetch() }}
 									>
-										<AiOutlineReload />
+										<LuRefreshCw />
 										{language?.refresh}
 									</button>
 								</div>
