@@ -33,7 +33,7 @@ class CancelLateExams extends Command
 		Exam::where(
 			'exam_date',
 			'<=',
-			$now->copy()->subSeconds(env('CANCEL_LATE_EXAMS_INTERVAL'))
+			$now->copy()->subSeconds((int)env('CANCEL_LATE_EXAMS_INTERVAL'))
 		)
 			->whereNull('started_at')
 			->whereNull('cancelled_at')

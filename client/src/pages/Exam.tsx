@@ -1,16 +1,15 @@
 import { useQuery } from '@tanstack/react-query'
 import moment from 'moment'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { AiOutlineReload } from 'react-icons/ai'
+import { LuAlarmClock } from 'react-icons/lu'
 import { MdOutlineCancel } from 'react-icons/md'
 import { Link, useParams } from 'react-router-dom'
 import { apiGetExamById, apiUpdateExamStatus } from '../api/exam'
 import Loading from '../components/Loading'
 import YesNoPopUp from '../components/YesNoPopUp'
-import { REFETCH_OFFSET_MINUTES } from '../config/env'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
-import useForceUpdate from '../hooks/useForceUpdate'
 import useLanguage from '../hooks/useLanguage'
 import { PageExamLang } from '../models/lang'
 import styles from '../styles/Exam.module.css'
@@ -22,7 +21,6 @@ export default function Exam() {
 	const [showStartExamPopUp, setShowStartExamPopUp] = useState(false)
 	const [showCancelExamPopUp, setShowCancelExamPopUp] = useState(false)
 	const language = useLanguage<PageExamLang>('page.exam')
-	const forceUpdate = useForceUpdate()
 	const { id } = useParams()
 	const handleStartExam = async () => {
 		await apiUpdateExamStatus('start', String(id))
@@ -30,28 +28,28 @@ export default function Exam() {
 	const handleCancelExam = async () => {
 		await apiUpdateExamStatus('cancel', String(id))
 	}
-	const onMutateSuccess = () => { }
 	const queryData = useQuery({
 		queryKey: [queryKeys.EXAM, { id: id }],
 		queryFn: () => apiGetExamById(String(id)),
 		refetchOnWindowFocus: false
 	})
+	const onMutateSuccess = () => { queryData.refetch() }
 	const isSubmitted = queryData.data ?
 		queryData.data.result.find(item => item.studentId === user.user!.id)
 			?.correctCount !== null
 		: false
-	useEffect(() => {
-		const { data } = queryData
-		const refetchOffsetMinutes = REFETCH_OFFSET_MINUTES * 60 * 1000
-		if (data && !data.cancelledAt && !data.startedAt) {
-			const offset = new Date(queryData.data.examDate).getTime() - new Date().getTime()
-			if (offset < refetchOffsetMinutes)
-				setTimeout(() => {
-					queryData.refetch()
-					forceUpdate()
-				}, 1000)
-		}
-	})
+	// useEffect(() => {
+	// 	const { data } = queryData
+	// 	const refetchOffsetMinutes = REFETCH_OFFSET_MINUTES * 60 * 1000
+	// 	if (data && !data.cancelledAt && !data.startedAt) {
+	// 		const offset = new Date(queryData.data.examDate).getTime() - new Date().getTime()
+	// 		if (offset < refetchOffsetMinutes)
+	// 			setTimeout(() => {
+	// 				queryData.refetch()
+	// 				forceUpdate()
+	// 			}, 1000)
+	// 	}
+	// })
 	return (
 		<>
 			{showStartExamPopUp === true ?
@@ -148,7 +146,7 @@ export default function Exam() {
 																	// isPending ? 'button-submitting' : ''
 																].join(' ')
 															}
-														>{language?.doExam}
+														><LuAlarmClock />{language?.doExam}
 														</Link>
 													</> : null
 											}
@@ -168,7 +166,7 @@ export default function Exam() {
 																			// isPending ? 'button-submitting' : ''
 																		].join(' ')
 																	}
-																>{language?.startExam}
+																><LuAlarmClock /> {language?.startExam}
 																</button>
 																: null
 														}

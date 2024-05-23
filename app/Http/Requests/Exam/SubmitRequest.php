@@ -26,6 +26,7 @@ class SubmitRequest extends FormRequest
 		return [
 			'answers' => ['required', 'array'],
 			'answers.*' => ['required', 'integer'],
+			'bypass_key' => ['nullable', 'string']
 		];
 	}
 }

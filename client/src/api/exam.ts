@@ -93,8 +93,9 @@ export async function apiGetExamQuestions(id: string | number) {
 	}
 }
 
-export async function apiSubmitExam(id: string | number, answers: number[]) {
+export async function apiSubmitExam(id: string | number, answers: number[], bypassKey?: string) {
 	const formData = new FormData()
+	if (bypassKey) formData.append('bypass_key', bypassKey)
 	answers.forEach(answer => { formData.append('answers[]', String(answer)) })
 	try {
 		const res = await request.post(`/exam/${id}/submit`, formData)

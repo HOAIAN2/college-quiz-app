@@ -502,6 +502,12 @@ class ExamController extends Controller
 
 			$exam_date = Carbon::parse($exam->exam_date);
 			$exam_end_date = $exam_date->copy()->addMinutes($exam->exam_time);
+
+			if ($request->bypass_key != null && $exam->canBypass($request->bypass_key)) {
+				$allow_late_submit = (int)env('ALLOW_LATE_SUBMIT', 120);
+				$exam_end_date = $exam_end_date->addSeconds($allow_late_submit);
+			}
+
 			if ($now->lessThan($exam_date)) {
 				return Reply::error('app.errors.exam_not_start');
 			}
@@ -526,9 +532,6 @@ class ExamController extends Controller
 				if ($question_option->is_correct) $correct_count++;
 			}
 			$result_data = [
-				// 'exam_name' => $exam->name,
-				// 'exam_date' => $exam_date->format(Exam::DATE_FORMAT),
-				// 'exam_time' => $exam->exam_time,
 				'correct_count' => $correct_count,
 				'question_count' => count($exam->questions)
 			];

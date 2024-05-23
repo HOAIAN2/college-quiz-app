@@ -13,6 +13,7 @@ import { ExamResult } from '../models/exam'
 import { PageTakeExamLang } from '../models/lang'
 import styles from '../styles/TakeExam.module.css'
 import isValidJson from '../utils/isValidJson'
+import sha256 from '../utils/sha256'
 import timeUtils from '../utils/timeUtils'
 
 export default function TakeExam() {
@@ -20,6 +21,7 @@ export default function TakeExam() {
 	const localStorageKey = `exam_${id}`
 	const [showSubmitPopUp, setShowSubmitPopUp] = useState(false)
 	const [examResult, setExamResult] = useState<ExamResult>()
+	const [bypassKey, setBypassKey] = useState('')
 	const queryClient = useQueryClient()
 	const [answers, setAnswers] = useState<number[]>(() => {
 		const data = localStorage.getItem(localStorageKey)
@@ -43,8 +45,8 @@ export default function TakeExam() {
 	})
 	const timeLeft = queryData.data ?
 		timeUtils.countDown(new Date(Date.parse(queryData.data.startedAt!) + queryData.data.examTime * 60000)) : ''
-	const { mutateAsync } = useMutation({
-		mutationFn: () => apiSubmitExam(String(id), answers),
+	const { mutateAsync, isPending } = useMutation({
+		mutationFn: () => apiSubmitExam(String(id), answers, bypassKey),
 		onSuccess: (data) => {
 			setExamResult(data)
 		},
@@ -53,11 +55,12 @@ export default function TakeExam() {
 		localStorage.removeItem(localStorageKey)
 	}
 	useEffect(() => {
+		if (examResult) return
 		const interval = setInterval(() => {
 			forceUpdate()
 		}, 500)
 		return () => clearInterval(interval)
-	}, [forceUpdate])
+	}, [examResult, forceUpdate])
 	useEffect(() => {
 		if (!queryData.data) return
 		document.title = queryData.data.name
@@ -77,6 +80,20 @@ export default function TakeExam() {
 			}
 		}
 	}, [answers, id, localStorageKey, queryClient, queryData.data])
+	useEffect(() => {
+		if (!queryData.data) return
+		sha256(queryData.data.startedAt!).then(result => {
+			setBypassKey(result)
+		})
+	}, [queryData.data])
+	useEffect(() => {
+		if (!queryData.data) return
+		const endAt = new Date(queryData.data.startedAt!).getTime() + (queryData.data.examTime * 60 * 1000)
+		const now = new Date().getTime()
+		if (now > endAt && !isPending && !examResult) {
+			mutateAsync()
+		}
+	})
 	return (
 		<>
 			{
