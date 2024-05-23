@@ -1,12 +1,8 @@
 export default {
 	add: 'Add',
-	import: 'Import',
-	export: 'Export',
+	// import: 'Import',
+	// export: 'Export',
 	delete: 'Delete',
-	filter: {
-		perPage: 'Rows',
-		search: 'Search'
-	},
 	deleteMessage: 'Are you sure you want to delete @n records? This action cannot be undone.',
 	langYes: 'Yes',
 	langNo: 'No',

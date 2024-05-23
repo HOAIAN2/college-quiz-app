@@ -12,12 +12,13 @@ import useLanguage from '../hooks/useLanguage'
 import { PageProfileLang } from '../models/lang'
 import styles from '../styles/Profile.module.css'
 import createFormUtils from '../utils/createFormUtils'
+import languageUtils from '../utils/languageUtils'
 import renderMonth from '../utils/renderMonth'
 
 export default function Profile() {
 	const language = useLanguage<PageProfileLang>('page.profile')
-	const { user, appLanguage, permissions } = useAppContext()
-	const [changePasswordMode, setChangePasswordMode] = useState(false)
+	const { user, permissions } = useAppContext()
+	const [showChangePasswordPopUp, setShowChangePasswordPopUp] = useState(false)
 	const queryClient = useQueryClient()
 	const formUtils = createFormUtils(styles)
 	const disabledUpdate = !permissions.has('user_update')
@@ -51,16 +52,6 @@ export default function Profile() {
 		{ value: 'male', label: language?.genders.male },
 		{ value: 'female', label: language?.genders.female },
 	]
-	const fullName = appLanguage.language === 'vi'
-		? [
-			queryData.data?.user.lastName,
-			queryData.data?.user.firstName
-		].join(' ')
-		:
-		[
-			queryData.data?.user.firstName,
-			queryData.data?.user.lastName
-		].join(' ')
 	useEffect(() => {
 		return () => {
 			queryClient.removeQueries({ queryKey: [queryKeys.PAGE_PROFILE] })
@@ -69,9 +60,9 @@ export default function Profile() {
 	if (!queryData.data) return <SuspenseLoading />
 	return (
 		<>
-			{changePasswordMode === true ?
+			{showChangePasswordPopUp === true ?
 				<ChangePassword
-					setShowPopup={setChangePasswordMode}
+					setShowPopup={setShowChangePasswordPopUp}
 				/> : null}
 			<div className={
 				[
@@ -88,7 +79,7 @@ export default function Profile() {
 					].join(' ')
 				}>
 					<div className={styles['header']}>
-						<h2 className={styles['title']}>{fullName}</h2>
+						<h2 className={styles['title']}>{languageUtils.getFullName(queryData.data.user.firstName, queryData.data.user.lastName)}</h2>
 					</div>
 					<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 						mutate(e)
@@ -280,7 +271,7 @@ export default function Profile() {
 								styles['button']
 							].join(' ')
 						}
-						onClick={() => { setChangePasswordMode(true) }}>{language?.otherSection.changePassword}</button>
+						onClick={() => { setShowChangePasswordPopUp(true) }}>{language?.otherSection.changePassword}</button>
 				</div>
 			</div>
 		</>

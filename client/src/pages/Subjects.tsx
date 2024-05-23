@@ -60,7 +60,7 @@ export default function Subjects() {
 						}>
 							{
 								permissions.has('subject_create') ?
-									<div className={
+									<button className={
 										[
 											'action-item-d'
 										].join(' ')
@@ -70,7 +70,7 @@ export default function Subjects() {
 										}}
 									>
 										<RiAddFill /> {language?.add}
-									</div>
+									</button>
 									: null
 							}
 						</div>

@@ -6,7 +6,6 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { apiGetSemesters } from '../api/semester'
 import CreateSemester from '../components/CreateSemester'
 import Loading from '../components/Loading'
-// import ViewSemester from '../components/ViewSemester'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
@@ -21,8 +20,6 @@ export default function Semesters() {
 	const queryDebounce = useDebounce(searchQuery)
 	const language = useLanguage<PageSemestersLang>('page.subjects')
 	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
-	// const [semesterId, setSemesterId] = useState(0)
-	// const [showViewPopUp, setShowViewPoUp] = useState(false)
 	const queryClient = useQueryClient()
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_SEMESTERS, { search: queryDebounce }],
@@ -46,13 +43,6 @@ export default function Semesters() {
 					onMutateSuccess={onMutateSuccess}
 					setShowPopUp={setShowCreatePopUp}
 				/> : null}
-			{/* {showViewPopUp === true ?
-				<ViewSemester
-					id={semesterId}
-					onMutateSuccess={onMutateSuccess}
-					setShowPopup={setShowViewPoUp}
-				/>
-				: null} */}
 			<div
 				className={
 					[
@@ -83,36 +73,6 @@ export default function Semesters() {
 									</div>
 									: null
 							}
-							{/* {
-						permissions.has('user_create') ?
-							<div className={
-								[
-									'action-item-d-white'
-								].join(' ')
-							}
-							// onClick={() => {
-							// 	setImportMode(true)
-							// }}
-							>
-								<BiImport /> {language?.import}
-							</div>
-							: null
-					} */}
-							{/* {
-						permissions.has('user_view') ?
-							<div className={
-								[
-									'action-item-d-white'
-								].join(' ')
-							}
-							// onClick={() => {
-							// 	setExportMode(true)
-							// }}
-							>
-								<BiExport /> {language?.export}
-							</div>
-							: null
-					} */}
 						</div>
 						: null
 				}
@@ -145,10 +105,6 @@ export default function Semesters() {
 										<Link
 											to={String(item.id)}
 											key={`semester-${item.id}`}
-											// onClick={() => {
-											// 	setShowViewPoUp(true)
-											// 	setSemesterId(item.id)
-											// }}
 											className={
 												[
 													'dashboard-card-d',
