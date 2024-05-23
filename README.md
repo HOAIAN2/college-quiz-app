@@ -91,6 +91,10 @@ Run `composer install` to continue development or just use this everytime.
 
 ![Demo](./img/Screenshot%202024-05-19%20094618.jpg)
 
+### Exam UI
+
+![Demo](./img/Screenshot%202024-05-23%20124000.jpg)
+
 ### Take Exam UI
 
 ![Demo](./img/Screenshot%202024-05-20%20144619.jpg)
