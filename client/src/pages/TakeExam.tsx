@@ -154,7 +154,7 @@ export default function TakeExam() {
 								</div>
 								{language?.numberOfQuestionsAnswered}: {answers.filter(i => i !== -1).length}/{answers.length}
 								<div className={styles['action-items']}>
-									<button name='save'
+									<button
 										onClick={() => { setShowSubmitPopUp(true) }}
 										className={
 											[

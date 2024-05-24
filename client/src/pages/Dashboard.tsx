@@ -62,6 +62,7 @@ export default function Dashboard() {
 							icon={<GrCertificate />}
 						/>
 						<DashboardCard
+							to={permissions.has('exam_view') ? '/exams' : undefined}
 							color='blue'
 							content={language?.items.examInThisMonth}
 							data={formatNumber(queryData.data?.examsInThisMonth)}
