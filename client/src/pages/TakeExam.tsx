@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { sha256 } from 'js-sha256'
 import { useEffect, useState } from 'react'
 import { TbSend } from 'react-icons/tb'
 import { useParams } from 'react-router-dom'
@@ -14,7 +15,6 @@ import { ExamResult } from '../models/exam'
 import { PageTakeExamLang } from '../models/lang'
 import styles from '../styles/TakeExam.module.css'
 import isValidJson from '../utils/isValidJson'
-import sha256 from '../utils/sha256'
 import timeUtils from '../utils/timeUtils'
 
 export default function TakeExam() {
@@ -83,9 +83,7 @@ export default function TakeExam() {
 	}, [answers, id, localStorageKey, queryClient, queryData.data])
 	useEffect(() => {
 		if (!queryData.data) return
-		sha256(queryData.data.startedAt!).then(result => {
-			setBypassKey(result)
-		})
+		setBypassKey(sha256(queryData.data.startedAt!))
 	}, [queryData.data])
 	useEffect(() => {
 		if (!queryData.data) return
