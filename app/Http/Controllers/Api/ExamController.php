@@ -503,7 +503,7 @@ class ExamController extends Controller
 			$exam_date = Carbon::parse($exam->exam_date);
 			$exam_end_date = $exam_date->copy()->addMinutes($exam->exam_time);
 
-			if ($request->bypass_key != null && $exam->canBypass($request->bypass_key)) {
+			if ($request->bypass_key != null && $exam->canBypassExamTime($request->bypass_key)) {
 				$allow_late_submit = (int)env('ALLOW_LATE_SUBMIT', 120);
 				$exam_end_date = $exam_end_date->addSeconds($allow_late_submit);
 			}

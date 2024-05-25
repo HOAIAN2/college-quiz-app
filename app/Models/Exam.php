@@ -94,7 +94,7 @@ class Exam extends Model
 		}
 	}
 
-	public function canBypass(string $bypass_key)
+	public function canBypassExamTime(string $bypass_key)
 	{
 		return hash('sha256', $this->started_at->format(Exam::DATE_FORMAT)) == $bypass_key;
 	}
