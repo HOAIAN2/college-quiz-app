@@ -40,8 +40,8 @@ class ExamController extends Controller
 			// 'course.teacher',
 		];
 		if ($request->month != null && $request->year != null) {
-			$date->setYear($request->year);
-			$date->setMonth($request->month);
+			$date->setYear((int)$request->year);
+			$date->setMonth((int)$request->month);
 		}
 
 		try {
