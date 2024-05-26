@@ -39,6 +39,9 @@ export default function TakeExam() {
 	})
 	const language = useLanguage<PageTakeExamLang>('page.take_exam')
 	const forceUpdate = useForceUpdate()
+	const onMutateSuccess = () => {
+		localStorage.removeItem(localStorageKey)
+	}
 	const queryData = useQuery({
 		queryKey: [queryKeys.EXAM_QUESTIONS, { examId: id }],
 		queryFn: () => apiGetExamQuestions(String(id)),
@@ -49,12 +52,10 @@ export default function TakeExam() {
 	const { mutateAsync, isPending } = useMutation({
 		mutationFn: () => apiSubmitExam(String(id), answers, bypassKey),
 		onSuccess: (data) => {
+			onMutateSuccess()
 			setExamResult(data)
 		},
 	})
-	const onMutateSuccess = () => {
-		localStorage.removeItem(localStorageKey)
-	}
 	useEffect(() => {
 		if (examResult) return
 		const interval = setInterval(() => {
@@ -62,6 +63,18 @@ export default function TakeExam() {
 		}, 500)
 		return () => clearInterval(interval)
 	}, [examResult, forceUpdate])
+	useEffect(() => {
+		if (!queryData.data) return
+		setBypassKey(sha256(queryData.data.startedAt!))
+	}, [queryData.data])
+	useEffect(() => {
+		if (!queryData.data) return
+		const endAt = new Date(queryData.data.startedAt!).getTime() + (queryData.data.examTime * 60 * 1000)
+		const now = new Date().getTime()
+		if (now > endAt && !isPending && !examResult) {
+			mutateAsync()
+		}
+	})
 	useEffect(() => {
 		if (!queryData.data) return
 		document.title = queryData.data.name
@@ -77,22 +90,15 @@ export default function TakeExam() {
 			if (answers.length === 0) {
 				localStorage.removeItem(localStorageKey)
 				queryClient.refetchQueries({ queryKey: [queryKeys.EXAM, { id: id }] })
-				queryClient.removeQueries({ queryKey: [queryKeys.EXAM_QUESTIONS, { examId: id }] })
 			}
 		}
 	}, [answers, id, localStorageKey, queryClient, queryData.data])
 	useEffect(() => {
 		if (!queryData.data) return
-		setBypassKey(sha256(queryData.data.startedAt!))
-	}, [queryData.data])
-	useEffect(() => {
-		if (!queryData.data) return
-		const endAt = new Date(queryData.data.startedAt!).getTime() + (queryData.data.examTime * 60 * 1000)
-		const now = new Date().getTime()
-		if (now > endAt && !isPending && !examResult) {
-			mutateAsync()
+		return () => {
+			queryClient.removeQueries({ queryKey: [queryKeys.EXAM_QUESTIONS, { examId: id }] })
 		}
-	})
+	}, [id, queryClient, queryData.data])
 	return (
 		<>
 			{
@@ -109,7 +115,7 @@ export default function TakeExam() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 					message={language?.submitMessage.replace('@time', timeLeft) || ''}
-					onMutateSuccess={(onMutateSuccess)}
+					onMutateSuccess={() => { }}
 				/> : null
 			}
 			{queryData.isLoading ? < Loading /> : null}
