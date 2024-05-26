@@ -521,15 +521,22 @@ class ExamController extends Controller
 
 			foreach ($exam->questions as $key => $question) {
 				$answer = $answers[$key];
-				$question_option = $question->question_options[$answer];
+				$is_correct = false;
+				$answer_id = null;
+
+				if ($question->question_options->contains('id', $answer)) {
+					$question_option = $question->question_options[$answer];
+					$answer_id = $question_option->id;
+					$is_correct = $question_option->is_correct;
+					if ($is_correct) $correct_count++;
+				}
 				ExamTracker::create([
 					'user_id' => $user->id,
 					'exam_id' => $exam->id,
 					'question_id' => $question->pivot->id,
-					'answer_id' => $question_option->id,
-					'is_correct' => $question_option->is_correct
+					'answer_id' => $answer_id,
+					'is_correct' => $is_correct
 				]);
-				if ($question_option->is_correct) $correct_count++;
 			}
 			$result_data = [
 				'correct_count' => $correct_count,
