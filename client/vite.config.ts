@@ -12,5 +12,15 @@ export default defineConfig({
 		modules: {
 			generateScopedName: 'x[hash:base64:6]'
 		}
+	},
+	build: {
+		cssCodeSplit: false,
+		rollupOptions: {
+			output: {
+				entryFileNames: `assets/[hash:20].js`,
+				chunkFileNames: `assets/[hash:20].js`,
+				assetFileNames: `assets/[hash:20].[ext]`
+			}
+		}
 	}
 })
