@@ -17,8 +17,7 @@
 .score-content {
 	width: 300px;
 	height: fit-content;
-	border-radius: var(--border-radius-low);
-	box-shadow: 0px 0px 10px var(--color-shadow);
+	/* box-shadow: 0px 0px 10px var(--color-shadow); */
 	background-color: white;
 	border-radius: var(--border-radius-low);
 	transform-origin: center center;

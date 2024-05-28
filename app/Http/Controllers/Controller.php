@@ -26,7 +26,7 @@ class Controller extends BaseController
 	public function __construct()
 	{
 		if (Config::get('app.debug', true) == true) $this->isDevelopment = true;
-		$this->autoCompleteResultLimit = env('AUTO_COMPLETE_RESULT_LIMIT', 5);
+		$this->autoCompleteResultLimit = (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5);
 		$this->runTasks();
 	}
 
