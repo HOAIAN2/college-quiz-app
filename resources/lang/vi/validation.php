@@ -15,7 +15,7 @@ return [
 		'array' => 'Trường :attribute phải có ít nhất :min mục.'
 	],
 	'size' => [
-		'string' => 'Trường :attribute phải luôn có 10 ký tự',
+		'string' => 'Trường :attribute phải luôn có :size ký tự',
 	],
 	'regex' => 'Trường :attribute có định dạng không hợp lệ',
 	'date' => 'Trường :attribute phải là ngày hợp lệ.',

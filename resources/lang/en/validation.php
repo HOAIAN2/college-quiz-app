@@ -15,7 +15,7 @@ return [
 		'array' => 'The :attribute field must have at least :min items.'
 	],
 	'size' => [
-		'string' => 'The :attribute field must be 10 characters.'
+		'string' => 'The :attribute field must be :size characters.'
 	],
 	'regex' => 'The :attribute field format is invalid.',
 	'date' => 'The :attribute field must be a valid date.',
