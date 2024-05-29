@@ -25,6 +25,7 @@ import useLanguage from '../hooks/useLanguage'
 import { PageUsersLang } from '../models/lang'
 import { RoleName } from '../models/role'
 import styles from '../styles/global/TablePage.module.css'
+import css from '../utils/css'
 import { importTemplateFileUrl } from '../utils/template'
 
 type UsersProps = {
@@ -121,28 +122,14 @@ export default function Users({
 					setImportMode={setShowImportPopUp}
 					onMutateSuccess={onMutateSuccess}
 				/> : null}
-			<div
-				className={
-					[
-						'dashboard-d'
-					].join(' ')
-				}
-			>
+			<div className='dashboard-d'>
 				{
 					permissions.hasAnyFormList(['user_view', 'user_create', 'user_update', 'user_delete'])
 						?
-						<div className={
-							[
-								'action-bar-d'
-							].join(' ')
-						}>
+						<div className='action-bar-d'>
 							{
 								permissions.has('user_create') ?
-									<div className={
-										[
-											'action-item-d'
-										].join(' ')
-									}
+									<div className='action-item-d'
 										onClick={() => {
 											setShowCreatePopUp(true)
 										}}
@@ -153,11 +140,7 @@ export default function Users({
 							}
 							{
 								permissions.has('user_create') ?
-									<div className={
-										[
-											'action-item-d-white'
-										].join(' ')
-									}
+									<div className='action-item-d-white'
 										onClick={() => {
 											setShowImportPopUp(true)
 										}}
@@ -168,11 +151,7 @@ export default function Users({
 							}
 							{
 								permissions.has('user_view') ?
-									<div className={
-										[
-											'action-item-d-white'
-										].join(' ')
-									}
+									<div className='action-item-d-white'
 										onClick={() => {
 											setShowExportPopUp(true)
 										}}
@@ -187,11 +166,7 @@ export default function Users({
 										onClick={() => {
 											setShowDeletePopUp(true)
 										}}
-										className={
-											[
-												'action-item-d-white-border-red'
-											].join(' ')
-										}>
+										className='action-item-d-white-border-red'>
 										<MdDeleteOutline /> {language?.delete}
 									</div>
 									: null
@@ -236,11 +211,7 @@ export default function Users({
 									searchParams.set('per_page', option.value)
 									setSearchParams(searchParams)
 								}}
-								className={
-									[
-										styles['custom-select']
-									].join(' ')
-								}
+								className={styles['custom-select']}
 							/>
 						</div>
 						<div className={styles['wrap-input-item']}>
@@ -251,18 +222,14 @@ export default function Users({
 								}}
 								name='search'
 								defaultValue={queryDebounce}
-								className={
-									[
-										'input-d',
-										styles['input-item']
-									].join(' ')
-								} type="text" />
+								className={css('input-d', styles['input-item'])}
+								type="text" />
 						</div>
 					</div>
 					<div className={styles['wrap-table']}>
-						{queryData.isLoading ?
-							<Loading />
-							: null}
+						{
+							queryData.isLoading ? <Loading /> : null
+						}
 						{!queryData.isError ?
 							<UsersTable
 								role={role}

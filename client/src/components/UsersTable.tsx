@@ -9,6 +9,7 @@ import { Pagination } from '../models/response'
 import { RoleName } from '../models/role'
 import { UserDetail } from '../models/user'
 import styles from '../styles/global/Table.module.css'
+import css from '../utils/css'
 import languageUtils from '../utils/languageUtils'
 import StatusBadge from './StatusBadge'
 import ViewUser from './ViewUser'
@@ -98,63 +99,25 @@ export default function UsersTable({
 							<tr className={styles['table-header']}>
 								{
 									permissions.has('user_delete') ?
-										<th className={
-											[
-												styles['column-select'],
-												styles['column']
-											].join(' ')
-										}>
+										<th className={css(styles['column-select'], styles['column'])}>
 											<input type="checkbox"
 												checked={checkAll}
 												onChange={handleSelectAll} />
 										</th>
 										: null
 								}
-								<th className={
-									[
-										styles['column'],
-										styles['medium']
-									].join(' ')
-								}>{language?.header.shortcode}</th>
-								<th className={
-									[
-										styles['column'],
-										styles['medium']
-									].join(' ')
-								}>{language?.header.name}</th>
+								<th className={css(styles['column'], styles['medium'])}>
+									{language?.header.shortcode}
+								</th>
+								<th className={css(styles['column'], styles['medium'])}>{language?.header.name}</th>
 								{role === 'student' ?
-									<th className={
-										[
-											styles['column'],
-											styles['medium']
-										].join(' ')
-									}>{language?.header.class}</th>
+									<th className={css(styles['column'], styles['medium'])}>{language?.header.class}</th>
 									: role === 'teacher' ?
-										<th className={
-											[
-												styles['column'],
-												styles['medium']
-											].join(' ')
-										}>{language?.header.faculty}</th>
+										<th className={css(styles['column'], styles['medium'])}>{language?.header.faculty}</th>
 										: null}
-								<th className={
-									[
-										styles['column'],
-										styles['medium']
-									].join(' ')
-								}>{language?.header.email}</th>
-								<th className={
-									[
-										styles['column'],
-										styles['medium']
-									].join(' ')
-								}>{language?.header.address}</th>
-								<th className={
-									[
-										styles['column'],
-										styles['medium']
-									].join(' ')
-								}>
+								<th className={css(styles['column'], styles['medium'])}>{language?.header.email}</th>
+								<th className={css(styles['column'], styles['medium'])}>{language?.header.address}</th>
+								<th className={css(styles['column'], styles['medium'])}>
 									{language?.header.status}
 								</th>
 							</tr>
@@ -171,70 +134,38 @@ export default function UsersTable({
 											>
 												{
 													permissions.has('user_delete') ?
-														<td className={
-															[
-																styles['column'],
-																styles['small'],
-																styles['column-select']
-															].join(' ')
-														}>
+														<td className={css(styles['column'], styles['small'], styles['column-select'])}>
 															<input type="checkbox" />
 														</td>
 														: null
 												}
-												<td className={
-													[
-														styles['column'],
-														styles['medium']
-													].join(' ')
-												}>{user.shortcode}</td>
-												<td className={
-													[
-														styles['column'],
-														styles['large'],
-														styles['column-content-name'],
-														user.gender == 'male' ? styles['male'] : styles['female']
-													].join(' ')
+												<td className={css(styles['column'], styles['medium'])}>
+													{user.shortcode}
+												</td>
+												<td className={css(
+													styles['column'],
+													styles['large'],
+													styles['column-content-name'],
+													user.gender == 'male' ? styles['male'] : styles['female']
+												)
 												}>
 													{user.gender == 'male' ? <GiMale /> : <GiFemale />}
 													{languageUtils.getFullName(user.firstName, user.lastName)}
 												</td>
 												{
 													role === 'student' ?
-														<td className={
-															[
-																styles['column'],
-																styles['medium']
-															].join(' ')
-														}>{user.schoolClass?.name}</td>
+														<td className={css(styles['column'], styles['medium'])}>
+															{user.schoolClass?.name}
+														</td>
 														: role === 'teacher' ?
-															<td className={
-																[
-																	styles['column'],
-																	styles['medium']
-																].join(' ')
-															}>{user.faculty?.name}</td>
+															<td className={css(styles['column'], styles['medium'])}>
+																{user.faculty?.name}
+															</td>
 															: null
 												}
-												<td className={
-													[
-														styles['column'],
-														styles['medium']
-													].join(' ')
-												}>{user.email}</td>
-												<td className={
-													[
-														styles['column'],
-														styles['medium']
-													].join(' ')
-												}>{user.address}</td>
-												<td className={
-													[
-														styles['column'],
-														styles['column-content-status'],
-														styles['small']
-													].join(' ')
-												}>
+												<td className={css(styles['column'], styles['medium'])}>{user.email}</td>
+												<td className={css(styles['column'], styles['medium'])}>{user.address}</td>
+												<td className={css(styles['column'], styles['column-content-status'], styles['small'])}>
 													{
 														user.isActive
 															?
@@ -260,11 +191,8 @@ export default function UsersTable({
 									<div className={styles['link-content']}>
 										{data.links.map(link => {
 											if (isNaN(Number(link.label))) return (
-												<button key={role + link.label} className={
-													[
-														styles['next-previous'],
-													].join(' ')
-												}
+												<button key={role + link.label}
+													className={styles['next-previous']}
 													onClick={() => {
 														if (!link.url) return
 														const url = new URL(link.url)
@@ -277,10 +205,10 @@ export default function UsersTable({
 											)
 											return (
 												<button key={role + link.label} className={
-													[
+													css(
 														'button-d',
 														!link.active ? styles['inactive'] : ''
-													].join(' ')
+													)
 												}
 													onClick={() => {
 														if (!link.url) return

@@ -9,6 +9,7 @@ import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { PageRolePermissionsLang } from '../models/lang'
 import styles from '../styles/RolePermissions.module.css'
+import css from '../utils/css'
 
 export default function RolePermissions() {
 	const { DOM, permissions } = useAppContext()
@@ -56,17 +57,11 @@ export default function RolePermissions() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [language])
 	return (
-		<div
-			className={
-				[
-					'dashboard-d',
-					styles['role-permission-container']
-				].join(' ')
-			}
+		<div className={css('dashboard-d', styles['role-permission-container'])}
 		>
-			{queryData.isLoading || isPending ?
-				<Loading />
-				: null}
+			{
+				queryData.isLoading || isPending ? <Loading /> : null
+			}
 			{
 				queryData.data ?
 					<form

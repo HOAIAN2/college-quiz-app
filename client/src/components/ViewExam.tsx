@@ -15,6 +15,7 @@ import { ComponentViewExamLang } from '../models/lang'
 import { User } from '../models/user'
 import styles from '../styles/CreateViewExam.module.css'
 import createFormUtils from '../utils/createFormUtils'
+import css from '../utils/css'
 import languageUtils from '../utils/languageUtils'
 import renderMonth from '../utils/renderMonth'
 import Loading from './Loading'
@@ -109,10 +110,10 @@ export default function ViewExam({
 					langNo={language?.langNo}
 				/> : null}
 			<div className={
-				[
+				css(
 					styles['create-view-exam-container'],
 					hide ? styles['hide'] : ''
-				].join(' ')
+				)
 			}>
 				{
 					queryData.isLoading ? <Loading /> : null
@@ -121,10 +122,10 @@ export default function ViewExam({
 					isPending ? <Loading /> : null
 				}
 				<div className={
-					[
+					css(
 						styles['create-view-exam-form'],
 						hide ? styles['hide'] : ''
-					].join(' ')
+					)
 				}>
 					<div className={styles['header']}>
 						<h2 className={styles['title']}>{language?.exam}</h2>
@@ -134,21 +135,13 @@ export default function ViewExam({
 							<RxCross2 />
 						</div>
 					</div>
-					<div className={
-						[
-							styles['form-content']
-						].join(' ')
-					}>
+					<div className={styles['form-content']}>
 						{
 							queryData.data ?
 								<form
 									onSubmit={e => { mutate(e) }}
 									className={styles['form-data']}>
-									<div className={
-										[
-											styles['group-inputs']
-										].join(' ')
-									}>
+									<div className={styles['group-inputs']}>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='name'>{language?.name}</label>
 											<input
@@ -156,12 +149,8 @@ export default function ViewExam({
 												name='name'
 												defaultValue={queryData.data.name}
 												disabled={disabledUpdate}
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='text' />
+												className={css('input-d', styles['input-item'])}
+												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='exam_date'>{language?.examDate}</label>
@@ -173,10 +162,7 @@ export default function ViewExam({
 														id: 'exam_date',
 														name: 'exam_date',
 														disabled: disabledUpdate,
-														className: [
-															'input-d',
-															styles['input-item']
-														].join(' ')
+														className: css('input-d', styles['input-item'])
 													}
 												}
 												closeOnSelect={true}
@@ -195,12 +181,7 @@ export default function ViewExam({
 												disabled={disabledUpdate}
 												min={0}
 												max={60 * 60 * 24}
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												}
+												className={css('input-d', styles['input-item'])}
 												type='number'
 											/>
 										</div>
@@ -210,11 +191,7 @@ export default function ViewExam({
 													<div className={styles['wrap-item']}>
 														<span>{language?.totalQuestions}: {queryData.data.questionsCount}</span>
 													</div>
-													<div className={[
-														styles['wrap-item'],
-														styles['data-container']
-													].join(' ')
-													}>
+													<div className={css(styles['wrap-item'], styles['data-container'])}>
 														{/* <label>{language?.supervisors}</label> */}
 														{
 															permissions.has('user_view') ?
@@ -223,29 +200,17 @@ export default function ViewExam({
 																	onInput={e => {
 																		setQueryUser(e.currentTarget.value)
 																	}}
-																	className={
-																		[
-																			'input-d',
-																			styles['input-item']
-																		].join(' ')
-																	} type='text' />
+																	className={css('input-d', styles['input-item'])}
+																	type='text' />
 																: null
 														}
 														<label>{language?.supervisors}</label>
-														<ul className={
-															[
-																styles['joined-supervisors-container']
-															].join(' ')
-														}>
+														<ul className={styles['joined-supervisors-container']}>
 															{
 																supervisors.map((supervisor, index) => {
 																	return (
 																		<li
-																			className={
-																				[
-																					styles['joined-supervisor']
-																				].join(' ')
-																			}
+																			className={styles['joined-supervisor']}
 																			key={`joined-supervisor-${supervisor.id}`}
 																		>
 																			<div>
@@ -287,7 +252,7 @@ export default function ViewExam({
 																							newSupervisors.push(user)
 																							setSupervisors(newSupervisors)
 																						}}
-																						className={['dashboard-card-d', styles['card']].join(' ')}
+																						className={css('dashboard-card-d', styles['card'])}
 																						key={`user-${user.id}`}
 																					>
 																						<div className={styles['card-left']}>
@@ -311,10 +276,10 @@ export default function ViewExam({
 													permissions.has('exam_update') && !isExamStarted() ?
 														<button name='save'
 															className={
-																[
+																css(
 																	'action-item-d',
 																	isPending ? 'button-submitting' : ''
-																].join(' ')
+																)
 															}
 														><FiSave />{language?.save}
 														</button> : null
@@ -326,11 +291,7 @@ export default function ViewExam({
 															onClick={() => {
 																setShowDeletePopUp(true)
 															}}
-															className={
-																[
-																	'action-item-d-white-border-red'
-																].join(' ')
-															}>
+															className='action-item-d-white-border-red'>
 															<MdDeleteOutline /> {language?.delete}
 														</button> : null
 												}

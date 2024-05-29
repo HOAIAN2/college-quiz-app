@@ -14,6 +14,7 @@ import useLanguage from '../hooks/useLanguage'
 import { PageCoursesLang } from '../models/lang'
 import { Semester } from '../models/semester'
 import styles from '../styles/global/CardPage.module.css'
+import css from '../utils/css'
 
 export default function Courses() {
 	const { state } = useLocation() as { state: Semester | null }
@@ -69,28 +70,15 @@ export default function Courses() {
 					onMutateSuccess={onMutateSuccess}
 					setShowPopUp={setShowCreatePopUp}
 				/> : null}
-			<div
-				className={
-					[
-						'dashboard-d'
-					].join(' ')
-				}
+			<div className='dashboard-d'
 			>
 				{
 					permissions.hasAnyFormList(['course_create',])
 						?
-						<div className={
-							[
-								'action-bar-d'
-							].join(' ')
-						}>
+						<div className='action-bar-d'>
 							{
 								permissions.has('course_create') ?
-									<div className={
-										[
-											'action-item-d'
-										].join(' ')
-									}
+									<div className='action-item-d'
 										onClick={() => {
 											setShowCreatePopUp(true)
 										}}
@@ -103,24 +91,19 @@ export default function Courses() {
 						: null
 				}
 				<div className={styles['page-content']}>
-					{queryData.isLoading ?
-						<Loading />
-						: null}
+					{
+						queryData.isLoading ? <Loading /> : null
+					}
 					<div className={styles['filter-form']}>
 						<div className={styles['wrap-input-item']}>
-							<label htmlFor="">{language?.filter.search}</label>
+							<label>{language?.filter.search}</label>
 							<input
 								onInput={(e) => {
 									setSearchQuery(e.currentTarget.value)
 								}}
-								name='search'
 								defaultValue={queryDebounce}
-								className={
-									[
-										'input-d',
-										styles['input-item']
-									].join(' ')
-								} type="text" />
+								className={css('input-d', styles['input-item'])}
+								type="text" />
 						</div>
 					</div>
 					<div className={styles['wrap-card-container']}>
@@ -131,12 +114,7 @@ export default function Courses() {
 										<Link
 											key={`course-${item.id}`}
 											to={`${item.id}`}
-											className={
-												[
-													'dashboard-card-d',
-													styles['card'],
-												].join(' ')
-											}>
+											className={css('dashboard-card-d', styles['card'])}>
 											<div className={styles['card-top']}>
 												{item.name}
 											</div>

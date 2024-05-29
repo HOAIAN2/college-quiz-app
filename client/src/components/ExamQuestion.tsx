@@ -4,6 +4,7 @@ import useLanguage from '../hooks/useLanguage'
 import { ExamQuestion as TExamQuestion } from '../models/exam'
 import { ComponentExamQuestionLang } from '../models/lang'
 import styles from '../styles/ExamQuestion.module.css'
+import css from '../utils/css'
 import languageUtils from '../utils/languageUtils'
 
 type ExamQuestionProps = {
@@ -37,10 +38,10 @@ export default function ExamQuestion({
 								})
 							}}
 							className={
-								[
+								css(
 									styles['question-option-container'],
 									checkedIndex === i ? styles['checked'] : ''
-								].join(' ')
+								)
 							}
 							key={`exam-question-option-${option.id}`}
 						>
@@ -48,11 +49,7 @@ export default function ExamQuestion({
 								checkedIndex === i ? <MdOutlineRadioButtonChecked />
 									: <MdOutlineRadioButtonUnchecked />
 							}
-							<span className={
-								[
-									styles['question-option']
-								].join(' ')
-							}>
+							<span className={styles['question-option']}>
 								{languageUtils.getLetterFromIndex(i)}. {option.content}
 							</span>
 						</div>

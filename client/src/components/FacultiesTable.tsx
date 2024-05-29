@@ -7,6 +7,7 @@ import { FacultyDetail } from '../models/faculty'
 import { ComponentFacultiesTableLang } from '../models/lang'
 import { Pagination } from '../models/response'
 import styles from '../styles/global/Table.module.css'
+import css from '../utils/css'
 import languageUtils from '../utils/languageUtils'
 import ViewFaculty from './ViewFaculty'
 
@@ -90,49 +91,27 @@ export default function FacultiesTable({
 						<thead>
 							<tr className={styles['table-header']}>
 								{
-									permissions.has('user_delete') ?
-										<th className={
-											[
-												styles['column-select'],
-												styles['column']
-											].join(' ')
-										}>
+									permissions.has('faculty_delete') ?
+										<th className={css(styles['column-select'], styles['column'])}>
 											<input type="checkbox"
 												checked={checkAll}
 												onChange={handleSelectAll} />
 										</th>
 										: null
 								}
-								<th className={
-									[
-										styles['column'],
-										styles['medium']
-									].join(' ')
-								}>{language?.header.shortcode}</th>
-								<th className={
-									[
-										styles['column'],
-										styles['medium']
-									].join(' ')
-								}>{language?.header.name}</th>
-								<th className={
-									[
-										styles['column'],
-										styles['medium']
-									].join(' ')
-								}>{language?.header.phoneNumber}</th>
-								<th className={
-									[
-										styles['column'],
-										styles['medium']
-									].join(' ')
-								}>{language?.header.email}</th>
-								<th className={
-									[
-										styles['column'],
-										styles['medium']
-									].join(' ')
-								}>
+								<th className={css(styles['column'], styles['medium'])}>
+									{language?.header.shortcode}
+								</th>
+								<th className={css(styles['column'], styles['medium'])}>
+									{language?.header.name}
+								</th>
+								<th className={css(styles['column'], styles['medium'])}>
+									{language?.header.phoneNumber}
+								</th>
+								<th className={css(styles['column'], styles['medium'])}>
+									{language?.header.email}
+								</th>
+								<th className={css(styles['column'], styles['medium'])}>
 									{language?.header.leader}
 								</th>
 							</tr>
@@ -149,47 +128,26 @@ export default function FacultiesTable({
 											>
 												{
 													permissions.has('faculty_delete') ?
-														<td className={
-															[
-																styles['column'],
-																styles['small'],
-																styles['column-select']
-															].join(' ')
-														}>
+														<td className={css(styles['column'], styles['small'], styles['column-select'])}>
 															<input type="checkbox" />
 														</td>
 														: null
 												}
-												<td className={
-													[
-														styles['column'],
-														styles['medium']
-													].join(' ')
-												}>{faculty.shortcode}</td>
-												<td className={
-													[
-														styles['column'],
-														styles['medium']
-													].join(' ')
-												}>{faculty.name}</td>
-												<td className={
-													[
-														styles['column'],
-														styles['medium']
-													].join(' ')
-												}>{faculty.phoneNumber}</td>
-												<td className={
-													[
-														styles['column'],
-														styles['medium']
-													].join(' ')
-												}>{faculty.email}</td>
-												<td className={
-													[
-														styles['column'],
-														styles['medium']
-													].join(' ')
-												}>{languageUtils.getFullName(faculty.leader?.firstName, faculty.leader?.lastName)}</td>
+												<td className={css(styles['column'], styles['medium'])}>
+													{faculty.shortcode}
+												</td>
+												<td className={css(styles['column'], styles['medium'])}>
+													{faculty.name}
+												</td>
+												<td className={css(styles['column'], styles['medium'])}>
+													{faculty.phoneNumber}
+												</td>
+												<td className={css(styles['column'], styles['medium'])}>
+													{faculty.email}
+												</td>
+												<td className={css(styles['column'], styles['medium'])}>
+													{languageUtils.getFullName(faculty.leader?.firstName, faculty.leader?.lastName)}
+												</td>
 											</tr>
 										)
 									}) : null
@@ -208,11 +166,7 @@ export default function FacultiesTable({
 									<div className={styles['link-content']}>
 										{data.links.map(link => {
 											if (isNaN(Number(link.label))) return (
-												<button key={'faculty' + link.label} className={
-													[
-														styles['next-previous'],
-													].join(' ')
-												}
+												<button key={'faculty' + link.label} className={styles['next-previous']}
 													onClick={() => {
 														if (!link.url) return
 														const url = new URL(link.url)
@@ -224,12 +178,13 @@ export default function FacultiesTable({
 												</button>
 											)
 											return (
-												<button key={'faculty' + link.label} className={
-													[
-														'button-d',
-														!link.active ? styles['inactive'] : ''
-													].join(' ')
-												}
+												<button key={'faculty' + link.label}
+													className={
+														css(
+															'button-d',
+															!link.active ? styles['inactive'] : ''
+														)
+													}
 													onClick={() => {
 														if (!link.url) return
 														const url = new URL(link.url)

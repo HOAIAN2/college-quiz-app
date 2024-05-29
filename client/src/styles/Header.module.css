@@ -82,3 +82,7 @@
 .drop-item:hover {
 	background: var(--color-white);
 }
+
+.drop-item>svg {
+	font-size: 18px;
+}

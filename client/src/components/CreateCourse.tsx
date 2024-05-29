@@ -14,6 +14,7 @@ import { Option } from '../models/option'
 import { Semester } from '../models/semester'
 import styles from '../styles/global/CreateModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
+import css from '../utils/css'
 import languageUtils from '../utils/languageUtils'
 import CustomDataList from './CustomDataList'
 import Loading from './Loading'
@@ -96,19 +97,19 @@ export default function CreateCourse({
 	}, [queryClient])
 	return (
 		<div className={
-			[
+			css(
 				styles['create-model-container'],
 				hide ? styles['hide'] : ''
-			].join(' ')
+			)
 		}>
 			{
 				isPending ? <Loading /> : null
 			}
 			<div className={
-				[
+				css(
 					styles['create-model-form'],
 					hide ? styles['hide'] : ''
-				].join(' ')
+				)
 			}>
 				<div className={styles['header']}>
 					<h2 className={styles['title']}>{language?.create}</h2>
@@ -118,22 +119,14 @@ export default function CreateCourse({
 						<RxCross2 />
 					</div>
 				</div>
-				<div className={
-					[
-						styles['form-content']
-					].join(' ')
-				}>
+				<div className={styles['form-content']}>
 					<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 						mutate(e)
 					}}
 						onInput={(e) => { formUtils.handleOnInput(e) }}
 						className={styles['form-data']}>
 						<input name='semester_id' value={semester.id} readOnly hidden />
-						<div className={
-							[
-								styles['group-inputs']
-							].join(' ')
-						}>
+						<div className={styles['group-inputs']}>
 							<div className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 								<input
@@ -141,24 +134,16 @@ export default function CreateCourse({
 									name='shortcode'
 									value={shortcode}
 									onInput={e => { setShortcode(e.currentTarget.value) }}
-									className={
-										[
-											'input-d',
-											styles['input-item']
-										].join(' ')
-									} type='text' />
+									className={css('input-d', styles['input-item'])}
+									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='name'>{language?.name}</label>
 								<input
 									id='name'
 									name='name'
-									className={
-										[
-											'input-d',
-											styles['input-item']
-										].join(' ')
-									} type='text' />
+									className={css('input-d', styles['input-item'])}
+									type='text' />
 							</div>
 							<div
 								style={{ zIndex: 2 }}
@@ -173,11 +158,7 @@ export default function CreateCourse({
 											value: String(item.id)
 										}
 									}) : []}
-									className={
-										[
-											styles['custom-select']
-										].join(' ')
-									}
+									className={styles['custom-select']}
 								/>
 							</div>
 							<div className={styles['wrap-item']}>
@@ -192,28 +173,24 @@ export default function CreateCourse({
 										}
 									}) : []}
 									onChange={handleSetShortcode}
-									className={
-										[
-											styles['custom-select']
-										].join(' ')
-									}
+									className={styles['custom-select']}
 								/>
 							</div>
 						</div>
 						<div className={styles['action-items']}>
 							<button name='save'
 								className={
-									[
+									css(
 										'action-item-d',
 										isPending ? 'button-submitting' : ''
-									].join(' ')
+									)
 								}><FiSave />{language?.save}</button>
 							<button name='save-more'
 								className={
-									[
-										'action-item-d-white',
+									css(
+										'action-item-d',
 										isPending ? 'button-submitting' : ''
-									].join(' ')
+									)
 								}
 							><FiSave />{language?.saveMore}</button>
 						</div>

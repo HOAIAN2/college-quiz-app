@@ -6,6 +6,7 @@ import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { PageLoginLang } from '../models/lang'
 import styles from '../styles/Login.module.css'
+import css from '../utils/css'
 
 export default function Login() {
 	const language = useLanguage<PageLoginLang>('page.login')
@@ -62,24 +63,14 @@ export default function Login() {
 				<div className={styles['wrap-input']}>
 					<input name='email'
 						autoFocus
-						className={
-							[
-								'input-d',
-								styles['input']
-							].join(' ')
-						}
+						className={css('input-d', styles['input'])}
 						type='email'
 						placeholder={language?.email}
 					></input>
 				</div>
 				<div className={styles['wrap-input']}>
 					<input name='password'
-						className={
-							[
-								'input-d',
-								styles['input']
-							].join(' ')
-						}
+						className={css('input-d', styles['input'])}
 						type='password'
 						placeholder={language?.password}
 					/>
@@ -88,12 +79,14 @@ export default function Login() {
 					<button
 						ref={buttonRef}
 						className={
-							[
+							css(
 								'button-d',
 								styles['submit'],
-								blockSubmit && !buttonRef.current?.classList.contains(styles['submitting'])
-									? styles['blocking'] : ''
-							].join(' ')}>{!isSubmitting && language?.login}</button>
+								blockSubmit && !buttonRef.current?.classList.contains(styles['submitting']) ? styles['blocking'] : ''
+							)
+						}>
+						{!isSubmitting && language?.login}
+					</button>
 				</div>
 			</form>
 		</div>

@@ -22,6 +22,7 @@ import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentNavBarLang } from '../models/lang'
 import styles from '../styles/NavBar.module.css'
+import css from '../utils/css'
 
 export default function NavBar() {
 	const { DOM, permissions } = useAppContext()
@@ -119,10 +120,10 @@ export default function NavBar() {
 	})
 	return (
 		<nav ref={DOM.sideBarRef} className={
-			[
+			css(
 				styles['nav-bar'],
 				window.innerWidth < 800 ? styles['hide'] : ''
-			].join(' ')
+			)
 		}>
 			<ul className={styles['list']}>{
 				navBarItems.map((feature, index) => {
@@ -132,10 +133,10 @@ export default function NavBar() {
 							e.currentTarget.querySelector('a')?.click()
 							if (window.innerWidth < 800) DOM.sideBarRef.current?.classList.add(styles['hide'])
 						}} key={index} className={
-							[
+							css(
 								styles['list-item'],
 								feature.to === window.location.pathname.split('/')[1] ? styles['current'] : ''
-							].join(' ')
+							)
 						}>
 							<Link to={feature.to}>
 								{feature.icon}

@@ -7,6 +7,7 @@ import { queryKeys } from '../constants/query-keys'
 import useLanguage from '../hooks/useLanguage'
 import { PagePermissionsLang } from '../models/lang'
 import styles from '../styles/Permissions.module.css'
+import css from '../utils/css'
 
 export default function Permisisons() {
 	const language = useLanguage<PagePermissionsLang>('page.permissions')
@@ -15,17 +16,9 @@ export default function Permisisons() {
 		queryFn: apiGetRolePermissionCount
 	})
 	return (
-		<div
-			className={
-				[
-					'dashboard-d',
-					styles['permission-container']
-				].join(' ')
-			}
-		>
-			{queryData.isLoading ?
-				<Loading />
-				: null}
+		<div className={css('dashboard-d', styles['permission-container'])}>
+			{
+				queryData.isLoading ? <Loading /> : null}
 			{
 				queryData.data ?
 					<div className={styles['permission-content']}>

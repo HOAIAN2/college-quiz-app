@@ -21,6 +21,7 @@ import useLanguage from '../hooks/useLanguage'
 import { PageCourseLang } from '../models/lang'
 import styles from '../styles/Course.module.css'
 import createFormUtils from '../utils/createFormUtils'
+import css from '../utils/css'
 import languageUtils from '../utils/languageUtils'
 
 export default function Course() {
@@ -85,13 +86,12 @@ export default function Course() {
 	}, [DOM.titleRef, queryData.data])
 	return (
 		<>
-			{
-				showViewExamPopUp ?
-					<ViewExam
-						id={examId}
-						setShowPopUp={setShowViewExamPopUp}
-						onMutateSuccess={() => { queryData.refetch() }}
-					/> : null
+			{showViewExamPopUp ?
+				<ViewExam
+					id={examId}
+					setShowPopUp={setShowViewExamPopUp}
+					onMutateSuccess={() => { queryData.refetch() }}
+				/> : null
 			}
 			{showUpdateStudentsPopUp && queryData.data ?
 				<UpdateCourseStudents
@@ -116,23 +116,14 @@ export default function Course() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			<div className={
-				[
-					'dashboard-d',
-					styles['page-content']
-				].join(' ')
-			}>
+			<div className={css('dashboard-d', styles['page-content'])}>
 				{
 					queryData.isLoading ? <Loading /> : null
 				}
 				{
 					queryData.data ?
 						<>
-							<div className={
-								[
-									styles['form-content']
-								].join(' ')
-							}>
+							<div className={styles['form-content']}>
 								<div className={styles['header']}>
 									<h2 className={styles['title']}>{queryData.data.name}</h2>
 								</div>
@@ -142,11 +133,7 @@ export default function Course() {
 									onInput={e => { formUtils.handleOnInput(e) }}
 									className={styles['form-data']}>
 									<input name='is_active' defaultValue='1' hidden />
-									<div className={
-										[
-											styles['group-inputs']
-										].join(' ')
-									}>
+									<div className={styles['group-inputs']}>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 											<input
@@ -154,12 +141,8 @@ export default function Course() {
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.shortcode}
 												name='shortcode'
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='text' />
+												className={css('input-d', styles['input-item'])}
+												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='name'>{language?.name}</label>
@@ -168,12 +151,8 @@ export default function Course() {
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.name}
 												name='name'
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='text' />
+												className={css('input-d', styles['input-item'])}
+												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='teacher_id'>{language?.teacher}</label>
@@ -193,11 +172,7 @@ export default function Course() {
 														value: String(item.id)
 													}
 												}) : []}
-												className={
-													[
-														styles['custom-select']
-													].join(' ')
-												}
+												className={styles['custom-select']}
 											/>
 										</div>
 										<div className={styles['wrap-item']}>
@@ -205,12 +180,8 @@ export default function Course() {
 											<input
 												disabled
 												defaultValue={queryData.data.subject.name}
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='text' />
+												className={css('input-d', styles['input-item'])}
+												type='text' />
 										</div>
 									</div>
 									{
@@ -218,12 +189,12 @@ export default function Course() {
 											<div className={styles['action-items']}>
 												{
 													permissions.has('course_update') ?
-														<button name='save'
+														<button
+															name='save'
 															className={
-																[
-																	'action-item-d',
-																	isPending ? 'button-submitting' : ''
-																].join(' ')
+																css(
+																	'action-item-d', isPending ? 'button-submitting' : ''
+																)
 															}
 														><FiSave />{language?.save}</button> : null
 												}
@@ -234,11 +205,7 @@ export default function Course() {
 															onClick={() => {
 																setShowDeletePopUp(true)
 															}}
-															className={
-																[
-																	'action-item-d-white-border-red'
-																].join(' ')
-															}>
+															className='action-item-d-white-border-red'>
 															<MdDeleteOutline /> {language?.delete}
 														</button> : null
 												}
@@ -252,20 +219,12 @@ export default function Course() {
 							</div>
 							{
 								permissions.has('course_update') ?
-									<div className={
-										[
-											'action-bar-d'
-										].join(' ')
-									}
+									<div
+										className='action-bar-d'
 										style={{ paddingLeft: '20px' }}
 									>
 										<button
-											className={
-												[
-													'action-item-d',
-													styles['edit-students-button']
-												].join(' ')
-											}
+											className={css('action-item-d', styles['edit-students-button'])}
 											onClick={() => {
 												setShowUpdateStudentsPopUp(true)
 											}}
@@ -288,12 +247,7 @@ export default function Course() {
 												<div
 													title={[fullName, schoolClass].join(' ')}
 													key={`enrollment-${enrollment.id}`}
-													className={
-														[
-															'dashboard-card-d',
-															styles['card'],
-														].join(' ')
-													}
+													className={css('dashboard-card-d', styles['card'])}
 												>
 													<div className={styles['card-content']}>
 														{[fullName, `(${schoolClass})`].join(' ')}
@@ -308,18 +262,10 @@ export default function Course() {
 							</div>
 							{
 								permissions.has('exam_create') ?
-									<div className={
-										[
-											'action-bar-d'
-										].join(' ')
-									}
+									<div className='action-bar-d'
 										style={{ paddingLeft: '20px' }}
 									>
-										<button className={
-											[
-												'action-item-d'
-											].join(' ')
-										}
+										<button className='action-item-d'
 											onClick={() => {
 												setShowCreateExamPopUp(true)
 											}}
@@ -341,12 +287,7 @@ export default function Course() {
 														setExamId(exam.id)
 														setShowViewExamPopUp(true)
 													}}
-													className={
-														[
-															'dashboard-card-d',
-															styles['exam-card'],
-														].join(' ')
-													}
+													className={css('dashboard-card-d', styles['exam-card'])}
 												>
 													<div className={styles['card-section']}>
 														<p>

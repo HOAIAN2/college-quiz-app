@@ -12,6 +12,7 @@ import useLanguage from '../hooks/useLanguage'
 import { ExamInMonth } from '../models/exam'
 import { PageExamsLang } from '../models/lang'
 import styles from '../styles/global/CardPage.module.css'
+import css from '../utils/css'
 import renderMonth from '../utils/renderMonth'
 import timeUtils from '../utils/timeUtils'
 
@@ -32,7 +33,7 @@ export default function Exams() {
 	}
 	const showExamStatus = (exam: ExamInMonth) => {
 		const examDate = new Date(exam.examDate)
-		const getClassNames = (color: string) => [styles['badge'], styles[color]].join(' ')
+		const getClassNames = (color: string) => css(styles['badge'], styles[color])
 		if (exam.cancelledAt != null) {
 			return <div className={getClassNames('red')}>{language?.cancelled}</div>
 		}
@@ -69,17 +70,11 @@ export default function Exams() {
 	}, [forceUpdate])
 	return (
 		<>
-			<div
-				className={
-					[
-						'dashboard-d'
-					].join(' ')
-				}
-			>
+			<div className='dashboard-d'>
 				<div className={styles['page-content']}>
-					{queryData.isLoading ?
-						<Loading />
-						: null}
+					{
+						queryData.isLoading ? <Loading /> : null
+					}
 					<div className={styles['filter-form']}>
 						<div className={styles['wrap-input-item']}>
 							<label htmlFor="month">{language?.month}</label>
@@ -91,10 +86,7 @@ export default function Exams() {
 									{
 										id: 'month',
 										name: 'month',
-										className: [
-											'input-d',
-											styles['input-item']
-										].join(' ')
+										className: css('input-d', styles['input-item'])
 									}
 								}
 								onChange={e => {
@@ -117,12 +109,8 @@ export default function Exams() {
 										<Link
 											key={`exam-${item.id}`}
 											to={String(item.id)}
-											className={
-												[
-													'dashboard-card-d',
-													styles['card'],
-												].join(' ')
-											}>
+											className={css('dashboard-card-d', styles['card'])}
+										>
 											<div className={styles['card-section']}>
 												<p className={styles['content']}>
 													{item.name}

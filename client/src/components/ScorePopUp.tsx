@@ -58,11 +58,7 @@ export default function ScorePopUp({
 				<div className={styles['title']}>
 					<h2>{language?.examResult}</h2>
 				</div>
-				<div className={
-					[
-						styles['content-data']
-					].join(' ')
-				}>
+				<div className={styles['content-data']}>
 					<div className={styles['group-data']}>
 						<div className={styles['group-items']}>
 							<div className={styles['label']}>{language?.score}</div>
@@ -75,11 +71,7 @@ export default function ScorePopUp({
 					<div className={styles['action-items']}>
 						<button
 							onClick={handleClosePopUp}
-							className={
-								[
-									'button-d'
-								].join(' ')
-							}>
+							className='button-d'>
 							<TiArrowBack />
 							{language?.goBack}
 						</button>

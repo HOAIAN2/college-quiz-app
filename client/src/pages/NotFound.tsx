@@ -3,6 +3,7 @@ import Footer from '../components/Footer'
 import useLanguage from '../hooks/useLanguage'
 import { PageNotFoundLang } from '../models/lang'
 import styles from '../styles/NotFound.module.css'
+import css from '../utils/css'
 
 export default function NotFound() {
 	const language = useLanguage<PageNotFoundLang>('page.not_found')
@@ -10,16 +11,8 @@ export default function NotFound() {
 	return (
 		<>
 			<div className={styles['not-found']}>
-				<div className={
-					[
-						styles['title']
-					].join(' ')
-				}>404</div>
-				<Link to='/' className={
-					[
-						'action-item-d',
-						styles['go-home']
-					].join(' ')
+				<div className={styles['title']}>404</div>
+				<Link to='/' className={css('action-item-d', styles['go-home'])
 				}>{language?.home}</Link>
 			</div>
 			<Footer />

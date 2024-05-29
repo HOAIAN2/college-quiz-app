@@ -14,6 +14,7 @@ import useLanguage from '../hooks/useLanguage'
 import { PageProfileLang } from '../models/lang'
 import styles from '../styles/Profile.module.css'
 import createFormUtils from '../utils/createFormUtils'
+import css from '../utils/css'
 import languageUtils from '../utils/languageUtils'
 import renderMonth from '../utils/renderMonth'
 
@@ -66,20 +67,11 @@ export default function Profile() {
 				<ChangePassword
 					setShowPopup={setShowChangePasswordPopUp}
 				/> : null}
-			<div className={
-				[
-					'dashboard-d',
-					styles['profile-content']
-				].join(' ')
-			}>
+			<div className={css('dashboard-d', styles['profile-content'])}>
 				{
 					isPending ? <Loading /> : null
 				}
-				<div className={
-					[
-						styles['form-content']
-					].join(' ')
-				}>
+				<div className={styles['form-content']}>
 					<div className={styles['header']}>
 						<h2 className={styles['title']}>{languageUtils.getFullName(queryData.data.user.firstName, queryData.data.user.lastName)}</h2>
 					</div>
@@ -89,11 +81,7 @@ export default function Profile() {
 						onInput={e => { formUtils.handleOnInput(e) }}
 						className={styles['form-data']}>
 						<input name='is_active' defaultValue='1' hidden />
-						<div className={
-							[
-								styles['group-inputs']
-							].join(' ')
-						}>
+						<div className={styles['group-inputs']}>
 							<div className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='email'>{language?.email}</label>
 								<input
@@ -101,12 +89,8 @@ export default function Profile() {
 									disabled={disabledUpdate}
 									defaultValue={queryData.data.user.email}
 									name='email'
-									className={
-										[
-											'input-d',
-											styles['input-item']
-										].join(' ')
-									} type='text' />
+									className={css('input-d', styles['input-item'])}
+									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
 								<label htmlFor='phone_number'>{language?.phoneNumber}</label>
@@ -115,12 +99,8 @@ export default function Profile() {
 									disabled={disabledUpdate}
 									defaultValue={queryData.data.user.phoneNumber || ''}
 									name='phone_number'
-									className={
-										[
-											'input-d',
-											styles['input-item']
-										].join(' ')
-									} type='text' />
+									className={css('input-d', styles['input-item'])}
+									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='first_name'>{language?.firstName}</label>
@@ -129,12 +109,8 @@ export default function Profile() {
 									disabled={disabledUpdate}
 									defaultValue={queryData.data.user.firstName}
 									name='first_name'
-									className={
-										[
-											'input-d',
-											styles['input-item']
-										].join(' ')
-									} type='text' />
+									className={css('input-d', styles['input-item'])}
+									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='last_name'>{language?.lastName}</label>
@@ -143,12 +119,8 @@ export default function Profile() {
 									disabled={disabledUpdate}
 									defaultValue={queryData.data.user.lastName}
 									name='last_name'
-									className={
-										[
-											'input-d',
-											styles['input-item']
-										].join(' ')
-									} type='text' />
+									className={css('input-d', styles['input-item'])}
+									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
@@ -157,12 +129,8 @@ export default function Profile() {
 									disabled={disabledUpdate}
 									defaultValue={queryData.data.user.shortcode}
 									name='shortcode'
-									className={
-										[
-											'input-d',
-											styles['input-item']
-										].join(' ')
-									} type='text' />
+									className={css('input-d', styles['input-item'])}
+									type='text' />
 							</div>
 							{queryData.data?.user.role.name === 'student' ?
 								<div className={styles['wrap-item']}>
@@ -172,12 +140,8 @@ export default function Profile() {
 										disabled={disabledUpdate}
 										defaultValue={queryData.data.user.schoolClass?.shortcode || ''}
 										name='school_class'
-										className={
-											[
-												'input-d',
-												styles['input-item']
-											].join(' ')
-										} type='text' />
+										className={css('input-d', styles['input-item'])}
+										type='text' />
 								</div> : queryData.data?.user.role.name === 'teacher'
 									? <div className={styles['wrap-item']}>
 										<label className={styles['required']} htmlFor='faculty'>{language?.faculty}</label>
@@ -186,12 +150,8 @@ export default function Profile() {
 											disabled={disabledUpdate}
 											defaultValue={queryData.data.user.faculty?.shortcode || ''}
 											name='faculty'
-											className={
-												[
-													'input-d',
-													styles['input-item']
-												].join(' ')
-											} type='text' />
+											className={css('input-d', styles['input-item'])}
+											type='text' />
 									</div> : null
 							}
 							<div className={styles['wrap-item']}>
@@ -204,11 +164,7 @@ export default function Profile() {
 									}
 									options={genderOptions}
 									disabled={disabledUpdate}
-									className={
-										[
-											styles['custom-select']
-										].join(' ')
-									}
+									className={styles['custom-select']}
 								/>
 							</div>
 							<div className={styles['wrap-item']}>
@@ -218,12 +174,8 @@ export default function Profile() {
 									disabled={disabledUpdate}
 									defaultValue={queryData.data.user.address}
 									name='address'
-									className={
-										[
-											'input-d',
-											styles['input-item']
-										].join(' ')
-									} type='text' />
+									className={css('input-d', styles['input-item'])}
+									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
@@ -235,10 +187,7 @@ export default function Profile() {
 											id: 'birth_date',
 											disabled: disabledUpdate,
 											name: 'birth_date',
-											className: [
-												'input-d',
-												styles['input-item']
-											].join(' ')
+											className: css('input-d', styles['input-item'])
 										}
 									}
 									closeOnSelect={true}
@@ -251,10 +200,10 @@ export default function Profile() {
 								<div className={styles['action-items']}>
 									<button name='save'
 										className={
-											[
+											css(
 												'action-item-d',
 												isPending ? 'button-submitting' : ''
-											].join(' ')
+											)
 										}
 									><FiSave /> {language?.save}</button>
 								</div>
@@ -267,11 +216,7 @@ export default function Profile() {
 				</div>
 				<div className={styles['other-section']}>
 					<button
-						className={
-							[
-								'action-item-d',
-							].join(' ')
-						}
+						className='action-item-d'
 						onClick={() => { setShowChangePasswordPopUp(true) }}>
 						<PiKey />{language?.otherSection.changePassword}
 					</button>

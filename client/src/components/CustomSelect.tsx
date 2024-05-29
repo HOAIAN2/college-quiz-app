@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import useAppContext from '../hooks/useAppContext'
 import { Option } from '../models/option'
 import styles from '../styles/CustomSelect.module.css'
+import css from '../utils/css'
 
 type CustomSelectProps = {
 	name?: string
@@ -50,12 +51,12 @@ export default function CustomSelect({
 				customSelectRef.current?.classList.toggle(styles['hidden'])
 			}}
 			className={
-				[
+				css(
 					'input-d',
 					styles['custom-select'],
 					disabled ? styles['disabled'] : '',
 					className
-				].join(' ')
+				)
 			}
 		>
 			<span>{current.label}</span>
@@ -67,13 +68,7 @@ export default function CustomSelect({
 				onChange={(e) => { e.preventDefault() }} />
 			<div
 				ref={customSelectRef}
-				className={
-					[
-						'input-d',
-						styles['hidden'],
-						styles['select-dropbox'],
-					].join(' ')
-				}
+				className={css('input-d', styles['hidden'], styles['select-dropbox'])}
 			>
 				{options.map(option => {
 					return (
@@ -82,11 +77,7 @@ export default function CustomSelect({
 								onChange && onChange(option)
 								setCurrent(option)
 							}}
-							className={
-								[
-									styles['select-item']
-								].join(' ')
-							}>
+							className={styles['select-item']}>
 							<span>{option.label}</span>
 						</div>
 					)

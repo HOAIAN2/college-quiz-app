@@ -16,6 +16,7 @@ import { ComponentCreateExamLang } from '../models/lang'
 import { UserDetail } from '../models/user'
 import styles from '../styles/CreateViewExam.module.css'
 import createFormUtils from '../utils/createFormUtils'
+import css from '../utils/css'
 import languageUtils from '../utils/languageUtils'
 import renderMonth from '../utils/renderMonth'
 import Loading from './Loading'
@@ -82,10 +83,10 @@ export default function CreateExam({
 	return (
 		<>
 			<div className={
-				[
+				css(
 					styles['create-view-exam-container'],
 					hide ? styles['hide'] : ''
-				].join(' ')
+				)
 			}>
 				{
 					queryData.isLoading ? <Loading /> : null
@@ -94,10 +95,10 @@ export default function CreateExam({
 					isPending ? <Loading /> : null
 				}
 				<div className={
-					[
+					css(
 						styles['create-view-exam-form'],
 						hide ? styles['hide'] : ''
-					].join(' ')
+					)
 				}>
 					<div className={styles['header']}>
 						<h2 className={styles['title']}>{language?.create}</h2>
@@ -107,31 +108,19 @@ export default function CreateExam({
 							<RxCross2 />
 						</div>
 					</div>
-					<div className={
-						[
-							styles['form-content']
-						].join(' ')
-					}>
+					<div className={styles['form-content']}>
 						<form
 							onSubmit={e => { mutate(e) }}
 							className={styles['form-data']}>
 							<input hidden readOnly name='course_id' value={courseDetail.id} />
-							<div className={
-								[
-									styles['group-inputs']
-								].join(' ')
-							}>
+							<div className={styles['group-inputs']}>
 								<div className={styles['wrap-item']}>
 									<label className={styles['required']} htmlFor='name'>{language?.name}</label>
 									<input
 										id='name'
 										name='name'
-										className={
-											[
-												'input-d',
-												styles['input-item']
-											].join(' ')
-										} type='text' />
+										className={css('input-d', styles['input-item'])}
+										type='text' />
 								</div>
 								<div className={styles['wrap-item']}>
 									<label className={styles['required']} htmlFor='exam_date'>{language?.examDate}</label>
@@ -142,10 +131,7 @@ export default function CreateExam({
 											{
 												id: 'exam_date',
 												name: 'exam_date',
-												className: [
-													'input-d',
-													styles['input-item']
-												].join(' ')
+												className: css('input-d', styles['input-item'])
 											}
 										}
 										closeOnSelect={true}
@@ -162,12 +148,7 @@ export default function CreateExam({
 										name='exam_time'
 										min={0}
 										max={60 * 60 * 24}
-										className={
-											[
-												'input-d',
-												styles['input-item']
-											].join(' ')
-										}
+										className={css('input-d', styles['input-item'])}
 										type='number'
 									/>
 								</div>
@@ -205,12 +186,7 @@ export default function CreateExam({
 															onBeforeInput={(e: React.CompositionEvent<HTMLInputElement>) => {
 																if (e.data === '.') e.preventDefault()
 															}}
-															className={
-																[
-																	'input-d',
-																	styles['input-item']
-																].join(' ')
-															}
+															className={css('input-d', styles['input-item'])}
 															type='number'
 															min={0}
 														/>
@@ -220,47 +196,28 @@ export default function CreateExam({
 											<div className={styles['wrap-item']}>
 												<span>{language?.totalQuestions}: {totalQuestion}</span>
 											</div>
-											<div className={[
-												styles['wrap-item'],
-												styles['data-container']
-											].join(' ')
-											}>
+											<div className={css(styles['wrap-item'], styles['data-container'])}>
 												<label>{language?.supervisors}</label>
 												<input
 													placeholder={language?.search}
 													onInput={e => {
 														setQueryUser(e.currentTarget.value)
 													}}
-													className={
-														[
-															'input-d',
-															styles['input-item']
-														].join(' ')
-													} type='text' />
+													className={css('input-d', styles['input-item'])}
+													type='text' />
 												<label>{language?.joinedSupervisors}</label>
-												<ul className={
-													[
-														styles['joined-supervisors-container']
-													].join(' ')
-												}>
+												<ul className={styles['joined-supervisors-container']}>
 													{
 														supervisors.map((supervisor, index) => {
 															return (
 																<li
-																	className={
-																		[
-																			styles['joined-supervisor']
-																		].join(' ')
-																	}
+																	className={styles['joined-supervisor']}
 																	key={`joined-supervisor-${supervisor.id}`}
 																>
 																	<div>
 																		<span>
 																			{languageUtils.getFullName(supervisor.firstName, supervisor.lastName)}
 																		</span>
-																		{/* <span>
-																			{supervisor.faculty?.name}
-																		</span> */}
 																		<span
 																			style={{ height: '20px' }}
 																			onClick={() => {
@@ -289,7 +246,7 @@ export default function CreateExam({
 																		newSupervisors.push(user)
 																		setSupervisors(newSupervisors)
 																	}}
-																	className={['dashboard-card-d', styles['card']].join(' ')}
+																	className={css('dashboard-card-d', styles['card'])}
 																	key={`user-${user.id}`}
 																>
 																	<div className={styles['card-left']}>
@@ -307,10 +264,10 @@ export default function CreateExam({
 							<div className={styles['action-items']}>
 								<button name='save'
 									className={
-										[
+										css(
 											'action-item-d',
 											isPending ? 'button-submitting' : ''
-										].join(' ')
+										)
 									}><FiSave />{language?.save}</button>
 							</div>
 						</form>

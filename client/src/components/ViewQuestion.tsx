@@ -16,6 +16,7 @@ import styles from '../styles/CreateQuestion.module.css'
 import globalStyles from '../styles/global/ViewModel.module.css'
 import { autoSizeTextArea } from '../utils/autoSizeTextArea'
 import createFormUtils from '../utils/createFormUtils'
+import css from '../utils/css'
 import CustomSelect from './CustomSelect'
 import Loading from './Loading'
 import YesNoPopUp from './YesNoPopUp'
@@ -114,20 +115,20 @@ export default function ViewQuestion({
 				/> : null}
 			<div
 				className={
-					[
+					css(
 						globalStyles['view-model-container'],
 						hide ? globalStyles['hide'] : ''
-					].join(' ')
+					)
 				}>
 				{
 					isPending ? <Loading /> : null
 				}
 				<div
 					className={
-						[
+						css(
 							globalStyles['view-model-form'],
 							hide ? globalStyles['hide'] : ''
-						].join(' ')
+						)
 					}>
 					<div className={globalStyles['header']}>
 						<h2 className={globalStyles['title']}>{language?.title}</h2>
@@ -138,14 +139,10 @@ export default function ViewQuestion({
 						</div>
 					</div>
 					<>
-						{queryData.isLoading ?
-							<Loading />
-							: null}
-						<div className={
-							[
-								globalStyles['form-content']
-							].join(' ')
-						}>
+						{
+							queryData.isLoading ? <Loading /> : null
+						}
+						<div className={globalStyles['form-content']}>
 							{
 								queryData.data ? (
 									<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
@@ -155,11 +152,7 @@ export default function ViewQuestion({
 										className={globalStyles['form-data']}>
 										<input name='true_option' readOnly hidden value={options.findIndex(option => option.key === trueOptionKey)} />
 										<input name='subject_id' readOnly hidden value={subjectDetail.id} />
-										<div className={
-											[
-												globalStyles['group-inputs']
-											].join(' ')
-										}>
+										<div className={globalStyles['group-inputs']}>
 											<div style={{ zIndex: 2 }} className={globalStyles['wrap-item']}>
 												<label htmlFor='chapter_id'>{language?.chapter}</label>
 												<CustomSelect
@@ -184,11 +177,7 @@ export default function ViewQuestion({
 																label: `${chapter.chapterNumber}. ${chapter.name}`
 															}))]
 													}
-													className={
-														[
-															globalStyles['custom-select']
-														].join(' ')
-													}
+													className={globalStyles['custom-select']}
 												/>
 											</div>
 											<div className={globalStyles['wrap-item']}>
@@ -210,31 +199,17 @@ export default function ViewQuestion({
 															}
 														}) : []
 													}
-													className={
-														[
-															globalStyles['custom-select']
-														].join(' ')
-													}
+													className={globalStyles['custom-select']}
 												/>
 											</div>
-											<div className={
-												[
-													globalStyles['wrap-item'],
-													globalStyles['textarea']
-												].join(' ')
-											}>
+											<div className={css(globalStyles['wrap-item'], globalStyles['textarea'])}>
 												<label className={globalStyles['required']} htmlFor='content'>{language?.content}</label>
 												<textarea
 													disabled={disabledUpdate}
 													defaultValue={queryData.data.content}
 													onInput={autoSizeTextArea}
 													name='content' id='content'
-													className={
-														[
-															'input-d',
-															globalStyles['input-item'],
-														].join(' ')
-													}
+													className={css('input-d', globalStyles['input-item'])}
 													cols={30} rows={50}>
 												</textarea>
 											</div>
@@ -242,19 +217,11 @@ export default function ViewQuestion({
 												permissions.has('question_update') ?
 													<div
 														style={{ paddingLeft: '20px' }}
-														className={
-															[
-																'action-bar-d'
-															].join(' ')
-														}>
+														className='action-bar-d'>
 														{
 															<div
 																style={{ width: 'fit-content' }}
-																className={
-																	[
-																		'action-item-d'
-																	].join(' ')
-																}
+																className='action-item-d'
 																onClick={() => {
 																	setOptions([
 																		...options,
@@ -276,18 +243,8 @@ export default function ViewQuestion({
 												return (
 													<div
 														key={option.key}
-														className={
-															[
-																styles['textarea-group'],
-																globalStyles['wrap-item'],
-																globalStyles['textarea'],
-															].join(' ')
-														}>
-														<div className={
-															[
-																styles['wrap-label'],
-															].join(' ')
-														}>
+														className={css(styles['textarea-group'], globalStyles['wrap-item'], globalStyles['textarea'])}>
+														<div className={styles['wrap-label']}>
 															<label style={{ cursor: 'pointer' }}
 																className={globalStyles['required']}
 																onClick={() => {
@@ -306,13 +263,7 @@ export default function ViewQuestion({
 															onInput={autoSizeTextArea}
 															name='options[]'
 															disabled={disabledUpdate}
-															className={
-																[
-																	'input-d',
-																	globalStyles['input-item'],
-																	styles['textarea'],
-																].join(' ')
-															}
+															className={css('input-d', globalStyles['input-item'], styles['textarea'])}
 															cols={30} rows={50}>
 														</textarea>
 														{
@@ -324,11 +275,8 @@ export default function ViewQuestion({
 																		}
 																		else setOptions(options.filter(item => item.key !== option.key))
 																	}}
-																	className={
-																		[
-																			'action-item-d-white-border-red'
-																		].join(' ')
-																	}>
+																	className='action-item-d-white-border-red'
+																>
 																	<MdDeleteOutline /> {language?.delete}
 																</div> : null
 														}
@@ -343,10 +291,10 @@ export default function ViewQuestion({
 														permissions.has('question_update') ?
 															<button name='save'
 																className={
-																	[
+																	css(
 																		'action-item-d',
 																		isPending ? 'button-submitting' : ''
-																	].join(' ')
+																	)
 																}><FiSave />{language?.save}</button>
 															: null
 													}
@@ -357,11 +305,8 @@ export default function ViewQuestion({
 																onClick={() => {
 																	setShowDeletePopUp(true)
 																}}
-																className={
-																	[
-																		'action-item-d-white-border-red'
-																	].join(' ')
-																}>
+																className='action-item-d-white-border-red'
+															>
 																<MdDeleteOutline /> {language?.delete}
 															</button>
 															: null

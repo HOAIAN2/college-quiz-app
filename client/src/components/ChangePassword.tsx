@@ -5,6 +5,7 @@ import { apiChangePassword } from '../api/auth'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentChangePassword } from '../models/lang'
 import styles from '../styles/ChangePassword.module.css'
+import css from '../utils/css'
 
 type ChangePasswordProps = {
 	setShowPopup: React.Dispatch<React.SetStateAction<boolean>>
@@ -59,16 +60,16 @@ export default function ChangePassword({
 	}, [])
 	return (
 		<div className={
-			[
+			css(
 				styles['change-password-container'],
 				hide ? styles['hide'] : ''
-			].join(' ')
+			)
 		}>
 			<div className={
-				[
+				css(
 					styles['change-password-form'],
 					hide ? styles['hide'] : ''
-				].join(' ')
+				)
 			}>
 				<div className={styles['header']}>
 					<h2 className={styles['title']}>{language?.title}</h2>
@@ -81,54 +82,40 @@ export default function ChangePassword({
 				<form onSubmit={handleChangePassword}
 					onInput={handlePreventSubmit}
 					className={styles['form-data']}>
-					<div className={
-						[
-							styles['group-inputs']
-						].join(' ')
-					}>
+					<div className={styles['group-inputs']}>
 						<div className={styles['wrap-item']}>
 							<label className={styles['required']} htmlFor="">{language?.password}</label>
 							<input
 								name='current_password'
-								className={
-									[
-										'input-d',
-										styles['input-item']
-									].join(' ')
-								} type="password" />
+								className={css('input-d', styles['input-item'])}
+								type="password" />
 						</div>
 						<div className={styles['wrap-item']}>
 							<label className={styles['required']} htmlFor="">{language?.newPassword}</label>
 							<input
 								name='password'
-								className={
-									[
-										'input-d',
-										styles['input-item']
-									].join(' ')
-								} type="password" />
+								className={css('input-d', styles['input-item'])}
+								type="password" />
 						</div>
 						<div className={styles['wrap-item']}>
 							<label className={styles['required']} htmlFor="">{language?.confirmPassword}</label>
 							<input
 								name='password_confirmation'
-								className={
-									[
-										'input-d',
-										styles['input-item']
-									].join(' ')
-								} type="password" />
+								className={css('input-d', styles['input-item'])}
+								type="password" />
 						</div>
 						<div className={styles['wrap-item']}>
 							<button
 								ref={buttonRef}
 								className={
-									[
+									css(
 										'button-d',
 										styles['submit'],
-										blockSubmit && !buttonRef.current?.classList.contains(styles['submitting'])
-											? styles['blocking'] : ''
-									].join(' ')}>{!isSubmitting && language?.title}</button>
+										blockSubmit && !buttonRef.current?.classList.contains(styles['submitting']) ? styles['blocking'] : ''
+									)
+								}>
+								{!isSubmitting && language?.title}
+							</button>
 						</div>
 					</div>
 				</form>

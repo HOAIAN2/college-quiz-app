@@ -101,12 +101,11 @@ export default function TakeExam() {
 	}, [id, queryClient, queryData.data])
 	return (
 		<>
-			{
-				examResult ?
-					<ScorePopUp
-						data={examResult}
-						backURL={`/exams/${id}`}
-					/> : null
+			{examResult ?
+				<ScorePopUp
+					data={examResult}
+					backURL={`/exams/${id}`}
+				/> : null
 			}
 			{showSubmitPopUp ?
 				<YesNoPopUp
@@ -118,21 +117,15 @@ export default function TakeExam() {
 					onMutateSuccess={() => { }}
 				/> : null
 			}
-			{queryData.isLoading ? < Loading /> : null}
+			{
+				queryData.isLoading ? < Loading /> : null
+			}
 			{
 				queryData.data ?
 					<>
 						<div className={styles['take-exam-container']}>
-							<div className={
-								[
-									styles['data-container']
-								].join(' ')
-							}>
-								<div className={
-									[
-										styles['title']
-									].join(' ')
-								}>
+							<div className={styles['data-container']}>
+								<div className={styles['title']}>
 									<div>
 										{queryData.data.name}
 									</div>
@@ -140,10 +133,7 @@ export default function TakeExam() {
 										{language?.timeLeft}: {timeLeft}
 									</div>
 								</div>
-								<div className={[
-									styles['questions-container']
-								].join(' ')
-								}>
+								<div className={styles['questions-container']}>
 									{
 										queryData.data.questions.map((question, index) => {
 											return (
@@ -162,12 +152,8 @@ export default function TakeExam() {
 								<div className={styles['action-items']}>
 									<button
 										onClick={() => { setShowSubmitPopUp(true) }}
-										className={
-											[
-												'action-item-d',
-												// isPending ? 'button-submitting' : ''
-											].join(' ')
-										}><TbSend /> {language?.submit}
+										className='action-item-d'>
+										<TbSend /> {language?.submit}
 									</button>
 								</div>
 							</div>

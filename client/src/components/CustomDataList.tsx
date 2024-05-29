@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Option } from '../models/option'
 import styles from '../styles/CustomDataList.module.css'
+import css from '../utils/css'
 
 type CustomDataListProps = {
 	name?: string
@@ -42,12 +43,12 @@ export default function CustomDataList({
 		<div
 			ref={customDataListContainerRef}
 			className={
-				[
+				css(
 					styles['custom-datalist'],
 					// styles['hidden'],
 					disabled ? styles['disabled'] : '',
 					className
-				].join(' ')
+				)
 			}
 		>
 			<input
@@ -56,12 +57,7 @@ export default function CustomDataList({
 				}}
 				data-selector={name}
 				// name={name}
-				className={
-					[
-						'input-d',
-						styles['input-item']
-					].join(' ')
-				}
+				className={css('input-d', styles['input-item'])}
 				value={currentText}
 				disabled={disabled}
 				onInput={e => {
@@ -82,12 +78,7 @@ export default function CustomDataList({
 							if (disabled) return
 							customDataListRef.current?.classList.add(styles['hidden'])
 						}}
-						className={
-							[
-								'input-d',
-								styles['select-dropbox'],
-							].join(' ')
-						}
+						className={css('input-d', styles['select-dropbox'])}
 					>
 						{options.map(option => {
 							return (
@@ -97,11 +88,7 @@ export default function CustomDataList({
 										setCurrentText(option.label || '')
 										setValue(option.value)
 									}}
-									className={
-										[
-											styles['select-item']
-										].join(' ')
-									}>
+									className={styles['select-item']}>
 									<span>{option.label}</span>
 								</div>
 							)

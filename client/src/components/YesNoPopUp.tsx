@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
 import styles from '../styles/YesNoPopUp.module.css'
+import css from '../utils/css'
 import Loading from './Loading'
 
 type YesNoPopUpProps = {
@@ -42,18 +43,18 @@ export default function YesNoPopUp({
 	return (
 		<div
 			className={
-				[
+				css(
 					styles['yes-no-pop-up-container'],
 					hide ? styles['hide'] : ''
-				].join(' ')
+				)
 			}>
 			{mutation.isPending ? <Loading /> : null}
 			<div
 				className={
-					[
+					css(
 						styles['yes-no-pop-up-form'],
 						hide ? styles['hide'] : ''
-					].join(' ')
+					)
 				}>
 				<div className={styles['header']}>
 					<h2></h2>
@@ -63,19 +64,8 @@ export default function YesNoPopUp({
 						<RxCross2 />
 					</div>
 				</div>
-				<div
-					className={
-						[
-							styles['form-data']
-						].join(' ')
-					}>
-					<div
-						className={
-							[
-								styles['message']
-							].join(' ')
-						}
-					>
+				<div className={styles['form-data']}>
+					<div className={styles['message']} >
 						<div className={styles['message-content']}>
 							{message}
 						</div>
@@ -84,19 +74,19 @@ export default function YesNoPopUp({
 						<button
 							onClick={handleClosePopUp}
 							className={
-								[
+								css(
 									'action-item-d-white-border-red',
 									mutation.isPending ? styles['pending'] : ''
-								].join(' ')
+								)
 							}
 						>{langNo}</button>
 						<button
 							onClick={() => { mutation.mutate() }}
 							className={
-								[
+								css(
 									'action-item-d-white',
 									mutation.isPending ? styles['pending'] : ''
-								].join(' ')
+								)
 							}>{langYes}
 						</button>
 					</div>

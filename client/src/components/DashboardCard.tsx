@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import styles from '../styles/DashboardCard.module.css'
+import css from '../utils/css'
 
 type DashboardCardProps = {
 	to?: string
@@ -19,13 +20,7 @@ export default function DashboardCard({
 	return (
 		<Link
 			to={to || '#'}
-			className={
-				[
-					'dashboard-card-d',
-					styles['dashboard-card'],
-					styles[`container-${color}`]
-				].join(' ')
-			}>
+			className={css('dashboard-card-d', styles['dashboard-card'], styles[`container-${color}`])}>
 			<div className={styles['card-top']}>
 				{icon}
 				{data}

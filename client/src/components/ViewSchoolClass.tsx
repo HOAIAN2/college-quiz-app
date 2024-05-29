@@ -12,6 +12,7 @@ import useLanguage from '../hooks/useLanguage'
 import { ComponentViewSchoolClassLang } from '../models/lang'
 import styles from '../styles/global/ViewModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
+import css from '../utils/css'
 import CustomDataList from './CustomDataList'
 import Loading from './Loading'
 
@@ -76,20 +77,20 @@ export default function ViewSchoolClass({
 	return (
 		<div
 			className={
-				[
+				css(
 					styles['view-model-container'],
 					hide ? styles['hide'] : ''
-				].join(' ')
+				)
 			}>
 			{
 				isPending ? <Loading /> : null
 			}
 			<div
 				className={
-					[
+					css(
 						styles['view-model-form'],
 						hide ? styles['hide'] : ''
-					].join(' ')
+					)
 				}>
 				<div className={styles['header']}>
 					<h2 className={styles['title']}>{queryData.data?.name}</h2>
@@ -100,14 +101,10 @@ export default function ViewSchoolClass({
 					</div>
 				</div>
 				<>
-					{queryData.isLoading ?
-						<Loading />
-						: null}
-					<div className={
-						[
-							styles['form-content']
-						].join(' ')
-					}>
+					{
+						queryData.isLoading ? <Loading /> : null
+					}
+					<div className={styles['form-content']}>
 						{
 							queryData.data ? (
 								<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
@@ -115,11 +112,7 @@ export default function ViewSchoolClass({
 								}}
 									onInput={(e) => { formUtils.handleOnInput(e) }}
 									className={styles['form-data']}>
-									<div className={
-										[
-											styles['group-inputs']
-										].join(' ')
-									}>
+									<div className={styles['group-inputs']}>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 											<input
@@ -127,12 +120,8 @@ export default function ViewSchoolClass({
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.shortcode}
 												name='shortcode'
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='text' />
+												className={css('input-d', styles['input-item'])}
+												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='name'>{language?.name}</label>
@@ -141,12 +130,8 @@ export default function ViewSchoolClass({
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.name}
 												name='name'
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='text' />
+												className={css('input-d', styles['input-item'])}
+												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
@@ -173,10 +158,10 @@ export default function ViewSchoolClass({
 											<div className={styles['action-items']}>
 												<button name='save'
 													className={
-														[
+														css(
 															'action-item-d',
 															isPending ? 'button-submitting' : ''
-														].join(' ')
+														)
 													}
 												><FiSave />{language?.save}</button>
 											</div>

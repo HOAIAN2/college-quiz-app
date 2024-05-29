@@ -14,6 +14,7 @@ import styles from '../styles/CreateQuestion.module.css'
 import globalStyles from '../styles/global/CreateModel.module.css'
 import { autoSizeTextArea } from '../utils/autoSizeTextArea'
 import createFormUtils from '../utils/createFormUtils'
+import css from '../utils/css'
 import CustomSelect from './CustomSelect'
 import Loading from './Loading'
 
@@ -71,19 +72,19 @@ export default function CreateQuestion({
 	}, [])
 	return (
 		<div className={
-			[
+			css(
 				globalStyles['create-model-container'],
 				hide ? globalStyles['hide'] : ''
-			].join(' ')
+			)
 		}>
 			{
 				isPending ? <Loading /> : null
 			}
 			<div className={
-				[
+				css(
 					globalStyles['create-model-form'],
 					hide ? globalStyles['hide'] : ''
-				].join(' ')
+				)
 			}>
 				<div className={globalStyles['header']}>
 					<h2 className={globalStyles['title']}>{language?.create}</h2>
@@ -93,11 +94,7 @@ export default function CreateQuestion({
 						<RxCross2 />
 					</div>
 				</div>
-				<div className={
-					[
-						globalStyles['form-content']
-					].join(' ')
-				}>
+				<div className={globalStyles['form-content']}>
 					<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 						mutate(e)
 					}}
@@ -105,11 +102,7 @@ export default function CreateQuestion({
 						className={globalStyles['form-data']}>
 						<input name='true_option' readOnly hidden value={options.findIndex(option => option.key === trueOptionKey)} />
 						<input name='subject_id' readOnly hidden value={subjectDetail.id} />
-						<div className={
-							[
-								globalStyles['group-inputs']
-							].join(' ')
-						}>
+						<div className={globalStyles['group-inputs']}>
 							<div style={{ zIndex: 2 }} className={globalStyles['wrap-item']}>
 								<label htmlFor="">{language?.chapter}</label>
 								<CustomSelect
@@ -131,11 +124,7 @@ export default function CreateQuestion({
 												label: `${chapter.chapterNumber}. ${chapter.name}`
 											}))]
 									}
-									className={
-										[
-											globalStyles['custom-select']
-										].join(' ')
-									}
+									className={globalStyles['custom-select']}
 								/>
 							</div>
 							<div className={globalStyles['wrap-item']}>
@@ -156,50 +145,25 @@ export default function CreateQuestion({
 											}
 										}) : []
 									}
-									// onChange={(option) => {
-									// 	console.log(option)
-									// }}
-									className={
-										[
-											globalStyles['custom-select']
-										].join(' ')
-									}
+									className={globalStyles['custom-select']}
 								/>
 							</div>
-							<div className={
-								[
-									globalStyles['wrap-item'],
-									globalStyles['textarea']
-								].join(' ')
-							}>
+							<div className={css(globalStyles['wrap-item'], globalStyles['textarea'])}>
 								<label className={globalStyles['required']} htmlFor='content'>{language?.content}</label>
 								<textarea
 									onInput={autoSizeTextArea}
 									name='content' id='content'
-									className={
-										[
-											'input-d',
-											globalStyles['input-item'],
-										].join(' ')
-									}
+									className={css('input-d', globalStyles['input-item'])}
 									cols={30} rows={50}>
 								</textarea>
 							</div>
 							<div
 								style={{ paddingLeft: '20px' }}
-								className={
-									[
-										'action-bar-d'
-									].join(' ')
-								}>
+								className='action-bar-d'>
 								{
 									<div
 										style={{ width: 'fit-content' }}
-										className={
-											[
-												'action-item-d'
-											].join(' ')
-										}
+										className='action-item-d'
 										onClick={() => {
 											setOptions([
 												...options,
@@ -218,18 +182,8 @@ export default function CreateQuestion({
 								return (
 									<div
 										key={option.key}
-										className={
-											[
-												styles['textarea-group'],
-												globalStyles['wrap-item'],
-												globalStyles['textarea'],
-											].join(' ')
-										}>
-										<div className={
-											[
-												styles['wrap-label'],
-											].join(' ')
-										}>
+										className={css(styles['textarea-group'], globalStyles['wrap-item'], globalStyles['textarea'])}>
+										<div className={styles['wrap-label']}>
 											<label style={{ cursor: 'pointer' }}
 												className={globalStyles['required']}
 												onClick={() => {
@@ -246,13 +200,7 @@ export default function CreateQuestion({
 											data-selector={`options.${index}`}
 											onInput={autoSizeTextArea}
 											name='options[]'
-											className={
-												[
-													'input-d',
-													globalStyles['input-item'],
-													styles['textarea'],
-												].join(' ')
-											}
+											className={css('input-d', globalStyles['input-item'], styles['textarea'])}
 											cols={30} rows={50}>
 										</textarea>
 										<div
@@ -262,11 +210,7 @@ export default function CreateQuestion({
 												}
 												else setOptions(options.filter(item => item.key !== option.key))
 											}}
-											className={
-												[
-													'action-item-d-white-border-red'
-												].join(' ')
-											}>
+											className='action-item-d-white-border-red'>
 											<MdDeleteOutline /> {language?.delete}
 										</div>
 									</div>
@@ -276,17 +220,17 @@ export default function CreateQuestion({
 						<div className={globalStyles['action-items']}>
 							<button name='save'
 								className={
-									[
+									css(
 										'action-item-d',
 										isPending ? 'button-submitting' : ''
-									].join(' ')
+									)
 								}><FiSave />{language?.save}</button>
 							<button name='save-more'
 								className={
-									[
+									css(
 										'action-item-d-white',
 										isPending ? 'button-submitting' : ''
-									].join(' ')
+									)
 								}
 							><FiSave />{language?.saveMore}</button>
 						</div>

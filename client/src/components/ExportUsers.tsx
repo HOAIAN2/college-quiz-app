@@ -7,6 +7,7 @@ import useLanguage from '../hooks/useLanguage'
 import { ComponentExportUsersLang } from '../models/lang'
 import { RoleName } from '../models/role'
 import styles from '../styles/ExportUsers.module.css'
+import css from '../utils/css'
 import { saveBlob } from '../utils/saveBlob'
 import Loading from './Loading'
 
@@ -59,17 +60,17 @@ export default function ExportUsers({
 	}, [])
 	return (
 		<div className={
-			[
+			css(
 				styles['export-users-container'],
 				hide ? styles['hide'] : ''
-			].join(' ')
+			)
 		}>
 			<div
 				className={
-					[
+					css(
 						styles['export-users-form'],
 						hide ? styles['hide'] : ''
-					].join(' ')
+					)
 				}>
 				<div className={styles['header']}>
 					<h2 className={styles['title']}>{language?.selectFields}</h2>
@@ -79,9 +80,9 @@ export default function ExportUsers({
 						<RxCross2 />
 					</div>
 				</div>
-				{queryData.isLoading ?
-					<Loading />
-					: null}
+				{
+					queryData.isLoading ? <Loading /> : null
+				}
 				{
 					queryData.data ?
 						<form onSubmit={handleExportUsers} className={styles['form-data']}>

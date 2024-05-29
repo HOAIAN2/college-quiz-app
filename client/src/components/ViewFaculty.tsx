@@ -12,6 +12,7 @@ import useLanguage from '../hooks/useLanguage'
 import { ComponentViewFacultyLang } from '../models/lang'
 import styles from '../styles/global/ViewModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
+import css from '../utils/css'
 import languageUtils from '../utils/languageUtils'
 import CustomDataList from './CustomDataList'
 import Loading from './Loading'
@@ -77,20 +78,20 @@ export default function ViewFaculty({
 	return (
 		<div
 			className={
-				[
+				css(
 					styles['view-model-container'],
 					hide ? styles['hide'] : ''
-				].join(' ')
+				)
 			}>
 			{
 				isPending ? <Loading /> : null
 			}
 			<div
 				className={
-					[
+					css(
 						styles['view-model-form'],
 						hide ? styles['hide'] : ''
-					].join(' ')
+					)
 				}>
 				<div className={styles['header']}>
 					<h2 className={styles['title']}>{queryData.data?.name}</h2>
@@ -101,14 +102,10 @@ export default function ViewFaculty({
 					</div>
 				</div>
 				<>
-					{queryData.isLoading ?
-						<Loading />
-						: null}
-					<div className={
-						[
-							styles['form-content']
-						].join(' ')
-					}>
+					{
+						queryData.isLoading ? <Loading /> : null
+					}
+					<div className={styles['form-content']}>
 						{
 							queryData.data ? (
 								<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
@@ -116,10 +113,7 @@ export default function ViewFaculty({
 								}}
 									onInput={(e) => { formUtils.handleOnInput(e) }}
 									className={styles['form-data']}>
-									<div className={
-										[
-											styles['group-inputs']
-										].join(' ')
+									<div className={styles['group-inputs']
 									}>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
@@ -128,12 +122,8 @@ export default function ViewFaculty({
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.shortcode}
 												name='shortcode'
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='text' />
+												className={css('input-d', styles['input-item'])}
+												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='name'>{language?.name}</label>
@@ -142,12 +132,8 @@ export default function ViewFaculty({
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.name}
 												name='name'
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='text' />
+												className={css('input-d', styles['input-item'])}
+												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
 											<label htmlFor='email'>{language?.email}</label>
@@ -156,12 +142,8 @@ export default function ViewFaculty({
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.email || ''}
 												name='email'
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='text' />
+												className={css('input-d', styles['input-item'])}
+												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
 											<label htmlFor='phone_number'>{language?.phoneNumber}</label>
@@ -170,12 +152,8 @@ export default function ViewFaculty({
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.phoneNumber || ''}
 												name='phone_number'
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='text' />
+												className={css('input-d', styles['input-item'])}
+												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
 											<label htmlFor='leader_id'>{language?.leader}</label>
@@ -195,11 +173,7 @@ export default function ViewFaculty({
 														value: String(item.id)
 													}
 												}) : []}
-												className={
-													[
-														styles['custom-select']
-													].join(' ')
-												}
+												className={styles['custom-select']}
 											/>
 										</div>
 									</div>
@@ -208,10 +182,10 @@ export default function ViewFaculty({
 											<div className={styles['action-items']}>
 												<button name='save'
 													className={
-														[
+														css(
 															'action-item-d',
 															isPending ? 'button-submitting' : ''
-														].join(' ')
+														)
 													}
 												><FiSave />{language?.save}</button>
 											</div>

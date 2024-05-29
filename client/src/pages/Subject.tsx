@@ -15,6 +15,7 @@ import { Chapter } from '../models/chapter'
 import { PageSubjectLang } from '../models/lang'
 import styles from '../styles/Subject.module.css'
 import createFormUtils from '../utils/createFormUtils'
+import css from '../utils/css'
 
 export default function Subject() {
 	const { id } = useParams()
@@ -66,14 +67,13 @@ export default function Subject() {
 	}, [id, queryClient])
 	return (
 		<>
-			{
-				showViewChapterPopUp && currentChapter ?
-					<ViewChapter
-						data={currentChapter}
-						onMutateSuccess={() => { queryData.refetch() }}
-						setShowPopUp={setShowViewChapterPopUp}
-					/>
-					: null
+			{showViewChapterPopUp && currentChapter ?
+				<ViewChapter
+					data={currentChapter}
+					onMutateSuccess={() => { queryData.refetch() }}
+					setShowPopUp={setShowViewChapterPopUp}
+				/>
+				: null
 			}
 			{showCreateChapterPopUp === true ?
 				<CreateChapter
@@ -91,12 +91,7 @@ export default function Subject() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			<div className={
-				[
-					'dashboard-d',
-					styles['page-content']
-				].join(' ')
-			}>
+			<div className={css('dashboard-d', styles['page-content'])}>
 				{
 					queryData.isLoading ? <Loading /> : null
 				}
@@ -106,11 +101,7 @@ export default function Subject() {
 				{
 					queryData.data ?
 						<>
-							<div className={
-								[
-									styles['form-content']
-								].join(' ')
-							}>
+							<div className={styles['form-content']}>
 								<div className={styles['header']}>
 									<h2 className={styles['title']}>{queryData.data.name}</h2>
 								</div>
@@ -120,11 +111,7 @@ export default function Subject() {
 									onInput={e => { formUtils.handleOnInput(e) }}
 									className={styles['form-data']}>
 									<input name='is_active' defaultValue='1' hidden />
-									<div className={
-										[
-											styles['group-inputs']
-										].join(' ')
-									}>
+									<div className={styles['group-inputs']}>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 											<input
@@ -132,12 +119,8 @@ export default function Subject() {
 												disabled={!permissions.has('subject_update')}
 												defaultValue={queryData.data.shortcode}
 												name='shortcode'
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='text' />
+												className={css('input-d', styles['input-item'])}
+												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='name'>{language?.name}</label>
@@ -146,12 +129,8 @@ export default function Subject() {
 												disabled={!permissions.has('subject_update')}
 												defaultValue={queryData.data.name}
 												name='name'
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='text' />
+												className={css('input-d', styles['input-item'])}
+												type='text' />
 										</div>
 									</div>
 									{
@@ -161,10 +140,10 @@ export default function Subject() {
 													permissions.has('subject_update') ?
 														<button name='save'
 															className={
-																[
+																css(
 																	'action-item-d',
 																	isPending ? 'button-submitting' : ''
-																].join(' ')
+																)
 															}
 														>{language?.save}</button> : null
 												}
@@ -175,11 +154,7 @@ export default function Subject() {
 															onClick={() => {
 																setShowDeletePopUp(true)
 															}}
-															className={
-																[
-																	'action-item-d-white-border-red'
-																].join(' ')
-															}>
+															className='action-item-d-white-border-red'>
 															<MdDeleteOutline /> {language?.delete}
 														</button>
 														: null
@@ -194,18 +169,10 @@ export default function Subject() {
 							</div>
 							{
 								permissions.has('subject_update') ?
-									<div className={
-										[
-											'action-bar-d'
-										].join(' ')
-									}
+									<div className='action-bar-d'
 										style={{ paddingLeft: '20px' }}
 									>
-										<div className={
-											[
-												'action-item-d'
-											].join(' ')
-										}
+										<div className='action-item-d'
 											onClick={() => {
 												setShowCreateChapterPopUp(true)
 											}}
@@ -224,12 +191,7 @@ export default function Subject() {
 											return (
 												<div
 													key={`chapter-${chapter.id}`}
-													className={
-														[
-															'dashboard-card-d',
-															styles['card'],
-														].join(' ')
-													}
+													className={css('dashboard-card-d', styles['card'])}
 													onClick={() => {
 														setCurrentChapter(chapter)
 														setShowViewChapterPopUp(true)
@@ -249,7 +211,7 @@ export default function Subject() {
 							{
 								permissions.has('question_view') ?
 									<Link
-										to={`questions`}
+										to='questions'
 										state={queryData.data}
 										className={styles['header']}>
 										<h2 className={styles['title']}>

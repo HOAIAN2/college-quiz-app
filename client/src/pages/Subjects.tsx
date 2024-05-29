@@ -12,6 +12,7 @@ import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { PageSubjectsLang } from '../models/lang'
 import styles from '../styles/global/CardPage.module.css'
+import css from '../utils/css'
 
 export default function Subjects() {
 	const { permissions } = useAppContext()
@@ -43,28 +44,14 @@ export default function Subjects() {
 					onMutateSuccess={onMutateSuccess}
 					setShowPopUp={setShowCreatePopUp}
 				/> : null}
-			<div
-				className={
-					[
-						'dashboard-d'
-					].join(' ')
-				}
-			>
+			<div className='dashboard-d'>
 				{
 					permissions.hasAnyFormList(['subject_create'])
 						?
-						<div className={
-							[
-								'action-bar-d'
-							].join(' ')
-						}>
+						<div className='action-bar-d'>
 							{
 								permissions.has('subject_create') ?
-									<button className={
-										[
-											'action-item-d'
-										].join(' ')
-									}
+									<button className='action-item-d'
 										onClick={() => {
 											setShowCreatePopUp(true)
 										}}
@@ -77,9 +64,9 @@ export default function Subjects() {
 						: null
 				}
 				<div className={styles['page-content']}>
-					{queryData.isLoading ?
-						<Loading />
-						: null}
+					{
+						queryData.isLoading ? <Loading /> : null
+					}
 					<div className={styles['filter-form']}>
 						<div className={styles['wrap-input-item']}>
 							<label htmlFor="">{language?.filter.search}</label>
@@ -89,12 +76,8 @@ export default function Subjects() {
 								}}
 								name='search'
 								defaultValue={queryDebounce}
-								className={
-									[
-										'input-d',
-										styles['input-item']
-									].join(' ')
-								} type="text" />
+								className={css('input-d', styles['input-item'])}
+								type="text" />
 						</div>
 					</div>
 					<div className={styles['wrap-card-container']}>
@@ -105,12 +88,7 @@ export default function Subjects() {
 										<Link
 											key={`subject-${item.id}`}
 											to={String(item.id)}
-											className={
-												[
-													'dashboard-card-d',
-													styles['card'],
-												].join(' ')
-											}>
+											className={css('dashboard-card-d', styles['card'])}>
 											<div className={styles['card-top']}>
 												<p className={styles['content']}>
 													{item.name}
@@ -118,7 +96,8 @@ export default function Subjects() {
 											</div>
 											<div className={styles['card-bottom']}>
 												<LuBookOpenCheck />
-												{item.shortcode}</div>
+												{item.shortcode}
+											</div>
 										</Link>
 									)
 								}) : null}

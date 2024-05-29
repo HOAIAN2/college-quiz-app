@@ -12,6 +12,7 @@ import useLanguage from '../hooks/useLanguage'
 import { CourseDetail } from '../models/course'
 import { ComponentUpdateCourseStudentsLang } from '../models/lang'
 import styles from '../styles/UpdateCourseStudents.module.css'
+import css from '../utils/css'
 import languageUtils from '../utils/languageUtils'
 import Loading from './Loading'
 
@@ -56,19 +57,19 @@ export default function UpdateCourseStudents({
 	}, [])
 	return (
 		<div className={
-			[
+			css(
 				styles['update-course-students-container'],
 				hide ? styles['hide'] : ''
-			].join(' ')
+			)
 		}>
 			{
 				isPending ? <Loading /> : null
 			}
 			<div className={
-				[
+				css(
 					styles['update-course-students-form'],
 					hide ? styles['hide'] : ''
-				].join(' ')
+				)
 			}>
 				<div className={styles['header']}>
 					<h2 className={styles['title']}>{language?.title}</h2>
@@ -78,39 +79,23 @@ export default function UpdateCourseStudents({
 						<RxCross2 />
 					</div>
 				</div>
-				<div className={
-					[
-						styles['form-content']
-					].join(' ')
-				}>
+				<div className={styles['form-content']}>
 					<input
 						placeholder={language?.search}
 						onInput={e => {
 							setQueryUser(e.currentTarget.value)
 						}}
-						className={
-							[
-								'input-d',
-								styles['input-item']
-							].join(' ')
-						} type='text' />
+						className={css('input-d', styles['input-item'])}
+						type='text' />
 					<div className={styles['wrap-data-container']}>
 						<div className={styles['data-container']}>
 							<label>{language?.joinedStudents}</label>
-							<ul className={
-								[
-									styles['joined-students-container']
-								].join(' ')
-							}>
+							<ul className={styles['joined-students-container']}>
 								{
 									students.map((student, index) => {
 										return (
 											<li
-												className={
-													[
-														styles['joined-student']
-													].join(' ')
-												}
+												className={styles['joined-student']}
 												key={`joined-student-${student.id}`}
 											>
 												<div>
@@ -148,7 +133,7 @@ export default function UpdateCourseStudents({
 													newStudents.push(user)
 													setStudents(newStudents)
 												}}
-												className={['dashboard-card-d', styles['card']].join(' ')}
+												className={css('dashboard-card-d', styles['card'])}
 												key={`user-${user.id}`}
 											>
 												<div className={styles['card-left']}>
@@ -166,10 +151,10 @@ export default function UpdateCourseStudents({
 						<button
 							onClick={() => { mutate() }}
 							className={
-								[
+								css(
 									'action-item-d',
 									isPending ? 'button-submitting' : ''
-								].join(' ')
+								)
 							}><FiSave />{language?.save}</button>
 					</div>
 				</div>

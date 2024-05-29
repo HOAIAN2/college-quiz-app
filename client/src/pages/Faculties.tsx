@@ -15,6 +15,7 @@ import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { PageFacultiesLang } from '../models/lang'
 import styles from '../styles/global/TablePage.module.css'
+import css from '../utils/css'
 
 export default function Faculties() {
 	const { permissions } = useAppContext()
@@ -74,28 +75,15 @@ export default function Faculties() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			<div
-				className={
-					[
-						'dashboard-d'
-					].join(' ')
-				}
-			>
+			<div className='dashboard-d'>
 				{
 					permissions.hasAnyFormList(['faculty_create', 'faculty_delete'])
 						?
-						<div className={
-							[
-								'action-bar-d'
-							].join(' ')
-						}>
+						<div className='action-bar-d'>
 							{
 								permissions.has('faculty_create') ?
-									<div className={
-										[
-											'action-item-d'
-										].join(' ')
-									}
+									<div
+										className='action-item-d'
 										onClick={() => {
 											setShowCreatePopUp(true)
 										}}
@@ -110,11 +98,7 @@ export default function Faculties() {
 										onClick={() => {
 											setShowDeletePopUp(true)
 										}}
-										className={
-											[
-												'action-item-d-white-border-red'
-											].join(' ')
-										}>
+										className='action-item-d-white-border-red'>
 										<MdDeleteOutline /> {language?.delete}
 									</div>
 									: null
@@ -125,7 +109,7 @@ export default function Faculties() {
 				<div className={styles['table-page-content']}>
 					<div className={styles['filter-form']}>
 						<div className={styles['wrap-input-item']}>
-							<label htmlFor="">{language?.filter.perPage}</label>
+							<label>{language?.filter.perPage}</label>
 							<CustomSelect
 								defaultOption={
 									{
@@ -159,33 +143,25 @@ export default function Faculties() {
 									searchParams.set('per_page', option.value)
 									setSearchParams(searchParams)
 								}}
-								className={
-									[
-										styles['custom-select']
-									].join(' ')
-								}
+								className={styles['custom-select']}
 							/>
 						</div>
 						<div className={styles['wrap-input-item']}>
-							<label htmlFor="">{language?.filter.search}</label>
+							<label>{language?.filter.search}</label>
 							<input
 								onInput={(e) => {
 									setSearchQuery(e.currentTarget.value)
 								}}
 								name='search'
 								defaultValue={queryDebounce}
-								className={
-									[
-										'input-d',
-										styles['input-item']
-									].join(' ')
-								} type="text" />
+								className={css('input-d', styles['input-item'])}
+								type="text" />
 						</div>
 					</div>
 					<div className={styles['wrap-table']}>
-						{queryData.isLoading ?
-							<Loading />
-							: null}
+						{
+							queryData.isLoading ? <Loading /> : null
+						}
 						{!queryData.isError ?
 							<FacultiesTable
 								data={queryData.data}

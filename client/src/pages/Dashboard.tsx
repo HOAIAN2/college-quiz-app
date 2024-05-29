@@ -13,6 +13,7 @@ import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { PageDashBoardLang } from '../models/lang'
 import styles from '../styles/Dashboard.module.css'
+import css from '../utils/css'
 
 export default function Dashboard() {
 	const { permissions, appLanguage } = useAppContext()
@@ -27,20 +28,13 @@ export default function Dashboard() {
 		})
 	}
 	return (
-		<div
-			className={
-				[
-					'dashboard-d',
-					styles['dashboard']
-				].join(' ')
-			}
-		>
+		<div className={css('dashboard-d', styles['dashboard'])}>
 			{queryData.isLoading ?
 				<Loading />
 				: null}
 			{
 				!queryData.isError && queryData.data ?
-					<div className={styles['wrap-dasshboard-item']}>
+					<div className={styles['wrap-dashboard-item']}>
 						<DashboardCard
 							to={permissions.has('user_view') ? '/students' : undefined}
 							color='magenta'

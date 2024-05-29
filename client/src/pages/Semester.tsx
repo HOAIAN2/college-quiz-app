@@ -12,6 +12,7 @@ import useLanguage from '../hooks/useLanguage'
 import { PageSemesterLang } from '../models/lang'
 import styles from '../styles/Semester.module.css'
 import createFormUtils from '../utils/createFormUtils'
+import css from '../utils/css'
 
 export default function Semester() {
 	const { permissions } = useAppContext()
@@ -66,12 +67,7 @@ export default function Semester() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			<div className={
-				[
-					'dashboard-d',
-					styles['page-content']
-				].join(' ')
-			}>
+			<div className={css('dashboard-d', styles['page-content'])}>
 				{
 					queryData.isLoading ? <Loading /> : null
 				}
@@ -81,11 +77,7 @@ export default function Semester() {
 				{
 					queryData.data ?
 						<>
-							<div className={
-								[
-									styles['form-content']
-								].join(' ')
-							}>
+							<div className={styles['form-content']}>
 								<div className={styles['header']}>
 									<h2 className={styles['title']}>{queryData.data.name}</h2>
 								</div>
@@ -95,11 +87,7 @@ export default function Semester() {
 									onInput={e => { formUtils.handleOnInput(e) }}
 									className={styles['form-data']}>
 									<input name='is_active' defaultValue='1' hidden />
-									<div className={
-										[
-											styles['group-inputs']
-										].join(' ')
-									}>
+									<div className={styles['group-inputs']}>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='name'>{language?.name}</label>
 											<input
@@ -107,12 +95,8 @@ export default function Semester() {
 												name='name'
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.name}
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='text' />
+												className={css('input-d', styles['input-item'])}
+												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='start_date'>{language?.startDate}</label>
@@ -122,10 +106,7 @@ export default function Semester() {
 													{
 														id: 'start_date',
 														name: 'start_date',
-														className: [
-															'input-d',
-															styles['input-item']
-														].join(' '),
+														className: css('input-d', styles['input-item']),
 														disabled: disabledUpdate
 													}
 												}
@@ -141,10 +122,7 @@ export default function Semester() {
 													{
 														id: 'end_date',
 														name: 'end_date',
-														className: [
-															'input-d',
-															styles['input-item']
-														].join(' '),
+														className: css('input-d', styles['input-item']),
 														disabled: disabledUpdate
 													}
 												}
@@ -161,10 +139,9 @@ export default function Semester() {
 													permissions.has('semester_update') ?
 														<button name='save'
 															className={
-																[
-																	'action-item-d',
+																css('action-item-d',
 																	isPending ? 'button-submitting' : ''
-																].join(' ')
+																)
 															}
 														>{language?.save}</button> : null
 												}
@@ -175,11 +152,7 @@ export default function Semester() {
 															onClick={() => {
 																setShowDeletePopUp(true)
 															}}
-															className={
-																[
-																	'action-item-d-white-border-red'
-																].join(' ')
-															}>
+															className='action-item-d-white-border-red'>
 															<MdDeleteOutline /> {language?.delete}
 														</button> : null
 												}
@@ -191,7 +164,7 @@ export default function Semester() {
 							{
 								permissions.has('course_view') ?
 									<Link
-										to={'courses'}
+										to='courses'
 										state={queryData.data}
 										className={styles['header']}>
 										<h2 className={styles['title']}>

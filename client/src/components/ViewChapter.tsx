@@ -10,6 +10,7 @@ import { Chapter } from '../models/chapter'
 import { ComponentViewChapterLang } from '../models/lang'
 import styles from '../styles/global/ViewModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
+import css from '../utils/css'
 import Loading from './Loading'
 import YesNoPopUp from './YesNoPopUp'
 
@@ -72,20 +73,20 @@ export default function ViewChapter({
 				/> : null}
 			<div
 				className={
-					[
+					css(
 						styles['view-model-container'],
 						hide ? styles['hide'] : ''
-					].join(' ')
+					)
 				}>
 				{
 					isPending ? <Loading /> : null
 				}
 				<div
 					className={
-						[
+						css(
 							styles['view-model-form'],
 							hide ? styles['hide'] : ''
-						].join(' ')
+						)
 					}>
 					<div className={styles['header']}>
 						<h2 className={styles['title']}>{data.name}</h2>
@@ -96,21 +97,13 @@ export default function ViewChapter({
 						</div>
 					</div>
 					<>
-						<div className={
-							[
-								styles['form-content']
-							].join(' ')
-						}>
+						<div className={styles['form-content']}>
 							<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 								mutate(e)
 							}}
 								onInput={(e) => { formUtils.handleOnInput(e) }}
 								className={styles['form-data']}>
-								<div className={
-									[
-										styles['group-inputs']
-									].join(' ')
-								}>
+								<div className={styles['group-inputs']}>
 									<div className={styles['wrap-item']}>
 										<label className={styles['required']} htmlFor='chapter_number'>{language?.chapterNumber}</label>
 										<input
@@ -118,12 +111,8 @@ export default function ViewChapter({
 											name='chapter_number'
 											disabled={disabledUpdate}
 											defaultValue={data.chapterNumber}
-											className={
-												[
-													'input-d',
-													styles['input-item']
-												].join(' ')
-											} type='text' />
+											className={css('input-d', styles['input-item'])}
+											type='text' />
 									</div>
 									<div className={styles['wrap-item']}>
 										<label className={styles['required']} htmlFor='name'>{language?.name}</label>
@@ -132,12 +121,8 @@ export default function ViewChapter({
 											disabled={disabledUpdate}
 											defaultValue={data.name}
 											name='name'
-											className={
-												[
-													'input-d',
-													styles['input-item']
-												].join(' ')
-											} type='text' />
+											className={css('input-d', styles['input-item'])}
+											type='text' />
 									</div>
 								</div>
 								{
@@ -145,10 +130,10 @@ export default function ViewChapter({
 										<div className={styles['action-items']}>
 											<button name='save'
 												className={
-													[
+													css(
 														'action-item-d',
 														isPending ? 'button-submitting' : ''
-													].join(' ')
+													)
 												}
 											><FiSave />{language?.save}</button>
 											<button
@@ -156,11 +141,7 @@ export default function ViewChapter({
 												onClick={() => {
 													setShowDeletePopUp(true)
 												}}
-												className={
-													[
-														'action-item-d-white-border-red'
-													].join(' ')
-												}>
+												className='action-item-d-white-border-red'>
 												<MdDeleteOutline /> {language?.delete}
 											</button>
 										</div>

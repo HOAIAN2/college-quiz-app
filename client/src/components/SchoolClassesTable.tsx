@@ -7,6 +7,7 @@ import { ComponentSchoolClassesTableLang } from '../models/lang'
 import { Pagination } from '../models/response'
 import { SchoolClassDetail } from '../models/school-class'
 import styles from '../styles/global/Table.module.css'
+import css from '../utils/css'
 import ViewSchoolClass from './ViewSchoolClass'
 
 type SchoolClassesTableProps = {
@@ -89,37 +90,23 @@ export default function SchoolClassesTable({
 						<thead>
 							<tr className={styles['table-header']}>
 								{
-									permissions.has('user_delete') ?
-										<th className={
-											[
-												styles['column-select'],
-												styles['column']
-											].join(' ')
-										}>
+									permissions.has('school_class_delete') ?
+										<th className={css(styles['column-select'], styles['column'])}>
 											<input type="checkbox"
 												checked={checkAll}
 												onChange={handleSelectAll} />
 										</th>
 										: null
 								}
-								<th className={
-									[
-										styles['column'],
-										styles['medium']
-									].join(' ')
-								}>{language?.header.shortcode}</th>
-								<th className={
-									[
-										styles['column'],
-										styles['medium']
-									].join(' ')
-								}>{language?.header.name}</th>
-								<th className={
-									[
-										styles['column'],
-										styles['medium']
-									].join(' ')
-								}>{language?.header.faculty}</th>
+								<th className={css(styles['column'], styles['medium'])}>
+									{language?.header.shortcode}
+								</th>
+								<th className={css(styles['column'], styles['medium'])}>
+									{language?.header.name}
+								</th>
+								<th className={css(styles['column'], styles['medium'])}>
+									{language?.header.faculty}
+								</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -134,35 +121,20 @@ export default function SchoolClassesTable({
 											>
 												{
 													permissions.has('faculty_delete') ?
-														<td className={
-															[
-																styles['column'],
-																styles['small'],
-																styles['column-select']
-															].join(' ')
-														}>
+														<td className={css(styles['column'], styles['small'], styles['column-select'])}>
 															<input type="checkbox" />
 														</td>
 														: null
 												}
-												<td className={
-													[
-														styles['column'],
-														styles['medium']
-													].join(' ')
-												}>{schoolClass.shortcode}</td>
-												<td className={
-													[
-														styles['column'],
-														styles['medium']
-													].join(' ')
-												}>{schoolClass.name}</td>
-												<td className={
-													[
-														styles['column'],
-														styles['medium']
-													].join(' ')
-												}>{schoolClass.faculty.name}</td>
+												<td className={css(styles['column'], styles['medium'])}>
+													{schoolClass.shortcode}
+												</td>
+												<td className={css(styles['column'], styles['medium'])}>
+													{schoolClass.name}
+												</td>
+												<td className={css(styles['column'], styles['medium'])}>
+													{schoolClass.faculty.name}
+												</td>
 											</tr>
 										)
 									}) : null
@@ -181,11 +153,8 @@ export default function SchoolClassesTable({
 									<div className={styles['link-content']}>
 										{data.links.map(link => {
 											if (isNaN(Number(link.label))) return (
-												<button key={'faculty' + link.label} className={
-													[
-														styles['next-previous'],
-													].join(' ')
-												}
+												<button key={'faculty' + link.label}
+													className={styles['next-previous']}
 													onClick={() => {
 														if (!link.url) return
 														const url = new URL(link.url)
@@ -197,12 +166,13 @@ export default function SchoolClassesTable({
 												</button>
 											)
 											return (
-												<button key={'faculty' + link.label} className={
-													[
-														'button-d',
-														!link.active ? styles['inactive'] : ''
-													].join(' ')
-												}
+												<button key={'faculty' + link.label}
+													className={
+														css(
+															'button-d',
+															!link.active ? styles['inactive'] : ''
+														)
+													}
 													onClick={() => {
 														if (!link.url) return
 														const url = new URL(link.url)

@@ -15,6 +15,7 @@ import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { PageSchoolClassesLang } from '../models/lang'
 import styles from '../styles/global/TablePage.module.css'
+import css from '../utils/css'
 
 export default function SchoolClasses() {
 	const { permissions } = useAppContext()
@@ -74,28 +75,14 @@ export default function SchoolClasses() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			<div
-				className={
-					[
-						'dashboard-d'
-					].join(' ')
-				}
-			>
+			<div className='dashboard-d'>
 				{
 					permissions.hasAnyFormList(['school_class_create', 'school_class_delete'])
 						?
-						<div className={
-							[
-								'action-bar-d'
-							].join(' ')
-						}>
+						<div className='action-bar-d'>
 							{
 								permissions.has('school_class_create') ?
-									<div className={
-										[
-											'action-item-d'
-										].join(' ')
-									}
+									<div className='action-item-d'
 										onClick={() => {
 											setShowCreatePopUp(true)
 										}}
@@ -110,11 +97,7 @@ export default function SchoolClasses() {
 										onClick={() => {
 											setShowDeletePopUp(true)
 										}}
-										className={
-											[
-												'action-item-d-white-border-red'
-											].join(' ')
-										}>
+										className='action-item-d-white-border-red'>
 										<MdDeleteOutline /> {language?.delete}
 									</div>
 									: null
@@ -159,11 +142,7 @@ export default function SchoolClasses() {
 									searchParams.set('per_page', option.value)
 									setSearchParams(searchParams)
 								}}
-								className={
-									[
-										styles['custom-select']
-									].join(' ')
-								}
+								className={styles['custom-select']}
 							/>
 						</div>
 						<div className={styles['wrap-input-item']}>
@@ -174,18 +153,14 @@ export default function SchoolClasses() {
 								}}
 								name='search'
 								defaultValue={queryDebounce}
-								className={
-									[
-										'input-d',
-										styles['input-item']
-									].join(' ')
-								} type="text" />
+								className={css('input-d', styles['input-item'])}
+								type="text" />
 						</div>
 					</div>
 					<div className={styles['wrap-table']}>
-						{queryData.isLoading ?
-							<Loading />
-							: null}
+						{
+							queryData.isLoading ? <Loading /> : null
+						}
 						{!queryData.isError ?
 							<SchoolClassesTable
 								data={queryData.data}

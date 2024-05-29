@@ -16,6 +16,7 @@ import { ComponentCreateUserLang } from '../models/lang'
 import { RoleName } from '../models/role'
 import styles from '../styles/global/CreateModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
+import css from '../utils/css'
 import renderMonth from '../utils/renderMonth'
 import CustomDataList from './CustomDataList'
 import CustomSelect from './CustomSelect'
@@ -89,19 +90,19 @@ export default function CreateUser({
 	}, [queryClient])
 	return (
 		<div className={
-			[
+			css(
 				styles['create-model-container'],
 				hide ? styles['hide'] : ''
-			].join(' ')
+			)
 		}>
 			{
 				isPending ? <Loading /> : null
 			}
 			<div className={
-				[
+				css(
 					styles['create-model-form'],
 					hide ? styles['hide'] : ''
-				].join(' ')
+				)
 			}>
 				<div className={styles['header']}>
 					<h2 className={styles['title']}>{
@@ -116,80 +117,52 @@ export default function CreateUser({
 						<RxCross2 />
 					</div>
 				</div>
-				<div className={
-					[
-						styles['form-content']
-					].join(' ')
-				}>
+				<div className={styles['form-content']}>
 					<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 						mutate(e)
 					}}
 						onInput={(e) => { formUtils.handleOnInput(e) }}
 						className={styles['form-data']}>
-						<div className={
-							[
-								styles['group-inputs']
-							].join(' ')
-						}>
+						<div className={styles['group-inputs']}>
 							<div className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='email'>{language?.email}</label>
 								<input
 									id='email'
 									name='email'
-									className={
-										[
-											'input-d',
-											styles['input-item']
-										].join(' ')
-									} type='text' />
+									className={css('input-d', styles['input-item'])}
+									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
 								<label htmlFor='phone_number'>{language?.phoneNumber}</label>
 								<input
 									id='phone_number'
 									name='phone_number'
-									className={
-										[
-											'input-d',
-											styles['input-item']
-										].join(' ')
-									} type='text' />
+									className={css('input-d', styles['input-item'])}
+									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='first_name'>{language?.firstName}</label>
 								<input
 									id='first_name'
 									name='first_name'
-									className={
-										[
-											'input-d',
-											styles['input-item']
-										].join(' ')
-									} type='text' />
+									className={css('input-d', styles['input-item'])}
+									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='last_name'>{language?.lastName}</label>
 								<input
 									id='last_name'
 									name='last_name'
-									className={
-										[
-											'input-d',
-											styles['input-item']
-										].join(' ')
-									} type='text' />
+									className={css('input-d', styles['input-item'])}
+									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 								<input
 									id='shortcode'
 									name='shortcode'
-									className={
-										[
-											'input-d',
-											styles['input-item']
-										].join(' ')
-									} type='text' />
+									className={css('input-d', styles['input-item'])}
+									type='text' />
 							</div>
 							{role === 'student' ?
 								<div style={{ zIndex: 2 }} className={styles['wrap-item']}>
@@ -227,11 +200,7 @@ export default function CreateUser({
 									name='gender'
 									defaultOption={options[0]}
 									options={options}
-									className={
-										[
-											styles['custom-select']
-										].join(' ')
-									}
+									className={styles['custom-select']}
 								/>
 							</div>
 							<div className={styles['wrap-item']}>
@@ -239,12 +208,8 @@ export default function CreateUser({
 								<input
 									id='address'
 									name='address'
-									className={
-										[
-											'input-d',
-											styles['input-item']
-										].join(' ')
-									} type='text' />
+									className={css('input-d', styles['input-item'])}
+									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
@@ -255,10 +220,7 @@ export default function CreateUser({
 										{
 											id: 'birth_date',
 											name: 'birth_date',
-											className: [
-												'input-d',
-												styles['input-item']
-											].join(' ')
+											className: css('input-d', styles['input-item'])
 										}
 									}
 									closeOnSelect={true}
@@ -270,28 +232,24 @@ export default function CreateUser({
 								<input
 									id='password'
 									name='password'
-									className={
-										[
-											'input-d',
-											styles['input-item']
-										].join(' ')
-									} type='password' />
+									className={css('input-d', styles['input-item'])}
+									type='password' />
 							</div>
 						</div>
 						<div className={styles['action-items']}>
 							<button name='save'
 								className={
-									[
+									css(
 										'action-item-d',
 										isPending ? 'button-submitting' : ''
-									].join(' ')
+									)
 								}><FiSave />{language?.save}</button>
 							<button name='save-more'
 								className={
-									[
+									css(
 										'action-item-d-white',
 										isPending ? 'button-submitting' : ''
-									].join(' ')
+									)
 								}
 							><FiSave />{language?.saveMore}</button>
 						</div>

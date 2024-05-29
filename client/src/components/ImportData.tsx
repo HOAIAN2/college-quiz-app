@@ -7,6 +7,7 @@ import { RxCross2 } from 'react-icons/rx'
 import useLanguage from '../hooks/useLanguage'
 import { ComponentImportDataLang } from '../models/lang'
 import styles from '../styles/ImportData.module.css'
+import css from '../utils/css'
 import Loading from './Loading'
 
 type ImportDataProps = {
@@ -68,19 +69,19 @@ export default function ImportData({
 	return (
 		<div
 			className={
-				[
+				css(
 					styles['import-data-container'],
 					hide ? styles['hide'] : ''
-				].join(' ')
+				)
 			}>
 			{mutation.isPending ?
 				<Loading /> : null}
 			<div
 				className={
-					[
+					css(
 						styles['import-data-form'],
 						hide ? styles['hide'] : ''
-					].join(' ')
+					)
 				}>
 				<div className={styles['header']}>
 					<h2 className={styles['title']}>{title}</h2>
@@ -90,17 +91,8 @@ export default function ImportData({
 						<RxCross2 />
 					</div>
 				</div>
-				<div
-					className={
-						[
-							styles['form-data']
-						].join(' ')
-					}>
-					<div className={
-						[
-							styles['drag-area']
-						].join(' ')
-					}>
+				<div className={styles['form-data']}>
+					<div className={styles['drag-area']}>
 						<label htmlFor='file'
 							onDragOver={(e) => {
 								e.preventDefault()
@@ -111,24 +103,17 @@ export default function ImportData({
 								e.currentTarget.classList.remove(styles['drag'])
 							}}
 							onDrop={handleOnDrop}
-							className={
-								[
-									styles['drag-area-dashed']
-								].join(' ')
-							}>
-							<div className={
-								[
-									styles['drag-area-content']
-								].join(' ')
-							}>
+							className={styles['drag-area-dashed']}>
+							<div className={styles['drag-area-content']}>
 								{
 									file ?
-										<div className={
-											[
-												styles['file-name'],
-												styles['have-file']
-											].join(' ')
-										}
+										<div
+											className={
+												css(
+													styles['file-name'],
+													styles['have-file']
+												)
+											}
 											title={file.name}>
 											{icon}
 											<p className={styles['content']}>
@@ -136,11 +121,7 @@ export default function ImportData({
 											</p>
 										</div>
 										:
-										<div className={
-											[
-												styles['file-name'],
-											].join(' ')
-										}>
+										<div className={styles['file-name']}>
 											<IoMdAddCircleOutline />
 										</div>
 								}
@@ -159,10 +140,10 @@ export default function ImportData({
 						<button
 							onClick={() => { mutation.mutate() }}
 							name='save' className={
-								[
+								css(
 									'action-item-d',
 									mutation.isPending ? styles['pending'] : ''
-								].join(' ')
+								)
 							}>{language?.save}
 						</button>
 						<a

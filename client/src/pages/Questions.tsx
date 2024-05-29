@@ -16,6 +16,7 @@ import useLanguage from '../hooks/useLanguage'
 import { PageQuestionsLang } from '../models/lang'
 import { SubjectDetail } from '../models/subject'
 import styles from '../styles/global/CardPage.module.css'
+import css from '../utils/css'
 
 export default function Questions() {
 	const { state } = useLocation() as { state: SubjectDetail | null }
@@ -78,28 +79,14 @@ export default function Questions() {
 					setShowPopUp={setShowCreatePopUp}
 					subjectDetail={subjectDetail}
 				/> : null}
-			<div
-				className={
-					[
-						'dashboard-d'
-					].join(' ')
-				}
-			>
+			<div className='dashboard-d'>
 				{
 					permissions.hasAnyFormList(['question_create'])
 						?
-						<div className={
-							[
-								'action-bar-d'
-							].join(' ')
-						}>
+						<div className='action-bar-d'>
 							{
 								permissions.has('question_create') ?
-									<div className={
-										[
-											'action-item-d'
-										].join(' ')
-									}
+									<div className='action-item-d'
 										onClick={() => {
 											setShowCreatePopUp(true)
 										}}
@@ -112,9 +99,9 @@ export default function Questions() {
 						: null
 				}
 				<div className={styles['page-content']}>
-					{queryData.isLoading ?
-						<Loading />
-						: null}
+					{
+						queryData.isLoading ? <Loading /> : null
+					}
 					<div className={styles['filter-form']}>
 						<div className={styles['wrap-input-item']}>
 							<label htmlFor="">{language?.filter.chapter}</label>
@@ -141,11 +128,7 @@ export default function Questions() {
 									else searchParams.delete('chapter')
 									setSearchParams(searchParams)
 								}}
-								className={
-									[
-										styles['custom-select']
-									].join(' ')
-								}
+								className={styles['custom-select']}
 							/>
 						</div>
 						<div className={styles['wrap-input-item']}>
@@ -156,12 +139,8 @@ export default function Questions() {
 								}}
 								name='search'
 								defaultValue={queryDebounce}
-								className={
-									[
-										'input-d',
-										styles['input-item']
-									].join(' ')
-								} type="text" />
+								className={css('input-d', styles['input-item'])}
+								type="text" />
 						</div>
 					</div>
 					<div className={styles['wrap-card-container']}>
@@ -175,12 +154,7 @@ export default function Questions() {
 												setShowViewPopUp(true)
 											}}
 											key={`subject-${item.id}`}
-											className={
-												[
-													'dashboard-card-d',
-													styles['card'],
-												].join(' ')
-											}>
+											className={css('dashboard-card-d', styles['card'])}>
 											<div className={styles['card-top']}>
 												<p className={styles['content']}>
 													{item.content}

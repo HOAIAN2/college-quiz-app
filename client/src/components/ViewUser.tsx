@@ -14,6 +14,7 @@ import useLanguage from '../hooks/useLanguage'
 import { ComponentViewUserLang } from '../models/lang'
 import styles from '../styles/global/ViewModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
+import css from '../utils/css'
 import languageUtils from '../utils/languageUtils'
 import renderMonth from '../utils/renderMonth'
 import CustomDataList from './CustomDataList'
@@ -96,20 +97,20 @@ export default function ViewUser({
 	return (
 		<div
 			className={
-				[
+				css(
 					styles['view-model-container'],
 					hide ? styles['hide'] : ''
-				].join(' ')
+				)
 			}>
 			{
 				isPending ? <Loading /> : null
 			}
 			<div
 				className={
-					[
+					css(
 						styles['view-model-form'],
 						hide ? styles['hide'] : ''
-					].join(' ')
+					)
 				}>
 				<div className={styles['header']}>
 					<h2 className={styles['title']}>{languageUtils.getFullName(queryData.data?.firstName, queryData.data?.lastName)}</h2>
@@ -120,14 +121,10 @@ export default function ViewUser({
 					</div>
 				</div>
 				<>
-					{queryData.isLoading ?
-						<Loading />
-						: null}
-					<div className={
-						[
-							styles['form-content']
-						].join(' ')
-					}>
+					{
+						queryData.isLoading ? <Loading /> : null
+					}
+					<div className={styles['form-content']}>
 						{
 							queryData.data ? (
 								<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
@@ -135,11 +132,7 @@ export default function ViewUser({
 								}}
 									onInput={(e) => { formUtils.handleOnInput(e) }}
 									className={styles['form-data']}>
-									<div className={
-										[
-											styles['group-inputs']
-										].join(' ')
-									}>
+									<div className={styles['group-inputs']}>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='email'>{language?.email}</label>
 											<input
@@ -147,12 +140,8 @@ export default function ViewUser({
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.email}
 												name='email'
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='text' />
+												className={css('input-d', styles['input-item'])}
+												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
 											<label htmlFor='phone_number'>{language?.phoneNumber}</label>
@@ -161,12 +150,8 @@ export default function ViewUser({
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.phoneNumber || ''}
 												name='phone_number'
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='text' />
+												className={css('input-d', styles['input-item'])}
+												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='first_name'>{language?.firstName}</label>
@@ -175,12 +160,8 @@ export default function ViewUser({
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.firstName}
 												name='first_name'
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='text' />
+												className={css('input-d', styles['input-item'])}
+												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='last_name'>{language?.lastName}</label>
@@ -189,12 +170,8 @@ export default function ViewUser({
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.lastName}
 												name='last_name'
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='text' />
+												className={css('input-d', styles['input-item'])}
+												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
@@ -203,12 +180,8 @@ export default function ViewUser({
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.shortcode}
 												name='shortcode'
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='text' />
+												className={css('input-d', styles['input-item'])}
+												type='text' />
 										</div>
 										{queryData.data.role.name === 'student' ?
 											<div style={{ zIndex: 3 }} className={styles['wrap-item']}>
@@ -264,11 +237,7 @@ export default function ViewUser({
 												}
 												disabled={disabledUpdate}
 												options={genderOptions}
-												className={
-													[
-														styles['custom-select']
-													].join(' ')
-												}
+												className={styles['custom-select']}
 											/>
 										</div>
 										<div className={styles['wrap-item']}>
@@ -278,12 +247,8 @@ export default function ViewUser({
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.address}
 												name='address'
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='text' />
+												className={css('input-d', styles['input-item'])}
+												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
@@ -295,10 +260,7 @@ export default function ViewUser({
 														id: 'birth_date',
 														disabled: disabledUpdate,
 														name: 'birth_date',
-														className: [
-															'input-d',
-															styles['input-item']
-														].join(' ')
+														className: css('input-d', styles['input-item'])
 													}
 												}
 												closeOnSelect={true}
@@ -315,11 +277,7 @@ export default function ViewUser({
 												}
 												disabled={disabledUpdate}
 												options={statusOptions}
-												className={
-													[
-														styles['custom-select']
-													].join(' ')
-												}
+												className={styles['custom-select']}
 											/>
 										</div>
 										<div className={styles['wrap-item']}>
@@ -329,12 +287,8 @@ export default function ViewUser({
 												disabled={disabledUpdate}
 												placeholder={language?.leaveBlank}
 												name='password'
-												className={
-													[
-														'input-d',
-														styles['input-item']
-													].join(' ')
-												} type='password' />
+												className={css('input-d', styles['input-item'])}
+												type='password' />
 										</div>
 									</div>
 									{
@@ -342,10 +296,10 @@ export default function ViewUser({
 											<div className={styles['action-items']}>
 												<button name='save'
 													className={
-														[
+														css(
 															'action-item-d',
 															isPending ? 'button-submitting' : ''
-														].join(' ')
+														)
 													}
 												><FiSave />{language?.save}</button>
 											</div>

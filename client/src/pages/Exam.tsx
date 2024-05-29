@@ -13,6 +13,7 @@ import useLanguage from '../hooks/useLanguage'
 import { PageExamLang } from '../models/lang'
 import styles from '../styles/Exam.module.css'
 import caculateScore from '../utils/caculateScore'
+import css from '../utils/css'
 import languageUtils from '../utils/languageUtils'
 
 export default function Exam() {
@@ -69,53 +70,35 @@ export default function Exam() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			<div className={
-				[
-					'dashboard-d',
-					styles['page-content']
-				].join(' ')
-			}>
+			<div className={css('dashboard-d', styles['page-content'])}>
 				{
 					queryData.isLoading ? <Loading /> : null
 				}
 				{
 					queryData.data ?
 						<>
-							<div className={
-								[
-									styles['exam-info-container'],
-								].join(' ')
-							}>
+							<div className={styles['exam-info-container']}>
 								<div className={styles['header']}>
 									<h2 className={styles['title']}>{language?.exam}</h2>
 								</div>
 								<div className={styles['exam-info']}>
-									<div className={
-										[
-											styles['group-infos']
-										].join(' ')
-									}>
+									<div className={styles['group-infos']}>
 										<div className={styles['wrap-item']}>
-											<label htmlFor='name'>{language?.name}: </label>
+											<label>{language?.name}: </label>
 											<p>{queryData.data.name}</p>
 										</div>
 										<div className={styles['wrap-item']}>
-											<label htmlFor='name'>{language?.examDate}: </label>
+											<label>{language?.examDate}: </label>
 											<p>{new Date(queryData.data.examDate).toLocaleString(appLanguage.language)}</p>
 										</div>
 										<div className={styles['wrap-item']}>
-											<label htmlFor='name'>{language?.examTime}: </label>
+											<label>{language?.examTime}: </label>
 											<p>
 												{moment.duration(queryData.data.examTime, 'minutes').humanize()}
 											</p>
 										</div>
-										<div
-											className={[
-												styles['wrap-item'],
-												styles['supervisors-container'],
-											].join(' ')
-											}>
-											<label htmlFor='name'>{language?.supervisors}</label>
+										<div className={css(styles['wrap-item'], styles['supervisors-container'])}>
+											<label>{language?.supervisors}</label>
 											<p>
 												{queryData.data.examSupervisors.map(supervisor => {
 													return (
@@ -139,12 +122,7 @@ export default function Exam() {
 															style={{ width: 'fit-content' }}
 															to='take'
 															type='button'
-															className={
-																[
-																	'action-item-d',
-																	// isPending ? 'button-submitting' : ''
-																].join(' ')
-															}
+															className='action-item-d'
 														><LuAlarmClock />{language?.doExam}
 														</Link>
 													</> : null
@@ -159,12 +137,7 @@ export default function Exam() {
 																		setShowStartExamPopUp(true)
 																	}}
 																	type='button'
-																	className={
-																		[
-																			'action-item-d',
-																			// isPending ? 'button-submitting' : ''
-																		].join(' ')
-																	}
+																	className='action-item-d'
 																><LuAlarmClock /> {language?.startExam}
 																</button>
 																: null
@@ -174,11 +147,7 @@ export default function Exam() {
 															onClick={() => {
 																setShowCancelExamPopUp(true)
 															}}
-															className={
-																[
-																	'action-item-d-white-border-red'
-																].join(' ')
-															}>
+															className='action-item-d-white-border-red'>
 															<ImCancelCircle /> {language?.cancelExam}
 														</button>
 													</> : null
@@ -187,28 +156,20 @@ export default function Exam() {
 										: null
 								}
 							</div>
-							<div className={
-								[
-									styles['result-container'],
-								].join(' ')
-							}>
+							<div className={styles['result-container']}>
 								<div className={styles['header']}>
 									<h2 className={styles['title']}>{language?.result}</h2>
 								</div>
-								<div className={
-									[
-										'action-bar-d'
-									].join(' ')
-								}
+								<div className='action-bar-d'
 									style={{ marginBottom: '20px' }}
 								>
 									<button
 										className={
-											[
+											css(
 												queryData.isFetching ? 'button-submitting' : '',
 												queryData.isFetching ? styles['refreshing'] : '',
-												'action-item-d',
-											].join(' ')
+												'action-item-d'
+											)
 										}
 										onClick={() => { queryData.refetch() }}
 									>
@@ -220,26 +181,18 @@ export default function Exam() {
 									<table className={styles['table']}>
 										<thead>
 											<tr>
-												<th className={
-													[
-														styles['column'],
-														styles['super-large'],
-													].join(' ')
-												}>{language?.name}</th>
-												<th className={
-													[
-														styles['column'],
-														styles['medium'],
-													].join(' ')
-												}>{language?.schoolClass}</th>
-												<th className={[
-													styles['column'],
-													styles['medium'],
-												].join(' ')}>{language?.genders.gender}</th>
-												<th className={[
-													styles['column'],
-													styles['medium'],
-												].join(' ')}>{language?.score}</th>
+												<th className={css(styles['column'], styles['super-large'])}>
+													{language?.name}
+												</th>
+												<th className={css(styles['column'], styles['medium'])}>
+													{language?.schoolClass}
+												</th>
+												<th className={css(styles['column'], styles['medium'])}>
+													{language?.genders.gender}
+												</th>
+												<th className={css(styles['column'], styles['medium'])}>
+													{language?.score}
+												</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -247,30 +200,16 @@ export default function Exam() {
 												queryData.data.result.map(item => {
 													return (
 														<tr key={`exam-result-${item.studentId}`}>
-															<td className={
-																[
-																	styles['column'],
-																	styles['super-large'],
-																].join(' ')
-															}>{languageUtils.getFullName(item.firstName, item.lastName)}</td>
-															<td className={
-																[
-																	styles['column'],
-																	styles['medium'],
-																].join(' ')
-															}>{item.schoolClassShortcode}</td>
-															<td className={
-																[
-																	styles['column'],
-																	styles['medium'],
-																].join(' ')
-															}>{language?.genders[item.gender]}</td>
-															<td className={
-																[
-																	styles['column'],
-																	styles['medium'],
-																].join(' ')
-															}>
+															<td className={css(styles['column'], styles['super-large'])}>
+																{languageUtils.getFullName(item.firstName, item.lastName)}
+															</td>
+															<td className={css(styles['column'], styles['medium'])}>
+																{item.schoolClassShortcode}
+															</td>
+															<td className={css(styles['column'], styles['medium'])}>
+																{language?.genders[item.gender]}
+															</td>
+															<td className={css(styles['column'], styles['medium'])}>
 																{item.correctCount === null
 																	? language?.didNotSubmitted :
 																	caculateScore(item.correctCount, item.questionCount)}
