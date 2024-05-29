@@ -102,3 +102,5 @@ Run `composer install` to continue development or just use this everytime.
 ### Exam Result UI
 
 ![Demo](./img/Screenshot%202024-05-20%20144710.jpg)
+
+Full review (Vietnamese) at Youtube: https://www.youtube.com/watch?v=Xkss5f4N0vw
