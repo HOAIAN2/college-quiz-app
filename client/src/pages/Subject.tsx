@@ -91,7 +91,7 @@ export default function Subject() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			<div className={css('dashboard-d', styles['page-content'])}>
+			<main className={css('dashboard-d', styles['page-content'])}>
 				{
 					queryData.isLoading ? <Loading /> : null
 				}
@@ -101,7 +101,7 @@ export default function Subject() {
 				{
 					queryData.data ?
 						<>
-							<div className={styles['form-content']}>
+							<section className={styles['form-content']}>
 								<div className={styles['header']}>
 									<h2 className={styles['title']}>{queryData.data.name}</h2>
 								</div>
@@ -163,7 +163,7 @@ export default function Subject() {
 											: null
 									}
 								</form>
-							</div>
+							</section>
 							<div className={styles['header']}>
 								<h2 className={styles['title']}>{language?.chapters}</h2>
 							</div>
@@ -222,7 +222,7 @@ export default function Subject() {
 							}
 						</> : null
 				}
-			</div >
+			</main>
 		</>
 	)
 }

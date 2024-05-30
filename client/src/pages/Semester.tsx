@@ -67,7 +67,7 @@ export default function Semester() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			<div className={css('dashboard-d', styles['page-content'])}>
+			<main className={css('dashboard-d', styles['page-content'])}>
 				{
 					queryData.isLoading ? <Loading /> : null
 				}
@@ -77,7 +77,7 @@ export default function Semester() {
 				{
 					queryData.data ?
 						<>
-							<div className={styles['form-content']}>
+							<section className={styles['form-content']}>
 								<div className={styles['header']}>
 									<h2 className={styles['title']}>{queryData.data.name}</h2>
 								</div>
@@ -160,7 +160,7 @@ export default function Semester() {
 											: null
 									}
 								</form>
-							</div>
+							</section>
 							{
 								permissions.has('course_view') ?
 									<Link
@@ -175,7 +175,7 @@ export default function Semester() {
 							}
 						</> : null
 				}
-			</div >
+			</main>
 		</>
 	)
 }

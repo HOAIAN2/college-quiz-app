@@ -75,11 +75,11 @@ export default function Faculties() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			<div className='dashboard-d'>
+			<main className='dashboard-d'>
 				{
 					permissions.hasAnyFormList(['faculty_create', 'faculty_delete'])
 						?
-						<div className='action-bar-d'>
+						<section className='action-bar-d'>
 							{
 								permissions.has('faculty_create') ?
 									<div
@@ -103,10 +103,10 @@ export default function Faculties() {
 									</div>
 									: null
 							}
-						</div>
+						</section>
 						: null
 				}
-				<div className={styles['table-page-content']}>
+				<section className={styles['table-page-content']}>
 					<div className={styles['filter-form']}>
 						<div className={styles['wrap-input-item']}>
 							<label>{language?.filter.perPage}</label>
@@ -152,10 +152,9 @@ export default function Faculties() {
 								onInput={(e) => {
 									setSearchQuery(e.currentTarget.value)
 								}}
-								name='search'
 								defaultValue={queryDebounce}
 								className={css('input-d', styles['input-item'])}
-								type="text" />
+							/>
 						</div>
 					</div>
 					<div className={styles['wrap-table']}>
@@ -172,8 +171,8 @@ export default function Faculties() {
 							/>
 							: null}
 					</div>
-				</div>
-			</div>
+				</section>
+			</main>
 		</>
 	)
 }

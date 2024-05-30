@@ -122,11 +122,11 @@ export default function Users({
 					setImportMode={setShowImportPopUp}
 					onMutateSuccess={onMutateSuccess}
 				/> : null}
-			<div className='dashboard-d'>
+			<main className='dashboard-d'>
 				{
 					permissions.hasAnyFormList(['user_view', 'user_create', 'user_update', 'user_delete'])
 						?
-						<div className='action-bar-d'>
+						<section className='action-bar-d'>
 							{
 								permissions.has('user_create') ?
 									<div className='action-item-d'
@@ -171,13 +171,13 @@ export default function Users({
 									</div>
 									: null
 							}
-						</div>
+						</section>
 						: null
 				}
-				<div className={styles['table-page-content']}>
+				<section className={styles['table-page-content']}>
 					<div className={styles['filter-form']}>
 						<div className={styles['wrap-input-item']}>
-							<label htmlFor="">{language?.filter.perPage}</label>
+							<label>{language?.filter.perPage}</label>
 							<CustomSelect
 								defaultOption={
 									{
@@ -215,15 +215,14 @@ export default function Users({
 							/>
 						</div>
 						<div className={styles['wrap-input-item']}>
-							<label htmlFor="">{language?.filter.search}</label>
+							<label>{language?.filter.search}</label>
 							<input
 								onInput={(e) => {
 									setSearchQuery(e.currentTarget.value)
 								}}
-								name='search'
 								defaultValue={queryDebounce}
 								className={css('input-d', styles['input-item'])}
-								type="text" />
+							/>
 						</div>
 					</div>
 					<div className={styles['wrap-table']}>
@@ -241,8 +240,8 @@ export default function Users({
 							/>
 							: null}
 					</div>
-				</div>
-			</div >
+				</section>
+			</main>
 		</>
 	)
 }

@@ -44,11 +44,11 @@ export default function Subjects() {
 					onMutateSuccess={onMutateSuccess}
 					setShowPopUp={setShowCreatePopUp}
 				/> : null}
-			<div className='dashboard-d'>
+			<main className='dashboard-d'>
 				{
 					permissions.hasAnyFormList(['subject_create'])
 						?
-						<div className='action-bar-d'>
+						<section className='action-bar-d'>
 							{
 								permissions.has('subject_create') ?
 									<button className='action-item-d'
@@ -60,24 +60,23 @@ export default function Subjects() {
 									</button>
 									: null
 							}
-						</div>
+						</section>
 						: null
 				}
-				<div className={styles['page-content']}>
+				<section className={styles['page-content']}>
 					{
 						queryData.isLoading ? <Loading /> : null
 					}
 					<div className={styles['filter-form']}>
 						<div className={styles['wrap-input-item']}>
-							<label htmlFor="">{language?.filter.search}</label>
+							<label>{language?.filter.search}</label>
 							<input
 								onInput={(e) => {
 									setSearchQuery(e.currentTarget.value)
 								}}
-								name='search'
 								defaultValue={queryDebounce}
 								className={css('input-d', styles['input-item'])}
-								type="text" />
+							/>
 						</div>
 					</div>
 					<div className={styles['wrap-card-container']}>
@@ -103,8 +102,8 @@ export default function Subjects() {
 								}) : null}
 						</div>
 					</div>
-				</div>
-			</div>
+				</section>
+			</main>
 		</>
 	)
 }

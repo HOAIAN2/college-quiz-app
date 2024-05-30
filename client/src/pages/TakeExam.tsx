@@ -123,7 +123,7 @@ export default function TakeExam() {
 			{
 				queryData.data ?
 					<>
-						<div className={styles['take-exam-container']}>
+						<main className={styles['take-exam-container']}>
 							<div className={styles['data-container']}>
 								<div className={styles['title']}>
 									<div>
@@ -157,7 +157,7 @@ export default function TakeExam() {
 									</button>
 								</div>
 							</div>
-						</div>
+						</main>
 					</> : null
 			}
 		</>

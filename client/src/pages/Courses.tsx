@@ -70,12 +70,11 @@ export default function Courses() {
 					onMutateSuccess={onMutateSuccess}
 					setShowPopUp={setShowCreatePopUp}
 				/> : null}
-			<div className='dashboard-d'
-			>
+			<main className='dashboard-d'>
 				{
 					permissions.hasAnyFormList(['course_create',])
 						?
-						<div className='action-bar-d'>
+						<section className='action-bar-d'>
 							{
 								permissions.has('course_create') ?
 									<div className='action-item-d'
@@ -87,10 +86,10 @@ export default function Courses() {
 									</div>
 									: null
 							}
-						</div>
+						</section>
 						: null
 				}
-				<div className={styles['page-content']}>
+				<section className={styles['page-content']}>
 					{
 						queryData.isLoading ? <Loading /> : null
 					}
@@ -103,7 +102,7 @@ export default function Courses() {
 								}}
 								defaultValue={queryDebounce}
 								className={css('input-d', styles['input-item'])}
-								type="text" />
+							/>
 						</div>
 					</div>
 					<div className={styles['wrap-card-container']}>
@@ -127,8 +126,8 @@ export default function Courses() {
 								}) : null}
 						</div>
 					</div>
-				</div>
-			</div>
+				</section>
+			</main>
 		</>
 	)
 }

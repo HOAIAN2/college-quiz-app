@@ -28,13 +28,13 @@ export default function Dashboard() {
 		})
 	}
 	return (
-		<div className={css('dashboard-d', styles['dashboard'])}>
+		<main className={css('dashboard-d', styles['dashboard'])}>
 			{queryData.isLoading ?
 				<Loading />
 				: null}
 			{
 				!queryData.isError && queryData.data ?
-					<div className={styles['wrap-dashboard-item']}>
+					<section className={styles['wrap-dashboard-item']}>
 						<DashboardCard
 							to={permissions.has('user_view') ? '/students' : undefined}
 							color='magenta'
@@ -62,8 +62,8 @@ export default function Dashboard() {
 							data={formatNumber(queryData.data?.examsInThisMonth)}
 							icon={<PiExam />}
 						/>
-					</div> : null
+					</section> : null
 			}
-		</div>
+		</main>
 	)
 }

@@ -70,14 +70,14 @@ export default function Exam() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			<div className={css('dashboard-d', styles['page-content'])}>
+			<main className={css('dashboard-d', styles['page-content'])}>
 				{
 					queryData.isLoading ? <Loading /> : null
 				}
 				{
 					queryData.data ?
 						<>
-							<div className={styles['exam-info-container']}>
+							<section className={styles['exam-info-container']}>
 								<div className={styles['header']}>
 									<h2 className={styles['title']}>{language?.exam}</h2>
 								</div>
@@ -155,8 +155,8 @@ export default function Exam() {
 										</div>
 										: null
 								}
-							</div>
-							<div className={styles['result-container']}>
+							</section>
+							<section className={styles['result-container']}>
 								<div className={styles['header']}>
 									<h2 className={styles['title']}>{language?.result}</h2>
 								</div>
@@ -221,10 +221,10 @@ export default function Exam() {
 										</tbody>
 									</table>
 								</div>
-							</div>
+							</section>
 						</> : null
 				}
-			</div >
+			</main>
 		</>
 	)
 }

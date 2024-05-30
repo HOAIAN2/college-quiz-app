@@ -75,11 +75,11 @@ export default function SchoolClasses() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			<div className='dashboard-d'>
+			<main className='dashboard-d'>
 				{
 					permissions.hasAnyFormList(['school_class_create', 'school_class_delete'])
 						?
-						<div className='action-bar-d'>
+						<section className='action-bar-d'>
 							{
 								permissions.has('school_class_create') ?
 									<div className='action-item-d'
@@ -102,13 +102,13 @@ export default function SchoolClasses() {
 									</div>
 									: null
 							}
-						</div>
+						</section>
 						: null
 				}
-				<div className={styles['table-page-content']}>
+				<section className={styles['table-page-content']}>
 					<div className={styles['filter-form']}>
 						<div className={styles['wrap-input-item']}>
-							<label htmlFor="">{language?.filter.perPage}</label>
+							<label>{language?.filter.perPage}</label>
 							<CustomSelect
 								defaultOption={
 									{
@@ -146,15 +146,14 @@ export default function SchoolClasses() {
 							/>
 						</div>
 						<div className={styles['wrap-input-item']}>
-							<label htmlFor="">{language?.filter.search}</label>
+							<label>{language?.filter.search}</label>
 							<input
 								onInput={(e) => {
 									setSearchQuery(e.currentTarget.value)
 								}}
-								name='search'
 								defaultValue={queryDebounce}
 								className={css('input-d', styles['input-item'])}
-								type="text" />
+							/>
 						</div>
 					</div>
 					<div className={styles['wrap-table']}>
@@ -171,8 +170,8 @@ export default function SchoolClasses() {
 							/>
 							: null}
 					</div>
-				</div>
-			</div>
+				</section>
+			</main>
 		</>
 	)
 }

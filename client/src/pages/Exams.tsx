@@ -70,65 +70,63 @@ export default function Exams() {
 	}, [forceUpdate])
 	return (
 		<>
-			<div className='dashboard-d'>
-				<div className={styles['page-content']}>
-					{
-						queryData.isLoading ? <Loading /> : null
-					}
-					<div className={styles['filter-form']}>
-						<div className={styles['wrap-input-item']}>
-							<label htmlFor="month">{language?.month}</label>
-							<Datetime
-								renderMonth={renderMonth}
-								locale={appLanguage.language}
-								initialValue={initQueryDate()}
-								inputProps={
-									{
-										id: 'month',
-										name: 'month',
-										className: css('input-d', styles['input-item'])
-									}
+			<main className={css(styles['page-content'], 'dashboard-d')}>
+				{
+					queryData.isLoading ? <Loading /> : null
+				}
+				<section className={styles['filter-form']}>
+					<div className={styles['wrap-input-item']}>
+						<label htmlFor="month">{language?.month}</label>
+						<Datetime
+							renderMonth={renderMonth}
+							locale={appLanguage.language}
+							initialValue={initQueryDate()}
+							inputProps={
+								{
+									id: 'month',
+									name: 'month',
+									className: css('input-d', styles['input-item'])
 								}
-								onChange={e => {
-									const date = new Date(e.toString())
-									searchParams.set('month', String(date.getMonth() + 1))
-									searchParams.set('year', String(date.getFullYear()))
-									setSearchParams(searchParams)
-								}}
-								closeOnSelect={true}
-								dateFormat={monthYearFormat}
-								timeFormat={false}
-							/>
-						</div>
+							}
+							onChange={e => {
+								const date = new Date(e.toString())
+								searchParams.set('month', String(date.getMonth() + 1))
+								searchParams.set('year', String(date.getFullYear()))
+								setSearchParams(searchParams)
+							}}
+							closeOnSelect={true}
+							dateFormat={monthYearFormat}
+							timeFormat={false}
+						/>
 					</div>
-					<div className={styles['wrap-card-container']}>
-						<div className={styles['card-container']}>
-							{queryData.data ?
-								queryData.data.map(item => {
-									return (
-										<Link
-											key={`exam-${item.id}`}
-											to={String(item.id)}
-											className={css('dashboard-card-d', styles['card'])}
-										>
-											<div className={styles['card-section']}>
-												<p className={styles['content']}>
-													{item.name}
-												</p>
-											</div>
-											<div className={styles['card-section']}>
-												{showExamStatus(item)}
-											</div>
-											<div className={styles['card-section']}>
-												{item.course.subject.name}
-											</div>
-										</Link>
-									)
-								}) : null}
-						</div>
+				</section>
+				<section className={styles['wrap-card-container']}>
+					<div className={styles['card-container']}>
+						{queryData.data ?
+							queryData.data.map(item => {
+								return (
+									<Link
+										key={`exam-${item.id}`}
+										to={String(item.id)}
+										className={css('dashboard-card-d', styles['card'])}
+									>
+										<div className={styles['card-section']}>
+											<p className={styles['content']}>
+												{item.name}
+											</p>
+										</div>
+										<div className={styles['card-section']}>
+											{showExamStatus(item)}
+										</div>
+										<div className={styles['card-section']}>
+											{item.course.subject.name}
+										</div>
+									</Link>
+								)
+							}) : null}
 					</div>
-				</div>
-			</div>
+				</section>
+			</main>
 		</>
 	)
 }

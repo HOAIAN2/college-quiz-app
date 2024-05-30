@@ -79,11 +79,11 @@ export default function Questions() {
 					setShowPopUp={setShowCreatePopUp}
 					subjectDetail={subjectDetail}
 				/> : null}
-			<div className='dashboard-d'>
+			<main className='dashboard-d'>
 				{
 					permissions.hasAnyFormList(['question_create'])
 						?
-						<div className='action-bar-d'>
+						<section className='action-bar-d'>
 							{
 								permissions.has('question_create') ?
 									<div className='action-item-d'
@@ -95,10 +95,10 @@ export default function Questions() {
 									</div>
 									: null
 							}
-						</div>
+						</section>
 						: null
 				}
-				<div className={styles['page-content']}>
+				<section className={styles['page-content']}>
 					{
 						queryData.isLoading ? <Loading /> : null
 					}
@@ -140,7 +140,7 @@ export default function Questions() {
 								name='search'
 								defaultValue={queryDebounce}
 								className={css('input-d', styles['input-item'])}
-								type="text" />
+							/>
 						</div>
 					</div>
 					<div className={styles['wrap-card-container']}>
@@ -169,8 +169,8 @@ export default function Questions() {
 								}) : null}
 						</div>
 					</div>
-				</div>
-			</div>
+				</section>
+			</main>
 		</>
 	)
 }

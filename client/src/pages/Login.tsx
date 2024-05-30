@@ -55,7 +55,7 @@ export default function Login() {
 		if (DOM.titleRef.current) DOM.titleRef.current.textContent = language?.login || ''
 	}, [DOM.titleRef, language])
 	return (
-		<div className={styles['login-page']}>
+		<main className={styles['login-page']}>
 			<form onSubmit={handleLogin} className={styles['form']} onInput={handlePreventSubmit}>
 				<div className={styles['wrap-input']}>
 					<div className={styles['title']}>{language?.login}</div>
@@ -89,6 +89,6 @@ export default function Login() {
 					</button>
 				</div>
 			</form>
-		</div>
+		</main>
 	)
 }

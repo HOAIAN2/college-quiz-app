@@ -67,11 +67,11 @@ export default function Profile() {
 				<ChangePassword
 					setShowPopup={setShowChangePasswordPopUp}
 				/> : null}
-			<div className={css('dashboard-d', styles['profile-content'])}>
+			<main className={css('dashboard-d', styles['profile-content'])}>
 				{
 					isPending ? <Loading /> : null
 				}
-				<div className={styles['form-content']}>
+				<section className={styles['section']}>
 					<div className={styles['header']}>
 						<h2 className={styles['title']}>{languageUtils.getFullName(queryData.data.user.firstName, queryData.data.user.lastName)}</h2>
 					</div>
@@ -90,7 +90,7 @@ export default function Profile() {
 									defaultValue={queryData.data.user.email}
 									name='email'
 									className={css('input-d', styles['input-item'])}
-									type='text' />
+								/>
 							</div>
 							<div className={styles['wrap-item']}>
 								<label htmlFor='phone_number'>{language?.phoneNumber}</label>
@@ -100,7 +100,7 @@ export default function Profile() {
 									defaultValue={queryData.data.user.phoneNumber || ''}
 									name='phone_number'
 									className={css('input-d', styles['input-item'])}
-									type='text' />
+								/>
 							</div>
 							<div className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='first_name'>{language?.firstName}</label>
@@ -110,7 +110,7 @@ export default function Profile() {
 									defaultValue={queryData.data.user.firstName}
 									name='first_name'
 									className={css('input-d', styles['input-item'])}
-									type='text' />
+								/>
 							</div>
 							<div className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='last_name'>{language?.lastName}</label>
@@ -120,7 +120,7 @@ export default function Profile() {
 									defaultValue={queryData.data.user.lastName}
 									name='last_name'
 									className={css('input-d', styles['input-item'])}
-									type='text' />
+								/>
 							</div>
 							<div className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
@@ -130,7 +130,7 @@ export default function Profile() {
 									defaultValue={queryData.data.user.shortcode}
 									name='shortcode'
 									className={css('input-d', styles['input-item'])}
-									type='text' />
+								/>
 							</div>
 							{queryData.data?.user.role.name === 'student' ?
 								<div className={styles['wrap-item']}>
@@ -141,7 +141,7 @@ export default function Profile() {
 										defaultValue={queryData.data.user.schoolClass?.shortcode || ''}
 										name='school_class'
 										className={css('input-d', styles['input-item'])}
-										type='text' />
+									/>
 								</div> : queryData.data?.user.role.name === 'teacher'
 									? <div className={styles['wrap-item']}>
 										<label className={styles['required']} htmlFor='faculty'>{language?.faculty}</label>
@@ -151,7 +151,7 @@ export default function Profile() {
 											defaultValue={queryData.data.user.faculty?.shortcode || ''}
 											name='faculty'
 											className={css('input-d', styles['input-item'])}
-											type='text' />
+										/>
 									</div> : null
 							}
 							<div className={styles['wrap-item']}>
@@ -175,7 +175,7 @@ export default function Profile() {
 									defaultValue={queryData.data.user.address}
 									name='address'
 									className={css('input-d', styles['input-item'])}
-									type='text' />
+								/>
 							</div>
 							<div className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
@@ -210,18 +210,20 @@ export default function Profile() {
 								: null
 						}
 					</form>
-				</div>
-				<div className={styles['header']}>
-					<h2 className={styles['title']}>{language?.otherSection.other}</h2>
-				</div>
-				<div className={styles['other-section']}>
-					<button
-						className='action-item-d'
-						onClick={() => { setShowChangePasswordPopUp(true) }}>
-						<PiKey />{language?.otherSection.changePassword}
-					</button>
-				</div>
-			</div>
+				</section>
+				<section className={styles['section']}>
+					<div className={styles['header']}>
+						<h2 className={styles['title']}>{language?.otherSection.other}</h2>
+					</div>
+					<div className={styles['section-content']} >
+						<button
+							className='action-item-d'
+							onClick={() => { setShowChangePasswordPopUp(true) }}>
+							<PiKey />{language?.otherSection.changePassword}
+						</button>
+					</div>
+				</section>
+			</main>
 		</>
 	)
 }

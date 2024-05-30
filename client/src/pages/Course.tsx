@@ -116,14 +116,14 @@ export default function Course() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			<div className={css('dashboard-d', styles['page-content'])}>
+			<main className={css('dashboard-d', styles['page-content'])}>
 				{
 					queryData.isLoading ? <Loading /> : null
 				}
 				{
 					queryData.data ?
 						<>
-							<div className={styles['form-content']}>
+							<section className={styles['form-content']}>
 								<div className={styles['header']}>
 									<h2 className={styles['title']}>{queryData.data.name}</h2>
 								</div>
@@ -213,50 +213,52 @@ export default function Course() {
 											: null
 									}
 								</form>
-							</div>
-							<div className={styles['header']}>
-								<h2 className={styles['title']}>{language?.studentList}</h2>
-							</div>
-							{
-								permissions.has('course_update') ?
-									<div
-										className='action-bar-d'
-										style={{ paddingLeft: '20px' }}
-									>
-										<button
-											className={css('action-item-d', styles['edit-students-button'])}
-											onClick={() => {
-												setShowUpdateStudentsPopUp(true)
-											}}
-										>
-											<LuPenSquare />
-											<span>
-												{language?.edit}
-											</span>
-										</button>
-									</div>
-									: null
-							}
-							<div className={styles['enrollments-container']}>
+							</section>
+							<section>
+								<div className={styles['header']}>
+									<h2 className={styles['title']}>{language?.studentList}</h2>
+								</div>
 								{
-									queryData.data.enrollments
-										.map(enrollment => {
-											const fullName = languageUtils.getFullName(enrollment.user.firstName, enrollment.user.lastName)
-											const schoolClass = enrollment.user.schoolClass?.shortcode
-											return (
-												<div
-													title={[fullName, schoolClass].join(' ')}
-													key={`enrollment-${enrollment.id}`}
-													className={css('dashboard-card-d', styles['card'])}
-												>
-													<div className={styles['card-content']}>
-														{[fullName, `(${schoolClass})`].join(' ')}
-													</div>
-												</div>
-											)
-										})
+									permissions.has('course_update') ?
+										<div
+											className='action-bar-d'
+											style={{ paddingLeft: '20px' }}
+										>
+											<button
+												className={css('action-item-d', styles['edit-students-button'])}
+												onClick={() => {
+													setShowUpdateStudentsPopUp(true)
+												}}
+											>
+												<LuPenSquare />
+												<span>
+													{language?.edit}
+												</span>
+											</button>
+										</div>
+										: null
 								}
-							</div>
+								<div className={styles['enrollments-container']}>
+									{
+										queryData.data.enrollments
+											.map(enrollment => {
+												const fullName = languageUtils.getFullName(enrollment.user.firstName, enrollment.user.lastName)
+												const schoolClass = enrollment.user.schoolClass?.shortcode
+												return (
+													<div
+														title={[fullName, schoolClass].join(' ')}
+														key={`enrollment-${enrollment.id}`}
+														className={css('dashboard-card-d', styles['card'])}
+													>
+														<div className={styles['card-content']}>
+															{[fullName, `(${schoolClass})`].join(' ')}
+														</div>
+													</div>
+												)
+											})
+									}
+								</div>
+							</section>
 							<div className={styles['header']}>
 								<h2 className={styles['title']}>{language?.examtList}</h2>
 							</div>
@@ -313,7 +315,7 @@ export default function Course() {
 						</>
 						: null
 				}
-			</div>
+			</main>
 		</>
 	)
 }
