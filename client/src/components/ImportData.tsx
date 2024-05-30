@@ -147,7 +147,7 @@ export default function ImportData({
 							}>{language?.save}
 						</button>
 						<a
-							className='action-item-d-white'
+							className='action-item-white-d'
 							href={teamplateUrl}
 							download=''>{language?.downloadTemplate}</a>
 					</div>

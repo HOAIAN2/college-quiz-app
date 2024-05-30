@@ -28,7 +28,7 @@
 	--border-radius-medium: 15px;
 	--transition-timing-fast: .3s;
 	--transition-timing-medium: .4s;
-	--transition-timing-slow: .5ms;
+	--transition-timing-slow: .5s;
 }
 
 body {
@@ -52,11 +52,6 @@ a {
 	position: absolute;
 	height: 5px;
 	background-color: var(--color-blue);
-}
-
-.toast-container.top-right {
-	top: 20px;
-	right: 0px;
 }
 
 @media (width>=500px) {

@@ -102,11 +102,11 @@ export default function ExportUsers({
 									onClick={() => { handleSelectAll('none') }}
 									style={{ width: 'fit-content' }}
 									type='button' name='save'
-									className='action-item-d-white'>{language?.deselectAll}</button>
+									className='action-item-white-d'>{language?.deselectAll}</button>
 								<button
 									onClick={() => { handleSelectAll('all') }}
 									type='button' name='save'
-									className='action-item-d-white'>{language?.selectAll}</button>
+									className='action-item-white-d'>{language?.selectAll}</button>
 							</div>
 						</form>
 						: null

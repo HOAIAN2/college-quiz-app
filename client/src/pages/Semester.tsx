@@ -152,7 +152,7 @@ export default function Semester() {
 															onClick={() => {
 																setShowDeletePopUp(true)
 															}}
-															className='action-item-d-white-border-red'>
+															className='action-item-white-border-red-d'>
 															<MdDeleteOutline /> {language?.delete}
 														</button> : null
 												}

@@ -205,7 +205,7 @@ export default function Course() {
 															onClick={() => {
 																setShowDeletePopUp(true)
 															}}
-															className='action-item-d-white-border-red'>
+															className='action-item-white-border-red-d'>
 															<MdDeleteOutline /> {language?.delete}
 														</button> : null
 												}

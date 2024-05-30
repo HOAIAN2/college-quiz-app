@@ -75,7 +75,7 @@ export default function YesNoPopUp({
 							onClick={handleClosePopUp}
 							className={
 								css(
-									'action-item-d-white-border-red',
+									'action-item-white-border-red-d',
 									mutation.isPending ? styles['pending'] : ''
 								)
 							}
@@ -84,7 +84,7 @@ export default function YesNoPopUp({
 							onClick={() => { mutation.mutate() }}
 							className={
 								css(
-									'action-item-d-white',
+									'action-item-white-d',
 									mutation.isPending ? styles['pending'] : ''
 								)
 							}>{langYes}

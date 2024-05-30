@@ -275,7 +275,7 @@ export default function ViewQuestion({
 																		}
 																		else setOptions(options.filter(item => item.key !== option.key))
 																	}}
-																	className='action-item-d-white-border-red'
+																	className='action-item-white-border-red-d'
 																>
 																	<MdDeleteOutline /> {language?.delete}
 																</div> : null
@@ -305,7 +305,7 @@ export default function ViewQuestion({
 																onClick={() => {
 																	setShowDeletePopUp(true)
 																}}
-																className='action-item-d-white-border-red'
+																className='action-item-white-border-red-d'
 															>
 																<MdDeleteOutline /> {language?.delete}
 															</button>

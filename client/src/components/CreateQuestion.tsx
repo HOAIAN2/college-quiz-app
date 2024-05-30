@@ -210,7 +210,7 @@ export default function CreateQuestion({
 												}
 												else setOptions(options.filter(item => item.key !== option.key))
 											}}
-											className='action-item-d-white-border-red'>
+											className='action-item-white-border-red-d'>
 											<MdDeleteOutline /> {language?.delete}
 										</div>
 									</div>
@@ -228,7 +228,7 @@ export default function CreateQuestion({
 							<button name='save-more'
 								className={
 									css(
-										'action-item-d-white',
+										'action-item-white-d',
 										isPending ? 'button-submitting' : ''
 									)
 								}

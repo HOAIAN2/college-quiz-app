@@ -157,7 +157,7 @@ export default function CreateFaculty({
 							<button name='save-more'
 								className={
 									css(
-										'action-item-d-white',
+										'action-item-white-d',
 										isPending ? 'button-submitting' : ''
 									)
 								}

@@ -140,7 +140,7 @@ export default function Users({
 							}
 							{
 								permissions.has('user_create') ?
-									<div className='action-item-d-white'
+									<div className='action-item-white-d'
 										onClick={() => {
 											setShowImportPopUp(true)
 										}}
@@ -151,7 +151,7 @@ export default function Users({
 							}
 							{
 								permissions.has('user_view') ?
-									<div className='action-item-d-white'
+									<div className='action-item-white-d'
 										onClick={() => {
 											setShowExportPopUp(true)
 										}}
@@ -166,7 +166,7 @@ export default function Users({
 										onClick={() => {
 											setShowDeletePopUp(true)
 										}}
-										className='action-item-d-white-border-red'>
+										className='action-item-white-border-red-d'>
 										<MdDeleteOutline /> {language?.delete}
 									</div>
 									: null

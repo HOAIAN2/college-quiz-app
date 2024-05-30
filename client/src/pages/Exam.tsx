@@ -147,7 +147,7 @@ export default function Exam() {
 															onClick={() => {
 																setShowCancelExamPopUp(true)
 															}}
-															className='action-item-d-white-border-red'>
+															className='action-item-white-border-red-d'>
 															<ImCancelCircle /> {language?.cancelExam}
 														</button>
 													</> : null

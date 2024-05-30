@@ -30,10 +30,6 @@ class Controller extends BaseController
 		$this->runTasks();
 	}
 
-	public function __destruct()
-	{
-	}
-
 	public function runTasks()
 	{
 		$run_tasks_interval = (int)env('RUN_TASK_INTERVAL', 60);
