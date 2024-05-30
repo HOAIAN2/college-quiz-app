@@ -74,10 +74,9 @@ export default function Semesters() {
 								onInput={(e) => {
 									setSearchQuery(e.currentTarget.value)
 								}}
-								name='search'
 								defaultValue={queryDebounce}
 								className={css('input-d', styles['input-item'])}
-								type="text" />
+							/>
 						</div>
 					</div>
 					<div className={styles['wrap-card-container']}>

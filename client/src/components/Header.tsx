@@ -6,7 +6,7 @@ import {
 import {
 	PiSidebarSimpleLight
 } from 'react-icons/pi'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { apiLogout } from '../api/auth'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
@@ -20,11 +20,10 @@ export default function Header() {
 	const { DOM, user, appLanguage } = useAppContext()
 	const language = useLanguage<ComponentHeaderLang>('component.header')
 	const profileDropdownRef = useRef<HTMLDivElement>(null)
-	const navigate = useNavigate()
 	const handleLogout = () => {
 		apiLogout()
 			.finally(() => {
-				navigate(0)
+				window.location.reload()
 			})
 	}
 	const handleToggleDropdownProfile = () => {

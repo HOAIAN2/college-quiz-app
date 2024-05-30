@@ -41,7 +41,7 @@ export default function Login() {
 			.then((data) => {
 				user.setUser(data.user)
 				permissions.setItems(data.permissions)
-				navigate(prePage?.pathname || '/')
+				navigate(prePage || '/')
 			})
 			.catch(() => {
 				setBlockSubmit(false)

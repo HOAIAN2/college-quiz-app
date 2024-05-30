@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { apiGetUser } from '../api/user'
 // import Footer from '../components/Footer'
 import Header from '../components/Header'
@@ -11,6 +11,7 @@ export default function DashboardLayout() {
 	const { user, permissions } = useAppContext()
 	const [checking, setChecking] = useState(true)
 	const navigate = useNavigate()
+	const location = useLocation()
 	useEffect(() => {
 		apiGetUser()
 			.then(data => {
@@ -21,7 +22,7 @@ export default function DashboardLayout() {
 			})
 			.catch(() => {
 				setChecking(false)
-				navigate('/auth/login')
+				navigate('/auth/login', { state: { from: location.pathname } })
 			})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
