@@ -18,7 +18,6 @@ import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
-import { PageCourseLang } from '../models/lang'
 import styles from '../styles/Course.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import css from '../utils/css'
@@ -32,7 +31,7 @@ export default function Course() {
 	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
 	const [showUpdateStudentsPopUp, setShowUpdateStudentsPopUp] = useState(false)
 	const [showCreateExamPopUp, setShowCreateExamPopUp] = useState(false)
-	const language = useLanguage<PageCourseLang>('page.course')
+	const language = useLanguage('page.course')
 	const [queryUser, setQueryUser] = useState('')
 	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
 	const queryClient = useQueryClient()

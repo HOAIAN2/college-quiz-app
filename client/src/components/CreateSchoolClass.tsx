@@ -8,7 +8,6 @@ import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
 import { queryKeys } from '../constants/query-keys'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentCreateSchoolClassLang } from '../models/lang'
 import styles from '../styles/global/CreateModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import css from '../utils/css'
@@ -23,7 +22,7 @@ export default function CreateSchoolClass({
 	onMutateSuccess,
 	setShowPopUp
 }: CreateSchoolClassProps) {
-	const language = useLanguage<ComponentCreateSchoolClassLang>('component.create_school_class')
+	const language = useLanguage('component.create_school_class')
 	const [hide, setHide] = useState(true)
 	const [queryFaculty, setQueryFaculty] = useState('')
 	const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE)

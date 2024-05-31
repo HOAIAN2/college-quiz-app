@@ -9,7 +9,6 @@ import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentViewFacultyLang } from '../models/lang'
 import styles from '../styles/global/ViewModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import css from '../utils/css'
@@ -29,7 +28,7 @@ export default function ViewFaculty({
 	setShowPopUp
 }: ViewFacultyProps) {
 	const [hide, setHide] = useState(true)
-	const language = useLanguage<ComponentViewFacultyLang>('component.view_faculty')
+	const language = useLanguage('component.view_faculty')
 	const { permissions } = useAppContext()
 	const [queryUser, setQueryUser] = useState('')
 	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)

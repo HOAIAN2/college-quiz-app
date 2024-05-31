@@ -4,7 +4,6 @@ import { FiSave } from 'react-icons/fi'
 import { RxCross2 } from 'react-icons/rx'
 import { apiCreateSubject } from '../api/subject'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentCreateSubjectLang } from '../models/lang'
 import styles from '../styles/global/CreateModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import css from '../utils/css'
@@ -19,7 +18,7 @@ export default function CreateSubject({
 	onMutateSuccess,
 	setShowPopUp
 }: CreateSubjectProps) {
-	const language = useLanguage<ComponentCreateSubjectLang>('component.create_subject')
+	const language = useLanguage('component.create_subject')
 	const [hide, setHide] = useState(true)
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')

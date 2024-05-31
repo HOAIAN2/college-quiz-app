@@ -12,7 +12,6 @@ import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { Chapter } from '../models/chapter'
-import { PageSubjectLang } from '../models/lang'
 import styles from '../styles/Subject.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import css from '../utils/css'
@@ -20,7 +19,7 @@ import css from '../utils/css'
 export default function Subject() {
 	const { id } = useParams()
 	const { permissions } = useAppContext()
-	const language = useLanguage<PageSubjectLang>('page.subject')
+	const language = useLanguage('page.subject')
 	const [currentChapter, setCurrentChapter] = useState<Chapter>()
 	const queryClient = useQueryClient()
 	const [showDeletePopUp, setShowDeletePopUp] = useState(false)

@@ -1,8 +1,7 @@
 import useLanguage from '../hooks/useLanguage'
-import { ComponentLoadingLang } from '../models/lang'
 
 export default function Loading() {
-	const language = useLanguage<ComponentLoadingLang>('component.loading')
+	const language = useLanguage('component.loading')
 	return (
 		<div className='data-loading'
 			style={{ zIndex: 10 }}

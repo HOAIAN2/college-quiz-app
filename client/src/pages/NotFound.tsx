@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom'
 import Footer from '../components/Footer'
 import useLanguage from '../hooks/useLanguage'
-import { PageNotFoundLang } from '../models/lang'
 import styles from '../styles/NotFound.module.css'
 import css from '../utils/css'
 
 export default function NotFound() {
-	const language = useLanguage<PageNotFoundLang>('page.not_found')
+	const language = useLanguage('page.not_found')
 	document.querySelector('.pre-load-container')?.classList.add('hide')
 	return (
 		<>

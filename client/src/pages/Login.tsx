@@ -4,12 +4,11 @@ import { apiLogin } from '../api/auth'
 import { apiGetUser } from '../api/user'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
-import { PageLoginLang } from '../models/lang'
 import styles from '../styles/Login.module.css'
 import css from '../utils/css'
 
 export default function Login() {
-	const language = useLanguage<PageLoginLang>('page.login')
+	const language = useLanguage('page.login')
 	const [blockSubmit, setBlockSubmit] = useState(true)
 	const [isSubmitting, seIsSubmitting] = useState(false)
 	const buttonRef = useRef<HTMLButtonElement>(null)

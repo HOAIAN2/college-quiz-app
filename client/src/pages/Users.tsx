@@ -22,7 +22,6 @@ import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
-import { PageUsersLang } from '../models/lang'
 import { RoleName } from '../models/role'
 import styles from '../styles/global/TablePage.module.css'
 import css from '../utils/css'
@@ -34,7 +33,7 @@ type UsersProps = {
 export default function Users({
 	role
 }: UsersProps) {
-	const language = useLanguage<PageUsersLang>('page.users')
+	const language = useLanguage('page.users')
 	const { permissions } = useAppContext()
 	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
 	const [showExportPopUp, setShowExportPopUp] = useState(false)

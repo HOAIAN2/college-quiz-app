@@ -3,7 +3,6 @@ import { TiArrowBack } from 'react-icons/ti'
 import { useNavigate } from 'react-router-dom'
 import useLanguage from '../hooks/useLanguage'
 import { ExamResult } from '../models/exam'
-import { ComponentScorePopUpLang } from '../models/lang'
 import styles from '../styles/ScorePopUp.module.css'
 import caculateScore from '../utils/caculateScore'
 
@@ -20,7 +19,7 @@ export default function ScorePopUp({
 	hideConfetti,
 	setShowPopUp
 }: ScorePopUpProps) {
-	const language = useLanguage<ComponentScorePopUpLang>('component.score_pop_up')
+	const language = useLanguage('component.score_pop_up')
 	const navigate = useNavigate()
 	const score = caculateScore(data.correctCount, data.questionCount)
 	const handleClosePopUp = () => {

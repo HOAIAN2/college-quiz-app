@@ -10,7 +10,6 @@ import { apiDeleteQuestion, apiGetQuestionById, apiUpdateQuestion } from '../api
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentViewQuestionLang } from '../models/lang'
 import { SubjectDetail } from '../models/subject'
 import styles from '../styles/CreateQuestion.module.css'
 import globalStyles from '../styles/global/ViewModel.module.css'
@@ -44,7 +43,7 @@ export default function ViewQuestion({
 	const [options, setOptions] = useState<Option[]>([])
 	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
 	const [trueOptionKey, setTrueOptionKey] = useState<string>()
-	const language = useLanguage<ComponentViewQuestionLang>('component.view_question')
+	const language = useLanguage('component.view_question')
 	const queryClient = useQueryClient()
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')

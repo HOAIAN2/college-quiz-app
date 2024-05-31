@@ -10,7 +10,6 @@ import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
-import { PageSubjectsLang } from '../models/lang'
 import styles from '../styles/global/CardPage.module.css'
 import css from '../utils/css'
 
@@ -19,7 +18,7 @@ export default function Subjects() {
 	const [searchParams, setSearchParams] = useSearchParams()
 	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
 	const queryDebounce = useDebounce(searchQuery)
-	const language = useLanguage<PageSubjectsLang>('page.subjects')
+	const language = useLanguage('page.subjects')
 	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
 	const queryClient = useQueryClient()
 	const queryData = useQuery({

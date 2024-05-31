@@ -9,7 +9,6 @@ import YesNoPopUp from '../components/YesNoPopUp'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
-import { PageSemesterLang } from '../models/lang'
 import styles from '../styles/Semester.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import css from '../utils/css'
@@ -19,7 +18,7 @@ export default function Semester() {
 	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
 	const queryClient = useQueryClient()
 	const navigate = useNavigate()
-	const language = useLanguage<PageSemesterLang>('page.semester')
+	const language = useLanguage('page.semester')
 	const { id } = useParams()
 	const formUtils = createFormUtils(styles)
 	const disabledUpdate = !permissions.has('semester_update')

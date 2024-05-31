@@ -4,7 +4,6 @@ import { FiSave } from 'react-icons/fi'
 import { RxCross2 } from 'react-icons/rx'
 import { apiCreateChapter } from '../api/chapter'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentCreateChapterLang } from '../models/lang'
 import styles from '../styles/global/CreateModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import css from '../utils/css'
@@ -23,7 +22,7 @@ export default function CreateChapter({
 	onMutateSuccess,
 	setShowPopUp
 }: CreateChapterProps) {
-	const language = useLanguage<ComponentCreateChapterLang>('component.create_chapter')
+	const language = useLanguage('component.create_chapter')
 	const [hide, setHide] = useState(true)
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')

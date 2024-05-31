@@ -11,7 +11,6 @@ import SuspenseLoading from '../components/SuspenseLoading'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
-import { PageProfileLang } from '../models/lang'
 import styles from '../styles/Profile.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import css from '../utils/css'
@@ -19,7 +18,7 @@ import languageUtils from '../utils/languageUtils'
 import renderMonth from '../utils/renderMonth'
 
 export default function Profile() {
-	const language = useLanguage<PageProfileLang>('page.profile')
+	const language = useLanguage('page.profile')
 	const { user, permissions } = useAppContext()
 	const [showChangePasswordPopUp, setShowChangePasswordPopUp] = useState(false)
 	const queryClient = useQueryClient()

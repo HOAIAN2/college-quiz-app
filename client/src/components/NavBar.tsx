@@ -20,13 +20,12 @@ import { TbBrandAuth0 } from 'react-icons/tb'
 import { Link } from 'react-router-dom'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentNavBarLang } from '../models/lang'
 import styles from '../styles/NavBar.module.css'
 import css from '../utils/css'
 
 export default function NavBar() {
 	const { DOM, permissions } = useAppContext()
-	const language = useLanguage<ComponentNavBarLang>('component.navbar')
+	const language = useLanguage('component.navbar')
 	const navBarItems = [
 		{
 			name: language?.dashboard,

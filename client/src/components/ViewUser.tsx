@@ -11,7 +11,6 @@ import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentViewUserLang } from '../models/lang'
 import styles from '../styles/global/ViewModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import css from '../utils/css'
@@ -32,7 +31,7 @@ export default function ViewUser({
 	setShowPopUp
 }: ViewUserProps) {
 	const [hide, setHide] = useState(true)
-	const language = useLanguage<ComponentViewUserLang>('component.view_user')
+	const language = useLanguage('component.view_user')
 	const { permissions } = useAppContext()
 	const [queryClass, setQueryClass] = useState('')
 	const [queryFaculty, setQueryFaculty] = useState('')

@@ -10,7 +10,6 @@ import { queryKeys } from '../constants/query-keys'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { CourseDetail } from '../models/course'
-import { ComponentUpdateCourseStudentsLang } from '../models/lang'
 import styles from '../styles/UpdateCourseStudents.module.css'
 import css from '../utils/css'
 import languageUtils from '../utils/languageUtils'
@@ -27,7 +26,7 @@ export default function UpdateCourseStudents({
 	onMutateSuccess,
 	setShowPopUp
 }: UpdateCourseStudentsProps) {
-	const language = useLanguage<ComponentUpdateCourseStudentsLang>('component.update_course_students')
+	const language = useLanguage('component.update_course_students')
 	const [hide, setHide] = useState(true)
 	const [queryUser, setQueryUser] = useState('')
 	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)

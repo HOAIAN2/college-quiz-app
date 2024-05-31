@@ -12,7 +12,6 @@ import { queryKeys } from '../constants/query-keys'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
 import { CourseDetail } from '../models/course'
-import { ComponentCreateExamLang } from '../models/lang'
 import { UserDetail } from '../models/user'
 import styles from '../styles/CreateViewExam.module.css'
 import createFormUtils from '../utils/createFormUtils'
@@ -36,7 +35,7 @@ export default function CreateExam({
 	const [supervisors, setSupervisors] = useState<UserDetail[]>([])
 	const [queryUser, setQueryUser] = useState('')
 	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
-	const language = useLanguage<ComponentCreateExamLang>('component.create_exam')
+	const language = useLanguage('component.create_exam')
 	const queryClient = useQueryClient()
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')

@@ -8,7 +8,6 @@ import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
 import { queryKeys } from '../constants/query-keys'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentCreateFacultyLang } from '../models/lang'
 import styles from '../styles/global/CreateModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import css from '../utils/css'
@@ -25,7 +24,7 @@ export default function CreateFaculty({
 	onMutateSuccess,
 	setShowPopUp
 }: CreateFacultyProps) {
-	const language = useLanguage<ComponentCreateFacultyLang>('component.create_faculty')
+	const language = useLanguage('component.create_faculty')
 	const [hide, setHide] = useState(true)
 	const [queryUser, setQueryUser] = useState('')
 	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)

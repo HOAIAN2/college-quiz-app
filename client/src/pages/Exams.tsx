@@ -10,7 +10,6 @@ import useAppContext from '../hooks/useAppContext'
 import useForceUpdate from '../hooks/useForceUpdate'
 import useLanguage from '../hooks/useLanguage'
 import { ExamInMonth } from '../models/exam'
-import { PageExamsLang } from '../models/lang'
 import styles from '../styles/global/CardPage.module.css'
 import css from '../utils/css'
 import renderMonth from '../utils/renderMonth'
@@ -20,7 +19,7 @@ export default function Exams() {
 	const forceUpdate = useForceUpdate()
 	const [searchParams, setSearchParams] = useSearchParams()
 	const { appLanguage } = useAppContext()
-	const language = useLanguage<PageExamsLang>('page.exams')
+	const language = useLanguage('page.exams')
 	const monthYearFormat = moment.localeData()
 		.longDateFormat('L')
 		.replace(/D[\\/\-\\.]?/g, '')

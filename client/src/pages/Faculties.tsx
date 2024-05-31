@@ -13,13 +13,12 @@ import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
-import { PageFacultiesLang } from '../models/lang'
 import styles from '../styles/global/TablePage.module.css'
 import css from '../utils/css'
 
 export default function Faculties() {
 	const { permissions } = useAppContext()
-	const language = useLanguage<PageFacultiesLang>('page.faculties')
+	const language = useLanguage('page.faculties')
 	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
 	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
 	const [searchParams, setSearchParams] = useSearchParams()

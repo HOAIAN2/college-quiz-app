@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom'
 import { apiLogout } from '../api/auth'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentHeaderLang } from '../models/lang'
 import styles from '../styles/Header.module.css'
 import navBarStyles from '../styles/NavBar.module.css'
 import languageUtils from '../utils/languageUtils'
@@ -18,7 +17,7 @@ import CustomSelect from './CustomSelect'
 
 export default function Header() {
 	const { DOM, user, appLanguage } = useAppContext()
-	const language = useLanguage<ComponentHeaderLang>('component.header')
+	const language = useLanguage('component.header')
 	const profileDropdownRef = useRef<HTMLDivElement>(null)
 	const handleLogout = () => {
 		apiLogout()

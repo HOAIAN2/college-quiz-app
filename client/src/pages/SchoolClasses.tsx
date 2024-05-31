@@ -13,13 +13,12 @@ import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
-import { PageSchoolClassesLang } from '../models/lang'
 import styles from '../styles/global/TablePage.module.css'
 import css from '../utils/css'
 
 export default function SchoolClasses() {
 	const { permissions } = useAppContext()
-	const language = useLanguage<PageSchoolClassesLang>('page.school_classes')
+	const language = useLanguage('page.school_classes')
 	const [searchParams, setSearchParams] = useSearchParams()
 	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
 	const [showDeletePopUp, setShowDeletePopUp] = useState(false)

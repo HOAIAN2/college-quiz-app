@@ -5,7 +5,6 @@ import {
 } from 'react-icons/io'
 import { RxCross2 } from 'react-icons/rx'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentImportDataLang } from '../models/lang'
 import styles from '../styles/ImportData.module.css'
 import css from '../utils/css'
 import Loading from './Loading'
@@ -26,7 +25,7 @@ export default function ImportData({
 	onMutateSuccess,
 	setImportMode,
 }: ImportDataProps) {
-	const language = useLanguage<ComponentImportDataLang>('component.import_data')
+	const language = useLanguage('component.import_data')
 	const [hide, setHide] = useState(true)
 	const [file, setFile] = useState<File>()
 	const inputFileRef = useRef<HTMLInputElement>(null)

@@ -7,7 +7,6 @@ import { apiDeleteChapter, apiUpdateChapter } from '../api/chapter'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { Chapter } from '../models/chapter'
-import { ComponentViewChapterLang } from '../models/lang'
 import styles from '../styles/global/ViewModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import css from '../utils/css'
@@ -27,7 +26,7 @@ export default function ViewChapter({
 }: ViewChapterProps) {
 	const [hide, setHide] = useState(true)
 	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
-	const language = useLanguage<ComponentViewChapterLang>('component.view_chapter')
+	const language = useLanguage('component.view_chapter')
 	const { permissions } = useAppContext()
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')

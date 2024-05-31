@@ -10,7 +10,6 @@ import YesNoPopUp from '../components/YesNoPopUp'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
-import { PageExamLang } from '../models/lang'
 import styles from '../styles/Exam.module.css'
 import caculateScore from '../utils/caculateScore'
 import css from '../utils/css'
@@ -20,7 +19,7 @@ export default function Exam() {
 	const { user, appLanguage, permissions } = useAppContext()
 	const [showStartExamPopUp, setShowStartExamPopUp] = useState(false)
 	const [showCancelExamPopUp, setShowCancelExamPopUp] = useState(false)
-	const language = useLanguage<PageExamLang>('page.exam')
+	const language = useLanguage('page.exam')
 	const { id } = useParams()
 	const handleStartExam = async () => {
 		await apiUpdateExamStatus('start', String(id))

@@ -5,7 +5,6 @@ import { FiSave } from 'react-icons/fi'
 import { RxCross2 } from 'react-icons/rx'
 import { apiCreateSemester } from '../api/semester'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentCreateSemesterLang } from '../models/lang'
 import styles from '../styles/global/CreateModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import css from '../utils/css'
@@ -22,7 +21,7 @@ export default function CreateSemester({
 	setShowPopUp
 }: CreateSemesterProps) {
 	const [hide, setHide] = useState(true)
-	const language = useLanguage<ComponentCreateSemesterLang>('component.create_semester')
+	const language = useLanguage('component.create_semester')
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
 		const timing = Number(transitionTiming.replace('s', '')) * 1000

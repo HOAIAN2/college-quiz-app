@@ -9,7 +9,6 @@ import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentViewSchoolClassLang } from '../models/lang'
 import styles from '../styles/global/ViewModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
 import css from '../utils/css'
@@ -28,7 +27,7 @@ export default function ViewSchoolClass({
 	setShowPopUp
 }: ViewSchoolClassProps) {
 	const [hide, setHide] = useState(true)
-	const language = useLanguage<ComponentViewSchoolClassLang>('component.view_school_class')
+	const language = useLanguage('component.view_school_class')
 	const { permissions } = useAppContext()
 	const [queryFaculty, setQueryFaculty] = useState('')
 	const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE)

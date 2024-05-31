@@ -7,13 +7,12 @@ import Loading from '../components/Loading'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
-import { PageRolePermissionsLang } from '../models/lang'
 import styles from '../styles/RolePermissions.module.css'
 import css from '../utils/css'
 
 export default function RolePermissions() {
 	const { DOM, permissions } = useAppContext()
-	const language = useLanguage<PageRolePermissionsLang>('page.role_permissions')
+	const language = useLanguage('page.role_permissions')
 	const { id } = useParams()
 	const disabledUpdate = !permissions.has('role_permission_grant')
 	const queryData = useQuery({

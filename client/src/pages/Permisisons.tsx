@@ -5,12 +5,11 @@ import { apiGetRolePermissionCount } from '../api/role-permission'
 import Loading from '../components/Loading'
 import { queryKeys } from '../constants/query-keys'
 import useLanguage from '../hooks/useLanguage'
-import { PagePermissionsLang } from '../models/lang'
 import styles from '../styles/Permissions.module.css'
 import css from '../utils/css'
 
 export default function Permisisons() {
-	const language = useLanguage<PagePermissionsLang>('page.permissions')
+	const language = useLanguage('page.permissions')
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_PERMISSIONS],
 		queryFn: apiGetRolePermissionCount

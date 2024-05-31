@@ -11,7 +11,6 @@ import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
-import { PageCoursesLang } from '../models/lang'
 import { Semester } from '../models/semester'
 import styles from '../styles/global/CardPage.module.css'
 import css from '../utils/css'
@@ -25,7 +24,7 @@ export default function Courses() {
 	const [searchParams, setSearchParams] = useSearchParams()
 	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
 	const queryDebounce = useDebounce(searchQuery)
-	const language = useLanguage<PageCoursesLang>('page.courses')
+	const language = useLanguage('page.courses')
 	const queryClient = useQueryClient()
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_COURSES, {

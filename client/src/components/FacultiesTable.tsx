@@ -4,7 +4,6 @@ import { SetURLSearchParams } from 'react-router-dom'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { FacultyDetail } from '../models/faculty'
-import { ComponentFacultiesTableLang } from '../models/lang'
 import { Pagination } from '../models/response'
 import styles from '../styles/global/Table.module.css'
 import css from '../utils/css'
@@ -28,7 +27,7 @@ export default function FacultiesTable({
 }: FacultiesTableProps) {
 	const { permissions } = useAppContext()
 	const [checkAll, setCheckAll] = useState(false)
-	const language = useLanguage<ComponentFacultiesTableLang>('component.faculties_table')
+	const language = useLanguage('component.faculties_table')
 	const [showViewPopUp, setShowViewPopUp] = useState(false)
 	const [facultyId, seFacultyId] = useState<number>(0)
 	const handleViewFaculty = (id: number, e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => {

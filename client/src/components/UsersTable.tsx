@@ -4,7 +4,6 @@ import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
 import { SetURLSearchParams } from 'react-router-dom'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentUsersTableLang } from '../models/lang'
 import { Pagination } from '../models/response'
 import { RoleName } from '../models/role'
 import { UserDetail } from '../models/user'
@@ -31,7 +30,7 @@ export default function UsersTable({
 	setSelectedRows
 }: UsersTableProps) {
 	const { permissions } = useAppContext()
-	const language = useLanguage<ComponentUsersTableLang>('component.users_table')
+	const language = useLanguage('component.users_table')
 	const [showViewPopUp, setShowViewPopUp] = useState(false)
 	const [checkAll, setCheckAll] = useState(false)
 	const [userId, setUserId] = useState<number>(0)

@@ -8,7 +8,6 @@ import { RxCross2 } from 'react-icons/rx'
 import { toast } from 'sonner'
 import { apiCreateQuestion } from '../api/question'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentCreateQuestionLang } from '../models/lang'
 import { SubjectDetail } from '../models/subject'
 import styles from '../styles/CreateQuestion.module.css'
 import globalStyles from '../styles/global/CreateModel.module.css'
@@ -39,7 +38,7 @@ export default function CreateQuestion({
 		return { key: index.toString(), content: '' }
 	}))
 	const [trueOptionKey, setTrueOptionKey] = useState<string>()
-	const language = useLanguage<ComponentCreateQuestionLang>('component.create_question')
+	const language = useLanguage('component.create_question')
 	const handleClosePopUp = () => {
 		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
 		const timing = Number(transitionTiming.replace('s', '')) * 1000

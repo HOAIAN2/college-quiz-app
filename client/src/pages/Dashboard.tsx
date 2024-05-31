@@ -11,13 +11,12 @@ import Loading from '../components/Loading'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
-import { PageDashBoardLang } from '../models/lang'
 import styles from '../styles/Dashboard.module.css'
 import css from '../utils/css'
 
 export default function Dashboard() {
 	const { permissions, appLanguage } = useAppContext()
-	const language = useLanguage<PageDashBoardLang>('page.dashboard')
+	const language = useLanguage('page.dashboard')
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_DASHBOARD],
 		queryFn: apiGetDashboard

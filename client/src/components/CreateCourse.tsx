@@ -9,7 +9,6 @@ import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
 import { queryKeys } from '../constants/query-keys'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentCreateCourseLang } from '../models/lang'
 import { Option } from '../models/option'
 import { Semester } from '../models/semester'
 import styles from '../styles/global/CreateModel.module.css'
@@ -32,7 +31,7 @@ export default function CreateCourse({
 	setShowPopUp
 }: CreateCourseProps) {
 	const [hide, setHide] = useState(true)
-	const language = useLanguage<ComponentCreateCourseLang>('component.create_course')
+	const language = useLanguage('component.create_course')
 	const [queryUser, setQueryUser] = useState('')
 	const [querySubject, setQuerySubject] = useState('')
 	const [shortcode, setShortcode] = useState('')

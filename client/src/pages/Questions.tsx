@@ -13,7 +13,6 @@ import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
-import { PageQuestionsLang } from '../models/lang'
 import { SubjectDetail } from '../models/subject'
 import styles from '../styles/global/CardPage.module.css'
 import css from '../utils/css'
@@ -29,7 +28,7 @@ export default function Questions() {
 	const queryDebounce = useDebounce(searchQuery)
 	const { permissions, DOM } = useAppContext()
 	const { id } = useParams()
-	const language = useLanguage<PageQuestionsLang>('page.questions')
+	const language = useLanguage('page.questions')
 	const queryData = useQuery({
 		queryKey: [
 			queryKeys.PAGE_QUESTIONS,

@@ -12,7 +12,6 @@ import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
 import { queryKeys } from '../constants/query-keys'
 import useDebounce from '../hooks/useDebounce'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentCreateUserLang } from '../models/lang'
 import { RoleName } from '../models/role'
 import styles from '../styles/global/CreateModel.module.css'
 import createFormUtils from '../utils/createFormUtils'
@@ -32,7 +31,7 @@ export default function CreateUser({
 	onMutateSuccess,
 	setShowPopUp
 }: CreateUserProps) {
-	const language = useLanguage<ComponentCreateUserLang>('component.create_user')
+	const language = useLanguage('component.create_user')
 	const [hide, setHide] = useState(true)
 	const [queryClass, setQueryClass] = useState('')
 	const [queryFaculty, setQueryFaculty] = useState('')

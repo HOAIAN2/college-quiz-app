@@ -12,7 +12,6 @@ import { queryKeys } from '../constants/query-keys'
 import useForceUpdate from '../hooks/useForceUpdate'
 import useLanguage from '../hooks/useLanguage'
 import { ExamResult } from '../models/exam'
-import { PageTakeExamLang } from '../models/lang'
 import styles from '../styles/TakeExam.module.css'
 import isValidJson from '../utils/isValidJson'
 import timeUtils from '../utils/timeUtils'
@@ -37,7 +36,7 @@ export default function TakeExam() {
 		}
 		return decodedData
 	})
-	const language = useLanguage<PageTakeExamLang>('page.take_exam')
+	const language = useLanguage('page.take_exam')
 	const forceUpdate = useForceUpdate()
 	const onMutateSuccess = () => {
 		localStorage.removeItem(localStorageKey)

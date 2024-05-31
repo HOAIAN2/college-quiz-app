@@ -3,7 +3,6 @@ import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
 import { SetURLSearchParams } from 'react-router-dom'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
-import { ComponentSchoolClassesTableLang } from '../models/lang'
 import { Pagination } from '../models/response'
 import { SchoolClassDetail } from '../models/school-class'
 import styles from '../styles/global/Table.module.css'
@@ -27,7 +26,7 @@ export default function SchoolClassesTable({
 }: SchoolClassesTableProps) {
 	const { permissions } = useAppContext()
 	const [checkAll, setCheckAll] = useState(false)
-	const language = useLanguage<ComponentSchoolClassesTableLang>('component.school_classes_table')
+	const language = useLanguage('component.school_classes_table')
 	const [showViewPopUp, setShowViewPopUp] = useState(false)
 	const [schoolClassId, setSchoolClassId] = useState<number>(0)
 	const handleViewSchoolClass = (id: number, e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => {
