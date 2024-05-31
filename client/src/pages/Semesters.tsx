@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { LuBookOpenCheck } from 'react-icons/lu'
 import { RiAddFill } from 'react-icons/ri'
 import { Link, useSearchParams } from 'react-router-dom'
+import appStyles from '../App.module.css'
 import { apiGetSemesters } from '../api/semester'
 import CreateSemester from '../components/CreateSemester'
 import Loading from '../components/Loading'
@@ -43,14 +44,15 @@ export default function Semesters() {
 					onMutateSuccess={onMutateSuccess}
 					setShowPopUp={setShowCreatePopUp}
 				/> : null}
-			<div className='dashboard-d'>
+			<div className={appStyles['dashboard-d']}>
 				{
 					permissions.hasAnyFormList(['semester_create', 'semester_update', 'semester_delete'])
 						?
-						<div className='action-bar-d'>
+						<div className={appStyles['action-bar-d']}>
 							{
 								permissions.has('semester_create') ?
-									<div className='action-item-d'
+									<div
+										className={appStyles['action-item-d']}
 										onClick={() => {
 											setShowCreatePopUp(true)
 										}}
@@ -68,13 +70,13 @@ export default function Semesters() {
 					}
 					<div className={styles['filter-form']}>
 						<div className={styles['wrap-input-item']}>
-							<label htmlFor="">{language?.filter.search}</label>
+							<label>{language?.filter.search}</label>
 							<input
 								onInput={(e) => {
 									setSearchQuery(e.currentTarget.value)
 								}}
 								defaultValue={queryDebounce}
-								className={css('input-d', styles['input-item'])}
+								className={css(appStyles['input-d'], styles['input-item'])}
 							/>
 						</div>
 					</div>
@@ -86,7 +88,7 @@ export default function Semesters() {
 										<Link
 											to={String(item.id)}
 											key={`semester-${item.id}`}
-											className={css('dashboard-card-d', styles['card'])}>
+											className={css(appStyles['dashboard-card-d'], styles['card'])}>
 											<div className={styles['card-top']}>
 												{item.name}
 											</div>

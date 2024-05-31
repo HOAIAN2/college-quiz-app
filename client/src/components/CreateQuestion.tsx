@@ -6,6 +6,7 @@ import { MdDeleteOutline } from 'react-icons/md'
 import { RiAddFill } from 'react-icons/ri'
 import { RxCross2 } from 'react-icons/rx'
 import { toast } from 'sonner'
+import appStyles from '../App.module.css'
 import { apiCreateQuestion } from '../api/question'
 import useLanguage from '../hooks/useLanguage'
 import { SubjectDetail } from '../models/subject'
@@ -103,7 +104,7 @@ export default function CreateQuestion({
 						<input name='subject_id' readOnly hidden value={subjectDetail.id} />
 						<div className={globalStyles['group-inputs']}>
 							<div style={{ zIndex: 2 }} className={globalStyles['wrap-item']}>
-								<label htmlFor="">{language?.chapter}</label>
+								<label>{language?.chapter}</label>
 								<CustomSelect
 									name='chapter_id'
 									defaultOption={
@@ -152,17 +153,17 @@ export default function CreateQuestion({
 								<textarea
 									onInput={autoSizeTextArea}
 									name='content' id='content'
-									className={css('input-d', globalStyles['input-item'])}
+									className={css(appStyles['input-d'], globalStyles['input-item'])}
 									cols={30} rows={50}>
 								</textarea>
 							</div>
 							<div
 								style={{ paddingLeft: '20px' }}
-								className='action-bar-d'>
+								className={appStyles['action-bar-d']}>
 								{
 									<div
 										style={{ width: 'fit-content' }}
-										className='action-item-d'
+										className={appStyles['action-item-d']}
 										onClick={() => {
 											setOptions([
 												...options,
@@ -183,7 +184,8 @@ export default function CreateQuestion({
 										key={option.key}
 										className={css(styles['textarea-group'], globalStyles['wrap-item'], globalStyles['textarea'])}>
 										<div className={styles['wrap-label']}>
-											<label style={{ cursor: 'pointer' }}
+											<label
+												style={{ cursor: 'pointer' }}
 												className={globalStyles['required']}
 												onClick={() => {
 													setTrueOptionKey(String(option.key))
@@ -199,7 +201,7 @@ export default function CreateQuestion({
 											data-selector={`options.${index}`}
 											onInput={autoSizeTextArea}
 											name='options[]'
-											className={css('input-d', globalStyles['input-item'], styles['textarea'])}
+											className={css(appStyles['input-d'], globalStyles['input-item'], styles['textarea'])}
 											cols={30} rows={50}>
 										</textarea>
 										<div
@@ -209,7 +211,7 @@ export default function CreateQuestion({
 												}
 												else setOptions(options.filter(item => item.key !== option.key))
 											}}
-											className='action-item-white-border-red-d'>
+											className={appStyles['action-item-white-border-red-d']}>
 											<MdDeleteOutline /> {language?.delete}
 										</div>
 									</div>
@@ -220,18 +222,21 @@ export default function CreateQuestion({
 							<button name='save'
 								className={
 									css(
-										'action-item-d',
-										isPending ? 'button-submitting' : ''
+										appStyles['action-item-d'],
+										isPending ? appStyles['button-submitting'] : ''
 									)
-								}><FiSave />{language?.save}</button>
+								}><FiSave />
+								{language?.save}
+							</button>
 							<button name='save-more'
 								className={
 									css(
-										'action-item-white-d',
-										isPending ? 'button-submitting' : ''
+										appStyles['action-item-white-d'],
+										isPending ? appStyles['button-submitting'] : ''
 									)
-								}
-							><FiSave />{language?.saveMore}</button>
+								}>
+								<FiSave />{language?.saveMore}
+							</button>
 						</div>
 					</form>
 				</div>

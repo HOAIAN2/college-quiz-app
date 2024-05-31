@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { FiSave } from 'react-icons/fi'
 import { PiStudent } from 'react-icons/pi'
 import { RxCross2 } from 'react-icons/rx'
+import appStyles from '../App.module.css'
 import { apiUpdateCourseStudents } from '../api/course'
 import { apiGetAllUser } from '../api/user'
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
@@ -84,7 +85,7 @@ export default function UpdateCourseStudents({
 						onInput={e => {
 							setQueryUser(e.currentTarget.value)
 						}}
-						className={css('input-d', styles['input-item'])}
+						className={css(appStyles['input-d'], styles['input-item'])}
 						type='text' />
 					<div className={styles['wrap-data-container']}>
 						<div className={styles['data-container']}>
@@ -132,7 +133,7 @@ export default function UpdateCourseStudents({
 													newStudents.push(user)
 													setStudents(newStudents)
 												}}
-												className={css('dashboard-card-d', styles['card'])}
+												className={css(appStyles['dashboard-card-d'], styles['card'])}
 												key={`user-${user.id}`}
 											>
 												<div className={styles['card-left']}>
@@ -151,10 +152,12 @@ export default function UpdateCourseStudents({
 							onClick={() => { mutate() }}
 							className={
 								css(
-									'action-item-d',
-									isPending ? 'button-submitting' : ''
+									appStyles['action-item-d'],
+									isPending ? appStyles['button-submitting'] : ''
 								)
-							}><FiSave />{language?.save}</button>
+							}>
+							<FiSave />{language?.save}
+						</button>
 					</div>
 				</div>
 			</div>

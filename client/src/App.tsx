@@ -8,7 +8,8 @@ import { Suspense, lazy } from 'react'
 import 'react-datetime/css/react-datetime.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Toaster } from 'sonner'
-import './App.css'
+// import './App.css'
+import './App.module.css'
 import SuspenseLoading from './components/SuspenseLoading'
 import useAppContext from './hooks/useAppContext'
 import AuthLayout from './layouts/AuthLayout'
@@ -19,7 +20,7 @@ import Profile from './pages/Profile'
 
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Users = lazy(() => import('./pages/Users'))
-const Permisisons = lazy(() => import('./pages/Permisisons'))
+const Permissisons = lazy(() => import('./pages/Permissisons'))
 const RolePermissions = lazy(() => import('./pages/RolePermissions'))
 const Faculties = lazy(() => import('./pages/Faculties'))
 const SchoolClasses = lazy(() => import('./pages/SchoolClasses'))
@@ -156,7 +157,7 @@ const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								element: <Suspense fallback={<SuspenseLoading />}><Permisisons /></Suspense>
+								element: <Suspense fallback={<SuspenseLoading />}><Permissisons /></Suspense>
 							},
 							{
 								path: ':id',

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import appStyles from '../App.module.css'
 import { Option } from '../models/option'
 import styles from '../styles/CustomDataList.module.css'
 import css from '../utils/css'
@@ -57,7 +58,7 @@ export default function CustomDataList({
 				}}
 				data-selector={name}
 				// name={name}
-				className={css('input-d', styles['input-item'])}
+				className={css(appStyles['input-d'], styles['input-item'])}
 				value={currentText}
 				disabled={disabled}
 				onInput={e => {
@@ -78,7 +79,7 @@ export default function CustomDataList({
 							if (disabled) return
 							customDataListRef.current?.classList.add(styles['hidden'])
 						}}
-						className={css('input-d', styles['select-dropbox'])}
+						className={css(appStyles['input-d'], styles['select-dropbox'])}
 					>
 						{options.map(option => {
 							return (

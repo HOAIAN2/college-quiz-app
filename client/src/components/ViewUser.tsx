@@ -3,6 +3,7 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
 import { FiSave } from 'react-icons/fi'
 import { RxCross2 } from 'react-icons/rx'
+import appStyles from '../App.module.css'
 import { apiAutoCompleteFaculty } from '../api/faculty'
 import { apiAutoCompleteSchoolClass } from '../api/school-class'
 import { apiGetUserById, apiUpdateUser } from '../api/user'
@@ -139,7 +140,7 @@ export default function ViewUser({
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.email}
 												name='email'
-												className={css('input-d', styles['input-item'])}
+												className={css(appStyles['input-d'], styles['input-item'])}
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
@@ -149,7 +150,7 @@ export default function ViewUser({
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.phoneNumber || ''}
 												name='phone_number'
-												className={css('input-d', styles['input-item'])}
+												className={css(appStyles['input-d'], styles['input-item'])}
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
@@ -159,7 +160,7 @@ export default function ViewUser({
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.firstName}
 												name='first_name'
-												className={css('input-d', styles['input-item'])}
+												className={css(appStyles['input-d'], styles['input-item'])}
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
@@ -169,7 +170,7 @@ export default function ViewUser({
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.lastName}
 												name='last_name'
-												className={css('input-d', styles['input-item'])}
+												className={css(appStyles['input-d'], styles['input-item'])}
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
@@ -179,7 +180,7 @@ export default function ViewUser({
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.shortcode}
 												name='shortcode'
-												className={css('input-d', styles['input-item'])}
+												className={css(appStyles['input-d'], styles['input-item'])}
 												type='text' />
 										</div>
 										{queryData.data.role.name === 'student' ?
@@ -246,7 +247,7 @@ export default function ViewUser({
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.address}
 												name='address'
-												className={css('input-d', styles['input-item'])}
+												className={css(appStyles['input-d'], styles['input-item'])}
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
@@ -259,7 +260,7 @@ export default function ViewUser({
 														id: 'birth_date',
 														disabled: disabledUpdate,
 														name: 'birth_date',
-														className: css('input-d', styles['input-item'])
+														className: css(appStyles['input-d'], styles['input-item'])
 													}
 												}
 												closeOnSelect={true}
@@ -286,7 +287,7 @@ export default function ViewUser({
 												disabled={disabledUpdate}
 												placeholder={language?.leaveBlank}
 												name='password'
-												className={css('input-d', styles['input-item'])}
+												className={css(appStyles['input-d'], styles['input-item'])}
 												type='password' />
 										</div>
 									</div>
@@ -296,8 +297,8 @@ export default function ViewUser({
 												<button name='save'
 													className={
 														css(
-															'action-item-d',
-															isPending ? 'button-submitting' : ''
+															appStyles['action-item-d'],
+															isPending ? appStyles['button-submitting'] : ''
 														)
 													}
 												><FiSave />{language?.save}</button>

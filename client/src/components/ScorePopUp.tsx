@@ -1,6 +1,7 @@
 import confetti from 'canvas-confetti'
 import { TiArrowBack } from 'react-icons/ti'
 import { useNavigate } from 'react-router-dom'
+import appStyles from '../App.module.css'
 import useLanguage from '../hooks/useLanguage'
 import { ExamResult } from '../models/exam'
 import styles from '../styles/ScorePopUp.module.css'
@@ -70,7 +71,7 @@ export default function ScorePopUp({
 					<div className={styles['action-items']}>
 						<button
 							onClick={handleClosePopUp}
-							className='button-d'>
+							className={appStyles['button-d']}>
 							<TiArrowBack />
 							{language?.goBack}
 						</button>

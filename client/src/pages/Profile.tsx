@@ -3,6 +3,7 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
 import { FiSave } from 'react-icons/fi'
 import { PiKey } from 'react-icons/pi'
+import appStyles from '../App.module.css'
 import { apiGetUser, apiUpdateUser } from '../api/user'
 import ChangePassword from '../components/ChangePassword'
 import CustomSelect from '../components/CustomSelect'
@@ -66,7 +67,7 @@ export default function Profile() {
 				<ChangePassword
 					setShowPopup={setShowChangePasswordPopUp}
 				/> : null}
-			<main className={css('dashboard-d', styles['profile-content'])}>
+			<main className={css(appStyles['dashboard-d'], styles['profile-content'])}>
 				{
 					isPending ? <Loading /> : null
 				}
@@ -88,7 +89,7 @@ export default function Profile() {
 									disabled={disabledUpdate}
 									defaultValue={queryData.data.user.email}
 									name='email'
-									className={css('input-d', styles['input-item'])}
+									className={css(appStyles['input-d'], styles['input-item'])}
 								/>
 							</div>
 							<div className={styles['wrap-item']}>
@@ -98,7 +99,7 @@ export default function Profile() {
 									disabled={disabledUpdate}
 									defaultValue={queryData.data.user.phoneNumber || ''}
 									name='phone_number'
-									className={css('input-d', styles['input-item'])}
+									className={css(appStyles['input-d'], styles['input-item'])}
 								/>
 							</div>
 							<div className={styles['wrap-item']}>
@@ -108,7 +109,7 @@ export default function Profile() {
 									disabled={disabledUpdate}
 									defaultValue={queryData.data.user.firstName}
 									name='first_name'
-									className={css('input-d', styles['input-item'])}
+									className={css(appStyles['input-d'], styles['input-item'])}
 								/>
 							</div>
 							<div className={styles['wrap-item']}>
@@ -118,7 +119,7 @@ export default function Profile() {
 									disabled={disabledUpdate}
 									defaultValue={queryData.data.user.lastName}
 									name='last_name'
-									className={css('input-d', styles['input-item'])}
+									className={css(appStyles['input-d'], styles['input-item'])}
 								/>
 							</div>
 							<div className={styles['wrap-item']}>
@@ -128,7 +129,7 @@ export default function Profile() {
 									disabled={disabledUpdate}
 									defaultValue={queryData.data.user.shortcode}
 									name='shortcode'
-									className={css('input-d', styles['input-item'])}
+									className={css(appStyles['input-d'], styles['input-item'])}
 								/>
 							</div>
 							{queryData.data?.user.role.name === 'student' ?
@@ -139,7 +140,7 @@ export default function Profile() {
 										disabled={disabledUpdate}
 										defaultValue={queryData.data.user.schoolClass?.shortcode || ''}
 										name='school_class'
-										className={css('input-d', styles['input-item'])}
+										className={css(appStyles['input-d'], styles['input-item'])}
 									/>
 								</div> : queryData.data?.user.role.name === 'teacher'
 									? <div className={styles['wrap-item']}>
@@ -149,7 +150,7 @@ export default function Profile() {
 											disabled={disabledUpdate}
 											defaultValue={queryData.data.user.faculty?.shortcode || ''}
 											name='faculty'
-											className={css('input-d', styles['input-item'])}
+											className={css(appStyles['input-d'], styles['input-item'])}
 										/>
 									</div> : null
 							}
@@ -173,7 +174,7 @@ export default function Profile() {
 									disabled={disabledUpdate}
 									defaultValue={queryData.data.user.address}
 									name='address'
-									className={css('input-d', styles['input-item'])}
+									className={css(appStyles['input-d'], styles['input-item'])}
 								/>
 							</div>
 							<div className={styles['wrap-item']}>
@@ -186,7 +187,7 @@ export default function Profile() {
 											id: 'birth_date',
 											disabled: disabledUpdate,
 											name: 'birth_date',
-											className: css('input-d', styles['input-item'])
+											className: css(appStyles['input-d'], styles['input-item'])
 										}
 									}
 									closeOnSelect={true}
@@ -200,8 +201,8 @@ export default function Profile() {
 									<button name='save'
 										className={
 											css(
-												'action-item-d',
-												isPending ? 'button-submitting' : ''
+												appStyles['action-item-d'],
+												isPending ? appStyles['button-submitting'] : ''
 											)
 										}
 									><FiSave /> {language?.save}</button>
@@ -216,7 +217,7 @@ export default function Profile() {
 					</div>
 					<div className={styles['section-content']} >
 						<button
-							className='action-item-d'
+							className={appStyles['action-item-d']}
 							onClick={() => { setShowChangePasswordPopUp(true) }}>
 							<PiKey />{language?.otherSection.changePassword}
 						</button>

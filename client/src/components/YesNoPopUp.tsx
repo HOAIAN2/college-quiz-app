@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
+import appStyles from '../App.module.css'
 import styles from '../styles/YesNoPopUp.module.css'
 import css from '../utils/css'
 import Loading from './Loading'
@@ -75,7 +76,7 @@ export default function YesNoPopUp({
 							onClick={handleClosePopUp}
 							className={
 								css(
-									'action-item-white-border-red-d',
+									appStyles['action-item-white-border-red-d'],
 									mutation.isPending ? styles['pending'] : ''
 								)
 							}
@@ -84,7 +85,7 @@ export default function YesNoPopUp({
 							onClick={() => { mutation.mutate() }}
 							className={
 								css(
-									'action-item-white-d',
+									appStyles['action-item-white-d'],
 									mutation.isPending ? styles['pending'] : ''
 								)
 							}>{langYes}

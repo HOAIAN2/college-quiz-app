@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { FiSave } from 'react-icons/fi'
 import { RxCross2 } from 'react-icons/rx'
+import appStyles from '../App.module.css'
 import { apiCreateCourse } from '../api/course'
 import { apiAutoCompleteSubject } from '../api/subject'
 import { apiAutoCompleteUser } from '../api/user'
@@ -133,7 +134,7 @@ export default function CreateCourse({
 									name='shortcode'
 									value={shortcode}
 									onInput={e => { setShortcode(e.currentTarget.value) }}
-									className={css('input-d', styles['input-item'])}
+									className={css(appStyles['input-d'], styles['input-item'])}
 									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
@@ -141,7 +142,7 @@ export default function CreateCourse({
 								<input
 									id='name'
 									name='name'
-									className={css('input-d', styles['input-item'])}
+									className={css(appStyles['input-d'], styles['input-item'])}
 									type='text' />
 							</div>
 							<div
@@ -180,15 +181,15 @@ export default function CreateCourse({
 							<button name='save'
 								className={
 									css(
-										'action-item-d',
-										isPending ? 'button-submitting' : ''
+										appStyles['action-item-d'],
+										isPending ? appStyles['button-submitting'] : ''
 									)
 								}><FiSave />{language?.save}</button>
 							<button name='save-more'
 								className={
 									css(
-										'action-item-d',
-										isPending ? 'button-submitting' : ''
+										appStyles['action-item-white-d'],
+										isPending ? appStyles['button-submitting'] : ''
 									)
 								}
 							><FiSave />{language?.saveMore}</button>

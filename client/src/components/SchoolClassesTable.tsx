@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
 import { SetURLSearchParams } from 'react-router-dom'
+import appStyles from '../App.module.css'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
 import { Pagination } from '../models/response'
@@ -168,7 +169,7 @@ export default function SchoolClassesTable({
 												<button key={'faculty' + link.label}
 													className={
 														css(
-															'button-d',
+															appStyles['button-d'],
 															!link.active ? styles['inactive'] : ''
 														)
 													}

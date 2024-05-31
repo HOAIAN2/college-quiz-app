@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RiAddFill } from 'react-icons/ri'
 import { useSearchParams } from 'react-router-dom'
+import appStyles from '../App.module.css'
 import { apiDeleteSchoolClassIds, apiGetSchoolClasses } from '../api/school-class'
 import CreateSchoolClass from '../components/CreateSchoolClass'
 import CustomSelect from '../components/CustomSelect'
@@ -74,14 +75,14 @@ export default function SchoolClasses() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			<main className='dashboard-d'>
+			<main className={appStyles['dashboard-d']}>
 				{
 					permissions.hasAnyFormList(['school_class_create', 'school_class_delete'])
 						?
-						<section className='action-bar-d'>
+						<section className={appStyles['action-bar-d']}>
 							{
 								permissions.has('school_class_create') ?
-									<div className='action-item-d'
+									<div className={appStyles['action-item-d']}
 										onClick={() => {
 											setShowCreatePopUp(true)
 										}}
@@ -96,7 +97,7 @@ export default function SchoolClasses() {
 										onClick={() => {
 											setShowDeletePopUp(true)
 										}}
-										className='action-item-white-border-red-d'>
+										className={appStyles['action-item-white-border-red-d']}>
 										<MdDeleteOutline /> {language?.delete}
 									</div>
 									: null
@@ -151,7 +152,7 @@ export default function SchoolClasses() {
 									setSearchQuery(e.currentTarget.value)
 								}}
 								defaultValue={queryDebounce}
-								className={css('input-d', styles['input-item'])}
+								className={css(appStyles['input-d'], styles['input-item'])}
 							/>
 						</div>
 					</div>

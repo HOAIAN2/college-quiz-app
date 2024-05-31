@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import appStyles from '../App.module.css'
 import { apiLogin } from '../api/auth'
 import { apiGetUser } from '../api/user'
 import useAppContext from '../hooks/useAppContext'
@@ -62,14 +63,14 @@ export default function Login() {
 				<div className={styles['wrap-input']}>
 					<input name='email'
 						autoFocus
-						className={css('input-d', styles['input'])}
+						className={css(appStyles['input-d'], styles['input'])}
 						type='email'
 						placeholder={language?.email}
 					></input>
 				</div>
 				<div className={styles['wrap-input']}>
 					<input name='password'
-						className={css('input-d', styles['input'])}
+						className={css(appStyles['input-d'], styles['input'])}
 						type='password'
 						placeholder={language?.password}
 					/>
@@ -79,7 +80,7 @@ export default function Login() {
 						ref={buttonRef}
 						className={
 							css(
-								'button-d',
+								appStyles['button-d'],
 								styles['submit'],
 								blockSubmit && !buttonRef.current?.classList.contains(styles['submitting']) ? styles['blocking'] : ''
 							)

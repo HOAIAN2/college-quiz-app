@@ -3,6 +3,7 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
 import { MdDeleteOutline } from 'react-icons/md'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import appStyles from '../App.module.css'
 import { apiDeleteSemester, apiGetSemesterById, apiUpdateSemester } from '../api/semester'
 import Loading from '../components/Loading'
 import YesNoPopUp from '../components/YesNoPopUp'
@@ -66,7 +67,7 @@ export default function Semester() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			<main className={css('dashboard-d', styles['page-content'])}>
+			<main className={css(appStyles['dashboard-d'], styles['page-content'])}>
 				{
 					queryData.isLoading ? <Loading /> : null
 				}
@@ -94,7 +95,7 @@ export default function Semester() {
 												name='name'
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.name}
-												className={css('input-d', styles['input-item'])}
+												className={css(appStyles['input-d'], styles['input-item'])}
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
@@ -105,7 +106,7 @@ export default function Semester() {
 													{
 														id: 'start_date',
 														name: 'start_date',
-														className: css('input-d', styles['input-item']),
+														className: css(appStyles['input-d'], styles['input-item']),
 														disabled: disabledUpdate
 													}
 												}
@@ -121,7 +122,7 @@ export default function Semester() {
 													{
 														id: 'end_date',
 														name: 'end_date',
-														className: css('input-d', styles['input-item']),
+														className: css(appStyles['input-d'], styles['input-item']),
 														disabled: disabledUpdate
 													}
 												}
@@ -138,8 +139,9 @@ export default function Semester() {
 													permissions.has('semester_update') ?
 														<button name='save'
 															className={
-																css('action-item-d',
-																	isPending ? 'button-submitting' : ''
+																css(
+																	appStyles['action-item-d'],
+																	isPending ? appStyles['button-submitting'] : ''
 																)
 															}
 														>{language?.save}</button> : null
@@ -151,8 +153,9 @@ export default function Semester() {
 															onClick={() => {
 																setShowDeletePopUp(true)
 															}}
-															className='action-item-white-border-red-d'>
-															<MdDeleteOutline /> {language?.delete}
+															className={appStyles['action-item-white-border-red-d']}>
+															<MdDeleteOutline />
+															{language?.delete}
 														</button> : null
 												}
 											</div>
@@ -174,7 +177,7 @@ export default function Semester() {
 							}
 						</> : null
 				}
-			</main>
+			</main >
 		</>
 	)
 }

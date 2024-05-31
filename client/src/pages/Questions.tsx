@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { AiOutlineQuestionCircle } from 'react-icons/ai'
 import { RiAddFill } from 'react-icons/ri'
 import { useLocation, useParams, useSearchParams } from 'react-router-dom'
+import appStyles from '../App.module.css'
 import { apiGetQuestions } from '../api/question'
 import { apiGetSubjectById } from '../api/subject'
 import CreateQuestion from '../components/CreateQuestion'
@@ -78,14 +79,15 @@ export default function Questions() {
 					setShowPopUp={setShowCreatePopUp}
 					subjectDetail={subjectDetail}
 				/> : null}
-			<main className='dashboard-d'>
+			<main className={appStyles['dashboard-d']}>
 				{
 					permissions.hasAnyFormList(['question_create'])
 						?
-						<section className='action-bar-d'>
+						<section className={appStyles['action-bar-d']}>
 							{
 								permissions.has('question_create') ?
-									<div className='action-item-d'
+									<div
+										className={appStyles['action-item-d']}
 										onClick={() => {
 											setShowCreatePopUp(true)
 										}}
@@ -103,7 +105,7 @@ export default function Questions() {
 					}
 					<div className={styles['filter-form']}>
 						<div className={styles['wrap-input-item']}>
-							<label htmlFor="">{language?.filter.chapter}</label>
+							<label>{language?.filter.chapter}</label>
 							<CustomSelect
 								defaultOption={
 									{
@@ -138,7 +140,7 @@ export default function Questions() {
 								}}
 								name='search'
 								defaultValue={queryDebounce}
-								className={css('input-d', styles['input-item'])}
+								className={css(appStyles['input-d'], styles['input-item'])}
 							/>
 						</div>
 					</div>
@@ -153,7 +155,7 @@ export default function Questions() {
 												setShowViewPopUp(true)
 											}}
 											key={`subject-${item.id}`}
-											className={css('dashboard-card-d', styles['card'])}>
+											className={css(appStyles['dashboard-card-d'], styles['card'])}>
 											<div className={styles['card-top']}>
 												<p className={styles['content']}>
 													{item.content}

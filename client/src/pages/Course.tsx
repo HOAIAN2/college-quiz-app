@@ -5,6 +5,7 @@ import { LuPenSquare } from 'react-icons/lu'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RiAddFill } from 'react-icons/ri'
 import { useNavigate, useParams } from 'react-router-dom'
+import appStyles from '../App.module.css'
 import { apiDeleteCourse, apiGetCourseById, apiUpdateCourse } from '../api/course'
 import { apiAutoCompleteUser } from '../api/user'
 import CreateExam from '../components/CreateExam'
@@ -115,7 +116,7 @@ export default function Course() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			<main className={css('dashboard-d', styles['page-content'])}>
+			<main className={css(appStyles['dashboard-d'], styles['page-content'])}>
 				{
 					queryData.isLoading ? <Loading /> : null
 				}
@@ -140,7 +141,7 @@ export default function Course() {
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.shortcode}
 												name='shortcode'
-												className={css('input-d', styles['input-item'])}
+												className={css(appStyles['input-d'], styles['input-item'])}
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
@@ -150,7 +151,7 @@ export default function Course() {
 												disabled={disabledUpdate}
 												defaultValue={queryData.data.name}
 												name='name'
-												className={css('input-d', styles['input-item'])}
+												className={css(appStyles['input-d'], styles['input-item'])}
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
@@ -179,7 +180,7 @@ export default function Course() {
 											<input
 												disabled
 												defaultValue={queryData.data.subject.name}
-												className={css('input-d', styles['input-item'])}
+												className={css(appStyles['input-d'], styles['input-item'])}
 												type='text' />
 										</div>
 									</div>
@@ -192,7 +193,8 @@ export default function Course() {
 															name='save'
 															className={
 																css(
-																	'action-item-d', isPending ? 'button-submitting' : ''
+																	appStyles['action-item-d'],
+																	isPending ? appStyles['button-submitting'] : ''
 																)
 															}
 														><FiSave />{language?.save}</button> : null
@@ -204,7 +206,7 @@ export default function Course() {
 															onClick={() => {
 																setShowDeletePopUp(true)
 															}}
-															className='action-item-white-border-red-d'>
+															className={appStyles['action-item-white-border-red-d']}>
 															<MdDeleteOutline /> {language?.delete}
 														</button> : null
 												}
@@ -220,11 +222,11 @@ export default function Course() {
 								{
 									permissions.has('course_update') ?
 										<div
-											className='action-bar-d'
+											className={appStyles['action-bar-d']}
 											style={{ paddingLeft: '20px' }}
 										>
 											<button
-												className={css('action-item-d', styles['edit-students-button'])}
+												className={css(appStyles['action-item-d'], styles['edit-students-button'])}
 												onClick={() => {
 													setShowUpdateStudentsPopUp(true)
 												}}
@@ -247,7 +249,7 @@ export default function Course() {
 													<div
 														title={[fullName, schoolClass].join(' ')}
 														key={`enrollment-${enrollment.id}`}
-														className={css('dashboard-card-d', styles['card'])}
+														className={css(appStyles['dashboard-card-d'], styles['card'])}
 													>
 														<div className={styles['card-content']}>
 															{[fullName, `(${schoolClass})`].join(' ')}
@@ -266,7 +268,8 @@ export default function Course() {
 									<div className='action-bar-d'
 										style={{ paddingLeft: '20px' }}
 									>
-										<button className='action-item-d'
+										<button
+											className={appStyles['action-item-d']}
 											onClick={() => {
 												setShowCreateExamPopUp(true)
 											}}
@@ -288,7 +291,7 @@ export default function Course() {
 														setExamId(exam.id)
 														setShowViewExamPopUp(true)
 													}}
-													className={css('dashboard-card-d', styles['exam-card'])}
+													className={css(appStyles['dashboard-card-d'], styles['exam-card'])}
 												>
 													<div className={styles['card-section']}>
 														<p>

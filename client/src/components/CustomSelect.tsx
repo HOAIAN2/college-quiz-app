@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import appStyles from '../App.module.css'
 import useAppContext from '../hooks/useAppContext'
 import { Option } from '../models/option'
 import styles from '../styles/CustomSelect.module.css'
@@ -52,7 +53,7 @@ export default function CustomSelect({
 			}}
 			className={
 				css(
-					'input-d',
+					appStyles['input-d'],
 					styles['custom-select'],
 					disabled ? styles['disabled'] : '',
 					className
@@ -68,7 +69,7 @@ export default function CustomSelect({
 				onChange={(e) => { e.preventDefault() }} />
 			<div
 				ref={customSelectRef}
-				className={css('input-d', styles['hidden'], styles['select-dropbox'])}
+				className={css(appStyles['input-d'], styles['hidden'], styles['select-dropbox'])}
 			>
 				{options.map(option => {
 					return (

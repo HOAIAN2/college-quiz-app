@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { LuBookOpenCheck } from 'react-icons/lu'
 import { RiAddFill } from 'react-icons/ri'
 import { Link, useSearchParams } from 'react-router-dom'
+import appStyles from '../App.module.css'
 import { apiGetSubjects } from '../api/subject'
 import CreateSubject from '../components/CreateSubject'
 import Loading from '../components/Loading'
@@ -43,14 +44,15 @@ export default function Subjects() {
 					onMutateSuccess={onMutateSuccess}
 					setShowPopUp={setShowCreatePopUp}
 				/> : null}
-			<main className='dashboard-d'>
+			<main className={appStyles['dashboard-d']}>
 				{
 					permissions.hasAnyFormList(['subject_create'])
 						?
-						<section className='action-bar-d'>
+						<section className={appStyles['action-bar-d']}>
 							{
 								permissions.has('subject_create') ?
-									<button className='action-item-d'
+									<button
+										className={appStyles['action-item-d']}
 										onClick={() => {
 											setShowCreatePopUp(true)
 										}}
@@ -74,7 +76,7 @@ export default function Subjects() {
 									setSearchQuery(e.currentTarget.value)
 								}}
 								defaultValue={queryDebounce}
-								className={css('input-d', styles['input-item'])}
+								className={css(appStyles['input-d'], styles['input-item'])}
 							/>
 						</div>
 					</div>
@@ -86,7 +88,8 @@ export default function Subjects() {
 										<Link
 											key={`subject-${item.id}`}
 											to={String(item.id)}
-											className={css('dashboard-card-d', styles['card'])}>
+											className={css(appStyles['dashboard-card-d'], styles['card'])}
+										>
 											<div className={styles['card-top']}>
 												<p className={styles['content']}>
 													{item.name}

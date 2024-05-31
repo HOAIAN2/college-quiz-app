@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { ImCancelCircle } from 'react-icons/im'
 import { LuAlarmClock, LuRefreshCw } from 'react-icons/lu'
 import { Link, useParams } from 'react-router-dom'
+import appStyles from '../App.module.css'
 import { apiGetExamById, apiUpdateExamStatus } from '../api/exam'
 import Loading from '../components/Loading'
 import YesNoPopUp from '../components/YesNoPopUp'
@@ -69,7 +70,7 @@ export default function Exam() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			<main className={css('dashboard-d', styles['page-content'])}>
+			<main className={css(appStyles['dashboard-d'], styles['page-content'])}>
 				{
 					queryData.isLoading ? <Loading /> : null
 				}
@@ -121,8 +122,9 @@ export default function Exam() {
 															style={{ width: 'fit-content' }}
 															to='take'
 															type='button'
-															className='action-item-d'
-														><LuAlarmClock />{language?.doExam}
+															className={appStyles['action-item-d']}
+														>
+															<LuAlarmClock />{language?.doExam}
 														</Link>
 													</> : null
 											}
@@ -136,7 +138,7 @@ export default function Exam() {
 																		setShowStartExamPopUp(true)
 																	}}
 																	type='button'
-																	className='action-item-d'
+																	className={appStyles['action-item-d']}
 																><LuAlarmClock /> {language?.startExam}
 																</button>
 																: null
@@ -146,7 +148,7 @@ export default function Exam() {
 															onClick={() => {
 																setShowCancelExamPopUp(true)
 															}}
-															className='action-item-white-border-red-d'>
+															className={appStyles['action-item-white-border-red-d']}>
 															<ImCancelCircle /> {language?.cancelExam}
 														</button>
 													</> : null
@@ -159,15 +161,15 @@ export default function Exam() {
 								<div className={styles['header']}>
 									<h2 className={styles['title']}>{language?.result}</h2>
 								</div>
-								<div className='action-bar-d'
+								<div className={appStyles['action-bar-d']}
 									style={{ marginBottom: '20px' }}
 								>
 									<button
 										className={
 											css(
-												queryData.isFetching ? 'button-submitting' : '',
+												queryData.isFetching ? appStyles['button-submitting'] : '',
 												queryData.isFetching ? styles['refreshing'] : '',
-												'action-item-d'
+												appStyles['action-item-d']
 											)
 										}
 										onClick={() => { queryData.refetch() }}

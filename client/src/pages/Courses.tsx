@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { LuBookOpenCheck } from 'react-icons/lu'
 import { RiAddFill } from 'react-icons/ri'
 import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom'
+import appStyles from '../App.module.css'
 import { apiGetCourses } from '../api/course'
 import { apiGetSemesterById } from '../api/semester'
 import CreateCourse from '../components/CreateCourse'
@@ -69,14 +70,15 @@ export default function Courses() {
 					onMutateSuccess={onMutateSuccess}
 					setShowPopUp={setShowCreatePopUp}
 				/> : null}
-			<main className='dashboard-d'>
+			<main className={appStyles['dashboard-d']}>
 				{
 					permissions.hasAnyFormList(['course_create',])
 						?
-						<section className='action-bar-d'>
+						<section className={appStyles['action-bar-d']}>
 							{
 								permissions.has('course_create') ?
-									<div className='action-item-d'
+									<div
+										className={appStyles['action-item-d']}
 										onClick={() => {
 											setShowCreatePopUp(true)
 										}}
@@ -100,7 +102,7 @@ export default function Courses() {
 									setSearchQuery(e.currentTarget.value)
 								}}
 								defaultValue={queryDebounce}
-								className={css('input-d', styles['input-item'])}
+								className={css(appStyles['input-d'], styles['input-item'])}
 							/>
 						</div>
 					</div>
@@ -112,7 +114,8 @@ export default function Courses() {
 										<Link
 											key={`course-${item.id}`}
 											to={`${item.id}`}
-											className={css('dashboard-card-d', styles['card'])}>
+											className={css(appStyles['dashboard-card-d'], styles['card'])
+											}>
 											<div className={styles['card-top']}>
 												{item.name}
 											</div>
@@ -126,7 +129,7 @@ export default function Courses() {
 						</div>
 					</div>
 				</section>
-			</main>
+			</main >
 		</>
 	)
 }

@@ -4,6 +4,7 @@ import {
 	IoMdAddCircleOutline,
 } from 'react-icons/io'
 import { RxCross2 } from 'react-icons/rx'
+import appStyles from '../App.module.css'
 import useLanguage from '../hooks/useLanguage'
 import styles from '../styles/ImportData.module.css'
 import css from '../utils/css'
@@ -140,13 +141,13 @@ export default function ImportData({
 							onClick={() => { mutation.mutate() }}
 							name='save' className={
 								css(
-									'action-item-d',
+									appStyles['action-item-d'],
 									mutation.isPending ? styles['pending'] : ''
 								)
 							}>{language?.save}
 						</button>
 						<a
-							className='action-item-white-d'
+							className={appStyles['action-item-white-d']}
 							href={teamplateUrl}
 							download=''>{language?.downloadTemplate}</a>
 					</div>

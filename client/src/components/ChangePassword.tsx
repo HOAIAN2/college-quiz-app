@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
 import { useNavigate } from 'react-router-dom'
+import appStyles from '../App.module.css'
 import { apiChangePassword } from '../api/auth'
 import useLanguage from '../hooks/useLanguage'
 import styles from '../styles/ChangePassword.module.css'
@@ -86,21 +87,21 @@ export default function ChangePassword({
 							<label className={styles['required']} htmlFor="">{language?.password}</label>
 							<input
 								name='current_password'
-								className={css('input-d', styles['input-item'])}
+								className={css(appStyles['input-d'], styles['input-item'])}
 								type="password" />
 						</div>
 						<div className={styles['wrap-item']}>
 							<label className={styles['required']} htmlFor="">{language?.newPassword}</label>
 							<input
 								name='password'
-								className={css('input-d', styles['input-item'])}
+								className={css(appStyles['input-d'], styles['input-item'])}
 								type="password" />
 						</div>
 						<div className={styles['wrap-item']}>
 							<label className={styles['required']} htmlFor="">{language?.confirmPassword}</label>
 							<input
 								name='password_confirmation'
-								className={css('input-d', styles['input-item'])}
+								className={css(appStyles['input-d'], styles['input-item'])}
 								type="password" />
 						</div>
 						<div className={styles['wrap-item']}>
@@ -108,7 +109,7 @@ export default function ChangePassword({
 								ref={buttonRef}
 								className={
 									css(
-										'button-d',
+										appStyles['button-d'],
 										styles['submit'],
 										blockSubmit && !buttonRef.current?.classList.contains(styles['submitting']) ? styles['blocking'] : ''
 									)

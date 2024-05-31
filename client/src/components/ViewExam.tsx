@@ -4,6 +4,7 @@ import Datetime from 'react-datetime'
 import { FiSave } from 'react-icons/fi'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RxCross2 } from 'react-icons/rx'
+import appStyles from '../App.module.css'
 import { apiDeleteExam, apiGetExamById, apiUpdateExam } from '../api/exam'
 import { apiGetAllUser } from '../api/user'
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
@@ -148,7 +149,7 @@ export default function ViewExam({
 												name='name'
 												defaultValue={queryData.data.name}
 												disabled={disabledUpdate}
-												className={css('input-d', styles['input-item'])}
+												className={css(appStyles['input-d'], styles['input-item'])}
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
@@ -161,7 +162,7 @@ export default function ViewExam({
 														id: 'exam_date',
 														name: 'exam_date',
 														disabled: disabledUpdate,
-														className: css('input-d', styles['input-item'])
+														className: css(appStyles['input-d'], styles['input-item'])
 													}
 												}
 												closeOnSelect={true}
@@ -180,7 +181,7 @@ export default function ViewExam({
 												disabled={disabledUpdate}
 												min={0}
 												max={60 * 60 * 24}
-												className={css('input-d', styles['input-item'])}
+												className={css(appStyles['input-d'], styles['input-item'])}
 												type='number'
 											/>
 										</div>
@@ -199,7 +200,7 @@ export default function ViewExam({
 																	onInput={e => {
 																		setQueryUser(e.currentTarget.value)
 																	}}
-																	className={css('input-d', styles['input-item'])}
+																	className={css(appStyles['input-d'], styles['input-item'])}
 																	type='text' />
 																: null
 														}
@@ -251,7 +252,7 @@ export default function ViewExam({
 																							newSupervisors.push(user)
 																							setSupervisors(newSupervisors)
 																						}}
-																						className={css('dashboard-card-d', styles['card'])}
+																						className={css(appStyles['dashboard-card-d'], styles['card'])}
 																						key={`user-${user.id}`}
 																					>
 																						<div className={styles['card-left']}>
@@ -276,8 +277,8 @@ export default function ViewExam({
 														<button name='save'
 															className={
 																css(
-																	'action-item-d',
-																	isPending ? 'button-submitting' : ''
+																	appStyles['action-item-d'],
+																	isPending ? appStyles['button-submitting'] : ''
 																)
 															}
 														><FiSave />{language?.save}
@@ -290,7 +291,7 @@ export default function ViewExam({
 															onClick={() => {
 																setShowDeletePopUp(true)
 															}}
-															className='action-item-white-border-red-d'>
+															className={appStyles['action-item-white-border-red-d']}>
 															<MdDeleteOutline /> {language?.delete}
 														</button> : null
 												}

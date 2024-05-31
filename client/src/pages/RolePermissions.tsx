@@ -2,6 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { FiSave } from 'react-icons/fi'
 import { useParams } from 'react-router-dom'
+import appStyles from '../App.module.css'
 import { apiGetRolePermissions, apiUpdateRolePermissions } from '../api/role-permission'
 import Loading from '../components/Loading'
 import { queryKeys } from '../constants/query-keys'
@@ -56,7 +57,7 @@ export default function RolePermissions() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [language])
 	return (
-		<div className={css('dashboard-d', styles['role-permission-container'])}
+		<div className={css(appStyles['dashboard-d'], styles['role-permission-container'])}
 		>
 			{
 				queryData.isLoading || isPending ? <Loading /> : null
@@ -89,7 +90,10 @@ export default function RolePermissions() {
 							permissions.has('role_permission_grant')
 								?
 								<div className={styles['action-items']}>
-									<button name='save' className='action-item-d'><FiSave />{language?.save}</button>
+									<button name='save'
+										className={appStyles['action-item-d']}>
+										<FiSave />{language?.save}
+									</button>
 								</div>
 								: null
 						}

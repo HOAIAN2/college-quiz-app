@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RiAddFill } from 'react-icons/ri'
 import { useSearchParams } from 'react-router-dom'
+import appStyles from '../App.module.css'
 import { apiDeleteFacultiesByIds, apiGetFaculties } from '../api/faculty'
 import CreateFaculty from '../components/CreateFaculty'
 import CustomSelect from '../components/CustomSelect'
@@ -74,15 +75,15 @@ export default function Faculties() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			<main className='dashboard-d'>
+			<main className={appStyles['dashboard-d']}>
 				{
 					permissions.hasAnyFormList(['faculty_create', 'faculty_delete'])
 						?
-						<section className='action-bar-d'>
+						<section className={appStyles['action-bar-d']}>
 							{
 								permissions.has('faculty_create') ?
 									<div
-										className='action-item-d'
+										className={appStyles['action-item-d']}
 										onClick={() => {
 											setShowCreatePopUp(true)
 										}}
@@ -97,7 +98,7 @@ export default function Faculties() {
 										onClick={() => {
 											setShowDeletePopUp(true)
 										}}
-										className='action-item-white-border-red-d'>
+										className={appStyles['action-item-white-border-red-d']}>
 										<MdDeleteOutline /> {language?.delete}
 									</div>
 									: null
@@ -152,7 +153,7 @@ export default function Faculties() {
 									setSearchQuery(e.currentTarget.value)
 								}}
 								defaultValue={queryDebounce}
-								className={css('input-d', styles['input-item'])}
+								className={css(appStyles['input-d'], styles['input-item'])}
 							/>
 						</div>
 					</div>

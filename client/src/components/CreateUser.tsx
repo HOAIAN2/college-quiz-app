@@ -5,6 +5,7 @@ import { FiSave } from 'react-icons/fi'
 import {
 	RxCross2
 } from 'react-icons/rx'
+import appStyles from '../App.module.css'
 import { apiAutoCompleteFaculty } from '../api/faculty'
 import { apiAutoCompleteSchoolClass } from '../api/school-class'
 import { apiCreateUser } from '../api/user'
@@ -128,7 +129,7 @@ export default function CreateUser({
 								<input
 									id='email'
 									name='email'
-									className={css('input-d', styles['input-item'])}
+									className={css(appStyles['input-d'], styles['input-item'])}
 									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
@@ -136,7 +137,7 @@ export default function CreateUser({
 								<input
 									id='phone_number'
 									name='phone_number'
-									className={css('input-d', styles['input-item'])}
+									className={css(appStyles['input-d'], styles['input-item'])}
 									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
@@ -144,7 +145,7 @@ export default function CreateUser({
 								<input
 									id='first_name'
 									name='first_name'
-									className={css('input-d', styles['input-item'])}
+									className={css(appStyles['input-d'], styles['input-item'])}
 									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
@@ -152,7 +153,7 @@ export default function CreateUser({
 								<input
 									id='last_name'
 									name='last_name'
-									className={css('input-d', styles['input-item'])}
+									className={css(appStyles['input-d'], styles['input-item'])}
 									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
@@ -160,7 +161,7 @@ export default function CreateUser({
 								<input
 									id='shortcode'
 									name='shortcode'
-									className={css('input-d', styles['input-item'])}
+									className={css(appStyles['input-d'], styles['input-item'])}
 									type='text' />
 							</div>
 							{role === 'student' ?
@@ -207,7 +208,7 @@ export default function CreateUser({
 								<input
 									id='address'
 									name='address'
-									className={css('input-d', styles['input-item'])}
+									className={css(appStyles['input-d'], styles['input-item'])}
 									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
@@ -219,7 +220,7 @@ export default function CreateUser({
 										{
 											id: 'birth_date',
 											name: 'birth_date',
-											className: css('input-d', styles['input-item'])
+											className: css(appStyles['input-d'], styles['input-item'])
 										}
 									}
 									closeOnSelect={true}
@@ -231,7 +232,7 @@ export default function CreateUser({
 								<input
 									id='password'
 									name='password'
-									className={css('input-d', styles['input-item'])}
+									className={css(appStyles['input-d'], styles['input-item'])}
 									type='password' />
 							</div>
 						</div>
@@ -239,15 +240,15 @@ export default function CreateUser({
 							<button name='save'
 								className={
 									css(
-										'action-item-d',
-										isPending ? 'button-submitting' : ''
+										appStyles['action-item-d'],
+										isPending ? appStyles['button-submitting'] : ''
 									)
 								}><FiSave />{language?.save}</button>
 							<button name='save-more'
 								className={
 									css(
-										'action-item-white-d',
-										isPending ? 'button-submitting' : ''
+										appStyles['action-item-white-d'],
+										isPending ? appStyles['button-submitting'] : ''
 									)
 								}
 							><FiSave />{language?.saveMore}</button>

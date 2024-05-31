@@ -10,6 +10,7 @@ import {
 	RiAddFill
 } from 'react-icons/ri'
 import { useSearchParams } from 'react-router-dom'
+import appStyles from '../App.module.css'
 import { apiDeleteUserByIds, apiGetUsersByType, apiImportUsers } from '../api/user'
 import CreateUser from '../components/CreateUser'
 import CustomSelect from '../components/CustomSelect'
@@ -121,14 +122,14 @@ export default function Users({
 					setImportMode={setShowImportPopUp}
 					onMutateSuccess={onMutateSuccess}
 				/> : null}
-			<main className='dashboard-d'>
+			<main className={appStyles['dashboard-d']}>
 				{
 					permissions.hasAnyFormList(['user_view', 'user_create', 'user_update', 'user_delete'])
 						?
-						<section className='action-bar-d'>
+						<section className={appStyles['action-bar-d']}>
 							{
 								permissions.has('user_create') ?
-									<div className='action-item-d'
+									<div className={appStyles['action-item-d']}
 										onClick={() => {
 											setShowCreatePopUp(true)
 										}}
@@ -139,7 +140,7 @@ export default function Users({
 							}
 							{
 								permissions.has('user_create') ?
-									<div className='action-item-white-d'
+									<div className={appStyles['action-item-white-d']}
 										onClick={() => {
 											setShowImportPopUp(true)
 										}}
@@ -150,7 +151,7 @@ export default function Users({
 							}
 							{
 								permissions.has('user_view') ?
-									<div className='action-item-white-d'
+									<div className={appStyles['action-item-white-d']}
 										onClick={() => {
 											setShowExportPopUp(true)
 										}}
@@ -165,7 +166,7 @@ export default function Users({
 										onClick={() => {
 											setShowDeletePopUp(true)
 										}}
-										className='action-item-white-border-red-d'>
+										className={appStyles['action-item-white-border-red-d']}>
 										<MdDeleteOutline /> {language?.delete}
 									</div>
 									: null
@@ -220,7 +221,7 @@ export default function Users({
 									setSearchQuery(e.currentTarget.value)
 								}}
 								defaultValue={queryDebounce}
-								className={css('input-d', styles['input-item'])}
+								className={css(appStyles['input-d'], styles['input-item'])}
 							/>
 						</div>
 					</div>

@@ -3,6 +3,7 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 import Datetime from 'react-datetime'
 import { FiSave } from 'react-icons/fi'
 import { RxCross2 } from 'react-icons/rx'
+import appStyles from '../App.module.css'
 import { apiCreateSemester } from '../api/semester'
 import useLanguage from '../hooks/useLanguage'
 import styles from '../styles/global/CreateModel.module.css'
@@ -88,7 +89,7 @@ export default function CreateSemester({
 								<input
 									id='name'
 									name='name'
-									className={css('input-d', styles['input-item'])}
+									className={css(appStyles['input-d'], styles['input-item'])}
 									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
@@ -100,7 +101,7 @@ export default function CreateSemester({
 										{
 											id: 'start_date',
 											name: 'start_date',
-											className: css('input-d', styles['input-item'])
+											className: css(appStyles['input-d'], styles['input-item'])
 										}
 									}
 									closeOnSelect={true}
@@ -116,7 +117,7 @@ export default function CreateSemester({
 										{
 											id: 'end_date',
 											name: 'end_date',
-											className: css('input-d', styles['input-item'])
+											className: css(appStyles['input-d'], styles['input-item'])
 										}
 									}
 									closeOnSelect={true}
@@ -128,15 +129,15 @@ export default function CreateSemester({
 							<button name='save'
 								className={
 									css(
-										'action-item-d',
+										appStyles['action-item-d'],
 										isPending ? 'button-submitting' : ''
 									)
 								}><FiSave />{language?.save}</button>
 							<button name='save-more'
 								className={
 									css(
-										'action-item-white-d',
-										isPending ? 'button-submitting' : ''
+										appStyles['action-item-white-d'],
+										isPending ? appStyles['button-submitting'] : ''
 									)
 								}
 							><FiSave />{language?.saveMore}</button>

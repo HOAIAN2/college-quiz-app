@@ -3,6 +3,7 @@ import { sha256 } from 'js-sha256'
 import { useEffect, useState } from 'react'
 import { TbSend } from 'react-icons/tb'
 import { useParams } from 'react-router-dom'
+import appStyles from '../App.module.css'
 import { apiGetExamQuestions, apiSubmitExam } from '../api/exam'
 import ExamQuestion from '../components/ExamQuestion'
 import Loading from '../components/Loading'
@@ -151,7 +152,7 @@ export default function TakeExam() {
 								<div className={styles['action-items']}>
 									<button
 										onClick={() => { setShowSubmitPopUp(true) }}
-										className='action-item-d'>
+										className={appStyles['action-item-d']}>
 										<TbSend /> {language?.submit}
 									</button>
 								</div>

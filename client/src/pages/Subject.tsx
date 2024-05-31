@@ -3,6 +3,7 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RiAddFill } from 'react-icons/ri'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import appStyles from '../App.module.css'
 import { apiDeleteSubject, apiGetSubjectById, apiUpdateSubject } from '../api/subject'
 import CreateChapter from '../components/CreateChapter'
 import Loading from '../components/Loading'
@@ -90,7 +91,7 @@ export default function Subject() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			<main className={css('dashboard-d', styles['page-content'])}>
+			<main className={css(appStyles['dashboard-d'], styles['page-content'])}>
 				{
 					queryData.isLoading ? <Loading /> : null
 				}
@@ -118,7 +119,7 @@ export default function Subject() {
 												disabled={!permissions.has('subject_update')}
 												defaultValue={queryData.data.shortcode}
 												name='shortcode'
-												className={css('input-d', styles['input-item'])}
+												className={css(appStyles['input-d'], styles['input-item'])}
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
@@ -128,7 +129,7 @@ export default function Subject() {
 												disabled={!permissions.has('subject_update')}
 												defaultValue={queryData.data.name}
 												name='name'
-												className={css('input-d', styles['input-item'])}
+												className={css(appStyles['input-d'], styles['input-item'])}
 												type='text' />
 										</div>
 									</div>
@@ -140,8 +141,8 @@ export default function Subject() {
 														<button name='save'
 															className={
 																css(
-																	'action-item-d',
-																	isPending ? 'button-submitting' : ''
+																	appStyles['action-item-d'],
+																	isPending ? appStyles['button-submitting'] : ''
 																)
 															}
 														>{language?.save}</button> : null
@@ -153,7 +154,7 @@ export default function Subject() {
 															onClick={() => {
 																setShowDeletePopUp(true)
 															}}
-															className='action-item-white-border-red-d'>
+															className={appStyles['action-item-white-border-red-d']}>
 															<MdDeleteOutline /> {language?.delete}
 														</button>
 														: null
@@ -168,10 +169,10 @@ export default function Subject() {
 							</div>
 							{
 								permissions.has('subject_update') ?
-									<div className='action-bar-d'
+									<div className={appStyles['action-bar-d']}
 										style={{ paddingLeft: '20px' }}
 									>
-										<div className='action-item-d'
+										<div className={appStyles['action-item-d']}
 											onClick={() => {
 												setShowCreateChapterPopUp(true)
 											}}
@@ -190,7 +191,7 @@ export default function Subject() {
 											return (
 												<div
 													key={`chapter-${chapter.id}`}
-													className={css('dashboard-card-d', styles['card'])}
+													className={css(appStyles['dashboard-card-d'], styles['card'])}
 													onClick={() => {
 														setCurrentChapter(chapter)
 														setShowViewChapterPopUp(true)

@@ -3,6 +3,7 @@ import { SyntheticEvent, useEffect, useState } from 'react'
 import { FiSave } from 'react-icons/fi'
 import { MdDeleteOutline } from 'react-icons/md'
 import { RxCross2 } from 'react-icons/rx'
+import appStyles from '../App.module.css'
 import { apiDeleteChapter, apiUpdateChapter } from '../api/chapter'
 import useAppContext from '../hooks/useAppContext'
 import useLanguage from '../hooks/useLanguage'
@@ -110,7 +111,7 @@ export default function ViewChapter({
 											name='chapter_number'
 											disabled={disabledUpdate}
 											defaultValue={data.chapterNumber}
-											className={css('input-d', styles['input-item'])}
+											className={css(appStyles['input-d'], styles['input-item'])}
 											type='text' />
 									</div>
 									<div className={styles['wrap-item']}>
@@ -120,7 +121,7 @@ export default function ViewChapter({
 											disabled={disabledUpdate}
 											defaultValue={data.name}
 											name='name'
-											className={css('input-d', styles['input-item'])}
+											className={css(appStyles['input-d'], styles['input-item'])}
 											type='text' />
 									</div>
 								</div>
@@ -130,17 +131,18 @@ export default function ViewChapter({
 											<button name='save'
 												className={
 													css(
-														'action-item-d',
+														appStyles['action-item-d'],
 														isPending ? 'button-submitting' : ''
 													)
 												}
-											><FiSave />{language?.save}</button>
+											><FiSave />{language?.save}
+											</button>
 											<button
 												type='button'
 												onClick={() => {
 													setShowDeletePopUp(true)
 												}}
-												className='action-item-white-border-red-d'>
+												className={appStyles['action-item-white-border-red-d']}>
 												<MdDeleteOutline /> {language?.delete}
 											</button>
 										</div>

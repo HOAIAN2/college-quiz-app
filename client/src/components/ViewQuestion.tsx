@@ -6,6 +6,7 @@ import { MdDeleteOutline } from 'react-icons/md'
 import { RiAddFill } from 'react-icons/ri'
 import { RxCross2 } from 'react-icons/rx'
 import { toast } from 'sonner'
+import appStyles from '../App.module.css'
 import { apiDeleteQuestion, apiGetQuestionById, apiUpdateQuestion } from '../api/question'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
@@ -208,7 +209,7 @@ export default function ViewQuestion({
 													defaultValue={queryData.data.content}
 													onInput={autoSizeTextArea}
 													name='content' id='content'
-													className={css('input-d', globalStyles['input-item'])}
+													className={css(appStyles['input-d'], globalStyles['input-item'])}
 													cols={30} rows={50}>
 												</textarea>
 											</div>
@@ -216,11 +217,11 @@ export default function ViewQuestion({
 												permissions.has('question_update') ?
 													<div
 														style={{ paddingLeft: '20px' }}
-														className='action-bar-d'>
+														className={appStyles['action-bar-d']}>
 														{
 															<div
 																style={{ width: 'fit-content' }}
-																className='action-item-d'
+																className={appStyles['action-item-d']}
 																onClick={() => {
 																	setOptions([
 																		...options,
@@ -262,7 +263,7 @@ export default function ViewQuestion({
 															onInput={autoSizeTextArea}
 															name='options[]'
 															disabled={disabledUpdate}
-															className={css('input-d', globalStyles['input-item'], styles['textarea'])}
+															className={css(appStyles['input-d'], globalStyles['input-item'], styles['textarea'])}
 															cols={30} rows={50}>
 														</textarea>
 														{
@@ -274,7 +275,7 @@ export default function ViewQuestion({
 																		}
 																		else setOptions(options.filter(item => item.key !== option.key))
 																	}}
-																	className='action-item-white-border-red-d'
+																	className={appStyles['action-item-white-border-red-d']}
 																>
 																	<MdDeleteOutline /> {language?.delete}
 																</div> : null
@@ -291,7 +292,7 @@ export default function ViewQuestion({
 															<button name='save'
 																className={
 																	css(
-																		'action-item-d',
+																		appStyles['action-item-d'],
 																		isPending ? 'button-submitting' : ''
 																	)
 																}><FiSave />{language?.save}</button>
@@ -304,7 +305,7 @@ export default function ViewQuestion({
 																onClick={() => {
 																	setShowDeletePopUp(true)
 																}}
-																className='action-item-white-border-red-d'
+																className={appStyles['action-item-white-border-red-d']}
 															>
 																<MdDeleteOutline /> {language?.delete}
 															</button>

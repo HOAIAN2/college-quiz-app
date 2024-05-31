@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { RxCross2 } from 'react-icons/rx'
+import appStyles from '../App.module.css'
 import { apiExportUsers, apiGetUserExportableFields } from '../api/user'
 import { queryKeys } from '../constants/query-keys'
 import useLanguage from '../hooks/useLanguage'
@@ -96,16 +97,24 @@ export default function ExportUsers({
 								})
 							}
 							<div className={styles['action-items']}>
-								<button name='save' className='action-item-d'>{language?.save}</button>
+								<button
+									name='save'
+									className={appStyles['action-item-d']}>
+									{language?.save}
+								</button>
 								<button
 									onClick={() => { handleSelectAll('none') }}
 									style={{ width: 'fit-content' }}
 									type='button' name='save'
-									className='action-item-white-d'>{language?.deselectAll}</button>
+									className={appStyles['action-item-white-d']}
+								>{language?.deselectAll}
+								</button>
 								<button
 									onClick={() => { handleSelectAll('all') }}
 									type='button' name='save'
-									className='action-item-white-d'>{language?.selectAll}</button>
+									className={appStyles['action-item-white-d']}>
+									{language?.selectAll}
+								</button>
 							</div>
 						</form>
 						: null

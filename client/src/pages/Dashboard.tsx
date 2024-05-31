@@ -5,6 +5,7 @@ import {
 	PiExam,
 	PiStudent
 } from 'react-icons/pi'
+import appStyles from '../App.module.css'
 import { apiGetDashboard } from '../api/dashboard'
 import DashboardCard from '../components/DashboardCard'
 import Loading from '../components/Loading'
@@ -27,7 +28,7 @@ export default function Dashboard() {
 		})
 	}
 	return (
-		<main className={css('dashboard-d', styles['dashboard'])}>
+		<main className={css(appStyles['dashboard-d'], styles['dashboard'])}>
 			{queryData.isLoading ?
 				<Loading />
 				: null}

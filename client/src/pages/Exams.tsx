@@ -3,6 +3,7 @@ import moment from 'moment'
 import { useEffect } from 'react'
 import Datetime from 'react-datetime'
 import { Link, useSearchParams } from 'react-router-dom'
+import appStyles from '../App.module.css'
 import { apiGetExamsByMonth } from '../api/exam'
 import Loading from '../components/Loading'
 import { queryKeys } from '../constants/query-keys'
@@ -69,7 +70,7 @@ export default function Exams() {
 	}, [forceUpdate])
 	return (
 		<>
-			<main className={css(styles['page-content'], 'dashboard-d')}>
+			<main className={css(styles['page-content'], appStyles['dashboard-d'])}>
 				{
 					queryData.isLoading ? <Loading /> : null
 				}
@@ -84,7 +85,7 @@ export default function Exams() {
 								{
 									id: 'month',
 									name: 'month',
-									className: css('input-d', styles['input-item'])
+									className: css(appStyles['input-d'], styles['input-item'])
 								}
 							}
 							onChange={e => {
@@ -107,7 +108,7 @@ export default function Exams() {
 									<Link
 										key={`exam-${item.id}`}
 										to={String(item.id)}
-										className={css('dashboard-card-d', styles['card'])}
+										className={css(appStyles['dashboard-card-d'], styles['card'])}
 									>
 										<div className={styles['card-section']}>
 											<p className={styles['content']}>
@@ -125,7 +126,7 @@ export default function Exams() {
 							}) : null}
 					</div>
 				</section>
-			</main>
+			</main >
 		</>
 	)
 }
