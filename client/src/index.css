@@ -51,6 +51,8 @@ a {
 #loader {
 	position: absolute;
 	height: 5px;
+	top: 0;
+	left: 0;
 	background-color: var(--color-blue);
 }
 
