@@ -76,8 +76,12 @@ export default function Header() {
 								onClick={handleToggleDropdownProfile} className={styles['right-item']}>
 								<AiOutlineUser />
 								<div onClick={handleToggleDropdownProfile} className={styles['drop-down']}>
-									<Link to='/profile' className={styles['drop-item']}
-										title={languageUtils.getFullName(user.user?.firstName, user.user?.lastName)}>
+									<Link
+										onClick={handleToggleDropdownProfile}
+										to='/profile'
+										className={styles['drop-item']}
+										title={languageUtils.getFullName(user.user?.firstName, user.user?.lastName)}
+									>
 										<AiOutlineUser />
 										<span>{language?.profile}</span>
 									</Link>
