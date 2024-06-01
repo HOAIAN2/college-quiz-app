@@ -3,10 +3,13 @@ import request from '../config/api'
 import { Faculty, FacultyDetail, QueryFacultyType } from '../models/faculty'
 import { ApiResponseWithData, Pagination } from '../models/response'
 import encodeFormData from '../utils/encodeFormData'
+import pathUtils from '../utils/pathUtils'
+
+const prefix = 'faculty'
 
 export async function apiAutoCompleteFaculty(search: string) {
 	try {
-		const res = await request.get('/faculty/complete', {
+		const res = await request.get(pathUtils.join(prefix, 'complete'), {
 			params: {
 				search: search
 			}
@@ -21,7 +24,7 @@ export async function apiAutoCompleteFaculty(search: string) {
 }
 export async function apiGetFaculties(query?: QueryFacultyType) {
 	try {
-		const res = await request.get('/faculty', {
+		const res = await request.get(pathUtils.join(prefix), {
 			params: {
 				page: query?.page || 1,
 				per_page: query?.perPage || 10,
@@ -36,7 +39,7 @@ export async function apiGetFaculties(query?: QueryFacultyType) {
 }
 export async function apiCreateFaculty(formData: FormData) {
 	try {
-		await request.post('/faculty', formData)
+		await request.post(pathUtils.join(prefix), formData)
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message)
 		const message = error.response.data.message
@@ -47,7 +50,7 @@ export async function apiCreateFaculty(formData: FormData) {
 export async function apiUpdateFaculty(formData: FormData, id: string | number) {
 	try {
 		const data = encodeFormData(formData)
-		await request.put('/faculty/' + id, data, {
+		await request.put(pathUtils.join(prefix, id), data, {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}
@@ -61,7 +64,7 @@ export async function apiUpdateFaculty(formData: FormData, id: string | number) 
 }
 export async function apiGetFacultyById(id: string | number) {
 	try {
-		const res = await request.get('/faculty/' + id)
+		const res = await request.get(pathUtils.join(prefix, id))
 		const { data } = res.data as ApiResponseWithData<FacultyDetail>
 		return data
 	} catch (error: any) {
@@ -70,7 +73,7 @@ export async function apiGetFacultyById(id: string | number) {
 }
 export async function apiDeleteFacultiesByIds(ids: (string | number)[]) {
 	try {
-		await request.delete('/faculty', {
+		await request.delete(pathUtils.join(prefix), {
 			params: {
 				ids: ids,
 			}

@@ -3,10 +3,13 @@ import request from '../config/api'
 import { ApiResponseWithData, Pagination } from '../models/response'
 import { QuerySchoolClassType, SchoolClass, SchoolClassDetail } from '../models/school-class'
 import encodeFormData from '../utils/encodeFormData'
+import pathUtils from '../utils/pathUtils'
+
+const prefix = 'school-class'
 
 export async function apiAutoCompleteSchoolClass(search: string) {
 	try {
-		const res = await request.get('/school-class/complete', {
+		const res = await request.get(pathUtils.join(prefix, 'complete'), {
 			params: {
 				search: search
 			}
@@ -21,7 +24,7 @@ export async function apiAutoCompleteSchoolClass(search: string) {
 }
 export async function apiGetSchoolClasses(query?: QuerySchoolClassType) {
 	try {
-		const res = await request.get('/school-class', {
+		const res = await request.get(pathUtils.join(prefix), {
 			params: {
 				page: query?.page || 1,
 				per_page: query?.perPage || 10,
@@ -36,7 +39,7 @@ export async function apiGetSchoolClasses(query?: QuerySchoolClassType) {
 }
 export async function apiGetSchoolClassById(id: string | number) {
 	try {
-		const res = await request.get('/school-class/' + id)
+		const res = await request.get(pathUtils.join(prefix, id))
 		const { data } = res.data as ApiResponseWithData<SchoolClassDetail>
 		return data
 	} catch (error: any) {
@@ -46,7 +49,7 @@ export async function apiGetSchoolClassById(id: string | number) {
 export async function apiUpdateSchoolClass(formData: FormData, id: string | number) {
 	try {
 		const data = encodeFormData(formData)
-		await request.put('/school-class/' + id, data, {
+		await request.put(pathUtils.join(prefix, id), data, {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}
@@ -60,7 +63,7 @@ export async function apiUpdateSchoolClass(formData: FormData, id: string | numb
 }
 export async function apiDeleteSchoolClassIds(ids: (string | number)[]) {
 	try {
-		await request.delete('/school-class', {
+		await request.delete(pathUtils.join(prefix), {
 			params: {
 				ids: ids,
 			}
@@ -71,7 +74,7 @@ export async function apiDeleteSchoolClassIds(ids: (string | number)[]) {
 }
 export async function apiCreateSchoolClass(formData: FormData) {
 	try {
-		await request.post('/school-class', formData)
+		await request.post(pathUtils.join(prefix), formData)
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message)
 		const message = error.response.data.message

@@ -3,10 +3,13 @@ import request from '../config/api'
 import { ApiResponseWithData } from '../models/response'
 import { Subject, SubjectDetail } from '../models/subject'
 import encodeFormData from '../utils/encodeFormData'
+import pathUtils from '../utils/pathUtils'
+
+const prefix = 'subject'
 
 export async function apiGetSubjects(query: string) {
 	try {
-		const res = await request.get('/subject', {
+		const res = await request.get(pathUtils.join(prefix), {
 			params: {
 				search: query
 			}
@@ -20,7 +23,7 @@ export async function apiGetSubjects(query: string) {
 
 export async function apiGetSubjectById(id: string | number) {
 	try {
-		const res = await request.get('/subject/' + id)
+		const res = await request.get(pathUtils.join(prefix, id))
 		const { data } = res.data as ApiResponseWithData<SubjectDetail>
 		return data
 	} catch (error: any) {
@@ -30,7 +33,7 @@ export async function apiGetSubjectById(id: string | number) {
 
 export async function apiCreateSubject(formData: FormData) {
 	try {
-		await request.post('/subject', formData)
+		await request.post(pathUtils.join(prefix), formData)
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message)
 		const message = error.response.data.message
@@ -42,7 +45,7 @@ export async function apiCreateSubject(formData: FormData) {
 export async function apiUpdateSubject(formData: FormData, id: string | number) {
 	try {
 		const data = encodeFormData(formData)
-		await request.put('/subject/' + id, data, {
+		await request.put(pathUtils.join(prefix, id), data, {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}
@@ -57,7 +60,7 @@ export async function apiUpdateSubject(formData: FormData, id: string | number) 
 
 export async function apiDeleteSubject(id: string | number) {
 	try {
-		await request.delete('/subject/' + id)
+		await request.delete(pathUtils.join(prefix, id))
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message)
 		const message = error.response.data.message
@@ -68,7 +71,7 @@ export async function apiDeleteSubject(id: string | number) {
 
 export async function apiAutoCompleteSubject(search: string) {
 	try {
-		const res = await request.get('/subject/complete', {
+		const res = await request.get(pathUtils.join(prefix, 'complete'), {
 			params: {
 				search: search
 			}

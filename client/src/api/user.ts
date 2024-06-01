@@ -10,12 +10,15 @@ import {
 	UserWithPermissions
 } from '../models/user'
 import encodeFormData from '../utils/encodeFormData'
+import pathUtils from '../utils/pathUtils'
 import tokenUtils from '../utils/tokenUtils'
+
+const prefix = 'user'
 
 export async function apiGetUser() {
 	if (!tokenUtils.getToken()) throw new Error('no token')
 	try {
-		const res = await request.get('/user')
+		const res = await request.get(pathUtils.join(prefix))
 		const { data } = res.data as ApiResponseWithData<UserWithPermissions>
 		return data
 	} catch (error: any) {
@@ -28,7 +31,7 @@ export async function apiGetUser() {
 
 export async function apiCreateUser(formData: FormData) {
 	try {
-		await request.post('/user', formData)
+		await request.post(pathUtils.join(prefix), formData)
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message)
 		const message = error.response.data.message
@@ -40,7 +43,7 @@ export async function apiCreateUser(formData: FormData) {
 export async function apiUpdateUser(formData: FormData, id: string | number) {
 	try {
 		const data = encodeFormData(formData)
-		await request.put('/user/' + id, data, {
+		await request.put(pathUtils.join(prefix, id), data, {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}
@@ -58,7 +61,7 @@ export async function apiImportUsers(file: File, role: RoleName) {
 	data.append('role', role)
 	data.append('file', file)
 	try {
-		await request.post('/user/import', data)
+		await request.post(pathUtils.join(prefix, 'import'), data)
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message)
 		const message = error.response.data.message
@@ -69,7 +72,7 @@ export async function apiImportUsers(file: File, role: RoleName) {
 
 export async function apiGetUsersByType(query: QueryUserType) {
 	try {
-		const res = await request.get('/user/query', {
+		const res = await request.get(pathUtils.join(prefix, 'query'), {
 			params: {
 				role: query.role,
 				page: query.page || 1,
@@ -86,7 +89,7 @@ export async function apiGetUsersByType(query: QueryUserType) {
 
 export async function apiGetUserById(id: string | number) {
 	try {
-		const res = await request.get('/user/' + id)
+		const res = await request.get(pathUtils.join(prefix, id))
 		const { data } = res.data as ApiResponseWithData<UserDetail>
 		return data
 	} catch (error: any) {
@@ -96,7 +99,7 @@ export async function apiGetUserById(id: string | number) {
 
 export async function apiDeleteUserByIds(ids: (string | number)[]) {
 	try {
-		await request.delete('/user', {
+		await request.delete(pathUtils.join(prefix), {
 			params: {
 				ids: ids,
 			}
@@ -108,7 +111,7 @@ export async function apiDeleteUserByIds(ids: (string | number)[]) {
 
 export async function apiGetUserExportableFields(role: RoleName) {
 	try {
-		const res = await request.get('/user/exportable', {
+		const res = await request.get(pathUtils.join(prefix, '/exportable'), {
 			params: {
 				role: role,
 			},
@@ -122,14 +125,14 @@ export async function apiGetUserExportableFields(role: RoleName) {
 
 export async function apiExportUsers(role: RoleName, fields: (string)[]) {
 	try {
-		const response: AxiosResponse<Blob> = await request.get('/user/export', {
+		const res: AxiosResponse<Blob> = await request.get(pathUtils.join(prefix, 'export'), {
 			params: {
 				role: role,
 				fields: fields
 			},
 			responseType: 'blob'
 		})
-		return response.data
+		return res.data
 	} catch (error: any) {
 		throw new Error(error.message)
 	}
@@ -137,7 +140,7 @@ export async function apiExportUsers(role: RoleName, fields: (string)[]) {
 
 export async function apiAutoCompleteUser(role: RoleName, search: string) {
 	try {
-		const res = await request.get('/user/complete', {
+		const res = await request.get(pathUtils.join(prefix, 'complete'), {
 			params: {
 				role: role,
 				search: search
@@ -154,7 +157,7 @@ export async function apiAutoCompleteUser(role: RoleName, search: string) {
 
 export async function apiGetAllUser(role: RoleName, search?: string) {
 	try {
-		const res = await request.get('/user/all-user', {
+		const res = await request.get(pathUtils.join(prefix, 'all-user'), {
 			params: {
 				search: search,
 				role: role
