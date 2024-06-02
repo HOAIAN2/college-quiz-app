@@ -95,13 +95,13 @@ export default function TakeExam() {
 		return () => {
 			if (answers.length === 0) {
 				localStorage.removeItem(localStorageKey)
-				queryClient.refetchQueries({ queryKey: [queryKeys.EXAM, { id: id }] })
 			}
 		}
-	}, [answers, id, localStorageKey, queryClient, queryData.data])
+	}, [answers, id, localStorageKey, queryData.data])
 	useEffect(() => {
 		if (!queryData.data) return
 		return () => {
+			queryClient.refetchQueries({ queryKey: [queryKeys.EXAM, { id: id }] })
 			queryClient.removeQueries({ queryKey: [queryKeys.EXAM_QUESTIONS, { examId: id }] })
 		}
 	}, [id, queryClient, queryData.data])
