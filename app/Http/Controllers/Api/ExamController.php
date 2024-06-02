@@ -524,7 +524,7 @@ class ExamController extends Controller
 				$is_correct = false;
 				$answer_id = null;
 
-				if ($question->question_options->contains('id', $answer)) {
+				if ($question->question_options->has((int)$answer)) {
 					$question_option = $question->question_options[$answer];
 					$answer_id = $question_option->id;
 					$is_correct = $question_option->is_correct;
