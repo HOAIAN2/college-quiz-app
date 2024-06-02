@@ -25,14 +25,20 @@ class HomeController extends Controller
 	{
 		$mode = request()->get('mode');
 		try {
-			if ($mode === 'clear') {
-				Artisan::call('optimize:clear');
-				$message = 'Optimization cache cleared successfully!';
-			} else {
-				Artisan::call('optimize');
-				$message = 'Optimization completed successfully!';
+			switch ($mode) {
+				case 'clear':
+					Artisan::call('optimize:clear');
+					$message = 'Optimization cache cleared successfully!';
+					break;
+				case 'reset':
+					Artisan::call('optimize:clear');
+					Artisan::call('optimize');
+					$message = 'Optimization reset successfully!';
+				default:
+					Artisan::call('optimize');
+					$message = 'Optimization completed successfully!';
+					break;
 			}
-
 			return Reply::successWithMessage($message);
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());

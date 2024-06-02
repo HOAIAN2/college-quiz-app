@@ -1,8 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { sha256 } from 'js-sha256'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { TbSend } from 'react-icons/tb'
 import { useParams } from 'react-router-dom'
+import { toast } from 'sonner'
 import appStyles from '../App.module.css'
 import { apiGetExamQuestions, apiSubmitExam } from '../api/exam'
 import ExamQuestion from '../components/ExamQuestion'
@@ -24,6 +25,7 @@ export default function TakeExam() {
 	const [examResult, setExamResult] = useState<ExamResult>()
 	const [bypassKey, setBypassKey] = useState('')
 	const queryClient = useQueryClient()
+	const requestRef = useRef<number>()
 	const [answers, setAnswers] = useState<number[]>(() => {
 		const data = localStorage.getItem(localStorageKey)
 		if (data === null || !isValidJson(data)) {
@@ -39,6 +41,10 @@ export default function TakeExam() {
 	})
 	const language = useLanguage('page.take_exam')
 	const forceUpdate = useForceUpdate()
+	const animate = useCallback(() => {
+		forceUpdate()
+		requestRef.current = requestAnimationFrame(animate)
+	}, [forceUpdate])
 	const onMutateSuccess = () => {
 		localStorage.removeItem(localStorageKey)
 	}
@@ -59,11 +65,9 @@ export default function TakeExam() {
 	})
 	useEffect(() => {
 		if (examResult) return
-		const interval = setInterval(() => {
-			forceUpdate()
-		}, 500)
-		return () => clearInterval(interval)
-	}, [examResult, forceUpdate])
+		requestRef.current = requestAnimationFrame(animate)
+		return () => cancelAnimationFrame(requestRef.current!)
+	}, [animate, examResult])
 	useEffect(() => {
 		if (!queryData.data) return
 		setBypassKey(sha256(queryData.data.startedAt!))
@@ -74,6 +78,7 @@ export default function TakeExam() {
 		const now = new Date().getTime()
 		if (now > endAt && !isPending && !examResult) {
 			mutateAsync()
+			toast.info(language?.autoSubmitInfo)
 		}
 	})
 	useEffect(() => {

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import moment from 'moment'
-import { useEffect } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import Datetime from 'react-datetime'
 import { Link, useSearchParams } from 'react-router-dom'
 import appStyles from '../App.module.css'
@@ -21,6 +21,7 @@ export default function Exams() {
 	const [searchParams, setSearchParams] = useSearchParams()
 	const { appLanguage } = useAppContext()
 	const language = useLanguage('page.exams')
+	const requestRef = useRef<number>()
 	const monthYearFormat = moment.localeData()
 		.longDateFormat('L')
 		.replace(/D[\\/\-\\.]?/g, '')
@@ -31,6 +32,10 @@ export default function Exams() {
 		if (month && year) return new Date(Number(year), Number(month) - 1)
 		return new Date()
 	}
+	const animate = useCallback(() => {
+		forceUpdate()
+		requestRef.current = requestAnimationFrame(animate)
+	}, [forceUpdate])
 	const showExamStatus = (exam: ExamInMonth) => {
 		const examDate = new Date(exam.examDate)
 		const getClassNames = (color: string) => css(styles['badge'], styles[color])
@@ -63,11 +68,10 @@ export default function Exams() {
 		})
 	})
 	useEffect(() => {
-		const interval = setInterval(() => {
-			forceUpdate()
-		}, 500)
-		return () => clearInterval(interval)
-	}, [forceUpdate])
+		if (!queryData.data) return
+		requestRef.current = requestAnimationFrame(animate)
+		return () => cancelAnimationFrame(requestRef.current!)
+	}, [animate, queryData.data])
 	return (
 		<>
 			<main className={css(styles['page-content'], appStyles['dashboard-d'])}>
