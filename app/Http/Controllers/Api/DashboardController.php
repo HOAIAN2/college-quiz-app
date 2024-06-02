@@ -96,11 +96,13 @@ class DashboardController extends Controller
 			# Exam each month for chart
 			$exams_each_month = $exams_each_month->pluck('count', 'month')
 				->toArray();
-			$data->exams_each_month = array_fill(1, 12, 0);
+			$exams_each_month_filled = array_fill(1, 12, 0);
 
 			foreach ($exams_each_month as $month => $count) {
-				$data->exams_each_month[$month] = $count;
+				$exams_each_month_filled[$month] = $count;
 			}
+
+			$data->exams_each_month = array_values($exams_each_month_filled);
 
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {

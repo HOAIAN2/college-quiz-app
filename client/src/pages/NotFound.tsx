@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import appStyles from '../App.module.css'
 import Footer from '../components/Footer'
 import useLanguage from '../hooks/useLanguage'
 import styles from '../styles/NotFound.module.css'
@@ -11,7 +12,7 @@ export default function NotFound() {
 		<>
 			<div className={styles['not-found']}>
 				<div className={styles['title']}>404</div>
-				<Link to='/' className={css('action-item-d', styles['go-home'])
+				<Link to='/' className={css(appStyles['action-item-d'], styles['go-home'])
 				}>{language?.home}</Link>
 			</div>
 			<Footer />
