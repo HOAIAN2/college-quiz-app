@@ -30,7 +30,7 @@ class CourseController extends Controller
 			}
 			$data = $data->latest('id')->get();
 			return Reply::successWithData($data, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
@@ -54,7 +54,7 @@ class CourseController extends Controller
 			Course::create($data);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -79,7 +79,7 @@ class CourseController extends Controller
 				},
 			])->findOrFail($id);
 			return Reply::successWithData($courses, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
@@ -103,7 +103,7 @@ class CourseController extends Controller
 			$target_course->update($data);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -121,7 +121,7 @@ class CourseController extends Controller
 			Course::destroy($id);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_delete_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -171,7 +171,7 @@ class CourseController extends Controller
 			}
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());

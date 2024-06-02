@@ -31,7 +31,7 @@ class RolePermissionController extends Controller
 				$item->display_name = trans("role.{$item->name}");
 			}
 			return Reply::successWithData($data, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
@@ -54,7 +54,7 @@ class RolePermissionController extends Controller
 				$app_permission->display_name = trans("permission.{$app_permission->name}");
 			}
 			return Reply::successWithData($data, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
@@ -100,7 +100,7 @@ class RolePermissionController extends Controller
 			}
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());

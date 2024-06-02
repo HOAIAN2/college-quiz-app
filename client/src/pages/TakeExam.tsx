@@ -46,6 +46,7 @@ export default function TakeExam() {
 		queryKey: [queryKeys.EXAM_QUESTIONS, { examId: id }],
 		queryFn: () => apiGetExamQuestions(String(id)),
 		enabled: examResult === undefined,
+		staleTime: Infinity
 	})
 	const timeLeft = queryData.data ?
 		timeUtils.countDown(new Date(Date.parse(queryData.data.startedAt!) + queryData.data.examTime * 60000)) : ''

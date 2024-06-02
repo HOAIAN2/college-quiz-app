@@ -36,7 +36,7 @@ class UserController extends Controller
 		try {
 			$data->permissions = $data->user->role->permissions()->pluck('name');
 			return Reply::successWithData($data, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
@@ -65,7 +65,7 @@ class UserController extends Controller
 			User::create($data);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -81,7 +81,7 @@ class UserController extends Controller
 		try {
 			$data = User::with(['role', 'school_class', 'faculty'])->findOrFail($id);
 			return Reply::successWithData($data, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
@@ -114,7 +114,7 @@ class UserController extends Controller
 			DB::commit();
 			if ($data['is_active'] == 0) $targetUser->tokens()->delete();
 			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -132,7 +132,7 @@ class UserController extends Controller
 			User::destroy($request->ids);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_delete_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -154,7 +154,7 @@ class UserController extends Controller
 
 			$users = $users->latest('id')->paginate($request->per_page);
 			return Reply::successWithData($users, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
@@ -230,7 +230,7 @@ class UserController extends Controller
 			}
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -300,7 +300,7 @@ class UserController extends Controller
 
 			$collection = $query->get();
 			return Excel::download(new UsersExport($collection, $columns), $file_name);
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -317,7 +317,7 @@ class UserController extends Controller
 			$users = User::whereRoleId(Role::ROLES[$request->role])
 				->search($request->search)->take($this->autoCompleteResultLimit)->get();
 			return Reply::successWithData($users, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
@@ -337,7 +337,7 @@ class UserController extends Controller
 				->take($this->autoCompleteResultLimit * 20)
 				->get();
 			return Reply::successWithData($users, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);

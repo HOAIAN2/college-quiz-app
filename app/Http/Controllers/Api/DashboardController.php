@@ -91,7 +91,7 @@ class DashboardController extends Controller
 					break;
 			}
 			return Reply::successWithData($data, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);

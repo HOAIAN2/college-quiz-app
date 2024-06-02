@@ -76,7 +76,7 @@ class ExamController extends Controller
 					break;
 			}
 			return Reply::successWithData($data, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
@@ -165,7 +165,7 @@ class ExamController extends Controller
 			}
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -232,7 +232,7 @@ class ExamController extends Controller
 			}
 			$data->result = $result;
 			return Reply::successWithData($data, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
@@ -304,7 +304,7 @@ class ExamController extends Controller
 			}
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -345,7 +345,7 @@ class ExamController extends Controller
 			$exam->delete();
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_delete_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -396,7 +396,7 @@ class ExamController extends Controller
 			DB::commit();
 			if ($request->status == 'start') return Reply::successWithMessage('app.successes.success');
 			if ($request->status == 'cancel') return Reply::successWithMessage('app.successes.success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -456,7 +456,7 @@ class ExamController extends Controller
 			Cache::put($cache_key, $data, $exam_ended_at);
 			DB::commit();
 			return Reply::successWithData($data, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -546,7 +546,7 @@ class ExamController extends Controller
 			DB::commit();
 			return Reply::successWithData($result_data, '');
 			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -602,7 +602,7 @@ class ExamController extends Controller
 				];
 			}
 			return Reply::successWithData($data, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);

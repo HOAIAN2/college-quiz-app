@@ -22,7 +22,7 @@ class ChapterController extends Controller
 			Chapter::create($request->validated());
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -41,7 +41,7 @@ class ChapterController extends Controller
 			$chapter->update($request->validated());
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -59,7 +59,7 @@ class ChapterController extends Controller
 			Chapter::destroy($id);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_delete_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());

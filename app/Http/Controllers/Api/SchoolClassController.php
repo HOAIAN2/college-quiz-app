@@ -28,7 +28,7 @@ class SchoolClassController extends Controller
 			}
 			$school_classes = $school_classes->paginate($request->per_page);
 			return Reply::successWithData($school_classes, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong');
@@ -46,7 +46,7 @@ class SchoolClassController extends Controller
 			SchoolClass::create($data);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -62,7 +62,7 @@ class SchoolClassController extends Controller
 		try {
 			$data = SchoolClass::with(['faculty'])->findOrFail($id);
 			return Reply::successWithData($data, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong');
@@ -81,7 +81,7 @@ class SchoolClassController extends Controller
 			$school_class->update($data);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -99,7 +99,7 @@ class SchoolClassController extends Controller
 			SchoolClass::destroy($request->ids);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_delete_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -115,7 +115,7 @@ class SchoolClassController extends Controller
 		try {
 			$school_classes = SchoolClass::search($request->search)->take($this->autoCompleteResultLimit)->get();
 			return Reply::successWithData($school_classes, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);

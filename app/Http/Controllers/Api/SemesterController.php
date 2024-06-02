@@ -25,7 +25,7 @@ class SemesterController extends Controller
 			}
 			$data = $data->latest('id')->get();
 			return Reply::successWithData($data, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
@@ -47,7 +47,7 @@ class SemesterController extends Controller
 			Semester::create($data);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -63,7 +63,7 @@ class SemesterController extends Controller
 		try {
 			$semester = Semester::findOrFail($id);
 			return Reply::successWithData($semester, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
@@ -84,7 +84,7 @@ class SemesterController extends Controller
 			$semester->update($data);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -102,7 +102,7 @@ class SemesterController extends Controller
 			Semester::destroy($id);
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_delete_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
@@ -119,7 +119,7 @@ class SemesterController extends Controller
 			$semesters = Semester::where('end_date', '>=', Carbon::now())
 				->search($request->search)->take($this->autoCompleteResultLimit)->get();
 			return Reply::successWithData($semesters, '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);

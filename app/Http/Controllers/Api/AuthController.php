@@ -30,7 +30,7 @@ class AuthController extends Controller
 				'user' => $user,
 				'token' => $token
 			], '');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong');
@@ -44,7 +44,7 @@ class AuthController extends Controller
 		try {
 			$user->currentAccessToken()->delete();
 			return Reply::success();
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong');
@@ -67,7 +67,7 @@ class AuthController extends Controller
 			]);
 			$user->tokens()->delete();
 			return Reply::successWithMessage('auth.successes.change_password_success');
-		} catch (\Throwable $error) {
+		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
