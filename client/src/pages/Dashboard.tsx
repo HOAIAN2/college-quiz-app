@@ -34,36 +34,60 @@ export default function Dashboard() {
 				: null}
 			{
 				!queryData.isError && queryData.data ?
-					<section className={styles['wrap-dashboard-item']}>
-						<DashboardCard
-							to={permissions.has('user_view') ? '/students' : undefined}
-							color='magenta'
-							content={language?.items.numberOfStudents}
-							data={formatNumber(queryData.data?.numberOfStudents)}
-							icon={<PiStudent />}
-						/>
-						<DashboardCard
-							to={permissions.has('user_view') ? '/teachers' : undefined}
-							color='red'
-							content={language?.items.numberOfTeachers}
-							data={formatNumber(queryData.data?.numberOfTeachers)}
-							icon={<PiChalkboardTeacherLight />}
-						/>
-						<DashboardCard
-							color='green'
-							content={language?.items.numberOfCourses}
-							data={formatNumber(queryData.data?.numberOfCourses)}
-							icon={<GrCertificate />}
-						/>
-						<DashboardCard
-							to={permissions.has('exam_view') ? '/exams' : undefined}
-							color='blue'
-							content={language?.items.examInThisMonth}
-							data={formatNumber(queryData.data?.examsInThisMonth)}
-							icon={<PiExam />}
-						/>
-					</section> : null
+					<>
+						<section className={styles['wrap-dashboard-item']}>
+							<DashboardCard
+								to={permissions.has('user_view') ? '/students' : undefined}
+								color='magenta'
+								content={language?.items.numberOfStudents}
+								data={formatNumber(queryData.data?.numberOfStudents)}
+								icon={<PiStudent />} />
+							<DashboardCard
+								to={permissions.has('user_view') ? '/teachers' : undefined}
+								color='red'
+								content={language?.items.numberOfTeachers}
+								data={formatNumber(queryData.data?.numberOfTeachers)}
+								icon={<PiChalkboardTeacherLight />} />
+							<DashboardCard
+								color='green'
+								content={language?.items.numberOfCourses}
+								data={formatNumber(queryData.data?.numberOfCourses)}
+								icon={<GrCertificate />} />
+							<DashboardCard
+								to={permissions.has('exam_view') ? '/exams' : undefined}
+								color='blue'
+								content={language?.items.examInThisMonth}
+								data={formatNumber(queryData.data?.examsInThisMonth)}
+								icon={<PiExam />} />
+						</section>
+						<div className={css(styles['wrap-sections'])}>
+							<section className={css(styles['section'], styles['today-exams-container'])}>
+								<h2
+									className={styles['section-title']}
+									style={{ marginBottom: '10px' }}
+								>
+									{language?.todayExams}
+								</h2>
+								<ul className={styles['today-exams-list']}>
+									{
+										queryData.data.todayExams.map(exam => {
+											return (
+												<li
+													key={`exam-${exam.id}`}
+													className={css(appStyles['dashboard-card-d'], styles['today-exams-item'])}
+												>
+													<span>{exam.name}</span>
+													<span>{new Date(exam.examDate).toLocaleTimeString(appLanguage.language)}</span>
+												</li>
+											)
+										})
+									}
+								</ul>
+							</section>
+						</div>
+					</>
+					: null
 			}
-		</main>
+		</main >
 	)
 }

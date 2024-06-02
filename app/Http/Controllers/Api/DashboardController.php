@@ -8,6 +8,7 @@ use App\Models\Course;
 use App\Models\Exam;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
@@ -18,6 +19,10 @@ class DashboardController extends Controller
 		$data = (object)[];
 		$now = now();
 		try {
+			$exams_each_month = Exam::select(DB::raw('MONTH(exam_date) as month'), DB::raw('COUNT(*) as count'))
+				->whereYear('exam_date', 2024)
+				->groupBy('month')
+				->orderBy('month');
 			switch ($user->role_id) {
 				case Role::ROLES['admin']:
 					# Get Count for 4 card in Dashboard
@@ -32,13 +37,9 @@ class DashboardController extends Controller
 						[now()->startOfMonth(), now()->endOfMonth()]
 					)
 						->count();
-					# Get render data
-					// $data->exams_in_next_week = Exam::with([
-					// 	'course',
-					// 	'course.subject',
-					// 	'course.teacher',
-					// ])->whereBetween('exam_date', [$now, $now->copy()->addWeek()])
-					// 	->get();
+					# Today exams
+					$data->today_exams = Exam::whereDate('exam_date', $now)->get();
+					# Exam each month for chart
 					break;
 				case Role::ROLES['teacher']:
 					# Get Count for 4 card in Dashboard
@@ -52,15 +53,16 @@ class DashboardController extends Controller
 						$query->where('id', '=', $user->id);
 					})->whereBetween('exam_date', [now()->startOfMonth(), now()->endOfMonth()])
 						->count();
-					# Get render data
-					// $data->exams_in_next_week = Exam::with([
-					// 	'course',
-					// 	'course.subject',
-					// 	'course.teacher',
-					// ])->whereHas('course.teacher', function ($query) use ($user) {
-					// 	$query->where('id', '=', $user->id);
-					// })->whereBetween('exam_date', [$now, $now->copy()->addWeek()])
-					// 	->get();
+					# Today exams
+					$data->today_exams = Exam::whereHas('course.teacher', function ($query) use ($user) {
+						$query->where('id', '=', $user->id);
+					})->whereDate('exam_date', $now)
+						->get();
+					# Exam each month for chart
+					$exams_each_month = $exams_each_month
+						->whereHas('course.teacher', function ($query) use ($user) {
+							$query->where('id', '=', $user->id);
+						});
 					break;
 				case Role::ROLES['student']:
 					# Get Count for 4 card in Dashboard
@@ -76,20 +78,30 @@ class DashboardController extends Controller
 						now()->startOfMonth(),
 						now()->endOfMonth()
 					])->count();
-					# Get render data
-					// $data->exams_in_next_week = Exam::with([
-					// 	'course',
-					// 	'course.subject',
-					// 	'course.teacher',
-					// ])->whereHas('course.enrollments', function ($query) use ($user) {
-					// 	$query->where('student_id', '=', $user->id);
-					// })->whereBetween('exam_date', [$now, $now->copy()->addWeek()])
-					// 	->get();
+					# Today exams
+					$data->today_exams = Exam::whereHas('course.enrollments', function ($query) use ($user) {
+						$query->where('student_id', '=', $user->id);
+					})->whereDate('exam_date', $now)
+						->get();
+					# Exam each month for chart
+					$exams_each_month = $exams_each_month
+						->whereHas('course.enrollments', function ($query) use ($user) {
+							$query->where('student_id', '=', $user->id);
+						});
 					break;
 				default:
 					return Reply::error('app.errors.something_went_wrong', [], 500);
 					break;
 			}
+			# Exam each month for chart
+			$exams_each_month = $exams_each_month->pluck('count', 'month')
+				->toArray();
+			$data->exams_each_month = array_fill(1, 12, 0);
+
+			foreach ($exams_each_month as $month => $count) {
+				$data->exams_each_month[$month] = $count;
+			}
+
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());

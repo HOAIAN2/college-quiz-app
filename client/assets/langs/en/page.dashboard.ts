@@ -4,5 +4,6 @@ export default {
 		numberOfStudents: 'Number of students',
 		numberOfCourses: 'Number of courses',
 		examInThisMonth: 'Exams in this month'
-	}
+	},
+	todayExams: 'Today exams'
 }

@@ -48,6 +48,10 @@ a {
 	text-decoration: none;
 }
 
+li {
+	list-style: none;
+}
+
 #loader {
 	position: absolute;
 	height: 5px;
