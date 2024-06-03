@@ -1,0 +1,16 @@
+.chart-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: calc(60% - 10px);
+	padding: 20px;
+	/* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+	border-radius: var(--border-radius-low);
+	background: white;
+}
+
+@media (width<=800px) {
+	.chart-container {
+		width: 100%;
+	}
+}

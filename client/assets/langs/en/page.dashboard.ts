@@ -5,5 +5,6 @@ export default {
 		numberOfCourses: 'Number of courses',
 		examInThisMonth: 'Exams in this month'
 	},
-	todayExams: 'Today exams'
+	todayExams: 'Today exams',
+	examsEachMonth: 'Exams each month'
 }

@@ -5,5 +5,6 @@ export default {
 		numberOfCourses: 'Số lượng khóa học',
 		examInThisMonth: 'Bài thi tháng này'
 	},
-	todayExams: 'Bài thi hôm nay'
+	todayExams: 'Bài thi hôm nay',
+	examsEachMonth: 'Bài thi mỗi tháng'
 }

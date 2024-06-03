@@ -5,9 +5,11 @@ import {
 	PiExam,
 	PiStudent
 } from 'react-icons/pi'
+import { Link } from 'react-router-dom'
 import appStyles from '../App.module.css'
 import { apiGetDashboard } from '../api/dashboard'
 import DashboardCard from '../components/DashboardCard'
+import ExamsEachMonthChart from '../components/ExamsEachMonthChart'
 import Loading from '../components/Loading'
 import { queryKeys } from '../constants/query-keys'
 import useAppContext from '../hooks/useAppContext'
@@ -76,14 +78,20 @@ export default function Dashboard() {
 													key={`exam-${exam.id}`}
 													className={css(appStyles['dashboard-card-d'], styles['today-exams-item'])}
 												>
-													<span>{exam.name}</span>
-													<span>{new Date(exam.examDate).toLocaleTimeString(appLanguage.language)}</span>
+													<Link to={`exams/${exam.id}`}>
+														<span>{exam.name}</span>
+														<span>{new Date(exam.examDate).toLocaleTimeString(appLanguage.language)}</span>
+													</Link>
 												</li>
 											)
 										})
 									}
 								</ul>
 							</section>
+							<ExamsEachMonthChart
+								label={language?.examsEachMonth}
+								data={queryData.data.examsEachMonth}
+							/>
 						</div>
 					</>
 					: null
