@@ -1,22 +1,22 @@
-import { useState } from 'react'
-import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
-import { SetURLSearchParams } from 'react-router-dom'
-import appStyles from '../App.module.css'
-import useAppContext from '../hooks/useAppContext'
-import useLanguage from '../hooks/useLanguage'
-import { Pagination } from '../models/response'
-import { SchoolClassDetail } from '../models/school-class'
-import styles from '../styles/global/Table.module.css'
-import css from '../utils/css'
-import ViewSchoolClass from './ViewSchoolClass'
+import { useState } from 'react';
+import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
+import { SetURLSearchParams } from 'react-router-dom';
+import appStyles from '../App.module.css';
+import useAppContext from '../hooks/useAppContext';
+import useLanguage from '../hooks/useLanguage';
+import { Pagination } from '../models/response';
+import { SchoolClassDetail } from '../models/school-class';
+import styles from '../styles/global/Table.module.css';
+import css from '../utils/css';
+import ViewSchoolClass from './ViewSchoolClass';
 
 type SchoolClassesTableProps = {
-	data?: Pagination<SchoolClassDetail>
-	searchParams: URLSearchParams
-	onMutateSuccess: () => void
-	setSearchParams: SetURLSearchParams
-	setSelectedRows: React.Dispatch<React.SetStateAction<Set<string | number>>>
-}
+	data?: Pagination<SchoolClassDetail>;
+	searchParams: URLSearchParams;
+	onMutateSuccess: () => void;
+	setSearchParams: SetURLSearchParams;
+	setSelectedRows: React.Dispatch<React.SetStateAction<Set<string | number>>>;
+};
 
 export default function SchoolClassesTable({
 	data,
@@ -25,57 +25,57 @@ export default function SchoolClassesTable({
 	setSearchParams,
 	setSelectedRows
 }: SchoolClassesTableProps) {
-	const { permissions } = useAppContext()
-	const [checkAll, setCheckAll] = useState(false)
-	const language = useLanguage('component.school_classes_table')
-	const [showViewPopUp, setShowViewPopUp] = useState(false)
-	const [schoolClassId, setSchoolClassId] = useState<number>(0)
+	const { permissions } = useAppContext();
+	const [checkAll, setCheckAll] = useState(false);
+	const language = useLanguage('component.school_classes_table');
+	const [showViewPopUp, setShowViewPopUp] = useState(false);
+	const [schoolClassId, setSchoolClassId] = useState<number>(0);
 	const handleViewSchoolClass = (id: number, e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => {
-		const target = e.target as Element
+		const target = e.target as Element;
 		if (target.nodeName === 'INPUT') {
-			const checkBox = target as HTMLInputElement
-			const perPage = Number(searchParams.get('per_page')) || 10
+			const checkBox = target as HTMLInputElement;
+			const perPage = Number(searchParams.get('per_page')) || 10;
 			if (checkBox.checked) setSelectedRows(pre => {
-				pre.add(id)
-				if (pre.size === perPage) setCheckAll(true)
-				return structuredClone(pre)
-			})
+				pre.add(id);
+				if (pre.size === perPage) setCheckAll(true);
+				return structuredClone(pre);
+			});
 			else setSelectedRows(pre => {
-				pre.delete(id)
-				if (pre.size !== perPage) setCheckAll(false)
-				return structuredClone(pre)
-			})
-			return
+				pre.delete(id);
+				if (pre.size !== perPage) setCheckAll(false);
+				return structuredClone(pre);
+			});
+			return;
 		}
-		setSchoolClassId(id)
-		setShowViewPopUp(true)
-	}
+		setSchoolClassId(id);
+		setShowViewPopUp(true);
+	};
 	const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const currentTarget = e.currentTarget
-		const selector = `.${styles['column-select']}>input`
-		const allCheckBox = document.querySelectorAll(selector)
+		const currentTarget = e.currentTarget;
+		const selector = `.${styles['column-select']}>input`;
+		const allCheckBox = document.querySelectorAll(selector);
 		allCheckBox.forEach(node => {
-			const element = node as HTMLInputElement
-			element.checked = currentTarget.checked
-		})
+			const element = node as HTMLInputElement;
+			element.checked = currentTarget.checked;
+		});
 		if (currentTarget.checked) {
 			setSelectedRows(pre => {
-				pre.clear()
+				pre.clear();
 				data && data.data.forEach(user => {
-					pre.add(user.id)
-				})
-				return structuredClone(pre)
-			})
-			setCheckAll(true)
+					pre.add(user.id);
+				});
+				return structuredClone(pre);
+			});
+			setCheckAll(true);
 		}
 		else {
 			setSelectedRows(pre => {
-				pre.clear()
-				return structuredClone(pre)
-			})
-			setCheckAll(false)
+				pre.clear();
+				return structuredClone(pre);
+			});
+			setCheckAll(false);
 		}
-	}
+	};
 	return (
 		<>
 			{showViewPopUp === true ?
@@ -116,7 +116,7 @@ export default function SchoolClassesTable({
 										return (
 											<tr key={schoolClass.id}
 												onClick={(e) => {
-													handleViewSchoolClass(schoolClass.id, e)
+													handleViewSchoolClass(schoolClass.id, e);
 												}}
 											>
 												{
@@ -136,7 +136,7 @@ export default function SchoolClassesTable({
 													{schoolClass.faculty.name}
 												</td>
 											</tr>
-										)
+										);
 									}) : null
 							}
 						</tbody>
@@ -156,15 +156,15 @@ export default function SchoolClassesTable({
 												<button key={'faculty' + link.label}
 													className={styles['next-previous']}
 													onClick={() => {
-														if (!link.url) return
-														const url = new URL(link.url)
-														searchParams.set('page', url.searchParams.get('page') || '1')
-														setSearchParams(searchParams)
+														if (!link.url) return;
+														const url = new URL(link.url);
+														searchParams.set('page', url.searchParams.get('page') || '1');
+														setSearchParams(searchParams);
 													}}
 												>
 													{link.label === '...' ? '...' : link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />}
 												</button>
-											)
+											);
 											return (
 												<button key={'faculty' + link.label}
 													className={
@@ -174,13 +174,13 @@ export default function SchoolClassesTable({
 														)
 													}
 													onClick={() => {
-														if (!link.url) return
-														const url = new URL(link.url)
-														searchParams.set('page', url.searchParams.get('page') || '1')
-														setSearchParams(searchParams)
+														if (!link.url) return;
+														const url = new URL(link.url);
+														searchParams.set('page', url.searchParams.get('page') || '1');
+														setSearchParams(searchParams);
 													}}
 												>{link.label}</button>
-											)
+											);
 										})}
 									</div>
 								}
@@ -189,5 +189,5 @@ export default function SchoolClassesTable({
 				}
 			</div>
 		</>
-	)
+	);
 }

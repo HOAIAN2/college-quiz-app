@@ -1,66 +1,66 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { SyntheticEvent, useEffect, useState } from 'react'
-import Datetime from 'react-datetime'
-import { FiSave } from 'react-icons/fi'
-import { PiKey } from 'react-icons/pi'
-import appStyles from '../App.module.css'
-import { apiGetUser, apiUpdateUser } from '../api/user'
-import ChangePassword from '../components/ChangePassword'
-import CustomSelect from '../components/CustomSelect'
-import Loading from '../components/Loading'
-import SuspenseLoading from '../components/SuspenseLoading'
-import { queryKeys } from '../constants/query-keys'
-import useAppContext from '../hooks/useAppContext'
-import useLanguage from '../hooks/useLanguage'
-import styles from '../styles/Profile.module.css'
-import createFormUtils from '../utils/createFormUtils'
-import css from '../utils/css'
-import languageUtils from '../utils/languageUtils'
-import renderMonth from '../utils/renderMonth'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { SyntheticEvent, useEffect, useState } from 'react';
+import Datetime from 'react-datetime';
+import { FiSave } from 'react-icons/fi';
+import { PiKey } from 'react-icons/pi';
+import appStyles from '../App.module.css';
+import { apiGetUser, apiUpdateUser } from '../api/user';
+import ChangePassword from '../components/ChangePassword';
+import CustomSelect from '../components/CustomSelect';
+import Loading from '../components/Loading';
+import SuspenseLoading from '../components/SuspenseLoading';
+import { queryKeys } from '../constants/query-keys';
+import useAppContext from '../hooks/useAppContext';
+import useLanguage from '../hooks/useLanguage';
+import styles from '../styles/Profile.module.css';
+import createFormUtils from '../utils/createFormUtils';
+import css from '../utils/css';
+import languageUtils from '../utils/languageUtils';
+import renderMonth from '../utils/renderMonth';
 
 export default function Profile() {
-	const language = useLanguage('page.profile')
-	const { user, permissions } = useAppContext()
-	const [showChangePasswordPopUp, setShowChangePasswordPopUp] = useState(false)
-	const queryClient = useQueryClient()
-	const formUtils = createFormUtils(styles)
-	const disabledUpdate = !permissions.has('user_update')
+	const language = useLanguage('page.profile');
+	const { user, permissions } = useAppContext();
+	const [showChangePasswordPopUp, setShowChangePasswordPopUp] = useState(false);
+	const queryClient = useQueryClient();
+	const formUtils = createFormUtils(styles);
+	const disabledUpdate = !permissions.has('user_update');
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_PROFILE],
 		queryFn: apiGetUser,
-	})
+	});
 	const handleUpdateUser = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
-		e.preventDefault()
+		e.preventDefault();
 		document.querySelector(`.${styles['form-data']}`)?.querySelectorAll('input[name]').forEach(node => {
-			const element = node as HTMLInputElement
-			element.classList.remove('error')
-			formUtils.getParentElement(element)?.removeAttribute('data-error')
-		})
-		const form = e.target as HTMLFormElement
-		const formData = new FormData(form)
-		queryData.data && await apiUpdateUser(formData, queryData.data.user.id)
-	}
+			const element = node as HTMLInputElement;
+			element.classList.remove('error');
+			formUtils.getParentElement(element)?.removeAttribute('data-error');
+		});
+		const form = e.target as HTMLFormElement;
+		const formData = new FormData(form);
+		queryData.data && await apiUpdateUser(formData, queryData.data.user.id);
+	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateUser,
-		onError: (error: object) => { formUtils.showFormError(error) },
+		onError: (error: object) => { formUtils.showFormError(error); },
 		onSuccess: () => {
 			apiGetUser()
 				.then((data) => {
-					user.setUser(data.user)
-					permissions.setItems(data.permissions)
-				})
+					user.setUser(data.user);
+					permissions.setItems(data.permissions);
+				});
 		}
-	})
+	});
 	const genderOptions = [
 		{ value: 'male', label: language?.genders.male },
 		{ value: 'female', label: language?.genders.female },
-	]
+	];
 	useEffect(() => {
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.PAGE_PROFILE] })
-		}
-	}, [queryClient])
-	if (!queryData.data) return <SuspenseLoading />
+			queryClient.removeQueries({ queryKey: [queryKeys.PAGE_PROFILE] });
+		};
+	}, [queryClient]);
+	if (!queryData.data) return <SuspenseLoading />;
 	return (
 		<>
 			{showChangePasswordPopUp === true ?
@@ -76,9 +76,9 @@ export default function Profile() {
 						<h2 className={styles['title']}>{languageUtils.getFullName(queryData.data.user.firstName, queryData.data.user.lastName)}</h2>
 					</div>
 					<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
-						mutate(e)
+						mutate(e);
 					}}
-						onInput={e => { formUtils.handleOnInput(e) }}
+						onInput={e => { formUtils.handleOnInput(e); }}
 						className={styles['form-data']}>
 						<input name='is_active' defaultValue='1' hidden />
 						<div className={styles['group-inputs']}>
@@ -218,12 +218,12 @@ export default function Profile() {
 					<div className={styles['section-content']} >
 						<button
 							className={appStyles['action-item-d']}
-							onClick={() => { setShowChangePasswordPopUp(true) }}>
+							onClick={() => { setShowChangePasswordPopUp(true); }}>
 							<PiKey />{language?.otherSection.changePassword}
 						</button>
 					</div>
 				</section>
 			</main>
 		</>
-	)
+	);
 }

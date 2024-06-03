@@ -7,4 +7,4 @@ export default {
 		search: 'Tìm kiếm'
 	},
 	title: 'Khóa học @semester'
-}
+};

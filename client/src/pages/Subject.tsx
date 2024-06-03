@@ -1,76 +1,76 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { SyntheticEvent, useEffect, useState } from 'react'
-import { MdDeleteOutline } from 'react-icons/md'
-import { RiAddFill } from 'react-icons/ri'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import appStyles from '../App.module.css'
-import { apiDeleteSubject, apiGetSubjectById, apiUpdateSubject } from '../api/subject'
-import CreateChapter from '../components/CreateChapter'
-import Loading from '../components/Loading'
-import ViewChapter from '../components/ViewChapter'
-import YesNoPopUp from '../components/YesNoPopUp'
-import { queryKeys } from '../constants/query-keys'
-import useAppContext from '../hooks/useAppContext'
-import useLanguage from '../hooks/useLanguage'
-import { Chapter } from '../models/chapter'
-import styles from '../styles/Subject.module.css'
-import createFormUtils from '../utils/createFormUtils'
-import css from '../utils/css'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { SyntheticEvent, useEffect, useState } from 'react';
+import { MdDeleteOutline } from 'react-icons/md';
+import { RiAddFill } from 'react-icons/ri';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import appStyles from '../App.module.css';
+import { apiDeleteSubject, apiGetSubjectById, apiUpdateSubject } from '../api/subject';
+import CreateChapter from '../components/CreateChapter';
+import Loading from '../components/Loading';
+import ViewChapter from '../components/ViewChapter';
+import YesNoPopUp from '../components/YesNoPopUp';
+import { queryKeys } from '../constants/query-keys';
+import useAppContext from '../hooks/useAppContext';
+import useLanguage from '../hooks/useLanguage';
+import { Chapter } from '../models/chapter';
+import styles from '../styles/Subject.module.css';
+import createFormUtils from '../utils/createFormUtils';
+import css from '../utils/css';
 
 export default function Subject() {
-	const { id } = useParams()
-	const { permissions } = useAppContext()
-	const language = useLanguage('page.subject')
-	const [currentChapter, setCurrentChapter] = useState<Chapter>()
-	const queryClient = useQueryClient()
-	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
-	const [showViewChapterPopUp, setShowViewChapterPopUp] = useState(false)
-	const [showCreateChapterPopUp, setShowCreateChapterPopUp] = useState(false)
-	const navigate = useNavigate()
-	const formUtils = createFormUtils(styles)
+	const { id } = useParams();
+	const { permissions } = useAppContext();
+	const language = useLanguage('page.subject');
+	const [currentChapter, setCurrentChapter] = useState<Chapter>();
+	const queryClient = useQueryClient();
+	const [showDeletePopUp, setShowDeletePopUp] = useState(false);
+	const [showViewChapterPopUp, setShowViewChapterPopUp] = useState(false);
+	const [showCreateChapterPopUp, setShowCreateChapterPopUp] = useState(false);
+	const navigate = useNavigate();
+	const formUtils = createFormUtils(styles);
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_SUBJECT, { id: id }],
 		queryFn: () => apiGetSubjectById(String(id))
-	})
+	});
 	const handleUpdateSubject = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
-		e.preventDefault()
-		if (!permissions.has('subject_update')) return
+		e.preventDefault();
+		if (!permissions.has('subject_update')) return;
 		document.querySelector(`.${styles['form-data']}`)?.querySelectorAll('input[name]').forEach(node => {
-			const element = node as HTMLInputElement
-			element.classList.remove('error')
-			formUtils.getParentElement(element)?.removeAttribute('data-error')
-		})
-		const form = e.target as HTMLFormElement
-		const formData = new FormData(form)
-		queryData.data && await apiUpdateSubject(formData, queryData.data.id)
-	}
+			const element = node as HTMLInputElement;
+			element.classList.remove('error');
+			formUtils.getParentElement(element)?.removeAttribute('data-error');
+		});
+		const form = e.target as HTMLFormElement;
+		const formData = new FormData(form);
+		queryData.data && await apiUpdateSubject(formData, queryData.data.id);
+	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateSubject,
-		onError: (error: object) => { formUtils.showFormError(error) },
-		onSuccess: () => { queryData.refetch() }
-	})
+		onError: (error: object) => { formUtils.showFormError(error); },
+		onSuccess: () => { queryData.refetch(); }
+	});
 	const handleDeletetSubject = async () => {
-		await apiDeleteSubject(String(id))
-	}
+		await apiDeleteSubject(String(id));
+	};
 	const onMutateSuccess = () => {
 		[queryKeys.PAGE_SUBJECTS].forEach(key => {
-			queryClient.refetchQueries({ queryKey: [key] })
-		})
-		navigate('/subjects')
-	}
+			queryClient.refetchQueries({ queryKey: [key] });
+		});
+		navigate('/subjects');
+	};
 	const defaultChapterNumber = queryData.data && queryData.data.chapters.length !== 0
-		? Math.max(...queryData.data.chapters.map(chapter => chapter.chapterNumber)) + 1 : 1
+		? Math.max(...queryData.data.chapters.map(chapter => chapter.chapterNumber)) + 1 : 1;
 	useEffect(() => {
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.PAGE_SUBJECT, { id: id }] })
-		}
-	}, [id, queryClient])
+			queryClient.removeQueries({ queryKey: [queryKeys.PAGE_SUBJECT, { id: id }] });
+		};
+	}, [id, queryClient]);
 	return (
 		<>
 			{showViewChapterPopUp && currentChapter ?
 				<ViewChapter
 					data={currentChapter}
-					onMutateSuccess={() => { queryData.refetch() }}
+					onMutateSuccess={() => { queryData.refetch(); }}
 					setShowPopUp={setShowViewChapterPopUp}
 				/>
 				: null
@@ -79,7 +79,7 @@ export default function Subject() {
 				<CreateChapter
 					defaultChapterNumber={defaultChapterNumber}
 					subjectId={String(id)}
-					onMutateSuccess={() => { queryData.refetch() }}
+					onMutateSuccess={() => { queryData.refetch(); }}
 					setShowPopUp={setShowCreateChapterPopUp}
 				/> : null}
 			{showDeletePopUp === true ?
@@ -106,9 +106,9 @@ export default function Subject() {
 									<h2 className={styles['title']}>{queryData.data.name}</h2>
 								</div>
 								<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
-									mutate(e)
+									mutate(e);
 								}}
-									onInput={e => { formUtils.handleOnInput(e) }}
+									onInput={e => { formUtils.handleOnInput(e); }}
 									className={styles['form-data']}>
 									<input name='is_active' defaultValue='1' hidden />
 									<div className={styles['group-inputs']}>
@@ -152,7 +152,7 @@ export default function Subject() {
 														<button
 															type='button'
 															onClick={() => {
-																setShowDeletePopUp(true)
+																setShowDeletePopUp(true);
 															}}
 															className={appStyles['action-item-white-border-red-d']}>
 															<MdDeleteOutline /> {language?.delete}
@@ -174,7 +174,7 @@ export default function Subject() {
 									>
 										<div className={appStyles['action-item-d']}
 											onClick={() => {
-												setShowCreateChapterPopUp(true)
+												setShowCreateChapterPopUp(true);
 											}}
 										>
 											<RiAddFill /> {language?.add}
@@ -193,8 +193,8 @@ export default function Subject() {
 													key={`chapter-${chapter.id}`}
 													className={css(appStyles['dashboard-card-d'], styles['card'])}
 													onClick={() => {
-														setCurrentChapter(chapter)
-														setShowViewChapterPopUp(true)
+														setCurrentChapter(chapter);
+														setShowViewChapterPopUp(true);
 													}}
 												>
 													<div className={styles['card-top']}>
@@ -204,7 +204,7 @@ export default function Subject() {
 														{`${chapter.questionsCount} ${language?.questions.toLocaleLowerCase()}`}
 													</div>
 												</div>
-											)
+											);
 										})
 								}
 							</div>
@@ -224,5 +224,5 @@ export default function Subject() {
 				}
 			</main>
 		</>
-	)
+	);
 }

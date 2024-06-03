@@ -18,4 +18,4 @@ export default {
 	langYes: 'Có',
 	langNo: 'Không',
 	deleteOptionError: 'Phải có ít nhất 2 câu trả lời'
-}
+};

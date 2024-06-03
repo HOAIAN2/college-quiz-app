@@ -6,4 +6,4 @@ export default {
 	selectAll: 'Select all',
 	deselectAll: 'Deselect all',
 	save: 'Save'
-}
+};

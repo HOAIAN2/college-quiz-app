@@ -4,4 +4,4 @@ export default {
 	newPassword: 'New password',
 	confirmPassword: 'Confirms password',
 	save: 'Save',
-}
+};

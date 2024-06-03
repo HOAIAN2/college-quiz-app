@@ -1,15 +1,15 @@
-import { TOKEN_KEY } from '../config/env'
+import { TOKEN_KEY } from '../config/env';
 
 const tokenUtils = {
 	getToken() {
-		return localStorage.getItem(TOKEN_KEY)
+		return localStorage.getItem(TOKEN_KEY);
 	},
 	setToken(token: string) {
-		localStorage.setItem(TOKEN_KEY, token)
+		localStorage.setItem(TOKEN_KEY, token);
 	},
 	removeToken() {
-		localStorage.removeItem(TOKEN_KEY)
+		localStorage.removeItem(TOKEN_KEY);
 	}
-}
+};
 
-export default Object.freeze(tokenUtils)
+export default Object.freeze(tokenUtils);

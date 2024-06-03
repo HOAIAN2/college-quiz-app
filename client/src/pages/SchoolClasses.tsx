@@ -1,32 +1,32 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
-import { MdDeleteOutline } from 'react-icons/md'
-import { RiAddFill } from 'react-icons/ri'
-import { useSearchParams } from 'react-router-dom'
-import appStyles from '../App.module.css'
-import { apiDeleteSchoolClassIds, apiGetSchoolClasses } from '../api/school-class'
-import CreateSchoolClass from '../components/CreateSchoolClass'
-import CustomSelect from '../components/CustomSelect'
-import Loading from '../components/Loading'
-import SchoolClassesTable from '../components/SchoolClassesTable'
-import YesNoPopUp from '../components/YesNoPopUp'
-import { queryKeys } from '../constants/query-keys'
-import useAppContext from '../hooks/useAppContext'
-import useDebounce from '../hooks/useDebounce'
-import useLanguage from '../hooks/useLanguage'
-import styles from '../styles/global/TablePage.module.css'
-import css from '../utils/css'
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { MdDeleteOutline } from 'react-icons/md';
+import { RiAddFill } from 'react-icons/ri';
+import { useSearchParams } from 'react-router-dom';
+import appStyles from '../App.module.css';
+import { apiDeleteSchoolClassIds, apiGetSchoolClasses } from '../api/school-class';
+import CreateSchoolClass from '../components/CreateSchoolClass';
+import CustomSelect from '../components/CustomSelect';
+import Loading from '../components/Loading';
+import SchoolClassesTable from '../components/SchoolClassesTable';
+import YesNoPopUp from '../components/YesNoPopUp';
+import { queryKeys } from '../constants/query-keys';
+import useAppContext from '../hooks/useAppContext';
+import useDebounce from '../hooks/useDebounce';
+import useLanguage from '../hooks/useLanguage';
+import styles from '../styles/global/TablePage.module.css';
+import css from '../utils/css';
 
 export default function SchoolClasses() {
-	const { permissions } = useAppContext()
-	const language = useLanguage('page.school_classes')
-	const [searchParams, setSearchParams] = useSearchParams()
-	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
-	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
-	const [selectedSchoolClassIds, setSelectedSchoolClassIds] = useState<Set<string | number>>(new Set())
-	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
-	const queryDebounce = useDebounce(searchQuery)
-	const queryClient = useQueryClient()
+	const { permissions } = useAppContext();
+	const language = useLanguage('page.school_classes');
+	const [searchParams, setSearchParams] = useSearchParams();
+	const [showCreatePopUp, setShowCreatePopUp] = useState(false);
+	const [showDeletePopUp, setShowDeletePopUp] = useState(false);
+	const [selectedSchoolClassIds, setSelectedSchoolClassIds] = useState<Set<string | number>>(new Set());
+	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
+	const queryDebounce = useDebounce(searchQuery);
+	const queryClient = useQueryClient();
 	const queryData = useQuery({
 		queryKey: [
 			queryKeys.PAGE_SCHOOL_CLASSES,
@@ -41,24 +41,24 @@ export default function SchoolClasses() {
 			perPage: Number(searchParams.get('per_page')),
 			search: queryDebounce
 		})
-	})
+	});
 	const handleDeleteSchoolClasses = async () => {
-		await apiDeleteSchoolClassIds(Array.from(selectedSchoolClassIds))
-	}
+		await apiDeleteSchoolClassIds(Array.from(selectedSchoolClassIds));
+	};
 	const onMutateSuccess = () => {
 		[queryKeys.PAGE_SCHOOL_CLASSES].forEach(key => {
-			queryClient.refetchQueries({ queryKey: [key] })
-		})
-	}
+			queryClient.refetchQueries({ queryKey: [key] });
+		});
+	};
 	useEffect(() => {
-		setSelectedSchoolClassIds(new Set())
-	}, [queryData.data])
+		setSelectedSchoolClassIds(new Set());
+	}, [queryData.data]);
 	useEffect(() => {
-		if (!searchParams.get('search') && !queryDebounce) return
-		if (queryDebounce === '') searchParams.delete('search')
-		else searchParams.set('search', queryDebounce)
-		setSearchParams(searchParams)
-	}, [queryDebounce, searchParams, setSearchParams])
+		if (!searchParams.get('search') && !queryDebounce) return;
+		if (queryDebounce === '') searchParams.delete('search');
+		else searchParams.set('search', queryDebounce);
+		setSearchParams(searchParams);
+	}, [queryDebounce, searchParams, setSearchParams]);
 	return (
 		<>
 			{showCreatePopUp === true ?
@@ -84,7 +84,7 @@ export default function SchoolClasses() {
 								permissions.has('school_class_create') ?
 									<div className={appStyles['action-item-d']}
 										onClick={() => {
-											setShowCreatePopUp(true)
+											setShowCreatePopUp(true);
 										}}
 									>
 										<RiAddFill /> {language?.add}
@@ -95,7 +95,7 @@ export default function SchoolClasses() {
 								selectedSchoolClassIds.size > 0 && permissions.has('school_class_delete') ?
 									<div
 										onClick={() => {
-											setShowDeletePopUp(true)
+											setShowDeletePopUp(true);
 										}}
 										className={appStyles['action-item-white-border-red-d']}>
 										<MdDeleteOutline /> {language?.delete}
@@ -139,8 +139,8 @@ export default function SchoolClasses() {
 									},
 								]}
 								onChange={(option) => {
-									searchParams.set('per_page', option.value)
-									setSearchParams(searchParams)
+									searchParams.set('per_page', option.value);
+									setSearchParams(searchParams);
 								}}
 								className={styles['custom-select']}
 							/>
@@ -149,7 +149,7 @@ export default function SchoolClasses() {
 							<label>{language?.filter.search}</label>
 							<input
 								onInput={(e) => {
-									setSearchQuery(e.currentTarget.value)
+									setSearchQuery(e.currentTarget.value);
 								}}
 								defaultValue={queryDebounce}
 								className={css(appStyles['input-d'], styles['input-item'])}
@@ -173,5 +173,5 @@ export default function SchoolClasses() {
 				</section>
 			</main>
 		</>
-	)
+	);
 }

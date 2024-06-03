@@ -1,39 +1,39 @@
 import {
 	QueryClient,
 	QueryClientProvider,
-} from '@tanstack/react-query'
-import moment from 'moment'
-import 'moment/dist/locale/vi'
-import { Suspense, lazy } from 'react'
-import 'react-datetime/css/react-datetime.css'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { Toaster } from 'sonner'
+} from '@tanstack/react-query';
+import moment from 'moment';
+import 'moment/dist/locale/vi';
+import { Suspense, lazy } from 'react';
+import 'react-datetime/css/react-datetime.css';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Toaster } from 'sonner';
 // import './App.css'
-import './App.module.css'
-import SuspenseLoading from './components/SuspenseLoading'
-import useAppContext from './hooks/useAppContext'
-import AuthLayout from './layouts/AuthLayout'
-import DashboardLayout from './layouts/DashboardLayout'
-import Login from './pages/Login'
-import NotFound from './pages/NotFound'
-import Profile from './pages/Profile'
+import './App.module.css';
+import SuspenseLoading from './components/SuspenseLoading';
+import useAppContext from './hooks/useAppContext';
+import AuthLayout from './layouts/AuthLayout';
+import DashboardLayout from './layouts/DashboardLayout';
+import Login from './pages/Login';
+import NotFound from './pages/NotFound';
+import Profile from './pages/Profile';
 
-const Dashboard = lazy(() => import('./pages/Dashboard'))
-const Users = lazy(() => import('./pages/Users'))
-const Permissisons = lazy(() => import('./pages/Permissisons'))
-const RolePermissions = lazy(() => import('./pages/RolePermissions'))
-const Faculties = lazy(() => import('./pages/Faculties'))
-const SchoolClasses = lazy(() => import('./pages/SchoolClasses'))
-const Subjects = lazy(() => import('./pages/Subjects'))
-const Subject = lazy(() => import('./pages/Subject'))
-const Questions = lazy(() => import('./pages/Questions'))
-const Semesters = lazy(() => import('./pages/Semesters'))
-const Courses = lazy(() => import('./pages/Courses'))
-const Course = lazy(() => import('./pages/Course'))
-const Semester = lazy(() => import('./pages/Semester'))
-const Exams = lazy(() => import('./pages/Exams'))
-const Exam = lazy(() => import('./pages/Exam'))
-const TakeExam = lazy(() => import('./pages/TakeExam'))
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Users = lazy(() => import('./pages/Users'));
+const Permissisons = lazy(() => import('./pages/Permissisons'));
+const RolePermissions = lazy(() => import('./pages/RolePermissions'));
+const Faculties = lazy(() => import('./pages/Faculties'));
+const SchoolClasses = lazy(() => import('./pages/SchoolClasses'));
+const Subjects = lazy(() => import('./pages/Subjects'));
+const Subject = lazy(() => import('./pages/Subject'));
+const Questions = lazy(() => import('./pages/Questions'));
+const Semesters = lazy(() => import('./pages/Semesters'));
+const Courses = lazy(() => import('./pages/Courses'));
+const Course = lazy(() => import('./pages/Course'));
+const Semester = lazy(() => import('./pages/Semester'));
+const Exams = lazy(() => import('./pages/Exams'));
+const Exam = lazy(() => import('./pages/Exam'));
+const TakeExam = lazy(() => import('./pages/TakeExam'));
 
 const router = createBrowserRouter([
 	{
@@ -169,13 +169,13 @@ const router = createBrowserRouter([
 			}
 		]
 	}
-])
+]);
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 export default function App() {
-	const { appLanguage } = useAppContext()
-	moment.locale(appLanguage.language)
+	const { appLanguage } = useAppContext();
+	moment.locale(appLanguage.language);
 	return (
 		<>
 			<Toaster
@@ -191,5 +191,5 @@ export default function App() {
 				<RouterProvider router={router} />
 			</QueryClientProvider>
 		</>
-	)
+	);
 }

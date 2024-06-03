@@ -11,4 +11,4 @@ export default {
 	search: 'Tìm kiếm',
 	joinedSupervisors: 'Giám thị đã tham gia',
 	allSupervisors: 'Toàn bộ giám thị',
-}
+};

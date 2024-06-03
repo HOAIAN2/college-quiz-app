@@ -1,45 +1,45 @@
-import { useEffect, useRef } from 'react'
-import { AiOutlineUser } from 'react-icons/ai'
+import { useEffect, useRef } from 'react';
+import { AiOutlineUser } from 'react-icons/ai';
 import {
 	BiLogOut
-} from 'react-icons/bi'
+} from 'react-icons/bi';
 import {
 	PiSidebarSimpleLight
-} from 'react-icons/pi'
-import { Link } from 'react-router-dom'
-import { apiLogout } from '../api/auth'
-import useAppContext from '../hooks/useAppContext'
-import useLanguage from '../hooks/useLanguage'
-import styles from '../styles/Header.module.css'
-import navBarStyles from '../styles/NavBar.module.css'
-import languageUtils from '../utils/languageUtils'
-import CustomSelect from './CustomSelect'
+} from 'react-icons/pi';
+import { Link } from 'react-router-dom';
+import { apiLogout } from '../api/auth';
+import useAppContext from '../hooks/useAppContext';
+import useLanguage from '../hooks/useLanguage';
+import styles from '../styles/Header.module.css';
+import navBarStyles from '../styles/NavBar.module.css';
+import languageUtils from '../utils/languageUtils';
+import CustomSelect from './CustomSelect';
 
 export default function Header() {
-	const { DOM, user, appLanguage } = useAppContext()
-	const language = useLanguage('component.header')
-	const profileDropdownRef = useRef<HTMLDivElement>(null)
+	const { DOM, user, appLanguage } = useAppContext();
+	const language = useLanguage('component.header');
+	const profileDropdownRef = useRef<HTMLDivElement>(null);
 	const handleLogout = () => {
 		apiLogout()
 			.finally(() => {
-				window.location.reload()
-			})
-	}
+				window.location.reload();
+			});
+	};
 	const handleToggleDropdownProfile = () => {
-		profileDropdownRef.current?.classList.toggle(styles['show'])
-	}
+		profileDropdownRef.current?.classList.toggle(styles['show']);
+	};
 	useEffect(() => {
 		const handleClickOutside = (e: MouseEvent) => {
-			const element = e.target as HTMLElement
+			const element = e.target as HTMLElement;
 			if (element && !profileDropdownRef.current?.contains(element)) {
-				profileDropdownRef.current?.classList.remove(styles['show'])
+				profileDropdownRef.current?.classList.remove(styles['show']);
 			}
-		}
-		document.addEventListener('click', handleClickOutside)
+		};
+		document.addEventListener('click', handleClickOutside);
 		return () => {
-			document.removeEventListener('click', handleClickOutside)
-		}
-	}, [])
+			document.removeEventListener('click', handleClickOutside);
+		};
+	}, []);
 	return (
 		<header className={styles['header']}>
 			<div id='loader'></div>
@@ -48,7 +48,7 @@ export default function Header() {
 					user.user ?
 						<>
 							<div className={styles['toggle']} onClick={() => {
-								DOM.sideBarRef.current?.classList.toggle(navBarStyles['hide'])
+								DOM.sideBarRef.current?.classList.toggle(navBarStyles['hide']);
 							}}>
 								<PiSidebarSimpleLight />
 							</div>
@@ -63,8 +63,8 @@ export default function Header() {
 						options={languageUtils.languageCodeName}
 						className={styles['select-language']}
 						onChange={option => {
-							appLanguage.setLanguage(option.value)
-							languageUtils.setLanguage(option.value)
+							appLanguage.setLanguage(option.value);
+							languageUtils.setLanguage(option.value);
 						}}
 					/>
 				</div>
@@ -95,5 +95,5 @@ export default function Header() {
 				}
 			</div>
 		</header>
-	)
+	);
 }

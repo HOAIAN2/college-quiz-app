@@ -1,32 +1,32 @@
-import Chart from 'chart.js/auto'
-import { useEffect, useRef } from 'react'
-import useAppContext from '../hooks/useAppContext'
-import styles from '../styles/ExamsEachMonthChart.module.css'
+import Chart from 'chart.js/auto';
+import { useEffect, useRef } from 'react';
+import useAppContext from '../hooks/useAppContext';
+import styles from '../styles/ExamsEachMonthChart.module.css';
 
 type ExamsEachMonthChartProps = {
-	data: number[]
-	label?: string
-}
+	data: number[];
+	label?: string;
+};
 
 export default function ExamsEachMonthChart({
 	data,
 	label
 }: ExamsEachMonthChartProps) {
 	const { appLanguage } = useAppContext();
-	const chartRef = useRef<HTMLCanvasElement | null>(null)
-	const chartInstanceRef = useRef<Chart | null>(null)
+	const chartRef = useRef<HTMLCanvasElement | null>(null);
+	const chartInstanceRef = useRef<Chart | null>(null);
 
 	useEffect(() => {
-		if (!chartRef.current) return
+		if (!chartRef.current) return;
 
 		if (chartInstanceRef.current) {
-			chartInstanceRef.current.destroy()
+			chartInstanceRef.current.destroy();
 		}
 
-		const ctx = chartRef.current.getContext('2d')
-		if (!ctx) return
+		const ctx = chartRef.current.getContext('2d');
+		if (!ctx) return;
 
-		const labels = data.map((_, index) => new Date(0, index).toLocaleString(appLanguage.language, { month: 'long' }))
+		const labels = data.map((_, index) => new Date(0, index).toLocaleString(appLanguage.language, { month: 'long' }));
 
 		const backgroundColors = [
 			'rgba(255, 99, 132, 0.2)',
@@ -36,7 +36,7 @@ export default function ExamsEachMonthChart({
 			'rgba(54, 162, 235, 0.2)',
 			'rgba(153, 102, 255, 0.2)',
 			'rgba(201, 203, 207, 0.2)'
-		]
+		];
 		const borderColors = [
 			'rgb(255, 99, 132)',
 			'rgb(255, 159, 64)',
@@ -45,7 +45,7 @@ export default function ExamsEachMonthChart({
 			'rgb(54, 162, 235)',
 			'rgb(153, 102, 255)',
 			'rgb(201, 203, 207)'
-		]
+		];
 		// const color = getComputedStyle(document.documentElement).getPropertyValue('--color-blue')
 
 		chartInstanceRef.current = new Chart(ctx, {
@@ -69,17 +69,17 @@ export default function ExamsEachMonthChart({
 					}
 				}
 			}
-		})
+		});
 		return () => {
 			if (chartInstanceRef.current) {
-				chartInstanceRef.current.destroy()
+				chartInstanceRef.current.destroy();
 			}
-		}
-	}, [appLanguage.language, data, label])
+		};
+	}, [appLanguage.language, data, label]);
 
 	return (
 		<div className={styles['chart-container']}>
 			<canvas ref={chartRef}></canvas>
 		</div>
-	)
+	);
 }

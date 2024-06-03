@@ -15,4 +15,4 @@ export default {
 	deleteMessage: 'Bạn có chắc chắn muốn xóa bài thi này? Hành động này không thể hoàn tác.',
 	langYes: 'Có',
 	langNo: 'Không',
-}
+};

@@ -1,79 +1,79 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { SyntheticEvent, useEffect, useState } from 'react'
-import { FiSave } from 'react-icons/fi'
-import { RxCross2 } from 'react-icons/rx'
-import appStyles from '../App.module.css'
-import { apiAutoCompleteFaculty } from '../api/faculty'
-import { apiGetSchoolClassById, apiUpdateSchoolClass } from '../api/school-class'
-import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
-import { queryKeys } from '../constants/query-keys'
-import useAppContext from '../hooks/useAppContext'
-import useDebounce from '../hooks/useDebounce'
-import useLanguage from '../hooks/useLanguage'
-import styles from '../styles/global/ViewModel.module.css'
-import createFormUtils from '../utils/createFormUtils'
-import css from '../utils/css'
-import CustomDataList from './CustomDataList'
-import Loading from './Loading'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { SyntheticEvent, useEffect, useState } from 'react';
+import { FiSave } from 'react-icons/fi';
+import { RxCross2 } from 'react-icons/rx';
+import appStyles from '../App.module.css';
+import { apiAutoCompleteFaculty } from '../api/faculty';
+import { apiGetSchoolClassById, apiUpdateSchoolClass } from '../api/school-class';
+import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
+import { queryKeys } from '../constants/query-keys';
+import useAppContext from '../hooks/useAppContext';
+import useDebounce from '../hooks/useDebounce';
+import useLanguage from '../hooks/useLanguage';
+import styles from '../styles/global/ViewModel.module.css';
+import createFormUtils from '../utils/createFormUtils';
+import css from '../utils/css';
+import CustomDataList from './CustomDataList';
+import Loading from './Loading';
 
 type ViewSchoolClassProps = {
-	id: number
-	onMutateSuccess: () => void
-	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
-}
+	id: number;
+	onMutateSuccess: () => void;
+	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 export default function ViewSchoolClass({
 	id,
 	onMutateSuccess,
 	setShowPopUp
 }: ViewSchoolClassProps) {
-	const [hide, setHide] = useState(true)
-	const language = useLanguage('component.view_school_class')
-	const { permissions } = useAppContext()
-	const [queryFaculty, setQueryFaculty] = useState('')
-	const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE)
-	const queryClient = useQueryClient()
+	const [hide, setHide] = useState(true);
+	const language = useLanguage('component.view_school_class');
+	const { permissions } = useAppContext();
+	const [queryFaculty, setQueryFaculty] = useState('');
+	const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE);
+	const queryClient = useQueryClient();
 	const handleClosePopUp = () => {
-		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
-		const timing = Number(transitionTiming.replace('s', '')) * 1000
-		setHide(true)
+		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast');
+		const timing = Number(transitionTiming.replace('s', '')) * 1000;
+		setHide(true);
 		setTimeout(() => {
-			setShowPopUp(false)
-		}, timing)
-	}
-	const disabledUpdate = !permissions.has('school_class_update')
-	const formUtils = createFormUtils(styles)
+			setShowPopUp(false);
+		}, timing);
+	};
+	const disabledUpdate = !permissions.has('school_class_update');
+	const formUtils = createFormUtils(styles);
 	const queryData = useQuery({
 		queryKey: [queryKeys.SCHOOL_CLASS_DETAIL, id],
 		queryFn: () => apiGetSchoolClassById(id)
-	})
+	});
 	const facultyQueryData = useQuery({
 		queryKey: [queryKeys.AUTO_COMPLETE_FACULTY, { search: debounceQueryFaculty }],
 		queryFn: () => apiAutoCompleteFaculty(debounceQueryFaculty),
 		enabled: debounceQueryFaculty && permissions.has('faculty_view') ? true : false
-	})
+	});
 	const handleUpdateSchoolClass = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
-		e.preventDefault()
+		e.preventDefault();
 		document.querySelector(`.${styles['form-data']}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
-			node.classList.remove('error')
-			formUtils.getParentElement(node)?.removeAttribute('data-error')
-		})
-		const form = e.target as HTMLFormElement
-		const formData = new FormData(form)
-		await apiUpdateSchoolClass(formData, id)
-	}
+			node.classList.remove('error');
+			formUtils.getParentElement(node)?.removeAttribute('data-error');
+		});
+		const form = e.target as HTMLFormElement;
+		const formData = new FormData(form);
+		await apiUpdateSchoolClass(formData, id);
+	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateSchoolClass,
-		onError: (error: object) => { formUtils.showFormError(error) },
+		onError: (error: object) => { formUtils.showFormError(error); },
 		onSuccess: onMutateSuccess
-	})
+	});
 	useEffect(() => {
-		setHide(false)
+		setHide(false);
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.SCHOOL_CLASS_DETAIL, { id: id }] })
-			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_FACULTY] })
-		}
-	}, [id, queryClient])
+			queryClient.removeQueries({ queryKey: [queryKeys.SCHOOL_CLASS_DETAIL, { id: id }] });
+			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_FACULTY] });
+		};
+	}, [id, queryClient]);
 	return (
 		<div
 			className={
@@ -108,9 +108,9 @@ export default function ViewSchoolClass({
 						{
 							queryData.data ? (
 								<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
-									mutate(e)
+									mutate(e);
 								}}
-									onInput={(e) => { formUtils.handleOnInput(e) }}
+									onInput={(e) => { formUtils.handleOnInput(e); }}
 									className={styles['form-data']}>
 									<div className={styles['group-inputs']}>
 										<div className={styles['wrap-item']}>
@@ -143,12 +143,12 @@ export default function ViewSchoolClass({
 														label: queryData.data.faculty?.name,
 														value: queryData.data.faculty ? String(queryData.data.faculty.id) : ''
 													}}
-												onInput={e => { setQueryFaculty(e.currentTarget.value) }}
+												onInput={e => { setQueryFaculty(e.currentTarget.value); }}
 												options={facultyQueryData.data ? facultyQueryData.data.map(item => {
 													return {
 														label: item.name,
 														value: String(item.id)
-													}
+													};
 												}) : []}
 											/>
 										</div>
@@ -176,5 +176,5 @@ export default function ViewSchoolClass({
 				</>
 			</div>
 		</div>
-	)
+	);
 }

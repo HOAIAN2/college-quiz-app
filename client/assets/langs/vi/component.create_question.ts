@@ -16,4 +16,4 @@ export default {
 	save: 'Lưu',
 	saveMore: 'Lưu thêm',
 	deleteOptionError: 'Phải có ít nhất 2 câu trả lời'
-}
+};

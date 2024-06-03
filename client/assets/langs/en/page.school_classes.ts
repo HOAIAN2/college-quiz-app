@@ -13,4 +13,4 @@ export default {
 	deleteMessage: 'Are you sure you want to delete this subject? This action cannot be undone.',
 	langYes: 'Yes',
 	langNo: 'No'
-}
+};

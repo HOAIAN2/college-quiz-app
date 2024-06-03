@@ -3,4 +3,4 @@ export default {
 	score: 'Score',
 	numberOfCorrectQuestion: 'Number of Correct Questions',
 	goBack: 'Go Back'
-}
+};

@@ -6,4 +6,4 @@ export default {
 	name: 'Tên',
 	save: 'Lưu',
 	saveMore: 'Lưu thêm'
-}
+};

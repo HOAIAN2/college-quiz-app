@@ -1,10 +1,10 @@
-import { APP_NAME } from '../config/env'
-import useAppContext from '../hooks/useAppContext'
-import styles from '../styles/Footer.module.css'
-import languageUtils from '../utils/languageUtils'
+import { APP_NAME } from '../config/env';
+import useAppContext from '../hooks/useAppContext';
+import styles from '../styles/Footer.module.css';
+import languageUtils from '../utils/languageUtils';
 
 export default function Footer() {
-	const { appLanguage } = useAppContext()
+	const { appLanguage } = useAppContext();
 	return (
 		<footer className={styles['footer']}>
 			<ul>
@@ -21,8 +21,8 @@ export default function Footer() {
 				<li>
 					<select value={appLanguage.language}
 						onChange={(e) => {
-							appLanguage.setLanguage(e.currentTarget.value)
-							languageUtils.setLanguage(e.currentTarget.value)
+							appLanguage.setLanguage(e.currentTarget.value);
+							languageUtils.setLanguage(e.currentTarget.value);
 						}}>
 						<option value="en">English</option>
 						<option value="vi">Tiếng Việt</option>
@@ -30,5 +30,5 @@ export default function Footer() {
 				</li>
 			</ul>
 		</footer>
-	)
+	);
 }

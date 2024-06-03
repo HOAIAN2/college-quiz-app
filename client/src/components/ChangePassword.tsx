@@ -1,63 +1,63 @@
-import { useEffect, useRef, useState } from 'react'
-import { RxCross2 } from 'react-icons/rx'
-import { useNavigate } from 'react-router-dom'
-import appStyles from '../App.module.css'
-import { apiChangePassword } from '../api/auth'
-import useLanguage from '../hooks/useLanguage'
-import styles from '../styles/ChangePassword.module.css'
-import css from '../utils/css'
+import { useEffect, useRef, useState } from 'react';
+import { RxCross2 } from 'react-icons/rx';
+import { useNavigate } from 'react-router-dom';
+import appStyles from '../App.module.css';
+import { apiChangePassword } from '../api/auth';
+import useLanguage from '../hooks/useLanguage';
+import styles from '../styles/ChangePassword.module.css';
+import css from '../utils/css';
 
 type ChangePasswordProps = {
-	setShowPopup: React.Dispatch<React.SetStateAction<boolean>>
-}
+	setShowPopup: React.Dispatch<React.SetStateAction<boolean>>;
+};
 export default function ChangePassword({
 	setShowPopup
 }: ChangePasswordProps) {
-	const language = useLanguage('component.change_password')
-	const [blockSubmit, setBlockSubmit] = useState(true)
-	const [isSubmitting, seIsSubmitting] = useState(false)
-	const [hide, setHide] = useState(true)
-	const buttonRef = useRef<HTMLButtonElement>(null)
-	const navigate = useNavigate()
+	const language = useLanguage('component.change_password');
+	const [blockSubmit, setBlockSubmit] = useState(true);
+	const [isSubmitting, seIsSubmitting] = useState(false);
+	const [hide, setHide] = useState(true);
+	const buttonRef = useRef<HTMLButtonElement>(null);
+	const navigate = useNavigate();
 	const handleClosePopUp = () => {
-		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
-		const timing = Number(transitionTiming.replace('s', '')) * 1000
-		setHide(true)
+		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast');
+		const timing = Number(transitionTiming.replace('s', '')) * 1000;
+		setHide(true);
 		setTimeout(() => {
-			setShowPopup(false)
-		}, timing)
-	}
+			setShowPopup(false);
+		}, timing);
+	};
 	const handlePreventSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		const formData = new FormData(e.currentTarget)
+		const formData = new FormData(e.currentTarget);
 		for (const pair of formData.entries()) {
-			const value = pair[1] as string
+			const value = pair[1] as string;
 			if (!value.trim()) {
-				return setBlockSubmit(true)
+				return setBlockSubmit(true);
 			}
 		}
-		setBlockSubmit(false)
-	}
+		setBlockSubmit(false);
+	};
 	const handleChangePassword = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-		if (blockSubmit) return
-		setBlockSubmit(true)
-		seIsSubmitting(true)
-		const formData = new FormData(e.currentTarget)
-		buttonRef.current?.classList.add(styles['submitting'])
+		e.preventDefault();
+		if (blockSubmit) return;
+		setBlockSubmit(true);
+		seIsSubmitting(true);
+		const formData = new FormData(e.currentTarget);
+		buttonRef.current?.classList.add(styles['submitting']);
 		apiChangePassword(formData)
 			.then(() => {
-				return navigate(0)
+				return navigate(0);
 			})
 			.catch(() => {
-				setBlockSubmit(false)
-				seIsSubmitting(false)
+				setBlockSubmit(false);
+				seIsSubmitting(false);
 			}).finally(() => {
-				buttonRef.current?.classList.remove(styles['submitting'])
-			})
-	}
+				buttonRef.current?.classList.remove(styles['submitting']);
+			});
+	};
 	useEffect(() => {
-		setHide(false)
-	}, [])
+		setHide(false);
+	}, []);
 	return (
 		<div className={
 			css(
@@ -121,5 +121,5 @@ export default function ChangePassword({
 				</form>
 			</div >
 		</div >
-	)
+	);
 }

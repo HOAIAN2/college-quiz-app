@@ -11,4 +11,4 @@ export default {
 	students: 'Students',
 	permission: 'Permission',
 	semester: 'Semester'
-}
+};

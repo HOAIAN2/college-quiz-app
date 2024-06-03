@@ -6,4 +6,4 @@ export default {
 	selectAll: 'Chọn hết',
 	deselectAll: 'Bỏ chọn hết',
 	save: 'Lưu'
-}
+};

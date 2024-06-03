@@ -19,4 +19,4 @@ export default {
 		other: 'Khác',
 		changePassword: 'Đổi mật khẩu'
 	}
-}
+};

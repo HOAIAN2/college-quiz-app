@@ -1,103 +1,103 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
-import Datetime from 'react-datetime'
-import { FiSave } from 'react-icons/fi'
-import { MdDeleteOutline } from 'react-icons/md'
-import { RxCross2 } from 'react-icons/rx'
-import appStyles from '../App.module.css'
-import { apiDeleteExam, apiGetExamById, apiUpdateExam } from '../api/exam'
-import { apiGetAllUser } from '../api/user'
-import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
-import { queryKeys } from '../constants/query-keys'
-import useAppContext from '../hooks/useAppContext'
-import useDebounce from '../hooks/useDebounce'
-import useLanguage from '../hooks/useLanguage'
-import { User } from '../models/user'
-import styles from '../styles/CreateViewExam.module.css'
-import createFormUtils from '../utils/createFormUtils'
-import css from '../utils/css'
-import languageUtils from '../utils/languageUtils'
-import renderMonth from '../utils/renderMonth'
-import Loading from './Loading'
-import YesNoPopUp from './YesNoPopUp'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import Datetime from 'react-datetime';
+import { FiSave } from 'react-icons/fi';
+import { MdDeleteOutline } from 'react-icons/md';
+import { RxCross2 } from 'react-icons/rx';
+import appStyles from '../App.module.css';
+import { apiDeleteExam, apiGetExamById, apiUpdateExam } from '../api/exam';
+import { apiGetAllUser } from '../api/user';
+import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
+import { queryKeys } from '../constants/query-keys';
+import useAppContext from '../hooks/useAppContext';
+import useDebounce from '../hooks/useDebounce';
+import useLanguage from '../hooks/useLanguage';
+import { User } from '../models/user';
+import styles from '../styles/CreateViewExam.module.css';
+import createFormUtils from '../utils/createFormUtils';
+import css from '../utils/css';
+import languageUtils from '../utils/languageUtils';
+import renderMonth from '../utils/renderMonth';
+import Loading from './Loading';
+import YesNoPopUp from './YesNoPopUp';
 
 type ViewExamProps = {
-	id: number
-	onMutateSuccess: () => void
-	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
-}
+	id: number;
+	onMutateSuccess: () => void;
+	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>;
+};
 export default function ViewExam({
 	id,
 	onMutateSuccess,
 	setShowPopUp
 }: ViewExamProps) {
-	const { permissions } = useAppContext()
-	const [hide, setHide] = useState(true)
-	const [supervisors, setSupervisors] = useState<User[]>([])
-	const [queryUser, setQueryUser] = useState('')
-	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
-	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
-	const language = useLanguage('component.view_exam')
-	const queryClient = useQueryClient()
+	const { permissions } = useAppContext();
+	const [hide, setHide] = useState(true);
+	const [supervisors, setSupervisors] = useState<User[]>([]);
+	const [queryUser, setQueryUser] = useState('');
+	const [showDeletePopUp, setShowDeletePopUp] = useState(false);
+	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE);
+	const language = useLanguage('component.view_exam');
+	const queryClient = useQueryClient();
 	const handleClosePopUp = () => {
-		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
-		const timing = Number(transitionTiming.replace('s', '')) * 1000
-		setHide(true)
+		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast');
+		const timing = Number(transitionTiming.replace('s', '')) * 1000;
+		setHide(true);
 		setTimeout(() => {
-			setShowPopUp(false)
-		}, timing)
-	}
-	const disabledUpdate = !permissions.has('exam_update')
-	const formUtils = createFormUtils(styles)
+			setShowPopUp(false);
+		}, timing);
+	};
+	const disabledUpdate = !permissions.has('exam_update');
+	const formUtils = createFormUtils(styles);
 	const queryData = useQuery({
 		queryKey: [queryKeys.EXAM, { id: id }],
 		queryFn: () => apiGetExamById(id),
-	})
+	});
 	const userQueryData = useQuery({
 		queryKey: [queryKeys.ALL_TEACHER, { search: debounceQueryUser }],
 		queryFn: () => apiGetAllUser('teacher', debounceQueryUser),
 		enabled: permissions.has('user_view') ? true : false
-	})
+	});
 	const handleUpdateExam = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
+		e.preventDefault();
 		document.querySelector(`.${styles['form-data']}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
-			node.classList.remove('error')
-			formUtils.getParentElement(node)?.removeAttribute('data-error')
-		})
-		const form = e.target as HTMLFormElement
-		const formData = new FormData(form)
+			node.classList.remove('error');
+			formUtils.getParentElement(node)?.removeAttribute('data-error');
+		});
+		const form = e.target as HTMLFormElement;
+		const formData = new FormData(form);
 		supervisors.forEach(supervisor => {
-			formData.append('supervisor_ids[]', String(supervisor.id))
-		})
-		await apiUpdateExam(formData, id)
-		handleClosePopUp()
-	}
+			formData.append('supervisor_ids[]', String(supervisor.id));
+		});
+		await apiUpdateExam(formData, id);
+		handleClosePopUp();
+	};
 	const handleDeleteExam = async () => {
-		await apiDeleteExam(id)
-	}
+		await apiDeleteExam(id);
+	};
 	const isExamStarted = () => {
-		if (!queryData.data) return false
-		if (!queryData.data.startedAt) return false
-		const examStartedAt = new Date(queryData.data.startedAt)
-		return new Date().getTime() > examStartedAt.getTime()
-	}
+		if (!queryData.data) return false;
+		if (!queryData.data.startedAt) return false;
+		const examStartedAt = new Date(queryData.data.startedAt);
+		return new Date().getTime() > examStartedAt.getTime();
+	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateExam,
-		onError: (error: object) => { formUtils.showFormError(error) },
+		onError: (error: object) => { formUtils.showFormError(error); },
 		onSuccess: onMutateSuccess
-	})
+	});
 	useEffect(() => {
 		if (queryData.data) {
-			setSupervisors(queryData.data.examSupervisors.map(supervisor => supervisor.user))
+			setSupervisors(queryData.data.examSupervisors.map(supervisor => supervisor.user));
 		}
-	}, [queryData.data])
+	}, [queryData.data]);
 	useEffect(() => {
-		setHide(false)
+		setHide(false);
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.EXAM, { id: id }] })
-			queryClient.removeQueries({ queryKey: [queryKeys.ALL_TEACHER] })
-		}
-	}, [id, queryClient])
+			queryClient.removeQueries({ queryKey: [queryKeys.EXAM, { id: id }] });
+			queryClient.removeQueries({ queryKey: [queryKeys.ALL_TEACHER] });
+		};
+	}, [id, queryClient]);
 	return (
 		<>
 			{showDeletePopUp === true ?
@@ -105,7 +105,7 @@ export default function ViewExam({
 					message={language?.deleteMessage || ''}
 					mutateFunction={handleDeleteExam}
 					setShowPopUp={setShowDeletePopUp}
-					onMutateSuccess={() => { onMutateSuccess(); handleClosePopUp() }}
+					onMutateSuccess={() => { onMutateSuccess(); handleClosePopUp(); }}
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
@@ -139,7 +139,7 @@ export default function ViewExam({
 						{
 							queryData.data ?
 								<form
-									onSubmit={e => { mutate(e) }}
+									onSubmit={e => { mutate(e); }}
 									className={styles['form-data']}>
 									<div className={styles['group-inputs']}>
 										<div className={styles['wrap-item']}>
@@ -173,7 +173,7 @@ export default function ViewExam({
 											<label className={styles['required']} htmlFor='exam_time'>{language?.examTime}</label>
 											<input
 												onBeforeInput={(e: React.CompositionEvent<HTMLInputElement>) => {
-													if (e.data === '.') e.preventDefault()
+													if (e.data === '.') e.preventDefault();
 												}}
 												id='exam_time'
 												name='exam_time'
@@ -198,7 +198,7 @@ export default function ViewExam({
 																<input
 																	placeholder={language?.search}
 																	onInput={e => {
-																		setQueryUser(e.currentTarget.value)
+																		setQueryUser(e.currentTarget.value);
 																	}}
 																	className={css(appStyles['input-d'], styles['input-item'])}
 																	type='text' />
@@ -223,17 +223,17 @@ export default function ViewExam({
 																				<span
 																					style={{ height: '20px' }}
 																					onClick={() => {
-																						if (!permissions.has('exam_update')) return
-																						const newSupervisors = structuredClone(supervisors)
-																						newSupervisors.splice(index, 1)
-																						setSupervisors(newSupervisors)
+																						if (!permissions.has('exam_update')) return;
+																						const newSupervisors = structuredClone(supervisors);
+																						newSupervisors.splice(index, 1);
+																						setSupervisors(newSupervisors);
 																					}}
 																				>
 																					<RxCross2 />
 																				</span>
 																			</div>
 																		</li>
-																	)
+																	);
 																})
 															}
 														</ul>
@@ -248,9 +248,9 @@ export default function ViewExam({
 																				.map(user => (
 																					<li
 																						onClick={() => {
-																							const newSupervisors = structuredClone(supervisors)
-																							newSupervisors.push(user)
-																							setSupervisors(newSupervisors)
+																							const newSupervisors = structuredClone(supervisors);
+																							newSupervisors.push(user);
+																							setSupervisors(newSupervisors);
 																						}}
 																						className={css(appStyles['dashboard-card-d'], styles['card'])}
 																						key={`user-${user.id}`}
@@ -289,7 +289,7 @@ export default function ViewExam({
 														<button
 															type='button'
 															onClick={() => {
-																setShowDeletePopUp(true)
+																setShowDeletePopUp(true);
 															}}
 															className={appStyles['action-item-white-border-red-d']}>
 															<MdDeleteOutline /> {language?.delete}
@@ -305,5 +305,5 @@ export default function ViewExam({
 				</div>
 			</div>
 		</>
-	)
+	);
 }

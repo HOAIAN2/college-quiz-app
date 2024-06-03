@@ -1,32 +1,32 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
-import { MdDeleteOutline } from 'react-icons/md'
-import { RiAddFill } from 'react-icons/ri'
-import { useSearchParams } from 'react-router-dom'
-import appStyles from '../App.module.css'
-import { apiDeleteFacultiesByIds, apiGetFaculties } from '../api/faculty'
-import CreateFaculty from '../components/CreateFaculty'
-import CustomSelect from '../components/CustomSelect'
-import FacultiesTable from '../components/FacultiesTable'
-import Loading from '../components/Loading'
-import YesNoPopUp from '../components/YesNoPopUp'
-import { queryKeys } from '../constants/query-keys'
-import useAppContext from '../hooks/useAppContext'
-import useDebounce from '../hooks/useDebounce'
-import useLanguage from '../hooks/useLanguage'
-import styles from '../styles/global/TablePage.module.css'
-import css from '../utils/css'
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { MdDeleteOutline } from 'react-icons/md';
+import { RiAddFill } from 'react-icons/ri';
+import { useSearchParams } from 'react-router-dom';
+import appStyles from '../App.module.css';
+import { apiDeleteFacultiesByIds, apiGetFaculties } from '../api/faculty';
+import CreateFaculty from '../components/CreateFaculty';
+import CustomSelect from '../components/CustomSelect';
+import FacultiesTable from '../components/FacultiesTable';
+import Loading from '../components/Loading';
+import YesNoPopUp from '../components/YesNoPopUp';
+import { queryKeys } from '../constants/query-keys';
+import useAppContext from '../hooks/useAppContext';
+import useDebounce from '../hooks/useDebounce';
+import useLanguage from '../hooks/useLanguage';
+import styles from '../styles/global/TablePage.module.css';
+import css from '../utils/css';
 
 export default function Faculties() {
-	const { permissions } = useAppContext()
-	const language = useLanguage('page.faculties')
-	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
-	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
-	const [searchParams, setSearchParams] = useSearchParams()
-	const queryClient = useQueryClient()
-	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
-	const queryDebounce = useDebounce(searchQuery)
-	const [selectedFacultyIds, setSelectedFacultyIds] = useState<Set<string | number>>(new Set())
+	const { permissions } = useAppContext();
+	const language = useLanguage('page.faculties');
+	const [showCreatePopUp, setShowCreatePopUp] = useState(false);
+	const [showDeletePopUp, setShowDeletePopUp] = useState(false);
+	const [searchParams, setSearchParams] = useSearchParams();
+	const queryClient = useQueryClient();
+	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
+	const queryDebounce = useDebounce(searchQuery);
+	const [selectedFacultyIds, setSelectedFacultyIds] = useState<Set<string | number>>(new Set());
 	const queryData = useQuery({
 		queryKey: [
 			queryKeys.PAGE_FACULTIES,
@@ -41,24 +41,24 @@ export default function Faculties() {
 			perPage: Number(searchParams.get('per_page')),
 			search: queryDebounce
 		})
-	})
+	});
 	const handleDeleteFaculties = async () => {
-		await apiDeleteFacultiesByIds(Array.from(selectedFacultyIds))
-	}
+		await apiDeleteFacultiesByIds(Array.from(selectedFacultyIds));
+	};
 	const onMutateSuccess = () => {
 		[queryKeys.PAGE_FACULTIES].forEach(key => {
-			queryClient.refetchQueries({ queryKey: [key] })
-		})
-	}
+			queryClient.refetchQueries({ queryKey: [key] });
+		});
+	};
 	useEffect(() => {
-		setSelectedFacultyIds(new Set())
-	}, [queryData.data])
+		setSelectedFacultyIds(new Set());
+	}, [queryData.data]);
 	useEffect(() => {
-		if (!searchParams.get('search') && !queryDebounce) return
-		if (queryDebounce === '') searchParams.delete('search')
-		else searchParams.set('search', queryDebounce)
-		setSearchParams(searchParams)
-	}, [queryDebounce, searchParams, setSearchParams])
+		if (!searchParams.get('search') && !queryDebounce) return;
+		if (queryDebounce === '') searchParams.delete('search');
+		else searchParams.set('search', queryDebounce);
+		setSearchParams(searchParams);
+	}, [queryDebounce, searchParams, setSearchParams]);
 	return (
 		<>
 			{showCreatePopUp === true ?
@@ -85,7 +85,7 @@ export default function Faculties() {
 									<div
 										className={appStyles['action-item-d']}
 										onClick={() => {
-											setShowCreatePopUp(true)
+											setShowCreatePopUp(true);
 										}}
 									>
 										<RiAddFill /> {language?.add}
@@ -96,7 +96,7 @@ export default function Faculties() {
 								selectedFacultyIds.size > 0 && permissions.has('faculty_delete') ?
 									<div
 										onClick={() => {
-											setShowDeletePopUp(true)
+											setShowDeletePopUp(true);
 										}}
 										className={appStyles['action-item-white-border-red-d']}>
 										<MdDeleteOutline /> {language?.delete}
@@ -140,8 +140,8 @@ export default function Faculties() {
 									},
 								]}
 								onChange={(option) => {
-									searchParams.set('per_page', option.value)
-									setSearchParams(searchParams)
+									searchParams.set('per_page', option.value);
+									setSearchParams(searchParams);
 								}}
 								className={styles['custom-select']}
 							/>
@@ -150,7 +150,7 @@ export default function Faculties() {
 							<label>{language?.filter.search}</label>
 							<input
 								onInput={(e) => {
-									setSearchQuery(e.currentTarget.value)
+									setSearchQuery(e.currentTarget.value);
 								}}
 								defaultValue={queryDebounce}
 								className={css(appStyles['input-d'], styles['input-item'])}
@@ -174,5 +174,5 @@ export default function Faculties() {
 				</section>
 			</main>
 		</>
-	)
+	);
 }

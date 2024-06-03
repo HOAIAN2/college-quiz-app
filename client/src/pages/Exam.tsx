@@ -1,43 +1,43 @@
-import { useQuery } from '@tanstack/react-query'
-import moment from 'moment'
-import { useState } from 'react'
-import { ImCancelCircle } from 'react-icons/im'
-import { LuAlarmClock, LuRefreshCw } from 'react-icons/lu'
-import { Link, useParams } from 'react-router-dom'
-import appStyles from '../App.module.css'
-import { apiGetExamById, apiUpdateExamStatus } from '../api/exam'
-import Loading from '../components/Loading'
-import YesNoPopUp from '../components/YesNoPopUp'
-import { queryKeys } from '../constants/query-keys'
-import useAppContext from '../hooks/useAppContext'
-import useLanguage from '../hooks/useLanguage'
-import styles from '../styles/Exam.module.css'
-import caculateScore from '../utils/caculateScore'
-import css from '../utils/css'
-import languageUtils from '../utils/languageUtils'
+import { useQuery } from '@tanstack/react-query';
+import moment from 'moment';
+import { useState } from 'react';
+import { ImCancelCircle } from 'react-icons/im';
+import { LuAlarmClock, LuRefreshCw } from 'react-icons/lu';
+import { Link, useParams } from 'react-router-dom';
+import appStyles from '../App.module.css';
+import { apiGetExamById, apiUpdateExamStatus } from '../api/exam';
+import Loading from '../components/Loading';
+import YesNoPopUp from '../components/YesNoPopUp';
+import { queryKeys } from '../constants/query-keys';
+import useAppContext from '../hooks/useAppContext';
+import useLanguage from '../hooks/useLanguage';
+import styles from '../styles/Exam.module.css';
+import caculateScore from '../utils/caculateScore';
+import css from '../utils/css';
+import languageUtils from '../utils/languageUtils';
 
 export default function Exam() {
-	const { user, appLanguage, permissions } = useAppContext()
-	const [showStartExamPopUp, setShowStartExamPopUp] = useState(false)
-	const [showCancelExamPopUp, setShowCancelExamPopUp] = useState(false)
-	const language = useLanguage('page.exam')
-	const { id } = useParams()
+	const { user, appLanguage, permissions } = useAppContext();
+	const [showStartExamPopUp, setShowStartExamPopUp] = useState(false);
+	const [showCancelExamPopUp, setShowCancelExamPopUp] = useState(false);
+	const language = useLanguage('page.exam');
+	const { id } = useParams();
 	const handleStartExam = async () => {
-		await apiUpdateExamStatus('start', String(id))
-	}
+		await apiUpdateExamStatus('start', String(id));
+	};
 	const handleCancelExam = async () => {
-		await apiUpdateExamStatus('cancel', String(id))
-	}
+		await apiUpdateExamStatus('cancel', String(id));
+	};
 	const queryData = useQuery({
 		queryKey: [queryKeys.EXAM, { id: id }],
 		queryFn: () => apiGetExamById(String(id)),
 		refetchOnWindowFocus: false
-	})
-	const onMutateSuccess = () => { queryData.refetch() }
+	});
+	const onMutateSuccess = () => { queryData.refetch(); };
 	const isSubmitted = queryData.data ?
 		queryData.data.result.find(item => item.studentId === user.user!.id)
 			?.correctCount !== null
-		: false
+		: false;
 	// useEffect(() => {
 	// 	const { data } = queryData
 	// 	const refetchOffsetMinutes = REFETCH_OFFSET_MINUTES * 60 * 1000
@@ -103,7 +103,7 @@ export default function Exam() {
 												{queryData.data.examSupervisors.map(supervisor => {
 													return (
 														languageUtils.getFullName(supervisor.user.firstName, supervisor.user.lastName)
-													)
+													);
 												}).join(', ')
 												}
 											</p>
@@ -135,7 +135,7 @@ export default function Exam() {
 															permissions.has('exam_update') && queryData.data.startedAt === null ?
 																<button
 																	onClick={() => {
-																		setShowStartExamPopUp(true)
+																		setShowStartExamPopUp(true);
 																	}}
 																	type='button'
 																	className={appStyles['action-item-d']}
@@ -146,7 +146,7 @@ export default function Exam() {
 														<button
 															type='button'
 															onClick={() => {
-																setShowCancelExamPopUp(true)
+																setShowCancelExamPopUp(true);
 															}}
 															className={appStyles['action-item-white-border-red-d']}>
 															<ImCancelCircle /> {language?.cancelExam}
@@ -172,7 +172,7 @@ export default function Exam() {
 												appStyles['action-item-d']
 											)
 										}
-										onClick={() => { queryData.refetch() }}
+										onClick={() => { queryData.refetch(); }}
 									>
 										<LuRefreshCw />
 										{language?.refresh}
@@ -216,7 +216,7 @@ export default function Exam() {
 																	caculateScore(item.correctCount, item.questionCount)}
 															</td>
 														</tr>
-													)
+													);
 												})
 											}
 										</tbody>
@@ -227,5 +227,5 @@ export default function Exam() {
 				}
 			</main>
 		</>
-	)
+	);
 }

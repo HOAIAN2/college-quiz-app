@@ -1,10 +1,10 @@
-import style from '../styles/StatusBadge.module.css'
-import css from '../utils/css'
+import style from '../styles/StatusBadge.module.css';
+import css from '../utils/css';
 
 type StatusBadgeProps = {
-	color: 'red' | 'green' | 'yellow'
-	content?: string
-}
+	color: 'red' | 'green' | 'yellow';
+	content?: string;
+};
 export default function StatusBadge({
 	color,
 	content
@@ -14,5 +14,5 @@ export default function StatusBadge({
 			title={content}
 			className={css(style['badge'], style[color])}>
 		</div>
-	)
+	);
 }

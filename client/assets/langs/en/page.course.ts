@@ -14,4 +14,4 @@ export default {
 	add: 'Add',
 	numberOfQuesions: '@number questions',
 	minutes: '@number minutes',
-}
+};

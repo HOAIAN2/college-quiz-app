@@ -24,4 +24,4 @@ export default {
 	password: 'Mật khẩu',
 	leaveBlank: 'Để trống để giữ nguyên',
 	save: 'Lưu'
-}
+};

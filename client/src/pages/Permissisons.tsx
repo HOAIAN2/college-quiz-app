@@ -1,20 +1,20 @@
-import { useQuery } from '@tanstack/react-query'
-import { LuUsers2 } from 'react-icons/lu'
-import { Link } from 'react-router-dom'
-import appStyles from '../App.module.css'
-import { apiGetRolePermissionCount } from '../api/role-permission'
-import Loading from '../components/Loading'
-import { queryKeys } from '../constants/query-keys'
-import useLanguage from '../hooks/useLanguage'
-import styles from '../styles/Permissions.module.css'
-import css from '../utils/css'
+import { useQuery } from '@tanstack/react-query';
+import { LuUsers2 } from 'react-icons/lu';
+import { Link } from 'react-router-dom';
+import appStyles from '../App.module.css';
+import { apiGetRolePermissionCount } from '../api/role-permission';
+import Loading from '../components/Loading';
+import { queryKeys } from '../constants/query-keys';
+import useLanguage from '../hooks/useLanguage';
+import styles from '../styles/Permissions.module.css';
+import css from '../utils/css';
 
 export default function Permissisons() {
-	const language = useLanguage('page.permissions')
+	const language = useLanguage('page.permissions');
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_PERMISSIONS],
 		queryFn: apiGetRolePermissionCount
-	})
+	});
 	return (
 		<div className={css(appStyles['dashboard-d'], styles['permission-container'])}>
 			{
@@ -49,7 +49,7 @@ export default function Permissisons() {
 												</div>
 											</Link>
 										</li>
-									)
+									);
 								})
 							}
 						</ul>
@@ -57,5 +57,5 @@ export default function Permissisons() {
 					: null
 			}
 		</div>
-	)
+	);
 }

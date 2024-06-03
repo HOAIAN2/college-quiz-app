@@ -1,42 +1,42 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
-import { LuBookOpenCheck } from 'react-icons/lu'
-import { RiAddFill } from 'react-icons/ri'
-import { Link, useSearchParams } from 'react-router-dom'
-import appStyles from '../App.module.css'
-import { apiGetSemesters } from '../api/semester'
-import CreateSemester from '../components/CreateSemester'
-import Loading from '../components/Loading'
-import { queryKeys } from '../constants/query-keys'
-import useAppContext from '../hooks/useAppContext'
-import useDebounce from '../hooks/useDebounce'
-import useLanguage from '../hooks/useLanguage'
-import styles from '../styles/global/CardPage.module.css'
-import css from '../utils/css'
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { LuBookOpenCheck } from 'react-icons/lu';
+import { RiAddFill } from 'react-icons/ri';
+import { Link, useSearchParams } from 'react-router-dom';
+import appStyles from '../App.module.css';
+import { apiGetSemesters } from '../api/semester';
+import CreateSemester from '../components/CreateSemester';
+import Loading from '../components/Loading';
+import { queryKeys } from '../constants/query-keys';
+import useAppContext from '../hooks/useAppContext';
+import useDebounce from '../hooks/useDebounce';
+import useLanguage from '../hooks/useLanguage';
+import styles from '../styles/global/CardPage.module.css';
+import css from '../utils/css';
 
 export default function Semesters() {
-	const { permissions, appLanguage } = useAppContext()
-	const [searchParams, setSearchParams] = useSearchParams()
-	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
-	const queryDebounce = useDebounce(searchQuery)
-	const language = useLanguage('page.subjects')
-	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
-	const queryClient = useQueryClient()
+	const { permissions, appLanguage } = useAppContext();
+	const [searchParams, setSearchParams] = useSearchParams();
+	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
+	const queryDebounce = useDebounce(searchQuery);
+	const language = useLanguage('page.subjects');
+	const [showCreatePopUp, setShowCreatePopUp] = useState(false);
+	const queryClient = useQueryClient();
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_SEMESTERS, { search: queryDebounce }],
 		queryFn: () => apiGetSemesters(queryDebounce)
-	})
+	});
 	useEffect(() => {
-		if (!searchParams.get('search') && !queryDebounce) return
-		if (queryDebounce === '') searchParams.delete('search')
-		else searchParams.set('search', queryDebounce)
-		setSearchParams(searchParams)
-	}, [queryDebounce, searchParams, setSearchParams])
+		if (!searchParams.get('search') && !queryDebounce) return;
+		if (queryDebounce === '') searchParams.delete('search');
+		else searchParams.set('search', queryDebounce);
+		setSearchParams(searchParams);
+	}, [queryDebounce, searchParams, setSearchParams]);
 	const onMutateSuccess = () => {
 		[queryKeys.PAGE_SEMESTERS].forEach(key => {
-			queryClient.refetchQueries({ queryKey: [key] })
-		})
-	}
+			queryClient.refetchQueries({ queryKey: [key] });
+		});
+	};
 	return (
 		<>
 			{showCreatePopUp === true ?
@@ -54,7 +54,7 @@ export default function Semesters() {
 									<div
 										className={appStyles['action-item-d']}
 										onClick={() => {
-											setShowCreatePopUp(true)
+											setShowCreatePopUp(true);
 										}}
 									>
 										<RiAddFill /> {language?.add}
@@ -73,7 +73,7 @@ export default function Semesters() {
 							<label>{language?.filter.search}</label>
 							<input
 								onInput={(e) => {
-									setSearchQuery(e.currentTarget.value)
+									setSearchQuery(e.currentTarget.value);
 								}}
 								defaultValue={queryDebounce}
 								className={css(appStyles['input-d'], styles['input-item'])}
@@ -102,12 +102,12 @@ export default function Semesters() {
 												}
 											</div>
 										</Link>
-									)
+									);
 								}) : null}
 						</div>
 					</div>
 				</div>
 			</div>
 		</>
-	)
+	);
 }

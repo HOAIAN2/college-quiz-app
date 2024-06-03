@@ -1,34 +1,34 @@
-import { useQuery } from '@tanstack/react-query'
-import { GrCertificate } from 'react-icons/gr'
+import { useQuery } from '@tanstack/react-query';
+import { GrCertificate } from 'react-icons/gr';
 import {
 	PiChalkboardTeacherLight,
 	PiExam,
 	PiStudent
-} from 'react-icons/pi'
-import { Link } from 'react-router-dom'
-import appStyles from '../App.module.css'
-import { apiGetDashboard } from '../api/dashboard'
-import DashboardCard from '../components/DashboardCard'
-import ExamsEachMonthChart from '../components/ExamsEachMonthChart'
-import Loading from '../components/Loading'
-import { queryKeys } from '../constants/query-keys'
-import useAppContext from '../hooks/useAppContext'
-import useLanguage from '../hooks/useLanguage'
-import styles from '../styles/Dashboard.module.css'
-import css from '../utils/css'
+} from 'react-icons/pi';
+import { Link } from 'react-router-dom';
+import appStyles from '../App.module.css';
+import { apiGetDashboard } from '../api/dashboard';
+import DashboardCard from '../components/DashboardCard';
+import ExamsEachMonthChart from '../components/ExamsEachMonthChart';
+import Loading from '../components/Loading';
+import { queryKeys } from '../constants/query-keys';
+import useAppContext from '../hooks/useAppContext';
+import useLanguage from '../hooks/useLanguage';
+import styles from '../styles/Dashboard.module.css';
+import css from '../utils/css';
 
 export default function Dashboard() {
-	const { permissions, appLanguage } = useAppContext()
-	const language = useLanguage('page.dashboard')
+	const { permissions, appLanguage } = useAppContext();
+	const language = useLanguage('page.dashboard');
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_DASHBOARD],
 		queryFn: apiGetDashboard
-	})
+	});
 	const formatNumber = (number: number) => {
 		return number.toLocaleString(appLanguage.language, {
 			notation: 'compact'
-		})
-	}
+		});
+	};
 	return (
 		<main className={css(appStyles['dashboard-d'], styles['dashboard'])}>
 			{queryData.isLoading ?
@@ -83,7 +83,7 @@ export default function Dashboard() {
 														<span>{new Date(exam.examDate).toLocaleTimeString(appLanguage.language)}</span>
 													</Link>
 												</li>
-											)
+											);
 										})
 									}
 								</ul>
@@ -97,5 +97,5 @@ export default function Dashboard() {
 					: null
 			}
 		</main >
-	)
+	);
 }

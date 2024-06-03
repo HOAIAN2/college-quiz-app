@@ -1,4 +1,4 @@
-import styles from '../styles/SupspenseLoading.module.css'
+import styles from '../styles/SupspenseLoading.module.css';
 
 export default function SuspenseLoading() {
 	return (
@@ -18,5 +18,5 @@ export default function SuspenseLoading() {
 				<div></div>
 			</div>
 		</div>
-	)
+	);
 }

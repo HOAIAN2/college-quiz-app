@@ -7,4 +7,4 @@ export default {
 	},
 	todayExams: 'Today exams',
 	examsEachMonth: 'Exams each month'
-}
+};

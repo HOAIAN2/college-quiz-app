@@ -19,4 +19,4 @@ export default {
 		other: 'Other',
 		changePassword: 'Change password'
 	}
-}
+};

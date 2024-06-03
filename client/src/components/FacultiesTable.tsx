@@ -1,23 +1,23 @@
-import { useState } from 'react'
-import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
-import { SetURLSearchParams } from 'react-router-dom'
-import appStyles from '../App.module.css'
-import useAppContext from '../hooks/useAppContext'
-import useLanguage from '../hooks/useLanguage'
-import { FacultyDetail } from '../models/faculty'
-import { Pagination } from '../models/response'
-import styles from '../styles/global/Table.module.css'
-import css from '../utils/css'
-import languageUtils from '../utils/languageUtils'
-import ViewFaculty from './ViewFaculty'
+import { useState } from 'react';
+import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
+import { SetURLSearchParams } from 'react-router-dom';
+import appStyles from '../App.module.css';
+import useAppContext from '../hooks/useAppContext';
+import useLanguage from '../hooks/useLanguage';
+import { FacultyDetail } from '../models/faculty';
+import { Pagination } from '../models/response';
+import styles from '../styles/global/Table.module.css';
+import css from '../utils/css';
+import languageUtils from '../utils/languageUtils';
+import ViewFaculty from './ViewFaculty';
 
 type FacultiesTableProps = {
-	data?: Pagination<FacultyDetail>
-	searchParams: URLSearchParams
-	onMutateSuccess: () => void
-	setSearchParams: SetURLSearchParams
-	setSelectedRows: React.Dispatch<React.SetStateAction<Set<string | number>>>
-}
+	data?: Pagination<FacultyDetail>;
+	searchParams: URLSearchParams;
+	onMutateSuccess: () => void;
+	setSearchParams: SetURLSearchParams;
+	setSelectedRows: React.Dispatch<React.SetStateAction<Set<string | number>>>;
+};
 
 export default function FacultiesTable({
 	data,
@@ -26,57 +26,57 @@ export default function FacultiesTable({
 	setSearchParams,
 	setSelectedRows
 }: FacultiesTableProps) {
-	const { permissions } = useAppContext()
-	const [checkAll, setCheckAll] = useState(false)
-	const language = useLanguage('component.faculties_table')
-	const [showViewPopUp, setShowViewPopUp] = useState(false)
-	const [facultyId, seFacultyId] = useState<number>(0)
+	const { permissions } = useAppContext();
+	const [checkAll, setCheckAll] = useState(false);
+	const language = useLanguage('component.faculties_table');
+	const [showViewPopUp, setShowViewPopUp] = useState(false);
+	const [facultyId, seFacultyId] = useState<number>(0);
 	const handleViewFaculty = (id: number, e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => {
-		const target = e.target as Element
+		const target = e.target as Element;
 		if (target.nodeName === 'INPUT') {
-			const checkBox = target as HTMLInputElement
-			const perPage = Number(searchParams.get('per_page')) || 10
+			const checkBox = target as HTMLInputElement;
+			const perPage = Number(searchParams.get('per_page')) || 10;
 			if (checkBox.checked) setSelectedRows(pre => {
-				pre.add(id)
-				if (pre.size === perPage) setCheckAll(true)
-				return structuredClone(pre)
-			})
+				pre.add(id);
+				if (pre.size === perPage) setCheckAll(true);
+				return structuredClone(pre);
+			});
 			else setSelectedRows(pre => {
-				pre.delete(id)
-				if (pre.size !== perPage) setCheckAll(false)
-				return structuredClone(pre)
-			})
-			return
+				pre.delete(id);
+				if (pre.size !== perPage) setCheckAll(false);
+				return structuredClone(pre);
+			});
+			return;
 		}
-		seFacultyId(id)
-		setShowViewPopUp(true)
-	}
+		seFacultyId(id);
+		setShowViewPopUp(true);
+	};
 	const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const currentTarget = e.currentTarget
-		const selector = `.${styles['column-select']}>input`
-		const allCheckBox = document.querySelectorAll(selector)
+		const currentTarget = e.currentTarget;
+		const selector = `.${styles['column-select']}>input`;
+		const allCheckBox = document.querySelectorAll(selector);
 		allCheckBox.forEach(node => {
-			const element = node as HTMLInputElement
-			element.checked = currentTarget.checked
-		})
+			const element = node as HTMLInputElement;
+			element.checked = currentTarget.checked;
+		});
 		if (currentTarget.checked) {
 			setSelectedRows(pre => {
-				pre.clear()
+				pre.clear();
 				data && data.data.forEach(user => {
-					pre.add(user.id)
-				})
-				return structuredClone(pre)
-			})
-			setCheckAll(true)
+					pre.add(user.id);
+				});
+				return structuredClone(pre);
+			});
+			setCheckAll(true);
 		}
 		else {
 			setSelectedRows(pre => {
-				pre.clear()
-				return structuredClone(pre)
-			})
-			setCheckAll(false)
+				pre.clear();
+				return structuredClone(pre);
+			});
+			setCheckAll(false);
 		}
-	}
+	};
 	return (
 		<>
 			{showViewPopUp === true ?
@@ -123,7 +123,7 @@ export default function FacultiesTable({
 										return (
 											<tr key={faculty.id}
 												onClick={(e) => {
-													handleViewFaculty(faculty.id, e)
+													handleViewFaculty(faculty.id, e);
 												}}
 											>
 												{
@@ -149,7 +149,7 @@ export default function FacultiesTable({
 													{languageUtils.getFullName(faculty.leader?.firstName, faculty.leader?.lastName)}
 												</td>
 											</tr>
-										)
+										);
 									}) : null
 							}
 						</tbody>
@@ -168,15 +168,15 @@ export default function FacultiesTable({
 											if (isNaN(Number(link.label))) return (
 												<button key={'faculty' + link.label} className={styles['next-previous']}
 													onClick={() => {
-														if (!link.url) return
-														const url = new URL(link.url)
-														searchParams.set('page', url.searchParams.get('page') || '1')
-														setSearchParams(searchParams)
+														if (!link.url) return;
+														const url = new URL(link.url);
+														searchParams.set('page', url.searchParams.get('page') || '1');
+														setSearchParams(searchParams);
 													}}
 												>
 													{link.label === '...' ? '...' : link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />}
 												</button>
-											)
+											);
 											return (
 												<button key={'faculty' + link.label}
 													className={
@@ -186,14 +186,14 @@ export default function FacultiesTable({
 														)
 													}
 													onClick={() => {
-														if (!link.url) return
-														const url = new URL(link.url)
-														searchParams.set('page', url.searchParams.get('page') || '1')
-														setSearchParams(searchParams)
+														if (!link.url) return;
+														const url = new URL(link.url);
+														searchParams.set('page', url.searchParams.get('page') || '1');
+														setSearchParams(searchParams);
 													}}
 												>{link.label}
 												</button>
-											)
+											);
 										})}
 									</div>
 								}
@@ -202,5 +202,5 @@ export default function FacultiesTable({
 				}
 			</div>
 		</>
-	)
+	);
 }

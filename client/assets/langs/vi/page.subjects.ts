@@ -9,4 +9,4 @@ export default {
 	},
 	langYes: 'Có',
 	langNo: 'Không'
-}
+};

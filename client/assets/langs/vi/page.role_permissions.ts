@@ -5,4 +5,4 @@ export default {
 	teacherPermissions: 'Quyền giáo viên',
 	studentPermissions: 'Quyền học sinh',
 	save: 'Lưu'
-}
+};

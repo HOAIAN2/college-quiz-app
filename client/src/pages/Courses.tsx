@@ -1,32 +1,32 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
-import { LuBookOpenCheck } from 'react-icons/lu'
-import { RiAddFill } from 'react-icons/ri'
-import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom'
-import appStyles from '../App.module.css'
-import { apiGetCourses } from '../api/course'
-import { apiGetSemesterById } from '../api/semester'
-import CreateCourse from '../components/CreateCourse'
-import Loading from '../components/Loading'
-import { queryKeys } from '../constants/query-keys'
-import useAppContext from '../hooks/useAppContext'
-import useDebounce from '../hooks/useDebounce'
-import useLanguage from '../hooks/useLanguage'
-import { Semester } from '../models/semester'
-import styles from '../styles/global/CardPage.module.css'
-import css from '../utils/css'
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { LuBookOpenCheck } from 'react-icons/lu';
+import { RiAddFill } from 'react-icons/ri';
+import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom';
+import appStyles from '../App.module.css';
+import { apiGetCourses } from '../api/course';
+import { apiGetSemesterById } from '../api/semester';
+import CreateCourse from '../components/CreateCourse';
+import Loading from '../components/Loading';
+import { queryKeys } from '../constants/query-keys';
+import useAppContext from '../hooks/useAppContext';
+import useDebounce from '../hooks/useDebounce';
+import useLanguage from '../hooks/useLanguage';
+import { Semester } from '../models/semester';
+import styles from '../styles/global/CardPage.module.css';
+import css from '../utils/css';
 
 export default function Courses() {
-	const { state } = useLocation() as { state: Semester | null }
-	const [semesterDetail, setSemesterDetail] = useState(state)
-	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
-	const { permissions, DOM } = useAppContext()
-	const { id } = useParams()
-	const [searchParams, setSearchParams] = useSearchParams()
-	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
-	const queryDebounce = useDebounce(searchQuery)
-	const language = useLanguage('page.courses')
-	const queryClient = useQueryClient()
+	const { state } = useLocation() as { state: Semester | null; };
+	const [semesterDetail, setSemesterDetail] = useState(state);
+	const [showCreatePopUp, setShowCreatePopUp] = useState(false);
+	const { permissions, DOM } = useAppContext();
+	const { id } = useParams();
+	const [searchParams, setSearchParams] = useSearchParams();
+	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
+	const queryDebounce = useDebounce(searchQuery);
+	const language = useLanguage('page.courses');
+	const queryClient = useQueryClient();
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_COURSES, {
 			search: queryDebounce,
@@ -36,31 +36,31 @@ export default function Courses() {
 			search: queryDebounce,
 			semesterId: Number(id) || undefined
 		})
-	})
+	});
 	useEffect(() => {
 		apiGetSemesterById(String(id))
 			.then(res => {
-				setSemesterDetail(res)
-			})
-	}, [id])
+				setSemesterDetail(res);
+			});
+	}, [id]);
 	const onMutateSuccess = () => {
 		[queryKeys.PAGE_COURSES, queryKeys.PAGE_DASHBOARD].forEach(key => {
-			queryClient.refetchQueries({ queryKey: [key] })
-		})
-	}
+			queryClient.refetchQueries({ queryKey: [key] });
+		});
+	};
 	useEffect(() => {
-		if (!searchParams.get('search') && !queryDebounce) return
-		if (queryDebounce === '') searchParams.delete('search')
-		else searchParams.set('search', queryDebounce)
-		setSearchParams(searchParams)
-	}, [queryDebounce, searchParams, setSearchParams])
+		if (!searchParams.get('search') && !queryDebounce) return;
+		if (queryDebounce === '') searchParams.delete('search');
+		else searchParams.set('search', queryDebounce);
+		setSearchParams(searchParams);
+	}, [queryDebounce, searchParams, setSearchParams]);
 	useEffect(() => {
 		if (language) {
-			document.title = language?.title.replace('@semester', semesterDetail?.name || '')
-			if (DOM.titleRef.current) DOM.titleRef.current.textContent = document.title
+			document.title = language?.title.replace('@semester', semesterDetail?.name || '');
+			if (DOM.titleRef.current) DOM.titleRef.current.textContent = document.title;
 		}
-	}, [semesterDetail, language, DOM.titleRef])
-	if (!semesterDetail) return null
+	}, [semesterDetail, language, DOM.titleRef]);
+	if (!semesterDetail) return null;
 	return (
 		<>
 			{showCreatePopUp && queryData.data ?
@@ -80,7 +80,7 @@ export default function Courses() {
 									<div
 										className={appStyles['action-item-d']}
 										onClick={() => {
-											setShowCreatePopUp(true)
+											setShowCreatePopUp(true);
 										}}
 									>
 										<RiAddFill /> {language?.add}
@@ -99,7 +99,7 @@ export default function Courses() {
 							<label>{language?.filter.search}</label>
 							<input
 								onInput={(e) => {
-									setSearchQuery(e.currentTarget.value)
+									setSearchQuery(e.currentTarget.value);
 								}}
 								defaultValue={queryDebounce}
 								className={css(appStyles['input-d'], styles['input-item'])}
@@ -124,12 +124,12 @@ export default function Courses() {
 												{item.shortcode}
 											</div>
 										</Link>
-									)
+									);
 								}) : null}
 						</div>
 					</div>
 				</section>
 			</main >
 		</>
-	)
+	);
 }

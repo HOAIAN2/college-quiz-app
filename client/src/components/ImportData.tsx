@@ -1,23 +1,23 @@
-import { useMutation } from '@tanstack/react-query'
-import { useEffect, useRef, useState } from 'react'
+import { useMutation } from '@tanstack/react-query';
+import { useEffect, useRef, useState } from 'react';
 import {
 	IoMdAddCircleOutline,
-} from 'react-icons/io'
-import { RxCross2 } from 'react-icons/rx'
-import appStyles from '../App.module.css'
-import useLanguage from '../hooks/useLanguage'
-import styles from '../styles/ImportData.module.css'
-import css from '../utils/css'
-import Loading from './Loading'
+} from 'react-icons/io';
+import { RxCross2 } from 'react-icons/rx';
+import appStyles from '../App.module.css';
+import useLanguage from '../hooks/useLanguage';
+import styles from '../styles/ImportData.module.css';
+import css from '../utils/css';
+import Loading from './Loading';
 
 type ImportDataProps = {
-	title?: string
-	teamplateUrl: string
-	icon: React.ReactNode
-	importFunction: (file: File) => Promise<void>
-	onMutateSuccess: () => void
-	setImportMode: React.Dispatch<React.SetStateAction<boolean>>
-}
+	title?: string;
+	teamplateUrl: string;
+	icon: React.ReactNode;
+	importFunction: (file: File) => Promise<void>;
+	onMutateSuccess: () => void;
+	setImportMode: React.Dispatch<React.SetStateAction<boolean>>;
+};
 export default function ImportData({
 	title,
 	teamplateUrl,
@@ -26,46 +26,46 @@ export default function ImportData({
 	onMutateSuccess,
 	setImportMode,
 }: ImportDataProps) {
-	const language = useLanguage('component.import_data')
-	const [hide, setHide] = useState(true)
-	const [file, setFile] = useState<File>()
-	const inputFileRef = useRef<HTMLInputElement>(null)
+	const language = useLanguage('component.import_data');
+	const [hide, setHide] = useState(true);
+	const [file, setFile] = useState<File>();
+	const inputFileRef = useRef<HTMLInputElement>(null);
 	const handleClosePopUp = () => {
-		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
-		const timing = Number(transitionTiming.replace('s', '')) * 1000
-		setHide(true)
+		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast');
+		const timing = Number(transitionTiming.replace('s', '')) * 1000;
+		setHide(true);
 		setTimeout(() => {
-			setImportMode(false)
-		}, timing)
-	}
+			setImportMode(false);
+		}, timing);
+	};
 	const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const files = e.currentTarget.files
-		if (!files) return setFile(undefined)
-		const file = files[0]
-		if (file) setFile(file)
-		else setFile(undefined)
-	}
+		const files = e.currentTarget.files;
+		if (!files) return setFile(undefined);
+		const file = files[0];
+		if (file) setFile(file);
+		else setFile(undefined);
+	};
 	const handleOnDrop = (e: React.DragEvent<HTMLLabelElement>) => {
-		e.preventDefault()
-		const currentTarget = e.currentTarget
-		currentTarget.classList.remove(styles['drag'])
-		const files = e.dataTransfer.files
-		if (inputFileRef.current) inputFileRef.current.files = files
-		const file = files[0]
-		if (file) setFile(file)
-		else setFile(undefined)
-	}
+		e.preventDefault();
+		const currentTarget = e.currentTarget;
+		currentTarget.classList.remove(styles['drag']);
+		const files = e.dataTransfer.files;
+		if (inputFileRef.current) inputFileRef.current.files = files;
+		const file = files[0];
+		if (file) setFile(file);
+		else setFile(undefined);
+	};
 	const handleUploadFile = async () => {
-		if (!file) return
-		await importFunction(file)
-	}
+		if (!file) return;
+		await importFunction(file);
+	};
 	const mutation = useMutation({
 		mutationFn: handleUploadFile,
 		onSuccess: onMutateSuccess
-	})
+	});
 	useEffect(() => {
-		setHide(false)
-	}, [])
+		setHide(false);
+	}, []);
 	return (
 		<div
 			className={
@@ -95,12 +95,12 @@ export default function ImportData({
 					<div className={styles['drag-area']}>
 						<label htmlFor='file'
 							onDragOver={(e) => {
-								e.preventDefault()
-								e.currentTarget.classList.add(styles['drag'])
+								e.preventDefault();
+								e.currentTarget.classList.add(styles['drag']);
 							}}
 							onDragLeave={(e) => {
-								e.preventDefault()
-								e.currentTarget.classList.remove(styles['drag'])
+								e.preventDefault();
+								e.currentTarget.classList.remove(styles['drag']);
 							}}
 							onDrop={handleOnDrop}
 							className={styles['drag-area-dashed']}>
@@ -138,7 +138,7 @@ export default function ImportData({
 					</div>
 					<div className={styles['action-items']}>
 						<button
-							onClick={() => { mutation.mutate() }}
+							onClick={() => { mutation.mutate(); }}
 							name='save' className={
 								css(
 									appStyles['action-item-d'],
@@ -154,5 +154,5 @@ export default function ImportData({
 				</div>
 			</div >
 		</div >
-	)
+	);
 }

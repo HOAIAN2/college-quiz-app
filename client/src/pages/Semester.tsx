@@ -1,61 +1,61 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { SyntheticEvent, useEffect, useState } from 'react'
-import Datetime from 'react-datetime'
-import { MdDeleteOutline } from 'react-icons/md'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import appStyles from '../App.module.css'
-import { apiDeleteSemester, apiGetSemesterById, apiUpdateSemester } from '../api/semester'
-import Loading from '../components/Loading'
-import YesNoPopUp from '../components/YesNoPopUp'
-import { queryKeys } from '../constants/query-keys'
-import useAppContext from '../hooks/useAppContext'
-import useLanguage from '../hooks/useLanguage'
-import styles from '../styles/Semester.module.css'
-import createFormUtils from '../utils/createFormUtils'
-import css from '../utils/css'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { SyntheticEvent, useEffect, useState } from 'react';
+import Datetime from 'react-datetime';
+import { MdDeleteOutline } from 'react-icons/md';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import appStyles from '../App.module.css';
+import { apiDeleteSemester, apiGetSemesterById, apiUpdateSemester } from '../api/semester';
+import Loading from '../components/Loading';
+import YesNoPopUp from '../components/YesNoPopUp';
+import { queryKeys } from '../constants/query-keys';
+import useAppContext from '../hooks/useAppContext';
+import useLanguage from '../hooks/useLanguage';
+import styles from '../styles/Semester.module.css';
+import createFormUtils from '../utils/createFormUtils';
+import css from '../utils/css';
 
 export default function Semester() {
-	const { permissions } = useAppContext()
-	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
-	const queryClient = useQueryClient()
-	const navigate = useNavigate()
-	const language = useLanguage('page.semester')
-	const { id } = useParams()
-	const formUtils = createFormUtils(styles)
-	const disabledUpdate = !permissions.has('semester_update')
+	const { permissions } = useAppContext();
+	const [showDeletePopUp, setShowDeletePopUp] = useState(false);
+	const queryClient = useQueryClient();
+	const navigate = useNavigate();
+	const language = useLanguage('page.semester');
+	const { id } = useParams();
+	const formUtils = createFormUtils(styles);
+	const disabledUpdate = !permissions.has('semester_update');
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_SEMESTER, { id: id }],
 		queryFn: () => apiGetSemesterById(String(id))
-	})
+	});
 	const handleUpdateSemester = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
-		e.preventDefault()
+		e.preventDefault();
 		document.querySelector(`.${styles['form-data']}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
-			node.classList.remove('error')
-			formUtils.getParentElement(node)?.removeAttribute('data-error')
-		})
-		const form = e.target as HTMLFormElement
-		const formData = new FormData(form)
-		await apiUpdateSemester(formData, String(id))
-	}
+			node.classList.remove('error');
+			formUtils.getParentElement(node)?.removeAttribute('data-error');
+		});
+		const form = e.target as HTMLFormElement;
+		const formData = new FormData(form);
+		await apiUpdateSemester(formData, String(id));
+	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateSemester,
-		onError: (error: object) => { formUtils.showFormError(error) },
+		onError: (error: object) => { formUtils.showFormError(error); },
 		onSuccess: () => { }
-	})
+	});
 	const handleDeleteSemester = async () => {
-		await apiDeleteSemester(String(id))
-	}
+		await apiDeleteSemester(String(id));
+	};
 	const onMutateSuccess = () => {
 		[queryKeys.PAGE_SEMESTERS].forEach(key => {
-			queryClient.refetchQueries({ queryKey: [key] })
-		})
-		navigate('/semesters')
-	}
+			queryClient.refetchQueries({ queryKey: [key] });
+		});
+		navigate('/semesters');
+	};
 	useEffect(() => {
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.PAGE_SEMESTER, { id: id }] })
-		}
-	}, [id, queryClient])
+			queryClient.removeQueries({ queryKey: [queryKeys.PAGE_SEMESTER, { id: id }] });
+		};
+	}, [id, queryClient]);
 	return (
 		<>
 			{showDeletePopUp === true ?
@@ -82,9 +82,9 @@ export default function Semester() {
 									<h2 className={styles['title']}>{queryData.data.name}</h2>
 								</div>
 								<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
-									mutate(e)
+									mutate(e);
 								}}
-									onInput={e => { formUtils.handleOnInput(e) }}
+									onInput={e => { formUtils.handleOnInput(e); }}
 									className={styles['form-data']}>
 									<input name='is_active' defaultValue='1' hidden />
 									<div className={styles['group-inputs']}>
@@ -151,7 +151,7 @@ export default function Semester() {
 														<button
 															type='button'
 															onClick={() => {
-																setShowDeletePopUp(true)
+																setShowDeletePopUp(true);
 															}}
 															className={appStyles['action-item-white-border-red-d']}>
 															<MdDeleteOutline />
@@ -179,5 +179,5 @@ export default function Semester() {
 				}
 			</main >
 		</>
-	)
+	);
 }

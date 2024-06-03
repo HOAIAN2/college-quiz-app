@@ -1,75 +1,75 @@
-import { useMutation } from '@tanstack/react-query'
-import { SyntheticEvent, useEffect, useState } from 'react'
-import { FaRegCircleCheck } from 'react-icons/fa6'
-import { FiSave } from 'react-icons/fi'
-import { MdDeleteOutline } from 'react-icons/md'
-import { RiAddFill } from 'react-icons/ri'
-import { RxCross2 } from 'react-icons/rx'
-import { toast } from 'sonner'
-import appStyles from '../App.module.css'
-import { apiCreateQuestion } from '../api/question'
-import useLanguage from '../hooks/useLanguage'
-import { SubjectDetail } from '../models/subject'
-import styles from '../styles/CreateQuestion.module.css'
-import globalStyles from '../styles/global/CreateModel.module.css'
-import { autoSizeTextArea } from '../utils/autoSizeTextArea'
-import createFormUtils from '../utils/createFormUtils'
-import css from '../utils/css'
-import CustomSelect from './CustomSelect'
-import Loading from './Loading'
+import { useMutation } from '@tanstack/react-query';
+import { SyntheticEvent, useEffect, useState } from 'react';
+import { FaRegCircleCheck } from 'react-icons/fa6';
+import { FiSave } from 'react-icons/fi';
+import { MdDeleteOutline } from 'react-icons/md';
+import { RiAddFill } from 'react-icons/ri';
+import { RxCross2 } from 'react-icons/rx';
+import { toast } from 'sonner';
+import appStyles from '../App.module.css';
+import { apiCreateQuestion } from '../api/question';
+import useLanguage from '../hooks/useLanguage';
+import { SubjectDetail } from '../models/subject';
+import styles from '../styles/CreateQuestion.module.css';
+import globalStyles from '../styles/global/CreateModel.module.css';
+import { autoSizeTextArea } from '../utils/autoSizeTextArea';
+import createFormUtils from '../utils/createFormUtils';
+import css from '../utils/css';
+import CustomSelect from './CustomSelect';
+import Loading from './Loading';
 
 type CreateQuestionProps = {
-	subjectDetail: SubjectDetail
-	onMutateSuccess: () => void
-	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
-}
+	subjectDetail: SubjectDetail;
+	onMutateSuccess: () => void;
+	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 type Option = {
 	key: string,
-	content: string
-}
+	content: string;
+};
 
 export default function CreateQuestion({
 	subjectDetail,
 	onMutateSuccess,
 	setShowPopUp
 }: CreateQuestionProps) {
-	const [hide, setHide] = useState(true)
+	const [hide, setHide] = useState(true);
 	const [options, setOptions] = useState<Option[]>(new Array(2).fill(null).map((_, index) => {
-		return { key: index.toString(), content: '' }
-	}))
-	const [trueOptionKey, setTrueOptionKey] = useState<string>()
-	const language = useLanguage('component.create_question')
+		return { key: index.toString(), content: '' };
+	}));
+	const [trueOptionKey, setTrueOptionKey] = useState<string>();
+	const language = useLanguage('component.create_question');
 	const handleClosePopUp = () => {
-		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
-		const timing = Number(transitionTiming.replace('s', '')) * 1000
-		setHide(true)
+		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast');
+		const timing = Number(transitionTiming.replace('s', '')) * 1000;
+		setHide(true);
 		setTimeout(() => {
-			setShowPopUp(false)
-		}, timing)
-	}
-	const formUtils = createFormUtils(globalStyles)
+			setShowPopUp(false);
+		}, timing);
+	};
+	const formUtils = createFormUtils(globalStyles);
 	const handleCreateQuestion = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
-		e.preventDefault()
+		e.preventDefault();
 		document.querySelector(globalStyles['form-data'])?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
-			node.classList.remove('error')
-			formUtils.getParentElement(node)?.removeAttribute('data-error')
-		})
-		const submitter = e.nativeEvent.submitter as HTMLButtonElement
-		const form = e.target as HTMLFormElement
-		const formData = new FormData(form)
-		await apiCreateQuestion(formData)
-		if (submitter.name === 'save') handleClosePopUp()
-		else form.reset()
-	}
+			node.classList.remove('error');
+			formUtils.getParentElement(node)?.removeAttribute('data-error');
+		});
+		const submitter = e.nativeEvent.submitter as HTMLButtonElement;
+		const form = e.target as HTMLFormElement;
+		const formData = new FormData(form);
+		await apiCreateQuestion(formData);
+		if (submitter.name === 'save') handleClosePopUp();
+		else form.reset();
+	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleCreateQuestion,
-		onError: (error: object) => { formUtils.showFormError(error) },
+		onError: (error: object) => { formUtils.showFormError(error); },
 		onSuccess: onMutateSuccess
-	})
+	});
 	useEffect(() => {
-		setHide(false)
-	}, [])
+		setHide(false);
+	}, []);
 	return (
 		<div className={
 			css(
@@ -96,9 +96,9 @@ export default function CreateQuestion({
 				</div>
 				<div className={globalStyles['form-content']}>
 					<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
-						mutate(e)
+						mutate(e);
 					}}
-						onInput={(e) => { formUtils.handleOnInput(e) }}
+						onInput={(e) => { formUtils.handleOnInput(e); }}
 						className={globalStyles['form-data']}>
 						<input name='true_option' readOnly hidden value={options.findIndex(option => option.key === trueOptionKey)} />
 						<input name='subject_id' readOnly hidden value={subjectDetail.id} />
@@ -142,7 +142,7 @@ export default function CreateQuestion({
 											return {
 												value: item,
 												label: language.questionLevel[item as keyof typeof language.questionLevel]
-											}
+											};
 										}) : []
 									}
 									className={globalStyles['custom-select']}
@@ -171,7 +171,7 @@ export default function CreateQuestion({
 													key: new Date().getTime().toString(),
 													content: ''
 												}
-											])
+											]);
 										}}
 									>
 										<RiAddFill /> {language?.addOption}
@@ -188,7 +188,7 @@ export default function CreateQuestion({
 												style={{ cursor: 'pointer' }}
 												className={globalStyles['required']}
 												onClick={() => {
-													setTrueOptionKey(String(option.key))
+													setTrueOptionKey(String(option.key));
 												}}
 											>{`${language?.answer} ${index + 1}`}</label>
 											{
@@ -207,15 +207,15 @@ export default function CreateQuestion({
 										<div
 											onClick={() => {
 												if (options.length == 2) {
-													toast.error(language?.deleteOptionError)
+													toast.error(language?.deleteOptionError);
 												}
-												else setOptions(options.filter(item => item.key !== option.key))
+												else setOptions(options.filter(item => item.key !== option.key));
 											}}
 											className={appStyles['action-item-white-border-red-d']}>
 											<MdDeleteOutline /> {language?.delete}
 										</div>
 									</div>
-								)
+								);
 							})}
 						</div>
 						<div className={globalStyles['action-items']}>
@@ -242,5 +242,5 @@ export default function CreateQuestion({
 				</div>
 			</div >
 		</div >
-	)
+	);
 }

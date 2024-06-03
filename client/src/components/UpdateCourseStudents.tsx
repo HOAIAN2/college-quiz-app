@@ -1,60 +1,60 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
-import { FiSave } from 'react-icons/fi'
-import { PiStudent } from 'react-icons/pi'
-import { RxCross2 } from 'react-icons/rx'
-import appStyles from '../App.module.css'
-import { apiUpdateCourseStudents } from '../api/course'
-import { apiGetAllUser } from '../api/user'
-import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
-import { queryKeys } from '../constants/query-keys'
-import useDebounce from '../hooks/useDebounce'
-import useLanguage from '../hooks/useLanguage'
-import { CourseDetail } from '../models/course'
-import styles from '../styles/UpdateCourseStudents.module.css'
-import css from '../utils/css'
-import languageUtils from '../utils/languageUtils'
-import Loading from './Loading'
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { FiSave } from 'react-icons/fi';
+import { PiStudent } from 'react-icons/pi';
+import { RxCross2 } from 'react-icons/rx';
+import appStyles from '../App.module.css';
+import { apiUpdateCourseStudents } from '../api/course';
+import { apiGetAllUser } from '../api/user';
+import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
+import { queryKeys } from '../constants/query-keys';
+import useDebounce from '../hooks/useDebounce';
+import useLanguage from '../hooks/useLanguage';
+import { CourseDetail } from '../models/course';
+import styles from '../styles/UpdateCourseStudents.module.css';
+import css from '../utils/css';
+import languageUtils from '../utils/languageUtils';
+import Loading from './Loading';
 
 type UpdateCourseStudentsProps = {
-	courseDetail: CourseDetail
-	onMutateSuccess: () => void
-	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
-}
+	courseDetail: CourseDetail;
+	onMutateSuccess: () => void;
+	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 export default function UpdateCourseStudents({
 	courseDetail,
 	onMutateSuccess,
 	setShowPopUp
 }: UpdateCourseStudentsProps) {
-	const language = useLanguage('component.update_course_students')
-	const [hide, setHide] = useState(true)
-	const [queryUser, setQueryUser] = useState('')
-	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
-	const [students, setStudents] = useState(courseDetail.enrollments.map(item => item.user))
+	const language = useLanguage('component.update_course_students');
+	const [hide, setHide] = useState(true);
+	const [queryUser, setQueryUser] = useState('');
+	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE);
+	const [students, setStudents] = useState(courseDetail.enrollments.map(item => item.user));
 	const handleClosePopUp = () => {
-		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
-		const timing = Number(transitionTiming.replace('s', '')) * 1000
-		setHide(true)
+		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast');
+		const timing = Number(transitionTiming.replace('s', '')) * 1000;
+		setHide(true);
 		setTimeout(() => {
-			setShowPopUp(false)
-		}, timing)
-	}
+			setShowPopUp(false);
+		}, timing);
+	};
 	const handleUpdateCourseStudents = async () => {
-		const studentIds = students.map(student => student.id)
-		await apiUpdateCourseStudents(studentIds, courseDetail.id)
-	}
+		const studentIds = students.map(student => student.id);
+		await apiUpdateCourseStudents(studentIds, courseDetail.id);
+	};
 	const userQueryData = useQuery({
 		queryKey: [queryKeys.ALL_STUDENT, { search: debounceQueryUser }],
 		queryFn: () => apiGetAllUser('student', debounceQueryUser),
-	})
+	});
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateCourseStudents,
 		onSuccess: onMutateSuccess
-	})
+	});
 	useEffect(() => {
-		setHide(false)
-	}, [])
+		setHide(false);
+	}, []);
 	return (
 		<div className={
 			css(
@@ -83,7 +83,7 @@ export default function UpdateCourseStudents({
 					<input
 						placeholder={language?.search}
 						onInput={e => {
-							setQueryUser(e.currentTarget.value)
+							setQueryUser(e.currentTarget.value);
 						}}
 						className={css(appStyles['input-d'], styles['input-item'])}
 						type='text' />
@@ -108,16 +108,16 @@ export default function UpdateCourseStudents({
 													<span
 														style={{ height: '20px' }}
 														onClick={() => {
-															const newStudents = structuredClone(students)
-															newStudents.splice(index, 1)
-															setStudents(newStudents)
+															const newStudents = structuredClone(students);
+															newStudents.splice(index, 1);
+															setStudents(newStudents);
 														}}
 													>
 														<RxCross2 />
 													</span>
 												</div>
 											</li>
-										)
+										);
 									})
 								}
 							</ul>
@@ -129,9 +129,9 @@ export default function UpdateCourseStudents({
 										.map(user => (
 											<li
 												onClick={() => {
-													const newStudents = structuredClone(students)
-													newStudents.push(user)
-													setStudents(newStudents)
+													const newStudents = structuredClone(students);
+													newStudents.push(user);
+													setStudents(newStudents);
 												}}
 												className={css(appStyles['dashboard-card-d'], styles['card'])}
 												key={`user-${user.id}`}
@@ -149,7 +149,7 @@ export default function UpdateCourseStudents({
 					</div>
 					<div className={styles['action-items']}>
 						<button
-							onClick={() => { mutate() }}
+							onClick={() => { mutate(); }}
 							className={
 								css(
 									appStyles['action-item-d'],
@@ -162,5 +162,5 @@ export default function UpdateCourseStudents({
 				</div>
 			</div>
 		</div>
-	)
+	);
 }

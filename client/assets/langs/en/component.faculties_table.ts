@@ -11,4 +11,4 @@ export default {
 		perPage: 'Rows',
 		search: 'Search'
 	},
-}
+};

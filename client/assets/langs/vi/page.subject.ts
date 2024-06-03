@@ -11,4 +11,4 @@ export default {
 	shortcode: 'Mã số',
 	chapters: 'Chương',
 	questions: 'Câu hỏi'
-}
+};

@@ -1,19 +1,19 @@
-import { useMutation } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
-import { RxCross2 } from 'react-icons/rx'
-import appStyles from '../App.module.css'
-import styles from '../styles/YesNoPopUp.module.css'
-import css from '../utils/css'
-import Loading from './Loading'
+import { useMutation } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { RxCross2 } from 'react-icons/rx';
+import appStyles from '../App.module.css';
+import styles from '../styles/YesNoPopUp.module.css';
+import css from '../utils/css';
+import Loading from './Loading';
 
 type YesNoPopUpProps = {
-	message: string
-	mutateFunction: () => Promise<unknown>
-	onMutateSuccess: () => void
-	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
-	langYes?: string
-	langNo?: string
-}
+	message: string;
+	mutateFunction: () => Promise<unknown>;
+	onMutateSuccess: () => void;
+	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>;
+	langYes?: string;
+	langNo?: string;
+};
 export default function YesNoPopUp({
 	message,
 	mutateFunction,
@@ -22,25 +22,25 @@ export default function YesNoPopUp({
 	langYes,
 	langNo
 }: YesNoPopUpProps) {
-	const [hide, setHide] = useState(true)
+	const [hide, setHide] = useState(true);
 	const handleClosePopUp = () => {
-		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
-		const timing = Number(transitionTiming.replace('s', '')) * 1000
-		setHide(true)
+		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast');
+		const timing = Number(transitionTiming.replace('s', '')) * 1000;
+		setHide(true);
 		setTimeout(() => {
-			setShowPopUp(false)
-		}, timing)
-	}
+			setShowPopUp(false);
+		}, timing);
+	};
 	const mutation = useMutation({
 		mutationFn: mutateFunction,
 		onSuccess: () => {
-			onMutateSuccess()
-			handleClosePopUp()
+			onMutateSuccess();
+			handleClosePopUp();
 		}
-	})
+	});
 	useEffect(() => {
-		setHide(false)
-	}, [])
+		setHide(false);
+	}, []);
 	return (
 		<div
 			className={
@@ -82,7 +82,7 @@ export default function YesNoPopUp({
 							}
 						>{langNo}</button>
 						<button
-							onClick={() => { mutation.mutate() }}
+							onClick={() => { mutation.mutate(); }}
 							className={
 								css(
 									appStyles['action-item-white-d'],
@@ -94,5 +94,5 @@ export default function YesNoPopUp({
 				</div>
 			</div>
 		</div>
-	)
+	);
 }

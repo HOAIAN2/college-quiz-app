@@ -1,31 +1,31 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 import {
 	AiOutlineUser
-} from 'react-icons/ai'
-import { LuSchool } from 'react-icons/lu'
-import { MdOutlineStickyNote2 } from 'react-icons/md'
+} from 'react-icons/ai';
+import { LuSchool } from 'react-icons/lu';
+import { MdOutlineStickyNote2 } from 'react-icons/md';
 import {
 	PiBooks,
 	PiChalkboardTeacherLight,
 	PiExam,
 	PiStudent,
-} from 'react-icons/pi'
+} from 'react-icons/pi';
 import {
 	RxDashboard
-} from 'react-icons/rx'
+} from 'react-icons/rx';
 import {
 	SiGoogleclassroom
-} from 'react-icons/si'
-import { TbBrandAuth0 } from 'react-icons/tb'
-import { Link } from 'react-router-dom'
-import useAppContext from '../hooks/useAppContext'
-import useLanguage from '../hooks/useLanguage'
-import styles from '../styles/NavBar.module.css'
-import css from '../utils/css'
+} from 'react-icons/si';
+import { TbBrandAuth0 } from 'react-icons/tb';
+import { Link } from 'react-router-dom';
+import useAppContext from '../hooks/useAppContext';
+import useLanguage from '../hooks/useLanguage';
+import styles from '../styles/NavBar.module.css';
+import css from '../utils/css';
 
 export default function NavBar() {
-	const { DOM, permissions } = useAppContext()
-	const language = useLanguage('component.navbar')
+	const { DOM, permissions } = useAppContext();
+	const language = useLanguage('component.navbar');
 	const navBarItems = [
 		{
 			name: language?.dashboard,
@@ -99,24 +99,24 @@ export default function NavBar() {
 			icon: <TbBrandAuth0 />,
 			isActive: permissions.has('role_permission_view')
 		},
-	]
+	];
 	useEffect(() => {
 		function updateSize() {
-			if (window.innerWidth < 800) DOM.sideBarRef.current?.classList.add(styles['hide'])
-			else DOM.sideBarRef.current?.classList.remove(styles['hide'])
+			if (window.innerWidth < 800) DOM.sideBarRef.current?.classList.add(styles['hide']);
+			else DOM.sideBarRef.current?.classList.remove(styles['hide']);
 		}
 		window.addEventListener('resize', updateSize);
-		return () => window.removeEventListener('resize', updateSize)
-	}, [DOM.sideBarRef])
+		return () => window.removeEventListener('resize', updateSize);
+	}, [DOM.sideBarRef]);
 	useEffect(() => {
 		const currentFeature = navBarItems.find(feature => {
-			return feature.to === window.location.pathname.split('/')[1]
-		})
-		if (currentFeature?.name) document.title = currentFeature.name
+			return feature.to === window.location.pathname.split('/')[1];
+		});
+		if (currentFeature?.name) document.title = currentFeature.name;
 		if (currentFeature?.name && DOM.titleRef.current) {
-			DOM.titleRef.current.textContent = document.title
+			DOM.titleRef.current.textContent = document.title;
 		}
-	})
+	});
 	return (
 		<nav ref={DOM.sideBarRef} className={
 			css(
@@ -126,11 +126,11 @@ export default function NavBar() {
 		}>
 			<ul className={styles['list']}>{
 				navBarItems.map((feature, index) => {
-					if (feature.isActive === false) return
+					if (feature.isActive === false) return;
 					return (
 						<li onClick={e => {
-							e.currentTarget.querySelector('a')?.click()
-							if (window.innerWidth < 800) DOM.sideBarRef.current?.classList.add(styles['hide'])
+							e.currentTarget.querySelector('a')?.click();
+							if (window.innerWidth < 800) DOM.sideBarRef.current?.classList.add(styles['hide']);
 						}} key={index} className={
 							css(
 								styles['list-item'],
@@ -142,9 +142,9 @@ export default function NavBar() {
 								{feature.name}
 							</Link>
 						</li>
-					)
+					);
 				})
 			}</ul>
 		</nav>
-	)
+	);
 }

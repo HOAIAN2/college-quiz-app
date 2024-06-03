@@ -1,24 +1,24 @@
 import { PermissionWithPivot } from './permission';
 
-export type RoleName = 'student' | 'teacher' | 'admin'
+export type RoleName = 'student' | 'teacher' | 'admin';
 
 export type Role = {
 	id: number;
 	name: RoleName;
-}
+};
 
 export type RoleWithDisplayName = Role & {
-	displayName: string
-}
+	displayName: string;
+};
 
 export type RoleWithPermissionCount = RoleWithDisplayName & {
-	permissionsCount: number
-}
+	permissionsCount: number;
+};
 
 export type RoleWithPermissionNames = Role & {
-	permissions: string[]
-}
+	permissions: string[];
+};
 
 export type RoleWithPermissions = Role & {
-	permissions: PermissionWithPivot[]
-}
+	permissions: PermissionWithPivot[];
+};

@@ -1,93 +1,93 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { SyntheticEvent, useEffect, useState } from 'react'
-import Datetime from 'react-datetime'
-import { FiSave } from 'react-icons/fi'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { SyntheticEvent, useEffect, useState } from 'react';
+import Datetime from 'react-datetime';
+import { FiSave } from 'react-icons/fi';
 import {
 	RxCross2
-} from 'react-icons/rx'
-import appStyles from '../App.module.css'
-import { apiAutoCompleteFaculty } from '../api/faculty'
-import { apiAutoCompleteSchoolClass } from '../api/school-class'
-import { apiCreateUser } from '../api/user'
-import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
-import { queryKeys } from '../constants/query-keys'
-import useDebounce from '../hooks/useDebounce'
-import useLanguage from '../hooks/useLanguage'
-import { RoleName } from '../models/role'
-import styles from '../styles/global/CreateModel.module.css'
-import createFormUtils from '../utils/createFormUtils'
-import css from '../utils/css'
-import renderMonth from '../utils/renderMonth'
-import CustomDataList from './CustomDataList'
-import CustomSelect from './CustomSelect'
-import Loading from './Loading'
+} from 'react-icons/rx';
+import appStyles from '../App.module.css';
+import { apiAutoCompleteFaculty } from '../api/faculty';
+import { apiAutoCompleteSchoolClass } from '../api/school-class';
+import { apiCreateUser } from '../api/user';
+import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
+import { queryKeys } from '../constants/query-keys';
+import useDebounce from '../hooks/useDebounce';
+import useLanguage from '../hooks/useLanguage';
+import { RoleName } from '../models/role';
+import styles from '../styles/global/CreateModel.module.css';
+import createFormUtils from '../utils/createFormUtils';
+import css from '../utils/css';
+import renderMonth from '../utils/renderMonth';
+import CustomDataList from './CustomDataList';
+import CustomSelect from './CustomSelect';
+import Loading from './Loading';
 
 type CreateUserProps = {
-	role: RoleName
-	onMutateSuccess: () => void
-	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
-}
+	role: RoleName;
+	onMutateSuccess: () => void;
+	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>;
+};
 export default function CreateUser({
 	role,
 	onMutateSuccess,
 	setShowPopUp
 }: CreateUserProps) {
-	const language = useLanguage('component.create_user')
-	const [hide, setHide] = useState(true)
-	const [queryClass, setQueryClass] = useState('')
-	const [queryFaculty, setQueryFaculty] = useState('')
-	const debounceQueryClass = useDebounce(queryClass, AUTO_COMPLETE_DEBOUNCE)
-	const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE)
-	const queryClient = useQueryClient()
+	const language = useLanguage('component.create_user');
+	const [hide, setHide] = useState(true);
+	const [queryClass, setQueryClass] = useState('');
+	const [queryFaculty, setQueryFaculty] = useState('');
+	const debounceQueryClass = useDebounce(queryClass, AUTO_COMPLETE_DEBOUNCE);
+	const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE);
+	const queryClient = useQueryClient();
 	const handleClosePopUp = () => {
-		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
-		const timing = Number(transitionTiming.replace('s', '')) * 1000
-		setHide(true)
+		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast');
+		const timing = Number(transitionTiming.replace('s', '')) * 1000;
+		setHide(true);
 		setTimeout(() => {
-			setShowPopUp(false)
-		}, timing)
-	}
-	const formUtils = createFormUtils(styles)
+			setShowPopUp(false);
+		}, timing);
+	};
+	const formUtils = createFormUtils(styles);
 	const classQueryData = useQuery({
 		queryKey: [queryKeys.AUTO_COMPLETE_SCHOOL_CLASS, { search: debounceQueryClass }],
 		queryFn: () => apiAutoCompleteSchoolClass(debounceQueryClass),
 		enabled: debounceQueryClass ? true : false
-	})
+	});
 	const facultyQueryData = useQuery({
 		queryKey: [queryKeys.AUTO_COMPLETE_FACULTY, { search: debounceQueryFaculty }],
 		queryFn: () => apiAutoCompleteFaculty(debounceQueryFaculty),
 		enabled: debounceQueryFaculty ? true : false
-	})
+	});
 	const handleCreateUser = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
-		e.preventDefault()
+		e.preventDefault();
 		document.querySelector(`.${styles['form-data']}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
-			node.classList.remove('error')
-			formUtils.getParentElement(node)?.removeAttribute('data-error')
-		})
-		const submitter = e.nativeEvent.submitter as HTMLButtonElement
-		const form = e.target as HTMLFormElement
-		const formData = new FormData(form)
-		formData.append('role', role !== undefined ? role : 'student')
-		await apiCreateUser(formData)
-		if (submitter.name === 'save') handleClosePopUp()
-		else form.reset()
-	}
+			node.classList.remove('error');
+			formUtils.getParentElement(node)?.removeAttribute('data-error');
+		});
+		const submitter = e.nativeEvent.submitter as HTMLButtonElement;
+		const form = e.target as HTMLFormElement;
+		const formData = new FormData(form);
+		formData.append('role', role !== undefined ? role : 'student');
+		await apiCreateUser(formData);
+		if (submitter.name === 'save') handleClosePopUp();
+		else form.reset();
+	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleCreateUser,
-		onError: (error: object) => { formUtils.showFormError(error) },
+		onError: (error: object) => { formUtils.showFormError(error); },
 		onSuccess: onMutateSuccess
-	})
+	});
 	const options = [
 		{ value: 'male', label: language?.genders.male },
 		{ value: 'female', label: language?.genders.female },
-	]
+	];
 	useEffect(() => {
-		setHide(false)
+		setHide(false);
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_FACULTY] })
-			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_SCHOOL_CLASS] })
-		}
-	}, [queryClient])
+			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_FACULTY] });
+			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_SCHOOL_CLASS] });
+		};
+	}, [queryClient]);
 	return (
 		<div className={
 			css(
@@ -119,9 +119,9 @@ export default function CreateUser({
 				</div>
 				<div className={styles['form-content']}>
 					<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
-						mutate(e)
+						mutate(e);
 					}}
-						onInput={(e) => { formUtils.handleOnInput(e) }}
+						onInput={(e) => { formUtils.handleOnInput(e); }}
 						className={styles['form-data']}>
 						<div className={styles['group-inputs']}>
 							<div className={styles['wrap-item']}>
@@ -169,12 +169,12 @@ export default function CreateUser({
 									<label className={styles['required']} htmlFor='school_class_id'>{language?.class}</label>
 									<CustomDataList
 										name='school_class_id'
-										onInput={e => { setQueryClass(e.currentTarget.value) }}
+										onInput={e => { setQueryClass(e.currentTarget.value); }}
 										options={classQueryData.data ? classQueryData.data.map(item => {
 											return {
 												label: item.name,
 												value: String(item.id)
-											}
+											};
 										}) : []}
 									/>
 								</div>
@@ -183,12 +183,12 @@ export default function CreateUser({
 										<label className={styles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
 										<CustomDataList
 											name='faculty_id'
-											onInput={e => { setQueryFaculty(e.currentTarget.value) }}
+											onInput={e => { setQueryFaculty(e.currentTarget.value); }}
 											options={facultyQueryData.data ? facultyQueryData.data.map(item => {
 												return {
 													label: item.name,
 													value: String(item.id)
-												}
+												};
 											}) : []}
 										/>
 									</div>
@@ -257,5 +257,5 @@ export default function CreateUser({
 				</div>
 			</div >
 		</div >
-	)
+	);
 }

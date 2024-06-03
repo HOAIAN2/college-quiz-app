@@ -7,4 +7,4 @@ export default {
 	},
 	todayExams: 'Bài thi hôm nay',
 	examsEachMonth: 'Bài thi mỗi tháng'
-}
+};

@@ -1,18 +1,18 @@
-import { Course } from './course'
+import { Course } from './course';
 
 export type Semester = {
-	id: number
-	name: string
-	startDate: string
-	endDate: string
-}
+	id: number;
+	name: string;
+	startDate: string;
+	endDate: string;
+};
 
 export type SemesterDetail = Semester & {
-	courses: Course[]
-}
+	courses: Course[];
+};
 
 export type QuerySemesterType = {
-	page?: number
-	perPage?: number
-	search?: string
-}
+	page?: number;
+	perPage?: number;
+	search?: string;
+};

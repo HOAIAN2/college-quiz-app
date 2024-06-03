@@ -4,4 +4,4 @@ export default {
 	newPassword: 'Mật khẩu mới',
 	confirmPassword: 'Xác nhận mật khẩu',
 	save: 'Lưu',
-}
+};

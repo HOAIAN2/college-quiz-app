@@ -7,4 +7,4 @@ export default {
 	name: 'Name',
 	save: 'Save',
 	saveMore: 'Save more'
-}
+};

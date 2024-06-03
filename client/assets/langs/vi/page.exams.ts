@@ -4,4 +4,4 @@ export default {
 	inProgress: 'Đang diễn ra',
 	pendingStart: 'Chờ bắt đầu',
 	cancelled: 'Đã bị hủy'
-}
+};

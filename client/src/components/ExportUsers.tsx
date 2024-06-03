@@ -1,63 +1,63 @@
-import { useQuery } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
-import { RxCross2 } from 'react-icons/rx'
-import appStyles from '../App.module.css'
-import { apiExportUsers, apiGetUserExportableFields } from '../api/user'
-import { queryKeys } from '../constants/query-keys'
-import useLanguage from '../hooks/useLanguage'
-import { RoleName } from '../models/role'
-import styles from '../styles/ExportUsers.module.css'
-import css from '../utils/css'
-import { saveBlob } from '../utils/saveBlob'
-import Loading from './Loading'
+import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { RxCross2 } from 'react-icons/rx';
+import appStyles from '../App.module.css';
+import { apiExportUsers, apiGetUserExportableFields } from '../api/user';
+import { queryKeys } from '../constants/query-keys';
+import useLanguage from '../hooks/useLanguage';
+import { RoleName } from '../models/role';
+import styles from '../styles/ExportUsers.module.css';
+import css from '../utils/css';
+import { saveBlob } from '../utils/saveBlob';
+import Loading from './Loading';
 
 type ExportUsersProps = {
-	role: RoleName
-	setExportMode: React.Dispatch<React.SetStateAction<boolean>>
-}
+	role: RoleName;
+	setExportMode: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 export default function ExportUsers({
 	role,
 	setExportMode
 }: ExportUsersProps) {
-	const language = useLanguage('component.export_users')
-	const [hide, setHide] = useState(true)
+	const language = useLanguage('component.export_users');
+	const [hide, setHide] = useState(true);
 	const handleClosePopUp = () => {
-		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
-		const timing = Number(transitionTiming.replace('s', '')) * 1000
-		setHide(true)
+		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast');
+		const timing = Number(transitionTiming.replace('s', '')) * 1000;
+		setHide(true);
 		setTimeout(() => {
-			setExportMode(false)
-		}, timing)
-	}
+			setExportMode(false);
+		}, timing);
+	};
 	const queryData = useQuery({
 		queryKey: [queryKeys.USER_EXPORTABLE_FIELDS],
 		queryFn: () => apiGetUserExportableFields(role)
-	})
+	});
 	const handleExportUsers = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-		const formData = new FormData(e.currentTarget)
-		const fields: string[] = []
+		e.preventDefault();
+		const formData = new FormData(e.currentTarget);
+		const fields: string[] = [];
 		formData.forEach((value) => {
-			fields.push(value as string)
-		})
+			fields.push(value as string);
+		});
 		apiExportUsers(role, fields)
 			.then(res => {
-				const fileName = `Export_${role}_${new Date().toISOString().split('T')[0]}.xlsx`
-				saveBlob(res, fileName)
-			})
-	}
+				const fileName = `Export_${role}_${new Date().toISOString().split('T')[0]}.xlsx`;
+				saveBlob(res, fileName);
+			});
+	};
 	const handleSelectAll = (type: 'all' | 'none') => {
 		document.querySelector(`.${styles['form-data']}`)
 			?.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')
 			.forEach(item => {
-				if (type === 'all') item.checked = true
-				else item.checked = false
-			})
-	}
+				if (type === 'all') item.checked = true;
+				else item.checked = false;
+			});
+	};
 	useEffect(() => {
-		setHide(false)
-	}, [])
+		setHide(false);
+	}, []);
 	return (
 		<div className={
 			css(
@@ -93,7 +93,7 @@ export default function ExportUsers({
 											<input id={item.field} type='checkbox' name='fields[]' value={item.field} />
 											<label htmlFor={item.field} className={styles['label']}>{item.fieldName}</label>
 										</div>
-									)
+									);
 								})
 							}
 							<div className={styles['action-items']}>
@@ -103,14 +103,14 @@ export default function ExportUsers({
 									{language?.save}
 								</button>
 								<button
-									onClick={() => { handleSelectAll('none') }}
+									onClick={() => { handleSelectAll('none'); }}
 									style={{ width: 'fit-content' }}
 									type='button' name='save'
 									className={appStyles['action-item-white-d']}
 								>{language?.deselectAll}
 								</button>
 								<button
-									onClick={() => { handleSelectAll('all') }}
+									onClick={() => { handleSelectAll('all'); }}
 									type='button' name='save'
 									className={appStyles['action-item-white-d']}>
 									{language?.selectAll}
@@ -121,5 +121,5 @@ export default function ExportUsers({
 				}
 			</div>
 		</div>
-	)
+	);
 }

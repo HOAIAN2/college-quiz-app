@@ -1,50 +1,50 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 import {
 	BiExport,
 	BiImport
-} from 'react-icons/bi'
-import { MdDeleteOutline } from 'react-icons/md'
-import { PiMicrosoftExcelLogoFill } from 'react-icons/pi'
+} from 'react-icons/bi';
+import { MdDeleteOutline } from 'react-icons/md';
+import { PiMicrosoftExcelLogoFill } from 'react-icons/pi';
 import {
 	RiAddFill
-} from 'react-icons/ri'
-import { useSearchParams } from 'react-router-dom'
-import appStyles from '../App.module.css'
-import { apiDeleteUserByIds, apiGetUsersByType, apiImportUsers } from '../api/user'
-import CreateUser from '../components/CreateUser'
-import CustomSelect from '../components/CustomSelect'
-import ExportUsers from '../components/ExportUsers'
-import ImportData from '../components/ImportData'
-import Loading from '../components/Loading'
-import UsersTable from '../components/UsersTable'
-import YesNoPopUp from '../components/YesNoPopUp'
-import { queryKeys } from '../constants/query-keys'
-import useAppContext from '../hooks/useAppContext'
-import useDebounce from '../hooks/useDebounce'
-import useLanguage from '../hooks/useLanguage'
-import { RoleName } from '../models/role'
-import styles from '../styles/global/TablePage.module.css'
-import css from '../utils/css'
-import { importTemplateFileUrl } from '../utils/template'
+} from 'react-icons/ri';
+import { useSearchParams } from 'react-router-dom';
+import appStyles from '../App.module.css';
+import { apiDeleteUserByIds, apiGetUsersByType, apiImportUsers } from '../api/user';
+import CreateUser from '../components/CreateUser';
+import CustomSelect from '../components/CustomSelect';
+import ExportUsers from '../components/ExportUsers';
+import ImportData from '../components/ImportData';
+import Loading from '../components/Loading';
+import UsersTable from '../components/UsersTable';
+import YesNoPopUp from '../components/YesNoPopUp';
+import { queryKeys } from '../constants/query-keys';
+import useAppContext from '../hooks/useAppContext';
+import useDebounce from '../hooks/useDebounce';
+import useLanguage from '../hooks/useLanguage';
+import { RoleName } from '../models/role';
+import styles from '../styles/global/TablePage.module.css';
+import css from '../utils/css';
+import { importTemplateFileUrl } from '../utils/template';
 
 type UsersProps = {
-	role: RoleName
-}
+	role: RoleName;
+};
 export default function Users({
 	role
 }: UsersProps) {
-	const language = useLanguage('page.users')
-	const { permissions } = useAppContext()
-	const [showCreatePopUp, setShowCreatePopUp] = useState(false)
-	const [showExportPopUp, setShowExportPopUp] = useState(false)
-	const [showImportPopUp, setShowImportPopUp] = useState(false)
-	const [showDeletePopUp, setShowDeletePopUp] = useState(false)
-	const [selectedUserIds, setSelectedUserIds] = useState<Set<string | number>>(new Set())
-	const [searchParams, setSearchParams] = useSearchParams()
-	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
-	const queryDebounce = useDebounce(searchQuery)
-	const queryClient = useQueryClient()
+	const language = useLanguage('page.users');
+	const { permissions } = useAppContext();
+	const [showCreatePopUp, setShowCreatePopUp] = useState(false);
+	const [showExportPopUp, setShowExportPopUp] = useState(false);
+	const [showImportPopUp, setShowImportPopUp] = useState(false);
+	const [showDeletePopUp, setShowDeletePopUp] = useState(false);
+	const [selectedUserIds, setSelectedUserIds] = useState<Set<string | number>>(new Set());
+	const [searchParams, setSearchParams] = useSearchParams();
+	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
+	const queryDebounce = useDebounce(searchQuery);
+	const queryClient = useQueryClient();
 	const queryData = useQuery({
 		queryKey: [
 			queryKeys.PAGE_USERS,
@@ -61,32 +61,32 @@ export default function Users({
 			perPage: Number(searchParams.get('per_page')),
 			search: queryDebounce
 		})
-	})
+	});
 	const importFunction = async (file: File) => {
-		return apiImportUsers(file, role)
-	}
+		return apiImportUsers(file, role);
+	};
 	const handleDeleteUsers = async () => {
-		await apiDeleteUserByIds(Array.from(selectedUserIds))
-	}
+		await apiDeleteUserByIds(Array.from(selectedUserIds));
+	};
 	const onMutateSuccess = () => {
 		[queryKeys.PAGE_USERS, queryKeys.PAGE_DASHBOARD].forEach(key => {
-			queryClient.refetchQueries({ queryKey: [key] })
-		})
-	}
+			queryClient.refetchQueries({ queryKey: [key] });
+		});
+	};
 	useEffect(() => {
-		setSelectedUserIds(new Set())
-	}, [queryData.data])
+		setSelectedUserIds(new Set());
+	}, [queryData.data]);
 	useEffect(() => {
 		return () => {
-			if (!window.location.pathname.includes(role)) setSearchParams(new URLSearchParams())
-		}
-	})
+			if (!window.location.pathname.includes(role)) setSearchParams(new URLSearchParams());
+		};
+	});
 	useEffect(() => {
-		if (!searchParams.get('search') && !queryDebounce) return
-		if (queryDebounce === '') searchParams.delete('search')
-		else searchParams.set('search', queryDebounce)
-		setSearchParams(searchParams)
-	}, [queryDebounce, searchParams, setSearchParams])
+		if (!searchParams.get('search') && !queryDebounce) return;
+		if (queryDebounce === '') searchParams.delete('search');
+		else searchParams.set('search', queryDebounce);
+		setSearchParams(searchParams);
+	}, [queryDebounce, searchParams, setSearchParams]);
 	return (
 		<>
 			{showCreatePopUp === true ?
@@ -131,7 +131,7 @@ export default function Users({
 								permissions.has('user_create') ?
 									<div className={appStyles['action-item-d']}
 										onClick={() => {
-											setShowCreatePopUp(true)
+											setShowCreatePopUp(true);
 										}}
 									>
 										<RiAddFill /> {language?.add}
@@ -142,7 +142,7 @@ export default function Users({
 								permissions.has('user_create') ?
 									<div className={appStyles['action-item-white-d']}
 										onClick={() => {
-											setShowImportPopUp(true)
+											setShowImportPopUp(true);
 										}}
 									>
 										<BiImport /> {language?.import}
@@ -153,7 +153,7 @@ export default function Users({
 								permissions.has('user_view') ?
 									<div className={appStyles['action-item-white-d']}
 										onClick={() => {
-											setShowExportPopUp(true)
+											setShowExportPopUp(true);
 										}}
 									>
 										<BiExport /> {language?.export}
@@ -164,7 +164,7 @@ export default function Users({
 								selectedUserIds.size > 0 && permissions.has('user_delete') ?
 									<div
 										onClick={() => {
-											setShowDeletePopUp(true)
+											setShowDeletePopUp(true);
 										}}
 										className={appStyles['action-item-white-border-red-d']}>
 										<MdDeleteOutline /> {language?.delete}
@@ -208,8 +208,8 @@ export default function Users({
 									},
 								]}
 								onChange={(option) => {
-									searchParams.set('per_page', option.value)
-									setSearchParams(searchParams)
+									searchParams.set('per_page', option.value);
+									setSearchParams(searchParams);
 								}}
 								className={styles['custom-select']}
 							/>
@@ -218,7 +218,7 @@ export default function Users({
 							<label>{language?.filter.search}</label>
 							<input
 								onInput={(e) => {
-									setSearchQuery(e.currentTarget.value)
+									setSearchQuery(e.currentTarget.value);
 								}}
 								defaultValue={queryDebounce}
 								className={css(appStyles['input-d'], styles['input-item'])}
@@ -243,5 +243,5 @@ export default function Users({
 				</section>
 			</main>
 		</>
-	)
+	);
 }

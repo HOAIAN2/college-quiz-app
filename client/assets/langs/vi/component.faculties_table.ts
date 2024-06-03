@@ -11,4 +11,4 @@ export default {
 		perPage: 'Số hàng',
 		search: 'Tìm kiếm'
 	},
-}
+};

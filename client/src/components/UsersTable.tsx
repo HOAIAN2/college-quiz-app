@@ -1,27 +1,27 @@
-import { useEffect, useState } from 'react'
-import { GiFemale, GiMale } from 'react-icons/gi'
-import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
-import { SetURLSearchParams } from 'react-router-dom'
-import appStyles from '../App.module.css'
-import useAppContext from '../hooks/useAppContext'
-import useLanguage from '../hooks/useLanguage'
-import { Pagination } from '../models/response'
-import { RoleName } from '../models/role'
-import { UserDetail } from '../models/user'
-import styles from '../styles/global/Table.module.css'
-import css from '../utils/css'
-import languageUtils from '../utils/languageUtils'
-import StatusBadge from './StatusBadge'
-import ViewUser from './ViewUser'
+import { useEffect, useState } from 'react';
+import { GiFemale, GiMale } from 'react-icons/gi';
+import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
+import { SetURLSearchParams } from 'react-router-dom';
+import appStyles from '../App.module.css';
+import useAppContext from '../hooks/useAppContext';
+import useLanguage from '../hooks/useLanguage';
+import { Pagination } from '../models/response';
+import { RoleName } from '../models/role';
+import { UserDetail } from '../models/user';
+import styles from '../styles/global/Table.module.css';
+import css from '../utils/css';
+import languageUtils from '../utils/languageUtils';
+import StatusBadge from './StatusBadge';
+import ViewUser from './ViewUser';
 
 type UsersTableProps = {
-	role: RoleName
-	data?: Pagination<UserDetail>
-	searchParams: URLSearchParams
-	onMutateSuccess: () => void
-	setSearchParams: SetURLSearchParams
-	setSelectedRows: React.Dispatch<React.SetStateAction<Set<string | number>>>
-}
+	role: RoleName;
+	data?: Pagination<UserDetail>;
+	searchParams: URLSearchParams;
+	onMutateSuccess: () => void;
+	setSearchParams: SetURLSearchParams;
+	setSelectedRows: React.Dispatch<React.SetStateAction<Set<string | number>>>;
+};
 export default function UsersTable({
 	role,
 	data,
@@ -30,60 +30,60 @@ export default function UsersTable({
 	setSearchParams,
 	setSelectedRows
 }: UsersTableProps) {
-	const { permissions } = useAppContext()
-	const language = useLanguage('component.users_table')
-	const [showViewPopUp, setShowViewPopUp] = useState(false)
-	const [checkAll, setCheckAll] = useState(false)
-	const [userId, setUserId] = useState<number>(0)
+	const { permissions } = useAppContext();
+	const language = useLanguage('component.users_table');
+	const [showViewPopUp, setShowViewPopUp] = useState(false);
+	const [checkAll, setCheckAll] = useState(false);
+	const [userId, setUserId] = useState<number>(0);
 	const handleViewUser = (id: number, e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => {
-		const target = e.target as Element
+		const target = e.target as Element;
 		if (target.nodeName === 'INPUT') {
-			const checkBox = target as HTMLInputElement
-			const perPage = Number(searchParams.get('per_page')) || 10
+			const checkBox = target as HTMLInputElement;
+			const perPage = Number(searchParams.get('per_page')) || 10;
 			if (checkBox.checked) setSelectedRows(pre => {
-				pre.add(id)
-				if (pre.size === perPage) setCheckAll(true)
-				return structuredClone(pre)
-			})
+				pre.add(id);
+				if (pre.size === perPage) setCheckAll(true);
+				return structuredClone(pre);
+			});
 			else setSelectedRows(pre => {
-				pre.delete(id)
-				if (pre.size !== perPage) setCheckAll(false)
-				return structuredClone(pre)
-			})
-			return
+				pre.delete(id);
+				if (pre.size !== perPage) setCheckAll(false);
+				return structuredClone(pre);
+			});
+			return;
 		}
-		setUserId(id)
-		setShowViewPopUp(true)
-	}
+		setUserId(id);
+		setShowViewPopUp(true);
+	};
 	const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const currentTarget = e.currentTarget
-		const selector = `.${styles['column-select']}>input`
-		const allCheckBox = document.querySelectorAll(selector)
+		const currentTarget = e.currentTarget;
+		const selector = `.${styles['column-select']}>input`;
+		const allCheckBox = document.querySelectorAll(selector);
 		allCheckBox.forEach(node => {
-			const element = node as HTMLInputElement
-			element.checked = currentTarget.checked
-		})
+			const element = node as HTMLInputElement;
+			element.checked = currentTarget.checked;
+		});
 		if (currentTarget.checked) {
 			setSelectedRows(pre => {
-				pre.clear()
+				pre.clear();
 				data && data.data.forEach(user => {
-					pre.add(user.id)
-				})
-				return structuredClone(pre)
-			})
-			setCheckAll(true)
+					pre.add(user.id);
+				});
+				return structuredClone(pre);
+			});
+			setCheckAll(true);
 		}
 		else {
 			setSelectedRows(pre => {
-				pre.clear()
-				return structuredClone(pre)
-			})
-			setCheckAll(false)
+				pre.clear();
+				return structuredClone(pre);
+			});
+			setCheckAll(false);
 		}
-	}
+	};
 	useEffect(() => {
-		setCheckAll(false)
-	}, [data])
+		setCheckAll(false);
+	}, [data]);
 	return (
 		<>
 			{showViewPopUp === true ?
@@ -129,7 +129,7 @@ export default function UsersTable({
 										return (
 											<tr key={user.id}
 												onClick={(e) => {
-													handleViewUser(user.id, e)
+													handleViewUser(user.id, e);
 												}}
 											>
 												{
@@ -174,7 +174,7 @@ export default function UsersTable({
 													}
 												</td>
 											</tr>
-										)
+										);
 									}) : null
 							}
 						</tbody>
@@ -194,15 +194,15 @@ export default function UsersTable({
 												<button key={role + link.label}
 													className={styles['next-previous']}
 													onClick={() => {
-														if (!link.url) return
-														const url = new URL(link.url)
-														searchParams.set('page', url.searchParams.get('page') || '1')
-														setSearchParams(searchParams)
+														if (!link.url) return;
+														const url = new URL(link.url);
+														searchParams.set('page', url.searchParams.get('page') || '1');
+														setSearchParams(searchParams);
 													}}
 												>
 													{link.label === '...' ? '...' : link.label.includes('Next') ? <GrFormNext /> : <GrFormPrevious />}
 												</button>
-											)
+											);
 											return (
 												<button key={role + link.label} className={
 													css(
@@ -211,13 +211,13 @@ export default function UsersTable({
 													)
 												}
 													onClick={() => {
-														if (!link.url) return
-														const url = new URL(link.url)
-														searchParams.set('page', url.searchParams.get('page') || '1')
-														setSearchParams(searchParams)
+														if (!link.url) return;
+														const url = new URL(link.url);
+														searchParams.set('page', url.searchParams.get('page') || '1');
+														setSearchParams(searchParams);
 													}}
 												>{link.label}</button>
-											)
+											);
 										})}
 									</div>
 								}
@@ -226,5 +226,5 @@ export default function UsersTable({
 				}
 			</div>
 		</>
-	)
+	);
 }

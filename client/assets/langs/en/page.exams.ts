@@ -4,4 +4,4 @@ export default {
 	inProgress: 'In progress',
 	pendingStart: "Pending Start",
 	cancelled: "Cancelled"
-}
+};

@@ -29,4 +29,4 @@ export const queryKeys = Object.freeze({
 	PAGE_EXAMS: 'PAGE_EXAMS',
 	EXAM: 'EXAM',
 	EXAM_QUESTIONS: 'EXAM_QUESTIONS'
-})
+});

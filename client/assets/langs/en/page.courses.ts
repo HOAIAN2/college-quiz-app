@@ -7,4 +7,4 @@ export default {
 		search: 'Search'
 	},
 	title: 'Courses @semester'
-}
+};

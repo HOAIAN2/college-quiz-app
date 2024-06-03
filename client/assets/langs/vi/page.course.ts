@@ -14,4 +14,4 @@ export default {
 	add: 'Thêm',
 	numberOfQuesions: '@number câu hỏi',
 	minutes: '@number phút',
-}
+};

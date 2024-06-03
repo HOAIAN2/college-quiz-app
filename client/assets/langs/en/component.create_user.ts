@@ -20,4 +20,4 @@ export default {
 	password: 'Password',
 	save: 'Save',
 	saveMore: 'Save more'
-}
+};

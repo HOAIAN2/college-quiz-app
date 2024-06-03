@@ -5,4 +5,4 @@ export default {
 	endDate: 'End date',
 	save: 'Save',
 	saveMore: 'Save more'
-}
+};

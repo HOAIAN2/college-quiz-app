@@ -20,4 +20,4 @@ export default {
 	password: 'Mật khẩu',
 	save: 'Lưu',
 	saveMore: 'Lưu thêm'
-}
+};

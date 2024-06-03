@@ -4,4 +4,4 @@ export default {
 	faculty: 'Faculty',
 	save: 'Save',
 	saveMore: 'Save more'
-}
+};

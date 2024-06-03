@@ -8,4 +8,4 @@ export default {
 	langYes: 'Yes',
 	langNo: 'No',
 	courses: 'Manage Courses'
-}
+};

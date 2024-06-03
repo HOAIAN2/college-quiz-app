@@ -18,4 +18,4 @@ export default {
 		expert: 'Expert',
 	},
 	title: '@subject questions'
-}
+};

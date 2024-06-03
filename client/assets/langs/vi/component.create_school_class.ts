@@ -5,4 +5,4 @@ export default {
 	faculty: 'Khoa',
 	save: 'Lưu',
 	saveMore: 'Lưu thêm'
-}
+};

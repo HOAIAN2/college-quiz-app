@@ -11,4 +11,4 @@ export default {
 	students: 'Học sinh',
 	permission: 'Phân quyền',
 	semester: 'Học kỳ'
-}
+};

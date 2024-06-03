@@ -18,4 +18,4 @@ export default {
 		expert: 'Rất khó',
 	},
 	title: 'Câu hỏi @subject'
-}
+};

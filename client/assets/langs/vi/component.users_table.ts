@@ -18,4 +18,4 @@ export default {
 		active: 'Hoạt động',
 		inactive: 'Không hoạt động',
 	}
-}
+};

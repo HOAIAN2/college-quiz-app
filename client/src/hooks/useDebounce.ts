@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react'
-import { DEFAULT_DEBOUNCE } from '../config/env'
+import { useEffect, useState } from 'react';
+import { DEFAULT_DEBOUNCE } from '../config/env';
 
 export default function useDebounce<T>(value: T, timeout: number = DEFAULT_DEBOUNCE) {
-	const [debounce, setDebouce] = useState(value)
+	const [debounce, setDebouce] = useState(value);
 	useEffect(() => {
 		const handleDelay = setTimeout(() => {
-			setDebouce(value)
-		}, timeout)
+			setDebouce(value);
+		}, timeout);
 		return (() => {
-			clearTimeout(handleDelay)
-		})
+			clearTimeout(handleDelay);
+		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [value])
-	return debounce
+	}, [value]);
+	return debounce;
 }

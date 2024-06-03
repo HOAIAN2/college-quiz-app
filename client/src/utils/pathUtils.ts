@@ -3,8 +3,8 @@ const pathUtils = {
 		return '/' + paths
 			.map(path => String(path).replace(/\//g, '').trim())
 			.filter(i => i)
-			.join('/')
+			.join('/');
 	}
-}
+};
 
-export default pathUtils
+export default pathUtils;

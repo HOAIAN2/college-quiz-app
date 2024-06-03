@@ -1,85 +1,85 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useState } from 'react'
-import Datetime from 'react-datetime'
-import { FiSave } from 'react-icons/fi'
-import { RxCross2 } from 'react-icons/rx'
-import { toast } from 'sonner'
-import appStyles from '../App.module.css'
-import { apiCreateExam } from '../api/exam'
-import { apiGetSubjectById } from '../api/subject'
-import { apiGetAllUser } from '../api/user'
-import { AUTO_COMPLETE_DEBOUNCE } from '../config/env'
-import { queryKeys } from '../constants/query-keys'
-import useDebounce from '../hooks/useDebounce'
-import useLanguage from '../hooks/useLanguage'
-import { CourseDetail } from '../models/course'
-import { UserDetail } from '../models/user'
-import styles from '../styles/CreateViewExam.module.css'
-import createFormUtils from '../utils/createFormUtils'
-import css from '../utils/css'
-import languageUtils from '../utils/languageUtils'
-import renderMonth from '../utils/renderMonth'
-import Loading from './Loading'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import Datetime from 'react-datetime';
+import { FiSave } from 'react-icons/fi';
+import { RxCross2 } from 'react-icons/rx';
+import { toast } from 'sonner';
+import appStyles from '../App.module.css';
+import { apiCreateExam } from '../api/exam';
+import { apiGetSubjectById } from '../api/subject';
+import { apiGetAllUser } from '../api/user';
+import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
+import { queryKeys } from '../constants/query-keys';
+import useDebounce from '../hooks/useDebounce';
+import useLanguage from '../hooks/useLanguage';
+import { CourseDetail } from '../models/course';
+import { UserDetail } from '../models/user';
+import styles from '../styles/CreateViewExam.module.css';
+import createFormUtils from '../utils/createFormUtils';
+import css from '../utils/css';
+import languageUtils from '../utils/languageUtils';
+import renderMonth from '../utils/renderMonth';
+import Loading from './Loading';
 
 type CreateExamProps = {
-	courseDetail: CourseDetail
-	onMutateSuccess: () => void
-	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>
-}
+	courseDetail: CourseDetail;
+	onMutateSuccess: () => void;
+	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>;
+};
 export default function CreateExam({
 	courseDetail,
 	onMutateSuccess,
 	setShowPopUp
 }: CreateExamProps) {
-	const [hide, setHide] = useState(true)
-	const [totalQuestion, setTotalQuestion] = useState(0)
-	const [supervisors, setSupervisors] = useState<UserDetail[]>([])
-	const [queryUser, setQueryUser] = useState('')
-	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE)
-	const language = useLanguage('component.create_exam')
-	const queryClient = useQueryClient()
+	const [hide, setHide] = useState(true);
+	const [totalQuestion, setTotalQuestion] = useState(0);
+	const [supervisors, setSupervisors] = useState<UserDetail[]>([]);
+	const [queryUser, setQueryUser] = useState('');
+	const debounceQueryUser = useDebounce(queryUser, AUTO_COMPLETE_DEBOUNCE);
+	const language = useLanguage('component.create_exam');
+	const queryClient = useQueryClient();
 	const handleClosePopUp = () => {
-		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast')
-		const timing = Number(transitionTiming.replace('s', '')) * 1000
-		setHide(true)
+		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast');
+		const timing = Number(transitionTiming.replace('s', '')) * 1000;
+		setHide(true);
 		setTimeout(() => {
-			setShowPopUp(false)
-		}, timing)
-	}
-	const formUtils = createFormUtils(styles)
+			setShowPopUp(false);
+		}, timing);
+	};
+	const formUtils = createFormUtils(styles);
 	const queryData = useQuery({
 		queryKey: [queryKeys.PAGE_SUBJECT, { id: courseDetail.subjectId }],
 		queryFn: () => apiGetSubjectById(courseDetail.subjectId)
-	})
+	});
 	const userQueryData = useQuery({
 		queryKey: [queryKeys.ALL_TEACHER, { search: debounceQueryUser }],
 		queryFn: () => apiGetAllUser('teacher', debounceQueryUser),
-	})
+	});
 	const handleCreateExam = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
+		e.preventDefault();
 		document.querySelector(`.${styles['form-data']}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
-			node.classList.remove('error')
-			formUtils.getParentElement(node)?.removeAttribute('data-error')
-		})
-		const form = e.target as HTMLFormElement
-		const formData = new FormData(form)
+			node.classList.remove('error');
+			formUtils.getParentElement(node)?.removeAttribute('data-error');
+		});
+		const form = e.target as HTMLFormElement;
+		const formData = new FormData(form);
 		supervisors.forEach(supervisor => {
-			formData.append('supervisor_ids[]', String(supervisor.id))
-		})
-		await apiCreateExam(formData)
-		handleClosePopUp()
-	}
+			formData.append('supervisor_ids[]', String(supervisor.id));
+		});
+		await apiCreateExam(formData);
+		handleClosePopUp();
+	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleCreateExam,
-		onError: (error: object) => { formUtils.showFormError(error) },
+		onError: (error: object) => { formUtils.showFormError(error); },
 		onSuccess: onMutateSuccess
-	})
+	});
 	useEffect(() => {
-		setHide(false)
+		setHide(false);
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.ALL_TEACHER] })
-		}
-	}, [queryClient])
+			queryClient.removeQueries({ queryKey: [queryKeys.ALL_TEACHER] });
+		};
+	}, [queryClient]);
 	return (
 		<>
 			<div className={
@@ -110,7 +110,7 @@ export default function CreateExam({
 					</div>
 					<div className={styles['form-content']}>
 						<form
-							onSubmit={e => { mutate(e) }}
+							onSubmit={e => { mutate(e); }}
 							className={styles['form-data']}>
 							<input hidden readOnly name='course_id' value={courseDetail.id} />
 							<div className={styles['group-inputs']}>
@@ -142,7 +142,7 @@ export default function CreateExam({
 									<label className={styles['required']} htmlFor='exam_time'>{language?.examTime}</label>
 									<input
 										onBeforeInput={(e: React.CompositionEvent<HTMLInputElement>) => {
-											if (e.data === '.') e.preventDefault()
+											if (e.data === '.') e.preventDefault();
 										}}
 										id='exam_time'
 										name='exam_time'
@@ -158,7 +158,7 @@ export default function CreateExam({
 											{queryData.data.chapters.sort((a, b) =>
 												a.chapterNumber - b.chapterNumber
 											).map(chapter => {
-												const key = `chapter-${chapter.id}`
+												const key = `chapter-${chapter.id}`;
 												return (
 													<div
 														className={styles['wrap-item']}
@@ -170,28 +170,28 @@ export default function CreateExam({
 														<input
 															id={key}
 															onInput={(e) => {
-																const target = e.currentTarget
+																const target = e.currentTarget;
 																if (target.valueAsNumber > chapter.questionsCount) {
 																	toast.error(language?.maxChapterQuestionCount
 																		.replace('@name', `${chapter.chapterNumber}. ${chapter.name}`)
-																		.replace('@questionNumber', String(chapter.questionsCount)))
+																		.replace('@questionNumber', String(chapter.questionsCount)));
 																}
 																const total = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="question_counts[]"]'))
 																	.reduce((total, current) => {
-																		return current.valueAsNumber ? total += current.valueAsNumber : total
-																	}, 0)
-																setTotalQuestion(total)
+																		return current.valueAsNumber ? total += current.valueAsNumber : total;
+																	}, 0);
+																setTotalQuestion(total);
 															}}
 															name='question_counts[]'
 															onBeforeInput={(e: React.CompositionEvent<HTMLInputElement>) => {
-																if (e.data === '.') e.preventDefault()
+																if (e.data === '.') e.preventDefault();
 															}}
 															className={css(appStyles['input-d'], styles['input-item'])}
 															type='number'
 															min={0}
 														/>
 													</div>
-												)
+												);
 											})}
 											<div className={styles['wrap-item']}>
 												<span>{language?.totalQuestions}: {totalQuestion}</span>
@@ -201,7 +201,7 @@ export default function CreateExam({
 												<input
 													placeholder={language?.search}
 													onInput={e => {
-														setQueryUser(e.currentTarget.value)
+														setQueryUser(e.currentTarget.value);
 													}}
 													className={css(appStyles['input-d'], styles['input-item'])}
 													type='text' />
@@ -221,16 +221,16 @@ export default function CreateExam({
 																		<span
 																			style={{ height: '20px' }}
 																			onClick={() => {
-																				const newSupervisors = structuredClone(supervisors)
-																				newSupervisors.splice(index, 1)
-																				setSupervisors(newSupervisors)
+																				const newSupervisors = structuredClone(supervisors);
+																				newSupervisors.splice(index, 1);
+																				setSupervisors(newSupervisors);
 																			}}
 																		>
 																			<RxCross2 />
 																		</span>
 																	</div>
 																</li>
-															)
+															);
 														})
 													}
 												</ul>
@@ -242,9 +242,9 @@ export default function CreateExam({
 															.map(user => (
 																<li
 																	onClick={() => {
-																		const newSupervisors = structuredClone(supervisors)
-																		newSupervisors.push(user)
-																		setSupervisors(newSupervisors)
+																		const newSupervisors = structuredClone(supervisors);
+																		newSupervisors.push(user);
+																		setSupervisors(newSupervisors);
 																	}}
 																	className={css(appStyles['dashboard-card-d'], styles['card'])}
 																	key={`user-${user.id}`}
@@ -275,5 +275,5 @@ export default function CreateExam({
 				</div>
 			</div>
 		</>
-	)
+	);
 }

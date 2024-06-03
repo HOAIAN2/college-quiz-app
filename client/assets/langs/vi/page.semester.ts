@@ -8,4 +8,4 @@ export default {
 	langYes: 'Có',
 	langNo: 'Không',
 	courses: 'Quản lý khóa học'
-}
+};

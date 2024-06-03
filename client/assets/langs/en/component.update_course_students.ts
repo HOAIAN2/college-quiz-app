@@ -4,4 +4,4 @@ export default {
 	joinedStudents: 'Joined Students',
 	allStudents: 'All Students',
 	save: 'Save'
-}
+};

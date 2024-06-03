@@ -24,4 +24,4 @@ export default {
 	password: 'Password',
 	leaveBlank: 'Leave blank to remain unchanged',
 	save: 'Save'
-}
+};

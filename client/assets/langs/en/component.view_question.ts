@@ -18,4 +18,4 @@ export default {
 	langYes: 'Yes',
 	langNo: 'No',
 	deleteOptionError: 'There must be at least 2 answer options'
-}
+};

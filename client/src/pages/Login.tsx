@@ -1,59 +1,59 @@
-import { useEffect, useRef, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import appStyles from '../App.module.css'
-import { apiLogin } from '../api/auth'
-import { apiGetUser } from '../api/user'
-import useAppContext from '../hooks/useAppContext'
-import useLanguage from '../hooks/useLanguage'
-import styles from '../styles/Login.module.css'
-import css from '../utils/css'
+import { useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import appStyles from '../App.module.css';
+import { apiLogin } from '../api/auth';
+import { apiGetUser } from '../api/user';
+import useAppContext from '../hooks/useAppContext';
+import useLanguage from '../hooks/useLanguage';
+import styles from '../styles/Login.module.css';
+import css from '../utils/css';
 
 export default function Login() {
-	const language = useLanguage('page.login')
-	const [blockSubmit, setBlockSubmit] = useState(true)
-	const [isSubmitting, seIsSubmitting] = useState(false)
-	const buttonRef = useRef<HTMLButtonElement>(null)
-	const { user, permissions, DOM } = useAppContext()
-	const navigate = useNavigate()
-	const location = useLocation()
-	const prePage = location.state?.from
+	const language = useLanguage('page.login');
+	const [blockSubmit, setBlockSubmit] = useState(true);
+	const [isSubmitting, seIsSubmitting] = useState(false);
+	const buttonRef = useRef<HTMLButtonElement>(null);
+	const { user, permissions, DOM } = useAppContext();
+	const navigate = useNavigate();
+	const location = useLocation();
+	const prePage = location.state?.from;
 	const handlePreventSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		const formData = new FormData(e.currentTarget)
+		const formData = new FormData(e.currentTarget);
 		for (const pair of formData.entries()) {
-			const value = pair[1] as string
+			const value = pair[1] as string;
 			if (!value.trim()) {
-				return setBlockSubmit(true)
+				return setBlockSubmit(true);
 			}
 		}
-		setBlockSubmit(false)
-	}
+		setBlockSubmit(false);
+	};
 	const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-		if (blockSubmit) return
-		setBlockSubmit(true)
-		seIsSubmitting(true)
-		const formData = new FormData(e.currentTarget)
-		buttonRef.current?.classList.add(styles['submitting'])
+		e.preventDefault();
+		if (blockSubmit) return;
+		setBlockSubmit(true);
+		seIsSubmitting(true);
+		const formData = new FormData(e.currentTarget);
+		buttonRef.current?.classList.add(styles['submitting']);
 		apiLogin(formData)
 			.then(() => {
-				return apiGetUser()
+				return apiGetUser();
 			})
 			.then((data) => {
-				user.setUser(data.user)
-				permissions.setItems(data.permissions)
-				navigate(prePage || '/')
+				user.setUser(data.user);
+				permissions.setItems(data.permissions);
+				navigate(prePage || '/');
 			})
 			.catch(() => {
-				setBlockSubmit(false)
-				seIsSubmitting(false)
+				setBlockSubmit(false);
+				seIsSubmitting(false);
 			}).finally(() => {
-				buttonRef.current?.classList.remove(styles['submitting'])
-			})
-	}
+				buttonRef.current?.classList.remove(styles['submitting']);
+			});
+	};
 	useEffect(() => {
-		if (language) document.title = language?.login
-		if (DOM.titleRef.current) DOM.titleRef.current.textContent = language?.login || ''
-	}, [DOM.titleRef, language])
+		if (language) document.title = language?.login;
+		if (DOM.titleRef.current) DOM.titleRef.current.textContent = language?.login || '';
+	}, [DOM.titleRef, language]);
 	return (
 		<main className={styles['login-page']}>
 			<form onSubmit={handleLogin} className={styles['form']} onInput={handlePreventSubmit}>
@@ -90,5 +90,5 @@ export default function Login() {
 				</div>
 			</form>
 		</main>
-	)
+	);
 }
