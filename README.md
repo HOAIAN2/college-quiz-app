@@ -77,6 +77,10 @@ Run `composer install` to continue development or just use this everytime.
 
 ## Demo
 
+### Dashboard UI
+
+![Demo](./img/Screenshot%202024-06-03%20075639.jpg)
+
 ### Students UI
 
 ![Demo](./img/Screenshot%202024-05-19%20092946.jpg)

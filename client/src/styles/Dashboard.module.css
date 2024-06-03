@@ -53,6 +53,7 @@
 .today-exams-item {
 	width: 100%;
 	min-height: 50px;
+	max-height: 50px;
 	border-radius: var(--border-radius-low);
 	border: 1px solid var(--color-shadow);
 	border-left: 5px solid var(--color-soft-magenta);
