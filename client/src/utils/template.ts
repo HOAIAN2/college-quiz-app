@@ -1,4 +1,4 @@
-import { API_HOST } from "../config/env";
+import { API_HOST } from '../config/env';
 
 type TemplateFileUrl = {
 	[key: string]: string;

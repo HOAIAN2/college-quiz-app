@@ -38,9 +38,12 @@ class SchoolClass extends Model
 		'name',
 	];
 
-	protected $casts = [
-		'faculty_id' => 'int'
-	];
+	protected function casts()
+	{
+		return [
+			'faculty_id' => 'int'
+		];
+	}
 
 	protected $fillable = [
 		'shortcode',

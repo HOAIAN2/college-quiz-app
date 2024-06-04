@@ -24,8 +24,8 @@ export default function Footer() {
 							appLanguage.setLanguage(e.currentTarget.value);
 							languageUtils.setLanguage(e.currentTarget.value);
 						}}>
-						<option value="en">English</option>
-						<option value="vi">Tiếng Việt</option>
+						<option value='en'>English</option>
+						<option value='vi'>Tiếng Việt</option>
 					</select>
 				</li>
 			</ul>

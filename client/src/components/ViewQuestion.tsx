@@ -181,7 +181,7 @@ export default function ViewQuestion({
 												/>
 											</div>
 											<div className={globalStyles['wrap-item']}>
-												<label className={globalStyles['required']} htmlFor="">{language?.level}</label>
+												<label className={globalStyles['required']}>{language?.level}</label>
 												<CustomSelect
 													name='level'
 													disabled={disabledUpdate}

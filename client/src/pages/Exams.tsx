@@ -80,7 +80,7 @@ export default function Exams() {
 				}
 				<section className={styles['filter-form']}>
 					<div className={styles['wrap-input-item']}>
-						<label htmlFor="month">{language?.month}</label>
+						<label htmlFor='month'>{language?.month}</label>
 						<Datetime
 							renderMonth={renderMonth}
 							locale={appLanguage.language}

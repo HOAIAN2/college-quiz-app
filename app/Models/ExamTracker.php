@@ -32,13 +32,16 @@ class ExamTracker extends Model
 {
 	protected $table = 'exam_trackers';
 
-	protected $casts = [
-		'user_id' => 'int',
-		'exam_id' => 'int',
-		'question_id' => 'int',
-		'answer_id' => 'int',
-		'is_correct' => 'bool'
-	];
+	protected function casts()
+	{
+		return [
+			'user_id' => 'int',
+			'exam_id' => 'int',
+			'question_id' => 'int',
+			'answer_id' => 'int',
+			'is_correct' => 'bool'
+		];
+	}
 
 	protected $fillable = [
 		'user_id',

@@ -41,9 +41,12 @@ class Faculty extends Model
 		'phone_number',
 	];
 
-	protected $casts = [
-		'leader_id' => 'int'
-	];
+	protected function casts()
+	{
+		return [
+			'leader_id' => 'int'
+		];
+	}
 
 	protected $fillable = [
 		'shortcode',

@@ -131,7 +131,7 @@ export default function ImportData({
 								id='file'
 								onChange={handleChangeFile}
 								accept='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'
-								type="file" name="file"
+								type='file' name='file'
 								hidden
 							/>
 						</label>

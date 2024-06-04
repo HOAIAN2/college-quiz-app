@@ -40,12 +40,16 @@ class Question extends Model
 	protected $searchable = [
 		'content',
 	];
-	protected $casts = [
-		'created_by' => 'int',
-		'last_updated_by' => 'int',
-		'subject_id' => 'int',
-		'chapter_id' => 'int'
-	];
+
+	protected function casts()
+	{
+		return [
+			'created_by' => 'int',
+			'last_updated_by' => 'int',
+			'subject_id' => 'int',
+			'chapter_id' => 'int'
+		];
+	}
 
 	protected $fillable = [
 		'created_by',

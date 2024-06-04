@@ -61,7 +61,7 @@ export default function CustomSelect({
 			}
 		>
 			<span>{current.label}</span>
-			<input type="text"
+			<input type='text'
 				name={name}
 				value={current.value}
 				disabled={disabled}

@@ -29,10 +29,13 @@ class Chapter extends Model
 {
 	protected $table = 'chapters';
 
-	protected $casts = [
-		'subject_id' => 'int',
-		'chapter_number' => 'int'
-	];
+	protected function casts()
+	{
+		return [
+			'subject_id' => 'int',
+			'chapter_number' => 'int'
+		];
+	}
 
 	protected $fillable = [
 		'subject_id',

@@ -27,10 +27,14 @@ class Enrollment extends Model
 {
 	protected $table = 'enrollments';
 
-	protected $casts = [
-		'course_id' => 'int',
-		'student_id' => 'int'
-	];
+	protected function casts()
+	{
+		return [
+			'course_id' => 'int',
+			'student_id' => 'int'
+		];
+	}
+
 
 	protected $fillable = [
 		'course_id',

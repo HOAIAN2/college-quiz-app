@@ -49,7 +49,9 @@ export default function YesNoPopUp({
 					hide ? styles['hide'] : ''
 				)
 			}>
-			{mutation.isPending ? <Loading /> : null}
+			{
+				mutation.isPending ? <Loading /> : null
+			}
 			<div
 				className={
 					css(
@@ -58,8 +60,8 @@ export default function YesNoPopUp({
 					)
 				}>
 				<div className={styles['header']}>
-					<h2></h2>
-					<div className={styles['esc-button']}
+					<div
+						className={styles['esc-button']}
 						onClick={handleClosePopUp}
 					>
 						<RxCross2 />
@@ -79,8 +81,9 @@ export default function YesNoPopUp({
 									appStyles['action-item-white-border-red-d'],
 									mutation.isPending ? styles['pending'] : ''
 								)
-							}
-						>{langNo}</button>
+							}>
+							{langNo}
+						</button>
 						<button
 							onClick={() => { mutation.mutate(); }}
 							className={
@@ -88,7 +91,8 @@ export default function YesNoPopUp({
 									appStyles['action-item-white-d'],
 									mutation.isPending ? styles['pending'] : ''
 								)
-							}>{langYes}
+							}>
+							{langYes}
 						</button>
 					</div>
 				</div>

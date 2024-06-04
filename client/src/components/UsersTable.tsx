@@ -100,7 +100,7 @@ export default function UsersTable({
 								{
 									permissions.has('user_delete') ?
 										<th className={css(styles['column-select'], styles['column'])}>
-											<input type="checkbox"
+											<input type='checkbox'
 												checked={checkAll}
 												onChange={handleSelectAll} />
 										</th>
@@ -135,7 +135,7 @@ export default function UsersTable({
 												{
 													permissions.has('user_delete') ?
 														<td className={css(styles['column'], styles['small'], styles['column-select'])}>
-															<input type="checkbox" />
+															<input type='checkbox' />
 														</td>
 														: null
 												}

@@ -93,7 +93,7 @@ export default function FacultiesTable({
 								{
 									permissions.has('faculty_delete') ?
 										<th className={css(styles['column-select'], styles['column'])}>
-											<input type="checkbox"
+											<input type='checkbox'
 												checked={checkAll}
 												onChange={handleSelectAll} />
 										</th>
@@ -129,7 +129,7 @@ export default function FacultiesTable({
 												{
 													permissions.has('faculty_delete') ?
 														<td className={css(styles['column'], styles['small'], styles['column-select'])}>
-															<input type="checkbox" />
+															<input type='checkbox' />
 														</td>
 														: null
 												}

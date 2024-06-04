@@ -69,12 +69,16 @@ class User extends Authenticatable
 		'school_class.shortcode',
 		'faculty.shortcode',
 	];
-	protected $casts = [
-		'role_id' => 'int',
-		'birth_date' => 'datetime:' . User::DATE_FORMAT,
-		'is_active' => 'bool',
-		'email_verified_at' => 'datetime:' . User::DATE_FORMAT
-	];
+
+	protected function casts()
+	{
+		return [
+			'role_id' => 'int',
+			'birth_date' => 'datetime:' . User::DATE_FORMAT,
+			'is_active' => 'bool',
+			'email_verified_at' => 'datetime:' . User::DATE_FORMAT
+		];
+	}
 
 	protected $hidden = [
 		'password',

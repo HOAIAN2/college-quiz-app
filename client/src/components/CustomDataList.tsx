@@ -69,7 +69,7 @@ export default function CustomDataList({
 					onInput && onInput(e);
 				}}
 			/>
-			<input type="text" hidden value={value} name={name} onInput={() => { }} />
+			<input type='text' hidden value={value} name={name} onInput={() => { }} />
 			{
 				options.length != 0
 					?

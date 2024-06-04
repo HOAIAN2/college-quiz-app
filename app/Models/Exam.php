@@ -37,13 +37,16 @@ class Exam extends Model
 
 	const DATE_FORMAT = 'Y-m-d\TH:i:sP';
 
-	protected $casts = [
-		'course_id' => 'int',
-		'exam_date' => 'datetime:' . Exam::DATE_FORMAT,
-		'exam_time' => 'int',
-		'started_at' => 'datetime:' . Exam::DATE_FORMAT,
-		'cancelled_at' => 'datetime:' . Exam::DATE_FORMAT,
-	];
+	protected function casts()
+	{
+		return [
+			'course_id' => 'int',
+			'exam_date' => 'datetime:' . Exam::DATE_FORMAT,
+			'exam_time' => 'int',
+			'started_at' => 'datetime:' . Exam::DATE_FORMAT,
+			'cancelled_at' => 'datetime:' . Exam::DATE_FORMAT,
+		];
+	}
 
 	protected $fillable = [
 		'course_id',

@@ -29,10 +29,13 @@ class QuestionOption extends Model
 {
 	protected $table = 'question_options';
 
-	protected $casts = [
-		'question_id' => 'int',
-		'is_correct' => 'bool'
-	];
+	protected function casts()
+	{
+		return [
+			'question_id' => 'int',
+			'is_correct' => 'bool'
+		];
+	}
 
 	protected $fillable = [
 		'question_id',

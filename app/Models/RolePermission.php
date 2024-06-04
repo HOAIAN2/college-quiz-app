@@ -27,10 +27,13 @@ class RolePermission extends Model
 	protected $table = 'role_permissions';
 	public $incrementing = false;
 
-	protected $casts = [
-		'role_id' => 'int',
-		'permission_id' => 'int'
-	];
+	protected function casts()
+	{
+		return [
+			'role_id' => 'int',
+			'permission_id' => 'int'
+		];
+	}
 
 	protected $fillable = [
 		'role_id',

@@ -42,11 +42,14 @@ class Course extends Model
 		'name',
 	];
 
-	protected $casts = [
-		'teacher_id' => 'int',
-		'subject_id' => 'int',
-		'semester_id' => 'int'
-	];
+	protected function casts()
+	{
+		return [
+			'teacher_id' => 'int',
+			'subject_id' => 'int',
+			'semester_id' => 'int'
+		];
+	}
 
 	protected $fillable = [
 		'teacher_id',

@@ -27,10 +27,13 @@ class ExamQuestion extends Model
 {
 	protected $table = 'exam_questions';
 
-	protected $casts = [
-		'exam_id' => 'int',
-		'question_id' => 'int'
-	];
+	protected function casts()
+	{
+		return [
+			'exam_id' => 'int',
+			'question_id' => 'int'
+		];
+	}
 
 	protected $fillable = [
 		'exam_id',

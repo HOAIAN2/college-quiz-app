@@ -37,10 +37,14 @@ class Semester extends Model
 		'start_date',
 		'end_date',
 	];
-	protected $casts = [
-		'start_date' => 'datetime:' . Semester::DATE_FORMAT,
-		'end_date' => 'datetime:' . Semester::DATE_FORMAT
-	];
+
+	protected function casts()
+	{
+		return [
+			'start_date' => 'datetime:' . Semester::DATE_FORMAT,
+			'end_date' => 'datetime:' . Semester::DATE_FORMAT
+		];
+	}
 
 	protected $fillable = [
 		'name',
