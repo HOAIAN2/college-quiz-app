@@ -5,6 +5,7 @@ import { MdDeleteOutline } from 'react-icons/md';
 import { RxCross2 } from 'react-icons/rx';
 import appStyles from '../App.module.css';
 import { apiDeleteChapter, apiUpdateChapter } from '../api/chapter';
+import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
 import { Chapter } from '../models/chapter';
@@ -30,12 +31,10 @@ export default function ViewChapter({
 	const language = useLanguage('component.view_chapter');
 	const { permissions } = useAppContext();
 	const handleClosePopUp = () => {
-		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast');
-		const timing = Number(transitionTiming.replace('s', '')) * 1000;
 		setHide(true);
 		setTimeout(() => {
 			setShowPopUp(false);
-		}, timing);
+		}, TRANSITION_TIMING_FAST);
 	};
 	const formUtils = createFormUtils(styles);
 	const disabledUpdate = !permissions.has('subject_update');

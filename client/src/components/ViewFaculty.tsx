@@ -6,6 +6,7 @@ import appStyles from '../App.module.css';
 import { apiGetFacultyById, apiUpdateFaculty } from '../api/faculty';
 import { apiAutoCompleteUser } from '../api/user';
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
+import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
 import { queryKeys } from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useDebounce from '../hooks/useDebounce';
@@ -36,12 +37,10 @@ export default function ViewFaculty({
 	const queryClient = useQueryClient();
 	const disabledUpdate = !permissions.has('faculty_update');
 	const handleClosePopUp = () => {
-		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast');
-		const timing = Number(transitionTiming.replace('s', '')) * 1000;
 		setHide(true);
 		setTimeout(() => {
 			setShowPopUp(false);
-		}, timing);
+		}, TRANSITION_TIMING_FAST);
 	};
 	const formUtils = createFormUtils(styles);
 	const queryData = useQuery({

@@ -8,6 +8,7 @@ import { RxCross2 } from 'react-icons/rx';
 import { toast } from 'sonner';
 import appStyles from '../App.module.css';
 import { apiCreateQuestion } from '../api/question';
+import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
 import useLanguage from '../hooks/useLanguage';
 import { SubjectDetail } from '../models/subject';
 import styles from '../styles/CreateQuestion.module.css';
@@ -41,12 +42,10 @@ export default function CreateQuestion({
 	const [trueOptionKey, setTrueOptionKey] = useState<string>();
 	const language = useLanguage('component.create_question');
 	const handleClosePopUp = () => {
-		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast');
-		const timing = Number(transitionTiming.replace('s', '')) * 1000;
 		setHide(true);
 		setTimeout(() => {
 			setShowPopUp(false);
-		}, timing);
+		}, TRANSITION_TIMING_FAST);
 	};
 	const formUtils = createFormUtils(globalStyles);
 	const handleCreateQuestion = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {

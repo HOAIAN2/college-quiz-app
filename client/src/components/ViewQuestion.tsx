@@ -8,6 +8,7 @@ import { RxCross2 } from 'react-icons/rx';
 import { toast } from 'sonner';
 import appStyles from '../App.module.css';
 import { apiDeleteQuestion, apiGetQuestionById, apiUpdateQuestion } from '../api/question';
+import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
 import { queryKeys } from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
@@ -47,12 +48,10 @@ export default function ViewQuestion({
 	const language = useLanguage('component.view_question');
 	const queryClient = useQueryClient();
 	const handleClosePopUp = () => {
-		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast');
-		const timing = Number(transitionTiming.replace('s', '')) * 1000;
 		setHide(true);
 		setTimeout(() => {
 			setShowPopUp(false);
-		}, timing);
+		}, TRANSITION_TIMING_FAST);
 	};
 	const formUtils = createFormUtils(globalStyles);
 	const disabledUpdate = !permissions.has('question_update');

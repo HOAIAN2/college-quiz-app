@@ -8,6 +8,7 @@ import { apiAutoCompleteFaculty } from '../api/faculty';
 import { apiAutoCompleteSchoolClass } from '../api/school-class';
 import { apiGetUserById, apiUpdateUser } from '../api/user';
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
+import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
 import { queryKeys } from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useDebounce from '../hooks/useDebounce';
@@ -40,12 +41,10 @@ export default function ViewUser({
 	const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE);
 	const queryClient = useQueryClient();
 	const handleClosePopUp = () => {
-		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast');
-		const timing = Number(transitionTiming.replace('s', '')) * 1000;
 		setHide(true);
 		setTimeout(() => {
 			setShowPopUp(false);
-		}, timing);
+		}, TRANSITION_TIMING_FAST);
 	};
 	const formUtils = createFormUtils(styles);
 	const disabledUpdate = !permissions.has('user_update');

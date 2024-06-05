@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import appStyles from '../App.module.css';
 import { apiExportUsers, apiGetUserExportableFields } from '../api/user';
+import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
 import { queryKeys } from '../constants/query-keys';
 import useLanguage from '../hooks/useLanguage';
 import { RoleName } from '../models/role';
@@ -23,12 +24,10 @@ export default function ExportUsers({
 	const language = useLanguage('component.export_users');
 	const [hide, setHide] = useState(true);
 	const handleClosePopUp = () => {
-		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast');
-		const timing = Number(transitionTiming.replace('s', '')) * 1000;
 		setHide(true);
 		setTimeout(() => {
 			setExportMode(false);
-		}, timing);
+		}, TRANSITION_TIMING_FAST);
 	};
 	const queryData = useQuery({
 		queryKey: [queryKeys.USER_EXPORTABLE_FIELDS],

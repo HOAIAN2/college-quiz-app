@@ -3,6 +3,7 @@ import { RxCross2 } from 'react-icons/rx';
 import { useNavigate } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiChangePassword } from '../api/auth';
+import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/ChangePassword.module.css';
 import css from '../utils/css';
@@ -20,12 +21,10 @@ export default function ChangePassword({
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	const navigate = useNavigate();
 	const handleClosePopUp = () => {
-		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast');
-		const timing = Number(transitionTiming.replace('s', '')) * 1000;
 		setHide(true);
 		setTimeout(() => {
 			setShowPopup(false);
-		}, timing);
+		}, TRANSITION_TIMING_FAST);
 	};
 	const handlePreventSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		const formData = new FormData(e.currentTarget);
