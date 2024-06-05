@@ -10,7 +10,7 @@ import ExamQuestion from '../components/ExamQuestion';
 import Loading from '../components/Loading';
 import ScorePopUp from '../components/ScorePopUp';
 import YesNoPopUp from '../components/YesNoPopUp';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useForceUpdate from '../hooks/useForceUpdate';
 import useLanguage from '../hooks/useLanguage';
 import { ExamResult } from '../models/exam';
@@ -49,7 +49,7 @@ export default function TakeExam() {
 		localStorage.removeItem(localStorageKey);
 	};
 	const queryData = useQuery({
-		queryKey: [queryKeys.EXAM_QUESTIONS, { examId: id }],
+		queryKey: [QUERY_KEYS.EXAM_QUESTIONS, { examId: id }],
 		queryFn: () => apiGetExamQuestions(String(id)),
 		enabled: examResult === undefined,
 		staleTime: Infinity
@@ -101,8 +101,8 @@ export default function TakeExam() {
 	useEffect(() => {
 		if (!queryData.data) return;
 		return () => {
-			queryClient.refetchQueries({ queryKey: [queryKeys.EXAM, { id: id }] });
-			queryClient.removeQueries({ queryKey: [queryKeys.EXAM_QUESTIONS, { examId: id }] });
+			queryClient.refetchQueries({ queryKey: [QUERY_KEYS.EXAM, { id: id }] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.EXAM_QUESTIONS, { examId: id }] });
 		};
 	}, [id, queryClient, queryData.data]);
 	return (

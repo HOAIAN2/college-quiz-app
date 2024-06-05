@@ -7,7 +7,7 @@ import appStyles from '../App.module.css';
 import { apiGetSubjects } from '../api/subject';
 import CreateSubject from '../components/CreateSubject';
 import Loading from '../components/Loading';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useDebounce from '../hooks/useDebounce';
 import useLanguage from '../hooks/useLanguage';
@@ -23,7 +23,7 @@ export default function Subjects() {
 	const [showCreatePopUp, setShowCreatePopUp] = useState(false);
 	const queryClient = useQueryClient();
 	const queryData = useQuery({
-		queryKey: [queryKeys.PAGE_SUBJECTS, { search: queryDebounce }],
+		queryKey: [QUERY_KEYS.PAGE_SUBJECTS, { search: queryDebounce }],
 		queryFn: () => apiGetSubjects(queryDebounce)
 	});
 	useEffect(() => {
@@ -33,7 +33,7 @@ export default function Subjects() {
 		setSearchParams(searchParams);
 	}, [queryDebounce, searchParams, setSearchParams]);
 	const onMutateSuccess = () => {
-		[queryKeys.PAGE_SUBJECTS].forEach(key => {
+		[QUERY_KEYS.PAGE_SUBJECTS].forEach(key => {
 			queryClient.refetchQueries({ queryKey: [key] });
 		});
 	};

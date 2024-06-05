@@ -8,7 +8,7 @@ import { apiUpdateCourseStudents } from '../api/course';
 import { apiGetAllUser } from '../api/user';
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
 import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useDebounce from '../hooks/useDebounce';
 import useLanguage from '../hooks/useLanguage';
 import { CourseDetail } from '../models/course';
@@ -44,7 +44,7 @@ export default function UpdateCourseStudents({
 		await apiUpdateCourseStudents(studentIds, courseDetail.id);
 	};
 	const userQueryData = useQuery({
-		queryKey: [queryKeys.ALL_STUDENT, { search: debounceQueryUser }],
+		queryKey: [QUERY_KEYS.ALL_STUDENT, { search: debounceQueryUser }],
 		queryFn: () => apiGetAllUser('student', debounceQueryUser),
 	});
 	const { mutate, isPending } = useMutation({

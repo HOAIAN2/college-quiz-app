@@ -7,7 +7,7 @@ import appStyles from '../App.module.css';
 import { apiDeleteSemester, apiGetSemesterById, apiUpdateSemester } from '../api/semester';
 import Loading from '../components/Loading';
 import YesNoPopUp from '../components/YesNoPopUp';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/Semester.module.css';
@@ -24,7 +24,7 @@ export default function Semester() {
 	const formUtils = createFormUtils(styles);
 	const disabledUpdate = !permissions.has('semester_update');
 	const queryData = useQuery({
-		queryKey: [queryKeys.PAGE_SEMESTER, { id: id }],
+		queryKey: [QUERY_KEYS.PAGE_SEMESTER, { id: id }],
 		queryFn: () => apiGetSemesterById(String(id))
 	});
 	const handleUpdateSemester = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
@@ -46,14 +46,14 @@ export default function Semester() {
 		await apiDeleteSemester(String(id));
 	};
 	const onMutateSuccess = () => {
-		[queryKeys.PAGE_SEMESTERS].forEach(key => {
+		[QUERY_KEYS.PAGE_SEMESTERS].forEach(key => {
 			queryClient.refetchQueries({ queryKey: [key] });
 		});
 		navigate('/semesters');
 	};
 	useEffect(() => {
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.PAGE_SEMESTER, { id: id }] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.PAGE_SEMESTER, { id: id }] });
 		};
 	}, [id, queryClient]);
 	return (

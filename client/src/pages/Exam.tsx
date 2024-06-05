@@ -8,7 +8,7 @@ import appStyles from '../App.module.css';
 import { apiGetExamById, apiUpdateExamStatus } from '../api/exam';
 import Loading from '../components/Loading';
 import YesNoPopUp from '../components/YesNoPopUp';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/Exam.module.css';
@@ -29,7 +29,7 @@ export default function Exam() {
 		await apiUpdateExamStatus('cancel', String(id));
 	};
 	const queryData = useQuery({
-		queryKey: [queryKeys.EXAM, { id: id }],
+		queryKey: [QUERY_KEYS.EXAM, { id: id }],
 		queryFn: () => apiGetExamById(String(id)),
 		refetchOnWindowFocus: false
 	});

@@ -9,7 +9,7 @@ import { toast } from 'sonner';
 import appStyles from '../App.module.css';
 import { apiDeleteQuestion, apiGetQuestionById, apiUpdateQuestion } from '../api/question';
 import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
 import { SubjectDetail } from '../models/subject';
@@ -56,7 +56,7 @@ export default function ViewQuestion({
 	const formUtils = createFormUtils(globalStyles);
 	const disabledUpdate = !permissions.has('question_update');
 	const queryData = useQuery({
-		queryKey: [queryKeys.QUESTION_DETAIL, { id: id }],
+		queryKey: [QUERY_KEYS.QUESTION_DETAIL, { id: id }],
 		queryFn: () => apiGetQuestionById(id)
 	});
 	const handleUpdateQuestion = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
@@ -80,7 +80,7 @@ export default function ViewQuestion({
 	useEffect(() => {
 		setHide(false);
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.QUESTION_DETAIL, { id: id }] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.QUESTION_DETAIL, { id: id }] });
 		};
 	}, [id, queryClient]);
 	useEffect(() => {

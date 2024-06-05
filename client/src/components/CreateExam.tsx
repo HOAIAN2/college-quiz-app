@@ -10,7 +10,7 @@ import { apiGetSubjectById } from '../api/subject';
 import { apiGetAllUser } from '../api/user';
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
 import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useDebounce from '../hooks/useDebounce';
 import useLanguage from '../hooks/useLanguage';
 import { CourseDetail } from '../models/course';
@@ -47,11 +47,11 @@ export default function CreateExam({
 	};
 	const formUtils = createFormUtils(styles);
 	const queryData = useQuery({
-		queryKey: [queryKeys.PAGE_SUBJECT, { id: courseDetail.subjectId }],
+		queryKey: [QUERY_KEYS.PAGE_SUBJECT, { id: courseDetail.subjectId }],
 		queryFn: () => apiGetSubjectById(courseDetail.subjectId)
 	});
 	const userQueryData = useQuery({
-		queryKey: [queryKeys.ALL_TEACHER, { search: debounceQueryUser }],
+		queryKey: [QUERY_KEYS.ALL_TEACHER, { search: debounceQueryUser }],
 		queryFn: () => apiGetAllUser('teacher', debounceQueryUser),
 	});
 	const handleCreateExam = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -76,7 +76,7 @@ export default function CreateExam({
 	useEffect(() => {
 		setHide(false);
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.ALL_TEACHER] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.ALL_TEACHER] });
 		};
 	}, [queryClient]);
 	return (

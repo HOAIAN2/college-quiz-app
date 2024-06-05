@@ -9,7 +9,7 @@ import { apiDeleteExam, apiGetExamById, apiUpdateExam } from '../api/exam';
 import { apiGetAllUser } from '../api/user';
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
 import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useDebounce from '../hooks/useDebounce';
 import useLanguage from '../hooks/useLanguage';
@@ -49,11 +49,11 @@ export default function ViewExam({
 	const disabledUpdate = !permissions.has('exam_update');
 	const formUtils = createFormUtils(styles);
 	const queryData = useQuery({
-		queryKey: [queryKeys.EXAM, { id: id }],
+		queryKey: [QUERY_KEYS.EXAM, { id: id }],
 		queryFn: () => apiGetExamById(id),
 	});
 	const userQueryData = useQuery({
-		queryKey: [queryKeys.ALL_TEACHER, { search: debounceQueryUser }],
+		queryKey: [QUERY_KEYS.ALL_TEACHER, { search: debounceQueryUser }],
 		queryFn: () => apiGetAllUser('teacher', debounceQueryUser),
 		enabled: permissions.has('user_view') ? true : false
 	});
@@ -93,8 +93,8 @@ export default function ViewExam({
 	useEffect(() => {
 		setHide(false);
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.EXAM, { id: id }] });
-			queryClient.removeQueries({ queryKey: [queryKeys.ALL_TEACHER] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.EXAM, { id: id }] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.ALL_TEACHER] });
 		};
 	}, [id, queryClient]);
 	return (

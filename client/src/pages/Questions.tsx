@@ -10,7 +10,7 @@ import CreateQuestion from '../components/CreateQuestion';
 import CustomSelect from '../components/CustomSelect';
 import Loading from '../components/Loading';
 import ViewQuestion from '../components/ViewQuestion';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useDebounce from '../hooks/useDebounce';
 import useLanguage from '../hooks/useLanguage';
@@ -32,7 +32,7 @@ export default function Questions() {
 	const language = useLanguage('page.questions');
 	const queryData = useQuery({
 		queryKey: [
-			queryKeys.PAGE_QUESTIONS,
+			QUERY_KEYS.PAGE_QUESTIONS,
 			{
 				chapter: searchParams.get('chapter') || '10',
 				search: queryDebounce

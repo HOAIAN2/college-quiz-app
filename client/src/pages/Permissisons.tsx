@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiGetRolePermissionCount } from '../api/role-permission';
 import Loading from '../components/Loading';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/Permissions.module.css';
 import css from '../utils/css';
@@ -12,7 +12,7 @@ import css from '../utils/css';
 export default function Permissisons() {
 	const language = useLanguage('page.permissions');
 	const queryData = useQuery({
-		queryKey: [queryKeys.PAGE_PERMISSIONS],
+		queryKey: [QUERY_KEYS.PAGE_PERMISSIONS],
 		queryFn: apiGetRolePermissionCount
 	});
 	return (

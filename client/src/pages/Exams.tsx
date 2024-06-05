@@ -6,7 +6,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiGetExamsByMonth } from '../api/exam';
 import Loading from '../components/Loading';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useForceUpdate from '../hooks/useForceUpdate';
 import useLanguage from '../hooks/useLanguage';
@@ -58,7 +58,7 @@ export default function Exams() {
 		return examDate.toLocaleString(appLanguage.language);
 	};
 	const queryData = useQuery({
-		queryKey: [queryKeys.PAGE_EXAMS, {
+		queryKey: [QUERY_KEYS.PAGE_EXAMS, {
 			month: searchParams.get('month') || '',
 			year: searchParams.get('year') || ''
 		}],

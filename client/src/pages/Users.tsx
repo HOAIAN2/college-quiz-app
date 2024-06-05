@@ -19,7 +19,7 @@ import ImportData from '../components/ImportData';
 import Loading from '../components/Loading';
 import UsersTable from '../components/UsersTable';
 import YesNoPopUp from '../components/YesNoPopUp';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useDebounce from '../hooks/useDebounce';
 import useLanguage from '../hooks/useLanguage';
@@ -47,7 +47,7 @@ export default function Users({
 	const queryClient = useQueryClient();
 	const queryData = useQuery({
 		queryKey: [
-			queryKeys.PAGE_USERS,
+			QUERY_KEYS.PAGE_USERS,
 			{
 				role: role,
 				page: searchParams.get('page') || '1',
@@ -69,7 +69,7 @@ export default function Users({
 		await apiDeleteUserByIds(Array.from(selectedUserIds));
 	};
 	const onMutateSuccess = () => {
-		[queryKeys.PAGE_USERS, queryKeys.PAGE_DASHBOARD].forEach(key => {
+		[QUERY_KEYS.PAGE_USERS, QUERY_KEYS.PAGE_DASHBOARD].forEach(key => {
 			queryClient.refetchQueries({ queryKey: [key] });
 		});
 	};

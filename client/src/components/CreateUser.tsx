@@ -11,7 +11,7 @@ import { apiAutoCompleteSchoolClass } from '../api/school-class';
 import { apiCreateUser } from '../api/user';
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
 import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useDebounce from '../hooks/useDebounce';
 import useLanguage from '../hooks/useLanguage';
 import { RoleName } from '../models/role';
@@ -48,12 +48,12 @@ export default function CreateUser({
 	};
 	const formUtils = createFormUtils(styles);
 	const classQueryData = useQuery({
-		queryKey: [queryKeys.AUTO_COMPLETE_SCHOOL_CLASS, { search: debounceQueryClass }],
+		queryKey: [QUERY_KEYS.AUTO_COMPLETE_SCHOOL_CLASS, { search: debounceQueryClass }],
 		queryFn: () => apiAutoCompleteSchoolClass(debounceQueryClass),
 		enabled: debounceQueryClass ? true : false
 	});
 	const facultyQueryData = useQuery({
-		queryKey: [queryKeys.AUTO_COMPLETE_FACULTY, { search: debounceQueryFaculty }],
+		queryKey: [QUERY_KEYS.AUTO_COMPLETE_FACULTY, { search: debounceQueryFaculty }],
 		queryFn: () => apiAutoCompleteFaculty(debounceQueryFaculty),
 		enabled: debounceQueryFaculty ? true : false
 	});
@@ -83,8 +83,8 @@ export default function CreateUser({
 	useEffect(() => {
 		setHide(false);
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_FACULTY] });
-			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_SCHOOL_CLASS] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.AUTO_COMPLETE_FACULTY] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.AUTO_COMPLETE_SCHOOL_CLASS] });
 		};
 	}, [queryClient]);
 	return (

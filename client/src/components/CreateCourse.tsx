@@ -8,7 +8,7 @@ import { apiAutoCompleteSubject } from '../api/subject';
 import { apiAutoCompleteUser } from '../api/user';
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
 import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useDebounce from '../hooks/useDebounce';
 import useLanguage from '../hooks/useLanguage';
 import { Option } from '../models/option';
@@ -48,12 +48,12 @@ export default function CreateCourse({
 	};
 	const formUtils = createFormUtils(styles);
 	const userQueryData = useQuery({
-		queryKey: [queryKeys.AUTO_COMPLETE_SUBJECT, { search: debounceQueryUser }],
+		queryKey: [QUERY_KEYS.AUTO_COMPLETE_SUBJECT, { search: debounceQueryUser }],
 		queryFn: () => apiAutoCompleteUser('teacher', debounceQueryUser),
 		enabled: debounceQueryUser ? true : false
 	});
 	const subjectQueryData = useQuery({
-		queryKey: [queryKeys.AUTO_COMPLETE_SUBJECT, { search: debounceQuerySubject }],
+		queryKey: [QUERY_KEYS.AUTO_COMPLETE_SUBJECT, { search: debounceQuerySubject }],
 		queryFn: () => apiAutoCompleteSubject(debounceQuerySubject),
 		enabled: debounceQuerySubject ? true : false
 	});
@@ -91,7 +91,7 @@ export default function CreateCourse({
 	useEffect(() => {
 		setHide(false);
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_USER] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.AUTO_COMPLETE_USER] });
 		};
 	}, [queryClient]);
 	return (

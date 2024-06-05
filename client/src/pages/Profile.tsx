@@ -9,7 +9,7 @@ import ChangePassword from '../components/ChangePassword';
 import CustomSelect from '../components/CustomSelect';
 import Loading from '../components/Loading';
 import SuspenseLoading from '../components/SuspenseLoading';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/Profile.module.css';
@@ -26,7 +26,7 @@ export default function Profile() {
 	const formUtils = createFormUtils(styles);
 	const disabledUpdate = !permissions.has('user_update');
 	const queryData = useQuery({
-		queryKey: [queryKeys.PAGE_PROFILE],
+		queryKey: [QUERY_KEYS.PAGE_PROFILE],
 		queryFn: apiGetUser,
 	});
 	const handleUpdateUser = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
@@ -57,7 +57,7 @@ export default function Profile() {
 	];
 	useEffect(() => {
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.PAGE_PROFILE] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.PAGE_PROFILE] });
 		};
 	}, [queryClient]);
 	if (!queryData.data) return <SuspenseLoading />;

@@ -8,7 +8,7 @@ import { apiGetCourses } from '../api/course';
 import { apiGetSemesterById } from '../api/semester';
 import CreateCourse from '../components/CreateCourse';
 import Loading from '../components/Loading';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useDebounce from '../hooks/useDebounce';
 import useLanguage from '../hooks/useLanguage';
@@ -28,7 +28,7 @@ export default function Courses() {
 	const language = useLanguage('page.courses');
 	const queryClient = useQueryClient();
 	const queryData = useQuery({
-		queryKey: [queryKeys.PAGE_COURSES, {
+		queryKey: [QUERY_KEYS.PAGE_COURSES, {
 			search: queryDebounce,
 			semesterId: Number(id)
 		}],
@@ -44,7 +44,7 @@ export default function Courses() {
 			});
 	}, [id]);
 	const onMutateSuccess = () => {
-		[queryKeys.PAGE_COURSES, queryKeys.PAGE_DASHBOARD].forEach(key => {
+		[QUERY_KEYS.PAGE_COURSES, QUERY_KEYS.PAGE_DASHBOARD].forEach(key => {
 			queryClient.refetchQueries({ queryKey: [key] });
 		});
 	};

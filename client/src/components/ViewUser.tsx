@@ -9,7 +9,7 @@ import { apiAutoCompleteSchoolClass } from '../api/school-class';
 import { apiGetUserById, apiUpdateUser } from '../api/user';
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
 import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useDebounce from '../hooks/useDebounce';
 import useLanguage from '../hooks/useLanguage';
@@ -49,16 +49,16 @@ export default function ViewUser({
 	const formUtils = createFormUtils(styles);
 	const disabledUpdate = !permissions.has('user_update');
 	const queryData = useQuery({
-		queryKey: [queryKeys.USER_DETAIL, { id: id }],
+		queryKey: [QUERY_KEYS.USER_DETAIL, { id: id }],
 		queryFn: () => apiGetUserById(id)
 	});
 	const classQueryData = useQuery({
-		queryKey: [queryKeys.AUTO_COMPLETE_SCHOOL_CLASS, { search: debouceQueryClass }],
+		queryKey: [QUERY_KEYS.AUTO_COMPLETE_SCHOOL_CLASS, { search: debouceQueryClass }],
 		queryFn: () => apiAutoCompleteSchoolClass(debouceQueryClass),
 		enabled: debouceQueryClass && permissions.has('school_class_view') ? true : false
 	});
 	const facultyQueryData = useQuery({
-		queryKey: [queryKeys.AUTO_COMPLETE_FACULTY, { search: debounceQueryFaculty }],
+		queryKey: [QUERY_KEYS.AUTO_COMPLETE_FACULTY, { search: debounceQueryFaculty }],
 		queryFn: () => apiAutoCompleteFaculty(debounceQueryFaculty),
 		enabled: debounceQueryFaculty && permissions.has('faculty_view') ? true : false
 	});
@@ -88,9 +88,9 @@ export default function ViewUser({
 	useEffect(() => {
 		setHide(false);
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.USER_DETAIL, { id: id }] });
-			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_FACULTY] });
-			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_SCHOOL_CLASS] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.USER_DETAIL, { id: id }] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.AUTO_COMPLETE_FACULTY] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.AUTO_COMPLETE_SCHOOL_CLASS] });
 		};
 	}, [queryClient, id]);
 	return (

@@ -7,7 +7,7 @@ import appStyles from '../App.module.css';
 import { apiGetSemesters } from '../api/semester';
 import CreateSemester from '../components/CreateSemester';
 import Loading from '../components/Loading';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useDebounce from '../hooks/useDebounce';
 import useLanguage from '../hooks/useLanguage';
@@ -23,7 +23,7 @@ export default function Semesters() {
 	const [showCreatePopUp, setShowCreatePopUp] = useState(false);
 	const queryClient = useQueryClient();
 	const queryData = useQuery({
-		queryKey: [queryKeys.PAGE_SEMESTERS, { search: queryDebounce }],
+		queryKey: [QUERY_KEYS.PAGE_SEMESTERS, { search: queryDebounce }],
 		queryFn: () => apiGetSemesters(queryDebounce)
 	});
 	useEffect(() => {
@@ -33,7 +33,7 @@ export default function Semesters() {
 		setSearchParams(searchParams);
 	}, [queryDebounce, searchParams, setSearchParams]);
 	const onMutateSuccess = () => {
-		[queryKeys.PAGE_SEMESTERS].forEach(key => {
+		[QUERY_KEYS.PAGE_SEMESTERS].forEach(key => {
 			queryClient.refetchQueries({ queryKey: [key] });
 		});
 	};

@@ -7,7 +7,7 @@ import { apiAutoCompleteFaculty } from '../api/faculty';
 import { apiCreateSchoolClass } from '../api/school-class';
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
 import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useDebounce from '../hooks/useDebounce';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/global/CreateModel.module.css';
@@ -37,7 +37,7 @@ export default function CreateSchoolClass({
 	};
 	const formUtils = createFormUtils(styles);
 	const facultyQueryData = useQuery({
-		queryKey: [queryKeys.AUTO_COMPLETE_FACULTY, { search: debounceQueryFaculty }],
+		queryKey: [QUERY_KEYS.AUTO_COMPLETE_FACULTY, { search: debounceQueryFaculty }],
 		queryFn: () => apiAutoCompleteFaculty(debounceQueryFaculty),
 		enabled: debounceQueryFaculty ? true : false
 	});
@@ -62,7 +62,7 @@ export default function CreateSchoolClass({
 	useEffect(() => {
 		setHide(false);
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_FACULTY] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.AUTO_COMPLETE_FACULTY] });
 		};
 	}, [queryClient]);
 	return (

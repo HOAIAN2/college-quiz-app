@@ -1,4 +1,4 @@
-export const queryKeys = Object.freeze({
+const QUERY_KEYS = Object.freeze({
 	USER_EXPORTABLE_FIELDS: 'USER_EXPORTABLE_FIELDS',
 	PAGE_DASHBOARD: 'PAGE_DASHBOARD',
 	PAGE_PROFILE: 'PAGE_PROFILE',
@@ -30,3 +30,5 @@ export const queryKeys = Object.freeze({
 	EXAM: 'EXAM',
 	EXAM_QUESTIONS: 'EXAM_QUESTIONS'
 });
+
+export default QUERY_KEYS;

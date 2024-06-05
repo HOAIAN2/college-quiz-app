@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiGetRolePermissions, apiUpdateRolePermissions } from '../api/role-permission';
 import Loading from '../components/Loading';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/RolePermissions.module.css';
@@ -17,7 +17,7 @@ export default function RolePermissions() {
 	const { id } = useParams();
 	const disabledUpdate = !permissions.has('role_permission_grant');
 	const queryData = useQuery({
-		queryKey: [queryKeys.PAGE_ROLE_PERMISSIONS, { id: id }],
+		queryKey: [QUERY_KEYS.PAGE_ROLE_PERMISSIONS, { id: id }],
 		queryFn: () => apiGetRolePermissions(Number(id))
 	});
 	const handleUpdatePermission = async (e: React.FormEvent<HTMLFormElement>) => {

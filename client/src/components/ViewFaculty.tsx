@@ -7,7 +7,7 @@ import { apiGetFacultyById, apiUpdateFaculty } from '../api/faculty';
 import { apiAutoCompleteUser } from '../api/user';
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
 import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useDebounce from '../hooks/useDebounce';
 import useLanguage from '../hooks/useLanguage';
@@ -44,11 +44,11 @@ export default function ViewFaculty({
 	};
 	const formUtils = createFormUtils(styles);
 	const queryData = useQuery({
-		queryKey: [queryKeys.FACULTY_DETAIL, { id: id }],
+		queryKey: [QUERY_KEYS.FACULTY_DETAIL, { id: id }],
 		queryFn: () => apiGetFacultyById(id)
 	});
 	const userQueryData = useQuery({
-		queryKey: [queryKeys.AUTO_COMPLETE_USER, { search: debounceQueryUser }],
+		queryKey: [QUERY_KEYS.AUTO_COMPLETE_USER, { search: debounceQueryUser }],
 		queryFn: () => apiAutoCompleteUser('teacher', debounceQueryUser),
 		enabled: debounceQueryUser && permissions.has('user_view') ? true : false
 	});
@@ -70,8 +70,8 @@ export default function ViewFaculty({
 	useEffect(() => {
 		setHide(false);
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.FACULTY_DETAIL, { id: id }] });
-			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_USER] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.FACULTY_DETAIL, { id: id }] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.AUTO_COMPLETE_USER] });
 		};
 	}, [id, queryClient]);
 	return (

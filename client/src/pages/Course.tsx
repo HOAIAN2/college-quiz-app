@@ -15,7 +15,7 @@ import UpdateCourseStudents from '../components/UpdateCourseStudents';
 import ViewExam from '../components/ViewExam';
 import YesNoPopUp from '../components/YesNoPopUp';
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useDebounce from '../hooks/useDebounce';
 import useLanguage from '../hooks/useLanguage';
@@ -40,11 +40,11 @@ export default function Course() {
 	const formUtils = createFormUtils(styles);
 	const disabledUpdate = !permissions.has('course_update');
 	const queryData = useQuery({
-		queryKey: [queryKeys.PAGE_COURSE, { id: courseId }],
+		queryKey: [QUERY_KEYS.PAGE_COURSE, { id: courseId }],
 		queryFn: () => apiGetCourseById(String(courseId))
 	});
 	const userQueryData = useQuery({
-		queryKey: [queryKeys.AUTO_COMPLETE_SUBJECT, { search: debounceQueryUser }],
+		queryKey: [QUERY_KEYS.AUTO_COMPLETE_SUBJECT, { search: debounceQueryUser }],
 		queryFn: () => apiAutoCompleteUser('teacher', debounceQueryUser),
 		enabled: debounceQueryUser ? true : false
 	});
@@ -68,14 +68,14 @@ export default function Course() {
 		await apiDeleteCourse(String(courseId));
 	};
 	const onDeleteCourseSuccess = () => {
-		[queryKeys.PAGE_COURSES, queryKeys.PAGE_DASHBOARD].forEach(key => {
+		[QUERY_KEYS.PAGE_COURSES, QUERY_KEYS.PAGE_DASHBOARD].forEach(key => {
 			queryClient.refetchQueries({ queryKey: [key] });
 		});
 		navigate('/semesters');
 	};
 	useEffect(() => {
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.PAGE_COURSE, { id: courseId }] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.PAGE_COURSE, { id: courseId }] });
 		};
 	}, [courseId, queryClient]);
 	useEffect(() => {

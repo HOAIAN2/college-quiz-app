@@ -11,7 +11,7 @@ import { apiGetDashboard } from '../api/dashboard';
 import DashboardCard from '../components/DashboardCard';
 import ExamsEachMonthChart from '../components/ExamsEachMonthChart';
 import Loading from '../components/Loading';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/Dashboard.module.css';
@@ -21,7 +21,7 @@ export default function Dashboard() {
 	const { permissions, appLanguage } = useAppContext();
 	const language = useLanguage('page.dashboard');
 	const queryData = useQuery({
-		queryKey: [queryKeys.PAGE_DASHBOARD],
+		queryKey: [QUERY_KEYS.PAGE_DASHBOARD],
 		queryFn: apiGetDashboard
 	});
 	const formatNumber = (number: number) => {

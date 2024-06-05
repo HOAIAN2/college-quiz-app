@@ -10,7 +10,7 @@ import CustomSelect from '../components/CustomSelect';
 import FacultiesTable from '../components/FacultiesTable';
 import Loading from '../components/Loading';
 import YesNoPopUp from '../components/YesNoPopUp';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useDebounce from '../hooks/useDebounce';
 import useLanguage from '../hooks/useLanguage';
@@ -29,7 +29,7 @@ export default function Faculties() {
 	const [selectedFacultyIds, setSelectedFacultyIds] = useState<Set<string | number>>(new Set());
 	const queryData = useQuery({
 		queryKey: [
-			queryKeys.PAGE_FACULTIES,
+			QUERY_KEYS.PAGE_FACULTIES,
 			{
 				page: searchParams.get('page') || '1',
 				perPage: searchParams.get('per_page') || '10',
@@ -46,7 +46,7 @@ export default function Faculties() {
 		await apiDeleteFacultiesByIds(Array.from(selectedFacultyIds));
 	};
 	const onMutateSuccess = () => {
-		[queryKeys.PAGE_FACULTIES].forEach(key => {
+		[QUERY_KEYS.PAGE_FACULTIES].forEach(key => {
 			queryClient.refetchQueries({ queryKey: [key] });
 		});
 	};

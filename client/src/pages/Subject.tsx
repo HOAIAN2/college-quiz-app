@@ -9,7 +9,7 @@ import CreateChapter from '../components/CreateChapter';
 import Loading from '../components/Loading';
 import ViewChapter from '../components/ViewChapter';
 import YesNoPopUp from '../components/YesNoPopUp';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
 import { Chapter } from '../models/chapter';
@@ -29,7 +29,7 @@ export default function Subject() {
 	const navigate = useNavigate();
 	const formUtils = createFormUtils(styles);
 	const queryData = useQuery({
-		queryKey: [queryKeys.PAGE_SUBJECT, { id: id }],
+		queryKey: [QUERY_KEYS.PAGE_SUBJECT, { id: id }],
 		queryFn: () => apiGetSubjectById(String(id))
 	});
 	const handleUpdateSubject = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
@@ -53,7 +53,7 @@ export default function Subject() {
 		await apiDeleteSubject(String(id));
 	};
 	const onMutateSuccess = () => {
-		[queryKeys.PAGE_SUBJECTS].forEach(key => {
+		[QUERY_KEYS.PAGE_SUBJECTS].forEach(key => {
 			queryClient.refetchQueries({ queryKey: [key] });
 		});
 		navigate('/subjects');
@@ -62,7 +62,7 @@ export default function Subject() {
 		? Math.max(...queryData.data.chapters.map(chapter => chapter.chapterNumber)) + 1 : 1;
 	useEffect(() => {
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.PAGE_SUBJECT, { id: id }] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.PAGE_SUBJECT, { id: id }] });
 		};
 	}, [id, queryClient]);
 	return (

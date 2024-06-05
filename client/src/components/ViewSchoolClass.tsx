@@ -7,7 +7,7 @@ import { apiAutoCompleteFaculty } from '../api/faculty';
 import { apiGetSchoolClassById, apiUpdateSchoolClass } from '../api/school-class';
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
 import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useDebounce from '../hooks/useDebounce';
 import useLanguage from '../hooks/useLanguage';
@@ -43,11 +43,11 @@ export default function ViewSchoolClass({
 	const disabledUpdate = !permissions.has('school_class_update');
 	const formUtils = createFormUtils(styles);
 	const queryData = useQuery({
-		queryKey: [queryKeys.SCHOOL_CLASS_DETAIL, id],
+		queryKey: [QUERY_KEYS.SCHOOL_CLASS_DETAIL, id],
 		queryFn: () => apiGetSchoolClassById(id)
 	});
 	const facultyQueryData = useQuery({
-		queryKey: [queryKeys.AUTO_COMPLETE_FACULTY, { search: debounceQueryFaculty }],
+		queryKey: [QUERY_KEYS.AUTO_COMPLETE_FACULTY, { search: debounceQueryFaculty }],
 		queryFn: () => apiAutoCompleteFaculty(debounceQueryFaculty),
 		enabled: debounceQueryFaculty && permissions.has('faculty_view') ? true : false
 	});
@@ -69,8 +69,8 @@ export default function ViewSchoolClass({
 	useEffect(() => {
 		setHide(false);
 		return () => {
-			queryClient.removeQueries({ queryKey: [queryKeys.SCHOOL_CLASS_DETAIL, { id: id }] });
-			queryClient.removeQueries({ queryKey: [queryKeys.AUTO_COMPLETE_FACULTY] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.SCHOOL_CLASS_DETAIL, { id: id }] });
+			queryClient.removeQueries({ queryKey: [QUERY_KEYS.AUTO_COMPLETE_FACULTY] });
 		};
 	}, [id, queryClient]);
 	return (

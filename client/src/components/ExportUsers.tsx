@@ -4,7 +4,7 @@ import { RxCross2 } from 'react-icons/rx';
 import appStyles from '../App.module.css';
 import { apiExportUsers, apiGetUserExportableFields } from '../api/user';
 import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
-import { queryKeys } from '../constants/query-keys';
+import QUERY_KEYS from '../constants/query-keys';
 import useLanguage from '../hooks/useLanguage';
 import { RoleName } from '../models/role';
 import styles from '../styles/ExportUsers.module.css';
@@ -30,7 +30,7 @@ export default function ExportUsers({
 		}, TRANSITION_TIMING_FAST);
 	};
 	const queryData = useQuery({
-		queryKey: [queryKeys.USER_EXPORTABLE_FIELDS],
+		queryKey: [QUERY_KEYS.USER_EXPORTABLE_FIELDS],
 		queryFn: () => apiGetUserExportableFields(role)
 	});
 	const handleExportUsers = (e: React.FormEvent<HTMLFormElement>) => {
