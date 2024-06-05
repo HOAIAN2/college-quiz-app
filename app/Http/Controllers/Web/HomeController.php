@@ -17,8 +17,8 @@ class HomeController extends Controller
 		$data['lang'] = App::getLocale();
 		$data['description'] = trans('app.meta.description');
 		$data['keywords'] = trans('app.meta.keywords');
-		$data['title'] = env('APP_NAME');
-		$data['app_url'] = env('APP_URL');
+		$data['title'] = config('app.name');
+		$data['app_url'] = config('app.url');
 		return view('index', $data);
 	}
 

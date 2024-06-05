@@ -27,13 +27,14 @@ class CancelLateExams extends Command
 	 */
 	public function handle()
 	{
-		if (env('CANCEL_LATE_EXAMS_INTERVAL') == null) return;
+		$cancel_late_exams_interval = env('CANCEL_LATE_EXAMS_INTERVAL');
+		if ($cancel_late_exams_interval == null) return;
 		$now = Carbon::now();
 
 		Exam::where(
 			'exam_date',
 			'<=',
-			$now->copy()->subSeconds((int)env('CANCEL_LATE_EXAMS_INTERVAL'))
+			$now->copy()->subSeconds((int)$cancel_late_exams_interval)
 		)
 			->whereNull('started_at')
 			->whereNull('cancelled_at')

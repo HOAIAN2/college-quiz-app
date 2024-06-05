@@ -27,9 +27,10 @@ class ClearUnsedTokens extends Command
 	 */
 	public function handle()
 	{
-		if (env('TOKEN_LIFETIME') == null) return;
+		$token_lifttime = env('TOKEN_LIFETIME');
+		if ($token_lifttime == null) return;
 
-		$interval = Carbon::now()->subMinutes(env('TOKEN_LIFETIME'));
+		$interval = Carbon::now()->subMinutes((int)$token_lifttime);
 
 		DB::table('personal_access_tokens')
 			->where(function ($query) use ($interval) {
