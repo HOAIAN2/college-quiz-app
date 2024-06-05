@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiLogin } from '../api/auth';
-import { apiGetUser } from '../api/user';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/Login.module.css';
@@ -13,7 +12,7 @@ export default function Login() {
 	const [blockSubmit, setBlockSubmit] = useState(true);
 	const [isSubmitting, seIsSubmitting] = useState(false);
 	const buttonRef = useRef<HTMLButtonElement>(null);
-	const { user, permissions, DOM } = useAppContext();
+	const { DOM } = useAppContext();
 	const navigate = useNavigate();
 	const location = useLocation();
 	const prePage = location.state?.from;
@@ -36,11 +35,6 @@ export default function Login() {
 		buttonRef.current?.classList.add(styles['submitting']);
 		apiLogin(formData)
 			.then(() => {
-				return apiGetUser();
-			})
-			.then((data) => {
-				user.setUser(data.user);
-				permissions.setItems(data.permissions);
 				navigate(prePage || '/');
 			})
 			.catch(() => {

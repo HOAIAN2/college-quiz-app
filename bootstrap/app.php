@@ -24,6 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
 			\Illuminate\Http\Middleware\ValidatePostSize::class,
 			\Illuminate\Foundation\Http\Middleware\TrimStrings::class,
 			\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+			\App\Http\Middleware\Locale::class,
 		]);
 
 		$middleware->group('web', [
@@ -41,7 +42,6 @@ return Application::configure(basePath: dirname(__DIR__))
 			\Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
 			'throttle:api',
 			\Illuminate\Routing\Middleware\SubstituteBindings::class,
-			\App\Http\Middleware\Locale::class,
 			\App\Http\Middleware\CamelCaseResponse::class,
 			// \App\Http\Middleware\Authenticate::class,
 			// \App\Http\Middleware\AcceptContentType::class,

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
@@ -21,9 +22,11 @@ class HomeController extends Controller
 		return view('index', $data);
 	}
 
-	public function optimize()
+	public function optimize(Request $request)
 	{
-		$mode = request()->get('mode');
+		abort_if($request->get('key') != config('app.key'), 401);
+		$mode = $request->get('mode');
+
 		try {
 			switch ($mode) {
 				case 'clear':
