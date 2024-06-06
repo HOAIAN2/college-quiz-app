@@ -15,17 +15,25 @@ class UserSeeder extends Seeder
 	 */
 	public function run(): void
 	{
+		$first_name = $this->command->ask('What is the user\'s first name?');
+		$last_name = $this->command->ask('What is the user\'s last name?');
+		$email = $this->command->ask('What is the user\'s email?');
+		$birth_date = $this->command->ask('What is the user\'s birth date? (YYYY-MM-DD)');
+		$gender = $this->command->choice('What is the user\'s gender?', ['male', 'female']);
+		$address = $this->command->ask('What is the user\'s address?');
+		$password = $this->command->secret('What is the user\'s password?');
+
 		User::create([
 			'role_id' => Role::where('name', '=', 'admin')->first()->id,
 			'shortcode' => 'SYSADMIN',
-			'first_name' => 'Hoài Ân',
-			'last_name' => 'Lê',
-			'email' => 'an69tm@gmail.com',
-			'gender' => 'male',
-			'address' => 'Hòa Trị, Phú Hòa, Phú Yên, Việt Nam',
-			'birth_date' => '2003-02-22',
+			'first_name' => $first_name,
+			'last_name' => $last_name,
+			'email' => $email,
+			'gender' => $gender,
+			'address' => $address,
+			'birth_date' => $birth_date,
 			'is_active' => true,
-			'password' => Hash::make(123456789)
+			'password' => Hash::make($password)
 		]);
 	}
 }
