@@ -49,7 +49,7 @@ class CourseController extends Controller
 			if ($semester->isOver()) {
 				return Reply::error('app.errors.semester_end', [], 400);
 			}
-			User::whereRoleId(Role::ROLES['teacher'])
+			User::where('role_id', '=', Role::ROLES['teacher'])
 				->select('id')->findOrFail($request->teacher_id);
 			Course::create($data);
 			DB::commit();
@@ -98,7 +98,7 @@ class CourseController extends Controller
 			if ($target_course->semester->isOver()) {
 				return Reply::error('app.errors.semester_end', [], 400);
 			}
-			User::whereRoleId(Role::ROLES['teacher'])
+			User::where('role_id', '=', Role::ROLES['teacher'])
 				->select('id')->findOrFail($request->teacher_id);
 			$target_course->update($data);
 			DB::commit();
@@ -157,7 +157,7 @@ class CourseController extends Controller
 					->whereIn('student_id', $request->student_ids)
 					->pluck('student_id')->toArray();
 
-				$student_ids = User::whereRoleId(Role::ROLES['student'])
+				$student_ids = User::where('role_id', '=', Role::ROLES['student'])
 					->whereIn('id', $request->student_ids)
 					->pluck('id');
 

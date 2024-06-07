@@ -147,7 +147,7 @@ class UserController extends Controller
 
 		try {
 			$users = User::with(['role', 'school_class', 'faculty'])
-				->whereRoleId(Role::ROLES[$request->role]);
+				->where('role_id', '=', Role::ROLES[$request->role]);
 			if ($request->search != null) {
 				$users = $users->search($request->search);
 			}
@@ -289,7 +289,7 @@ class UserController extends Controller
 		$file_name = "Export_{$data['role']}_" . Carbon::now()->format(User::DATE_FORMAT) . '.xlsx';
 
 		try {
-			$query = User::whereRoleId(Role::ROLES[$data['role']]);
+			$query = User::where('role_id', '=', Role::ROLES[$data['role']]);
 			if ($data['role'] == 'student') $query = $query->with('school_class');
 			if ($data['role'] == 'teacher') $query = $query->with('faculty');
 
@@ -314,7 +314,7 @@ class UserController extends Controller
 		abort_if(!$user->hasPermission('user_view'), 403);
 
 		try {
-			$users = User::whereRoleId(Role::ROLES[$request->role])
+			$users = User::where('role_id', '=', Role::ROLES[$request->role])
 				->search($request->search)->take($this->autoCompleteResultLimit)->get();
 			return Reply::successWithData($users, '');
 		} catch (\Exception $error) {
@@ -331,7 +331,7 @@ class UserController extends Controller
 
 		try {
 			$users = User::with(['role', 'school_class', 'faculty'])
-				->whereRoleId(Role::ROLES[$request->role])
+				->where('role_id', '=', Role::ROLES[$request->role])
 				->search($request->search)
 				->latest('id')
 				->take($this->autoCompleteResultLimit * 20)

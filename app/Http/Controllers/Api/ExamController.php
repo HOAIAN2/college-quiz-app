@@ -154,7 +154,7 @@ class ExamController extends Controller
 					'question_id' => $question_id
 				]);
 			}
-			$supervisor_ids = User::whereRoleId(Role::ROLES['teacher'])
+			$supervisor_ids = User::where('role_id', '=', Role::ROLES['teacher'])
 				->whereIn('id', $request->supervisor_ids)
 				->pluck('id');
 			foreach ($supervisor_ids as $supervisor_id) {
@@ -290,7 +290,7 @@ class ExamController extends Controller
 					->whereIn('user_id', $request->supervisor_ids)
 					->pluck('user_id')->toArray();
 
-				$supervisor_ids = User::whereRoleId(Role::ROLES['teacher'])
+				$supervisor_ids = User::where('role_id', '=', Role::ROLES['teacher'])
 					->whereIn('id', $request->supervisor_ids)
 					->pluck('id');
 

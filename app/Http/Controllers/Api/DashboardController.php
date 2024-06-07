@@ -20,8 +20,8 @@ class DashboardController extends Controller
 		$now = now();
 		try {
 			# Section 1: 4 Cards
-			$data->number_of_teachers = User::whereRoleId(Role::ROLES['teacher'])->count();
-			$data->number_of_students = User::whereRoleId(Role::ROLES['student'])->count();
+			$data->number_of_teachers = User::where('role_id', '=', Role::ROLES['teacher'])->count();
+			$data->number_of_students = User::where('role_id', '=', Role::ROLES['student'])->count();
 			$data->number_of_courses = Course::whereHas('semester', function ($query) use ($now) {
 				$query->whereDate('start_date', '<=', $now)
 					->whereDate('end_date', '>=', $now);

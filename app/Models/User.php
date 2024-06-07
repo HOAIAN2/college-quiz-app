@@ -37,9 +37,6 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
- * @method static Builder|User whereEmail($value)
- * @method static Builder|User[] whereRoleId($value)
- *
  * @property Faculty|null $faculty
  * @property Role $role
  * @property SchoolClass|null $school_class

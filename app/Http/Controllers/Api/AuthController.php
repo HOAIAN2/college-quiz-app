@@ -15,7 +15,7 @@ class AuthController extends Controller
 	public function login(LoginRequest $request)
 	{
 		try {
-			$user = User::with('role')->whereEmail($request->email)->first();
+			$user = User::with('role')->where('email', '=', $request->email)->first();
 			if (!$user) {
 				return Reply::error('auth.errors.email_not_found', [], 404);
 			}
