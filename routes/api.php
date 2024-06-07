@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ChapterController;
+use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\ExamController;
@@ -24,6 +25,11 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::prefix('/admin')->middleware(App\Http\Middleware\VerifyAppKey::class)
+	->controller(AdminController::class)->group(function () {
+		Route::post('/run-artisan', 'runArtisan');
+	});
 
 Route::prefix('/auth')->controller(AuthController::class)->group(function () {
 	Route::post('/login', 'login');

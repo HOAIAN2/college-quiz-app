@@ -9,6 +9,7 @@ return [
 		'success' => 'Thành công',
 		'record_save_success' => 'Lưu bản ghi thành công',
 		'record_delete_success' => 'Xóa bản ghi thành công',
+		'command_run_successfully' => 'Chạy :command thành công',
 	],
 	'errors' => [
 		'something_went_wrong' => 'Đã xảy ra sự cố',

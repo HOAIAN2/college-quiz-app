@@ -9,6 +9,7 @@ return [
 		'success' => 'Success',
 		'record_save_success' => 'Record save success',
 		'record_delete_success' => 'Record delete success',
+		'command_run_successfully' => ':command ran successfully',
 	],
 	'errors' => [
 		'something_went_wrong' => 'Something went wrong',

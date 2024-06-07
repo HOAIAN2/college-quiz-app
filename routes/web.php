@@ -14,5 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('optimize', [HomeController::class, 'optimize']);
 Route::fallback([HomeController::class, 'index']);
