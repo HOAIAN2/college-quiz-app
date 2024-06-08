@@ -12,7 +12,6 @@ import styles from '../styles/Header.module.css';
 import navBarStyles from '../styles/NavBar.module.css';
 import languageUtils from '../utils/languageUtils';
 import CustomSelect from './CustomSelect';
-// import icon from '/assets/media/icon.png';
 
 export default function Header() {
 	const { DOM, user, appLanguage } = useAppContext();
