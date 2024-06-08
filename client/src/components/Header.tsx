@@ -3,9 +3,7 @@ import { AiOutlineUser } from 'react-icons/ai';
 import {
 	BiLogOut
 } from 'react-icons/bi';
-import {
-	PiSidebarSimpleLight
-} from 'react-icons/pi';
+import { RxHamburgerMenu } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
 import { apiLogout } from '../api/auth';
 import useAppContext from '../hooks/useAppContext';
@@ -14,6 +12,7 @@ import styles from '../styles/Header.module.css';
 import navBarStyles from '../styles/NavBar.module.css';
 import languageUtils from '../utils/languageUtils';
 import CustomSelect from './CustomSelect';
+// import icon from '/assets/media/icon.png';
 
 export default function Header() {
 	const { DOM, user, appLanguage } = useAppContext();
@@ -50,11 +49,14 @@ export default function Header() {
 							<div className={styles['toggle']} onClick={() => {
 								DOM.sideBarRef.current?.classList.toggle(navBarStyles['hide']);
 							}}>
-								<PiSidebarSimpleLight />
+								<RxHamburgerMenu />
 							</div>
 						</> : null
 				}
-				<h1 ref={DOM.titleRef} className={styles['app-title']}></h1>
+				<Link to='/'>
+					<img style={{ userSelect: 'none' }} height={30} src={'/favicon.ico'} alt="app icon" />
+				</Link>
+				<h1 style={{ userSelect: 'none' }} ref={DOM.titleRef} className={styles['app-title']}></h1>
 			</div>
 			<div className={styles['right-items']}>
 				<div>

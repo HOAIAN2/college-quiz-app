@@ -22,7 +22,7 @@
 	width: 90%;
 	height: 50px;
 	cursor: pointer;
-	transition: var(--transition-timing-medium);
+	transition: margin-left var(--transition-timing-medium) ease-in-out;
 	border-radius: var(--border-radius-low);
 	position: relative;
 	margin: 10px auto;

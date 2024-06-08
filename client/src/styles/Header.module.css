@@ -13,7 +13,8 @@
 .left-items {
 	display: flex;
 	align-items: center;
-	gap: 20px;
+	gap: 15px;
+	margin-left: 15px;
 }
 
 .left-items>.app-title {
