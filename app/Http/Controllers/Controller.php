@@ -25,7 +25,7 @@ abstract class Controller extends BaseController
 		$this->autoCompleteResultLimit = (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5);
 	}
 
-	public function getUser()
+	public function getUser(): mixed
 	{
 		return Auth::user();
 	}
