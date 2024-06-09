@@ -63,7 +63,7 @@ export default function Dashboard() {
 								icon={<PiExam />} />
 						</section>
 						<div className={css(styles['wrap-sections'])}>
-							<section className={css(styles['section'], styles['today-exams-container'])}>
+							<section className={css(styles['section'])}>
 								<h2
 									className={styles['section-title']}
 									style={{ marginBottom: '10px' }}

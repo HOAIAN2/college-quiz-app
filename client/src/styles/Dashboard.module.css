@@ -29,12 +29,17 @@
 	padding-right: 10px;
 	display: flex;
 	gap: 10px;
-	flex-wrap: wrap;
+	height: 350px;
 }
 
-.today-exams-container {
-	flex: 0 0 40%;
-	height: 350px;
+.wrap-sections>section:nth-child(1) {
+	min-width: 40%;
+	min-height: 100%;
+}
+
+.wrap-sections>section:nth-child(2) {
+	min-width: calc(60% - 10px);
+	min-height: 100%;
 }
 
 .section-title {
@@ -71,8 +76,20 @@
 }
 
 @media (width<=800px) {
-	.today-exams-container {
-		flex: 0 0 100%;
+	.wrap-sections {
+		height: 700px;
+		flex-wrap: nowrap;
+		flex-direction: column;
+	}
+
+	.wrap-sections>section:nth-child(1) {
+		min-width: 100%;
+		min-height: 50%;
+	}
+
+	.wrap-sections>section:nth-child(2) {
+		min-width: 100%;
+		min-height: 50%;
 	}
 }
 

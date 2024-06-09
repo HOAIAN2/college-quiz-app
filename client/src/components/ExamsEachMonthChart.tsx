@@ -78,8 +78,8 @@ export default function ExamsEachMonthChart({
 	}, [appLanguage.language, data, label]);
 
 	return (
-		<div className={styles['chart-container']}>
+		<section className={styles['chart-container']}>
 			<canvas ref={chartRef}></canvas>
-		</div>
+		</section>
 	);
 }
