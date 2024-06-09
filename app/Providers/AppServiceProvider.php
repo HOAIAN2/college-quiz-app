@@ -2,13 +2,14 @@
 
 namespace App\Providers;
 
-use Illuminate\Database\Events\QueryExecuted;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Database\Events\QueryExecuted;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
 	 */
 	public function boot(): void
 	{
+		Route::pattern('id', '([1-9]+[0-9]*)');
+
 		RateLimiter::for('api', function (Request $request) {
 			return Limit::perMinute(env('DEFAULT_RATE_LIMIT', 100))->by($request->user()?->id ?: $request->ip());
 		});
