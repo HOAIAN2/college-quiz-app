@@ -5,7 +5,7 @@ import { Semester } from '../models/semester';
 import encodeFormData from '../utils/encodeFormData';
 import pathUtils from '../utils/pathUtils';
 
-const prefix = 'semester';
+const prefix = 'semesters';
 
 export async function apiGetSemesters(query: string) {
 	try {

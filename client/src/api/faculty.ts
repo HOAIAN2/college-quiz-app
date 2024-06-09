@@ -5,7 +5,7 @@ import { ApiResponseWithData, Pagination } from '../models/response';
 import encodeFormData from '../utils/encodeFormData';
 import pathUtils from '../utils/pathUtils';
 
-const prefix = 'faculty';
+const prefix = 'faculties';
 
 export async function apiAutoCompleteFaculty(search: string) {
 	try {

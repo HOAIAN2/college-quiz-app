@@ -5,7 +5,7 @@ import { QuerySchoolClassType, SchoolClass, SchoolClassDetail } from '../models/
 import encodeFormData from '../utils/encodeFormData';
 import pathUtils from '../utils/pathUtils';
 
-const prefix = 'school-class';
+const prefix = 'school-classes';
 
 export async function apiAutoCompleteSchoolClass(search: string) {
 	try {

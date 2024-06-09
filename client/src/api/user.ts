@@ -13,7 +13,7 @@ import encodeFormData from '../utils/encodeFormData';
 import pathUtils from '../utils/pathUtils';
 import tokenUtils from '../utils/tokenUtils';
 
-const prefix = 'user';
+const prefix = 'users';
 
 export async function apiGetUser() {
 	if (!tokenUtils.getToken()) throw new Error('no token');

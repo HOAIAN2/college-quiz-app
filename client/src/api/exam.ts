@@ -5,7 +5,7 @@ import { ApiResponseWithData } from '../models/response';
 import encodeFormData from '../utils/encodeFormData';
 import pathUtils from '../utils/pathUtils';
 
-const prefix = 'exam';
+const prefix = 'exams';
 
 export async function apiGetExamsByMonth(query: QueryExamType) {
 	try {

@@ -17,8 +17,9 @@
 	margin-left: 15px;
 }
 
-.left-items>.app-title {
-	font-size: 22px;
+.app-title {
+	font-size: 22px !important;
+	user-select: none;
 }
 
 .toggle {
@@ -86,4 +87,10 @@
 
 .drop-item>svg {
 	font-size: 18px;
+}
+
+@media (width<=500px) {
+	.app-title {
+		display: none;
+	}
 }

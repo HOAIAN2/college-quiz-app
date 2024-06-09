@@ -5,7 +5,7 @@ import { ApiResponseWithData } from '../models/response';
 import encodeFormData from '../utils/encodeFormData';
 import pathUtils from '../utils/pathUtils';
 
-const prefix = 'course';
+const prefix = 'courses';
 
 export async function apiGetCourses(query: QueryCourseType) {
 	try {

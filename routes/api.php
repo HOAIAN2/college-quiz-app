@@ -39,7 +39,7 @@ Route::prefix('/auth')->controller(AuthController::class)->group(function () {
 	});
 });
 
-Route::prefix('/user')->middleware('auth:sanctum')
+Route::prefix('/users')->middleware('auth:sanctum')
 	->controller(UserController::class)->group(function () {
 		Route::get('/query', 'getUserByType');
 		Route::post('/import', 'importUsers');
@@ -59,7 +59,7 @@ Route::prefix('/dashboard')->middleware('auth:sanctum')
 		Route::get('/', 'index');
 	});
 
-Route::prefix('/school-class')->middleware('auth:sanctum')
+Route::prefix('/school-classes')->middleware('auth:sanctum')
 	->controller(SchoolClassController::class)->group(function () {
 		Route::get('/complete', 'autocomplete');
 		Route::get('/{id}', 'show');
@@ -69,7 +69,7 @@ Route::prefix('/school-class')->middleware('auth:sanctum')
 		Route::delete('/', 'destroy');
 	});
 
-Route::prefix('/faculty')->middleware('auth:sanctum')
+Route::prefix('/faculties')->middleware('auth:sanctum')
 	->controller(FacultyController::class)->group(function () {
 		Route::get('/complete', 'autocomplete');
 		Route::get('/{id}', 'show');
@@ -79,7 +79,7 @@ Route::prefix('/faculty')->middleware('auth:sanctum')
 		Route::delete('/', 'destroy');
 	});
 
-Route::prefix('/subject')->middleware('auth:sanctum')
+Route::prefix('/subjects')->middleware('auth:sanctum')
 	->controller(SubjectController::class)->group(function () {
 		Route::get('/complete', 'autocomplete');
 		Route::get('/{id}', 'show');
@@ -89,21 +89,21 @@ Route::prefix('/subject')->middleware('auth:sanctum')
 		Route::post('/', 'store');
 	});
 
-Route::prefix('/chapter')->middleware('auth:sanctum')
+Route::prefix('/chapters')->middleware('auth:sanctum')
 	->controller(ChapterController::class)->group(function () {
 		Route::put('/{id}', 'update');
 		Route::delete('/{id}', 'destroy');
 		Route::post('/', 'store');
 	});
 
-Route::prefix('/role-permission')->middleware('auth:sanctum')
+Route::prefix('/role-permissions')->middleware('auth:sanctum')
 	->controller(RolePermissionController::class)->group(function () {
 		Route::get('/{id}', 'show');
 		Route::put('/{id}', 'update');
 		Route::get('/', 'index');
 	});
 
-Route::prefix('/question')->middleware('auth:sanctum')
+Route::prefix('/questions')->middleware('auth:sanctum')
 	->controller(QuestionController::class)->group(function () {
 		Route::get('/{id}', 'show');
 		Route::put('/{id}', 'update');
@@ -112,7 +112,7 @@ Route::prefix('/question')->middleware('auth:sanctum')
 		Route::post('/', 'store');
 	});
 
-Route::prefix('/semester')->middleware('auth:sanctum')
+Route::prefix('/semesters')->middleware('auth:sanctum')
 	->controller(SemesterController::class)->group(function () {
 		Route::get('/complete', 'autocomplete');
 		Route::get('/{id}', 'show');
@@ -122,7 +122,7 @@ Route::prefix('/semester')->middleware('auth:sanctum')
 		Route::post('/', 'store');
 	});
 
-Route::prefix('/course')->middleware('auth:sanctum')
+Route::prefix('/courses')->middleware('auth:sanctum')
 	->controller(CourseController::class)->group(function () {
 		Route::get('/{id}', 'show');
 		Route::put('/{id}', 'update');
@@ -132,7 +132,7 @@ Route::prefix('/course')->middleware('auth:sanctum')
 		Route::post('/', 'store');
 	});
 
-Route::prefix('/exam')->middleware('auth:sanctum')
+Route::prefix('/exams')->middleware('auth:sanctum')
 	->controller(ExamController::class)->group(function () {
 		Route::post('/{id}/status', 'updateStatus');
 		Route::get('/{id}/questions', 'questions');

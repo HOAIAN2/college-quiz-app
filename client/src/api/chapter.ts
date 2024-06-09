@@ -3,7 +3,7 @@ import request from '../config/api';
 import encodeFormData from '../utils/encodeFormData';
 import pathUtils from '../utils/pathUtils';
 
-const prefix = 'chapter';
+const prefix = 'chapters';
 
 export async function apiCreateChapter(formData: FormData) {
 	try {

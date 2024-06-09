@@ -7,7 +7,7 @@ import {
 import { RoleWithPermissionCount } from '../models/role';
 import pathUtils from '../utils/pathUtils';
 
-const prefix = 'role-permission';
+const prefix = 'role-permissions';
 
 export async function apiGetRolePermissionCount() {
 	try {

@@ -5,7 +5,7 @@ import { ApiResponseWithData } from '../models/response';
 import encodeFormData from '../utils/encodeFormData';
 import pathUtils from '../utils/pathUtils';
 
-const prefix = 'question';
+const prefix = 'questions';
 
 export async function apiGetQuestions(query: QueryQuestionType) {
 	try {

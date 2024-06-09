@@ -5,7 +5,7 @@ import { Subject, SubjectDetail } from '../models/subject';
 import encodeFormData from '../utils/encodeFormData';
 import pathUtils from '../utils/pathUtils';
 
-const prefix = 'subject';
+const prefix = 'subjects';
 
 export async function apiGetSubjects(query: string) {
 	try {
