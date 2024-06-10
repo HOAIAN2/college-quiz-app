@@ -71,6 +71,22 @@ Run `composer install` to continue development or just use this everytime.
 ./build && ./deploy.sh && composer install
 ```
 
+## Cron Job
+
+Free hostings do not allow run cron job so I setup cron job inside a middlware in bootstrap/app.php. But you can also setup "real" cron job: <https://laravel.com/docs/scheduling>
+
+```php
+$middleware->group('api', [
+   \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+   'throttle:api',
+   \Illuminate\Routing\Middleware\SubstituteBindings::class,
+   \App\Http\Middleware\CamelCaseResponse::class,
+   \App\Http\Middleware\RunTasks::class,
+   // \App\Http\Middleware\Authenticate::class,
+   // \App\Http\Middleware\AcceptContentType::class,
+  ]);
+```
+
 ## Databse Diagram
 
 ![DB Diagram](./img/college-quiz-app.png)
