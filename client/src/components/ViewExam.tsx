@@ -8,7 +8,7 @@ import appStyles from '../App.module.css';
 import { apiDeleteExam, apiGetExamById, apiUpdateExam } from '../api/exam';
 import { apiGetAllUser } from '../api/user';
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
-import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
+import CSS_TIMING from '../constants/css-timing';
 import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useDebounce from '../hooks/useDebounce';
@@ -44,7 +44,7 @@ export default function ViewExam({
 		setHide(true);
 		setTimeout(() => {
 			setShowPopUp(false);
-		}, TRANSITION_TIMING_FAST);
+		}, CSS_TIMING.TRANSITION_TIMING_FAST);
 	};
 	const disabledUpdate = !permissions.has('exam_update');
 	const formUtils = createFormUtils(styles);

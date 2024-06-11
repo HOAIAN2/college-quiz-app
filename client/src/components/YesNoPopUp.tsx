@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import appStyles from '../App.module.css';
-import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
+import CSS_TIMING from '../constants/css-timing';
 import styles from '../styles/YesNoPopUp.module.css';
 import css from '../utils/css';
 import Loading from './Loading';
@@ -28,7 +28,7 @@ export default function YesNoPopUp({
 		setHide(true);
 		setTimeout(() => {
 			setShowPopUp(false);
-		}, TRANSITION_TIMING_FAST);
+		}, CSS_TIMING.TRANSITION_TIMING_FAST);
 	};
 	const mutation = useMutation({
 		mutationFn: mutateFunction,

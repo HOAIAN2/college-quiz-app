@@ -8,7 +8,7 @@ import { apiAutoCompleteFaculty } from '../api/faculty';
 import { apiAutoCompleteSchoolClass } from '../api/school-class';
 import { apiGetUserById, apiUpdateUser } from '../api/user';
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
-import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
+import CSS_TIMING from '../constants/css-timing';
 import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useDebounce from '../hooks/useDebounce';
@@ -44,7 +44,7 @@ export default function ViewUser({
 		setHide(true);
 		setTimeout(() => {
 			setShowPopUp(false);
-		}, TRANSITION_TIMING_FAST);
+		}, CSS_TIMING.TRANSITION_TIMING_FAST);
 	};
 	const formUtils = createFormUtils(styles);
 	const disabledUpdate = !permissions.has('user_update');

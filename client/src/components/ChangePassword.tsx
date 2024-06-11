@@ -3,7 +3,7 @@ import { RxCross2 } from 'react-icons/rx';
 import { useNavigate } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiChangePassword } from '../api/auth';
-import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
+import CSS_TIMING from '../constants/css-timing';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/ChangePassword.module.css';
 import css from '../utils/css';
@@ -24,7 +24,7 @@ export default function ChangePassword({
 		setHide(true);
 		setTimeout(() => {
 			setShowPopup(false);
-		}, TRANSITION_TIMING_FAST);
+		}, CSS_TIMING.TRANSITION_TIMING_FAST);
 	};
 	const handlePreventSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		const formData = new FormData(e.currentTarget);

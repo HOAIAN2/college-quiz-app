@@ -6,7 +6,7 @@ import appStyles from '../App.module.css';
 import { apiAutoCompleteFaculty } from '../api/faculty';
 import { apiGetSchoolClassById, apiUpdateSchoolClass } from '../api/school-class';
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
-import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
+import CSS_TIMING from '../constants/css-timing';
 import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useDebounce from '../hooks/useDebounce';
@@ -38,7 +38,7 @@ export default function ViewSchoolClass({
 		setHide(true);
 		setTimeout(() => {
 			setShowPopUp(false);
-		}, TRANSITION_TIMING_FAST);
+		}, CSS_TIMING.TRANSITION_TIMING_FAST);
 	};
 	const disabledUpdate = !permissions.has('school_class_update');
 	const formUtils = createFormUtils(styles);

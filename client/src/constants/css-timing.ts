@@ -4,6 +4,10 @@ const getTransitionTiming = (variableName: string) => {
 	return Number(timing) * 1000;
 };
 
-export const TRANSITION_TIMING_FAST = getTransitionTiming('--transition-timing-fast');
-export const TRANSITION_TIMING_MEDIUM = getTransitionTiming('--transition-timing-medium');
-export const TRANSITION_TIMING_SLOW = getTransitionTiming('--transition-timing-slow');
+const CSS_TIMING = Object.freeze({
+	get TRANSITION_TIMING_FAST() { return getTransitionTiming('--transition-timing-fast'); },
+	get TRANSITION_TIMING_MEDIUM() { return getTransitionTiming('--transition-timing-medium'); },
+	get TRANSITION_TIMING_SLOW() { return getTransitionTiming('--transition-timing-slow'); }
+});
+
+export default CSS_TIMING;

@@ -7,7 +7,7 @@ import appStyles from '../App.module.css';
 import { apiUpdateCourseStudents } from '../api/course';
 import { apiGetAllUser } from '../api/user';
 import { AUTO_COMPLETE_DEBOUNCE } from '../config/env';
-import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
+import CSS_TIMING from '../constants/css-timing';
 import QUERY_KEYS from '../constants/query-keys';
 import useDebounce from '../hooks/useDebounce';
 import useLanguage from '../hooks/useLanguage';
@@ -37,7 +37,7 @@ export default function UpdateCourseStudents({
 		setHide(true);
 		setTimeout(() => {
 			setShowPopUp(false);
-		}, TRANSITION_TIMING_FAST);
+		}, CSS_TIMING.TRANSITION_TIMING_FAST);
 	};
 	const handleUpdateCourseStudents = async () => {
 		const studentIds = students.map(student => student.id);

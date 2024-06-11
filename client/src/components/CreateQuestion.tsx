@@ -8,7 +8,7 @@ import { RxCross2 } from 'react-icons/rx';
 import { toast } from 'sonner';
 import appStyles from '../App.module.css';
 import { apiCreateQuestion } from '../api/question';
-import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
+import CSS_TIMING from '../constants/css-timing';
 import useLanguage from '../hooks/useLanguage';
 import { SubjectDetail } from '../models/subject';
 import styles from '../styles/CreateQuestion.module.css';
@@ -45,7 +45,7 @@ export default function CreateQuestion({
 		setHide(true);
 		setTimeout(() => {
 			setShowPopUp(false);
-		}, TRANSITION_TIMING_FAST);
+		}, CSS_TIMING.TRANSITION_TIMING_FAST);
 	};
 	const formUtils = createFormUtils(globalStyles);
 	const handleCreateQuestion = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {

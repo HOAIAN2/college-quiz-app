@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import appStyles from '../App.module.css';
 import { apiExportUsers, apiGetUserExportableFields } from '../api/user';
-import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
+import CSS_TIMING from '../constants/css-timing';
 import QUERY_KEYS from '../constants/query-keys';
 import useLanguage from '../hooks/useLanguage';
 import { RoleName } from '../models/role';
@@ -27,7 +27,7 @@ export default function ExportUsers({
 		setHide(true);
 		setTimeout(() => {
 			setExportMode(false);
-		}, TRANSITION_TIMING_FAST);
+		}, CSS_TIMING.TRANSITION_TIMING_FAST);
 	};
 	const queryData = useQuery({
 		queryKey: [QUERY_KEYS.USER_EXPORTABLE_FIELDS],

@@ -8,7 +8,7 @@ import { RxCross2 } from 'react-icons/rx';
 import { toast } from 'sonner';
 import appStyles from '../App.module.css';
 import { apiDeleteQuestion, apiGetQuestionById, apiUpdateQuestion } from '../api/question';
-import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
+import CSS_TIMING from '../constants/css-timing';
 import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
@@ -51,7 +51,7 @@ export default function ViewQuestion({
 		setHide(true);
 		setTimeout(() => {
 			setShowPopUp(false);
-		}, TRANSITION_TIMING_FAST);
+		}, CSS_TIMING.TRANSITION_TIMING_FAST);
 	};
 	const formUtils = createFormUtils(globalStyles);
 	const disabledUpdate = !permissions.has('question_update');

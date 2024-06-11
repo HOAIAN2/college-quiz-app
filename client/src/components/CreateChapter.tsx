@@ -4,7 +4,7 @@ import { FiSave } from 'react-icons/fi';
 import { RxCross2 } from 'react-icons/rx';
 import appStyles from '../App.module.css';
 import { apiCreateChapter } from '../api/chapter';
-import { TRANSITION_TIMING_FAST } from '../constants/css-timing';
+import CSS_TIMING from '../constants/css-timing';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/global/CreateModel.module.css';
 import createFormUtils from '../utils/createFormUtils';
@@ -30,7 +30,7 @@ export default function CreateChapter({
 		setHide(true);
 		setTimeout(() => {
 			setShowPopUp(false);
-		}, TRANSITION_TIMING_FAST);
+		}, CSS_TIMING.TRANSITION_TIMING_FAST);
 	};
 	const formUtils = createFormUtils(styles);
 	const handleCreateChapter = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {

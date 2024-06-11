@@ -5,6 +5,7 @@ import {
 } from 'react-icons/io';
 import { RxCross2 } from 'react-icons/rx';
 import appStyles from '../App.module.css';
+import CSS_TIMING from '../constants/css-timing';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/ImportData.module.css';
 import css from '../utils/css';
@@ -31,12 +32,10 @@ export default function ImportData({
 	const [file, setFile] = useState<File>();
 	const inputFileRef = useRef<HTMLInputElement>(null);
 	const handleClosePopUp = () => {
-		const transitionTiming = getComputedStyle(document.documentElement).getPropertyValue('--transition-timing-fast');
-		const timing = Number(transitionTiming.replace('s', '')) * 1000;
 		setHide(true);
 		setTimeout(() => {
 			setImportMode(false);
-		}, timing);
+		}, CSS_TIMING.TRANSITION_TIMING_FAST);
 	};
 	const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const files = e.currentTarget.files;
