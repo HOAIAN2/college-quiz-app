@@ -390,12 +390,11 @@ class ExamController extends Controller
 					} else return Reply::error('app.errors.exam_has_cancel');
 					break;
 				default:
-					# code...
+					return Reply::error('app.errors.something_went_wrong', [], 500);
 					break;
 			}
 			DB::commit();
-			if ($request->status == 'start') return Reply::successWithMessage('app.successes.success');
-			if ($request->status == 'cancel') return Reply::successWithMessage('app.successes.success');
+			return Reply::successWithMessage('app.successes.success');
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
