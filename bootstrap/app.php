@@ -44,8 +44,6 @@ return Application::configure(basePath: dirname(__DIR__))
 			\Illuminate\Routing\Middleware\SubstituteBindings::class,
 			\App\Http\Middleware\CamelCaseResponse::class,
 			\App\Http\Middleware\RunTasks::class,
-			// \App\Http\Middleware\Authenticate::class,
-			// \App\Http\Middleware\AcceptContentType::class,
 		]);
 
 		$middleware->alias([
