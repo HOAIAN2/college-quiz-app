@@ -150,10 +150,10 @@ export default function CreateQuestion({
 							<div className={css(globalStyles['wrap-item'], globalStyles['textarea'])}>
 								<label className={globalStyles['required']} htmlFor='content'>{language?.content}</label>
 								<textarea
-									onInput={autoSizeTextArea}
+									onChange={autoSizeTextArea}
 									name='content' id='content'
 									className={css(appStyles['input-d'], globalStyles['input-item'])}
-									cols={30} rows={50}>
+								>
 								</textarea>
 							</div>
 							<div
@@ -201,7 +201,7 @@ export default function CreateQuestion({
 											onInput={autoSizeTextArea}
 											name='options[]'
 											className={css(appStyles['input-d'], globalStyles['input-item'], styles['textarea'])}
-											cols={30} rows={50}>
+										>
 										</textarea>
 										<div
 											onClick={() => {

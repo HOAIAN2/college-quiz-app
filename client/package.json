@@ -26,13 +26,13 @@
 		"@types/canvas-confetti": "^1.6.4",
 		"@types/react": "^18.3.3",
 		"@types/react-dom": "^18.3.0",
-		"@typescript-eslint/eslint-plugin": "^6.21.0",
-		"@typescript-eslint/parser": "^6.21.0",
+		"@typescript-eslint/eslint-plugin": "^7.13.0",
+		"@typescript-eslint/parser": "^7.13.0",
 		"@vitejs/plugin-react-swc": "^3.7.0",
 		"eslint": "^8.57.0",
 		"eslint-plugin-react-hooks": "^4.6.2",
 		"eslint-plugin-react-refresh": "^0.4.7",
 		"typescript": "^5.4.5",
-		"vite": "^5.2.13"
+		"vite": "^5.3.1"
 	}
 }
