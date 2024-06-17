@@ -71,6 +71,12 @@ Run `composer install` to continue development or just use this everytime.
 ./build && ./deploy.sh && composer install
 ```
 
+You can host front end and backend in 2 domain
+
+```env
+VITE_API_HOST=
+```
+
 ## Cron Job
 
 Free hostings do not allow run cron job so I setup cron job inside a middlware in bootstrap/app.php. But you can also setup "real" cron job: <https://laravel.com/docs/scheduling>
