@@ -10,7 +10,7 @@ const langModels = [];
 fileList.forEach(file => {
 	const fileName = path.parse(file).name;
 	langModels.push(
-		`'${fileName}': typeof import('../../assets/langs/en/${fileName}').default;`
+		`'${fileName}': typeof import('../../assets/langs/en/${file}').default;`
 	);
 });
 
