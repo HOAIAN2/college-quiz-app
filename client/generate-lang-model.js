@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 
 const dir = './assets/langs/en/';
 const targetModelFile = './src/models/language.ts';
@@ -7,7 +8,7 @@ const fileList = fs.readdirSync(dir);
 const langModels = [];
 
 fileList.forEach(file => {
-	const fileName = file.replace('.ts', '');
+	const fileName = path.parse(file).name;
 	langModels.push(
 		`'${fileName}': typeof import('../../assets/langs/en/${fileName}').default;`
 	);
