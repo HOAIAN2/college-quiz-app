@@ -8,7 +8,6 @@ import { Suspense, lazy } from 'react';
 import 'react-datetime/css/react-datetime.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Toaster } from 'sonner';
-// import './App.css'
 import './App.module.css';
 import SuspenseLoading from './components/SuspenseLoading';
 import useAppContext from './hooks/useAppContext';
