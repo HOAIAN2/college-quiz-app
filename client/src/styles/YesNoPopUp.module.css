@@ -37,7 +37,7 @@
 	height: 40px;
 	padding: 10px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-end;
 	align-items: center;
 }
 
@@ -79,11 +79,6 @@
 	justify-content: space-between;
 	align-items: center;
 	gap: 10px;
-}
-
-.action-items>button {
-	width: 40%;
-	font-size: large;
 }
 
 .pending {
