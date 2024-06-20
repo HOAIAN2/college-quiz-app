@@ -22,4 +22,7 @@ return [
 		'shortcode' => 'Khoa',
 		'name' => 'Tên khoa'
 	],
+	'exam' => [
+		'score' => 'Điểm'
+	]
 ];

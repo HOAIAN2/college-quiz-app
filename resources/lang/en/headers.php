@@ -22,4 +22,7 @@ return [
 		'shortcode' => 'Faculty',
 		'name' => 'Faculty name'
 	],
+	'exam' => [
+		'score' => 'Score'
+	]
 ];

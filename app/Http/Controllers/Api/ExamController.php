@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exports\ExamResultsExport;
+use App\Helper\NumberHelper;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Exam\IndexRequest;
@@ -23,6 +25,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
+use NumberFormatter;
 
 class ExamController extends Controller
 {
@@ -592,15 +596,25 @@ class ExamController extends Controller
 					->where('user_id', '=', $student->id)
 					->where('is_correct', '=', true)
 					->count() : null;
+				$result = $correct_count != null
+					? ($correct_count / $question_count) * 10
+					: 0;
 				$data[] = [
 					'first_name' => $student->first_name,
 					'last_name' => $student->last_name,
 					'school_class_shortcode' => $student->school_class->shortcode,
-					'question_count' => $question_count,
-					'correct_count' => $correct_count,
+					'score' => number_format(
+						(float)$result,
+						2,
+						NumberHelper::getDecimalSeparator(app()->getLocale()),
+						NumberHelper::geThousandsSeparator(app()->getLocale()),
+					)
 				];
 			}
-			return Reply::successWithData($data, '');
+			return Excel::download(
+				new ExamResultsExport(collect($data)),
+				"Exam_$id-result.xlsx"
+			);
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
