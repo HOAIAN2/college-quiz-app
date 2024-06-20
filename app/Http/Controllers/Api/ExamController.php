@@ -561,6 +561,7 @@ class ExamController extends Controller
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_view'), 403);
+		$now = Carbon::now();
 
 		try {
 			$data = [];
@@ -596,7 +597,7 @@ class ExamController extends Controller
 					->where('user_id', '=', $student->id)
 					->where('is_correct', '=', true)
 					->count() : null;
-				$result = $correct_count != null
+				$score = $correct_count != null
 					? ($correct_count / $question_count) * 10
 					: 0;
 				$data[] = [
@@ -604,7 +605,7 @@ class ExamController extends Controller
 					'last_name' => $student->last_name,
 					'school_class_shortcode' => $student->school_class->shortcode,
 					'score' => number_format(
-						(float)$result,
+						(float)$score,
 						2,
 						NumberHelper::getDecimalSeparator(app()->getLocale()),
 						NumberHelper::geThousandsSeparator(app()->getLocale()),
@@ -613,7 +614,7 @@ class ExamController extends Controller
 			}
 			return Excel::download(
 				new ExamResultsExport(collect($data)),
-				"Exam_$id-result.xlsx"
+				"Exam-$id-result-$now.xlsx"
 			);
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());
