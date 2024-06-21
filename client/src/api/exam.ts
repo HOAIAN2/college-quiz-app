@@ -84,9 +84,9 @@ export async function apiUpdateExamStatus(status: 'start' | 'cancel', id: string
 	}
 }
 
-export async function apiGetExamQuestions(id: string | number) {
+export async function apiGetTakeExam(id: string | number) {
 	try {
-		const res = await request.get(pathUtils.join(prefix, id, 'questions'));
+		const res = await request.get(pathUtils.join(prefix, id, 'take'));
 		const { data } = res.data as ApiResponseWithData<ExamWithQuestion>;
 		return data;
 	} catch (error: any) {

@@ -5,7 +5,7 @@ import { TbSend } from 'react-icons/tb';
 import { Navigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import appStyles from '../App.module.css';
-import { apiGetExamQuestions, apiSubmitExam, apiSyncExamAnswersCache } from '../api/exam';
+import { apiGetTakeExam, apiSubmitExam, apiSyncExamAnswersCache } from '../api/exam';
 import ExamQuestion from '../components/ExamQuestion';
 import Loading from '../components/Loading';
 import ScorePopUp from '../components/ScorePopUp';
@@ -33,7 +33,7 @@ export default function TakeExam() {
 	}, [forceUpdate]);
 	const queryData = useQuery({
 		queryKey: [QUERY_KEYS.EXAM_QUESTIONS, { examId: id }],
-		queryFn: () => apiGetExamQuestions(String(id)),
+		queryFn: () => apiGetTakeExam(String(id)),
 		enabled: examResult === undefined,
 		staleTime: Infinity,
 		retry: 0

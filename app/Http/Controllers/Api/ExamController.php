@@ -408,7 +408,7 @@ class ExamController extends Controller
 		}
 	}
 
-	public function questions(string $id)
+	public function take(string $id)
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_submit'), 403);
@@ -486,10 +486,15 @@ class ExamController extends Controller
 
 		DB::beginTransaction();
 		try {
-			$cache_key = str_replace(
+			$questions_cache_key = str_replace(
 				['@exam_id', '@user_id'],
 				[$id, $user->id],
 				$this->questionsCacheKey
+			);
+			$answers_cache_key = str_replace(
+				['@exam_id', '@user_id'],
+				[$id, $user->id],
+				$this->answersCacheKey
 			);
 			$exam_questions_order = ExamQuestionsOrder::where('exam_id', '=', $id)
 				->where('user_id', '=', $user->id)
@@ -555,7 +560,8 @@ class ExamController extends Controller
 				'correct_count' => $correct_count,
 				'question_count' => count($exam->questions)
 			];
-			Cache::forget($cache_key);
+			Cache::forget($questions_cache_key);
+			Cache::forget($answers_cache_key);
 			DB::commit();
 			return Reply::successWithData($result_data, '');
 			return Reply::successWithMessage('app.successes.record_save_success');

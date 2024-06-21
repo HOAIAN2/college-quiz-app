@@ -137,7 +137,7 @@ Route::prefix('/exams')->middleware('auth:sanctum')
 		Route::post('/{id}/sync-cache', 'syncCache');
 		Route::get('/{id}/export-result', 'exportResult');
 		Route::post('/{id}/status', 'updateStatus');
-		Route::get('/{id}/questions', 'questions');
+		Route::get('/{id}/take', 'take');
 		Route::post('/{id}/submit', 'submit');
 		Route::get('/{id}', 'show');
 		Route::put('/{id}', 'update');
