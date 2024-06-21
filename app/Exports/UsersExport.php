@@ -38,14 +38,17 @@ class UsersExport implements
 		$this->headers = $headers;
 		$this->columns = $columns;
 	}
+
 	public function collection()
 	{
 		return $this->collection;
 	}
+
 	public function headings(): array
 	{
 		return $this->headers;
 	}
+
 	public function styles(Worksheet $sheet)
 	{
 		// Get the highest column and row
@@ -75,6 +78,7 @@ class UsersExport implements
 			],
 		]);
 	}
+
 	public function map($user): array
 	{
 		$data = array_map(function ($column) use ($user) {

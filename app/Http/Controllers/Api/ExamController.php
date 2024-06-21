@@ -22,11 +22,11 @@ use App\Models\Question;
 use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
-use NumberFormatter;
 
 class ExamController extends Controller
 {
@@ -616,6 +616,47 @@ class ExamController extends Controller
 				new ExamResultsExport(collect($data)),
 				"Exam-$id-result-" . $now->format(Exam::DATE_FORMAT) . '.xlsx'
 			);
+		} catch (\Exception $error) {
+			Log::error($error->getMessage());
+			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			return Reply::error('app.errors.something_went_wrong', [], 500);
+		}
+	}
+
+	public function syncCache(Request $request, string $id)
+	{
+		$user = $this->getUser();
+		abort_if(!$user->hasPermission('exam_submit'), 403);
+
+		try {
+			$type = $request->type;
+			$cache_key = "exam:$id-user:$user-id-answers";
+			switch ($type) {
+				case 'get':
+					return Reply::successWithData(Cache::get($cache_key), '');
+					break;
+				case 'post':
+					$exam = Exam::whereHas('course.enrollments', function ($query) use ($user) {
+						$query->where('student_id', '=', $user->id);
+					})
+						->whereDoesntHave('exam_trackers', function ($query)  use ($user) {
+							$query->where('user_id', '=', $user->id);
+						})
+						->whereNotNull('started_at')
+						->whereNull('cancelled_at')
+						->findOrfail($id);
+
+					Cache::put(
+						$cache_key,
+						$request->answers,
+						Carbon::parse($exam->started_at)->addMinutes($exam->exam_time)
+					);
+					return Reply::success();
+					break;
+				default:
+					return Reply::error('app.errors.something_went_wrong', [], 500);
+					break;
+			}
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());
