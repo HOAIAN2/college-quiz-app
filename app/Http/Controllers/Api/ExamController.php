@@ -614,7 +614,7 @@ class ExamController extends Controller
 					->where('is_correct', '=', true)
 					->count() : null;
 				$score = $correct_count != null
-					? ($correct_count / $question_count) * 10
+					? ($correct_count / $question_count) * env('BASE_SCORE_SCALE', 10)
 					: 0;
 				$data[] = [
 					'first_name' => $student->first_name,
