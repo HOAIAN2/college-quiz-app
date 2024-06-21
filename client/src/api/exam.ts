@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { AxiosResponse } from 'axios';
 import request from '../config/api';
 import { ExamDetail, ExamInMonth, ExamResult, ExamWithQuestion, QueryExamType } from '../models/exam';
 import { ApiResponseWithData } from '../models/response';
@@ -108,6 +109,20 @@ export async function apiSubmitExam(id: string | number, answers: number[], bypa
 		if (!error.response) throw new Error(error.message);
 		const message = error.response.data.message;
 		if (error.response.data.errors) return Promise.reject(error.response.data.errors);
+		throw new Error(message);
+	}
+}
+
+export async function apiExportExamResult(id: string | number) {
+	try {
+		const res: AxiosResponse<Blob> = await request.get(pathUtils.join(prefix, id, 'export-result'), {
+			responseType: 'blob'
+		});
+		const contentDisposition = res.headers['content-disposition'] as string | undefined;
+		return { data: res.data, contentDisposition };
+	} catch (error: any) {
+		if (!error.response) throw new Error(error.message);
+		const message = error.response.data.message;
 		throw new Error(message);
 	}
 }

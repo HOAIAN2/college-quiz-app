@@ -23,4 +23,5 @@ export default {
 	},
 	score: 'Điểm số',
 	didNotSubmitted: 'Chưa nộp bài',
+	export: 'Xuất'
 };

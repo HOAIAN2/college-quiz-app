@@ -44,7 +44,7 @@ export default function ExportUsers({
 		setIsPending(true);
 		apiExportUsers(role, fields)
 			.then(res => {
-				const defaultFileName = `Export_${role}_${new Date().toISOString().split('T')[0]}.xlsx`;
+				const defaultFileName = `Export-${role}-${new Date().toISOString().split('T')[0]}.xlsx`;
 				const contentDisposition = res.contentDisposition || '';
 				const match = contentDisposition.match(/filename="(.+)"/);
 				const fileName = match ? match[1] : defaultFileName;

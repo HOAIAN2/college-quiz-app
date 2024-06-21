@@ -286,7 +286,7 @@ class UserController extends Controller
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('user_view'), 403);
 		$data = $request->validated();
-		$file_name = "Export_{$data['role']}_" . Carbon::now()->format(User::DATE_FORMAT) . '.xlsx';
+		$file_name = "Export-{$data['role']}-" . Carbon::now()->format(User::DATE_FORMAT) . '.xlsx';
 
 		try {
 			$query = User::where('role_id', '=', Role::ROLES[$data['role']]);

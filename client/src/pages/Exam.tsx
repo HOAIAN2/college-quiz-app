@@ -1,11 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import moment from 'moment';
 import { useState } from 'react';
+import { BiExport } from 'react-icons/bi';
 import { ImCancelCircle } from 'react-icons/im';
 import { LuAlarmClock, LuRefreshCw } from 'react-icons/lu';
 import { Link, useParams } from 'react-router-dom';
 import appStyles from '../App.module.css';
-import { apiGetExamById, apiUpdateExamStatus } from '../api/exam';
+import { apiExportExamResult, apiGetExamById, apiUpdateExamStatus } from '../api/exam';
 import Loading from '../components/Loading';
 import YesNoPopUp from '../components/YesNoPopUp';
 import QUERY_KEYS from '../constants/query-keys';
@@ -15,9 +16,11 @@ import styles from '../styles/Exam.module.css';
 import caculateScore from '../utils/caculateScore';
 import css from '../utils/css';
 import languageUtils from '../utils/languageUtils';
+import { saveBlob } from '../utils/saveBlob';
 
 export default function Exam() {
 	const { user, appLanguage, permissions } = useAppContext();
+	const [isExporting, setIsExporting] = useState(false);
 	const [showStartExamPopUp, setShowStartExamPopUp] = useState(false);
 	const [showCancelExamPopUp, setShowCancelExamPopUp] = useState(false);
 	const language = useLanguage('page.exam');
@@ -38,6 +41,20 @@ export default function Exam() {
 		queryData.data.result.find(item => item.studentId === user.user!.id)
 			?.correctCount !== null
 		: false;
+	const handleExportExamResult = () => {
+		setIsExporting(true);
+		apiExportExamResult(String(id))
+			.then(res => {
+				const defaultFileName = `Exam-${id}-${new Date().toISOString().split('T')[0]}.xlsx`;
+				const contentDisposition = res.contentDisposition || '';
+				const match = contentDisposition.match(/filename="(.+)"/);
+				const fileName = match ? match[1] : defaultFileName;
+				saveBlob(res.data, fileName);
+			})
+			.finally(() => {
+				setIsExporting(false);
+			});
+	};
 	// useEffect(() => {
 	// 	const { data } = queryData
 	// 	const refetchOffsetMinutes = REFETCH_OFFSET_MINUTES * 60 * 1000
@@ -176,6 +193,18 @@ export default function Exam() {
 									>
 										<LuRefreshCw />
 										{language?.refresh}
+									</button>
+									<button
+										className={
+											css(
+												isExporting ? appStyles['button-submitting'] : '',
+												appStyles['action-item-white-d']
+											)
+										}
+										onClick={handleExportExamResult}
+									>
+										<BiExport />
+										{language?.export}
 									</button>
 								</div>
 								<div className={styles['table-container']}>

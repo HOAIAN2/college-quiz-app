@@ -557,7 +557,7 @@ class ExamController extends Controller
 		}
 	}
 
-	public function result(string $id)
+	public function exportResult(string $id)
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_view'), 403);
@@ -614,7 +614,7 @@ class ExamController extends Controller
 			}
 			return Excel::download(
 				new ExamResultsExport(collect($data)),
-				"Exam-$id-result-$now.xlsx"
+				"Exam-$id-result-" . $now->format(Exam::DATE_FORMAT) . '.xlsx'
 			);
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());
