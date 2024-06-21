@@ -134,6 +134,7 @@ Route::prefix('/courses')->middleware('auth:sanctum')
 
 Route::prefix('/exams')->middleware('auth:sanctum')
 	->controller(ExamController::class)->group(function () {
+		Route::post('/{id}/sync-cache', 'syncCache');
 		Route::get('/{id}/export-result', 'exportResult');
 		Route::post('/{id}/status', 'updateStatus');
 		Route::get('/{id}/questions', 'questions');

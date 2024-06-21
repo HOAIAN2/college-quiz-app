@@ -9,6 +9,7 @@ class Reply
 	{
 		return response()->json([
 			'status' => 'success',
+			'data' => null
 		], $status);
 	}
 

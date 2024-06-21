@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Exam\IndexRequest;
 use App\Http\Requests\Exam\StoreRequest;
 use App\Http\Requests\Exam\SubmitRequest;
+use App\Http\Requests\Exam\SyncCacheRequest;
 use App\Http\Requests\Exam\UpdateRequest;
 use App\Http\Requests\Exam\UpdateStatusRequest;
 use App\Models\Chapter;
@@ -623,14 +624,15 @@ class ExamController extends Controller
 		}
 	}
 
-	public function syncCache(Request $request, string $id)
+	public function syncCache(SyncCacheRequest $request, string $id)
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_submit'), 403);
 
 		try {
 			$type = $request->type;
-			$cache_key = "exam:$id-user:$user-id-answers";
+			$cache_key = "exam:$id-user:$user->id-answers";
+
 			switch ($type) {
 				case 'get':
 					return Reply::successWithData(Cache::get($cache_key), '');
@@ -648,7 +650,7 @@ class ExamController extends Controller
 
 					Cache::put(
 						$cache_key,
-						$request->answers,
+						array_map('intval', $request->answers),
 						Carbon::parse($exam->started_at)->addMinutes($exam->exam_time)
 					);
 					return Reply::success();

@@ -126,3 +126,20 @@ export async function apiExportExamResult(id: string | number) {
 		throw new Error(message);
 	}
 }
+
+export async function apiSyncExamAnswersCache(id: string | number, type: 'get' | 'post', answers?: number[]) {
+	try {
+		const formData = new FormData();
+		formData.append('type', type);
+		answers?.forEach(answer => {
+			formData.append('answers[]', String(answer));
+		});
+		const res = await request.post(pathUtils.join(prefix, id, 'sync-cache'), formData);
+		const { data } = res.data as ApiResponseWithData<number[] | null>;
+		return data;
+	} catch (error: any) {
+		if (!error.response) throw new Error(error.message);
+		const message = error.response.data.message;
+		throw new Error(message);
+	}
+}
