@@ -24,9 +24,8 @@ class SyncAnswerCacheRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'type' => ['required', 'in:get,post'],
-			'answers' => ['required_if:type,post', 'array'],
-			'answers.*' => ['required', 'integer']
+			'answers' => ['required', 'array'],
+			'answers.*' => ['required', 'integer', 'min:-1']
 		];
 	}
 }

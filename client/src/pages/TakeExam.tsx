@@ -2,10 +2,10 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { sha256 } from 'js-sha256';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { TbSend } from 'react-icons/tb';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import appStyles from '../App.module.css';
-import { apiGetExamQuestions, apiSubmitExam } from '../api/exam';
+import { apiGetExamQuestions, apiSubmitExam, apiSyncExamAnswersCache } from '../api/exam';
 import ExamQuestion from '../components/ExamQuestion';
 import Loading from '../components/Loading';
 import ScorePopUp from '../components/ScorePopUp';
@@ -15,51 +15,38 @@ import useForceUpdate from '../hooks/useForceUpdate';
 import useLanguage from '../hooks/useLanguage';
 import { ExamResult } from '../models/exam';
 import styles from '../styles/TakeExam.module.css';
-import isValidJson from '../utils/isValidJson';
 import timeUtils from '../utils/timeUtils';
 
 export default function TakeExam() {
 	const { id } = useParams();
-	const localStorageKey = `exam_${id}`;
 	const [showSubmitPopUp, setShowSubmitPopUp] = useState(false);
 	const [examResult, setExamResult] = useState<ExamResult>();
 	const [bypassKey, setBypassKey] = useState('');
 	const queryClient = useQueryClient();
 	const requestRef = useRef<number>();
-	const [answers, setAnswers] = useState<number[]>(() => {
-		const data = localStorage.getItem(localStorageKey);
-		if (data === null || !isValidJson(data)) {
-			localStorage.setItem(localStorageKey, '[]');
-			return [];
-		}
-		const decodedData = JSON.parse(data);
-		if (!Array.isArray(decodedData) || decodedData.some(i => !Number.isInteger(i))) {
-			localStorage.setItem(localStorageKey, '[]');
-			return [];
-		}
-		return decodedData;
-	});
+	const [answers, setAnswers] = useState<number[]>([]);
 	const language = useLanguage('page.take_exam');
 	const forceUpdate = useForceUpdate();
 	const animate = useCallback(() => {
 		forceUpdate();
 		requestRef.current = requestAnimationFrame(animate);
 	}, [forceUpdate]);
-	const onMutateSuccess = () => {
-		localStorage.removeItem(localStorageKey);
-	};
 	const queryData = useQuery({
 		queryKey: [QUERY_KEYS.EXAM_QUESTIONS, { examId: id }],
 		queryFn: () => apiGetExamQuestions(String(id)),
 		enabled: examResult === undefined,
-		staleTime: Infinity
+		staleTime: Infinity,
+		retry: 0
 	});
+	useEffect(() => {
+		if (answers.length === 0) return;
+		apiSyncExamAnswersCache(String(id), answers);
+	}, [answers, id]);
 	const timeLeft = queryData.data ?
-		timeUtils.countDown(new Date(Date.parse(queryData.data.startedAt!) + queryData.data.examTime * 60000)) : '';
+		timeUtils.countDown(new Date(Date.parse(queryData.data.examData.startedAt!) + queryData.data.examData.examTime * 60000)) : '';
 	const { mutateAsync, isPending } = useMutation({
 		mutationFn: () => apiSubmitExam(String(id), answers, bypassKey),
 		onSuccess: (data) => {
-			onMutateSuccess();
 			setExamResult(data);
 		},
 	});
@@ -70,11 +57,11 @@ export default function TakeExam() {
 	}, [animate, examResult]);
 	useEffect(() => {
 		if (!queryData.data) return;
-		setBypassKey(sha256(queryData.data.startedAt!));
+		setBypassKey(sha256(queryData.data.examData.startedAt!));
 	}, [queryData.data]);
 	useEffect(() => {
 		if (!queryData.data) return;
-		const endAt = new Date(queryData.data.startedAt!).getTime() + (queryData.data.examTime * 60 * 1000);
+		const endAt = new Date(queryData.data.examData.startedAt!).getTime() + (queryData.data.examData.examTime * 60 * 1000);
 		const now = new Date().getTime();
 		if (now > endAt && !isPending && !examResult) {
 			mutateAsync();
@@ -83,21 +70,15 @@ export default function TakeExam() {
 	});
 	useEffect(() => {
 		if (!queryData.data) return;
-		document.title = queryData.data.name;
-		const newAnswers = Array(queryData.data.questions.length).fill(-1);
-		if (answers.length !== newAnswers.length) {
+		document.title = queryData.data.examData.name;
+		const newAnswers = Array(queryData.data.examData.questions.length).fill(-1);
+		if (queryData.data.answersCache) {
+			setAnswers(queryData.data.answersCache);
+		}
+		else if (answers.length !== newAnswers.length) {
 			setAnswers(newAnswers);
-			localStorage.setItem(localStorageKey, JSON.stringify(newAnswers));
 		}
-		else {
-			localStorage.setItem(localStorageKey, JSON.stringify(answers));
-		}
-		return () => {
-			if (answers.length === 0) {
-				localStorage.removeItem(localStorageKey);
-			}
-		};
-	}, [answers, id, localStorageKey, queryData.data]);
+	}, [answers.length, queryData.data]);
 	useEffect(() => {
 		if (!queryData.data) return;
 		return () => {
@@ -105,6 +86,7 @@ export default function TakeExam() {
 			queryClient.removeQueries({ queryKey: [QUERY_KEYS.EXAM_QUESTIONS, { examId: id }] });
 		};
 	}, [id, queryClient, queryData.data]);
+	if (queryData.isError) return <Navigate to={`/exams/${id}`} />;
 	return (
 		<>
 			{examResult ?
@@ -127,13 +109,14 @@ export default function TakeExam() {
 				queryData.isLoading ? < Loading /> : null
 			}
 			{
-				queryData.data ?
+				queryData.data
+					&& answers.length === queryData.data.examData.questions.length ?
 					<>
 						<main className={styles['take-exam-container']}>
 							<div className={styles['data-container']}>
 								<div className={styles['title']}>
 									<div>
-										{queryData.data.name}
+										{queryData.data.examData.name}
 									</div>
 									<div>
 										{language?.timeLeft}: {timeLeft}
@@ -141,7 +124,7 @@ export default function TakeExam() {
 								</div>
 								<div className={styles['questions-container']}>
 									{
-										queryData.data.questions.map((question, index) => {
+										queryData.data.examData.questions.map((question, index) => {
 											return (
 												<ExamQuestion
 													key={`exam-question-${question.id}`}

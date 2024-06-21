@@ -127,11 +127,10 @@ export async function apiExportExamResult(id: string | number) {
 	}
 }
 
-export async function apiSyncExamAnswersCache(id: string | number, type: 'get' | 'post', answers?: number[]) {
+export async function apiSyncExamAnswersCache(id: string | number, answers: number[]) {
 	try {
 		const formData = new FormData();
-		formData.append('type', type);
-		answers?.forEach(answer => {
+		answers.forEach(answer => {
 			formData.append('answers[]', String(answer));
 		});
 		const res = await request.post(pathUtils.join(prefix, id, 'sync-cache'), formData);

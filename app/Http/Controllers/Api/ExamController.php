@@ -30,7 +30,8 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ExamController extends Controller
 {
-	public $cacheKey = 'exam:@exam_id:-user:@user_id';
+	public $questionsCacheKey = 'exam:@exam_id:-user:@user_id-questions';
+	public $answersCacheKey = 'exam:@exam_id:-user:@user_id-answers';
 
 	public function index(IndexRequest $request)
 	{
@@ -415,13 +416,21 @@ class ExamController extends Controller
 
 		DB::beginTransaction();
 		try {
-			$cache_key = str_replace(
+			$data = (object)[];
+			$question_cache_key = str_replace(
 				['@exam_id', '@user_id'],
 				[$id, $user->id],
-				$this->cacheKey
+				$this->questionsCacheKey
 			);
-			if (Cache::has($cache_key)) {
-				return Reply::successWithData(Cache::get($cache_key), '');
+			$answers_cache_key = str_replace(
+				['@exam_id', '@user_id'],
+				[$id, $user->id],
+				$this->answersCacheKey
+			);
+			$data->answers_cache = Cache::get($answers_cache_key);
+			if (Cache::has($question_cache_key)) {
+				$data->exam_data = Cache::get($question_cache_key);
+				return Reply::successWithData($data, '');
 			}
 
 			$exam_questions_order = ExamQuestionsOrder::firstOrCreate([
@@ -429,7 +438,7 @@ class ExamController extends Controller
 				'user_id' => $user->id
 			]);
 
-			$data = Exam::with(['questions' => function ($query) use ($exam_questions_order) {
+			$exam = Exam::with(['questions' => function ($query) use ($exam_questions_order) {
 				$query
 					->select('questions.id', 'content')
 					->with(['question_options' => function ($query)  use ($exam_questions_order) {
@@ -448,16 +457,17 @@ class ExamController extends Controller
 				->whereNull('cancelled_at')
 				->findOrFail($id);
 
-			$exam_started_at = Carbon::parse($data->started_at);
-			$exam_ended_at = $exam_started_at->copy()->addMinutes($data->exam_time);
+			$exam_started_at = Carbon::parse($exam->started_at);
+			$exam_ended_at = $exam_started_at->copy()->addMinutes($exam->exam_time);
 			if ($now->lessThan($exam_started_at)) {
 				return Reply::error('app.errors.exam_not_start');
 			}
 			if ($now->greaterThan($exam_ended_at)) {
 				return Reply::error('app.errors.exam_has_end');
 			}
-			Cache::put($cache_key, $data, $exam_ended_at);
+			Cache::put($question_cache_key, $exam, $exam_ended_at);
 			DB::commit();
+			$data->exam_data = $exam;
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());
@@ -479,7 +489,7 @@ class ExamController extends Controller
 			$cache_key = str_replace(
 				['@exam_id', '@user_id'],
 				[$id, $user->id],
-				$this->cacheKey
+				$this->questionsCacheKey
 			);
 			$exam_questions_order = ExamQuestionsOrder::where('exam_id', '=', $id)
 				->where('user_id', '=', $user->id)
@@ -629,35 +639,27 @@ class ExamController extends Controller
 		abort_if(!$user->hasPermission('exam_submit'), 403);
 
 		try {
-			$type = $request->type;
-			$cache_key = "exam:$id-user:$user->id-answers";
+			$answers_cache_key = str_replace(
+				['@exam_id', '@user_id'],
+				[$id, $user->id],
+				$this->answersCacheKey
+			);
+			$exam = Exam::whereHas('course.enrollments', function ($query) use ($user) {
+				$query->where('student_id', '=', $user->id);
+			})
+				->whereDoesntHave('exam_trackers', function ($query)  use ($user) {
+					$query->where('user_id', '=', $user->id);
+				})
+				->whereNotNull('started_at')
+				->whereNull('cancelled_at')
+				->findOrfail($id);
 
-			switch ($type) {
-				case 'get':
-					return Reply::successWithData(Cache::get($cache_key), '');
-					break;
-				case 'post':
-					$exam = Exam::whereHas('course.enrollments', function ($query) use ($user) {
-						$query->where('student_id', '=', $user->id);
-					})
-						->whereDoesntHave('exam_trackers', function ($query)  use ($user) {
-							$query->where('user_id', '=', $user->id);
-						})
-						->whereNotNull('started_at')
-						->whereNull('cancelled_at')
-						->findOrfail($id);
-
-					Cache::put(
-						$cache_key,
-						array_map('intval', $request->answers),
-						Carbon::parse($exam->started_at)->addMinutes($exam->exam_time)
-					);
-					return Reply::success();
-					break;
-				default:
-					return Reply::error('app.errors.something_went_wrong', [], 500);
-					break;
-			}
+			Cache::put(
+				$answers_cache_key,
+				array_map('intval', $request->answers),
+				Carbon::parse($exam->started_at)->addMinutes($exam->exam_time)
+			);
+			return Reply::success();
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			if ($this->isDevelopment) return Reply::error($error->getMessage());

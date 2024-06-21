@@ -41,9 +41,17 @@ export type ExamDetail = Exam & {
 	}[];
 };
 
-export type ExamWithQuestion = Exam & {
-	questions: ExamQuestion[];
+// export type ExamWithQuestion = Exam & {
+// 	questions: ExamQuestion[];
+// };
+
+export type ExamWithQuestion = {
+	examData: Exam & {
+		questions: ExamQuestion[];
+	};
+	answersCache: number[] | null;
 };
+
 export type QueryExamType = {
 	month?: string;
 	year?: string;
