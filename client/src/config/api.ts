@@ -68,6 +68,12 @@ request.interceptors.response.use(
 		}
 		const response = error.response as AxiosResponse;
 		if (response.data && response.headers['content-type'] === 'application/json') {
+			if (response.data instanceof Blob) {
+				response.data.text().then(text => {
+					const data = JSON.parse(text);
+					toast.error(data.message);
+				});
+			}
 			if (response.data.message) toast.error(response.data.message);
 		}
 		return Promise.reject(error);

@@ -23,6 +23,7 @@ export default function ExportUsers({
 }: ExportUsersProps) {
 	const language = useLanguage('component.export_users');
 	const [hide, setHide] = useState(true);
+	const [isPending, setIsPending] = useState(false);
 	const handleClosePopUp = () => {
 		setHide(true);
 		setTimeout(() => {
@@ -40,10 +41,17 @@ export default function ExportUsers({
 		formData.forEach((value) => {
 			fields.push(value as string);
 		});
+		setIsPending(true);
 		apiExportUsers(role, fields)
 			.then(res => {
-				const fileName = `Export_${role}_${new Date().toISOString().split('T')[0]}.xlsx`;
-				saveBlob(res, fileName);
+				const defaultFileName = `Export_${role}_${new Date().toISOString().split('T')[0]}.xlsx`;
+				const contentDisposition = res.contentDisposition || '';
+				const match = contentDisposition.match(/filename="(.+)"/);
+				const fileName = match ? match[1] : defaultFileName;
+				saveBlob(res.data, fileName);
+			})
+			.finally(() => {
+				setIsPending(false);
 			});
 	};
 	const handleSelectAll = (type: 'all' | 'none') => {
@@ -98,19 +106,24 @@ export default function ExportUsers({
 							<div className={styles['action-items']}>
 								<button
 									name='save'
-									className={appStyles['action-item-d']}>
+									className={
+										css(
+											appStyles['action-item-d'],
+											isPending ? appStyles['button-submitting'] : ''
+										)
+									}>
 									{language?.save}
 								</button>
 								<button
 									onClick={() => { handleSelectAll('none'); }}
 									style={{ width: 'fit-content' }}
-									type='button' name='save'
+									type='button'
 									className={appStyles['action-item-white-d']}
 								>{language?.deselectAll}
 								</button>
 								<button
 									onClick={() => { handleSelectAll('all'); }}
-									type='button' name='save'
+									type='button'
 									className={appStyles['action-item-white-d']}>
 									{language?.selectAll}
 								</button>

@@ -132,9 +132,12 @@ export async function apiExportUsers(role: RoleName, fields: (string)[]) {
 			},
 			responseType: 'blob'
 		});
-		return res.data;
+		const contentDisposition = res.headers['content-disposition'] as string | undefined;
+		return { data: res.data, contentDisposition };
 	} catch (error: any) {
-		throw new Error(error.message);
+		if (!error.response) throw new Error(error.message);
+		const message = error.response.data.message;
+		throw new Error(message);
 	}
 }
 
