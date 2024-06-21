@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Exam\IndexRequest;
 use App\Http\Requests\Exam\StoreRequest;
 use App\Http\Requests\Exam\SubmitRequest;
-use App\Http\Requests\Exam\SyncCacheRequest;
+use App\Http\Requests\Exam\SyncAnswerCacheRequest;
 use App\Http\Requests\Exam\UpdateRequest;
 use App\Http\Requests\Exam\UpdateStatusRequest;
 use App\Models\Chapter;
@@ -23,7 +23,6 @@ use App\Models\Question;
 use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -624,7 +623,7 @@ class ExamController extends Controller
 		}
 	}
 
-	public function syncCache(SyncCacheRequest $request, string $id)
+	public function syncCache(SyncAnswerCacheRequest $request, string $id)
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_submit'), 403);

@@ -5,7 +5,7 @@ namespace App\Http\Requests\Exam;
 use App\Traits\CustomValidateResponse;
 use Illuminate\Foundation\Http\FormRequest;
 
-class SyncCacheRequest extends FormRequest
+class SyncAnswerCacheRequest extends FormRequest
 {
 	use CustomValidateResponse;
 	/**
