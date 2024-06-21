@@ -613,19 +613,12 @@ class ExamController extends Controller
 					->where('user_id', '=', $student->id)
 					->where('is_correct', '=', true)
 					->count() : null;
-				$score = $correct_count != null
-					? ($correct_count / $question_count) * env('BASE_SCORE_SCALE', 10)
-					: 0;
+				$score = NumberHelper::caculateScore($correct_count, $question_count);
 				$data[] = [
 					'first_name' => $student->first_name,
 					'last_name' => $student->last_name,
 					'school_class_shortcode' => $student->school_class->shortcode,
-					'score' => number_format(
-						(float)$score,
-						2,
-						NumberHelper::getDecimalSeparator(app()->getLocale()),
-						NumberHelper::geThousandsSeparator(app()->getLocale()),
-					)
+					'score' => NumberHelper::formatScore($score)
 				];
 			}
 			return Excel::download(
