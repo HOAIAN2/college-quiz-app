@@ -636,6 +636,7 @@ class ExamController extends Controller
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('exam_submit'), 403);
+		$now = Carbon::now();
 
 		try {
 			$answers_cache_key = str_replace(
@@ -653,10 +654,18 @@ class ExamController extends Controller
 				->whereNull('cancelled_at')
 				->findOrfail($id);
 
+			$exam_started_at = Carbon::parse($exam->started_at);
+			$exam_ended_at = $exam_started_at->copy()->addMinutes($exam->exam_time);
+			if ($now->lessThan($exam_started_at)) {
+				return Reply::error('app.errors.exam_not_start');
+			}
+			if ($now->greaterThan($exam_ended_at)) {
+				return Reply::error('app.errors.exam_has_end');
+			}
 			Cache::put(
 				$answers_cache_key,
 				array_map('intval', $request->answers),
-				Carbon::parse($exam->started_at)->addMinutes($exam->exam_time)
+				Carbon::parse($exam->started_at)->addMinutes($exam->exam_time + (int)env('ALLOW_LATE_SUBMIT'))
 			);
 			return Reply::success();
 		} catch (\Exception $error) {
