@@ -5,7 +5,5 @@ export default function caculateScore(correctCount: number, questionCount: numbe
 	languageUtils.getLanguage();
 	return Number((correctCount / questionCount * BASE_SCORE_SCALE)
 		.toFixed(2))
-		.toLocaleString(languageUtils.getLanguage(), {
-			notation: 'compact'
-		}) + `/${BASE_SCORE_SCALE}`;
+		.toLocaleString(languageUtils.getLanguage()) + `/${BASE_SCORE_SCALE}`;
 }
