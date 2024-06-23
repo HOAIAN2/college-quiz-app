@@ -83,6 +83,7 @@
 }
 
 .wrap-item>input {
+	accent-color: var(--color-blue);
 	width: 20px;
 	height: 20px;
 }

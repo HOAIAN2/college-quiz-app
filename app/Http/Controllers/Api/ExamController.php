@@ -623,7 +623,7 @@ class ExamController extends Controller
 			}
 			return Excel::download(
 				new ExamResultsExport(collect($data)),
-				"Exam-$id-result-" . $now->format(Exam::DATE_FORMAT) . '.xlsx'
+				"$id-$exam->name-result-$now.xlsx"
 			);
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());

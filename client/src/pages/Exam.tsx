@@ -13,6 +13,7 @@ import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/Exam.module.css';
+import apiUtils from '../utils/apiUtils';
 import caculateScore from '../utils/caculateScore';
 import css from '../utils/css';
 import languageUtils from '../utils/languageUtils';
@@ -46,27 +47,14 @@ export default function Exam() {
 		apiExportExamResult(String(id))
 			.then(res => {
 				const defaultFileName = `Exam-${id}-${new Date().toISOString().split('T')[0]}.xlsx`;
-				const contentDisposition = res.contentDisposition || '';
-				const match = contentDisposition.match(/filename="(.+)"/);
-				const fileName = match ? match[1] : defaultFileName;
+				const contentDisposition = res.contentDisposition;
+				const fileName = apiUtils.getFileNameFromContentDisposition(contentDisposition, defaultFileName);
 				saveBlob(res.data, fileName);
 			})
 			.finally(() => {
 				setIsExporting(false);
 			});
 	};
-	// useEffect(() => {
-	// 	const { data } = queryData
-	// 	const refetchOffsetMinutes = REFETCH_OFFSET_MINUTES * 60 * 1000
-	// 	if (data && !data.cancelledAt && !data.startedAt) {
-	// 		const offset = new Date(queryData.data.examDate).getTime() - new Date().getTime()
-	// 		if (offset < refetchOffsetMinutes)
-	// 			setTimeout(() => {
-	// 				queryData.refetch()
-	// 				forceUpdate()
-	// 			}, 1000)
-	// 	}
-	// })
 	return (
 		<>
 			{showStartExamPopUp === true ?

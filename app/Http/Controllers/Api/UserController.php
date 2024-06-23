@@ -286,7 +286,6 @@ class UserController extends Controller
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('user_view'), 403);
 		$data = $request->validated();
-		$file_name = "Export-{$data['role']}-" . Carbon::now()->format(User::DATE_FORMAT) . '.xlsx';
 
 		try {
 			$query = User::where('role_id', '=', Role::ROLES[$data['role']]);
@@ -299,7 +298,10 @@ class UserController extends Controller
 			});
 
 			$collection = $query->get();
-			return Excel::download(new UsersExport($collection, $columns), $file_name);
+			return Excel::download(
+				new UsersExport($collection, $columns),
+				'Export-' . trans("role.{$data['role']}") . '-' . Carbon::now() . '.xlsx'
+			);
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();

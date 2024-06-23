@@ -8,6 +8,7 @@ import QUERY_KEYS from '../constants/query-keys';
 import useLanguage from '../hooks/useLanguage';
 import { RoleName } from '../models/role';
 import styles from '../styles/ExportUsers.module.css';
+import apiUtils from '../utils/apiUtils';
 import css from '../utils/css';
 import { saveBlob } from '../utils/saveBlob';
 import Loading from './Loading';
@@ -45,9 +46,8 @@ export default function ExportUsers({
 		apiExportUsers(role, fields)
 			.then(res => {
 				const defaultFileName = `Export-${role}-${new Date().toISOString().split('T')[0]}.xlsx`;
-				const contentDisposition = res.contentDisposition || '';
-				const match = contentDisposition.match(/filename="(.+)"/);
-				const fileName = match ? match[1] : defaultFileName;
+				const contentDisposition = res.contentDisposition;
+				const fileName = apiUtils.getFileNameFromContentDisposition(contentDisposition, defaultFileName);
 				saveBlob(res.data, fileName);
 			})
 			.finally(() => {
