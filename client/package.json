@@ -19,15 +19,15 @@
 		"react-datetime": "^3.2.0",
 		"react-dom": "^18.3.1",
 		"react-icons": "^5.2.1",
-		"react-router-dom": "^6.23.1",
+		"react-router-dom": "^6.24.0",
 		"sonner": "^1.5.0"
 	},
 	"devDependencies": {
 		"@types/canvas-confetti": "^1.6.4",
 		"@types/react": "^18.3.3",
 		"@types/react-dom": "^18.3.0",
-		"@typescript-eslint/eslint-plugin": "^7.13.1",
-		"@typescript-eslint/parser": "^7.13.1",
+		"@typescript-eslint/eslint-plugin": "^7.14.1",
+		"@typescript-eslint/parser": "^7.14.1",
 		"@vitejs/plugin-react-swc": "^3.7.0",
 		"eslint": "^8.57.0",
 		"eslint-plugin-react-hooks": "^4.6.2",
