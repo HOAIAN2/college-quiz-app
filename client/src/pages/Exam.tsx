@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { BiExport } from 'react-icons/bi';
 import { ImCancelCircle } from 'react-icons/im';
 import { LuAlarmClock, LuRefreshCw } from 'react-icons/lu';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiExportExamResult, apiGetExamById, apiUpdateExamStatus } from '../api/exam';
 import Loading from '../components/Loading';
@@ -35,7 +35,8 @@ export default function Exam() {
 	const queryData = useQuery({
 		queryKey: [QUERY_KEYS.EXAM, { id: id }],
 		queryFn: () => apiGetExamById(String(id)),
-		refetchOnWindowFocus: false
+		refetchOnWindowFocus: false,
+		enabled: permissions.has('exam_view')
 	});
 	const onMutateSuccess = () => { queryData.refetch(); };
 	const isSubmitted = queryData.data ?
@@ -55,6 +56,7 @@ export default function Exam() {
 				setIsExporting(false);
 			});
 	};
+	if (!permissions.has('course_view')) return <Navigate to='/' />;
 	return (
 		<>
 			{showStartExamPopUp === true ?

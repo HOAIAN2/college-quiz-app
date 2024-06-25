@@ -1,20 +1,24 @@
 import { useQuery } from '@tanstack/react-query';
 import { LuUsers2 } from 'react-icons/lu';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiGetRolePermissionCount } from '../api/role-permission';
 import Loading from '../components/Loading';
 import QUERY_KEYS from '../constants/query-keys';
+import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/Permissions.module.css';
 import css from '../utils/css';
 
 export default function Permissisons() {
+	const { permissions } = useAppContext();
 	const language = useLanguage('page.permissions');
 	const queryData = useQuery({
 		queryKey: [QUERY_KEYS.PAGE_PERMISSIONS],
-		queryFn: apiGetRolePermissionCount
+		queryFn: apiGetRolePermissionCount,
+		enabled: permissions.has('role_permission_view')
 	});
+	if (!permissions.has('role_permission_view')) return <Navigate to='/' />;
 	return (
 		<div className={css(appStyles['dashboard-d'], styles['permission-container'])}>
 			{

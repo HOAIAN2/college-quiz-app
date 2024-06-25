@@ -2,7 +2,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { RiAddFill } from 'react-icons/ri';
-import { useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiDeleteFacultiesByIds, apiGetFaculties } from '../api/faculty';
 import CreateFaculty from '../components/CreateFaculty';
@@ -40,7 +40,8 @@ export default function Faculties() {
 			page: Number(searchParams.get('page')),
 			perPage: Number(searchParams.get('per_page')),
 			search: queryDebounce
-		})
+		}),
+		enabled: permissions.has('faculty_view')
 	});
 	const handleDeleteFaculties = async () => {
 		await apiDeleteFacultiesByIds(Array.from(selectedFacultyIds));
@@ -59,6 +60,7 @@ export default function Faculties() {
 		else searchParams.set('search', queryDebounce);
 		setSearchParams(searchParams);
 	}, [queryDebounce, searchParams, setSearchParams]);
+	if (!permissions.has('faculty_view')) return <Navigate to='/' />;
 	return (
 		<>
 			{showCreatePopUp === true ?

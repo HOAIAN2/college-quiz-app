@@ -4,7 +4,7 @@ import { FiSave } from 'react-icons/fi';
 import { LuPenSquare } from 'react-icons/lu';
 import { MdDeleteOutline } from 'react-icons/md';
 import { RiAddFill } from 'react-icons/ri';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiDeleteCourse, apiGetCourseById, apiUpdateCourse } from '../api/course';
 import { apiAutoCompleteUser } from '../api/user';
@@ -41,7 +41,8 @@ export default function Course() {
 	const disabledUpdate = !permissions.has('course_update');
 	const queryData = useQuery({
 		queryKey: [QUERY_KEYS.PAGE_COURSE, { id: courseId }],
-		queryFn: () => apiGetCourseById(String(courseId))
+		queryFn: () => apiGetCourseById(String(courseId)),
+		enabled: permissions.has('course_view')
 	});
 	const userQueryData = useQuery({
 		queryKey: [QUERY_KEYS.AUTO_COMPLETE_SUBJECT, { search: debounceQueryUser }],
@@ -84,6 +85,7 @@ export default function Course() {
 			DOM.titleRef.current.textContent = document.title;
 		}
 	}, [DOM.titleRef, queryData.data]);
+	if (!permissions.has('course_view')) return <Navigate to='/' />;
 	return (
 		<>
 			{showViewExamPopUp ?

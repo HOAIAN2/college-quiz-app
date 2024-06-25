@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { FiSave } from 'react-icons/fi';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiGetRolePermissions, apiUpdateRolePermissions } from '../api/role-permission';
 import Loading from '../components/Loading';
@@ -12,13 +12,14 @@ import styles from '../styles/RolePermissions.module.css';
 import css from '../utils/css';
 
 export default function RolePermissions() {
-	const { DOM, permissions } = useAppContext();
+	const { DOM, permissions, appLanguage } = useAppContext();
 	const language = useLanguage('page.role_permissions');
 	const { id } = useParams();
 	const disabledUpdate = !permissions.has('role_permission_grant');
 	const queryData = useQuery({
 		queryKey: [QUERY_KEYS.PAGE_ROLE_PERMISSIONS, { id: id }],
-		queryFn: () => apiGetRolePermissions(Number(id))
+		queryFn: () => apiGetRolePermissions(Number(id)),
+		enabled: permissions.has('role_permission_view')
 	});
 	const handleUpdatePermission = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -53,9 +54,12 @@ export default function RolePermissions() {
 		}
 	}, [DOM.titleRef, language, queryData.data]);
 	useEffect(() => {
-		queryData.refetch();
+		if (permissions.has('role_permission_view')) {
+			queryData.refetch();
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [language]);
+	}, [permissions, appLanguage.language]);
+	if (!permissions.has('role_permission_view')) return <Navigate to='/' />;
 	return (
 		<div className={css(appStyles['dashboard-d'], styles['role-permission-container'])}
 		>

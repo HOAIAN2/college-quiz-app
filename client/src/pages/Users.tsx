@@ -9,7 +9,7 @@ import { PiMicrosoftExcelLogoFill } from 'react-icons/pi';
 import {
 	RiAddFill
 } from 'react-icons/ri';
-import { useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiDeleteUserByIds, apiGetUsersByType, apiImportUsers } from '../api/user';
 import CreateUser from '../components/CreateUser';
@@ -59,8 +59,9 @@ export default function Users({
 			role: role,
 			page: Number(searchParams.get('page')),
 			perPage: Number(searchParams.get('per_page')),
-			search: queryDebounce
-		})
+			search: queryDebounce,
+		}),
+		enabled: permissions.has('user_view')
 	});
 	const importFunction = async (file: File) => {
 		return apiImportUsers(file, role);
@@ -87,6 +88,7 @@ export default function Users({
 		else searchParams.set('search', queryDebounce);
 		setSearchParams(searchParams);
 	}, [queryDebounce, searchParams, setSearchParams]);
+	if (!permissions.has('user_view')) return <Navigate to='/' />;
 	return (
 		<>
 			{showCreatePopUp === true ?

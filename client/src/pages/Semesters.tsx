@@ -2,7 +2,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { LuBookOpenCheck } from 'react-icons/lu';
 import { RiAddFill } from 'react-icons/ri';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, Navigate, useSearchParams } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiGetSemesters } from '../api/semester';
 import CreateSemester from '../components/CreateSemester';
@@ -24,7 +24,8 @@ export default function Semesters() {
 	const queryClient = useQueryClient();
 	const queryData = useQuery({
 		queryKey: [QUERY_KEYS.PAGE_SEMESTERS, { search: queryDebounce }],
-		queryFn: () => apiGetSemesters(queryDebounce)
+		queryFn: () => apiGetSemesters(queryDebounce),
+		enabled: permissions.has('semester_view')
 	});
 	useEffect(() => {
 		if (!searchParams.get('search') && !queryDebounce) return;
@@ -37,6 +38,7 @@ export default function Semesters() {
 			queryClient.refetchQueries({ queryKey: [key] });
 		});
 	};
+	if (!permissions.has('semester_view')) return <Navigate to='/' />;
 	return (
 		<>
 			{showCreatePopUp === true ?

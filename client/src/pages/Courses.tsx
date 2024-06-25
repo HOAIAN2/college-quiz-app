@@ -2,7 +2,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { LuBookOpenCheck } from 'react-icons/lu';
 import { RiAddFill } from 'react-icons/ri';
-import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { Link, Navigate, useLocation, useParams, useSearchParams } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiGetCourses } from '../api/course';
 import { apiGetSemesterById } from '../api/semester';
@@ -35,7 +35,8 @@ export default function Courses() {
 		queryFn: () => apiGetCourses({
 			search: queryDebounce,
 			semesterId: Number(id) || undefined
-		})
+		}),
+		enabled: permissions.has('course_view')
 	});
 	useEffect(() => {
 		apiGetSemesterById(String(id))
@@ -61,6 +62,7 @@ export default function Courses() {
 		}
 	}, [semesterDetail, language, DOM.titleRef]);
 	if (!semesterDetail) return null;
+	if (!permissions.has('course_view')) return <Navigate to='/' />;
 	return (
 		<>
 			{showCreatePopUp && queryData.data ?

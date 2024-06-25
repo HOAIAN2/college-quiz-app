@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import moment from 'moment';
 import { useCallback, useEffect, useRef } from 'react';
 import Datetime from 'react-datetime';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, Navigate, useSearchParams } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiGetExamsByMonth } from '../api/exam';
 import Loading from '../components/Loading';
@@ -19,7 +19,7 @@ import timeUtils from '../utils/timeUtils';
 export default function Exams() {
 	const forceUpdate = useForceUpdate();
 	const [searchParams, setSearchParams] = useSearchParams();
-	const { appLanguage } = useAppContext();
+	const { appLanguage, permissions } = useAppContext();
 	const language = useLanguage('page.exams');
 	const requestRef = useRef<number>();
 	const monthYearFormat = moment.localeData()
@@ -65,13 +65,15 @@ export default function Exams() {
 		queryFn: () => apiGetExamsByMonth({
 			month: searchParams.get('month') || '',
 			year: searchParams.get('year') || ''
-		})
+		}),
+		enabled: permissions.has('exam_view')
 	});
 	useEffect(() => {
 		if (!queryData.data) return;
 		requestRef.current = requestAnimationFrame(animate);
 		return () => cancelAnimationFrame(requestRef.current!);
 	}, [animate, queryData.data]);
+	if (!permissions.has('exam_view')) return <Navigate to='/' />;
 	return (
 		<>
 			<main className={css(styles['page-content'], appStyles['dashboard-d'])}>

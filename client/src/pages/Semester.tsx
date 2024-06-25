@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import Datetime from 'react-datetime';
 import { MdDeleteOutline } from 'react-icons/md';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiDeleteSemester, apiGetSemesterById, apiUpdateSemester } from '../api/semester';
 import Loading from '../components/Loading';
@@ -25,7 +25,8 @@ export default function Semester() {
 	const disabledUpdate = !permissions.has('semester_update');
 	const queryData = useQuery({
 		queryKey: [QUERY_KEYS.PAGE_SEMESTER, { id: id }],
-		queryFn: () => apiGetSemesterById(String(id))
+		queryFn: () => apiGetSemesterById(String(id)),
+		enabled: permissions.has('semester_view')
 	});
 	const handleUpdateSemester = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault();
@@ -40,7 +41,6 @@ export default function Semester() {
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateSemester,
 		onError: (error: object) => { formUtils.showFormError(error); },
-		onSuccess: () => { }
 	});
 	const handleDeleteSemester = async () => {
 		await apiDeleteSemester(String(id));
@@ -56,6 +56,7 @@ export default function Semester() {
 			queryClient.removeQueries({ queryKey: [QUERY_KEYS.PAGE_SEMESTER, { id: id }] });
 		};
 	}, [id, queryClient]);
+	if (!permissions.has('semester_view')) return <Navigate to='/' />;
 	return (
 		<>
 			{showDeletePopUp === true ?

@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { RiAddFill } from 'react-icons/ri';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiDeleteSubject, apiGetSubjectById, apiUpdateSubject } from '../api/subject';
 import CreateChapter from '../components/CreateChapter';
@@ -30,7 +30,8 @@ export default function Subject() {
 	const formUtils = createFormUtils(styles);
 	const queryData = useQuery({
 		queryKey: [QUERY_KEYS.PAGE_SUBJECT, { id: id }],
-		queryFn: () => apiGetSubjectById(String(id))
+		queryFn: () => apiGetSubjectById(String(id)),
+		enabled: permissions.has('subject_view')
 	});
 	const handleUpdateSubject = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault();
@@ -65,6 +66,7 @@ export default function Subject() {
 			queryClient.removeQueries({ queryKey: [QUERY_KEYS.PAGE_SUBJECT, { id: id }] });
 		};
 	}, [id, queryClient]);
+	if (!permissions.has('subject_view')) return <Navigate to='/' />;
 	return (
 		<>
 			{showViewChapterPopUp && currentChapter ?

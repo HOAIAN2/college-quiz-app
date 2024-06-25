@@ -2,7 +2,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { LuBookOpenCheck } from 'react-icons/lu';
 import { RiAddFill } from 'react-icons/ri';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, Navigate, useSearchParams } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiGetSubjects } from '../api/subject';
 import CreateSubject from '../components/CreateSubject';
@@ -24,7 +24,8 @@ export default function Subjects() {
 	const queryClient = useQueryClient();
 	const queryData = useQuery({
 		queryKey: [QUERY_KEYS.PAGE_SUBJECTS, { search: queryDebounce }],
-		queryFn: () => apiGetSubjects(queryDebounce)
+		queryFn: () => apiGetSubjects(queryDebounce),
+		enabled: permissions.has('subject_view')
 	});
 	useEffect(() => {
 		if (!searchParams.get('search') && !queryDebounce) return;
@@ -37,6 +38,7 @@ export default function Subjects() {
 			queryClient.refetchQueries({ queryKey: [key] });
 		});
 	};
+	if (!permissions.has('subject_view')) return <Navigate to='/' />;
 	return (
 		<>
 			{showCreatePopUp === true ?

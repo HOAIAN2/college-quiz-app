@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { RiAddFill } from 'react-icons/ri';
-import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { Navigate, useLocation, useParams, useSearchParams } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiGetQuestions } from '../api/question';
 import { apiGetSubjectById } from '../api/subject';
@@ -42,13 +42,15 @@ export default function Questions() {
 			subjectId: String(id),
 			chapterId: searchParams.get('chapter'),
 			search: queryDebounce
-		})
+		}),
+		enabled: permissions.has('question_view') && permissions.has('subject_view')
 	});
 	useEffect(() => {
+		if (!permissions.has('subject_view')) return;
 		apiGetSubjectById(String(id)).then(res => {
 			setSubjectDetail(res);
 		});
-	}, [id]);
+	}, [id, permissions]);
 	useEffect(() => {
 		if (!searchParams.get('search') && !queryDebounce) return;
 		if (queryDebounce === '') searchParams.delete('search');
@@ -61,6 +63,7 @@ export default function Questions() {
 			if (DOM.titleRef.current) DOM.titleRef.current.textContent = document.title;
 		}
 	}, [subjectDetail, language, DOM.titleRef]);
+	if (!permissions.has('question_view') || !permissions.has('subject_view')) return <Navigate to='/' />;
 	if (!subjectDetail) return null;
 	return (
 		<>
