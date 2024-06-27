@@ -37,7 +37,7 @@ function useAppContextValue() {
 	};
 }
 
-export function AppProvider({ children }: { children: ReactNode; }) {
+export function AppContextProvider({ children }: { children: ReactNode; }) {
 	const contextValue = useAppContextValue();
 	return (
 		<AppContext.Provider value={contextValue}>
