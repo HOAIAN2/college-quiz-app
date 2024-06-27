@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import useLanguage from '../hooks/useLanguage';
-// import Footer from '../layouts/Footer';
 import styles from '../styles/NotFound.module.css';
 
 export default function NotFound() {
@@ -17,7 +16,6 @@ export default function NotFound() {
 					</Link>
 				</p>
 			</div>
-			{/* <Footer /> */}
 		</>
 	);
 }

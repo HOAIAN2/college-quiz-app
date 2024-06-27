@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { apiGetUser } from '../api/user';
-// import Footer from '../components/Footer'
 import useAppContext from '../hooks/useAppContext';
 import styles from '../styles/AuthLayout.module.css';
 import Header from './Header';
@@ -30,7 +29,6 @@ export default function AuthLayout() {
 		<div className={styles['auth-layout']}>
 			<Header />
 			<Outlet />
-			{/* <Footer /> */}
 		</div >
 	);
 }
