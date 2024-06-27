@@ -8,9 +8,18 @@
 }
 
 .not-found>.title {
-	font-size: 240px;
+	font-size: 20vw;
 	font-weight: 600;
 	user-select: none;
+	background: linear-gradient(45deg,
+			var(--color-blue),
+			var(--color-soft-blue),
+			var(--color-soft-green),
+			var(--color-soft-magenta));
+	background-clip: text;
+	color: transparent;
+	animation: gradient 5s ease infinite;
+	background-size: 300% 300%;
 }
 
 .not-found>.go-home {
@@ -18,5 +27,19 @@
 	width: fit-content;
 	height: 40px;
 	text-align: center;
-	font-size: 24px;
+	font-size: 16px;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
 }
