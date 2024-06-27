@@ -4,7 +4,7 @@ import languageUtils from '../utils/languageUtils';
 
 type AppContextType = ReturnType<typeof useAppContextValue>;
 
-const init: unknown = {};
+const init: unknown = null;
 export const AppContext = createContext<AppContextType>(init as AppContextType);
 
 function useAppContextValue() {
