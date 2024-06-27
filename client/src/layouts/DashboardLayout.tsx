@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { apiGetUser } from '../api/user';
 // import Footer from '../components/Footer'
-import Header from '../components/Header';
 import NavBar from '../components/NavBar';
 import useAppContext from '../hooks/useAppContext';
 import styles from '../styles/DashboardLayout.module.css';
+import Header from './Header';
 
 export default function DashboardLayout() {
 	const { user, permissions } = useAppContext();

@@ -6,12 +6,12 @@ import {
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
 import { apiLogout } from '../api/auth';
+import CustomSelect from '../components/CustomSelect';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/Header.module.css';
 import navBarStyles from '../styles/NavBar.module.css';
 import languageUtils from '../utils/languageUtils';
-import CustomSelect from './CustomSelect';
 
 export default function Header() {
 	const { DOM, user, appLanguage } = useAppContext();

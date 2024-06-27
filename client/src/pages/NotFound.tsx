@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import appStyles from '../App.module.css';
-import Footer from '../components/Footer';
 import useLanguage from '../hooks/useLanguage';
+// import Footer from '../layouts/Footer';
 import styles from '../styles/NotFound.module.css';
 import css from '../utils/css';
 
@@ -15,7 +15,7 @@ export default function NotFound() {
 				<Link to='/' className={css(appStyles['action-item-d'], styles['go-home'])
 				}>{language?.home}</Link>
 			</div>
-			<Footer />
+			{/* <Footer /> */}
 		</>
 	);
 }
