@@ -1,4 +1,3 @@
-
 const timeUtils = {
 	countDown(dateTime: Date) {
 		const timeRemaining = (dateTime.getTime() - new Date().getTime()) / 1000;
