@@ -1,3 +1,4 @@
 export default {
-	home: 'Home'
+	pageNotFound: 'This page does not exist or has been deleted.',
+	goBackHome: 'Go back home'
 };
