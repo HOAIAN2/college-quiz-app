@@ -29,9 +29,9 @@ function useAppContextValue() {
 		permissions: {
 			items: permissions,
 			setItems: setPermissions,
-			has: (name: string) => permissions.includes(name),
-			hasAnyFormList(permissionsToCheck: string[]) {
-				return permissionsToCheck.some(permission => permissions.includes(permission));
+			has: (permissionName: string) => permissions.includes(permissionName),
+			hasAnyFormList(permissionNames: string[]) {
+				return permissionNames.some(permission => permissionNames.includes(permission));
 			}
 		}
 	};

@@ -17,7 +17,6 @@
 .score-content {
 	width: 300px;
 	height: fit-content;
-	/* box-shadow: 0px 0px 10px var(--color-shadow); */
 	background-color: white;
 	border-radius: var(--border-radius-low);
 	transform-origin: center center;
@@ -80,23 +79,21 @@
 
 .score.green {
 	background: var(--color-soft-green);
-	box-shadow: 0px 0px 5px var(--color-soft-green);
 }
 
 .score.yellow {
 	background: var(--color-soft-yellow);
-	box-shadow: 0px 0px 5px var(--color-soft-yellow);
 }
 
 .score.red {
 	background: var(--color-soft-red);
-	box-shadow: 0px 0px 5px var(--color-soft-red);
 }
 
 .action-items {
 	height: 60px;
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	flex-direction: row-reverse;
 	gap: 10px;
 }

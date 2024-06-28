@@ -92,7 +92,6 @@
 	border: 1px solid var(--color-shadow);
 	border-radius: var(--border-radius-low);
 	box-shadow: 0px 0px 10px var(--color-shadow);
-	margin: 0 auto;
 	cursor: pointer;
 	user-select: none;
 }
@@ -104,7 +103,6 @@
 	border-radius: var(--border-radius-low);
 	box-shadow: 0px 0px 10px var(--color-shadow);
 	background: white;
-	margin: 0 auto;
 }
 
 .input-d:focus {
