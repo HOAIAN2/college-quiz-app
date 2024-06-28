@@ -75,17 +75,43 @@
 	align-items: center;
 	font-size: 32px !important;
 	font-weight: bold;
+	position: relative;
 }
 
+.score::after {
+	content: '';
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0.2;
+	border-radius: var(--border-radius-low);
+	z-index: 10;
+}
+
+
 .score.green {
+	color: var(--color-soft-green);
+}
+
+.score.green::after {
 	background: var(--color-soft-green);
 }
 
 .score.yellow {
+	color: var(--color-soft-yellow);
+}
+
+.score.yellow::after {
 	background: var(--color-soft-yellow);
 }
 
 .score.red {
+	color: var(--color-soft-red);
+}
+
+.score.red::after {
 	background: var(--color-soft-red);
 }
 
