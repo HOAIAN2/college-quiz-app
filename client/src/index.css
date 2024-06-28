@@ -66,21 +66,20 @@ li {
 
 @media (width>=500px) {
 	::-webkit-scrollbar {
-		width: 6px;
-		height: 6px;
+		width: 7px;
+		height: 7px;
 	}
 
 	::-webkit-scrollbar-track {
-		/* background: #f1f1f1; */
 		background: none;
 	}
 
 	::-webkit-scrollbar-thumb {
-		background: #888;
+		background: rgba(135, 135, 135, 0.5);
 		border-radius: 5px;
 	}
 
 	::-webkit-scrollbar-thumb:hover {
-		background: #878787;
+		background: rgba(135, 135, 135, 0.8);
 	}
 }
