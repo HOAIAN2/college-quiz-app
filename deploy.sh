@@ -1,4 +1,5 @@
 #!/bin/sh
+./build.sh
 rm -rf vendor
 rm app.tar.gz
 composer install --optimize-autoloader --no-dev
@@ -8,3 +9,4 @@ rm -rf storage/framework/sessions/*
 echo 'Compressing...'
 tar --exclude=client --exclude=node_modules --exclude=img --exclude=.git --exclude=composer.lock --exclude='app.tar.gz' -czf app.tar.gz *
 echo 'Completed!'
+composer i
