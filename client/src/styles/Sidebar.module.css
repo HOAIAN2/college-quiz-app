@@ -1,4 +1,4 @@
-.nav-bar {
+.sidebar {
 	width: 230px;
 	height: 100%;
 	background-color: white;
@@ -10,7 +10,7 @@
 	scrollbar-gutter: stable;
 }
 
-.nav-bar:hover {
+.sidebar:hover {
 	overflow-y: auto;
 }
 
@@ -75,7 +75,7 @@
 }
 
 @media (width<=800px) {
-	.nav-bar {
+	.sidebar {
 		position: fixed;
 	}
 

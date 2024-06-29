@@ -1,8 +1,9 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-const dir = './assets/langs/en/';
-const targetModelFile = './src/models/language.ts';
+const dir = path.join(path.dirname(fileURLToPath(import.meta.url)), 'assets/langs/en/');
+const targetModelFile = path.join(path.dirname(fileURLToPath(import.meta.url)), 'src/models/language.ts');
 
 const fileList = fs.readdirSync(dir);
 const langModels = [];

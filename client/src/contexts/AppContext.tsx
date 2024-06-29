@@ -8,14 +8,14 @@ const init: unknown = null;
 export const AppContext = createContext<AppContextType>(init as AppContextType);
 
 function useAppContextValue() {
-	const sideBarRef = useRef<HTMLDivElement>(null);
+	const sidebarRef = useRef<HTMLDivElement>(null);
 	const titleRef = useRef<HTMLHeadingElement>(null);
 	const [language, setLanguage] = useState(languageUtils.getLanguage());
 	const [permissions, setPermissions] = useState<string[]>([]);
 	const [user, setUser] = useState<UserDetail | undefined>();
 	return {
 		DOM: {
-			sideBarRef,
+			sideBarRef: sidebarRef,
 			titleRef
 		},
 		appLanguage: {

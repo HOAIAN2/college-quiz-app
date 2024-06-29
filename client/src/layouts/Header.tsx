@@ -10,7 +10,7 @@ import CustomSelect from '../components/CustomSelect';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/Header.module.css';
-import navBarStyles from '../styles/NavBar.module.css';
+import sidebarStyles from '../styles/Sidebar.module.css';
 import languageUtils from '../utils/languageUtils';
 
 export default function Header() {
@@ -46,7 +46,7 @@ export default function Header() {
 					user.user ?
 						<>
 							<div className={styles['toggle']} onClick={() => {
-								DOM.sideBarRef.current?.classList.toggle(navBarStyles['hide']);
+								DOM.sideBarRef.current?.classList.toggle(sidebarStyles['hide']);
 							}}>
 								<RxHamburgerMenu />
 							</div>

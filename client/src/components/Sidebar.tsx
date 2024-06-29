@@ -20,12 +20,12 @@ import { TbBrandAuth0 } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
-import styles from '../styles/NavBar.module.css';
+import styles from '../styles/Sidebar.module.css';
 import css from '../utils/css';
 
-export default function NavBar() {
+export default function Sidebar() {
 	const { DOM, permissions, setAppTitle } = useAppContext();
-	const language = useLanguage('component.navbar');
+	const language = useLanguage('component.sidebar');
 	const navBarItems = [
 		{
 			name: language?.dashboard,
@@ -69,24 +69,12 @@ export default function NavBar() {
 			icon: <SiGoogleclassroom />,
 			isActive: permissions.has('school_class_view')
 		},
-		// {
-		// 	name: language?.courses,
-		// 	to: 'courses',
-		// 	icon: <GrCertificate />,
-		// 	isActive: permissions.has('course_view')
-		// },
 		{
 			name: language?.semester,
 			to: 'semesters',
 			icon: <MdOutlineStickyNote2 />,
 			isActive: permissions.has('semester_view')
 		},
-		// {
-		// 	name: language?.questions,
-		// 	to: 'questions',
-		// 	icon: <AiOutlineQuestionCircle />,
-		// 	isActive: permissions.has('question_view')
-		// },
 		{
 			name: language?.exams,
 			to: 'exams',
@@ -117,7 +105,7 @@ export default function NavBar() {
 	return (
 		<nav ref={DOM.sideBarRef} className={
 			css(
-				styles['nav-bar'],
+				styles['sidebar'],
 				window.innerWidth < 800 ? styles['hide'] : ''
 			)
 		}>
