@@ -11,6 +11,7 @@ import Loading from '../components/Loading';
 import ScorePopUp from '../components/ScorePopUp';
 import YesNoPopUp from '../components/YesNoPopUp';
 import QUERY_KEYS from '../constants/query-keys';
+import useAppContext from '../hooks/useAppContext';
 import useForceUpdate from '../hooks/useForceUpdate';
 import useLanguage from '../hooks/useLanguage';
 import { ExamResult } from '../models/exam';
@@ -19,6 +20,7 @@ import timeUtils from '../utils/timeUtils';
 
 export default function TakeExam() {
 	const { id } = useParams();
+	const { setAppTitle } = useAppContext();
 	const [showSubmitPopUp, setShowSubmitPopUp] = useState(false);
 	const [examResult, setExamResult] = useState<ExamResult>();
 	const [bypassKey, setBypassKey] = useState('');
@@ -70,7 +72,7 @@ export default function TakeExam() {
 	});
 	useEffect(() => {
 		if (!queryData.data) return;
-		document.title = queryData.data.examData.name;
+		setAppTitle(queryData.data.examData.name);
 		const newAnswers = Array(queryData.data.examData.questions.length).fill(-1);
 		if (queryData.data.answersCache) {
 			setAnswers(queryData.data.answersCache);
@@ -78,7 +80,7 @@ export default function TakeExam() {
 		else if (answers.length !== newAnswers.length) {
 			setAnswers(newAnswers);
 		}
-	}, [answers.length, queryData.data]);
+	}, [answers.length, queryData.data, setAppTitle]);
 	useEffect(() => {
 		if (!queryData.data) return;
 		return () => {

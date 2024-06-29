@@ -24,7 +24,7 @@ import styles from '../styles/NavBar.module.css';
 import css from '../utils/css';
 
 export default function NavBar() {
-	const { DOM, permissions } = useAppContext();
+	const { DOM, permissions, setAppTitle } = useAppContext();
 	const language = useLanguage('component.navbar');
 	const navBarItems = [
 		{
@@ -112,10 +112,7 @@ export default function NavBar() {
 		const currentFeature = navBarItems.find(feature => {
 			return feature.to === window.location.pathname.split('/')[1];
 		});
-		if (currentFeature?.name) document.title = currentFeature.name;
-		if (currentFeature?.name && DOM.titleRef.current) {
-			DOM.titleRef.current.textContent = document.title;
-		}
+		if (currentFeature?.name) setAppTitle(currentFeature.name);
 	});
 	return (
 		<nav ref={DOM.sideBarRef} className={

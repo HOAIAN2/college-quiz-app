@@ -33,6 +33,10 @@ function useAppContextValue() {
 			hasAnyFormList(permissionNames: string[]) {
 				return permissionNames.some(permission => permissionNames.includes(permission));
 			}
+		},
+		setAppTitle(text: string) {
+			document.title = text;
+			if (titleRef.current) titleRef.current.textContent = text;
 		}
 	};
 }

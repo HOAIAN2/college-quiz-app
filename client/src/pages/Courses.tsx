@@ -20,7 +20,7 @@ export default function Courses() {
 	const { state } = useLocation() as { state: Semester | null; };
 	const [semesterDetail, setSemesterDetail] = useState(state);
 	const [showCreatePopUp, setShowCreatePopUp] = useState(false);
-	const { permissions, DOM } = useAppContext();
+	const { permissions, setAppTitle } = useAppContext();
 	const { id } = useParams();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
@@ -56,11 +56,10 @@ export default function Courses() {
 		setSearchParams(searchParams);
 	}, [queryDebounce, searchParams, setSearchParams]);
 	useEffect(() => {
-		if (language) {
-			document.title = language?.title.replace('@semester', semesterDetail?.name || '');
-			if (DOM.titleRef.current) DOM.titleRef.current.textContent = document.title;
+		if (language && semesterDetail) {
+			setAppTitle(language.title.replace('@semester', semesterDetail.name));
 		}
-	}, [semesterDetail, language, DOM.titleRef]);
+	}, [language, semesterDetail, setAppTitle]);
 	if (!semesterDetail) return null;
 	if (!permissions.has('course_view')) return <Navigate to='/' />;
 	return (

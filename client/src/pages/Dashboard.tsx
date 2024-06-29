@@ -31,9 +31,9 @@ export default function Dashboard() {
 	};
 	return (
 		<main className={css(appStyles['dashboard-d'], styles['dashboard'])}>
-			{queryData.isLoading ?
-				<Loading />
-				: null}
+			{
+				queryData.isLoading ? <Loading /> : null
+			}
 			{
 				!queryData.isError && queryData.data ?
 					<>

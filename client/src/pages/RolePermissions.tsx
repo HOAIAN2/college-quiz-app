@@ -12,7 +12,7 @@ import styles from '../styles/RolePermissions.module.css';
 import css from '../utils/css';
 
 export default function RolePermissions() {
-	const { DOM, permissions, appLanguage } = useAppContext();
+	const { permissions, appLanguage, setAppTitle } = useAppContext();
 	const language = useLanguage('page.role_permissions');
 	const { id } = useParams();
 	const disabledUpdate = !permissions.has('role_permission_grant');
@@ -45,14 +45,10 @@ export default function RolePermissions() {
 		}
 	});
 	useEffect(() => {
-		if (queryData.data) {
-			document.title = language ?
-				language[queryData.data.role.name + 'Permissions' as keyof typeof language] : '';
-			if (DOM.titleRef.current) {
-				DOM.titleRef.current.textContent = document.title;
-			}
+		if (queryData.data && language) {
+			setAppTitle(language[queryData.data.role.name + 'Permissions' as keyof typeof language]);
 		}
-	}, [DOM.titleRef, language, queryData.data]);
+	}, [language, queryData.data, setAppTitle]);
 	useEffect(() => {
 		if (permissions.has('role_permission_view')) {
 			queryData.refetch();
@@ -64,7 +60,7 @@ export default function RolePermissions() {
 		<div className={css(appStyles['dashboard-d'], styles['role-permission-container'])}
 		>
 			{
-				queryData.isLoading || isPending ? <Loading /> : null
+				queryData.isFetching || isPending ? <Loading /> : null
 			}
 			{
 				queryData.data ?
