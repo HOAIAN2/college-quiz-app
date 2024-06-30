@@ -12,11 +12,12 @@ trait Searchable
 	 *
 	 * @param \Illuminate\Database\Eloquent\Builder $query
 	 * @param string $value
+	 * @param array $columns = []
 	 * @return \Illuminate\Database\Eloquent\Builder
 	 */
-	public function scopeSearch($query, $value)
+	public function scopeSearch($query, $value, array $columns = [])
 	{
-		$columns = $this->searchable;
+		if (empty($columns)) $columns = $this->searchable;
 		if (in_array('first_name', $columns) && in_array('last_name', $columns)) {
 			$query->where(DB::raw("CONCAT (last_name, ' ' , first_name)"), 'like', "%$value%")
 				->orWhere(DB::raw("CONCAT (first_name, ' ' , last_name)"), 'like', "%$value%");

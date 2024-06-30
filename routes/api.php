@@ -41,7 +41,7 @@ Route::prefix('/auth')->controller(AuthController::class)->group(function () {
 
 Route::prefix('/users')->middleware('auth:sanctum')
 	->controller(UserController::class)->group(function () {
-		Route::get('/query', 'getUserByType');
+		Route::get('/query', 'getUsersByType');
 		Route::post('/import', 'importUsers');
 		Route::get('/export', 'exportUsers');
 		Route::get('/exportable', 'exportableFields');

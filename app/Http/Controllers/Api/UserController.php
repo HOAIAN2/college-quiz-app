@@ -140,7 +140,7 @@ class UserController extends Controller
 		}
 	}
 
-	public function getUserByType(GetByTypeRequest $request)
+	public function getUsersByType(GetByTypeRequest $request)
 	{
 		$user = $this->getUser();
 		abort_if(!$user->hasPermission('user_view'), 403);
