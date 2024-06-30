@@ -18,8 +18,8 @@ class NumberHelper
 		return number_format(
 			$score,
 			2,
-			NumberHelper::getDecimalSeparator(app()->getLocale()),
-			NumberHelper::geThousandsSeparator(app()->getLocale()),
+			self::getDecimalSeparator(app()->getLocale()),
+			self::geThousandsSeparator(app()->getLocale()),
 		);
 	}
 

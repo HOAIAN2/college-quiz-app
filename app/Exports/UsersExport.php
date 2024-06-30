@@ -18,12 +18,9 @@ class UsersExport implements
 	WithStyles,
 	WithMapping
 {
-	/**
-	 * @return Collection
-	 */
-	public $collection = [];
-	public $headers = [];
-	public $columns = [];
+	public Collection $collection;
+	public array $headers = [];
+	public array $columns = [];
 
 	public function __construct(Collection $collection, $columns = [])
 	{

@@ -15,11 +15,8 @@ class ExamResultsExport implements
 	ShouldAutoSize,
 	WithStyles
 {
-	/**
-	 * @return Collection
-	 */
-	public $collection = [];
-	public $headers = [];
+	public Collection $collection;
+	public array $headers;
 
 	public function __construct(Collection $collection)
 	{
