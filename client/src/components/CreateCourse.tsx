@@ -72,7 +72,7 @@ export default function CreateCourse({
 	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleCreateCourse,
-		onError: (error: object) => { formUtils.showFormError(error); },
+		onError: (error) => { formUtils.showFormError(error); },
 		onSuccess: onMutateSuccess
 	});
 	const handleSetShortcode = (option: Option) => {

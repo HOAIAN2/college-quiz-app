@@ -53,7 +53,7 @@ export default function ViewChapter({
 	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateChapter,
-		onError: (error: object) => { formUtils.showFormError(error); },
+		onError: (error) => { formUtils.showFormError(error); },
 		onSuccess: onMutateSuccess
 	});
 	useEffect(() => {

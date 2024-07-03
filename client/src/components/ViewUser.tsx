@@ -74,7 +74,7 @@ export default function ViewUser({
 	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateUser,
-		onError: (error: object) => { formUtils.showFormError(error); },
+		onError: (error) => { formUtils.showFormError(error); },
 		onSuccess: onMutateSuccess
 	});
 	const genderOptions = [

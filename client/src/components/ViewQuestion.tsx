@@ -71,7 +71,7 @@ export default function ViewQuestion({
 	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateQuestion,
-		onError: (error: object) => { formUtils.showFormError(error); },
+		onError: (error) => { formUtils.showFormError(error); },
 		onSuccess: onMutateSuccess
 	});
 	const handleDeleteQuestion = async () => {

@@ -48,7 +48,7 @@ export default function CreateChapter({
 	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleCreateChapter,
-		onError: (error: object) => { formUtils.showFormError(error); },
+		onError: (error) => { formUtils.showFormError(error); },
 		onSuccess: onMutateSuccess
 	});
 	useEffect(() => {

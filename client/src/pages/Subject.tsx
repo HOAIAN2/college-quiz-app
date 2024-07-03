@@ -47,7 +47,7 @@ export default function Subject() {
 	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateSubject,
-		onError: (error: object) => { formUtils.showFormError(error); },
+		onError: (error) => { formUtils.showFormError(error); },
 		onSuccess: () => { queryData.refetch(); }
 	});
 	const handleDeletetSubject = async () => {

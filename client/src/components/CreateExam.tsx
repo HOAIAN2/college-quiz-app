@@ -70,7 +70,7 @@ export default function CreateExam({
 	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleCreateExam,
-		onError: (error: object) => { formUtils.showFormError(error); },
+		onError: (error) => { formUtils.showFormError(error); },
 		onSuccess: onMutateSuccess
 	});
 	useEffect(() => {

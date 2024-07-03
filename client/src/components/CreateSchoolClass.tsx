@@ -56,7 +56,7 @@ export default function CreateSchoolClass({
 	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleCreateFaculty,
-		onError: (error: object) => { formUtils.showFormError(error); },
+		onError: (error) => { formUtils.showFormError(error); },
 		onSuccess: onMutateSuccess
 	});
 	useEffect(() => {

@@ -62,7 +62,7 @@ export default function Course() {
 	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateCourse,
-		onError: (error: object) => { formUtils.showFormError(error); },
+		onError: (error) => { formUtils.showFormError(error); },
 		onSuccess: () => { queryData.refetch(); }
 	});
 	const handleDeleteCourse = async () => {

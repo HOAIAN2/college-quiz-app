@@ -42,7 +42,7 @@ export default function Profile() {
 	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateUser,
-		onError: (error: object) => { formUtils.showFormError(error); },
+		onError: (error) => { formUtils.showFormError(error); },
 		onSuccess: () => {
 			apiGetUser()
 				.then((data) => {

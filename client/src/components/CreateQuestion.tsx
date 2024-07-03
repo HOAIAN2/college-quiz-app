@@ -63,7 +63,7 @@ export default function CreateQuestion({
 	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleCreateQuestion,
-		onError: (error: object) => { formUtils.showFormError(error); },
+		onError: (error) => { formUtils.showFormError(error); },
 		onSuccess: onMutateSuccess
 	});
 	useEffect(() => {

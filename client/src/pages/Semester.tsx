@@ -40,7 +40,7 @@ export default function Semester() {
 	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateSemester,
-		onError: (error: object) => { formUtils.showFormError(error); },
+		onError: (error) => { formUtils.showFormError(error); },
 	});
 	const handleDeleteSemester = async () => {
 		await apiDeleteSemester(String(id));

@@ -63,7 +63,7 @@ export default function ViewSchoolClass({
 	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateSchoolClass,
-		onError: (error: object) => { formUtils.showFormError(error); },
+		onError: (error) => { formUtils.showFormError(error); },
 		onSuccess: onMutateSuccess
 	});
 	useEffect(() => {

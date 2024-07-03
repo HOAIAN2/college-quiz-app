@@ -73,7 +73,7 @@ export default function CreateUser({
 	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleCreateUser,
-		onError: (error: object) => { formUtils.showFormError(error); },
+		onError: (error) => { formUtils.showFormError(error); },
 		onSuccess: onMutateSuccess
 	});
 	const options = [

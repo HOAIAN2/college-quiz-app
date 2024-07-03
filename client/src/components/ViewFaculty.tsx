@@ -64,7 +64,7 @@ export default function ViewFaculty({
 	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateFaculty,
-		onError: (error: object) => { formUtils.showFormError(error); },
+		onError: (error) => { formUtils.showFormError(error); },
 		onSuccess: onMutateSuccess
 	});
 	useEffect(() => {

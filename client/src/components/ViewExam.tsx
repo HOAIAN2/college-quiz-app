@@ -82,7 +82,7 @@ export default function ViewExam({
 	};
 	const { mutate, isPending } = useMutation({
 		mutationFn: handleUpdateExam,
-		onError: (error: object) => { formUtils.showFormError(error); },
+		onError: (error) => { formUtils.showFormError(error); },
 		onSuccess: onMutateSuccess
 	});
 	useEffect(() => {
