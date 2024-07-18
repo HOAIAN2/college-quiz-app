@@ -56,7 +56,7 @@ export default function Exam() {
 				setIsExporting(false);
 			});
 	};
-	if (!permissions.has('course_view')) return <Navigate to='/' />;
+	if (!permissions.has('exam_view')) return <Navigate to='/' />;
 	return (
 		<>
 			{showStartExamPopUp === true ?

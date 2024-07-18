@@ -40,11 +40,12 @@ use Laravel\Sanctum\HasApiTokens;
  * @property SchoolClass|null $school_class
  * @property Collection|Course[] $courses
  * @property Collection|Enrollment[] $enrollments
- * @property Collection|ExamTracker[] $exam_trackers
+ * @property Collection|ExamQuestionsAnswer[] $exam_trackers
  * @property Collection|Faculty[] $faculties
  * @property Collection|Question[] $questions
  * @property Collection|ExamQuestionsOrder[] $exam_questions_orders
  * @property Collection|ExamSupervisor[] $exam_supervisors
+ * @property Collection|ExamResult[] $exam_results
  *
  * @package App\Models
  */
@@ -125,7 +126,7 @@ class User extends Authenticatable
 
 	public function exam_trackers()
 	{
-		return $this->hasMany(ExamTracker::class);
+		return $this->hasMany(ExamQuestionsAnswer::class);
 	}
 
 	public function faculties()
@@ -146,6 +147,11 @@ class User extends Authenticatable
 	public function exam_supervisors()
 	{
 		return $this->hasMany(ExamSupervisor::class);
+	}
+
+	public function exam_results()
+	{
+		return $this->hasMany(ExamResult::class);
 	}
 
 	public function isAdmin()

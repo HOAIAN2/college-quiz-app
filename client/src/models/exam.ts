@@ -41,10 +41,6 @@ export type ExamDetail = Exam & {
 	}[];
 };
 
-// export type ExamWithQuestion = Exam & {
-// 	questions: ExamQuestion[];
-// };
-
 export type ExamWithQuestion = {
 	examData: Exam & {
 		questions: ExamQuestion[];
@@ -65,8 +61,16 @@ export type ExamQuestion = {
 };
 
 export type ExamResult = {
+	id: number;
+	examId: number;
+	userId: number;
 	correctCount: number;
 	questionCount: number;
+	submitIp: string;
+	cancelledAt: string | null;
+	cancellationReason: string | null;
+	createdAt: string | null;
+	updatedAt: string | null;
 };
 
 type Pivot = {

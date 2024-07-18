@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class ExamTracker
+ * Class ExamQuestionsAnswer
  *
  * @property int $id
  * @property int $user_id
@@ -28,9 +28,9 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class ExamTracker extends Model
+class ExamQuestionsAnswer extends Model
 {
-	protected $table = 'exam_trackers';
+	protected $table = 'exam_questions_answers';
 
 	protected function casts()
 	{

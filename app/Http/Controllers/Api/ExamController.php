@@ -17,8 +17,9 @@ use App\Models\Course;
 use App\Models\Exam;
 use App\Models\ExamQuestion;
 use App\Models\ExamQuestionsOrder;
+use App\Models\ExamResult;
 use App\Models\ExamSupervisor;
-use App\Models\ExamTracker;
+use App\Models\ExamQuestionsAnswer;
 use App\Models\Question;
 use App\Models\Role;
 use App\Models\User;
@@ -228,10 +229,10 @@ class ExamController extends Controller
 			$students = Course::findOrFail($data->course_id)->enrollments->pluck('user');
 
 			foreach ($students as $student) {
-				$is_submitted = ExamTracker::where('exam_id', '=', $id)
+				$is_submitted = ExamQuestionsAnswer::where('exam_id', '=', $id)
 					->where('user_id', '=', $student->id)
 					->exists();
-				$correct_count = $is_submitted == true ? ExamTracker::where('exam_id', '=', $id)
+				$correct_count = $is_submitted == true ? ExamQuestionsAnswer::where('exam_id', '=', $id)
 					->where('user_id', '=', $student->id)
 					->where('is_correct', '=', true)
 					->count() : null;
@@ -557,7 +558,7 @@ class ExamController extends Controller
 					$is_correct = $question_option->is_correct;
 					if ($is_correct) $correct_count++;
 				}
-				ExamTracker::create([
+				ExamQuestionsAnswer::create([
 					'user_id' => $user->id,
 					'exam_id' => $exam->id,
 					'question_id' => $question->pivot->id,
@@ -565,10 +566,13 @@ class ExamController extends Controller
 					'is_correct' => $is_correct
 				]);
 			}
-			$result_data = [
+			$result_data = ExamResult::create([
+				'exam_id' => $exam->id,
+				'user_id' => $user->id,
 				'correct_count' => $correct_count,
-				'question_count' => count($exam->questions)
-			];
+				'question_count' => count($exam->questions),
+				'submit_ip' => $request->ip()
+			]);
 			Cache::forget($questions_cache_key);
 			Cache::forget($answers_cache_key);
 			DB::commit();
@@ -615,10 +619,10 @@ class ExamController extends Controller
 			$students = $exam->course->enrollments->pluck('user');
 
 			foreach ($students as $student) {
-				$is_submitted = ExamTracker::where('exam_id', '=', $id)
+				$is_submitted = ExamQuestionsAnswer::where('exam_id', '=', $id)
 					->where('user_id', '=', $student->id)
 					->exists();
-				$correct_count = $is_submitted == true ? ExamTracker::where('exam_id', '=', $id)
+				$correct_count = $is_submitted == true ? ExamQuestionsAnswer::where('exam_id', '=', $id)
 					->where('user_id', '=', $student->id)
 					->where('is_correct', '=', true)
 					->count() : null;

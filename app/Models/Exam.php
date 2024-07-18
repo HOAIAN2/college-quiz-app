@@ -25,9 +25,10 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property Course $course
  * @property Collection|Question[] $questions
- * @property Collection|ExamTracker[] $exam_trackers
+ * @property Collection|ExamQuestionsAnswer[] $exam_trackers
  * @property Collection|ExamQuestionsOrder[] $exam_questions_orders
  * @property Collection|ExamSupervisor[] $exam_supervisors
+ * @property Collection|ExamResult[] $exam_results
  *
  * @package App\Models
  */
@@ -71,7 +72,7 @@ class Exam extends Model
 
 	public function exam_trackers()
 	{
-		return $this->hasMany(ExamTracker::class);
+		return $this->hasMany(ExamQuestionsAnswer::class);
 	}
 
 	public function exam_questions_orders()
@@ -82,6 +83,11 @@ class Exam extends Model
 	public function exam_supervisors()
 	{
 		return $this->hasMany(ExamSupervisor::class);
+	}
+
+	public function exam_results()
+	{
+		return $this->hasMany(ExamResult::class);
 	}
 
 	public function isOver()
