@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property Course $course
  * @property Collection|Question[] $questions
- * @property Collection|ExamQuestionsAnswer[] $exam_trackers
+ * @property Collection|ExamQuestionsAnswer[] $exam_questions_answers
  * @property Collection|ExamQuestionsOrder[] $exam_questions_orders
  * @property Collection|ExamSupervisor[] $exam_supervisors
  * @property Collection|ExamResult[] $exam_results
@@ -70,7 +70,7 @@ class Exam extends Model
 			->withTimestamps();
 	}
 
-	public function exam_trackers()
+	public function exam_questions_answers()
 	{
 		return $this->hasMany(ExamQuestionsAnswer::class);
 	}
@@ -96,10 +96,10 @@ class Exam extends Model
 		return $over_at->greaterThan(Carbon::now());
 	}
 
-	public function markAllTracker()
+	public function gradeExam()
 	{
-		foreach ($this->exam_trackers as $exam_tracker) {
-			$exam_tracker->markTracker();
+		foreach ($this->exam_questions_answers as $exam_questions_answer) {
+			$exam_questions_answer->gradeAnswer();
 		}
 	}
 

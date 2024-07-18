@@ -40,7 +40,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property SchoolClass|null $school_class
  * @property Collection|Course[] $courses
  * @property Collection|Enrollment[] $enrollments
- * @property Collection|ExamQuestionsAnswer[] $exam_trackers
+ * @property Collection|ExamQuestionsAnswer[] $exam_questions_answers
  * @property Collection|Faculty[] $faculties
  * @property Collection|Question[] $questions
  * @property Collection|ExamQuestionsOrder[] $exam_questions_orders
@@ -124,7 +124,7 @@ class User extends Authenticatable
 		return $this->hasMany(Enrollment::class, 'student_id');
 	}
 
-	public function exam_trackers()
+	public function exam_questions_answers()
 	{
 		return $this->hasMany(ExamQuestionsAnswer::class);
 	}

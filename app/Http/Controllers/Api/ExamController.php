@@ -196,9 +196,6 @@ class ExamController extends Controller
 		$relations = [
 			'exam_supervisors.user',
 		];
-		$with_counts = [
-			'questions',
-		];
 
 		try {
 			$data = Exam::with($relations);
@@ -221,29 +218,22 @@ class ExamController extends Controller
 					return Reply::error('app.errors.something_went_wrong', [], 500);
 					break;
 			}
-			$data = $data
-				->withCount($with_counts)
-				->findOrFail($id);
+			$data = $data->findOrFail($id);
 			$result = [];
-			$question_count = $data->questions()->count();
 			$students = Course::findOrFail($data->course_id)->enrollments->pluck('user');
 
 			foreach ($students as $student) {
-				$is_submitted = ExamQuestionsAnswer::where('exam_id', '=', $id)
-					->where('user_id', '=', $student->id)
-					->exists();
-				$correct_count = $is_submitted == true ? ExamQuestionsAnswer::where('exam_id', '=', $id)
-					->where('user_id', '=', $student->id)
-					->where('is_correct', '=', true)
-					->count() : null;
+				$exam_result = $student->exam_results()
+					->where('exam_id', $data->id)
+					->first();
 				$result[] = [
 					'student_id' => $student->id,
 					'first_name' => $student->first_name,
 					'last_name' => $student->last_name,
 					'school_class_shortcode' => $student->school_class->shortcode,
 					'gender' => $student->gender,
-					'question_count' => $question_count,
-					'correct_count' => $correct_count,
+					'question_count' => $exam_result?->question_count,
+					'correct_count' => $exam_result?->correct_count,
 				];
 			}
 			$data->result = $result;
@@ -461,7 +451,7 @@ class ExamController extends Controller
 				->whereHas('course.enrollments', function ($query) use ($user) {
 					$query->where('student_id', '=', $user->id);
 				})
-				->whereDoesntHave('exam_trackers', function ($query)  use ($user) {
+				->whereDoesntHave('exam_questions_answers', function ($query)  use ($user) {
 					$query->where('user_id', '=', $user->id);
 				})
 				->whereNotNull('started_at')
@@ -522,7 +512,7 @@ class ExamController extends Controller
 				->whereHas('course.enrollments', function ($query) use ($user) {
 					$query->where('student_id', '=', $user->id);
 				})
-				->whereDoesntHave('exam_trackers', function ($query)  use ($user) {
+				->whereDoesntHave('exam_questions_answers', function ($query)  use ($user) {
 					$query->where('user_id', '=', $user->id);
 				})
 				->whereNotNull('started_at')
@@ -660,7 +650,7 @@ class ExamController extends Controller
 			$exam = Exam::whereHas('course.enrollments', function ($query) use ($user) {
 				$query->where('student_id', '=', $user->id);
 			})
-				->whereDoesntHave('exam_trackers', function ($query)  use ($user) {
+				->whereDoesntHave('exam_questions_answers', function ($query)  use ($user) {
 					$query->where('user_id', '=', $user->id);
 				})
 				->whereNotNull('started_at')

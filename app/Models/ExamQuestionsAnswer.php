@@ -76,7 +76,7 @@ class ExamQuestionsAnswer extends Model
 		return $this->belongsTo(User::class);
 	}
 
-	public function markTracker()
+	public function gradeAnswer()
 	{
 		$is_correct = QuestionOption::where('id', '=', $this->answer_id)
 			->where('question_id', '=', $this->question_id)
