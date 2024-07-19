@@ -32,7 +32,7 @@ class AuthController extends Controller
 			], '');
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());
-			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong');
 		}
 	}
@@ -46,7 +46,7 @@ class AuthController extends Controller
 			return Reply::success();
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());
-			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong');
 		}
 	}
@@ -69,7 +69,7 @@ class AuthController extends Controller
 			return Reply::successWithMessage('auth.successes.change_password_success');
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());
-			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}

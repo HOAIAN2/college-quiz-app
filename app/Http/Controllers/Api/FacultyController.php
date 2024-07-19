@@ -32,7 +32,7 @@ class FacultyController extends Controller
 			return Reply::successWithData($faculties, '');
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());
-			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong');
 		}
 	}
@@ -51,7 +51,7 @@ class FacultyController extends Controller
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
-			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
@@ -68,7 +68,7 @@ class FacultyController extends Controller
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());
-			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong');
 		}
 	}
@@ -88,7 +88,7 @@ class FacultyController extends Controller
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
-			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
@@ -106,7 +106,7 @@ class FacultyController extends Controller
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());
 			DB::rollBack();
-			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
@@ -120,7 +120,7 @@ class FacultyController extends Controller
 			return Reply::successWithData($school_classes, '');
 		} catch (\Exception $error) {
 			Log::error($error->getMessage());
-			if ($this->isDevelopment) return Reply::error($error->getMessage());
+			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}
