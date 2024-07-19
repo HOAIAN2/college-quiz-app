@@ -609,14 +609,10 @@ class ExamController extends Controller
 			$students = $exam->course->enrollments->pluck('user');
 
 			foreach ($students as $student) {
-				$is_submitted = ExamQuestionsAnswer::where('exam_id', '=', $id)
-					->where('user_id', '=', $student->id)
-					->exists();
-				$correct_count = $is_submitted == true ? ExamQuestionsAnswer::where('exam_id', '=', $id)
-					->where('user_id', '=', $student->id)
-					->where('is_correct', '=', true)
-					->count() : null;
-				$score = NumberHelper::caculateScore($correct_count, $question_count);
+				$exam_result = $student->exam_results()
+					->where('exam_id', $id)
+					->first();
+				$score = NumberHelper::caculateScore($exam_result?->correct_count, $question_count);
 				$data[] = [
 					'first_name' => $student->first_name,
 					'last_name' => $student->last_name,
