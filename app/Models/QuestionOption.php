@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon|null $updated_at
  *
  * @property Question $question
- * @property Collection|ExamTracker[] $exam_questions_answers
+ * @property Collection|ExamQuestionsAnswer[] $exam_questions_answers
  *
  * @package App\Models
  */
@@ -55,6 +55,6 @@ class QuestionOption extends Model
 
 	public function exam_questions_answers()
 	{
-		return $this->hasMany(ExamTracker::class, 'answer_id');
+		return $this->hasMany(ExamQuestionsAnswer::class, 'answer_id');
 	}
 }

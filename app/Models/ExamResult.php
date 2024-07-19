@@ -32,6 +32,8 @@ class ExamResult extends Model
 {
 	protected $table = 'exam_results';
 
+	const DATE_FORMAT = 'Y-m-d\TH:i:sP';
+
 	protected function casts()
 	{
 		return [
@@ -39,7 +41,9 @@ class ExamResult extends Model
 			'user_id' => 'int',
 			'correct_count' => 'int',
 			'question_count' => 'int',
-			'cancelled_at' => 'datetime'
+			'cancelled_at' => 'datetime',
+			'created_at' => 'datetime' . self::DATE_FORMAT,
+			'updated_at' => 'datetime' . self::DATE_FORMAT,
 		];
 	}
 

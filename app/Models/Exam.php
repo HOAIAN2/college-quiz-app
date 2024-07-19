@@ -42,10 +42,10 @@ class Exam extends Model
 	{
 		return [
 			'course_id' => 'int',
-			'exam_date' => 'datetime:' . Exam::DATE_FORMAT,
+			'exam_date' => 'datetime:' . self::DATE_FORMAT,
 			'exam_time' => 'int',
-			'started_at' => 'datetime:' . Exam::DATE_FORMAT,
-			'cancelled_at' => 'datetime:' . Exam::DATE_FORMAT,
+			'started_at' => 'datetime:' . self::DATE_FORMAT,
+			'cancelled_at' => 'datetime:' . self::DATE_FORMAT,
 		];
 	}
 

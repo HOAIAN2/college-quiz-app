@@ -41,8 +41,8 @@ class Semester extends Model
 	protected function casts()
 	{
 		return [
-			'start_date' => 'datetime:' . Semester::DATE_FORMAT,
-			'end_date' => 'datetime:' . Semester::DATE_FORMAT
+			'start_date' => 'datetime:' . self::DATE_FORMAT,
+			'end_date' => 'datetime:' . self::DATE_FORMAT
 		];
 	}
 

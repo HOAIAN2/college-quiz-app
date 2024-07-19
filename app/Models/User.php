@@ -70,9 +70,9 @@ class User extends Authenticatable
 	{
 		return [
 			'role_id' => 'int',
-			'birth_date' => 'datetime:' . User::DATE_FORMAT,
+			'birth_date' => 'datetime:' . self::DATE_FORMAT,
 			'is_active' => 'bool',
-			'email_verified_at' => 'datetime:' . User::DATE_FORMAT
+			'email_verified_at' => 'datetime:' . self::DATE_FORMAT
 		];
 	}
 
