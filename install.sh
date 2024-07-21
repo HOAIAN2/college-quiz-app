@@ -5,4 +5,3 @@ composer run-script post-create-project-cmd
 cd client
 npm i
 cp .env.example .env
-cp .env.example .env.production

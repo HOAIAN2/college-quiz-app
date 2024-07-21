@@ -8,6 +8,8 @@ class HomeController extends Controller
 {
 	public function index()
 	{
-		return view('index');
+		return response()
+			->view('index')
+			->header('Content-Security-Policy', env('CONTENT_SECURITY_POLICY'));
 	}
 }
