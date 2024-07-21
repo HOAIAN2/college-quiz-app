@@ -47,8 +47,8 @@ class SchoolClassController extends Controller
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
 			DB::rollBack();
+			Log::error($error->getMessage());
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -82,8 +82,8 @@ class SchoolClassController extends Controller
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
 			DB::rollBack();
+			Log::error($error->getMessage());
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -100,8 +100,8 @@ class SchoolClassController extends Controller
 			DB::commit();
 			return Reply::successWithMessage('app.successes.record_delete_success');
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
 			DB::rollBack();
+			Log::error($error->getMessage());
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}

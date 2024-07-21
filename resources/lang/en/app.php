@@ -25,5 +25,6 @@ return [
 		'exam_has_start' => 'The exam has started',
 		'exam_has_cancel' => 'The exam has been canceled',
 		'not_yet_time_for_exam' => 'Not yet time for the exam',
+		'log_file_not_exist' => 'Log file not exist'
 	],
 ];

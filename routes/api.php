@@ -13,7 +13,6 @@ use App\Http\Controllers\Api\SchoolClassController;
 use App\Http\Controllers\Api\SemesterController;
 use App\Http\Controllers\Api\SubjectController;
 use App\Http\Controllers\Api\UserController;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,10 +26,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('/admin')->middleware(App\Http\Middleware\VerifyAppKey::class)
-	->controller(AdminController::class)->group(function () {
-		Route::post('/run-artisan', 'runArtisan');
+Route::prefix('/admin')->controller(AdminController::class)->group(function () {
+	Route::post('/run-artisan', 'runArtisan')->middleware(App\Http\Middleware\VerifyAppKey::class);
+	Route::middleware('auth:sanctum')->group(function () {
+		// Route::post('/run-artisan', 'runArtisan');
+		Route::get('/log', 'getLogFile');
+		Route::delete('/log', 'deleteLogFile');
 	});
+});
 
 Route::prefix('/auth')->controller(AuthController::class)->group(function () {
 	Route::post('/login', 'login');
