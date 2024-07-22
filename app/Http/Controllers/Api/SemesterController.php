@@ -26,7 +26,7 @@ class SemesterController extends Controller
 			$data = $data->latest('id')->get();
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -49,7 +49,7 @@ class SemesterController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -64,7 +64,7 @@ class SemesterController extends Controller
 			$semester = Semester::findOrFail($id);
 			return Reply::successWithData($semester, '');
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -86,7 +86,7 @@ class SemesterController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -104,7 +104,7 @@ class SemesterController extends Controller
 			return Reply::successWithMessage('app.successes.record_delete_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -120,7 +120,7 @@ class SemesterController extends Controller
 				->search($request->search)->take($this->autoCompleteResultLimit)->get();
 			return Reply::successWithData($semesters, '');
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}

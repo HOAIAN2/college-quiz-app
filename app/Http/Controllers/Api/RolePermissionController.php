@@ -32,7 +32,7 @@ class RolePermissionController extends Controller
 			}
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -55,7 +55,7 @@ class RolePermissionController extends Controller
 			}
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -102,7 +102,7 @@ class RolePermissionController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}

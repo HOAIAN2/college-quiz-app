@@ -93,7 +93,7 @@ class ExamController extends Controller
 			}
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -183,7 +183,7 @@ class ExamController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -239,7 +239,7 @@ class ExamController extends Controller
 			$data->result = $result;
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -312,7 +312,7 @@ class ExamController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -353,7 +353,7 @@ class ExamController extends Controller
 			return Reply::successWithMessage('app.successes.record_delete_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -403,7 +403,7 @@ class ExamController extends Controller
 			return Reply::successWithMessage('app.successes.success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -472,7 +472,7 @@ class ExamController extends Controller
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -570,7 +570,7 @@ class ExamController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -625,7 +625,7 @@ class ExamController extends Controller
 				"$id-$exam->name-result-$now.xlsx"
 			);
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -668,7 +668,7 @@ class ExamController extends Controller
 			);
 			return Reply::success();
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}

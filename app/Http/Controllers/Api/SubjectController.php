@@ -27,7 +27,7 @@ class SubjectController extends Controller
 			$subjects = $subjects->get();
 			return Reply::successWithData($subjects, '');
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -45,7 +45,7 @@ class SubjectController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -64,7 +64,7 @@ class SubjectController extends Controller
 			])->findOrFail($id);
 			return Reply::successWithData($subject, '');
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -83,7 +83,7 @@ class SubjectController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -101,7 +101,7 @@ class SubjectController extends Controller
 			return Reply::successWithMessage('app.successes.record_delete_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
@@ -116,7 +116,7 @@ class SubjectController extends Controller
 			$users = Subject::search($request->search)->take($this->autoCompleteResultLimit)->get();
 			return Reply::successWithData($users, '');
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}

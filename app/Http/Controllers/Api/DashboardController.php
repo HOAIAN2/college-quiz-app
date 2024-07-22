@@ -76,7 +76,7 @@ class DashboardController extends Controller
 			$data->exams_each_month = array_values(array_replace(array_fill(1, 12, 0), $exams_each_month));
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}

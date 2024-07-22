@@ -21,7 +21,7 @@ class AdminController extends Controller
 				'command' => $command
 			]);
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
+			Log::error($error);
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
 	}

@@ -31,7 +31,7 @@ class AuthController extends Controller
 				'token' => $token
 			], '');
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong');
 		}
@@ -45,7 +45,7 @@ class AuthController extends Controller
 			$user->currentAccessToken()->delete();
 			return Reply::success();
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong');
 		}
@@ -68,7 +68,7 @@ class AuthController extends Controller
 			$user->tokens()->delete();
 			return Reply::successWithMessage('auth.successes.change_password_success');
 		} catch (\Exception $error) {
-			Log::error($error->getMessage());
+			Log::error($error);
 			if (config('app.debug')) return Reply::error($error->getMessage());
 			return Reply::error('app.errors.something_went_wrong', [], 500);
 		}
