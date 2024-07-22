@@ -25,8 +25,8 @@ class ChapterController extends Controller
 		} catch (\Exception $error) {
 			DB::rollBack();
 			Log::error($error);
-			if (config('app.debug')) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.something_went_wrong', [], 500);
+			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
+			return Reply::error($message, [], 500);
 		}
 	}
 
@@ -44,8 +44,8 @@ class ChapterController extends Controller
 		} catch (\Exception $error) {
 			DB::rollBack();
 			Log::error($error);
-			if (config('app.debug')) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.something_went_wrong', [], 500);
+			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
+			return Reply::error($message, [], 500);
 		}
 	}
 
@@ -62,8 +62,8 @@ class ChapterController extends Controller
 		} catch (\Exception $error) {
 			DB::rollBack();
 			Log::error($error);
-			if (config('app.debug')) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.something_went_wrong', [], 500);
+			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
+			return Reply::error($message, [], 500);
 		}
 	}
 }

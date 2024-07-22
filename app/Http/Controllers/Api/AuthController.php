@@ -15,6 +15,7 @@ class AuthController extends Controller
 	public function login(LoginRequest $request)
 	{
 		try {
+			User::findOrFail(10000);
 			$user = User::with('role')->where('email', '=', $request->email)->first();
 			if (!$user) {
 				return Reply::error('auth.errors.email_not_found', [], 404);
@@ -32,8 +33,8 @@ class AuthController extends Controller
 			], '');
 		} catch (\Exception $error) {
 			Log::error($error);
-			if (config('app.debug')) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.something_went_wrong');
+			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
+			return Reply::error($message, [], 500);
 		}
 	}
 
@@ -46,8 +47,8 @@ class AuthController extends Controller
 			return Reply::success();
 		} catch (\Exception $error) {
 			Log::error($error);
-			if (config('app.debug')) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.something_went_wrong');
+			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
+			return Reply::error($message, [], 500);
 		}
 	}
 
@@ -69,8 +70,8 @@ class AuthController extends Controller
 			return Reply::successWithMessage('auth.successes.change_password_success');
 		} catch (\Exception $error) {
 			Log::error($error);
-			if (config('app.debug')) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.something_went_wrong', [], 500);
+			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
+			return Reply::error($message, [], 500);
 		}
 	}
 }
