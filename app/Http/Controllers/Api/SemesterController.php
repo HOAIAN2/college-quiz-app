@@ -30,7 +30,6 @@ class SemesterController extends Controller
 			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
 			return Reply::error($message, [], 500);
 		}
-		return Reply::successWithData($data, '');
 	}
 
 	public function store(StoreRequest $request)
