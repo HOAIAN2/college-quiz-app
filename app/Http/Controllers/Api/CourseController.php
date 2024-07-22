@@ -178,29 +178,4 @@ class CourseController extends Controller
 			return Reply::error($message, [], 500);
 		}
 	}
-
-	public function byUser(string $id)
-	{
-		// if ($data->user == null) return Reply::successWithData($data, '');
-		// # Get course
-		// switch ($data->user->role_id) {
-		//     case Role::ROLES['student']:
-		//         $data->courses = Course::whereHas('semester', function ($query) use ($now) {
-		//             $query->whereDate('start_date', '<=', $now)
-		//                 ->whereDate('end_date', '>=', $now);
-		//         })->whereHas('enrollments', function ($query) use ($id) {
-		//             $query->where('student_id', '=', $id);
-		//         });
-		//         break;
-		//     case Role::ROLES['teacher']:
-		//         $data->courses = Course::whereHas('semester', function ($query) use ($now) {
-		//             $query->whereDate('start_date', '<=', $now)
-		//                 ->whereDate('end_date', '>=', $now);
-		//         })->where('teacher_id', '=', $data->user->id);
-		//         break;
-		//     default:
-		//         $data->courses = [];
-		//         break;
-		// }
-	}
 }

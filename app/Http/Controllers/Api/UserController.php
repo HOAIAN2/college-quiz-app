@@ -303,10 +303,10 @@ class UserController extends Controller
 				'Export-' . trans("role.{$data['role']}") . '-' . Carbon::now() . '.xlsx'
 			);
 		} catch (\Exception $error) {
-			Log::error($error);
 			DB::rollBack();
-			if (config('app.debug')) return Reply::error($error->getMessage());
-			return Reply::error('app.errors.something_went_wrong');
+			Log::error($error);
+			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
+			return Reply::error($message, [], 500);
 		}
 	}
 
