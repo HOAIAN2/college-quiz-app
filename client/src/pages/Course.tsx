@@ -26,7 +26,7 @@ import languageUtils from '../utils/languageUtils';
 
 export default function Course() {
 	const { courseId } = useParams();
-	const { permissions, appLanguage, setAppTitle } = useAppContext();
+	const { permissions, appLanguage, appTitle } = useAppContext();
 	const [examId, setExamId] = useState<number>(0);
 	const [showViewExamPopUp, setShowViewExamPopUp] = useState(false);
 	const [showDeletePopUp, setShowDeletePopUp] = useState(false);
@@ -80,8 +80,8 @@ export default function Course() {
 		};
 	}, [courseId, queryClient]);
 	useEffect(() => {
-		if (queryData.data) setAppTitle(queryData.data.name);
-	}, [queryData.data, setAppTitle]);
+		if (queryData.data) appTitle.setAppTitle(queryData.data.name);
+	}, [appTitle, queryData.data]);
 	if (!permissions.has('course_view')) return <Navigate to='/' />;
 	return (
 		<>

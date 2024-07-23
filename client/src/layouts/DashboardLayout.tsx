@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { apiGetUser } from '../api/user';
-import Sidebar from '../components/Sidebar';
 import useAppContext from '../hooks/useAppContext';
 import styles from '../styles/DashboardLayout.module.css';
 import Header from './Header';
+import Sidebar from './Sidebar';
 
 export default function DashboardLayout() {
 	const { user, permissions } = useAppContext();
@@ -15,7 +15,7 @@ export default function DashboardLayout() {
 		apiGetUser()
 			.then(data => {
 				user.setUser(data.user);
-				permissions.setItems(data.permissions);
+				permissions.setPermissions(data.permissions);
 				setChecking(false);
 				document.querySelector('.pre-load-container')?.classList.add('hide');
 			})

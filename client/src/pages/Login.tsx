@@ -12,7 +12,7 @@ export default function Login() {
 	const [blockSubmit, setBlockSubmit] = useState(true);
 	const [isSubmitting, seIsSubmitting] = useState(false);
 	const buttonRef = useRef<HTMLButtonElement>(null);
-	const { setAppTitle } = useAppContext();
+	const { appTitle } = useAppContext();
 	const navigate = useNavigate();
 	const location = useLocation();
 	const prePage = location.state?.from;
@@ -45,8 +45,8 @@ export default function Login() {
 			});
 	};
 	useEffect(() => {
-		if (language) setAppTitle(language.login);
-	}, [language, setAppTitle]);
+		if (language) appTitle.setAppTitle(language.login);
+	}, [appTitle, language]);
 	return (
 		<main className={styles['login-page']}>
 			<form onSubmit={handleLogin} className={styles['form']} onInput={handlePreventSubmit}>

@@ -15,7 +15,7 @@ export default function AuthLayout() {
 		apiGetUser()
 			.then(data => {
 				user.setUser(data.user);
-				permissions.setItems(data.permissions);
+				permissions.setPermissions(data.permissions);
 				navigate(prePage?.pathname || '/');
 			})
 			.catch(() => {

@@ -20,7 +20,7 @@ import timeUtils from '../utils/timeUtils';
 
 export default function TakeExam() {
 	const { id } = useParams();
-	const { setAppTitle } = useAppContext();
+	const { appTitle } = useAppContext();
 	const [showSubmitPopUp, setShowSubmitPopUp] = useState(false);
 	const [examResult, setExamResult] = useState<ExamResult>();
 	const [bypassKey, setBypassKey] = useState('');
@@ -72,7 +72,7 @@ export default function TakeExam() {
 	});
 	useEffect(() => {
 		if (!queryData.data) return;
-		setAppTitle(queryData.data.examData.name);
+		appTitle.setAppTitle(queryData.data.examData.name);
 		const newAnswers = Array(queryData.data.examData.questions.length).fill(-1);
 		if (queryData.data.answersCache) {
 			setAnswers(queryData.data.answersCache);
@@ -80,7 +80,7 @@ export default function TakeExam() {
 		else if (answers.length !== newAnswers.length) {
 			setAnswers(newAnswers);
 		}
-	}, [answers.length, queryData.data, setAppTitle]);
+	}, [answers.length, appTitle, queryData.data]);
 	useEffect(() => {
 		if (!queryData.data) return;
 		return () => {

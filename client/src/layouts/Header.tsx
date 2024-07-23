@@ -14,7 +14,7 @@ import sidebarStyles from '../styles/Sidebar.module.css';
 import languageUtils from '../utils/languageUtils';
 
 export default function Header() {
-	const { DOM, user, appLanguage } = useAppContext();
+	const { DOM, user, appLanguage, appTitle } = useAppContext();
 	const language = useLanguage('component.header');
 	const profileDropdownRef = useRef<HTMLDivElement>(null);
 	const handleLogout = () => {
@@ -55,7 +55,7 @@ export default function Header() {
 				<Link to='/'>
 					<img style={{ userSelect: 'none' }} height={30} src={'/favicon.ico'} alt="app icon" />
 				</Link>
-				<h1 style={{ userSelect: 'none' }} ref={DOM.titleRef} className={styles['app-title']}></h1>
+				<h1 style={{ userSelect: 'none' }} className={styles['app-title']}>{appTitle.title}</h1>
 			</div>
 			<div className={styles['right-items']}>
 				<div>

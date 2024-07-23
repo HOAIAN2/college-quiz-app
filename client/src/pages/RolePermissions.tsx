@@ -12,7 +12,7 @@ import styles from '../styles/RolePermissions.module.css';
 import css from '../utils/css';
 
 export default function RolePermissions() {
-	const { permissions, appLanguage, setAppTitle } = useAppContext();
+	const { permissions, appLanguage, appTitle } = useAppContext();
 	const language = useLanguage('page.role_permissions');
 	const { id } = useParams();
 	const disabledUpdate = !permissions.has('role_permission_grant');
@@ -46,9 +46,9 @@ export default function RolePermissions() {
 	});
 	useEffect(() => {
 		if (queryData.data && language) {
-			setAppTitle(language[queryData.data.role.name + 'Permissions' as keyof typeof language]);
+			appTitle.setAppTitle(language[queryData.data.role.name + 'Permissions' as keyof typeof language]);
 		}
-	}, [language, queryData.data, setAppTitle]);
+	}, [appTitle, language, queryData.data]);
 	useEffect(() => {
 		if (permissions.has('role_permission_view')) {
 			queryData.refetch();

@@ -47,7 +47,7 @@ export default function Profile() {
 			apiGetUser()
 				.then((data) => {
 					user.setUser(data.user);
-					permissions.setItems(data.permissions);
+					permissions.setPermissions(data.permissions);
 				});
 		}
 	});

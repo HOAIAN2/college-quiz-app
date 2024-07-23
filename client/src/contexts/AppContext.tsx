@@ -9,14 +9,13 @@ export const AppContext = createContext<AppContextType>(init as AppContextType);
 
 function useAppContextValue() {
 	const sidebarRef = useRef<HTMLDivElement>(null);
-	const titleRef = useRef<HTMLHeadingElement>(null);
 	const [language, setLanguage] = useState(languageUtils.getLanguage());
 	const [permissions, setPermissions] = useState<string[]>([]);
 	const [user, setUser] = useState<UserDetail | undefined>();
+	const [title, setTitle] = useState('');
 	return {
 		DOM: {
 			sideBarRef: sidebarRef,
-			titleRef
 		},
 		appLanguage: {
 			language,
@@ -27,17 +26,20 @@ function useAppContextValue() {
 			setUser
 		},
 		permissions: {
-			items: permissions,
-			setItems: setPermissions,
+			permissions: permissions,
+			setPermissions: setPermissions,
 			has: (permissionName: string) => permissions.includes(permissionName),
 			hasAnyFormList(permissionNames: string[]) {
 				return permissionNames.some(permission => permissionNames.includes(permission));
 			}
 		},
-		setAppTitle(text: string) {
-			document.title = text;
-			if (titleRef.current) titleRef.current.textContent = text;
-		}
+		appTitle: {
+			title: title,
+			setAppTitle(text: string, ignoreDocumentTitle = false) {
+				setTitle(text);
+				if (!ignoreDocumentTitle) document.title = text;
+			}
+		},
 	};
 }
 

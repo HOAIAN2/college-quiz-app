@@ -27,7 +27,7 @@ export default function Questions() {
 	const [questionId, setQuestionId] = useState<number>(0);
 	const [showViewPopUp, setShowViewPopUp] = useState(false);
 	const queryDebounce = useDebounce(searchQuery);
-	const { permissions, setAppTitle } = useAppContext();
+	const { permissions, appTitle } = useAppContext();
 	const { id } = useParams();
 	const language = useLanguage('page.questions');
 	const queryData = useQuery({
@@ -59,9 +59,9 @@ export default function Questions() {
 	}, [queryDebounce, searchParams, setSearchParams]);
 	useEffect(() => {
 		if (language && subjectDetail) {
-			setAppTitle(language.title.replace('@subject', subjectDetail.name));
+			appTitle.setAppTitle(language.title.replace('@subject', subjectDetail.name));
 		}
-	}, [language, setAppTitle, subjectDetail]);
+	}, [appTitle, language, subjectDetail]);
 	if (!permissions.has('question_view') || !permissions.has('subject_view')) return <Navigate to='/' />;
 	if (!subjectDetail) return null;
 	return (
