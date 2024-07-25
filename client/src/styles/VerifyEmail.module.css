@@ -1,0 +1,61 @@
+.verify-email-page {
+	width: 100%;
+	height: calc(100% - (100px));
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.form-data {
+	width: 400px;
+	height: 240px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	/* align-items: center; */
+	/* box-shadow: 0px 0px 10px var(--color-shadow); */
+}
+
+.form-data>h2,
+p {
+	margin-bottom: 20px;
+}
+
+.wrap-item {
+	position: relative;
+	height: 90px;
+}
+
+.wrap-item.textarea {
+	flex: 0 0 95%;
+	height: fit-content;
+}
+
+.wrap-item.textarea>.input-item {
+	padding: 20px;
+	min-height: 70px;
+	resize: none;
+	overflow: hidden;
+}
+
+.wrap-item::after {
+	content: attr(data-error);
+	width: fit-content;
+	color: red;
+}
+
+label {
+	display: block;
+}
+
+label.required::after {
+	content: "*";
+	color: red;
+	margin-left: 5px;
+}
+
+.input-item {
+	height: 40px;
+	width: 100%;
+}

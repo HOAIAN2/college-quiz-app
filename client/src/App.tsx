@@ -17,6 +17,7 @@ import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 
+const VerifyEmail = lazy(() => import('./pages/VerifyEmail'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Users = lazy(() => import('./pages/Users'));
 const Permissisons = lazy(() => import('./pages/Permissisons'));
@@ -45,7 +46,11 @@ const router = createBrowserRouter([
 					{
 						path: 'login',
 						element: <Login />
-					}
+					},
+					{
+						path: 'verify-email',
+						element: <VerifyEmail />
+					},
 				]
 			},
 			{
