@@ -8,7 +8,8 @@
 
 .form-data {
 	width: 400px;
-	height: 240px;
+	min-height: 240px;
+	height: fit-content;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;

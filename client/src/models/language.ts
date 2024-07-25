@@ -45,4 +45,5 @@ export type Language = {
 	'page.subjects': typeof import('../../assets/langs/en/page.subjects.ts').default;
 	'page.take_exam': typeof import('../../assets/langs/en/page.take_exam.ts').default;
 	'page.users': typeof import('../../assets/langs/en/page.users.ts').default;
+	'page.verify_email': typeof import('../../assets/langs/en/page.verify_email.ts').default;
 }
