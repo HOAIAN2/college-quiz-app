@@ -43,7 +43,19 @@ export async function apiSendEmailVerification(email: string) {
 	const data = new FormData();
 	data.append('email', email);
 	try {
-		await request.post(pathUtils.join(prefix, 'send-email-veification'), data);
+		await request.post(pathUtils.join(prefix, 'send-email-verification'), data);
+	} catch (error: any) {
+		if (!error.response) throw new Error(error.message);
+		const message = error.response.data.message;
+		throw new Error(message);
+	}
+}
+export async function apiVerifyEmail(email: string, code: string) {
+	const data = new FormData();
+	data.append('email', email);
+	data.append('code', code);
+	try {
+		await request.post(pathUtils.join(prefix, 'verify-email'), data);
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message);
 		const message = error.response.data.message;

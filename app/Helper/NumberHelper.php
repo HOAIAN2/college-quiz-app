@@ -34,4 +34,14 @@ class NumberHelper
 		$formatter = new NumberFormatter($locale, NumberFormatter::DECIMAL);
 		return $formatter->getSymbol(NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
 	}
+
+	public static function randomCode(int $length = 6)
+	{
+		$min = 1;
+		while (strlen((string)$min) < $length) {
+			$min *= 10;
+		}
+		$max = $min * 10 - 1;
+		return random_int($min, $max);
+	}
 }

@@ -26,7 +26,8 @@ Route::prefix('/admin')->controller(AdminController::class)->group(function () {
 
 Route::prefix('/auth')->controller(AuthController::class)->group(function () {
 	Route::post('/login', 'login');
-	Route::post('/send-email-veification', 'sendEmailVerification');
+	Route::post('/send-email-verification', 'sendEmailVerification');
+	Route::post('/verify-email', 'verifyEmail');
 	Route::middleware('auth:sanctum')->group(function () {
 		Route::post('/logout', 'logout');
 		Route::post('/change-password', 'changePassword');

@@ -2,23 +2,26 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helper\NumberHelper;
 use App\Models\User;
 use App\Helper\Reply;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Web\EmailController;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\ChangePassRequest;
+use App\Http\Requests\Auth\SendEmailVerificationRequest;
+use App\Http\Requests\Auth\VerifyEmailRequest;
 use App\Mail\VerifyEmail;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
+	const VERIFY_EMAIL_CODE_CACHE_KEY = 'user:@user_id-verify-code';
+
 	public function login(LoginRequest $request)
 	{
 		try {
@@ -81,34 +84,55 @@ class AuthController extends Controller
 		}
 	}
 
-	public function sendEmailVerification(Request $request)
+	public function sendEmailVerification(SendEmailVerificationRequest $request)
 	{
-		$request->validate([
-			'email' => ['required', 'email']
-		]);
 		try {
 			$user = User::whereNull('email_verified_at')
 				->where('email', '=', $request->email)
 				->firstOrFail();
 
-			$code = Str::uuid()->toString();
-			$host = $request->getSchemeAndHttpHost();
-			$verification_url = "$host/verify/$user->id/$code";
-
-			$verify_email = new VerifyEmail($verification_url);
+			$code = NumberHelper::randomCode();
+			$verify_email = new VerifyEmail($code);
 			Mail::to($user)->send($verify_email);
 
-			$verify_cache_key = str_replace(
+			$verify_email_code_cache_key = str_replace(
 				['@user_id'],
 				[$user->id],
-				EmailController::VERIFY_CACHE_KEY
+				self::VERIFY_EMAIL_CODE_CACHE_KEY
 			);
-			Cache::put($verify_cache_key, $code, 600);
+			Cache::put($verify_email_code_cache_key, $code, 600);
 			return Reply::successWithMessage('app.successes.success');
 		} catch (\Exception $error) {
 			Log::error($error);
 			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
 			return Reply::error($message, [], 500);
+		}
+	}
+
+	public function verifyEmail(VerifyEmailRequest $request)
+	{
+		DB::beginTransaction();
+		try {
+			$user = User::whereNull('email_verified_at')
+				->where('email', '=', $request->email)
+				->firstOrFail();
+
+			$verify_email_code_cache_key = str_replace(
+				['@user_id'],
+				[$request->user_id],
+				self::VERIFY_EMAIL_CODE_CACHE_KEY
+			);
+			$verify_code = Cache::get($verify_email_code_cache_key);
+			abort_if($verify_code != $request->code, 400);
+
+			$user->email_verified_at = Carbon::now();
+			DB::commit();
+			Reply::successWithMessage('app.successes.success');
+		} catch (\Exception $error) {
+			DB::rollBack();
+			Log::error($error);
+			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
+			Reply::error($message, [], 500);
 		}
 	}
 }
