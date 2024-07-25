@@ -10,8 +10,8 @@ export async function apiLogin(form: FormData) {
 	try {
 		const res = await request.post(pathUtils.join(prefix, 'login'), form);
 		const { data } = res.data as ApiResponseWithData<LoginResponse>;
-		tokenUtils.setToken(data.token);
-		return data.user;
+		if (data.token) tokenUtils.setToken(data.token);
+		return data;
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message);
 		const message = error.response.data;

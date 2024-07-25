@@ -25,21 +25,27 @@ class AuthController extends Controller
 	public function login(LoginRequest $request)
 	{
 		try {
-			$user = User::with('role')->where('email', '=', $request->email)->first();
-			if (!$user) {
+			$data = (object)[
+				'user' => null,
+				'token' => null
+			];
+			$data->user = User::with('role')->where('email', '=', $request->email)->first();
+			if (!$data->user) {
 				return Reply::error('auth.errors.email_not_found', [], 404);
 			}
-			if ($user->is_active == false) {
+			if ($data->user->is_active == false) {
 				return Reply::error('auth.errors.account_disabled');
 			}
-			if (!Hash::check($request->password, $user->password)) {
+			if (!Hash::check($request->password, $data->user->password)) {
 				return Reply::error('auth.errors.password_incorrect');
 			}
-			$token = $user->createToken("{$user->role->name} token")->plainTextToken;
-			return Reply::successWithData([
-				'user' => $user,
-				'token' => $token
-			], '');
+			if (!$data->user->email_verified_at && env('MUST_VERIFY_EMAIL')) {
+				return Reply::successWithData($data, '');
+			}
+			$data->token = $data->user
+				->createToken("{$data->user->role->name} token")
+				->plainTextToken;
+			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
 			Log::error($error);
 			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';

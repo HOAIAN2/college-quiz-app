@@ -1,19 +1,20 @@
-import { useLocation } from 'react-router-dom';
-import { apiVerifyEmail } from '../api/auth';
+import { Navigate, useLocation } from 'react-router-dom';
+import { apiSendEmailVerification, apiVerifyEmail } from '../api/auth';
 import appStyles from '../App.module.css';
 import useLanguage from '../hooks/useLanguage';
+import { User } from '../models/user';
 import styles from '../styles/VerifyEmail.module.css';
 import css from '../utils/css';
 
 export default function VerifyEmail() {
 	const language = useLanguage('page.verify_email');
-	const { state: email } = useLocation() as { state: string | null; };
+	const { state: user } = useLocation() as { state: User | null; };
 	const handleVerify = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
 		const code = formData.get('code');
-		if (email && code) {
-			apiVerifyEmail(String(email), String(code))
+		if (user?.email && code) {
+			apiVerifyEmail(user.email, String(code))
 				.then(() => {
 					// Handle successful verification
 				})
@@ -22,12 +23,18 @@ export default function VerifyEmail() {
 				});
 		}
 	};
+	const sendVerifyEmail = () => {
+		if (!user) return;
+		apiSendEmailVerification(user.email);
+	};
+	console.log(user);
+
+	if (!user) return <Navigate to='/' />;
 	return (
 		<main className={styles['verify-email-page']}>
 			<form onSubmit={handleVerify} className={styles['form-data']}>
-				<input readOnly hidden type="text" value={String(email)} />
 				<h2>{language?.emailVerification}</h2>
-				<p>{language?.verificationMessage} <b>{email || 'your email address'}</b>.</p>
+				<p>{language?.verificationMessage} <b>{user?.email || 'your email address'}</b>.</p>
 				<p>{language?.enterCodePrompt}</p>
 				<div className={styles['wrap-item']}>
 					<label className={styles['required']} htmlFor='code'>{language?.verificationCodeLabel}</label>
@@ -43,6 +50,9 @@ export default function VerifyEmail() {
 					<button className={css(appStyles['button-d'], styles['input-item'])}>
 						{language?.verify}
 					</button>
+				</div>
+				<div className={styles['wrap-item']}>
+					<p>{language?.resendMessage} <b onClick={sendVerifyEmail} style={{ cursor: 'pointer' }}>{language?.resend}</b></p>
 				</div>
 			</form>
 		</main>

@@ -4,4 +4,6 @@ export default {
 	enterCodePrompt: 'Please enter the code below to verify your email address.',
 	verificationCodeLabel: 'Verification Code',
 	verify: 'Verify',
+	resendMessage: 'Didn\'t receive email?',
+	resend: 'Resend'
 };

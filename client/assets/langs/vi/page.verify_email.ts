@@ -4,4 +4,6 @@ export default {
 	enterCodePrompt: 'Vui lòng nhập mã bên dưới để xác minh địa chỉ email của bạn.',
 	verificationCodeLabel: 'Mã xác minh',
 	verify: 'Xác minh',
+	resendMessage: 'Không nhận được email?',
+	resend: 'Gửi lại'
 };
