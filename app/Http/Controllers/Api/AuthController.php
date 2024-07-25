@@ -123,8 +123,9 @@ class AuthController extends Controller
 				self::VERIFY_EMAIL_CODE_CACHE_KEY
 			);
 			$verify_code = Cache::get($verify_email_code_cache_key);
-			abort_if($verify_code != $request->code, 400);
-
+			if ($verify_code != $request->code) {
+				return Reply::error('app.errors.something_went_wrong', [], 500);
+			}
 			$user->email_verified_at = Carbon::now();
 			DB::commit();
 			Reply::successWithMessage('app.successes.success');
