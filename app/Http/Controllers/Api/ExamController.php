@@ -31,8 +31,8 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ExamController extends Controller
 {
-	public $questionsCacheKey = 'exam:@exam_id:-user:@user_id-questions';
-	public $answersCacheKey = 'exam:@exam_id:-user:@user_id-answers';
+	const QUESTIONS_CACHE_KEY = 'exam:@exam_id:-user:@user_id-questions';
+	const ANSWERS_CACHE_KEY = 'exam:@exam_id:-user:@user_id-answers';
 	/**
 	 * env('ALLOW_LATE_SUBMIT', 120) seconds
 	 */
@@ -421,12 +421,12 @@ class ExamController extends Controller
 			$question_cache_key = str_replace(
 				['@exam_id', '@user_id'],
 				[$id, $user->id],
-				$this->questionsCacheKey
+				self::QUESTIONS_CACHE_KEY
 			);
 			$answers_cache_key = str_replace(
 				['@exam_id', '@user_id'],
 				[$id, $user->id],
-				$this->answersCacheKey
+				self::ANSWERS_CACHE_KEY
 			);
 			$data->answers_cache = Cache::get($answers_cache_key);
 			if (Cache::has($question_cache_key)) {
@@ -490,12 +490,12 @@ class ExamController extends Controller
 			$questions_cache_key = str_replace(
 				['@exam_id', '@user_id'],
 				[$id, $user->id],
-				$this->questionsCacheKey
+				self::QUESTIONS_CACHE_KEY
 			);
 			$answers_cache_key = str_replace(
 				['@exam_id', '@user_id'],
 				[$id, $user->id],
-				$this->answersCacheKey
+				self::ANSWERS_CACHE_KEY
 			);
 			$exam_questions_order = ExamQuestionsOrder::where('exam_id', '=', $id)
 				->where('user_id', '=', $user->id)
@@ -641,7 +641,7 @@ class ExamController extends Controller
 			$answers_cache_key = str_replace(
 				['@exam_id', '@user_id'],
 				[$id, $user->id],
-				$this->answersCacheKey
+				self::ANSWERS_CACHE_KEY
 			);
 			$exam = Exam::whereHas('course.enrollments', function ($query) use ($user) {
 				$query->where('student_id', '=', $user->id);
