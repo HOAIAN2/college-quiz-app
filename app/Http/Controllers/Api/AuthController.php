@@ -125,7 +125,7 @@ class AuthController extends Controller
 
 			$verify_email_code_cache_key = str_replace(
 				['@user_id'],
-				[$request->user_id],
+				[$user->id],
 				self::VERIFY_EMAIL_CODE_CACHE_KEY
 			);
 			$verify_code = Cache::get($verify_email_code_cache_key);
@@ -134,6 +134,7 @@ class AuthController extends Controller
 			}
 			$user->email_verified_at = Carbon::now();
 			$token = $user->createToken("{$user->role->name} token")->plainTextToken;
+			$user->save();
 			DB::commit();
 			return Reply::successWithData([
 				'token' => $token
