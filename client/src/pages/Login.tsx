@@ -35,7 +35,6 @@ export default function Login() {
 		buttonRef.current?.classList.add(styles['submitting']);
 		try {
 			const data = await apiLogin(formData);
-
 			if (!data.token && !data.user.emailVerifiedAt) {
 				await apiSendEmailVerification(data.user.email);
 				navigate('/auth/verify-email', { state: data.user });

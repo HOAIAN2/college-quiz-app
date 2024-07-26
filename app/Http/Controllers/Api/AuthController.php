@@ -97,7 +97,7 @@ class AuthController extends Controller
 				->where('email', '=', $request->email)
 				->firstOrFail();
 
-			$code = NumberHelper::randomCode();
+			$code = NumberHelper::randomDitgits();
 			$verify_email = new VerifyEmail($code);
 			Mail::to($user)->send($verify_email);
 

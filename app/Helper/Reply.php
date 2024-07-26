@@ -4,7 +4,6 @@ namespace App\Helper;
 
 class Reply
 {
-
 	public static function success($status = 200)
 	{
 		return response()->json([

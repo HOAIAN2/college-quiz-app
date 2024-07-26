@@ -44,4 +44,13 @@ class NumberHelper
 		$max = $min * 10 - 1;
 		return random_int($min, $max);
 	}
+
+	public static function randomDitgits(int $length = 6)
+	{
+		$result = '';
+		while (strlen($result) < $length) {
+			$result = $result . (string)random_int(0, 9);
+		}
+		return $result;
+	}
 }
