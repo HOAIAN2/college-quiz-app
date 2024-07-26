@@ -10,8 +10,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\ChangePassRequest;
+use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Http\Requests\Auth\SendEmailVerificationRequest;
+use App\Http\Requests\Auth\SendPasswordResetEmailRequest;
 use App\Http\Requests\Auth\VerifyEmailRequest;
+use App\Mail\PasswordResetEmail;
 use App\Mail\VerifyEmail;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
@@ -21,6 +24,7 @@ use Illuminate\Support\Facades\Mail;
 class AuthController extends Controller
 {
 	const VERIFY_EMAIL_CODE_CACHE_KEY = 'user:@user_id-verify-code';
+	const PASSWORD_RESET_CODE_CACHE_KEY = 'user:@user_id-password-reset-code';
 
 	public function login(LoginRequest $request)
 	{
@@ -71,6 +75,7 @@ class AuthController extends Controller
 	{
 		$user = $this->getUser();
 
+		DB::beginTransaction();
 		try {
 			if (!Hash::check($request->current_password, $user->password)) {
 				return Reply::error('auth.errors.password_incorrect');
@@ -82,8 +87,10 @@ class AuthController extends Controller
 				'password' => Hash::make($request->password),
 			]);
 			$user->tokens()->delete();
+			DB::commit();
 			return Reply::successWithMessage('auth.successes.change_password_success');
 		} catch (\Exception $error) {
+			DB::rollBack();
 			Log::error($error);
 			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
 			return Reply::error($message, [], 500);
@@ -136,9 +143,85 @@ class AuthController extends Controller
 			$token = $user->createToken("{$user->role->name} token")->plainTextToken;
 			$user->save();
 			DB::commit();
+			Cache::forget($verify_email_code_cache_key);
 			return Reply::successWithData([
 				'token' => $token
 			], '');
+		} catch (\Exception $error) {
+			DB::rollBack();
+			Log::error($error);
+			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
+			Reply::error($message, [], 500);
+		}
+	}
+
+	public function sendPasswordResetEmail(SendPasswordResetEmailRequest $request)
+	{
+		try {
+			$user = User::where('email', '=', $request->email)->firstOrFail();
+
+			$code = NumberHelper::randomDitgits();
+			$verify_email = new PasswordResetEmail($code);
+			Mail::to($user)->send($verify_email);
+
+			$password_reset_code_cache_key = str_replace(
+				['@user_id'],
+				[$user->id],
+				self::PASSWORD_RESET_CODE_CACHE_KEY
+			);
+			Cache::put($password_reset_code_cache_key, $code, 600);
+			return Reply::successWithMessage('app.successes.success');
+		} catch (\Exception $error) {
+			Log::error($error);
+			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
+			return Reply::error($message, [], 500);
+		}
+	}
+
+	public function verifyPasswordResetCode(VerifyEmailRequest $request)
+	{
+		try {
+			$user = User::where('email', '=', $request->email)->firstOrFail();
+
+			$password_reset_code_cache_key = str_replace(
+				['@user_id'],
+				[$user->id],
+				self::PASSWORD_RESET_CODE_CACHE_KEY
+			);
+			$verify_code = Cache::get($password_reset_code_cache_key);
+			if ($verify_code != $request->code) {
+				return Reply::error('app.errors.something_went_wrong', [], 500);
+			}
+			return Reply::success();
+		} catch (\Exception $error) {
+			Log::error($error);
+			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
+			Reply::error($message, [], 500);
+		}
+	}
+
+	public function resetPassword(ResetPasswordRequest $request)
+	{
+		DB::beginTransaction();
+		try {
+			$user = User::where('email', '=', $request->email)->firstOrFail();
+
+			$password_reset_code_cache_key = str_replace(
+				['@user_id'],
+				[$user->id],
+				self::PASSWORD_RESET_CODE_CACHE_KEY
+			);
+			$verify_code = Cache::get($password_reset_code_cache_key);
+			if ($verify_code != $request->code) {
+				return Reply::error('app.errors.something_went_wrong', [], 500);
+			}
+			$user->update([
+				'password' => Hash::make($request->password),
+			]);
+			$user->tokens()->delete();
+			DB::commit();
+			Cache::forget($password_reset_code_cache_key);
+			return Reply::successWithMessage('auth.successes.change_password_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
 			Log::error($error);

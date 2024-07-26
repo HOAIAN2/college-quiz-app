@@ -5,7 +5,7 @@ namespace App\Http\Requests\Auth;
 use App\Traits\CustomValidateResponse;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ChangePassRequest extends FormRequest
+class ResetPasswordRequest extends FormRequest
 {
 	use CustomValidateResponse;
 	/**
@@ -24,7 +24,7 @@ class ChangePassRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'current_password' => 'required',
+			'code' => ['required', 'string'],
 			'password' => ['required', 'string', 'min:8', 'confirmed'],
 		];
 	}
