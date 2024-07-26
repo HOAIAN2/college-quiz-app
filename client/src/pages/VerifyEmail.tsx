@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { apiSendEmailVerification, apiVerifyEmail } from '../api/auth';
 import appStyles from '../App.module.css';
@@ -7,6 +8,7 @@ import styles from '../styles/VerifyEmail.module.css';
 import css from '../utils/css';
 
 export default function VerifyEmail() {
+	const [countDown, setCountDown] = useState(0);
 	const navigate = useNavigate();
 	const language = useLanguage('page.verify_email');
 	const { state: user } = useLocation() as { state: User | null; };
@@ -24,8 +26,18 @@ export default function VerifyEmail() {
 	};
 	const sendVerifyEmail = () => {
 		if (!user) return;
+		setCountDown(60);
 		apiSendEmailVerification(user.email);
 	};
+	useEffect(() => {
+		if (countDown === 0) return;
+		const timeoutId = setTimeout(() => {
+			setCountDown(pre => pre - 1);
+		}, 1000);
+		return () => {
+			clearTimeout(timeoutId);
+		};
+	}, [countDown]);
 	if (!user) return <Navigate to='/' />;
 	return (
 		<main className={styles['verify-email-page']}>
@@ -49,7 +61,17 @@ export default function VerifyEmail() {
 					</button>
 				</div>
 				<div className={styles['wrap-item']}>
-					<p>{language?.resendMessage} <b onClick={sendVerifyEmail} style={{ cursor: 'pointer' }}>{language?.resend}</b></p>
+					<p>{language?.resendMessage} <b
+						className={
+							css(
+								styles['resend-button'],
+								countDown !== 0 ? styles['disabled'] : ''
+							)
+						}
+						onClick={sendVerifyEmail} style={{ cursor: 'pointer' }}>
+						{countDown !== 0 ? `${countDown}s` : language?.resend}
+					</b>
+					</p>
 				</div>
 			</form>
 		</main>

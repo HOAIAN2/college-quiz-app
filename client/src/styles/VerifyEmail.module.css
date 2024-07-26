@@ -60,3 +60,13 @@ label.required::after {
 	height: 40px;
 	width: 100%;
 }
+
+.resend-button {
+	cursor: pointer;
+}
+
+.resend-button.disabled {
+	cursor: default;
+	pointer-events: none;
+	opacity: 0.8;
+}
