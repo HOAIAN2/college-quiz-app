@@ -133,8 +133,11 @@ class AuthController extends Controller
 				return Reply::error('app.errors.something_went_wrong', [], 500);
 			}
 			$user->email_verified_at = Carbon::now();
+			$token = $user->createToken("{$user->role->name} token")->plainTextToken;
 			DB::commit();
-			Reply::successWithMessage('app.successes.success');
+			return Reply::successWithData([
+				'token' => $token
+			], '');
 		} catch (\Exception $error) {
 			DB::rollBack();
 			Log::error($error);

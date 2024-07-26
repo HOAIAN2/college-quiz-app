@@ -43,7 +43,9 @@ export async function apiSendEmailVerification(email: string) {
 	const data = new FormData();
 	data.append('email', email);
 	try {
-		await request.post(pathUtils.join(prefix, 'send-email-verification'), data);
+		const res = await request.post(pathUtils.join(prefix, 'send-email-verification'), data);
+		const { data: { token } } = res.data as ApiResponseWithData<{ token: string; }>;
+		tokenUtils.setToken(token);
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message);
 		const message = error.response.data.message;

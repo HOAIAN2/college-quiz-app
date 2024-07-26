@@ -1,4 +1,4 @@
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { apiSendEmailVerification, apiVerifyEmail } from '../api/auth';
 import appStyles from '../App.module.css';
 import useLanguage from '../hooks/useLanguage';
@@ -7,19 +7,18 @@ import styles from '../styles/VerifyEmail.module.css';
 import css from '../utils/css';
 
 export default function VerifyEmail() {
+	const navigate = useNavigate();
 	const language = useLanguage('page.verify_email');
 	const { state: user } = useLocation() as { state: User | null; };
 	const handleVerify = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		if (!user) return;
 		const formData = new FormData(e.currentTarget);
-		const code = formData.get('code');
-		if (user?.email && code) {
-			apiVerifyEmail(user.email, String(code))
+		const code = String(formData.get('code'));
+		if (user.email && code) {
+			apiVerifyEmail(user.email, code)
 				.then(() => {
-					// Handle successful verification
-				})
-				.catch(() => {
-					// Handle verification error
+					navigate('/');
 				});
 		}
 	};
@@ -27,8 +26,6 @@ export default function VerifyEmail() {
 		if (!user) return;
 		apiSendEmailVerification(user.email);
 	};
-	console.log(user);
-
 	if (!user) return <Navigate to='/' />;
 	return (
 		<main className={styles['verify-email-page']}>
