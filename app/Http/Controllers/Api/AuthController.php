@@ -114,7 +114,7 @@ class AuthController extends Controller
 				self::VERIFY_EMAIL_CODE_CACHE_KEY
 			);
 			Cache::put($verify_email_code_cache_key, $code, 600);
-			return Reply::successWithMessage('app.successes.success');
+			return Reply::success();
 		} catch (\Exception $error) {
 			Log::error($error);
 			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
