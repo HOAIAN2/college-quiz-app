@@ -31,7 +31,7 @@ export default function VerifyEmail() {
 		<main className={styles['verify-email-page']}>
 			<form onSubmit={handleVerify} className={styles['form-data']}>
 				<h2>{language?.emailVerification}</h2>
-				<p>{language?.verificationMessage} <b>{user?.email || 'your email address'}</b>.</p>
+				<p>{language?.verificationMessage} <b>{user?.email}</b>.</p>
 				<p>{language?.enterCodePrompt}</p>
 				<div className={styles['wrap-item']}>
 					<label className={styles['required']} htmlFor='code'>{language?.verificationCodeLabel}</label>

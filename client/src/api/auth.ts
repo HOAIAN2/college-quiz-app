@@ -43,9 +43,7 @@ export async function apiSendEmailVerification(email: string) {
 	const data = new FormData();
 	data.append('email', email);
 	try {
-		const res = await request.post(pathUtils.join(prefix, 'send-email-verification'), data);
-		const { data: { token } } = res.data as ApiResponseWithData<{ token: string; }>;
-		tokenUtils.setToken(token);
+		await request.post(pathUtils.join(prefix, 'send-email-verification'), data);
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message);
 		const message = error.response.data.message;
@@ -57,7 +55,9 @@ export async function apiVerifyEmail(email: string, code: string) {
 	data.append('email', email);
 	data.append('code', code);
 	try {
-		await request.post(pathUtils.join(prefix, 'verify-email'), data);
+		const res = await request.post(pathUtils.join(prefix, 'verify-email'), data);
+		const { data: { token } } = res.data as ApiResponseWithData<{ token: string; }>;
+		tokenUtils.setToken(token);
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message);
 		const message = error.response.data.message;
