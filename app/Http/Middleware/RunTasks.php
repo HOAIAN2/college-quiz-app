@@ -11,11 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RunTasks
 {
-	public $tasks = [
-		'app:clear-unsed-tokens',
-		'app:cancel-late-exams'
-	];
-
 	/**
 	 * Handle an incoming request.
 	 *
@@ -33,10 +28,8 @@ class RunTasks
 		$now = Carbon::now();
 
 		$last_run_tasks_at = Carbon::parse(Cache::get('last_run_tasks_at', $now->format('Y-m-d H:i:s')));
-		if ($last_run_tasks_at->addSeconds($run_tasks_interval)->lessThanOrEqualTo($now)) {
-			foreach ($this->tasks as $task) {
-				Artisan::call($task);
-			}
+		if ($last_run_tasks_at->addSeconds($run_tasks_interval)->greaterThanOrEqualTo($now)) {
+			Artisan::call('schedule:run');
 			Cache::put('last_run_tasks_at', $now->format('Y-m-d H:i:s'));
 		}
 	}
