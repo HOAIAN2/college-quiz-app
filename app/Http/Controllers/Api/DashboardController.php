@@ -9,7 +9,6 @@ use App\Models\Exam;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
@@ -76,9 +75,7 @@ class DashboardController extends Controller
 			$data->exams_each_month = array_values(array_replace(array_fill(1, 12, 0), $exams_each_month));
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 }

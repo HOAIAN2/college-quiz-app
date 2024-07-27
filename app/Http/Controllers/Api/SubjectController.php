@@ -9,7 +9,6 @@ use App\Http\Requests\Subject\UpdateRequest;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class SubjectController extends Controller
 {
@@ -27,9 +26,7 @@ class SubjectController extends Controller
 			$subjects = $subjects->get();
 			return Reply::successWithData($subjects, '');
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -45,9 +42,7 @@ class SubjectController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -64,9 +59,7 @@ class SubjectController extends Controller
 			])->findOrFail($id);
 			return Reply::successWithData($subject, '');
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -83,9 +76,7 @@ class SubjectController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -101,9 +92,7 @@ class SubjectController extends Controller
 			return Reply::successWithMessage('app.successes.record_delete_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -116,9 +105,7 @@ class SubjectController extends Controller
 			$users = Subject::search($request->search)->take($this->autoCompleteResultLimit)->get();
 			return Reply::successWithData($users, '');
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 }

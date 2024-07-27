@@ -26,7 +26,6 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ExamController extends Controller
@@ -93,9 +92,7 @@ class ExamController extends Controller
 			}
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -183,9 +180,7 @@ class ExamController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -239,9 +234,7 @@ class ExamController extends Controller
 			$data->result = $result;
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -312,9 +305,7 @@ class ExamController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -353,9 +344,7 @@ class ExamController extends Controller
 			return Reply::successWithMessage('app.successes.record_delete_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -403,9 +392,7 @@ class ExamController extends Controller
 			return Reply::successWithMessage('app.successes.success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -472,9 +459,7 @@ class ExamController extends Controller
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -570,9 +555,7 @@ class ExamController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -625,9 +608,7 @@ class ExamController extends Controller
 				"$id-$exam->name-result-$now.xlsx"
 			);
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -668,9 +649,7 @@ class ExamController extends Controller
 			);
 			return Reply::success();
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 }

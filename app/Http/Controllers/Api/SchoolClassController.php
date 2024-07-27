@@ -11,7 +11,6 @@ use App\Http\Requests\SchoolClass\UpdateRequest;
 use App\Models\SchoolClass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class SchoolClassController extends Controller
 {
@@ -29,9 +28,7 @@ class SchoolClassController extends Controller
 			$school_classes = $school_classes->paginate($request->per_page);
 			return Reply::successWithData($school_classes, '');
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -48,9 +45,7 @@ class SchoolClassController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -63,9 +58,7 @@ class SchoolClassController extends Controller
 			$data = SchoolClass::with(['faculty'])->findOrFail($id);
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -83,9 +76,7 @@ class SchoolClassController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -101,9 +92,7 @@ class SchoolClassController extends Controller
 			return Reply::successWithMessage('app.successes.record_delete_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -116,9 +105,7 @@ class SchoolClassController extends Controller
 			$school_classes = SchoolClass::search($request->search)->take($this->autoCompleteResultLimit)->get();
 			return Reply::successWithData($school_classes, '');
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 }

@@ -14,7 +14,6 @@ use App\Models\Role;
 use App\Models\Semester;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class CourseController extends Controller
 {
@@ -31,9 +30,7 @@ class CourseController extends Controller
 			$data = $data->latest('id')->get();
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -56,9 +53,7 @@ class CourseController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -80,9 +75,7 @@ class CourseController extends Controller
 			])->findOrFail($id);
 			return Reply::successWithData($courses, '');
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -105,9 +98,7 @@ class CourseController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -123,9 +114,7 @@ class CourseController extends Controller
 			return Reply::successWithMessage('app.successes.record_delete_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -173,9 +162,7 @@ class CourseController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 }

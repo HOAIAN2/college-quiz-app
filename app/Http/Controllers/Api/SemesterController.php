@@ -9,7 +9,6 @@ use App\Models\Semester;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class SemesterController extends Controller
 {
@@ -26,9 +25,7 @@ class SemesterController extends Controller
 			$data = $data->latest('id')->get();
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -48,9 +45,7 @@ class SemesterController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -63,9 +58,7 @@ class SemesterController extends Controller
 			$semester = Semester::findOrFail($id);
 			return Reply::successWithData($semester, '');
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -85,9 +78,7 @@ class SemesterController extends Controller
 			return Reply::successWithMessage('app.successes.record_save_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -103,9 +94,7 @@ class SemesterController extends Controller
 			return Reply::successWithMessage('app.successes.record_delete_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -119,9 +108,7 @@ class SemesterController extends Controller
 				->search($request->search)->take($this->autoCompleteResultLimit)->get();
 			return Reply::successWithData($semesters, '');
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Helper\NumberHelper;
 use App\Models\User;
 use App\Helper\Reply;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Auth\LoginRequest;
@@ -51,9 +50,7 @@ class AuthController extends Controller
 				->plainTextToken;
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -65,9 +62,7 @@ class AuthController extends Controller
 			$user->currentAccessToken()->delete();
 			return Reply::success();
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -91,9 +86,7 @@ class AuthController extends Controller
 			return Reply::successWithMessage('auth.successes.change_password_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -116,9 +109,7 @@ class AuthController extends Controller
 			Cache::put($verify_email_code_cache_key, $code, 600);
 			return Reply::success();
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -149,9 +140,7 @@ class AuthController extends Controller
 			], '');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -172,9 +161,7 @@ class AuthController extends Controller
 			Cache::put($password_reset_code_cache_key, $code, 600);
 			return Reply::successWithMessage('app.successes.success');
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			return Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -194,9 +181,7 @@ class AuthController extends Controller
 			}
 			return Reply::success();
 		} catch (\Exception $error) {
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 
@@ -224,9 +209,7 @@ class AuthController extends Controller
 			return Reply::successWithMessage('auth.successes.change_password_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
-			Log::error($error);
-			$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-			Reply::error($message, [], 500);
+			return $this->handleException($error);
 		}
 	}
 }
