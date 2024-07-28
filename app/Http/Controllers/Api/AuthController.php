@@ -119,7 +119,13 @@ class AuthController extends Controller
 		try {
 			$user = User::whereNull('email_verified_at')
 				->where('email', '=', $request->email)
-				->firstOrFail();
+				->first();
+			if (!$user) {
+				return Reply::error('auth.errors.email_not_found', [], 404);
+			}
+			if ($user->is_active == false) {
+				return Reply::error('auth.errors.account_disabled');
+			}
 
 			$verify_email_code_cache_key = str_replace(
 				['@user_id'],
@@ -128,7 +134,7 @@ class AuthController extends Controller
 			);
 			$verify_code = Cache::get($verify_email_code_cache_key);
 			if ($verify_code != $request->verify_code) {
-				return Reply::error('app.errors.something_went_wrong', [], 500);
+				return Reply::error('auth.errors.verify_code_mismatch', [], 400);
 			}
 			$user->email_verified_at = Carbon::now();
 			$token = $user->createToken("{$user->role->name} token")->plainTextToken;
@@ -177,7 +183,7 @@ class AuthController extends Controller
 			);
 			$verify_code = Cache::get($password_reset_code_cache_key);
 			if ($verify_code != $request->verify_code) {
-				return Reply::error('app.errors.something_went_wrong', [], 500);
+				return Reply::error('auth.errors.verify_code_mismatch', [], 400);
 			}
 			return Reply::success();
 		} catch (\Exception $error) {
@@ -198,7 +204,7 @@ class AuthController extends Controller
 			);
 			$verify_code = Cache::get($password_reset_code_cache_key);
 			if ($verify_code != $request->verify_code) {
-				return Reply::error('app.errors.something_went_wrong', [], 500);
+				return Reply::error('auth.errors.verify_code_mismatch', [], 400);
 			}
 			$user->update([
 				'password' => Hash::make($request->password),
