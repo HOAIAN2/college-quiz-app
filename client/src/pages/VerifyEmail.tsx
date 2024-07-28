@@ -16,7 +16,7 @@ export default function VerifyEmail() {
 		e.preventDefault();
 		if (!user) return;
 		const formData = new FormData(e.currentTarget);
-		const verifyCode = String(formData.get('verify_code'));
+		const verifyCode = formData.get('verify_code') as string | null;
 		if (user.email && verifyCode) {
 			apiVerifyEmail(user.email, verifyCode)
 				.then(() => {
@@ -48,6 +48,7 @@ export default function VerifyEmail() {
 				<div className={styles['wrap-item']}>
 					<label className={styles['required']} htmlFor='verify_code'>{language?.verificationCodeLabel}</label>
 					<input
+						required
 						id='verify_code'
 						name='verify_code'
 						className={css(appStyles['input-d'], styles['input-item'])}

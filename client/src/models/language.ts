@@ -32,6 +32,7 @@ export type Language = {
 	'page.exam': typeof import('../../assets/langs/en/page.exam.ts').default;
 	'page.exams': typeof import('../../assets/langs/en/page.exams.ts').default;
 	'page.faculties': typeof import('../../assets/langs/en/page.faculties.ts').default;
+	'page.forgot_password': typeof import('../../assets/langs/en/page.forgot_password.ts').default;
 	'page.login': typeof import('../../assets/langs/en/page.login.ts').default;
 	'page.not_found': typeof import('../../assets/langs/en/page.not_found.ts').default;
 	'page.permissions': typeof import('../../assets/langs/en/page.permissions.ts').default;

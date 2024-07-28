@@ -1,33 +1,72 @@
-import { useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { apiResetPassword, apiSendPasswordResetEmail, apiVerifyPasswordResetCode } from '../api/auth';
 import appStyles from '../App.module.css';
+import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/ForgotPassword.module.css';
 import css from '../utils/css';
 
 export default function ForgotPassword() {
+	const language = useLanguage('page.forgot_password');
+	const [countDown, setCountDown] = useState(0);
 	const [searchParams, setSearchParams] = useSearchParams();
+	const navigate = useNavigate();
 	const handleSendEmail = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
-		searchParams.set('email', btoa(formData.get('email') as string));
-		setSearchParams(searchParams);
+		const email = formData.get('email') as string | null;
+		if (!email) return;
+		apiSendPasswordResetEmail(email)
+			.then(() => {
+				searchParams.set('email', btoa(email));
+				setSearchParams(searchParams);
+			});
 	};
 	const handleSubmitCode = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		const email = atob(searchParams.get('email') as string);
 		const formData = new FormData(e.currentTarget);
-		searchParams.set('verify_code', btoa(formData.get('verify_code') as string));
-		setSearchParams(searchParams);
+		const verifyCode = formData.get('verify_code') as string | null;
+		if (!verifyCode) return;
+		apiVerifyPasswordResetCode(email, verifyCode)
+			.then(() => {
+				searchParams.set('verify_code', btoa(verifyCode));
+				setSearchParams(searchParams);
+			});
 	};
 	const handleSubmitPassword = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		const formData = new FormData(e.currentTarget);
+		apiResetPassword(formData)
+			.then(() => {
+				setSearchParams(new URLSearchParams());
+				navigate('/');
+			});
 	};
+	const sendVerifyEmail = () => {
+		const email = searchParams.get('email');
+		if (!email) return;
+		setCountDown(60);
+		apiSendPasswordResetEmail(email);
+	};
+	useEffect(() => {
+		if (countDown === 0) return;
+		const timeoutId = setTimeout(() => {
+			setCountDown(pre => pre - 1);
+		}, 1000);
+		return () => {
+			clearTimeout(timeoutId);
+		};
+	}, [countDown]);
 	if (!searchParams.has('email')) return (
 		<main key={`phase-${1}`} className={styles['forgot-password-page']}>
 			<form onSubmit={handleSendEmail} className={styles['form-data']}>
-				<h2>Quên mật khẩu</h2>
-				<p>Chúng tôi sẽ gửi mã khôi phục đến email của bạn, vui lòng điền email vào đây</p>
+				<h2>{language?.forgotPassword}</h2>
+				<p>{language?.enterEmail}</p>
 				<div className={styles['wrap-item']}>
-					<label className={styles['required']} htmlFor='email'>Email</label>
+					<label className={styles['required']} htmlFor='email'>{language?.email}</label>
 					<input
+						required
 						id='email'
 						name='email'
 						className={css(appStyles['input-d'], styles['input-item'])}
@@ -37,7 +76,7 @@ export default function ForgotPassword() {
 				</div>
 				<div className={styles['wrap-item']}>
 					<button className={css(appStyles['button-d'], styles['input-item'])}>
-						Gửi mã xác nhận
+						{language?.sendCode}
 					</button>
 				</div>
 			</form>
@@ -46,11 +85,11 @@ export default function ForgotPassword() {
 	if (!searchParams.has('verify_code')) return (
 		<main key={`phase-${2}`} className={styles['forgot-password-page']}>
 			<form onSubmit={handleSubmitCode} className={styles['form-data']}>
-				<h2>Quên mật khẩu</h2>
-				<p>Chúng tôi vừa gửi mã khôi phục tới <b>{searchParams.get('email')}</b>.</p>
-				<p>Vui lòng nhập mã khôi phục vào đây</p>
+				<h2>{language?.forgotPassword}</h2>
+				<p>{language?.emailSentTo} <b>{atob(String(searchParams.get('email')))}</b>.</p>
+				<p>{language?.enterRecoveryCode}</p>
 				<div className={styles['wrap-item']}>
-					<label className={styles['required']} htmlFor='verify_code'>Mã khôi phục</label>
+					<label className={styles['required']} htmlFor='verify_code'>{language?.recoveryCode}</label>
 					<input
 						id='verify_code'
 						name='verify_code'
@@ -61,12 +100,19 @@ export default function ForgotPassword() {
 				</div>
 				<div className={styles['wrap-item']}>
 					<button className={css(appStyles['button-d'], styles['input-item'])}>
-						Xác minh
+						{language?.verify}
 					</button>
 				</div>
 				<div className={styles['wrap-item']}>
-					<p>Chưa nhận được email? <b style={{ cursor: 'pointer' }}>
-						Gửi lại
+					<p>{language?.didNotReceiveEmail} <b
+						className={
+							css(
+								styles['resend-button'],
+								countDown !== 0 ? styles['disabled'] : ''
+							)
+						}
+						onClick={sendVerifyEmail} style={{ cursor: 'pointer' }}>
+						{countDown !== 0 ? `${countDown}s` : language?.resend}
 					</b>
 					</p>
 				</div>
@@ -76,12 +122,12 @@ export default function ForgotPassword() {
 	return (
 		<main key={`phase-${3}`} className={styles['forgot-password-page']}>
 			<form onSubmit={handleSubmitPassword} className={styles['form-data']}>
-				<h2>Quên mật khẩu</h2>
-				<p>Điền mật khẩu mới vào đây</p>
-				<input hidden readOnly type='text' name='email' value={String(searchParams.get('email'))} />
-				<input hidden readOnly type='text' name='verify_code' value={String(searchParams.get('verify_code'))} />
+				<h2>{language?.forgotPassword}</h2>
+				<p>{language?.enterNewPassword}</p>
+				<input hidden readOnly type='text' name='email' value={atob(String(searchParams.get('email')))} />
+				<input hidden readOnly type='text' name='verify_code' value={atob(String(searchParams.get('verify_code')))} />
 				<div className={styles['wrap-item']}>
-					<label className={styles['required']} htmlFor='password'>Mật khẩu</label>
+					<label className={styles['required']} htmlFor='password'>{language?.password}</label>
 					<input
 						id='password'
 						name='password'
@@ -90,7 +136,7 @@ export default function ForgotPassword() {
 					/>
 				</div>
 				<div className={styles['wrap-item']}>
-					<label className={styles['required']} htmlFor='password_confirmation'>Nhập lại mật khẩu</label>
+					<label className={styles['required']} htmlFor='password_confirmation'>{language?.confirmPassword}</label>
 					<input
 						id='password_confirmation'
 						name='password_confirmation'
@@ -100,7 +146,7 @@ export default function ForgotPassword() {
 				</div>
 				<div className={styles['wrap-item']}>
 					<button className={css(appStyles['button-d'], styles['input-item'])}>
-						Lưu
+						{language?.save}
 					</button>
 				</div>
 			</form>
