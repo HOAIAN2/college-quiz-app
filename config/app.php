@@ -122,5 +122,5 @@ return [
 		'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
 		'store' => env('APP_MAINTENANCE_STORE', 'database'),
 	],
-
+	'otp_code_timeout' => (int)env('OTP_CODE_TIMEOUT', 600)
 ];

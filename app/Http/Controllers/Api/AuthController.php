@@ -25,6 +25,11 @@ class AuthController extends Controller
 	const VERIFY_EMAIL_CODE_CACHE_KEY = 'user:@user_id-verify-code';
 	const PASSWORD_RESET_CODE_CACHE_KEY = 'user:@user_id-password-reset-code';
 
+	public function __construct()
+	{
+		parent::__construct();
+	}
+
 	public function login(LoginRequest $request)
 	{
 		try {
@@ -106,7 +111,7 @@ class AuthController extends Controller
 				[$user->id],
 				self::VERIFY_EMAIL_CODE_CACHE_KEY
 			);
-			Cache::put($verify_email_code_cache_key, $code, 600);
+			Cache::put($verify_email_code_cache_key, $code);
 			return Reply::success();
 		} catch (\Exception $error) {
 			return $this->handleException($error);
@@ -162,15 +167,15 @@ class AuthController extends Controller
 			}
 
 			$code = NumberHelper::randomDitgits();
-			$verify_email = new PasswordResetEmail($code);
-			Mail::to($user)->send($verify_email);
+			$password_reset_email = new PasswordResetEmail($code);
+			Mail::to($user)->send($password_reset_email);
 
 			$password_reset_code_cache_key = str_replace(
 				['@user_id'],
 				[$user->id],
 				self::PASSWORD_RESET_CODE_CACHE_KEY
 			);
-			Cache::put($password_reset_code_cache_key, $code, 600);
+			Cache::put($password_reset_code_cache_key, $code);
 			return Reply::success();
 		} catch (\Exception $error) {
 			return $this->handleException($error);
