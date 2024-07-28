@@ -9,6 +9,6 @@ return [
 		'password_incorrect' => 'Mật khẩu không chính xác',
 		'new_password_is_same' => 'Mật khẩu mới giống như mật khẩu cũ',
 		'account_disabled' => 'Tài khoản của bạn đã bị khóa',
-		'verify_code_mismatch' => 'Verify code mismatch'
+		'verify_code_mismatch' => 'Mã xác nhận không chính xác'
 	]
 ];

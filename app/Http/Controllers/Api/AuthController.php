@@ -153,7 +153,13 @@ class AuthController extends Controller
 	public function sendPasswordResetEmail(SendPasswordResetEmailRequest $request)
 	{
 		try {
-			$user = User::where('email', '=', $request->email)->firstOrFail();
+			$user = User::where('email', '=', $request->email)->first();
+			if (!$user) {
+				return Reply::error('auth.errors.email_not_found', [], 404);
+			}
+			if ($user->is_active == false) {
+				return Reply::error('auth.errors.account_disabled');
+			}
 
 			$code = NumberHelper::randomDitgits();
 			$verify_email = new PasswordResetEmail($code);
@@ -174,7 +180,13 @@ class AuthController extends Controller
 	public function verifyPasswordResetCode(VerifyEmailRequest $request)
 	{
 		try {
-			$user = User::where('email', '=', $request->email)->firstOrFail();
+			$user = User::where('email', '=', $request->email)->first();
+			if (!$user) {
+				return Reply::error('auth.errors.email_not_found', [], 404);
+			}
+			if ($user->is_active == false) {
+				return Reply::error('auth.errors.account_disabled');
+			}
 
 			$password_reset_code_cache_key = str_replace(
 				['@user_id'],
@@ -195,7 +207,13 @@ class AuthController extends Controller
 	{
 		DB::beginTransaction();
 		try {
-			$user = User::where('email', '=', $request->email)->firstOrFail();
+			$user = User::where('email', '=', $request->email)->first();
+			if (!$user) {
+				return Reply::error('auth.errors.email_not_found', [], 404);
+			}
+			if ($user->is_active == false) {
+				return Reply::error('auth.errors.account_disabled');
+			}
 
 			$password_reset_code_cache_key = str_replace(
 				['@user_id'],
