@@ -14,12 +14,18 @@ export default function ForgotPassword() {
 	const handleSendEmail = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
+		const form = e.target as HTMLFormElement;
 		const email = formData.get('email') as string | null;
+		form.querySelector('button')?.classList.add(appStyles['button-submitting']);
 		if (!email) return;
 		apiSendPasswordResetEmail(email)
 			.then(() => {
+				setCountDown(60);
 				searchParams.set('email', btoa(email));
 				setSearchParams(searchParams);
+			})
+			.catch(() => {
+				form.querySelector('button')?.classList.remove(appStyles['button-submitting']);
 			});
 	};
 	const handleSubmitCode = (e: React.FormEvent<HTMLFormElement>) => {
@@ -111,7 +117,7 @@ export default function ForgotPassword() {
 								countDown !== 0 ? styles['disabled'] : ''
 							)
 						}
-						onClick={sendVerifyEmail} style={{ cursor: 'pointer' }}>
+						onClick={sendVerifyEmail}>
 						{countDown !== 0 ? `${countDown}s` : language?.resend}
 					</b>
 					</p>

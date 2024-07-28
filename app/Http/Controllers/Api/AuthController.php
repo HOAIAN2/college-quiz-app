@@ -171,7 +171,7 @@ class AuthController extends Controller
 				self::PASSWORD_RESET_CODE_CACHE_KEY
 			);
 			Cache::put($password_reset_code_cache_key, $code, 600);
-			return Reply::successWithMessage('app.successes.success');
+			return Reply::success();
 		} catch (\Exception $error) {
 			return $this->handleException($error);
 		}

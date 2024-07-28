@@ -69,7 +69,7 @@ export default function VerifyEmail() {
 								countDown !== 0 ? styles['disabled'] : ''
 							)
 						}
-						onClick={sendVerifyEmail} style={{ cursor: 'pointer' }}>
+						onClick={sendVerifyEmail} >
 						{countDown !== 0 ? `${countDown}s` : language?.resend}
 					</b>
 					</p>
