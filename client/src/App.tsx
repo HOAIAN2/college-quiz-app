@@ -13,12 +13,12 @@ import SuspenseLoading from './components/SuspenseLoading';
 import useAppContext from './hooks/useAppContext';
 import AuthLayout from './layouts/AuthLayout';
 import DashboardLayout from './layouts/DashboardLayout';
+import ForgotPassword from './pages/ForgotPassword';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
+import VerifyEmail from './pages/VerifyEmail';
 
-const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
-const VerifyEmail = lazy(() => import('./pages/VerifyEmail'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Users = lazy(() => import('./pages/Users'));
 const Permissisons = lazy(() => import('./pages/Permissisons'));

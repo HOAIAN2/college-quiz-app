@@ -1,5 +1,6 @@
 export default {
 	login: 'Login',
 	email: 'Email',
-	password: 'Password'
+	password: 'Password',
+	forgotPassword: 'Forgot password?'
 };

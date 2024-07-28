@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import { apiLogin, apiSendEmailVerification } from '../api/auth';
 import useAppContext from '../hooks/useAppContext';
@@ -41,8 +41,6 @@ export default function Login() {
 			} else {
 				navigate(prePage || '/');
 			}
-		} catch (error) {
-			// Handle error (optional: add error handling logic)
 		} finally {
 			setBlockSubmit(false);
 			setIsSubmitting(false);
@@ -73,6 +71,7 @@ export default function Login() {
 						placeholder={language?.password}
 					/>
 				</div>
+				<Link className={styles['forgot-password']} to='/auth/forgot-password'>{language?.forgotPassword}</Link>
 				<div className={styles['wrap-input']}>
 					<button
 						ref={buttonRef}

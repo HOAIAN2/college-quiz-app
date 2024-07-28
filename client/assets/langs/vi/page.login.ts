@@ -1,5 +1,6 @@
 export default {
 	login: 'Đăng nhập',
 	email: 'Email',
-	password: 'Mật khẩu'
+	password: 'Mật khẩu',
+	forgotPassword: 'Quên mật khẩu?'
 };
