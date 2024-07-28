@@ -31,11 +31,11 @@ export async function apiGetRolePermissions(id: number) {
 
 export async function apiUpdateRolePermissions(id: number | string, permissionIds: (number | string)[]) {
 	try {
-		const data = new URLSearchParams();
+		const encodedData = new URLSearchParams();
 		permissionIds.forEach(item => {
-			data.append('ids[]', String(item));
+			encodedData.append('ids[]', String(item));
 		});
-		await request.put(pathUtils.join(prefix, id), data, {
+		await request.put(pathUtils.join(prefix, id), encodedData, {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}

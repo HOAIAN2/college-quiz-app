@@ -48,8 +48,8 @@ export async function apiGetSchoolClassById(id: string | number) {
 }
 export async function apiUpdateSchoolClass(formData: FormData, id: string | number) {
 	try {
-		const data = encodeFormData(formData);
-		await request.put(pathUtils.join(prefix, id), data, {
+		const encodedData = encodeFormData(formData);
+		await request.put(pathUtils.join(prefix, id), encodedData, {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}

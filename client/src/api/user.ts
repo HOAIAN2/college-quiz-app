@@ -42,8 +42,8 @@ export async function apiCreateUser(formData: FormData) {
 
 export async function apiUpdateUser(formData: FormData, id: string | number) {
 	try {
-		const data = encodeFormData(formData);
-		await request.put(pathUtils.join(prefix, id), data, {
+		const encodedData = encodeFormData(formData);
+		await request.put(pathUtils.join(prefix, id), encodedData, {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}
@@ -57,11 +57,11 @@ export async function apiUpdateUser(formData: FormData, id: string | number) {
 }
 
 export async function apiImportUsers(file: File, role: RoleName) {
-	const data = new FormData();
-	data.append('role', role);
-	data.append('file', file);
+	const formData = new FormData();
+	formData.append('role', role);
+	formData.append('file', file);
 	try {
-		await request.post(pathUtils.join(prefix, 'import'), data);
+		await request.post(pathUtils.join(prefix, 'import'), formData);
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message);
 		const message = error.response.data.message;

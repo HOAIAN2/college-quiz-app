@@ -127,7 +127,7 @@ class AuthController extends Controller
 				self::VERIFY_EMAIL_CODE_CACHE_KEY
 			);
 			$verify_code = Cache::get($verify_email_code_cache_key);
-			if ($verify_code != $request->code) {
+			if ($verify_code != $request->verify_code) {
 				return Reply::error('app.errors.something_went_wrong', [], 500);
 			}
 			$user->email_verified_at = Carbon::now();
@@ -176,7 +176,7 @@ class AuthController extends Controller
 				self::PASSWORD_RESET_CODE_CACHE_KEY
 			);
 			$verify_code = Cache::get($password_reset_code_cache_key);
-			if ($verify_code != $request->code) {
+			if ($verify_code != $request->verify_code) {
 				return Reply::error('app.errors.something_went_wrong', [], 500);
 			}
 			return Reply::success();
@@ -197,7 +197,7 @@ class AuthController extends Controller
 				self::PASSWORD_RESET_CODE_CACHE_KEY
 			);
 			$verify_code = Cache::get($password_reset_code_cache_key);
-			if ($verify_code != $request->code) {
+			if ($verify_code != $request->verify_code) {
 				return Reply::error('app.errors.something_went_wrong', [], 500);
 			}
 			$user->update([

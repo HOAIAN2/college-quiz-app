@@ -45,8 +45,8 @@ export async function apiCreateCourse(formData: FormData) {
 
 export async function apiUpdateCourse(formData: FormData, id: string | number) {
 	try {
-		const data = encodeFormData(formData);
-		await request.put(pathUtils.join(prefix, id), data, {
+		const encodedData = encodeFormData(formData);
+		await request.put(pathUtils.join(prefix, id), encodedData, {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}
@@ -72,11 +72,11 @@ export async function apiDeleteCourse(id: string | number) {
 
 export async function apiUpdateCourseStudents(studentIds: (string | number)[], id: string | number) {
 	try {
-		const data = new URLSearchParams();
+		const encodedData = new URLSearchParams();
 		studentIds.forEach(item => {
-			data.append('student_ids[]', String(item));
+			encodedData.append('student_ids[]', String(item));
 		});
-		await request.put(pathUtils.join(prefix, id, 'students'), data, {
+		await request.put(pathUtils.join(prefix, id, 'students'), encodedData, {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			}

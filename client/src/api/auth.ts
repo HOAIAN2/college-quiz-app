@@ -6,9 +6,9 @@ import tokenUtils from '../utils/tokenUtils';
 
 const prefix = 'auth';
 
-export async function apiLogin(form: FormData) {
+export async function apiLogin(formData: FormData) {
 	try {
-		const res = await request.post(pathUtils.join(prefix, 'login'), form);
+		const res = await request.post(pathUtils.join(prefix, 'login'), formData);
 		const { data } = res.data as ApiResponseWithData<LoginResponse>;
 		if (data.token) tokenUtils.setToken(data.token);
 		return data;
@@ -18,9 +18,9 @@ export async function apiLogin(form: FormData) {
 		throw new Error(message.message);
 	}
 }
-export async function apiChangePassword(form: FormData) {
+export async function apiChangePassword(formData: FormData) {
 	try {
-		await request.post(pathUtils.join(prefix, 'change-password'), form);
+		await request.post(pathUtils.join(prefix, 'change-password'), formData);
 		tokenUtils.removeToken();
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message);
@@ -40,24 +40,56 @@ export async function apiLogout() {
 	}
 }
 export async function apiSendEmailVerification(email: string) {
-	const data = new FormData();
-	data.append('email', email);
+	const formData = new FormData();
+	formData.append('email', email);
 	try {
-		await request.post(pathUtils.join(prefix, 'send-email-verification'), data);
+		await request.post(pathUtils.join(prefix, 'send-email-verification'), formData);
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message);
 		const message = error.response.data.message;
 		throw new Error(message);
 	}
 }
-export async function apiVerifyEmail(email: string, code: string) {
-	const data = new FormData();
-	data.append('email', email);
-	data.append('code', code);
+export async function apiVerifyEmail(email: string, verifyCode: string) {
+	const formData = new FormData();
+	formData.append('email', email);
+	formData.append('verify_code', verifyCode);
 	try {
-		const res = await request.post(pathUtils.join(prefix, 'verify-email'), data);
+		const res = await request.post(pathUtils.join(prefix, 'verify-email'), formData);
 		const { data: { token } } = res.data as ApiResponseWithData<{ token: string; }>;
 		tokenUtils.setToken(token);
+	} catch (error: any) {
+		if (!error.response) throw new Error(error.message);
+		const message = error.response.data.message;
+		throw new Error(message);
+	}
+}
+export async function apiSendPasswordResetEmail(email: string) {
+	const formData = new FormData();
+	formData.append('email', email);
+	try {
+		await request.post(pathUtils.join(prefix, 'send-password-reset-email'), formData);
+	} catch (error: any) {
+		if (!error.response) throw new Error(error.message);
+		const message = error.response.data.message;
+		throw new Error(message);
+	}
+}
+export async function apiVerifyPasswordResetCode(email: string, verifyCode: string) {
+	const formData = new FormData();
+	formData.append('email', email);
+	formData.append('verify_code', verifyCode);
+	try {
+		await request.post(pathUtils.join(prefix, 'verify-password-reset-code'), formData);
+	} catch (error: any) {
+		if (!error.response) throw new Error(error.message);
+		const message = error.response.data.message;
+		throw new Error(message);
+	}
+}
+export async function apiResetPassword(formData: FormData) {
+	try {
+		await request.post(pathUtils.join(prefix, 'reset-password'), formData);
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message);
 		const message = error.response.data.message;

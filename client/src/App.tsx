@@ -17,6 +17,7 @@ import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Profile from './pages/Profile';
 
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
 const VerifyEmail = lazy(() => import('./pages/VerifyEmail'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Users = lazy(() => import('./pages/Users'));
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
 					{
 						path: 'verify-email',
 						element: <VerifyEmail />
+					},
+					{
+						path: 'forgot-password',
+						element: <ForgotPassword />
 					},
 				]
 			},
