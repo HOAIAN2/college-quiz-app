@@ -53,9 +53,7 @@ export default function Login() {
 	return (
 		<main className={styles['login-page']}>
 			<form onSubmit={handleLogin} className={styles['form']} onInput={handlePreventSubmit}>
-				<div className={styles['wrap-input']}>
-					<div className={styles['title']}>{language?.login}</div>
-				</div>
+				<h1 style={{ textAlign: 'center' }}>{language?.login}</h1>
 				<div className={styles['wrap-input']}>
 					<input name='email'
 						autoFocus
