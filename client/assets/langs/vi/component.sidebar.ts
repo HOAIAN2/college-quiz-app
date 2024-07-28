@@ -10,5 +10,6 @@ export default {
 	teachers: 'Giáo viên',
 	students: 'Học sinh',
 	permission: 'Phân quyền',
-	semester: 'Học kỳ'
+	semester: 'Học kỳ',
+	settings: 'Cài đặt'
 };

@@ -10,5 +10,6 @@ export default {
 	teachers: 'Teachers',
 	students: 'Students',
 	permission: 'Permission',
-	semester: 'Semester'
+	semester: 'Semester',
+	settings: 'Settings'
 };

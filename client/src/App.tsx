@@ -35,6 +35,7 @@ const Semester = lazy(() => import('./pages/Semester'));
 const Exams = lazy(() => import('./pages/Exams'));
 const Exam = lazy(() => import('./pages/Exam'));
 const TakeExam = lazy(() => import('./pages/TakeExam'));
+const Settings = lazy(() => import('./pages/Settings'));
 
 const router = createBrowserRouter([
 	{
@@ -171,6 +172,15 @@ const router = createBrowserRouter([
 							{
 								path: ':id',
 								element: <Suspense fallback={<SuspenseLoading />}><RolePermissions /></Suspense>
+							},
+						],
+					},
+					{
+						path: 'settings',
+						children: [
+							{
+								index: true,
+								element: <Suspense fallback={<SuspenseLoading />}><Settings /></Suspense>
 							},
 						],
 					},

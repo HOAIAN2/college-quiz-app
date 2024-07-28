@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import {
 	AiOutlineUser
 } from 'react-icons/ai';
+import { IoSettingsOutline } from 'react-icons/io5';
 import { LuSchool } from 'react-icons/lu';
 import { MdOutlineStickyNote2 } from 'react-icons/md';
 import {
@@ -24,7 +25,7 @@ import styles from '../styles/Sidebar.module.css';
 import css from '../utils/css';
 
 export default function Sidebar() {
-	const { DOM, permissions, appTitle } = useAppContext();
+	const { DOM, permissions, appTitle, user } = useAppContext();
 	const language = useLanguage('component.sidebar');
 	const navBarItems = [
 		{
@@ -86,6 +87,12 @@ export default function Sidebar() {
 			to: 'permissions',
 			icon: <TbBrandAuth0 />,
 			isActive: permissions.has('role_permission_view')
+		},
+		{
+			name: language?.settings,
+			to: 'settings',
+			icon: <IoSettingsOutline />,
+			isActive: user.user?.role.name === 'admin'
 		},
 	];
 	useEffect(() => {
