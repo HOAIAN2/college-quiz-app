@@ -177,9 +177,14 @@ const router = createBrowserRouter([
 					},
 					{
 						path: 'settings',
+						element: <Suspense fallback={<SuspenseLoading />}><Settings /></Suspense>,
 						children: [
 							{
 								index: true,
+								element: <Suspense fallback={<SuspenseLoading />}><Settings /></Suspense>
+							},
+							{
+								path: ':name',
 								element: <Suspense fallback={<SuspenseLoading />}><Settings /></Suspense>
 							},
 						],

@@ -42,6 +42,7 @@ export type Language = {
 	'page.school_classes': typeof import('../../assets/langs/en/page.school_classes.ts').default;
 	'page.semester': typeof import('../../assets/langs/en/page.semester.ts').default;
 	'page.semesters': typeof import('../../assets/langs/en/page.semesters.ts').default;
+	'page.settings': typeof import('../../assets/langs/en/page.settings.ts').default;
 	'page.subject': typeof import('../../assets/langs/en/page.subject.ts').default;
 	'page.subjects': typeof import('../../assets/langs/en/page.subjects.ts').default;
 	'page.take_exam': typeof import('../../assets/langs/en/page.take_exam.ts').default;

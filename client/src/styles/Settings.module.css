@@ -1,6 +1,75 @@
 .page-content {
 	width: 100%;
 	height: 100%;
+	display: flex;
+	gap: 10px;
 	position: relative;
+	/* overflow-y: auto; */
+}
+
+.nav-bar {
+	width: 200px;
+	height: 100%;
+	border-radius: var(--border-radius-low);
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 10px;
+	background: white;
+	box-shadow: 0px 0px 10px var(--color-shadow);
+}
+
+.list-item {
+	list-style: none;
+	width: 100%;
+	height: 50px;
+	cursor: pointer;
+	transition: margin-left var(--transition-timing-medium) ease-in-out;
+	border-radius: var(--border-radius-low);
+	position: relative;
+	margin: 10px auto;
+}
+
+.list-item:hover {
+	background-color: var(--color-white);
+}
+
+.list-item>a {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	padding-left: 10px;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+
+.current {
+	background-color: var(--color-white);
+}
+
+.setting-content {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 	overflow-y: auto;
+}
+
+.article {
+	width: 100%;
+	height: fit-content;
+	border-radius: var(--border-radius-low);
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 20px;
+	background: white;
+	box-shadow: 0px 0px 10px var(--color-shadow);
+}
+
+.input-item {
+	height: 40px;
+	width: 80%;
 }
