@@ -35,16 +35,6 @@ class NumberHelper
 		return $formatter->getSymbol(NumberFormatter::DECIMAL_SEPARATOR_SYMBOL);
 	}
 
-	public static function randomCode(int $length = 6)
-	{
-		$min = 1;
-		while (strlen((string)$min) < $length) {
-			$min *= 10;
-		}
-		$max = $min * 10 - 1;
-		return random_int($min, $max);
-	}
-
 	public static function randomDitgits(int $length = 6)
 	{
 		$result = '';
