@@ -2,7 +2,7 @@
 import request from '../config/api';
 import pathUtils from '../utils/pathUtils';
 
-const prefix = 'admin';
+const prefix = 'settings';
 
 export async function apiRunArtisan(command: string) {
 	const formData = new FormData();

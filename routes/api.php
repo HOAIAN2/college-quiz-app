@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ChapterController;
-use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\CourseController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\ExamController;
@@ -11,16 +10,18 @@ use App\Http\Controllers\Api\QuestionController;
 use App\Http\Controllers\Api\RolePermissionController;
 use App\Http\Controllers\Api\SchoolClassController;
 use App\Http\Controllers\Api\SemesterController;
+use App\Http\Controllers\Api\SettingsController;
 use App\Http\Controllers\Api\SubjectController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('/admin')->controller(AdminController::class)->group(function () {
+Route::prefix('/settings')->controller(SettingsController::class)->group(function () {
 	Route::post('/run-artisan', 'runArtisan')->middleware(App\Http\Middleware\VerifyAppKey::class);
 	Route::middleware('auth:sanctum')->group(function () {
 		// Route::post('/run-artisan', 'runArtisan');
 		Route::get('/log', 'getLogFile');
 		Route::delete('/log', 'deleteLogFile');
+		Route::post('/env', 'setEnv');
 	});
 });
 
