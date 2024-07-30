@@ -1,9 +1,9 @@
 #!/bin/sh
-rm ./public/index.html
-rm ./public/favicon.ico
-rm -rf ./public/assets
 cd client
 npm run build
+rm ../public/index.html
+rm ../public/favicon.ico
+rm -rf ../public/assets
 cp -r ./dist/* ../public
 cd ..
 echo 'Copying distribution to server...'

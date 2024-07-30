@@ -1,16 +1,23 @@
 .article {
-	width: 90%;
+	max-width: 1000px;
+	width: 100%;
 	height: fit-content;
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
-	padding: 20px;
+	padding: 10px;
 	background: white;
-	border-bottom: 1px solid var(--color-gray);
+	/* border-bottom: 1px solid var(--color-gray); */
+}
+
+.action-items {
+	display: flex;
+	gap: 10px;
 }
 
 .input-item {
 	height: 40px;
+	width: 300px;
 }
 
 .button-item {

@@ -43,22 +43,26 @@ function SystemContent() {
 								className={css(appStyles['input-d'], styles['input-item'])}
 								placeholder='schedule:run'
 							/>
-							<button
-								onClick={handleRunArtisan}
-								className={css(appStyles['action-item-d'], styles['button-item'])}
-							>{language?.run}</button>
+							<div className={styles['action-items']}>
+								<button
+									onClick={handleRunArtisan}
+									className={css(appStyles['action-item-d'], styles['button-item'])}
+								>{language?.run}</button>
+							</div>
 						</article>
 						<article className={styles['article']}>
 							<h3>{language?.logFile}</h3>
 							<p>{language?.logDescription}</p>
-							<button
-								onClick={handleDownloadLogFile}
-								className={css(appStyles['action-item-d'], styles['button-item'])}
-							>{language?.download}</button>
-							<button
-								onClick={apiDeleteLogFile}
-								className={css(appStyles['action-item-white-border-red-d'], styles['button-item'])}
-							>{language?.delete}</button>
+							<div className={styles['action-items']}>
+								<button
+									onClick={handleDownloadLogFile}
+									className={css(appStyles['action-item-d'], styles['button-item'])}
+								>{language?.download}</button>
+								<button
+									onClick={apiDeleteLogFile}
+									className={css(appStyles['action-item-white-border-red-d'], styles['button-item'])}
+								>{language?.delete}</button>
+							</div>
 						</article>
 					</> : null
 			}
