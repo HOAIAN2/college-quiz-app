@@ -9,17 +9,14 @@ import css from '../utils/css';
 import { saveBlob } from '../utils/saveBlob';
 
 export default function SettingsContent({ name }: { name: string; }) {
-	if (name === 'system') return <SystemContent />;
-	return null;
-}
-
-function SystemContent() {
 	const { user } = useAppContext();
-	const language = useLanguage('component.system_content');
+	const language = useLanguage('component.settings_content');
 	const [artisanCommand, setArtisanCommand] = useState('');
+
 	const handleRunArtisan = () => {
 		apiRunArtisan(artisanCommand);
 	};
+
 	const handleDownloadLogFile = () => {
 		apiDownloadLogFile()
 			.then(res => {
@@ -28,7 +25,8 @@ function SystemContent() {
 				saveBlob(res.data, fileName);
 			});
 	};
-	return (
+
+	if (name === 'system') return (
 		<>
 			{
 				user.user?.role.name === 'admin' ?
@@ -68,4 +66,10 @@ function SystemContent() {
 			}
 		</>
 	);
+
+	if (name === 'notifications') return (
+		<>
+		</>
+	);
+	return null;
 }
