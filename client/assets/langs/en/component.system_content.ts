@@ -1,6 +1,6 @@
 export default {
 	artisancommand: 'Artisan command',
-	runArtisanCommand: 'Run artisan command',
+	runArtisanCommand: 'Run artisan command from without terminal ( not every command)',
 	command: 'Command',
 	run: 'Run',
 	download: 'Download',

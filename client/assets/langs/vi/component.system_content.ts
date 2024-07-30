@@ -1,6 +1,6 @@
 export default {
 	artisancommand: 'Artisan command',
-	runArtisanCommand: 'Run artisan command',
+	runArtisanCommand: 'Chạy lệnh artisan không cần terminal (không phải tất cả)',
 	command: 'Command',
 	run: 'Chạy',
 	download: 'Tải',

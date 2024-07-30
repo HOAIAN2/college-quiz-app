@@ -42,6 +42,7 @@
 
 .list-item.current {
 	background-color: var(--color-white);
+	font-weight: bold;
 }
 
 .list-item>a {

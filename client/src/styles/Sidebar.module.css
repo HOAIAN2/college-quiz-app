@@ -50,6 +50,7 @@
 
 .current {
 	background-color: var(--color-white);
+	font-weight: bold;
 }
 
 .current::before {
