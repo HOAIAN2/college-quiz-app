@@ -66,8 +66,8 @@ li {
 
 @media (width>=500px) {
 	::-webkit-scrollbar {
-		width: 9px;
-		height: 9px;
+		width: 7px;
+		height: 7px;
 	}
 
 	::-webkit-scrollbar-track {
