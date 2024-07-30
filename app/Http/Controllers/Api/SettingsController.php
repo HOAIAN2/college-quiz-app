@@ -17,10 +17,12 @@ class SettingsController extends Controller
 		$command = $request->get('command');
 
 		try {
+			/**
+			 * Some command like "optimize" will force app reload all settings again.
+			 **/
+			$message = trans('app.successes.command_run_successfully', ['command' => $command]);
 			Artisan::call($command);
-			return Reply::successWithMessage('app.successes.command_run_successfully', [
-				'command' => $command
-			]);
+			return Reply::successWithMessage($message);
 		} catch (\Exception $error) {
 			Log::error($error);
 			return Reply::error('app.errors.something_went_wrong', [], 500);

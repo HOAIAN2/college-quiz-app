@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { apiDeleteLogFile, apiDownloadLogFile, apiRunArtisan } from '../api/settings';
 import appStyles from '../App.module.css';
 import useAppContext from '../hooks/useAppContext';
+import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/SettingsContent.module.css';
 import apiUtils from '../utils/apiUtils';
 import css from '../utils/css';
@@ -14,6 +15,7 @@ export default function SettingsContent({ name }: { name: string; }) {
 
 function SystemContent() {
 	const { user } = useAppContext();
+	const language = useLanguage('component.system_content');
 	const [artisanCommand, setArtisanCommand] = useState('');
 	const handleRunArtisan = () => {
 		apiRunArtisan(artisanCommand);
@@ -32,9 +34,9 @@ function SystemContent() {
 				user.user?.role.name === 'admin' ?
 					<>
 						<article className={styles['article']}>
-							<h3>Artisan command</h3>
-							<p>Run artisan command</p>
-							<label>Command</label>
+							<h3>{language?.artisancommand}</h3>
+							<p>{language?.runArtisanCommand}</p>
+							<label>{language?.command}</label>
 							<input
 								value={artisanCommand}
 								onInput={e => { setArtisanCommand(e.currentTarget.value); }}
@@ -44,19 +46,19 @@ function SystemContent() {
 							<button
 								onClick={handleRunArtisan}
 								className={css(appStyles['action-item-d'], styles['button-item'])}
-							>Run</button>
+							>{language?.run}</button>
 						</article>
 						<article className={styles['article']}>
-							<h3>Log file</h3>
-							<p>Comunicate with storage/logs/laravel.log file</p>
+							<h3>{language?.logFile}</h3>
+							<p>{language?.logDescription}</p>
 							<button
 								onClick={handleDownloadLogFile}
 								className={css(appStyles['action-item-d'], styles['button-item'])}
-							>Download</button>
+							>{language?.download}</button>
 							<button
 								onClick={apiDeleteLogFile}
 								className={css(appStyles['action-item-white-border-red-d'], styles['button-item'])}
-							>Delete</button>
+							>{language?.delete}</button>
 						</article>
 					</> : null
 			}
