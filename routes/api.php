@@ -16,9 +16,8 @@ use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('/settings')->controller(SettingsController::class)->group(function () {
-	Route::post('/run-artisan', 'runArtisan')->middleware(App\Http\Middleware\VerifyAppKey::class);
 	Route::middleware('auth:sanctum')->group(function () {
-		// Route::post('/run-artisan', 'runArtisan');
+		Route::post('/run-artisan', 'runArtisan');
 		Route::get('/log', 'getLogFile');
 		Route::delete('/log', 'deleteLogFile');
 		Route::post('/env', 'setEnv');

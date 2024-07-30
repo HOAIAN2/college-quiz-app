@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { AxiosResponse } from 'axios';
 import request from '../config/api';
 import pathUtils from '../utils/pathUtils';
 
@@ -18,7 +19,11 @@ export async function apiRunArtisan(command: string) {
 }
 export async function apiDownloadLogFile() {
 	try {
-		await request.get(pathUtils.join(prefix, 'log'));
+		const res: AxiosResponse<Blob> = await request.get(pathUtils.join(prefix, 'log'), {
+			responseType: 'blob'
+		});
+		const contentDisposition = res.headers['content-disposition'] as string | undefined;
+		return { data: res.data, contentDisposition };
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message);
 		const message = error.response.data.message;

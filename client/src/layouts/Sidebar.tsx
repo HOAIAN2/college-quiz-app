@@ -25,7 +25,7 @@ import styles from '../styles/Sidebar.module.css';
 import css from '../utils/css';
 
 export default function Sidebar() {
-	const { DOM, permissions, appTitle, user } = useAppContext();
+	const { DOM, permissions, appTitle } = useAppContext();
 	const language = useLanguage('component.sidebar');
 	const navBarItems = [
 		{
@@ -92,7 +92,7 @@ export default function Sidebar() {
 			name: language?.settings,
 			to: 'settings',
 			icon: <IoSettingsOutline />,
-			isActive: user.user?.role.name === 'admin'
+			isActive: true
 		},
 	];
 	useEffect(() => {

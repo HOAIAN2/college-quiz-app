@@ -1,0 +1,19 @@
+.article {
+	width: 90%;
+	height: fit-content;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 20px;
+	background: white;
+	border-bottom: 1px solid var(--color-gray);
+}
+
+.input-item {
+	height: 40px;
+}
+
+.button-item {
+	height: 40px;
+	width: 80px;
+}
