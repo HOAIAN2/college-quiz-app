@@ -103,6 +103,11 @@ class UserController extends Controller
 			if ($targetUser->role_id == Role::ROLES['teacher']) {
 				$data['faculty_id'] = $request->faculty_id;
 			}
+
+			if ($targetUser->email != $data['email']) {
+				$data['email_verified_at'] = null;
+			}
+
 			$data['birth_date'] = Carbon::parse($request->birth_date);
 			$targetUser->update($data);
 			DB::commit();
