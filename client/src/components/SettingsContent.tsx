@@ -42,12 +42,25 @@ function SystemContent({
 				button.classList.remove(appStyles['button-submitting']);
 			});
 	};
-	const handleDownloadLogFile = () => {
+	const handleDownloadLogFile = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+		const button = e.currentTarget;
+		button.classList.add(appStyles['button-submitting']);
 		apiDownloadLogFile()
 			.then(res => {
 				const contentDisposition = res.contentDisposition;
 				const fileName = apiUtils.getFileNameFromContentDisposition(contentDisposition, 'app.log');
 				saveBlob(res.data, fileName);
+			})
+			.finally(() => {
+				button.classList.remove(appStyles['button-submitting']);
+			});
+	};
+	const handleDeleteLogFile = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+		const button = e.currentTarget;
+		button.classList.add(appStyles['button-submitting']);
+		apiDeleteLogFile()
+			.finally(() => {
+				button.classList.remove(appStyles['button-submitting']);
 			});
 	};
 	return (
@@ -80,7 +93,7 @@ function SystemContent({
 									className={css(appStyles['action-item-d'], styles['button-item'])}
 								>{language?.download}</button>
 								<button
-									onClick={apiDeleteLogFile}
+									onClick={handleDeleteLogFile}
 									className={css(appStyles['action-item-white-border-red-d'], styles['button-item'])}
 								>{language?.delete}</button>
 							</div>
