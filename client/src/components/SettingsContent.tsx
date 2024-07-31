@@ -23,15 +23,15 @@ export default function SettingsContent({ name }: { name: string; }) {
 	return null;
 }
 
+type SystemContentProps = {
+	user: UserDetail;
+	language: LanguageType;
+};
 function SystemContent({
 	user,
 	language
-}: {
-	user: UserDetail;
-	language: LanguageType;
-}) {
+}: SystemContentProps) {
 	const artisanCommandInputRef = useRef<HTMLInputElement>(null);
-
 	const handleRunArtisan = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		const command = artisanCommandInputRef.current?.value.trim();
 		if (!command) return;
@@ -42,7 +42,6 @@ function SystemContent({
 				button.classList.remove(appStyles['button-submitting']);
 			});
 	};
-
 	const handleDownloadLogFile = () => {
 		apiDownloadLogFile()
 			.then(res => {
