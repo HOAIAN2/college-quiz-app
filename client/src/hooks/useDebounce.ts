@@ -10,7 +10,6 @@ export default function useDebounce<T>(value: T, timeout: number = DEFAULT_DEBOU
 		return (() => {
 			clearTimeout(handleDelay);
 		});
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [value]);
+	}, [timeout, value]);
 	return debounce;
 }
