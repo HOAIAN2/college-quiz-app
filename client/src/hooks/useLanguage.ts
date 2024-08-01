@@ -8,12 +8,9 @@ export default function useLanguage<K extends keyof Language>(langFile: K) {
 	const { appLanguage } = useAppContext();
 	const cacheKey = `${appLanguage.language}_${langFile}`;
 
-	const [language, setLanguage] = useState<Language[K] | undefined>(() => {
-		if (languageCache.has(cacheKey)) {
-			return languageCache.get(cacheKey) as Language[K];
-		}
-		return undefined;
-	});
+	const [language, setLanguage] = useState<Language[K] | undefined>(
+		() => languageCache.get(cacheKey) as Language[K] | undefined
+	);
 	useEffect(() => {
 		if (language) return;
 		import(`../../assets/langs/${appLanguage.language}/${langFile}.ts`)
