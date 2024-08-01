@@ -10,8 +10,8 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"@tanstack/react-query": "^5.51.16",
-		"axios": "^1.7.2",
+		"@tanstack/react-query": "^5.51.18",
+		"axios": "^1.7.3",
 		"canvas-confetti": "^1.9.3",
 		"chart.js": "^4.4.3",
 		"js-sha256": "^0.11.0",
@@ -19,7 +19,7 @@
 		"react-datetime": "^3.2.0",
 		"react-dom": "^18.3.1",
 		"react-icons": "^5.2.1",
-		"react-router-dom": "^6.25.1",
+		"react-router-dom": "^6.26.0",
 		"sonner": "^1.5.0"
 	},
 	"devDependencies": {
