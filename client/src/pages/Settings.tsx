@@ -1,10 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { HiOutlineWrenchScrewdriver } from 'react-icons/hi2';
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import SettingsContent from '../components/SettingsContent';
-import useForceUpdate from '../hooks/useForceUpdate';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/Settings.module.css';
 import css from '../utils/css';
@@ -13,9 +12,9 @@ const STRICT_WIDTH = 800;
 
 export default function Settings() {
 	const language = useLanguage('page.settings');
+	const [isWindowWidthExceeded, setIsWindowWidthExceeded] = useState(window.innerWidth > STRICT_WIDTH);
 	const { name } = useParams();
 	const navigate = useNavigate();
-	const forceUpdate = useForceUpdate();
 	const settings = [
 		{
 			name: language?.system,
@@ -31,17 +30,22 @@ export default function Settings() {
 		},
 	];
 	useEffect(() => {
-		if (name === undefined && window.innerWidth > STRICT_WIDTH) {
+		if (!settings.find(setting => setting.to === name) && isWindowWidthExceeded) {
 			navigate(settings[0].to);
 		}
-		if (name && !settings.find(setting => setting.to === name)) {
-			navigate(settings[0].to);
-		}
-		window.addEventListener('resize', forceUpdate);
-		return () => {
-			window.removeEventListener('resize', forceUpdate);
-		};
 	});
+	useEffect(() => {
+		const handleResize = () => {
+			const currentWidth = window.innerWidth;
+			if (currentWidth > STRICT_WIDTH && isWindowWidthExceeded) return;
+			if (currentWidth <= STRICT_WIDTH && !isWindowWidthExceeded) return;
+			setIsWindowWidthExceeded(pre => !pre);
+		};
+		window.addEventListener('resize', handleResize);
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, [isWindowWidthExceeded]);
 	return (
 		<main className={css(appStyles['dashboard-d'], styles['page-content'])}>
 			{
