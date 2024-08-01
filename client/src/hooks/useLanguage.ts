@@ -2,14 +2,25 @@ import { useEffect, useState } from 'react';
 import { Language } from '../models/language';
 import useAppContext from './useAppContext';
 
+const languageCache = new Map<string, Language[keyof Language]>();
+
 export default function useLanguage<K extends keyof Language>(langFile: K) {
 	const { appLanguage } = useAppContext();
-	const [language, setLanguage] = useState<Language[K] | undefined>();
+	const cacheKey = `${appLanguage.language}_${langFile}`;
+
+	const [language, setLanguage] = useState<Language[K] | undefined>(() => {
+		if (languageCache.has(cacheKey)) {
+			return languageCache.get(cacheKey) as Language[K];
+		}
+		return undefined;
+	});
 	useEffect(() => {
+		if (language) return;
 		import(`../../assets/langs/${appLanguage.language}/${langFile}.ts`)
 			.then((data) => {
 				setLanguage(data.default);
+				languageCache.set(cacheKey, data.default);
 			});
-	}, [appLanguage.language, langFile]);
+	}, [appLanguage.language, cacheKey, langFile, language]);
 	return language;
 }

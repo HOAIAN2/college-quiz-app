@@ -3,19 +3,15 @@ import { apiDeleteLogFile, apiDownloadLogFile, apiRunArtisan } from '../api/sett
 import appStyles from '../App.module.css';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
-import { UserDetail } from '../models/user';
 import styles from '../styles/SettingsContent.module.css';
 import apiUtils from '../utils/apiUtils';
 import css from '../utils/css';
 import { saveBlob } from '../utils/saveBlob';
 
-type LanguageType = ReturnType<typeof useLanguage<'component.settings_content'>>;
-
 export default function SettingsContent({ name }: { name: string; }) {
 	const { user } = useAppContext();
-	const language = useLanguage('component.settings_content');
 	if (!user.user) return null;
-	if (name === 'system') return <SystemContent user={user.user} language={language} />;
+	if (name === 'system') return <SystemContent />;
 	if (name === 'notifications') return (
 		<>
 		</>
@@ -23,14 +19,9 @@ export default function SettingsContent({ name }: { name: string; }) {
 	return null;
 }
 
-type SystemContentProps = {
-	user: UserDetail;
-	language: LanguageType;
-};
-function SystemContent({
-	user,
-	language
-}: SystemContentProps) {
+function SystemContent() {
+	const { user } = useAppContext();
+	const language = useLanguage('component.settings_content');
 	const artisanCommandInputRef = useRef<HTMLInputElement>(null);
 	const handleRunArtisan = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		const command = artisanCommandInputRef.current?.value.trim();
@@ -66,7 +57,7 @@ function SystemContent({
 	return (
 		<>
 			{
-				user.role.name === 'admin' ?
+				user.user?.role.name === 'admin' ?
 					<>
 						<article className={styles['article']}>
 							<h3>{language?.artisancommand}</h3>
