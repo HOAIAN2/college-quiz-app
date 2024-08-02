@@ -30,13 +30,14 @@ export async function apiChangePassword(formData: FormData) {
 }
 export async function apiLogout() {
 	try {
-		await request.post(pathUtils.join(prefix, 'logout'));
-		tokenUtils.removeToken();
+		await request.post(pathUtils.join(prefix, 'logout'), new FormData());
 	} catch (error: any) {
-		tokenUtils.removeToken();
 		if (!error.response) throw new Error(error.message);
 		const message = error.response.data.message;
 		throw new Error(message);
+	}
+	finally {
+		tokenUtils.removeToken();
 	}
 }
 export async function apiSendEmailVerification(email: string) {
