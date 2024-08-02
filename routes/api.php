@@ -26,15 +26,17 @@ Route::prefix('/settings')->controller(SettingsController::class)->group(functio
 
 Route::prefix('/auth')->controller(AuthController::class)->group(function () {
 	Route::post('/login', 'login');
-	Route::post('/send-email-verification', 'sendEmailVerification')->middleware('throttle:3,1');
-	Route::post('/verify-email', 'verifyEmail');
-	Route::post('/send-password-reset-email', 'sendPasswordResetEmail');
-	Route::post('/verify-password-reset-code', 'verifyPasswordResetCode');
-	Route::post('/reset-password', 'resetPassword');
 	Route::middleware('auth:sanctum')->group(function () {
 		Route::post('/logout', 'logout');
 		Route::post('/change-password', 'changePassword');
 	});
+
+	Route::post('/send-email-verification', 'sendEmailVerification')->middleware('throttle:3,1');
+	Route::post('/verify-email', 'verifyEmail');
+
+	Route::post('/send-password-reset-email', 'sendPasswordResetEmail')->middleware('throttle:3,1');
+	Route::post('/verify-password-reset-code', 'verifyPasswordResetCode');
+	Route::post('/reset-password', 'resetPassword');
 });
 
 Route::prefix('/users')->middleware('auth:sanctum')
