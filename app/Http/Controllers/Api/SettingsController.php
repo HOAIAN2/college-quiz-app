@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Helper\EnvHelper;
 use App\Helper\Reply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -44,20 +43,6 @@ class SettingsController extends Controller
 		abort_if(!$this->getUser()->isAdmin(), 403);
 		$log_file_path = storage_path('logs/laravel.log');
 		File::delete($log_file_path);
-		return Reply::successWithMessage('app.successes.success');
-	}
-
-	public function setEnv(Request $request)
-	{
-		abort_if(!$this->getUser()->isAdmin(), 403);
-		$request->validate([
-			'key' => ['required', 'string', 'uppercase'],
-			'value' => ['nullable']
-		]);
-		EnvHelper::setEnv($request->input('key'), $request->input('value'));
-		if (file_exists(app()->getCachedConfigPath())) {
-			Artisan::command('config:cache');
-		}
 		return Reply::successWithMessage('app.successes.success');
 	}
 }

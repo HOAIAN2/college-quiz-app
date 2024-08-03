@@ -20,7 +20,6 @@ Route::prefix('/settings')->controller(SettingsController::class)->group(functio
 		Route::post('/run-artisan', 'runArtisan');
 		Route::get('/log', 'getLogFile');
 		Route::delete('/log', 'deleteLogFile');
-		Route::post('/env', 'setEnv');
 	});
 });
 
