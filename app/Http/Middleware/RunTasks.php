@@ -28,8 +28,8 @@ class RunTasks
 	{
 		$now = Carbon::now();
 
-		$last_run_tasks_at = Carbon::parse(Cache::get('last_run_tasks_at', $now->toDateTimeString()));
-		if ($last_run_tasks_at->addSeconds($run_tasks_interval)->lessThanOrEqualTo($now)) {
+		$last_run_tasks_at = Cache::has('last_run_tasks_at') ? Carbon::parse(Cache::get('last_run_tasks_at')) : $now;
+		if ($last_run_tasks_at->equalTo($now) || $last_run_tasks_at->addSeconds($run_tasks_interval)->lessThanOrEqualTo($now)) {
 			Artisan::call('schedule:run');
 			Cache::put('last_run_tasks_at', $now->toDateTimeString());
 		}
