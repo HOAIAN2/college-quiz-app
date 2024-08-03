@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
-use Ifsnop\Mysqldump as IMysqldump;
+use Ifsnop\Mysqldump;
 
 class BackupDatabase extends Command
 {
@@ -41,7 +41,7 @@ class BackupDatabase extends Command
 
 		$backup_filename = "$database-$timestamp-dump.sql";
 
-		$dump = new IMysqldump\Mysqldump("mysql:host=$host;dbname=$database", $username, $password);
+		$dump = new Mysqldump\Mysqldump("mysql:host=$host;dbname=$database", $username, $password);
 		$dump->start(storage_path("app/backup/database/$backup_filename"));
 
 		// Remove old backup
