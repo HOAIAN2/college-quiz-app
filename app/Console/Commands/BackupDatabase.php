@@ -36,10 +36,10 @@ class BackupDatabase extends Command
 		}
 		$now = Carbon::now();
 
-		$host = config('database.connections.mysql.host');
-		$username = config('database.connections.mysql.username');
-		$database = config('database.connections.mysql.database');
-		$password = config('database.connections.mysql.password');
+		$host = env('DB_HOST');
+		$database = env('DB_DATABASE');
+		$username = env('DB_USERNAME');
+		$password = env('DB_PASSWORD');
 
 		$backup_filename = "$database-$now->timestamp-dump.sql";
 
