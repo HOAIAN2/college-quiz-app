@@ -4,7 +4,6 @@ import appStyles from '../App.module.css';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/SettingsContent.module.css';
-import apiUtils from '../utils/apiUtils';
 import css from '../utils/css';
 import { saveBlob } from '../utils/saveBlob';
 
@@ -36,11 +35,9 @@ function SystemContent() {
 	const handleDownloadLogFile = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		const button = e.currentTarget;
 		button.classList.add(appStyles['button-submitting']);
-		apiDownloadLogFile()
+		apiDownloadLogFile('laravel.log')
 			.then(res => {
-				const contentDisposition = res.contentDisposition;
-				const fileName = apiUtils.getFileNameFromContentDisposition(contentDisposition, 'app.log');
-				saveBlob(res.data, fileName);
+				saveBlob(res.data, res.fileName);
 			})
 			.finally(() => {
 				button.classList.remove(appStyles['button-submitting']);

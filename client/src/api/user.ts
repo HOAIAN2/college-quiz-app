@@ -9,6 +9,7 @@ import {
 	UserDetail,
 	UserWithPermissions
 } from '../models/user';
+import apiUtils from '../utils/apiUtils';
 import encodeFormData from '../utils/encodeFormData';
 import pathUtils from '../utils/pathUtils';
 import tokenUtils from '../utils/tokenUtils';
@@ -123,7 +124,7 @@ export async function apiGetUserExportableFields(role: RoleName) {
 	}
 }
 
-export async function apiExportUsers(role: RoleName, fields: (string)[]) {
+export async function apiExportUsers(role: RoleName, fields: (string)[], defaultFileName: string) {
 	try {
 		const res: AxiosResponse<Blob> = await request.get(pathUtils.join(prefix, 'export'), {
 			params: {
@@ -133,7 +134,8 @@ export async function apiExportUsers(role: RoleName, fields: (string)[]) {
 			responseType: 'blob'
 		});
 		const contentDisposition = res.headers['content-disposition'] as string | undefined;
-		return { data: res.data, contentDisposition };
+		const fileName = apiUtils.getFileNameFromContentDisposition(contentDisposition, defaultFileName);
+		return { data: res.data, fileName };
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message);
 		const message = error.response.data.message;

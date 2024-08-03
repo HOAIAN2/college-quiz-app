@@ -13,7 +13,6 @@ import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/Exam.module.css';
-import apiUtils from '../utils/apiUtils';
 import caculateScore from '../utils/caculateScore';
 import css from '../utils/css';
 import languageUtils from '../utils/languageUtils';
@@ -45,12 +44,10 @@ export default function Exam() {
 		: false;
 	const handleExportExamResult = () => {
 		setIsExporting(true);
-		apiExportExamResult(String(id))
+		const defaultFileName = `Exam-${id}-${new Date().toISOString().split('T')[0]}.xlsx`;
+		apiExportExamResult(String(id), defaultFileName)
 			.then(res => {
-				const defaultFileName = `Exam-${id}-${new Date().toISOString().split('T')[0]}.xlsx`;
-				const contentDisposition = res.contentDisposition;
-				const fileName = apiUtils.getFileNameFromContentDisposition(contentDisposition, defaultFileName);
-				saveBlob(res.data, fileName);
+				saveBlob(res.data, res.fileName);
 			})
 			.finally(() => {
 				setIsExporting(false);

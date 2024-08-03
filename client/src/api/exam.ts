@@ -3,6 +3,7 @@ import { AxiosResponse } from 'axios';
 import request from '../config/api';
 import { ExamDetail, ExamInMonth, ExamResult, ExamWithQuestion, QueryExamType } from '../models/exam';
 import { ApiResponseWithData } from '../models/response';
+import apiUtils from '../utils/apiUtils';
 import encodeFormData from '../utils/encodeFormData';
 import pathUtils from '../utils/pathUtils';
 
@@ -113,13 +114,14 @@ export async function apiSubmitExam(id: string | number, answers: number[], bypa
 	}
 }
 
-export async function apiExportExamResult(id: string | number) {
+export async function apiExportExamResult(id: string | number, defaultFileName: string) {
 	try {
 		const res: AxiosResponse<Blob> = await request.get(pathUtils.join(prefix, id, 'export-result'), {
 			responseType: 'blob'
 		});
 		const contentDisposition = res.headers['content-disposition'] as string | undefined;
-		return { data: res.data, contentDisposition };
+		const fileName = apiUtils.getFileNameFromContentDisposition(contentDisposition, defaultFileName);
+		return { data: res.data, fileName };
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message);
 		const message = error.response.data.message;
