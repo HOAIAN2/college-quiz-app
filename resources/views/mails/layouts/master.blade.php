@@ -1,5 +1,4 @@
-<div
-    style="font-family: Roboto, sans-serif; background-color: #f9f9f9; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto;">
+<div style="font-family: Roboto, sans-serif; background-color: #f9f9f9; padding: 20px; max-width: 600px; margin: auto;">
     <h2 style="color: #333; text-align: center;">
         @yield('title')
     </h2>
