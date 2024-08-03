@@ -18,8 +18,9 @@ class RunTasks
 	 */
 	public function handle(Request $request, Closure $next): Response
 	{
-		$run_tasks_interval = (int)env('RUN_TASK_INTERVAL', 60);
-		$this->runTasks($run_tasks_interval);
+		$run_tasks_interval = env('RUN_TASK_INTERVAL');
+		if ($run_tasks_interval == null) return $next($request);
+		$this->runTasks((int)$run_tasks_interval);
 		return $next($request);
 	}
 
