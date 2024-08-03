@@ -6,8 +6,10 @@ use Illuminate\Support\Facades\Schedule;
 Schedule::call(function () {
 	Artisan::call('app:clear-unsed-tokens');
 	Artisan::call('app:cancel-late-exams');
-})->everyMinute();
+})->name('Important tasks')
+	->everyMinute();
 
 Schedule::call(function () {
 	Artisan::call('app:backup-database');
-})->daily();
+})->name('Backup database')
+	->daily();
