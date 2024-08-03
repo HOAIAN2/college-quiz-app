@@ -56,6 +56,7 @@ class BackupDatabase extends Command
 
 		$dump = new Mysqldump\Mysqldump("mysql:host=$host;dbname=$database", $username, $password);
 		$dump->start(storage_path("app/backup/database/$backup_filename"));
+		Cache::put(self::BACKUP_TIME_CACHE_KEY, $now->toDateTimeString());
 
 		// Remove old backup
 
@@ -66,6 +67,5 @@ class BackupDatabase extends Command
 			}
 			File::delete($file->getPathname());
 		}
-		Cache::put(self::BACKUP_TIME_CACHE_KEY, $now->toDateTimeString());
 	}
 }
