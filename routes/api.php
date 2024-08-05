@@ -26,6 +26,7 @@ Route::prefix('/settings')->controller(SettingsController::class)->group(functio
 Route::prefix('/auth')->controller(AuthController::class)->group(function () {
 	Route::post('/login', 'login');
 	Route::middleware('auth:sanctum')->group(function () {
+		Route::get('/sessions', 'loginSessions');
 		Route::post('/logout', 'logout');
 		Route::post('/change-password', 'changePassword');
 	});

@@ -50,9 +50,10 @@ class AuthController extends Controller
 			if (!$data->user->email_verified_at && env('MUST_VERIFY_EMAIL')) {
 				return Reply::successWithData($data, '');
 			}
-			$data->token = $data->user
-				->createToken("{$data->user->role->name} token")
-				->plainTextToken;
+			$data->token = $data->user->createToken(json_encode([
+				'ip' => $request->ip(),
+				'userAgent' => $request->userAgent()
+			]))->plainTextToken;
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
 			return $this->handleException($error);
@@ -238,6 +239,22 @@ class AuthController extends Controller
 			return Reply::successWithMessage('auth.successes.change_password_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
+			return $this->handleException($error);
+		}
+	}
+
+	public function loginSessions()
+	{
+		$user = $this->getUser();
+
+		try {
+			$tokens = $user->tokens->map(function ($token) {
+				$token->name = json_decode($token->name, true);
+				$token->makeHidden('tokenable_type');
+				return $token;
+			});
+			return Reply::successWithData($tokens);
+		} catch (\Exception $error) {
 			return $this->handleException($error);
 		}
 	}
