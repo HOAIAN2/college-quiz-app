@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { HiOutlineWrenchScrewdriver } from 'react-icons/hi2';
 import { IoMdNotificationsOutline } from 'react-icons/io';
+import { MdOutlineSecurity } from 'react-icons/md';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import appStyles from '../App.module.css';
 import SettingsContent from '../components/SettingsContent';
@@ -26,6 +27,12 @@ export default function Settings() {
 			name: language?.notifications,
 			to: 'notifications',
 			icon: <IoMdNotificationsOutline />,
+			isActive: true
+		},
+		{
+			name: language?.security,
+			to: 'security',
+			icon: <MdOutlineSecurity />,
 			isActive: true
 		},
 	];

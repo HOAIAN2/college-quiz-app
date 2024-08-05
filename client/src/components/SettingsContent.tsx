@@ -15,6 +15,7 @@ export default function SettingsContent({ name }: { name: string; }) {
 		<>
 		</>
 	);
+	if (name === 'security') return <SecurityContent />;
 	return null;
 }
 
@@ -88,6 +89,16 @@ function SystemContent() {
 						</article>
 					</> : null
 			}
+		</>
+	);
+}
+
+function SecurityContent() {
+	return (
+		<>
+			<article className={styles['article']}>
+				<h3>Login Sessions</h3>
+			</article>
 		</>
 	);
 }

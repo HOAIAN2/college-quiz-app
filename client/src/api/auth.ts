@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import request from '../config/api';
+import { PersonalAccessToken } from '../models/auth';
 import { ApiResponseWithData, LoginResponse } from '../models/response';
 import pathUtils from '../utils/pathUtils';
 import tokenUtils from '../utils/tokenUtils';
@@ -91,6 +92,17 @@ export async function apiVerifyPasswordResetCode(email: string, verifyCode: stri
 export async function apiResetPassword(formData: FormData) {
 	try {
 		await request.post(pathUtils.join(prefix, 'reset-password'), formData);
+	} catch (error: any) {
+		if (!error.response) throw new Error(error.message);
+		const message = error.response.data.message;
+		throw new Error(message);
+	}
+}
+export async function apiGetLoginSessions() {
+	try {
+		const res = await request.get(pathUtils.join(prefix, 'sessions'));
+		const { data } = res.data as ApiResponseWithData<PersonalAccessToken[]>;
+		return data;
 	} catch (error: any) {
 		if (!error.response) throw new Error(error.message);
 		const message = error.response.data.message;
