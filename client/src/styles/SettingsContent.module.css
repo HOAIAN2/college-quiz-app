@@ -26,7 +26,9 @@
 }
 
 .sessions-list>li {
-	background: var(--color-white);
+	border: 1px solid var(--color-gray);
+	border-radius: var(--border-radius-low);
+	/* background: var(--color-white); */
 	padding: 10px;
 	margin-top: 10px;
 	margin-bottom: 10px;

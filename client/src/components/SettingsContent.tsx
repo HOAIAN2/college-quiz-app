@@ -97,24 +97,29 @@ function SystemContent() {
 }
 
 function SecurityContent() {
+	const language = useLanguage('component.settings_content');
 	const queryData = useQuery({
 		queryKey: [QUERY_KEYS.LOGIN_SESSIONS],
 		queryFn: apiGetLoginSessions,
-		staleTime: Infinity
+		refetchOnWindowFocus: false
+		// staleTime: Infinity
 	});
 	return (
 		<>
 			<article className={styles['article']}>
-				<h3>Login Sessions</h3>
+				<h3>{language?.loginSession}</h3>
 				<ul className={styles['sessions-list']}>
 					{
 						queryData.data?.map(session => {
 							return (
 								<li key={`session-${session.id}`}>
 									<h4>{session.name.ip}</h4>
-									<p>Login at: {new Date(session.createdAt).toISOString()}</p>
-									<p>Last active: {new Date(session.lastUsedAt).toISOString()}</p>
-									<p>Agent: {session.name.userAgent}</p>
+									<p>{language?.loginedAt}: {new Date(session.createdAt).toISOString()}</p>
+									<p>{language?.lastActivedAt}: {new Date(session.lastUsedAt).toISOString()}</p>
+									<p>{language?.agent}: {session.name.userAgent}</p>
+									<button
+										className={css(appStyles['action-item-white-border-red-d'], styles['button-item'])}
+									>{language?.revoke}</button>
 								</li>
 							);
 						})

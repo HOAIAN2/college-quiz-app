@@ -6,5 +6,10 @@ export default {
 	download: 'Tải',
 	delete: 'Xóa',
 	logFile: 'Log file',
-	logDescription: 'Thao tác với file storage/logs/laravel.log'
+	logDescription: 'Thao tác với file storage/logs/laravel.log',
+	loginSession: 'Phiên đăng nhập',
+	loginedAt: 'Đăng nhập vào',
+	lastActivedAt: 'Hoạt động gần nhất',
+	agent: 'Agent',
+	revoke: 'Thu hồi'
 };
