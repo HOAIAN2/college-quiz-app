@@ -11,5 +11,6 @@ export default {
 	loginedAt: 'Logined at',
 	lastActivedAt: 'Last active',
 	agent: 'Agent',
-	revoke: 'Revoke'
+	revoke: 'Revoke',
+	currentSession: 'Current session'
 };

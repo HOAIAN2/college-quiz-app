@@ -9,6 +9,8 @@ import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/SettingsContent.module.css';
 import css from '../utils/css';
 import { saveBlob } from '../utils/saveBlob';
+import tokenUtils from '../utils/tokenUtils';
+import Loading from './Loading';
 
 export default function SettingsContent({ name }: { name: string; }) {
 	const { user } = useAppContext();
@@ -97,15 +99,19 @@ function SystemContent() {
 }
 
 function SecurityContent() {
+	const { appLanguage } = useAppContext();
 	const language = useLanguage('component.settings_content');
 	const queryData = useQuery({
 		queryKey: [QUERY_KEYS.LOGIN_SESSIONS],
 		queryFn: apiGetLoginSessions,
 		refetchOnWindowFocus: false
-		// staleTime: Infinity
 	});
+	const currentTokenId = Number(tokenUtils.getToken()?.split('|')[0]);
 	return (
 		<>
+			{
+				queryData.isLoading ? <Loading /> : null
+			}
 			<article className={styles['article']}>
 				<h3>{language?.loginSession}</h3>
 				<ul className={styles['sessions-list']}>
@@ -113,9 +119,15 @@ function SecurityContent() {
 						queryData.data?.map(session => {
 							return (
 								<li key={`session-${session.id}`}>
-									<h4>{session.name.ip}</h4>
-									<p>{language?.loginedAt}: {new Date(session.createdAt).toISOString()}</p>
-									<p>{language?.lastActivedAt}: {new Date(session.lastUsedAt).toISOString()}</p>
+									<big>
+										<h4 style={{ marginBottom: '10px' }}>{session.name.ip}</h4>
+									</big>
+									{
+										session.id === currentTokenId ?
+											<p>{language?.currentSession}</p> : null
+									}
+									<p>{language?.lastActivedAt} {new Date(session.lastUsedAt).toLocaleString(appLanguage.language)}</p>
+									<p>{language?.loginedAt}: {new Date(session.createdAt).toLocaleString(appLanguage.language)}</p>
 									<p>{language?.agent}: {session.name.userAgent}</p>
 									<button
 										className={css(appStyles['action-item-white-border-red-d'], styles['button-item'])}

@@ -11,5 +11,6 @@ export default {
 	loginedAt: 'Đăng nhập vào',
 	lastActivedAt: 'Hoạt động gần nhất',
 	agent: 'Agent',
-	revoke: 'Thu hồi'
+	revoke: 'Hủy bỏ',
+	currentSession: 'Phiên hiện tại'
 };
