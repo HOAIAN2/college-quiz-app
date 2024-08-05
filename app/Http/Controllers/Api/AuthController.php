@@ -253,7 +253,7 @@ class AuthController extends Controller
 				$token->makeHidden('tokenable_type');
 				return $token;
 			});
-			return Reply::successWithData($tokens);
+			return Reply::successWithData($tokens, '');
 		} catch (\Exception $error) {
 			return $this->handleException($error);
 		}

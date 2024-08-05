@@ -1,6 +1,9 @@
+import { useQuery } from '@tanstack/react-query';
 import { useRef } from 'react';
+import { apiGetLoginSessions } from '../api/auth';
 import { apiDeleteLogFile, apiDownloadLogFile, apiRunArtisan } from '../api/settings';
 import appStyles from '../App.module.css';
+import QUERY_KEYS from '../constants/query-keys';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/SettingsContent.module.css';
@@ -94,10 +97,29 @@ function SystemContent() {
 }
 
 function SecurityContent() {
+	const queryData = useQuery({
+		queryKey: [QUERY_KEYS.LOGIN_SESSIONS],
+		queryFn: apiGetLoginSessions,
+		staleTime: Infinity
+	});
 	return (
 		<>
 			<article className={styles['article']}>
 				<h3>Login Sessions</h3>
+				<ul className={styles['sessions-list']}>
+					{
+						queryData.data?.map(session => {
+							return (
+								<li key={`session-${session.id}`}>
+									<h4>{session.name.ip}</h4>
+									<p>Login at: {new Date(session.createdAt).toISOString()}</p>
+									<p>Last active: {new Date(session.lastUsedAt).toISOString()}</p>
+									<p>Agent: {session.name.userAgent}</p>
+								</li>
+							);
+						})
+					}
+				</ul>
 			</article>
 		</>
 	);

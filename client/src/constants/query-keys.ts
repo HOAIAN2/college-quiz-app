@@ -28,7 +28,8 @@ const keys = [
 	'CHAPTERS_DETAILS',
 	'PAGE_EXAMS',
 	'EXAM',
-	'EXAM_QUESTIONS'
+	'EXAM_QUESTIONS',
+	'LOGIN_SESSIONS'
 ] as const;
 
 type QueryKey = (typeof keys)[number];
