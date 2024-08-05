@@ -30,6 +30,9 @@ class ClearUnsedTokens extends Command
 		$token_lifttime = env('TOKEN_LIFETIME');
 		if ($token_lifttime == null) return;
 
+		$user_id = auth()->id();
+		if ($user_id == null) return;
+
 		$interval = Carbon::now()->subMinutes((int)$token_lifttime);
 
 		DB::table('personal_access_tokens')
@@ -39,6 +42,8 @@ class ClearUnsedTokens extends Command
 						$query->where('created_at', '<', $interval)
 							->whereNull('last_used_at');
 					});
-			})->delete();
+			})
+			->where('tokenable_id', $user_id)
+			->delete();
 	}
 }
