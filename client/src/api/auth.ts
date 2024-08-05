@@ -109,3 +109,12 @@ export async function apiGetLoginSessions() {
 		throw new Error(message);
 	}
 }
+export async function apiRevokeLoginSession(id: string | number) {
+	try {
+		await request.delete(pathUtils.join(prefix, 'sessions', id));
+	} catch (error: any) {
+		if (!error.response) throw new Error(error.message);
+		const message = error.response.data.message;
+		throw new Error(message);
+	}
+}

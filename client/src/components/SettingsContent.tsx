@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRef } from 'react';
-import { apiGetLoginSessions } from '../api/auth';
+import { apiGetLoginSessions, apiRevokeLoginSession } from '../api/auth';
 import { apiDeleteLogFile, apiDownloadLogFile, apiRunArtisan } from '../api/settings';
 import appStyles from '../App.module.css';
 import QUERY_KEYS from '../constants/query-keys';
@@ -101,12 +101,18 @@ function SystemContent() {
 function SecurityContent() {
 	const { appLanguage } = useAppContext();
 	const language = useLanguage('component.settings_content');
+	const currentTokenId = Number(tokenUtils.getToken()?.split('|')[0]);
 	const queryData = useQuery({
 		queryKey: [QUERY_KEYS.LOGIN_SESSIONS],
 		queryFn: apiGetLoginSessions,
 		refetchOnWindowFocus: false
 	});
-	const currentTokenId = Number(tokenUtils.getToken()?.split('|')[0]);
+	const { mutate } = useMutation({
+		mutationFn: apiRevokeLoginSession,
+		onSuccess: () => {
+			queryData.refetch();
+		}
+	});
 	return (
 		<>
 			{
@@ -130,6 +136,7 @@ function SecurityContent() {
 									<p>{language?.loginedAt}: {new Date(session.createdAt).toLocaleString(appLanguage.language)}</p>
 									<p>{language?.agent}: {session.name.userAgent}</p>
 									<button
+										onClick={() => { mutate(session.id); }}
 										className={css(appStyles['action-item-white-border-red-d'], styles['button-item'])}
 									>{language?.revoke}</button>
 								</li>

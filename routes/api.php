@@ -27,6 +27,7 @@ Route::prefix('/auth')->controller(AuthController::class)->group(function () {
 	Route::post('/login', 'login');
 	Route::middleware('auth:sanctum')->group(function () {
 		Route::get('/sessions', 'loginSessions');
+		Route::delete('/sessions/{id}', 'revokeLoginSession');
 		Route::post('/logout', 'logout');
 		Route::post('/change-password', 'changePassword');
 	});

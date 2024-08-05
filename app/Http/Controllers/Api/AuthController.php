@@ -258,4 +258,21 @@ class AuthController extends Controller
 			return $this->handleException($error);
 		}
 	}
+
+	public function revokeLoginSession(string $id)
+	{
+		$user = $this->getUser();
+
+		DB::beginTransaction();
+		try {
+			$user->tokens()
+				->where('id', $id)
+				->delete();
+			DB::commit();
+			return Reply::successWithMessage('app.successes.success');
+		} catch (\Exception $error) {
+			DB::rollBack();
+			return $this->handleException($error);
+		}
+	}
 }
