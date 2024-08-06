@@ -22,5 +22,9 @@ export default defineConfig({
 				assetFileNames: `assets/[hash].[ext]`
 			}
 		}
+	},
+	define: {
+		__APP_VERSION__: JSON.stringify('1.0.0'),
+		__APP_BUILD_DATE__: JSON.stringify(new Date().toISOString()),
 	}
 });
