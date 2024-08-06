@@ -11,5 +11,10 @@ export default {
 	students: 'Học sinh',
 	permission: 'Phân quyền',
 	semester: 'Học kỳ',
-	settings: 'Cài đặt'
+	settings: 'Cài đặt',
+	term: 'Điều khoản',
+	privacy: 'Riêng tư',
+	security: 'Bảo mật',
+	contact: 'Liên hệ',
+	docs: 'Tài liệu',
 };

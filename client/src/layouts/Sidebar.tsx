@@ -19,6 +19,7 @@ import {
 } from 'react-icons/si';
 import { TbBrandAuth0 } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
+import { API_HOST } from '../config/env';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/Sidebar.module.css';
@@ -137,6 +138,20 @@ export default function Sidebar() {
 					);
 				})
 			}</ul>
+			<div className={styles['footer']}>
+				<div className={styles['links']}>
+					<a target='_blank' href={`${API_HOST}/term`}>{language?.term}</a>
+					<a target='_blank' href={`${API_HOST}/privacy`}>{language?.privacy}</a>
+					<a target='_blank' href={`${API_HOST}/security`}>{language?.security}</a>
+					<a target='_blank' href="https://hoaian2.netlify.app/">{language?.contact}</a>
+					<a target='_blank' href="https://github.com/HOAIAN2/college-quiz-app">{language?.docs}</a>
+				</div>
+				<div className={styles['app-infos']}>
+					<small>App version: {__APP_VERSION__}</small> <br />
+					<small>Build date: {__APP_BUILD_DATE__}</small> <br />
+					<small>&#169; {new Date().getFullYear()} Lê Hoài Ân</small>
+				</div>
+			</div>
 		</nav>
 	);
 }

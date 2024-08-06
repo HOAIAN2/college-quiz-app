@@ -4,7 +4,7 @@
 	background-color: white;
 	overflow-x: hidden;
 	overflow-y: hidden;
-	transition: var(--transition-timing-medium);
+	transition: margin-left var(--transition-timing-medium);
 	z-index: 10;
 	user-select: none;
 	scrollbar-gutter: stable;
@@ -21,6 +21,8 @@
 
 .list {
 	width: 100%;
+	height: fit-content;
+	/* height: 100%; */
 }
 
 .list-item {
@@ -76,15 +78,37 @@
 	font-size: 24px;
 }
 
+.footer {
+	border-top: 1px solid var(--color-gray);
+}
+
+.links {
+	padding: 10px 20px 20px 20px;
+	font-size: small;
+	font-weight: 500;
+}
+
+.links>a {
+	margin-right: 5px;
+	display: inline-block;
+}
+
+.links>a:hover {
+	text-decoration: underline;
+}
+
+.app-infos {
+	padding: 0px 0px 20px 20px;
+}
+
 @media (width<=800px) {
 	.sidebar {
 		position: fixed;
+		height: calc(100% - 75px);
 	}
 
 	.list {
-		height: calc(100% - 75px);
 		width: 100%;
-		overflow: hidden;
 		scrollbar-gutter: stable;
 	}
 

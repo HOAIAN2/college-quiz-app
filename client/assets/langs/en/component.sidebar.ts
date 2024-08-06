@@ -11,5 +11,10 @@ export default {
 	students: 'Students',
 	permission: 'Permission',
 	semester: 'Semester',
-	settings: 'Settings'
+	settings: 'Settings',
+	term: 'Term',
+	privacy: 'Privacy',
+	security: 'Security',
+	contact: 'Contact',
+	docs: 'Docs',
 };
