@@ -546,7 +546,8 @@ class ExamController extends Controller
 				'user_id' => $user->id,
 				'correct_count' => $correct_count,
 				'question_count' => count($exam->questions),
-				'submit_ip' => $request->ip()
+				'ip' => $request->ip(),
+				'user_agent' => $request->userAgent(),
 			]);
 			Cache::forget($questions_cache_key);
 			Cache::forget($answers_cache_key);

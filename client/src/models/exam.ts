@@ -66,7 +66,8 @@ export type ExamResult = {
 	userId: number;
 	correctCount: number;
 	questionCount: number;
-	submitIp: string;
+	ip: string;
+	userAgent: string;
 	cancelledAt: string | null;
 	cancellationReason: string | null;
 	createdAt: string | null;

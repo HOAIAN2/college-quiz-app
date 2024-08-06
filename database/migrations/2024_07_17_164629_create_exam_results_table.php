@@ -17,7 +17,8 @@ return new class extends Migration
 			$table->unsignedBigInteger('user_id');
 			$table->unsignedInteger('correct_count');
 			$table->unsignedInteger('question_count');
-			$table->string('submit_ip');
+			$table->string('ip');
+			$table->text('user_agent');
 			$table->dateTime('cancelled_at')->nullable();
 			$table->text('cancellation_reason')->nullable();
 			$table->timestamps();

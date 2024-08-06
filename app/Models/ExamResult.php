@@ -17,7 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $user_id
  * @property int $correct_count
  * @property int $question_count
- * @property string $submit_ip
+ * @property string $ip
+ * @property string $user_agent
  * @property Carbon|null $cancelled_at
  * @property string|null $cancellation_reason
  * @property Carbon|null $created_at
@@ -52,7 +53,8 @@ class ExamResult extends Model
 		'user_id',
 		'correct_count',
 		'question_count',
-		'submit_ip',
+		'ip',
+		'user_agent',
 		'cancelled_at',
 		'cancellation_reason'
 	];
