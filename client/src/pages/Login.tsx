@@ -75,7 +75,7 @@ export default function Login() {
 						ref={buttonRef}
 						className={
 							css(
-								appStyles['button-d'],
+								appStyles['action-item-d'],
 								styles['submit'],
 								blockSubmit && !buttonRef.current?.classList.contains(styles['submitting']) ? styles['blocking'] : ''
 							)

@@ -81,7 +81,7 @@ export default function ForgotPassword() {
 					/>
 				</div>
 				<div className={styles['wrap-item']}>
-					<button className={css(appStyles['button-d'], styles['input-item'])}>
+					<button className={css(appStyles['action-item-d'], styles['input-item'])}>
 						{language?.sendCode}
 					</button>
 				</div>
@@ -105,7 +105,7 @@ export default function ForgotPassword() {
 					/>
 				</div>
 				<div className={styles['wrap-item']}>
-					<button className={css(appStyles['button-d'], styles['input-item'])}>
+					<button className={css(appStyles['action-item-d'], styles['input-item'])}>
 						{language?.verify}
 					</button>
 				</div>
@@ -151,7 +151,7 @@ export default function ForgotPassword() {
 					/>
 				</div>
 				<div className={styles['wrap-item']}>
-					<button className={css(appStyles['button-d'], styles['input-item'])}>
+					<button className={css(appStyles['action-item-d'], styles['input-item'])}>
 						{language?.save}
 					</button>
 				</div>

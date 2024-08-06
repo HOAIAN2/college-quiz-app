@@ -57,7 +57,7 @@ export default function VerifyEmail() {
 					/>
 				</div>
 				<div className={styles['wrap-item']}>
-					<button className={css(appStyles['button-d'], styles['input-item'])}>
+					<button className={css(appStyles['action-item-d'], styles['input-item'])}>
 						{language?.verify}
 					</button>
 				</div>
