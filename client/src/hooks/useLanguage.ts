@@ -12,7 +12,10 @@ export default function useLanguage<K extends keyof Language>(langFile: K) {
 		() => languageCache.get(cacheKey) as Language[K] | undefined
 	);
 	useEffect(() => {
-		if (language) return;
+		if (languageCache.has(cacheKey)) {
+			setLanguage(languageCache.get(cacheKey) as Language[K]);
+			return;
+		}
 		import(`../../assets/langs/${appLanguage.language}/${langFile}.ts`)
 			.then((data) => {
 				setLanguage(data.default);
