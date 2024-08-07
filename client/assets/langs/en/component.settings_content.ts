@@ -10,7 +10,7 @@ export default {
 	loginSession: 'Login sessions',
 	loginedAt: 'Logined at',
 	lastActivedAt: 'Last active',
-	agent: 'Agent',
+	userAgent: 'User Agent',
 	revoke: 'Revoke',
 	currentSession: 'Current session'
 };

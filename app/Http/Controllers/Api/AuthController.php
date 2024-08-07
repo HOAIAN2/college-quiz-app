@@ -248,11 +248,12 @@ class AuthController extends Controller
 		$user = $this->getUser();
 
 		try {
-			$tokens = $user->tokens->map(function ($token) {
-				$token->name = json_decode($token->name, true);
-				$token->makeHidden('tokenable_type');
-				return $token;
-			});
+			$tokens = $user->tokens()->latest()
+				->get()
+				->each(function ($token) {
+					$token->setAttribute('name', json_decode($token->getAttribute('name'), true));
+					$token->makeHidden(['tokenable_type']);
+				});
 			return Reply::successWithData($tokens, '');
 		} catch (\Exception $error) {
 			return $this->handleException($error);

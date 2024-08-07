@@ -10,7 +10,7 @@ export default {
 	loginSession: 'Phiên đăng nhập',
 	loginedAt: 'Đăng nhập vào',
 	lastActivedAt: 'Hoạt động gần nhất',
-	agent: 'Agent',
+	userAgent: 'User Agent',
 	revoke: 'Hủy bỏ',
 	currentSession: 'Phiên hiện tại'
 };

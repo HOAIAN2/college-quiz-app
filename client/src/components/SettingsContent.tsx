@@ -130,11 +130,11 @@ function SecurityContent() {
 									</big>
 									{
 										session.id === currentTokenId ?
-											<p>{language?.currentSession}</p> : null
+											<b>{language?.currentSession}</b> : null
 									}
 									<p>{language?.lastActivedAt} {new Date(session.lastUsedAt).toLocaleString(appLanguage.language)}</p>
 									<p>{language?.loginedAt}: {new Date(session.createdAt).toLocaleString(appLanguage.language)}</p>
-									<p>{language?.agent}: {session.name.userAgent}</p>
+									<p>{language?.userAgent}: {session.name.userAgent}</p>
 									<button
 										onClick={() => { mutate(session.id); }}
 										className={css(appStyles['action-item-white-border-red-d'], styles['button-item'])}
