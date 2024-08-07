@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.master')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ config('app.name') }}</title>
-</head>
-
-<body>
+@section('content')
     <h1>Terms of Service</h1>
     <p><strong>Effective Date:</strong> August 6, 2024</p>
 
@@ -49,6 +41,4 @@
     </ul>
 
     <p>Thank you for using [Your Company Name]!</p>
-</body>
-
-</html>
+@endsection

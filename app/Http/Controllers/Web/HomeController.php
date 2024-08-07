@@ -16,21 +16,21 @@ class HomeController extends Controller
 	public function privacy()
 	{
 		return response()
-			->view('privacy')
+			->view('policy.privacy')
 			->header('Content-Security-Policy', env('CONTENT_SECURITY_POLICY'));
 	}
 
 	public function term()
 	{
 		return response()
-			->view('term')
+			->view('policy.term')
 			->header('Content-Security-Policy', env('CONTENT_SECURITY_POLICY'));
 	}
 
 	public function security()
 	{
 		return response()
-			->view('security')
+			->view('policy.security')
 			->header('Content-Security-Policy', env('CONTENT_SECURITY_POLICY'));
 	}
 }
