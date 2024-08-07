@@ -32,15 +32,12 @@ class ExamController extends Controller
 {
 	const QUESTIONS_CACHE_KEY = 'exam:@exam_id:-user:@user_id-questions';
 	const ANSWERS_CACHE_KEY = 'exam:@exam_id:-user:@user_id-answers';
-	/**
-	 * env('ALLOW_LATE_SUBMIT', 120) seconds
-	 */
-	public int $allowLateSubmit = 0;
+	public int $allowLateSubmitSeconds = 0;
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->allowLateSubmit = (int)env('ALLOW_LATE_SUBMIT', 120);
+		$this->allowLateSubmitSeconds = (int)env('EXAM_ALLOW_LATE_SUBMIT_SECONDS', 120);
 	}
 
 	public function index(IndexRequest $request)
@@ -446,7 +443,7 @@ class ExamController extends Controller
 				->findOrFail($id);
 
 			$exam_started_at = Carbon::parse($exam->started_at);
-			$exam_ended_at = $exam_started_at->copy()->addMinutes($exam->exam_time + $this->allowLateSubmit / 60);
+			$exam_ended_at = $exam_started_at->copy()->addMinutes($exam->exam_time + $this->allowLateSubmitSeconds / 60);
 			if ($now->lessThan($exam_started_at)) {
 				return Reply::error('app.errors.exam_not_start');
 			}
@@ -508,7 +505,7 @@ class ExamController extends Controller
 			$exam_end_date = $exam_date->copy()->addMinutes($exam->exam_time);
 
 			if ($request->bypass_key != null && $exam->canBypassExamTime($request->bypass_key)) {
-				$exam_end_date = $exam_end_date->addSeconds($this->allowLateSubmit);
+				$exam_end_date = $exam_end_date->addSeconds($this->allowLateSubmitSeconds);
 			}
 
 			if ($now->lessThan($exam_date)) {
@@ -646,7 +643,7 @@ class ExamController extends Controller
 			Cache::put(
 				$answers_cache_key,
 				array_map('intval', $request->answers),
-				Carbon::parse($exam->started_at)->addMinutes($exam->exam_time + $this->allowLateSubmit / 60)
+				Carbon::parse($exam->started_at)->addMinutes($exam->exam_time + $this->allowLateSubmitSeconds / 60)
 			);
 			return Reply::success();
 		} catch (\Exception $error) {

@@ -10,7 +10,7 @@
     <div style="text-align: center; margin: 20px 0; font-size: 20px; font-weight: bold; color: #007BFF;">
         {{ $resetCode }}
     </div>
-    <p style="color: #555; font-size: 16px;">This code is valid for {{ config('app.otp_code_timeout') }} seconds.</p>
+    <p style="color: #555; font-size: 16px;">This code is valid for {{ config('app.OTP_CODE_TIMEOUT_SECONDS') }} seconds.</p>
     <p style="color: #555; font-size: 14px;">If you did not request a password reset, please ignore this email or contact
         support if you have concerns.</p>
 @endsection
