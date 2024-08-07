@@ -24,6 +24,7 @@ import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/Sidebar.module.css';
 import css from '../utils/css';
+import getMetaContent from '../utils/getMetaContent';
 
 export default function Sidebar() {
 	const { DOM, permissions, appTitle } = useAppContext();
@@ -149,7 +150,7 @@ export default function Sidebar() {
 				<div className={styles['app-infos']}>
 					<small>App version: {__APP_VERSION__}</small> <br />
 					<small>Build date: {__APP_BUILD_DATE__}</small> <br />
-					<small>&#169; {new Date().getFullYear()} Lê Hoài Ân</small>
+					<small>&#169; {new Date().getFullYear()} {getMetaContent('author')}</small>
 				</div>
 			</div>
 		</nav>

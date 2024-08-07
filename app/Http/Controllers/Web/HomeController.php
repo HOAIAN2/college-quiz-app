@@ -8,29 +8,21 @@ class HomeController extends Controller
 {
 	public function index()
 	{
-		return response()
-			->view('index')
-			->header('Content-Security-Policy', env('CONTENT_SECURITY_POLICY'));
+		return view('index');
 	}
 
 	public function privacy()
 	{
-		return response()
-			->view('policy.privacy')
-			->header('Content-Security-Policy', env('CONTENT_SECURITY_POLICY'));
+		return view('policy.privacy');
 	}
 
 	public function term()
 	{
-		return response()
-			->view('policy.term')
-			->header('Content-Security-Policy', env('CONTENT_SECURITY_POLICY'));
+		return view('policy.term');
 	}
 
 	public function security()
 	{
-		return response()
-			->view('policy.security')
-			->header('Content-Security-Policy', env('CONTENT_SECURITY_POLICY'));
+		return view('policy.security');
 	}
 }

@@ -130,7 +130,7 @@ function SecurityContent() {
 									</big>
 									{
 										session.id === currentTokenId ?
-											<b>{language?.currentSession}</b> : null
+											<b className={styles['current-session']}>{language?.currentSession}</b> : null
 									}
 									<p>{language?.lastActivedAt} {new Date(session.lastUsedAt).toLocaleString(appLanguage.language)}</p>
 									<p>{language?.loginedAt}: {new Date(session.createdAt).toLocaleString(appLanguage.language)}</p>

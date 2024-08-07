@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import useLanguage from '../hooks/useLanguage';
 import styles from '../styles/NotFound.module.css';
 
@@ -11,9 +10,9 @@ export default function NotFound() {
 				<div className={styles['title']}>404</div>
 				<p style={{ fontSize: '16px', textAlign: 'center' }}>
 					{language?.pageNotFound} <br />
-					<Link to='/' className={styles['go-home']}>
+					<a href="/" className={styles['go-home']}>
 						{language?.goBackHome}
-					</Link>
+					</a>
 				</p>
 			</div>
 		</>

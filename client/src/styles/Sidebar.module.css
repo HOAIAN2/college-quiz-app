@@ -6,7 +6,6 @@
 	overflow-y: hidden;
 	transition: margin-left var(--transition-timing-medium);
 	z-index: 10;
-	user-select: none;
 	scrollbar-gutter: stable;
 	border-right: 1px solid var(--color-gray);
 }

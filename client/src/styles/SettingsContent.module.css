@@ -33,3 +33,7 @@
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+
+.current-session {
+	color: var(--color-soft-green);
+}
