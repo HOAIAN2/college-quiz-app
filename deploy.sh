@@ -1,6 +1,5 @@
 #!/bin/sh
 ./build.sh
-rm -rf vendor
 rm app.tar.gz
 composer install --optimize-autoloader --no-dev
 php artisan optimize:clear
