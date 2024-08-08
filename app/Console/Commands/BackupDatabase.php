@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Cache;
 
 class BackupDatabase extends Command
 {
-	const BACKUP_TIME_CACHE_KEY = 'last_backup_database_at';
 	/**
 	 * The name and signature of the console command.
 	 *
@@ -43,29 +42,32 @@ class BackupDatabase extends Command
 
 		$backup_filename = "$database-$now->timestamp-dump.sql";
 
-		if ($this->option('once-per-day')) {
-			$last_backup_database_at = Cache::has(self::BACKUP_TIME_CACHE_KEY)
-				? Carbon::parse(Cache::get(self::BACKUP_TIME_CACHE_KEY))
-				: $now;
-
-			// $last_backup_database_at == $now mean Cache doesn't has self::BACKUP_TIME_CACHE_KEY
-			if ($last_backup_database_at != $now && $last_backup_database_at->isToday()) {
-				return;
-			}
-		}
+		if ($this->option('once-per-day') && $this->hasBackupToday($database)) return;
 
 		$dump = new Mysqldump\Mysqldump("mysql:host=$host;dbname=$database", $username, $password);
 		$dump->start(storage_path("app/backup/database/$backup_filename"));
-		Cache::put(self::BACKUP_TIME_CACHE_KEY, $now->toDateTimeString());
 
-		// Remove old backup
+		$this->removeOldBackupFiles($database, $backup_filename);
+	}
 
-		$files = File::allFiles($directory);
+	public function hasBackupToday(string $database)
+	{
+		$directory = storage_path('app/backup/database');
+		$files = glob($directory . DIRECTORY_SEPARATOR . "$database*.sql");
 		foreach ($files as $file) {
-			if ($file->getFilename() === $backup_filename) {
-				continue;
-			}
-			File::delete($file->getPathname());
+			$modify_date = Carbon::parse(filemtime($file));
+			if ($modify_date->isToday()) return true;
+		}
+		return false;
+	}
+
+	public function removeOldBackupFiles(string $database, string $current_file)
+	{
+		$directory = storage_path('app/backup/database');
+		$files = glob($directory . DIRECTORY_SEPARATOR . "$database*.sql");
+		foreach ($files as $file) {
+			if (basename($file) == $current_file) continue;
+			File::delete($file);
 		}
 	}
 }
