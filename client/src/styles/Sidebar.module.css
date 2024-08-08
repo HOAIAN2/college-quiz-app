@@ -104,6 +104,7 @@
 	.sidebar {
 		position: fixed;
 		height: calc(100% - 75px);
+		overflow-y: auto;
 	}
 
 	.list {
