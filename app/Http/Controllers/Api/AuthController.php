@@ -248,7 +248,7 @@ class AuthController extends Controller
 		$user = $this->getUser();
 
 		try {
-			$tokens = $user->tokens()->latest()
+			$tokens = $user->tokens()->latest('last_used_at')
 				->get()
 				->each(function ($token) {
 					$token->setAttribute('name', json_decode($token->getAttribute('name'), true));
