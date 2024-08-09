@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\DB;
 
 class SubjectController extends Controller
 {
+	private int $autoCompleteResultLimit = 0;
+
+	public function __construct()
+	{
+		$this->autoCompleteResultLimit = (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5);
+	}
+
 	public function index(Request $request)
 	{
 		$user = $this->getUser();
@@ -102,9 +109,8 @@ class SubjectController extends Controller
 		abort_if(!$user->hasPermission('subject_view'), 403);
 
 		try {
-			$auto_complete_result_limit = (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5);
 			$users = Subject::search($request->search)
-				->take($auto_complete_result_limit)
+				->take($this->autoCompleteResultLimit)
 				->get();
 			return Reply::successWithData($users, '');
 		} catch (\Exception $error) {

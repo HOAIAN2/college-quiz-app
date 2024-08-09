@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\DB;
 
 class SemesterController extends Controller
 {
+	private int $autoCompleteResultLimit = 0;
+
+	public function __construct()
+	{
+		$this->autoCompleteResultLimit = (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5);
+	}
+
 	public function index(Request $request)
 	{
 		$user = $this->getUser();
@@ -104,10 +111,9 @@ class SemesterController extends Controller
 		abort_if(!$user->hasPermission('semester_view'), 403);
 
 		try {
-			$auto_complete_result_limit = (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5);
 			$semesters = Semester::where('end_date', '>=', Carbon::now())
 				->search($request->search)
-				->take($auto_complete_result_limit)
+				->take($this->autoCompleteResultLimit)
 				->get();
 			return Reply::successWithData($semesters, '');
 		} catch (\Exception $error) {

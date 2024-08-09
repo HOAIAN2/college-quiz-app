@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\DB;
 
 class FacultyController extends Controller
 {
+	private int $autoCompleteResultLimit = 0;
+
+	public function __construct()
+	{
+		$this->autoCompleteResultLimit = (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5);
+	}
+
 	public function index(IndexRequest $request)
 	{
 		$user = $this->getUser();
@@ -105,9 +112,8 @@ class FacultyController extends Controller
 		abort_if(!$user->hasPermission('faculty_view'), 403);
 
 		try {
-			$auto_complete_result_limit = (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5);
 			$school_classes = Faculty::search($request->search)
-				->take($auto_complete_result_limit)
+				->take($this->autoCompleteResultLimit)
 				->get();
 			return Reply::successWithData($school_classes, '');
 		} catch (\Exception $error) {

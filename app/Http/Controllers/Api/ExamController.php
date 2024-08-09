@@ -32,7 +32,7 @@ class ExamController extends Controller
 {
 	const QUESTIONS_CACHE_KEY = 'exam:@exam_id:-user:@user_id-questions';
 	const ANSWERS_CACHE_KEY = 'exam:@exam_id:-user:@user_id-answers';
-	public int $allowLateSubmitSeconds = 0;
+	private int $allowLateSubmitSeconds = 0;
 
 	public function __construct()
 	{

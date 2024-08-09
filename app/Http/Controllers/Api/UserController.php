@@ -28,6 +28,13 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class UserController extends Controller
 {
+	private int $autoCompleteResultLimit = 0;
+
+	public function __construct()
+	{
+		$this->autoCompleteResultLimit = (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5);
+	}
+
 	public function index()
 	{
 		$data = (object)[];
@@ -304,10 +311,9 @@ class UserController extends Controller
 		abort_if(!$user->hasPermission('user_view'), 403);
 
 		try {
-			$auto_complete_result_limit = (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5);
 			$users = User::where('role_id', '=', Role::ROLES[$request->role])
 				->search($request->search)
-				->take($auto_complete_result_limit)
+				->take($this->autoCompleteResultLimit)
 				->get();
 			return Reply::successWithData($users, '');
 		} catch (\Exception $error) {
@@ -321,12 +327,11 @@ class UserController extends Controller
 		abort_if(!$user->hasPermission('user_view'), 403);
 
 		try {
-			$auto_complete_result_limit = (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5);
 			$users = User::with(['role', 'school_class', 'faculty'])
 				->where('role_id', '=', Role::ROLES[$request->role])
 				->search($request->search)
 				->latest('id')
-				->take($auto_complete_result_limit * 20)
+				->take($this->autoCompleteResultLimit * 20)
 				->get();
 			return Reply::successWithData($users, '');
 		} catch (\Exception $error) {

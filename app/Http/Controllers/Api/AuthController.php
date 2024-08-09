@@ -25,9 +25,12 @@ class AuthController extends Controller
 	const VERIFY_EMAIL_CODE_CACHE_KEY = 'user:@user_id-verify-code';
 	const PASSWORD_RESET_CODE_CACHE_KEY = 'user:@user_id-password-reset-code';
 
+	private int $otpTimeoutSeconds = 0;
+
 	public function __construct()
 	{
 		parent::__construct();
+		$this->otpTimeoutSeconds = env('OTP_CODE_TIMEOUT_SECONDS');
 	}
 
 	public function login(LoginRequest $request)
@@ -112,7 +115,7 @@ class AuthController extends Controller
 				[$user->id],
 				self::VERIFY_EMAIL_CODE_CACHE_KEY
 			);
-			Cache::put($verify_email_code_cache_key, $code);
+			Cache::put($verify_email_code_cache_key, $code, $this->otpTimeoutSeconds);
 			return Reply::success();
 		} catch (\Exception $error) {
 			return $this->handleException($error);
@@ -176,7 +179,7 @@ class AuthController extends Controller
 				[$user->id],
 				self::PASSWORD_RESET_CODE_CACHE_KEY
 			);
-			Cache::put($password_reset_code_cache_key, $code);
+			Cache::put($password_reset_code_cache_key, $code, $this->otpTimeoutSeconds);
 			return Reply::success();
 		} catch (\Exception $error) {
 			return $this->handleException($error);
