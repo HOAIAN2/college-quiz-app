@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Log;
 
 abstract class Controller
 {
+	public function __construct() {}
 	public function getUser(): mixed
 	{
 		return auth('sanctum')->user();
