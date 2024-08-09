@@ -105,7 +105,10 @@ class FacultyController extends Controller
 		abort_if(!$user->hasPermission('faculty_view'), 403);
 
 		try {
-			$school_classes = Faculty::search($request->search)->take($this->autoCompleteResultLimit)->get();
+			$auto_complete_result_limit = (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5);
+			$school_classes = Faculty::search($request->search)
+				->take($auto_complete_result_limit)
+				->get();
 			return Reply::successWithData($school_classes, '');
 		} catch (\Exception $error) {
 			return $this->handleException($error);

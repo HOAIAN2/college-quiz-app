@@ -30,7 +30,7 @@ class ClearUnsedTokens extends Command
 		$token_expiration_minutes = env('TOKEN_EXPIRATION_MINUTES');
 		if ($token_expiration_minutes == null) return;
 
-		$user_id = auth()->id();
+		$user_id = auth('sanctum')->id();
 		if ($user_id == null) return;
 
 		$interval = Carbon::now()->subMinutes((int)$token_expiration_minutes);

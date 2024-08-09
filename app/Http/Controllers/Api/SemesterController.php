@@ -104,8 +104,11 @@ class SemesterController extends Controller
 		abort_if(!$user->hasPermission('semester_view'), 403);
 
 		try {
+			$auto_complete_result_limit = (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5);
 			$semesters = Semester::where('end_date', '>=', Carbon::now())
-				->search($request->search)->take($this->autoCompleteResultLimit)->get();
+				->search($request->search)
+				->take($auto_complete_result_limit)
+				->get();
 			return Reply::successWithData($semesters, '');
 		} catch (\Exception $error) {
 			return $this->handleException($error);

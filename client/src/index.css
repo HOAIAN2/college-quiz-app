@@ -36,9 +36,11 @@ body {
 	font-size: 14px;
 }
 
-textarea {
-	font-family: inherit;
-	font-size: inherit;
+input,
+textarea,
+button,
+select {
+	font: inherit;
 }
 
 #root {

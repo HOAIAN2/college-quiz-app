@@ -6,7 +6,6 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
 use Ifsnop\Mysqldump;
-use Illuminate\Support\Facades\Cache;
 
 class BackupDatabase extends Command
 {

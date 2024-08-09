@@ -304,8 +304,11 @@ class UserController extends Controller
 		abort_if(!$user->hasPermission('user_view'), 403);
 
 		try {
+			$auto_complete_result_limit = (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5);
 			$users = User::where('role_id', '=', Role::ROLES[$request->role])
-				->search($request->search)->take($this->autoCompleteResultLimit)->get();
+				->search($request->search)
+				->take($auto_complete_result_limit)
+				->get();
 			return Reply::successWithData($users, '');
 		} catch (\Exception $error) {
 			return $this->handleException($error);
@@ -318,11 +321,12 @@ class UserController extends Controller
 		abort_if(!$user->hasPermission('user_view'), 403);
 
 		try {
+			$auto_complete_result_limit = (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5);
 			$users = User::with(['role', 'school_class', 'faculty'])
 				->where('role_id', '=', Role::ROLES[$request->role])
 				->search($request->search)
 				->latest('id')
-				->take($this->autoCompleteResultLimit * 20)
+				->take($auto_complete_result_limit * 20)
 				->get();
 			return Reply::successWithData($users, '');
 		} catch (\Exception $error) {
