@@ -76,7 +76,7 @@ export default function Exams() {
 	if (!permissions.has('exam_view')) return <Navigate to='/' />;
 	return (
 		<>
-			<main className={css(styles['page-content'], appStyles['dashboard-d'])}>
+			<main className={css(appStyles['dashboard-d'])}>
 				{
 					queryData.isLoading ? <Loading /> : null
 				}
