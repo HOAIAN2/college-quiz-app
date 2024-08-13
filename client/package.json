@@ -11,14 +11,14 @@
 	},
 	"dependencies": {
 		"@tanstack/react-query": "^5.51.23",
-		"axios": "^1.7.3",
+		"axios": "^1.7.4",
 		"canvas-confetti": "^1.9.3",
 		"chart.js": "^4.4.3",
 		"js-sha256": "^0.11.0",
 		"react": "^18.3.1",
 		"react-datetime": "^3.2.0",
 		"react-dom": "^18.3.1",
-		"react-icons": "^5.2.1",
+		"react-icons": "^5.3.0",
 		"react-router-dom": "^6.26.0",
 		"sonner": "^1.5.0"
 	},
