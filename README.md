@@ -59,6 +59,8 @@ VITE_OVERRIDE_HTTP_METHOD=true
 
 ## Deploy
 
+### Free hosting
+
 Run Deploy file to build and compress all necessary files to app.tar.gz
 
 ```console
@@ -76,6 +78,16 @@ You can host front end and backend in 2 domain
 ```env
 VITE_API_HOST=
 ```
+
+### VPS with Docker
+
+You can host this with `docker` by run simple command
+
+```console
+sudo docker composer up
+```
+
+I'm only setup `Nginx` with `php-fpm` so you have to host the database yourself, just modify the `docker-compose.yml` or using any other way to host you database.
 
 ## Cron Job
 
