@@ -2,8 +2,8 @@
 FROM node:alpine AS node-builder
 WORKDIR /app
 COPY client .
-RUN cp -n .env.example .env
-RUN npm install && npm run build
+RUN cp -n .env.example .env && \
+    npm install && npm run build
 
 # Laravel Stage
 FROM php:8.2-fpm-alpine AS php-laravel
@@ -28,11 +28,10 @@ COPY . .
 
 # Install Composer dependencies
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
-
-RUN php artisan optimize:clear
-RUN rm -f storage/logs/laravel.log
-RUN rm -f storage/framework/sessions/*
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts && \
+    php artisan optimize:clear && \
+    rm -f storage/logs/laravel.log && \
+    rm -f storage/framework/sessions/*
 
 # Copy the built frontend assets to the Laravel public directory
 COPY --from=node-builder /app/dist /var/www/app/public
