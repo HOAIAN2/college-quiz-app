@@ -2,6 +2,7 @@
 FROM node:alpine AS node-builder
 WORKDIR /app
 COPY client .
+RUN cp -n .env.example .env
 RUN npm install && npm run build
 
 # Laravel Stage
