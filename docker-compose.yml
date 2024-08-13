@@ -1,5 +1,6 @@
+name: college-quiz-app
 services:
-  app:
+  nginx-server:
     build: .
     ports:
       - "80:80"
