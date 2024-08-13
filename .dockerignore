@@ -1,3 +1,8 @@
+.git
+.vscode
 vendor
 node_modules
 client/node_modules
+
+img
+dump

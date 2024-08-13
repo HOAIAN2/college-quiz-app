@@ -30,6 +30,10 @@ COPY . .
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
+RUN php artisan optimize:clear
+RUN rm -f storage/logs/laravel.log
+RUN rm -f storage/framework/sessions/*
+
 # Copy the built frontend assets to the Laravel public directory
 COPY --from=node-builder /app/dist /var/www/app/public
 COPY --from=node-builder /app/dist/index.html /var/www/app/resources/views/index.blade.php
