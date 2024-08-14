@@ -23,7 +23,7 @@ RUN apk add --no-cache \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install -j$(nproc) gd intl opcache pdo pdo_mysql zip
 
-WORKDIR /var/www/app
+WORKDIR /var/www/college-quiz-app
 COPY . .
 
 # Install Composer dependencies
@@ -34,13 +34,13 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --no-script
     rm -f storage/framework/sessions/*
 
 # Copy the built frontend assets to the Laravel public directory
-COPY --from=node-builder /app/dist /var/www/app/public
-COPY --from=node-builder /app/dist/index.html /var/www/app/resources/views/index.blade.php
+COPY --from=node-builder /app/dist /var/www/college-quiz-app/public
+COPY --from=node-builder /app/dist/index.html /var/www/college-quiz-app/resources/views/index.blade.php
 
 # Grant permissions
-RUN chown -R www-data:www-data /var/www/app/storage /var/www/app/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/college-quiz-app/storage /var/www/college-quiz-app/bootstrap/cache
 
-COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx.conf /etc/nginx/http.d/college-quiz-app.conf
 
 EXPOSE 80
 
