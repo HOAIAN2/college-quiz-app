@@ -40,8 +40,9 @@ COPY --from=node-builder /app/dist/index.html /var/www/college-quiz-app/resource
 # Grant permissions
 RUN chown -R www-data:www-data /var/www/college-quiz-app/storage /var/www/college-quiz-app/bootstrap/cache
 
-COPY ./nginx.conf /etc/nginx/http.d/college-quiz-app.conf
+COPY ./docker/nginx.conf /etc/nginx/http.d/college-quiz-app.conf
+COPY ./docker/cronjob /etc/crontabs/root
 
 EXPOSE 80
 
-CMD ["sh", "-c", "php-fpm & nginx -g 'daemon off;'"]
+CMD ["sh", "-c", "php-fpm & nginx -g 'daemon off;' & crond -f -d 8"]
