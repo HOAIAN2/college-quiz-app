@@ -2,8 +2,8 @@
 
 namespace App\Enums;
 
-enum OtpCodeType
+enum OtpCodeType: string
 {
-	case VerifyEmail;
-	case PasswordReset;
+	case VerifyEmail = 'verify_email';
+	case PasswordReset = 'password_reset';
 }

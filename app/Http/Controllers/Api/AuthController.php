@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\OtpCodeType;
 use App\Helper\NumberHelper;
 use App\Models\User;
 use App\Helper\Reply;
@@ -15,24 +16,13 @@ use App\Http\Requests\Auth\SendPasswordResetEmailRequest;
 use App\Http\Requests\Auth\VerifyEmailRequest;
 use App\Mail\PasswordResetEmail;
 use App\Mail\VerifyEmail;
+use App\Models\OtpCode;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
-	const VERIFY_EMAIL_CODE_CACHE_KEY = 'user:@user_id-verify-code';
-	const PASSWORD_RESET_CODE_CACHE_KEY = 'user:@user_id-password-reset-code';
-
-	private int $otpTimeoutSeconds = 0;
-
-	public function __construct()
-	{
-		parent::__construct();
-		$this->otpTimeoutSeconds = env('OTP_CODE_TIMEOUT_SECONDS');
-	}
-
 	public function login(LoginRequest $request)
 	{
 		try {
@@ -107,15 +97,16 @@ class AuthController extends Controller
 				->firstOrFail();
 
 			$code = NumberHelper::randomDitgits();
+
+			OtpCode::create([
+				'user_id' => $user->id,
+				'code' => $code,
+				'type' => OtpCodeType::VerifyEmail
+			]);
+
 			$verify_email = new VerifyEmail($code);
 			Mail::to($user)->send($verify_email);
 
-			$verify_email_code_cache_key = str_replace(
-				['@user_id'],
-				[$user->id],
-				self::VERIFY_EMAIL_CODE_CACHE_KEY
-			);
-			Cache::put($verify_email_code_cache_key, $code, $this->otpTimeoutSeconds);
 			return Reply::success();
 		} catch (\Exception $error) {
 			return $this->handleException($error);
@@ -136,20 +127,19 @@ class AuthController extends Controller
 				return Reply::error('auth.errors.account_disabled');
 			}
 
-			$verify_email_code_cache_key = str_replace(
-				['@user_id'],
-				[$user->id],
-				self::VERIFY_EMAIL_CODE_CACHE_KEY
-			);
-			$verify_code = Cache::get($verify_email_code_cache_key);
-			if ($verify_code != $request->verify_code) {
+			$otp_code = $user->otp_codes()
+				->where('type', OtpCodeType::VerifyEmail)
+				->where('code', $request->verify_code)
+				->first();
+
+			if ($otp_code == null) {
 				return Reply::error('auth.errors.verify_code_mismatch', [], 400);
 			}
 			$user->email_verified_at = Carbon::now();
 			$token = $user->createToken("{$user->role->name} token")->plainTextToken;
 			$user->save();
+			$otp_code->delete();
 			DB::commit();
-			Cache::forget($verify_email_code_cache_key);
 			return Reply::successWithData([
 				'token' => $token
 			], '');
@@ -171,15 +161,15 @@ class AuthController extends Controller
 			}
 
 			$code = NumberHelper::randomDitgits();
+
+			OtpCode::create([
+				'user_id' => $user->id,
+				'code' => $code,
+				'type' => OtpCodeType::PasswordReset
+			]);
+
 			$password_reset_email = new PasswordResetEmail($code);
 			Mail::to($user)->send($password_reset_email);
-
-			$password_reset_code_cache_key = str_replace(
-				['@user_id'],
-				[$user->id],
-				self::PASSWORD_RESET_CODE_CACHE_KEY
-			);
-			Cache::put($password_reset_code_cache_key, $code, $this->otpTimeoutSeconds);
 			return Reply::success();
 		} catch (\Exception $error) {
 			return $this->handleException($error);
@@ -197,13 +187,12 @@ class AuthController extends Controller
 				return Reply::error('auth.errors.account_disabled');
 			}
 
-			$password_reset_code_cache_key = str_replace(
-				['@user_id'],
-				[$user->id],
-				self::PASSWORD_RESET_CODE_CACHE_KEY
-			);
-			$verify_code = Cache::get($password_reset_code_cache_key);
-			if ($verify_code != $request->verify_code) {
+			$is_valid_otp = $user->otp_codes()
+				->where('type', OtpCodeType::PasswordReset)
+				->where('code', $request->verify_code)
+				->exists();
+
+			if ($is_valid_otp == false) {
 				return Reply::error('auth.errors.verify_code_mismatch', [], 400);
 			}
 			return Reply::success();
@@ -224,21 +213,20 @@ class AuthController extends Controller
 				return Reply::error('auth.errors.account_disabled');
 			}
 
-			$password_reset_code_cache_key = str_replace(
-				['@user_id'],
-				[$user->id],
-				self::PASSWORD_RESET_CODE_CACHE_KEY
-			);
-			$verify_code = Cache::get($password_reset_code_cache_key);
-			if ($verify_code != $request->verify_code) {
+			$otp_code = $user->otp_codes()
+				->where('type', OtpCodeType::PasswordReset)
+				->where('code', $request->verify_code)
+				->first();
+
+			if ($otp_code == null) {
 				return Reply::error('auth.errors.verify_code_mismatch', [], 400);
 			}
 			$user->update([
 				'password' => Hash::make($request->password),
 			]);
 			$user->tokens()->delete();
+			$otp_code->delete();
 			DB::commit();
-			Cache::forget($password_reset_code_cache_key);
 			return Reply::successWithMessage('auth.successes.change_password_success');
 		} catch (\Exception $error) {
 			DB::rollBack();
