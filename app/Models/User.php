@@ -46,6 +46,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Collection|ExamQuestionsOrder[] $exam_questions_orders
  * @property Collection|ExamSupervisor[] $exam_supervisors
  * @property Collection|ExamResult[] $exam_results
+ * @property Collection|OtpCode[] $otp_codes
  *
  * @package App\Models
  */
@@ -152,6 +153,11 @@ class User extends Authenticatable
 	public function exam_results()
 	{
 		return $this->hasMany(ExamResult::class);
+	}
+
+	public function otp_codes()
+	{
+		return $this->hasMany(OtpCode::class);
 	}
 
 	public function isAdmin()
