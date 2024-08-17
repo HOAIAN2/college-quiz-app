@@ -31,7 +31,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts && \
     php artisan optimize:clear && \
     rm -f storage/logs/laravel.log && \
-    rm -f storage/framework/sessions/*
+    rm -f storage/framework/sessions/* && \
+    php artisan optimize
 
 # Copy the built frontend assets to the Laravel public directory
 COPY --from=node-builder /app/dist /var/www/college-quiz-app/public
@@ -45,4 +46,4 @@ COPY ./docker/cronjob /etc/crontabs/root
 
 EXPOSE 80
 
-CMD ["sh", "-c", "php-fpm & nginx -g 'daemon off;' & crond -f -d 8"]
+CMD ["sh", "-c", "php-fpm & nginx -g 'daemon off;' & crond -f"]
