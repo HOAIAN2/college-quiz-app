@@ -18,7 +18,7 @@ return new class extends Migration
 			$table->string('email')->nullable();
 			$table->string('phone_number')->nullable();
 			$table->unsignedBigInteger('leader_id')->nullable();
-			$table->timestamps();
+			$table->datetimes();
 			$table->foreign('leader_id')->references('id')->on('users')->nullOnDelete();
 		});
 	}

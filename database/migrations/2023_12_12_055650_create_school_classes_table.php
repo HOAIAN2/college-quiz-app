@@ -16,7 +16,7 @@ return new class extends Migration
 			$table->string('shortcode')->unique();
 			$table->string('name');
 			$table->unsignedBigInteger('faculty_id')->nullable();
-			$table->timestamps();
+			$table->datetimes();
 			$table->foreign('faculty_id')->references('id')->on('faculties')->nullOnDelete();
 		});
 	}

@@ -18,7 +18,7 @@ return new class extends Migration
 			$table->unsignedBigInteger('semester_id');
 			$table->string('shortcode')->unique();
 			$table->string('name');
-			$table->timestamps();
+			$table->datetimes();
 			$table->foreign('teacher_id')->references('id')->on('users')->cascadeOnDelete();
 			$table->foreign('subject_id')->references('id')->on('subjects')->cascadeOnDelete();
 			$table->foreign('semester_id')->references('id')->on('semesters')->cascadeOnDelete();

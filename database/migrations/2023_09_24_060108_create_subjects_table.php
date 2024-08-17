@@ -15,7 +15,7 @@ return new class extends Migration
 			$table->id();
 			$table->string('shortcode')->unique();
 			$table->string('name');
-			$table->timestamps();
+			$table->datetimes();
 		});
 	}
 

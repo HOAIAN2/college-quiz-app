@@ -15,7 +15,7 @@ return new class extends Migration
 			$table->id();
 			$table->unsignedBigInteger('course_id');
 			$table->unsignedBigInteger('student_id');
-			$table->timestamps();
+			$table->datetimes();
 			$table->foreign('student_id')->references('id')->on('users')->cascadeOnDelete();
 			$table->foreign('course_id')->references('id')->on('courses')->cascadeOnDelete();
 			$table->unique(['course_id', 'student_id']);

@@ -19,7 +19,7 @@ return new class extends Migration
 			$table->unsignedBigInteger('chapter_id')->nullable();
 			$table->enum('level', ['easy', 'medium', 'hard', 'expert'])->default('easy');
 			$table->text('content');
-			$table->timestamps();
+			$table->datetimes();
 
 			$table->foreign('created_by')->references('id')->on('users')->nullOnDelete();
 			$table->foreign('last_updated_by')->references('id')->on('users')->nullOnDelete();

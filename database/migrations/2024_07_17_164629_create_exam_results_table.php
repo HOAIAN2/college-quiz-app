@@ -21,7 +21,7 @@ return new class extends Migration
 			$table->text('user_agent');
 			$table->dateTime('cancelled_at')->nullable();
 			$table->text('cancellation_reason')->nullable();
-			$table->timestamps();
+			$table->datetimes();
 			$table->foreign('exam_id')->references('id')->on('exams')->cascadeOnDelete();
 			$table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
 		});
