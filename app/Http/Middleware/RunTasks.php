@@ -14,6 +14,7 @@ class RunTasks
 	const TASKS = [
 		'app:clear-unsed-tokens',
 		'app:cancel-late-exams',
+		'app:clear-expired-otp-codes',
 		'app:backup-database --once-per-day'
 	];
 	/**
