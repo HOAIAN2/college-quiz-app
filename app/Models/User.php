@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Enums\RoleType;
 use App\Traits\Searchable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -162,12 +163,12 @@ class User extends Authenticatable
 
 	public function isAdmin()
 	{
-		return $this->role_id == Role::ROLES['admin'];
+		return $this->role_id == RoleType::ADMIN->value;
 	}
 
 	public function isTeacher()
 	{
-		return $this->role_id == Role::ROLES['teacher'];
+		return $this->role_id == RoleType::TEACHER->value;
 	}
 
 	public function hasPermission(string $name)

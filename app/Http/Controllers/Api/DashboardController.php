@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\RoleType;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Exam;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -19,8 +19,8 @@ class DashboardController extends Controller
 		$now = now();
 		try {
 			# Section 1: 4 Cards
-			$data->number_of_teachers = User::where('role_id', '=', Role::ROLES['teacher'])->count();
-			$data->number_of_students = User::where('role_id', '=', Role::ROLES['student'])->count();
+			$data->number_of_teachers = User::where('role_id', '=', RoleType::TEACHER)->count();
+			$data->number_of_students = User::where('role_id', '=', RoleType::STUDENT)->count();
 			$data->number_of_courses = Course::whereHas('semester', function ($query) use ($now) {
 				$query->whereDate('start_date', '<=', $now)
 					->whereDate('end_date', '>=', $now);
@@ -39,11 +39,11 @@ class DashboardController extends Controller
 
 			#
 			switch ($user->role_id) {
-				case Role::ROLES['admin']:
+				case RoleType::ADMIN->value:
 					$data->exams_in_this_month = $data->exams_in_this_month->count();
 					$data->today_exams = $data->today_exams->get();
 					break;
-				case Role::ROLES['teacher']:
+				case RoleType::TEACHER->value:
 					$data->exams_in_this_month = $data->exams_in_this_month->whereHas('course.teacher', function ($query) use ($user) {
 						$query->where('id', '=', $user->id);
 					})->count();
@@ -55,7 +55,7 @@ class DashboardController extends Controller
 							$query->where('id', '=', $user->id);
 						});
 					break;
-				case Role::ROLES['student']:
+				case RoleType::STUDENT->value:
 					$data->exams_in_this_month = $data->exams_in_this_month->whereHas('course.enrollments', function ($query) use ($user) {
 						$query->where('student_id', '=', $user->id);
 					})->count();

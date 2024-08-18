@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\RoleType;
 use App\Exports\UsersExport;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
@@ -15,7 +16,6 @@ use App\Http\Requests\User\ImportRequest;
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\UpdateRequest;
 use App\Models\Faculty;
-use App\Models\Role;
 use App\Models\SchoolClass;
 use App\Models\User;
 use Carbon\Carbon;
@@ -57,7 +57,7 @@ class UserController extends Controller
 			$data = collect($request->validated())->except(['role', 'school_class_id', 'faculty_id'])->toArray();
 
 			$data['password'] = Hash::make($request->password);
-			$data['role_id'] = Role::ROLES[$request->role];
+			$data['role_id'] = RoleType::valueFromName($request->role);
 			if ($request->role == 'student') {
 				$data['school_class_id'] = $request->school_class_id;
 			}
@@ -102,11 +102,11 @@ class UserController extends Controller
 			if ($user->id == $id) $data['is_active'] = 1;
 			if ($request->password != null) $data['password'] = Hash::make($request->password);
 
-			if ($targetUser->role_id == Role::ROLES['student']) {
+			if ($targetUser->role_id == RoleType::STUDENT->value) {
 				$data['school_class_id'] = $request->school_class_id;
 			}
 
-			if ($targetUser->role_id == Role::ROLES['teacher']) {
+			if ($targetUser->role_id == RoleType::TEACHER->value) {
 				$data['faculty_id'] = $request->faculty_id;
 			}
 
@@ -148,7 +148,7 @@ class UserController extends Controller
 
 		try {
 			$users = User::with(['role', 'school_class', 'faculty'])
-				->where('role_id', '=', Role::ROLES[$request->role]);
+				->where('role_id', '=', RoleType::valueFromName($request->role));
 			if ($request->search != null) {
 				$users = $users->search($request->search);
 			}
@@ -168,7 +168,7 @@ class UserController extends Controller
 		DB::beginTransaction();
 		try {
 			$file = $request->file('file');
-			$role_id = Role::ROLES[$request->role];
+			$role_id = RoleType::valueFromName($request->role);
 			$sheets = Excel::toArray([], $file);
 			$data = [];
 			$non_exists_classes = [];
@@ -285,7 +285,7 @@ class UserController extends Controller
 		$data = $request->validated();
 
 		try {
-			$query = User::where('role_id', '=', Role::ROLES[$data['role']]);
+			$query = User::where('role_id', '=', RoleType::valueFromName($data['role']));
 			if ($data['role'] == 'student') $query = $query->with('school_class');
 			if ($data['role'] == 'teacher') $query = $query->with('faculty');
 
@@ -311,7 +311,7 @@ class UserController extends Controller
 		abort_if(!$user->hasPermission('user_view'), 403);
 
 		try {
-			$users = User::where('role_id', '=', Role::ROLES[$request->role])
+			$users = User::where('role_id', '=', RoleType::valueFromName($request->role))
 				->search($request->search)
 				->take($this->autoCompleteResultLimit)
 				->get();
@@ -328,7 +328,7 @@ class UserController extends Controller
 
 		try {
 			$users = User::with(['role', 'school_class', 'faculty'])
-				->where('role_id', '=', Role::ROLES[$request->role])
+				->where('role_id', '=', RoleType::valueFromName($request->role))
 				->search($request->search)
 				->latest('id')
 				->take($this->autoCompleteResultLimit * 20)

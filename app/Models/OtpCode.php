@@ -33,10 +33,13 @@ class OtpCode extends Model
 {
 	protected $table = 'otp_codes';
 
-	protected $casts = [
-		'user_id' => 'int',
-		'expires_at' => 'datetime'
-	];
+	protected function casts()
+	{
+		return [
+			'user_id' => 'int',
+			'expires_at' => 'datetime'
+		];
+	}
 
 	protected $fillable = [
 		'user_id',

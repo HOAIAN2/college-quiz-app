@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\RoleType;
 use App\Exports\ExamResultsExport;
 use App\Helper\NumberHelper;
 use App\Helper\Reply;
@@ -21,7 +22,6 @@ use App\Models\ExamResult;
 use App\Models\ExamSupervisor;
 use App\Models\ExamQuestionsAnswer;
 use App\Models\Question;
-use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
@@ -63,17 +63,17 @@ class ExamController extends Controller
 				->orderBy('exam_date');
 
 			switch ($user->role_id) {
-				case Role::ROLES['admin']:
+				case RoleType::ADMIN->value:
 					$data = $data->get();
 					break;
-				case Role::ROLES['student']:
+				case RoleType::STUDENT->value:
 					$data = $data
 						->whereHas('course.enrollments', function ($query) use ($user) {
 							$query->where('student_id', '=', $user->id);
 						})
 						->get();
 					break;
-				case Role::ROLES['teacher']:
+				case RoleType::TEACHER->value:
 					$data = $data
 						->whereHas('course.teacher', function ($query) use ($user) {
 							$query->where('id', '=', $user->id);
@@ -103,13 +103,13 @@ class ExamController extends Controller
 			# Check permission
 			$course = Course::select('*');
 			switch ($user->role_id) {
-				case Role::ROLES['teacher']:
+				case RoleType::TEACHER->value:
 					$course = $course->whereHas('teacher', function ($query) use ($user) {
 						$query->where('id', '=', $user->id);
 					})
 						->findOrFail($request->course_id);
 					break;
-				case Role::ROLES['admin']:
+				case RoleType::ADMIN->value:
 					$course = $course->findOrFail($request->course_id);
 					break;
 				default:
@@ -164,7 +164,7 @@ class ExamController extends Controller
 					'question_id' => $question_id
 				]);
 			}
-			$supervisor_ids = User::where('role_id', '=', Role::ROLES['teacher'])
+			$supervisor_ids = User::where('role_id', '=', RoleType::TEACHER)
 				->whereIn('id', $request->supervisor_ids)
 				->pluck('id');
 			foreach ($supervisor_ids as $supervisor_id) {
@@ -192,15 +192,15 @@ class ExamController extends Controller
 		try {
 			$data = Exam::with($relations);
 			switch ($user->role_id) {
-				case Role::ROLES['admin']:
+				case RoleType::ADMIN->value:
 					break;
-				case Role::ROLES['student']:
+				case RoleType::STUDENT->value:
 					$data = $data
 						->whereHas('course.enrollments', function ($query) use ($user) {
 							$query->where('student_id', '=', $user->id);
 						});
 					break;
-				case Role::ROLES['teacher']:
+				case RoleType::TEACHER->value:
 					$data = $data
 						->whereHas('course.teacher', function ($query) use ($user) {
 							$query->where('id', '=', $user->id);
@@ -245,13 +245,13 @@ class ExamController extends Controller
 		try {
 			$target_exam = Exam::select('*');
 			switch ($user->role_id) {
-				case Role::ROLES['teacher']:
+				case RoleType::TEACHER->value:
 					$target_exam = $target_exam->whereHas('course.teacher', function ($query) use ($user) {
 						$query->where('id', '=', $user->id);
 					})
 						->findOrFail($id);
 					break;
-				case Role::ROLES['admin']:
+				case RoleType::ADMIN->value:
 					$target_exam = $target_exam->findOrFail($id);
 					break;
 				default:
@@ -286,7 +286,7 @@ class ExamController extends Controller
 					->whereIn('user_id', $request->supervisor_ids)
 					->pluck('user_id')->toArray();
 
-				$supervisor_ids = User::where('role_id', '=', Role::ROLES['teacher'])
+				$supervisor_ids = User::where('role_id', '=', RoleType::TEACHER)
 					->whereIn('id', $request->supervisor_ids)
 					->pluck('id');
 
@@ -315,13 +315,13 @@ class ExamController extends Controller
 		try {
 			$exam = Exam::select('*');
 			switch ($user->role_id) {
-				case Role::ROLES['teacher']:
+				case RoleType::TEACHER->value:
 					$exam = $exam->whereHas('course.teacher', function ($query) use ($user) {
 						$query->where('id', '=', $user->id);
 					})
 						->findOrFail($id);
 					break;
-				case Role::ROLES['admin']:
+				case RoleType::ADMIN->value:
 					$exam = $exam->findOrFail($id);
 					break;
 				default:
@@ -567,15 +567,15 @@ class ExamController extends Controller
 			$data = [];
 			$exam = Exam::with('course.enrollments.user');
 			switch ($user->role_id) {
-				case Role::ROLES['admin']:
+				case RoleType::ADMIN->value:
 					break;
-				case Role::ROLES['student']:
+				case RoleType::STUDENT->value:
 					$exam = $exam
 						->whereHas('course.enrollments', function ($query) use ($user) {
 							$query->where('student_id', '=', $user->id);
 						});
 					break;
-				case Role::ROLES['teacher']:
+				case RoleType::TEACHER->value:
 					$exam = $exam
 						->whereHas('course.teacher', function ($query) use ($user) {
 							$query->where('id', '=', $user->id);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\RoleType;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Course\IndexRequest;
@@ -10,7 +11,6 @@ use App\Http\Requests\Course\UpdateRequest;
 use App\Http\Requests\Course\UpdateStudentsRequest;
 use App\Models\Course;
 use App\Models\Enrollment;
-use App\Models\Role;
 use App\Models\Semester;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -46,7 +46,7 @@ class CourseController extends Controller
 			if ($semester->isOver()) {
 				return Reply::error('app.errors.semester_end', [], 400);
 			}
-			User::where('role_id', '=', Role::ROLES['teacher'])
+			User::where('role_id', '=', RoleType::TEACHER)
 				->select('id')->findOrFail($request->teacher_id);
 			Course::create($data);
 			DB::commit();
@@ -91,7 +91,7 @@ class CourseController extends Controller
 			if ($target_course->semester->isOver()) {
 				return Reply::error('app.errors.semester_end', [], 400);
 			}
-			User::where('role_id', '=', Role::ROLES['teacher'])
+			User::where('role_id', '=', RoleType::TEACHER)
 				->select('id')->findOrFail($request->teacher_id);
 			$target_course->update($data);
 			DB::commit();
@@ -146,7 +146,7 @@ class CourseController extends Controller
 					->whereIn('student_id', $request->student_ids)
 					->pluck('student_id')->toArray();
 
-				$student_ids = User::where('role_id', '=', Role::ROLES['student'])
+				$student_ids = User::where('role_id', '=', RoleType::STUDENT)
 					->whereIn('id', $request->student_ids)
 					->pluck('id');
 
