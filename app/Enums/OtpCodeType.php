@@ -2,8 +2,12 @@
 
 namespace App\Enums;
 
+use App\Traits\EnumResolver;
+
 enum OtpCodeType: string
 {
-	case VerifyEmail = 'verify_email';
-	case PasswordReset = 'password_reset';
+	use EnumResolver;
+
+	case VERIFY_EMAIL = 'verify_email';
+	case PASSWORD_RESET = 'password_reset';
 }

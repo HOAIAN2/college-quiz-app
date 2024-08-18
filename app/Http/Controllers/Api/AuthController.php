@@ -101,7 +101,7 @@ class AuthController extends Controller
 			OtpCode::create([
 				'user_id' => $user->id,
 				'code' => $code,
-				'type' => OtpCodeType::VerifyEmail
+				'type' => OtpCodeType::VERIFY_EMAIL
 			]);
 
 			$verify_email = new VerifyEmail($code);
@@ -128,7 +128,7 @@ class AuthController extends Controller
 			}
 
 			$otp_code = $user->otp_codes()
-				->where('type', OtpCodeType::VerifyEmail)
+				->where('type', OtpCodeType::VERIFY_EMAIL)
 				->where('code', $request->verify_code)
 				->first();
 
@@ -165,7 +165,7 @@ class AuthController extends Controller
 			OtpCode::create([
 				'user_id' => $user->id,
 				'code' => $code,
-				'type' => OtpCodeType::PasswordReset
+				'type' => OtpCodeType::PASSWORD_RESET
 			]);
 
 			$password_reset_email = new PasswordResetEmail($code);
@@ -188,7 +188,7 @@ class AuthController extends Controller
 			}
 
 			$is_valid_otp = $user->otp_codes()
-				->where('type', OtpCodeType::PasswordReset)
+				->where('type', OtpCodeType::PASSWORD_RESET)
 				->where('code', $request->verify_code)
 				->exists();
 
@@ -214,7 +214,7 @@ class AuthController extends Controller
 			}
 
 			$otp_code = $user->otp_codes()
-				->where('type', OtpCodeType::PasswordReset)
+				->where('type', OtpCodeType::PASSWORD_RESET)
 				->where('code', $request->verify_code)
 				->first();
 
