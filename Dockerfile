@@ -54,15 +54,6 @@ RUN sed -i 's/^pm.max_children = .*/pm.max_children = 25/' /usr/local/etc/php-fp
     sed -i 's/^pm.max_spare_servers = .*/pm.max_spare_servers = 20/' /usr/local/etc/php-fpm.d/www.conf && \
     sed -i 's/^pm.max_requests = .*/pm.max_requests = 500/' /usr/local/etc/php-fpm.d/www.conf
 
-
-# Configure PHP-FPM to listen on a Unix socket with proper permissions
-RUN sed -i 's|listen = 9000|listen = /var/run/php-fpm.sock|' /usr/local/etc/php-fpm.d/zz-docker.conf && \
-    mkdir -p /var/run/php-fpm && \
-    chown -R www-data:www-data /var/run/php-fpm && \
-    echo "listen.owner = www-data" >> /usr/local/etc/php-fpm.d/www.conf && \
-    echo "listen.group = www-data" >> /usr/local/etc/php-fpm.d/www.conf && \
-    echo "listen.mode = 0660" >> /usr/local/etc/php-fpm.d/www.conf
-
 EXPOSE 80
 
 CMD ["sh", "-c", "php-fpm & nginx -g 'daemon off;' & crond -f"]
