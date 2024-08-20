@@ -38,7 +38,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts && \
 	php artisan optimize:clear && \
 	rm -f storage/logs/laravel.log && \
-	rm -f storage/framework/sessions/* && \
+	rm -rf storage/framework/sessions/* && \
 	php artisan optimize
 
 # Copy the built frontend assets to the Laravel public directory
