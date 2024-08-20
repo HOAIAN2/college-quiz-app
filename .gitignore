@@ -1,58 +1,10 @@
-/.phpunit.cache
-/node_modules
-/public/build
-/public/assets
-/public/langs
-/public/index.html
-/public/hot
-/public/icon.png
-/public/favicon.ico
-/public/fonts
-/public/storage
-/storage/*.key
-/vendor
+# Docker things
+docker/php/zz-docker.conf
 
-/resources/views/index.blade.php
-
-.env
-.env.backup
-.env.production
-.phpunit.result.cache
-Homestead.json
-Homestead.yaml
-auth.json
-npm-debug.log
-yarn-error.log
+# Ide
 /.fleet
 /.idea
 /.vscode
-*.zip
-*.tar.gz
-# Logs
-client/logs
-client/*.log
-client/npm-debug.log*
-client/yarn-debug.log*
-client/yarn-error.log*
-client/pnpm-debug.log*
-client/lerna-debug.log*
 
-client/node_modules
-client/dist
-client/dist-ssr
-client/*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-.phpactor.json
-
-# Docker things
-docker/php/zz-docker.conf
+# Build file
+*tar.gz

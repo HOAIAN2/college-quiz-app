@@ -1,0 +1,1 @@
+const e={add:"Add",delete:"Delete",deleteMessage:"Are you sure you want to delete @n records? This action cannot be undone.",langYes:"Yes",langNo:"No",save:"Save",name:"Name",shortcode:"Shortcode",chapters:"Chapters",questions:"Questions"};export{e as default};

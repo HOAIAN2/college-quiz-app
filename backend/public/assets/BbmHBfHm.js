@@ -1,0 +1,1 @@
+const e={create:"Tạo môn học",shortcode:"Mã số",name:"Tên",save:"Lưu",saveMore:"Lưu thêm"};export{e as default};

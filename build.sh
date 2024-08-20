@@ -1,11 +1,13 @@
 #!/bin/sh
-cd client
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+cd frontend
 npm run build
-rm ../public/index.html
-rm ../public/favicon.ico
-rm -rf ../public/assets
-cp -r ./dist/* ../public
-cd ..
+cd $SCRIPT_DIR
+cd backend
+rm public/index.html
+rm public/favicon.ico
+rm -rf public/assets
+cp -r ../frontend/dist/* public
 echo 'Copying distribution to server...'
 if [ ! -d ./resources/views ]; then
     mkdir ./resources/views
