@@ -53,3 +53,6 @@ client/*.local
 *.sln
 *.sw?
 .phpactor.json
+
+# Docker things
+docker/php/zz-docker.conf

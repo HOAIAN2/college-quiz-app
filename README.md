@@ -86,6 +86,7 @@ You can host this with `docker` by run simple command
 ```console
 sudo docker composer up
 ```
+Docker settings save in `docker` directory, `Nginx` connect to `php-fpm` via unix socket instead of normal TCP socket. You can custom `php-fpm` settings by modify the `zz-docker.conf`, but you have to create the file first by copy content from `zz-docker.example.conf`
 
 I'm only setup `Nginx` with `php-fpm` so you have to host the database yourself, just modify the `docker-compose.yml` or using any other way to host you database.
 

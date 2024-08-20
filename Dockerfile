@@ -45,14 +45,11 @@ RUN chown -R www-data:www-data /var/www/college-quiz-app/storage /var/www/colleg
 
 COPY ./docker/nginx.conf /etc/nginx/http.d/college-quiz-app.conf
 COPY ./docker/cronjob /etc/crontabs/root
+COPY ./docker/php/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 
-RUN sed -i 's/access.log = \/proc\/self\/fd\/2/access.log = \/proc\/self\/fd\/1/g' /usr/local/etc/php-fpm.d/docker.conf
-
-RUN sed -i 's/^pm.max_children = .*/pm.max_children = 25/' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/^pm.start_servers = .*/pm.start_servers = 10/' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/^pm.min_spare_servers = .*/pm.min_spare_servers = 1/' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/^pm.max_spare_servers = .*/pm.max_spare_servers = 20/' /usr/local/etc/php-fpm.d/www.conf && \
-    sed -i 's/^pm.max_requests = .*/pm.max_requests = 500/' /usr/local/etc/php-fpm.d/www.conf
+# Handle php-fpm via unix socket
+RUN mkdir -p /var/run/php-fpm && \
+    chown -R www-data:www-data /var/run/php-fpm 
 
 EXPOSE 80
 
