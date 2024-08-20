@@ -2084,16 +2084,16 @@
         },
         {
             "name": "maatwebsite/excel",
-            "version": "3.1.55",
+            "version": "3.1.56",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SpartnerNL/Laravel-Excel.git",
-                "reference": "6d9d791dcdb01a9b6fd6f48d46f0d5fff86e6260"
+                "reference": "0381d0225b42c3f328d90f0dd05ca071fca3953f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SpartnerNL/Laravel-Excel/zipball/6d9d791dcdb01a9b6fd6f48d46f0d5fff86e6260",
-                "reference": "6d9d791dcdb01a9b6fd6f48d46f0d5fff86e6260",
+                "url": "https://api.github.com/repos/SpartnerNL/Laravel-Excel/zipball/0381d0225b42c3f328d90f0dd05ca071fca3953f",
+                "reference": "0381d0225b42c3f328d90f0dd05ca071fca3953f",
                 "shasum": ""
             },
             "require": {
@@ -2149,7 +2149,7 @@
             ],
             "support": {
                 "issues": "https://github.com/SpartnerNL/Laravel-Excel/issues",
-                "source": "https://github.com/SpartnerNL/Laravel-Excel/tree/3.1.55"
+                "source": "https://github.com/SpartnerNL/Laravel-Excel/tree/3.1.56"
             },
             "funding": [
                 {
@@ -2161,7 +2161,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-02-20T08:27:10+00:00"
+            "time": "2024-08-19T09:40:43+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -2454,16 +2454,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "3.7.0",
+            "version": "3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "cb4374784c87d0a0294e8513a52eb63c0aff3139"
+                "reference": "bbd3eef89af8ba66a3aa7952b5439168fbcc529f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/cb4374784c87d0a0294e8513a52eb63c0aff3139",
-                "reference": "cb4374784c87d0a0294e8513a52eb63c0aff3139",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/bbd3eef89af8ba66a3aa7952b5439168fbcc529f",
+                "reference": "bbd3eef89af8ba66a3aa7952b5439168fbcc529f",
                 "shasum": ""
             },
             "require": {
@@ -2556,7 +2556,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-16T22:29:20+00:00"
+            "time": "2024-08-19T06:22:39+00:00"
         },
         {
             "name": "nette/schema",
