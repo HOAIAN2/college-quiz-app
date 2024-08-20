@@ -8,3 +8,8 @@ docker/php/zz-docker.conf
 
 # Build file
 *tar.gz
+
+# ENV
+.env
+.env.backup
+.env.production
