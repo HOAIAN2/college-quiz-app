@@ -23,6 +23,13 @@ RUN apk add --no-cache \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install -j$(nproc) gd intl opcache pdo pdo_mysql zip
 
+# Redis extension
+RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS} \
+    && pecl install redis \
+    && docker-php-ext-enable redis \
+    && apk del pcre-dev ${PHPIZE_DEPS} \
+    && rm -rf /tmp/pear
+
 WORKDIR /var/www/college-quiz-app
 COPY . .
 
