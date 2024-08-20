@@ -19,3 +19,7 @@ yarn-error.log
 /.idea
 /.vscode
 /resources/views/index.blade.php
+
+# Build
+/public/assets
+/public/index.html

@@ -1,1 +1,0 @@
-const s={dashboard:"Dashboard",subjects:"Subjects",courses:"Course",schoolClass:"School Class",faculty:"Faculty",profile:"Profile",exams:"Exam",questions:"Questions",teachers:"Teachers",students:"Students",permission:"Permission",semester:"Semester",settings:"Settings",term:"Term",privacy:"Privacy",security:"Security",contact:"Contact",docs:"Docs"};export{s as default};
