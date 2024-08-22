@@ -4,12 +4,13 @@ import {
 	IoMdAddCircleOutline,
 } from 'react-icons/io';
 import { RxCross2 } from 'react-icons/rx';
-import appStyles from '../App.module.css';
 import CSS_TIMING from '../constants/css-timing';
 import useLanguage from '../hooks/useLanguage';
-import styles from '../styles/ImportData.module.css';
 import css from '../utils/css';
 import Loading from './Loading';
+
+import appStyles from '@styles/App.module.css';
+import styles from './styles/ImportData.module.css';
 
 type ImportDataProps = {
 	title?: string;

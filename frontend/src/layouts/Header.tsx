@@ -9,9 +9,10 @@ import { apiLogout } from '../api/auth';
 import CustomSelect from '../components/CustomSelect';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
-import styles from '../styles/Header.module.css';
-import sidebarStyles from '../styles/Sidebar.module.css';
 import languageUtils from '../utils/languageUtils';
+
+import styles from './styles/Header.module.css';
+import sidebarStyles from './styles/Sidebar.module.css';
 
 export default function Header() {
 	const { DOM, user, appLanguage, appTitle } = useAppContext();

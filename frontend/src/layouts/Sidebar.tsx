@@ -22,9 +22,10 @@ import { Link } from 'react-router-dom';
 import { API_HOST } from '../config/env';
 import useAppContext from '../hooks/useAppContext';
 import useLanguage from '../hooks/useLanguage';
-import styles from '../styles/Sidebar.module.css';
 import css from '../utils/css';
 import getMetaContent from '../utils/getMetaContent';
+
+import styles from './styles/Sidebar.module.css';
 
 export default function Sidebar() {
 	const { DOM, permissions, appTitle } = useAppContext();

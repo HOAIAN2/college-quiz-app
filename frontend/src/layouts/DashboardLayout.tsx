@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { apiGetUser } from '../api/user';
 import useAppContext from '../hooks/useAppContext';
-import styles from '../styles/DashboardLayout.module.css';
 import Header from './Header';
 import Sidebar from './Sidebar';
+
+import styles from './styles/DashboardLayout.module.css';
 
 export default function DashboardLayout() {
 	const { user, permissions } = useAppContext();

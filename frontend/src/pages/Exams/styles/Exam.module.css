@@ -1,0 +1,166 @@
+.page-content {
+	width: 100%;
+	height: 100%;
+	/* height: calc(100% - 50px); */
+	position: relative;
+	/* background: white; */
+	overflow-y: auto;
+	padding: 20px;
+}
+
+.header {
+	height: 50px;
+	display: flex;
+	align-items: center;
+}
+
+.header>.title {
+	font-size: larger;
+}
+
+.exam-info-container {
+	width: 100%;
+	height: calc(fit-content + 50px);
+}
+
+.exam-info {
+	height: fit-content;
+	display: flex;
+	flex-direction: column;
+}
+
+.group-infos {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.wrap-item {
+	position: relative;
+	height: 90px;
+	flex: 0 0 30%;
+}
+
+.supervisors-container {
+	flex: 0 0 100%;
+}
+
+.wrap-item>* {
+	font-size: 16px !important;
+}
+
+.action-items {
+	margin-top: 10px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	flex-direction: row-reverse;
+	gap: 10px;
+}
+
+.action-items>button {
+	min-width: 80px;
+	width: fit-content;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.pending {
+	opacity: 0.7;
+	cursor: default;
+	pointer-events: none;
+}
+
+.result-container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.table-container {
+	margin-bottom: 30px;
+	width: fit-content;
+	height: fit-content;
+	padding: 15px;
+	border-radius: var(--border-radius-low);
+	border: 1px solid var(--color-gray);
+	background: white;
+	overflow-x: auto;
+}
+
+.table {
+	display: block;
+	width: fit-content;
+	height: fit-content;
+	border-collapse: collapse;
+}
+
+.table>tbody {
+	width: fit-content;
+}
+
+.table>tbody>tr,
+th {
+	height: 30px;
+}
+
+.table>tbody>tr {
+	border-bottom: 1px solid var(--color-shadow);
+	cursor: pointer;
+}
+
+.table>tbody>tr:hover {
+	opacity: 0.8;
+}
+
+.column {
+	white-space: nowrap;
+	height: 30px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.column.tiny {
+	width: 30px;
+}
+
+.column.small {
+	width: 50px;
+}
+
+.column.medium {
+	width: 100px;
+	text-align: center;
+}
+
+.column.large {
+	width: 150px;
+}
+
+.column.super-large {
+	width: 250px;
+}
+
+.refreshing>svg {
+	animation: rotate 0.4s infinite ease;
+}
+
+@media (width<=800px) {
+	.group-infos {
+		flex-direction: column;
+		padding-right: 20px;
+		gap: 20px;
+	}
+}
+
+@keyframes rotate {
+	0% {
+		rotate: 0;
+	}
+
+	100% {
+		rotate: 360deg;
+	}
+}

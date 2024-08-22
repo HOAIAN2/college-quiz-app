@@ -1,3 +1,4 @@
+import SuspenseLoading from '@components/SuspenseLoading';
 import {
 	QueryClient,
 	QueryClientProvider,
@@ -8,34 +9,34 @@ import { Suspense, lazy } from 'react';
 import 'react-datetime/css/react-datetime.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Toaster } from 'sonner';
-import './App.module.css';
-import SuspenseLoading from './components/SuspenseLoading';
 import useAppContext from './hooks/useAppContext';
 import AuthLayout from './layouts/AuthLayout';
 import DashboardLayout from './layouts/DashboardLayout';
-import ForgotPassword from './pages/ForgotPassword';
-import Login from './pages/Login';
-import NotFound from './pages/NotFound';
-import Profile from './pages/Profile';
-import VerifyEmail from './pages/VerifyEmail';
+import ForgotPassword from './pages/Auth/ForgotPassword';
+import Login from './pages/Auth/Login';
+import VerifyEmail from './pages/Auth/VerifyEmail';
+import NotFound from './pages/Errors/NotFound';
+import Profile from './pages/Profile/Profile';
 
-const Dashboard = lazy(() => import('./pages/Dashboard'));
-const Users = lazy(() => import('./pages/Users'));
-const Permissisons = lazy(() => import('./pages/Permissisons'));
-const RolePermissions = lazy(() => import('./pages/RolePermissions'));
-const Faculties = lazy(() => import('./pages/Faculties'));
-const SchoolClasses = lazy(() => import('./pages/SchoolClasses'));
-const Subjects = lazy(() => import('./pages/Subjects'));
-const Subject = lazy(() => import('./pages/Subject'));
-const Questions = lazy(() => import('./pages/Questions'));
-const Semesters = lazy(() => import('./pages/Semesters'));
-const Courses = lazy(() => import('./pages/Courses'));
-const Course = lazy(() => import('./pages/Course'));
-const Semester = lazy(() => import('./pages/Semester'));
-const Exams = lazy(() => import('./pages/Exams'));
-const Exam = lazy(() => import('./pages/Exam'));
-const TakeExam = lazy(() => import('./pages/TakeExam'));
-const Settings = lazy(() => import('./pages/Settings'));
+import './styles/App.module.css';
+
+const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
+const Users = lazy(() => import('./pages/Users/Users'));
+const Permissisons = lazy(() => import('./pages/Permissisons/Permissisons'));
+const RolePermissions = lazy(() => import('./pages/Permissisons/RolePermissions'));
+const Faculties = lazy(() => import('./pages/Faculties/Faculties'));
+const SchoolClasses = lazy(() => import('./pages/SchoolClasses/SchoolClasses'));
+const Subjects = lazy(() => import('./pages/Subjects/Subjects'));
+const Subject = lazy(() => import('./pages/Subjects/Subject'));
+const Questions = lazy(() => import('./pages/Questions/Questions'));
+const Semesters = lazy(() => import('./pages/Semesters/Semesters'));
+const Courses = lazy(() => import('./pages/Courses/Courses'));
+const Course = lazy(() => import('./pages/Courses/Course'));
+const Semester = lazy(() => import('./pages/Semesters/Semester'));
+const Exams = lazy(() => import('./pages/Exams/Exams'));
+const Exam = lazy(() => import('./pages/Exams/Exam'));
+const TakeExam = lazy(() => import('./pages/Exams/TakeExam'));
+const Settings = lazy(() => import('./pages/Settings/Settings'));
 
 const router = createBrowserRouter([
 	{

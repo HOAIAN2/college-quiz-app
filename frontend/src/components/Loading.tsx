@@ -1,5 +1,6 @@
-import appStyles from '../App.module.css';
-import useLanguage from '../hooks/useLanguage';
+import useLanguage from '@hooks/useLanguage';
+
+import appStyles from '@styles/App.module.css';
 
 export default function Loading() {
 	const language = useLanguage('component.loading');
