@@ -21,7 +21,12 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
-		"removeComments": true
+		"removeComments": true,
+		"paths": {
+			"@components/*": [
+				"./src/components/*"
+			]
+		}
 	},
 	"include": [
 		"src"
