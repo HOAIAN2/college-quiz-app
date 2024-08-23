@@ -49,6 +49,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
 		$middleware->alias([
 			'auth' => \App\Http\Middleware\Authenticate::class,
+			'validate-token' => \App\Http\Middleware\ValidateToken::class
 		]);
 	})
 	->withExceptions(function (Exceptions $exceptions) {
