@@ -6,7 +6,6 @@ import {
 import moment from 'moment';
 import 'moment/dist/locale/vi';
 import { Suspense, lazy } from 'react';
-import 'react-datetime/css/react-datetime.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import useAppContext from './hooks/useAppContext';
@@ -18,6 +17,7 @@ import VerifyEmail from './pages/Auth/VerifyEmail';
 import NotFound from './pages/Errors/NotFound';
 import Profile from './pages/Profile/Profile';
 
+import 'react-datetime/css/react-datetime.css';
 import './styles/App.module.css';
 
 const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
