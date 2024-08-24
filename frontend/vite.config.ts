@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
 	plugins: [react(), tsconfigPaths()],
 	server: {
 		host: '0.0.0.0',
@@ -11,7 +11,7 @@ export default defineConfig({
 	},
 	css: {
 		modules: {
-			generateScopedName: '[hash:base64]',
+			generateScopedName: mode === 'production' ? '[hash:base64]' : '[name]__[local]___[hash:base64:5]',
 		}
 	},
 	build: {
@@ -28,4 +28,4 @@ export default defineConfig({
 		__APP_VERSION__: JSON.stringify('1.0.0'),
 		__APP_BUILD_DATE__: JSON.stringify(new Date().toISOString()),
 	}
-});
+}));
