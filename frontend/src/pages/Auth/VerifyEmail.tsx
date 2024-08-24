@@ -47,7 +47,7 @@ export default function VerifyEmail() {
 				<p>{language?.verificationMessage} <b>{user?.email}</b>.</p>
 				<p>{language?.enterCodePrompt}</p>
 				<div className={styles['wrap-item']}>
-					<label className={styles['required']} htmlFor='verify_code'>{language?.verificationCodeLabel}</label>
+					<label className={appStyles['required']} htmlFor='verify_code'>{language?.verificationCodeLabel}</label>
 					<input
 						required
 						id='verify_code'

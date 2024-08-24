@@ -128,7 +128,7 @@ export default function CreateQuestion({
 								/>
 							</div>
 							<div className={globalStyles['wrap-item']}>
-								<label className={globalStyles['required']}>{language?.level}</label>
+								<label className={appStyles['required']}>{language?.level}</label>
 								<CustomSelect
 									name='level'
 									defaultOption={
@@ -149,7 +149,7 @@ export default function CreateQuestion({
 								/>
 							</div>
 							<div className={css(globalStyles['wrap-item'], globalStyles['textarea'])}>
-								<label className={globalStyles['required']} htmlFor='content'>{language?.content}</label>
+								<label className={appStyles['required']} htmlFor='content'>{language?.content}</label>
 								<textarea
 									onChange={autoSizeTextArea}
 									name='content' id='content'
@@ -186,7 +186,7 @@ export default function CreateQuestion({
 										<div className={styles['wrap-label']}>
 											<label
 												style={{ cursor: 'pointer' }}
-												className={globalStyles['required']}
+												className={appStyles['required']}
 												onClick={() => {
 													setTrueOptionKey(String(option.key));
 												}}

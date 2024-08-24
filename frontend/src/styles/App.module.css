@@ -113,6 +113,12 @@
 	border-color: red;
 }
 
+label.required::after {
+	content: "*";
+	color: red;
+	margin-left: 5px;
+}
+
 .data-loading {
 	width: 100px;
 	height: 30px;

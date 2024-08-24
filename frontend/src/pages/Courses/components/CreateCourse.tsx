@@ -128,7 +128,7 @@ export default function CreateCourse({
 						<input name='semester_id' value={semester.id} readOnly hidden />
 						<div className={styles['group-inputs']}>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
+								<label className={appStyles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 								<input
 									id='shortcode'
 									name='shortcode'
@@ -138,7 +138,7 @@ export default function CreateCourse({
 									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='name'>{language?.name}</label>
+								<label className={appStyles['required']} htmlFor='name'>{language?.name}</label>
 								<input
 									id='name'
 									name='name'
@@ -148,7 +148,7 @@ export default function CreateCourse({
 							<div
 								style={{ zIndex: 2 }}
 								className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='teacher_id'>{language?.teacher}</label>
+								<label className={appStyles['required']} htmlFor='teacher_id'>{language?.teacher}</label>
 								<CustomDataList
 									name='teacher_id'
 									onInput={e => { setQueryUser(e.currentTarget.value); }}
@@ -162,7 +162,7 @@ export default function CreateCourse({
 								/>
 							</div>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='subject_id'>{language?.subject}</label>
+								<label className={appStyles['required']} htmlFor='subject_id'>{language?.subject}</label>
 								<CustomDataList
 									name='subject_id'
 									onInput={e => { setQuerySubject(e.currentTarget.value); }}

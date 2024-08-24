@@ -114,7 +114,7 @@ export default function ViewSchoolClass({
 									className={styles['form-data']}>
 									<div className={styles['group-inputs']}>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
+											<label className={appStyles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 											<input
 												id='shortcode'
 												disabled={disabledUpdate}
@@ -124,7 +124,7 @@ export default function ViewSchoolClass({
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='name'>{language?.name}</label>
+											<label className={appStyles['required']} htmlFor='name'>{language?.name}</label>
 											<input
 												id='name'
 												disabled={disabledUpdate}
@@ -134,7 +134,7 @@ export default function ViewSchoolClass({
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
+											<label className={appStyles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
 											<CustomDataList
 												name='faculty_id'
 												disabled={disabledUpdate}

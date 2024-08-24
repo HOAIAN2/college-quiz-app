@@ -84,21 +84,21 @@ export default function ChangePassword({
 					className={styles['form-data']}>
 					<div className={styles['group-inputs']}>
 						<div className={styles['wrap-item']}>
-							<label className={styles['required']} htmlFor=''>{language?.password}</label>
+							<label className={appStyles['required']} htmlFor=''>{language?.password}</label>
 							<input
 								name='current_password'
 								className={css(appStyles['input-d'], styles['input-item'])}
 								type='password' />
 						</div>
 						<div className={styles['wrap-item']}>
-							<label className={styles['required']} htmlFor=''>{language?.newPassword}</label>
+							<label className={appStyles['required']} htmlFor=''>{language?.newPassword}</label>
 							<input
 								name='password'
 								className={css(appStyles['input-d'], styles['input-item'])}
 								type='password' />
 						</div>
 						<div className={styles['wrap-item']}>
-							<label className={styles['required']} htmlFor=''>{language?.confirmPassword}</label>
+							<label className={appStyles['required']} htmlFor=''>{language?.confirmPassword}</label>
 							<input
 								name='password_confirmation'
 								className={css(appStyles['input-d'], styles['input-item'])}

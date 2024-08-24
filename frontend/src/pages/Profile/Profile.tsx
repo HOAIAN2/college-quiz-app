@@ -83,7 +83,7 @@ export default function Profile() {
 						<input name='is_active' defaultValue='1' hidden />
 						<div className={styles['group-inputs']}>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='email'>{language?.email}</label>
+								<label className={appStyles['required']} htmlFor='email'>{language?.email}</label>
 								<input
 									id='email'
 									disabled={disabledUpdate}
@@ -103,7 +103,7 @@ export default function Profile() {
 								/>
 							</div>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='first_name'>{language?.firstName}</label>
+								<label className={appStyles['required']} htmlFor='first_name'>{language?.firstName}</label>
 								<input
 									id='first_name'
 									disabled={disabledUpdate}
@@ -113,7 +113,7 @@ export default function Profile() {
 								/>
 							</div>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='last_name'>{language?.lastName}</label>
+								<label className={appStyles['required']} htmlFor='last_name'>{language?.lastName}</label>
 								<input
 									id='last_name'
 									disabled={disabledUpdate}
@@ -123,7 +123,7 @@ export default function Profile() {
 								/>
 							</div>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
+								<label className={appStyles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 								<input
 									id='shortcode'
 									disabled={disabledUpdate}
@@ -134,7 +134,7 @@ export default function Profile() {
 							</div>
 							{queryData.data?.user.role.name === 'student' ?
 								<div className={styles['wrap-item']}>
-									<label className={styles['required']} htmlFor='school_class'>{language?.class}</label>
+									<label className={appStyles['required']} htmlFor='school_class'>{language?.class}</label>
 									<input
 										id='school_class'
 										disabled={disabledUpdate}
@@ -144,7 +144,7 @@ export default function Profile() {
 									/>
 								</div> : queryData.data?.user.role.name === 'teacher'
 									? <div className={styles['wrap-item']}>
-										<label className={styles['required']} htmlFor='faculty'>{language?.faculty}</label>
+										<label className={appStyles['required']} htmlFor='faculty'>{language?.faculty}</label>
 										<input
 											id='faculty'
 											disabled={disabledUpdate}
@@ -155,7 +155,7 @@ export default function Profile() {
 									</div> : null
 							}
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor=''>{language?.genders.gender}</label>
+								<label className={appStyles['required']} htmlFor=''>{language?.genders.gender}</label>
 								<CustomSelect
 									name='gender'
 									defaultOption={
@@ -168,7 +168,7 @@ export default function Profile() {
 								/>
 							</div>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='address'>{language?.address}</label>
+								<label className={appStyles['required']} htmlFor='address'>{language?.address}</label>
 								<input
 									id='address'
 									disabled={disabledUpdate}
@@ -178,7 +178,7 @@ export default function Profile() {
 								/>
 							</div>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
+								<label className={appStyles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
 								<DatePicker
 									initialValue={new Date(queryData.data.user.birthDate)}
 									inputProps={

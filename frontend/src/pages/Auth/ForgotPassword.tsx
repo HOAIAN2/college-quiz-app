@@ -71,7 +71,7 @@ export default function ForgotPassword() {
 				<h2>{language?.forgotPassword}</h2>
 				<p>{language?.enterEmail}</p>
 				<div className={styles['wrap-item']}>
-					<label className={styles['required']} htmlFor='email'>{language?.email}</label>
+					<label className={appStyles['required']} htmlFor='email'>{language?.email}</label>
 					<input
 						required
 						id='email'
@@ -96,7 +96,7 @@ export default function ForgotPassword() {
 				<p>{language?.emailSentTo} <b>{atob(String(searchParams.get('email')))}</b>.</p>
 				<p>{language?.enterRecoveryCode}</p>
 				<div className={styles['wrap-item']}>
-					<label className={styles['required']} htmlFor='verify_code'>{language?.recoveryCode}</label>
+					<label className={appStyles['required']} htmlFor='verify_code'>{language?.recoveryCode}</label>
 					<input
 						id='verify_code'
 						name='verify_code'
@@ -134,7 +134,7 @@ export default function ForgotPassword() {
 				<input hidden readOnly type='text' name='email' value={atob(String(searchParams.get('email')))} />
 				<input hidden readOnly type='text' name='verify_code' value={atob(String(searchParams.get('verify_code')))} />
 				<div className={styles['wrap-item']}>
-					<label className={styles['required']} htmlFor='password'>{language?.password}</label>
+					<label className={appStyles['required']} htmlFor='password'>{language?.password}</label>
 					<input
 						id='password'
 						name='password'
@@ -143,7 +143,7 @@ export default function ForgotPassword() {
 					/>
 				</div>
 				<div className={styles['wrap-item']}>
-					<label className={styles['required']} htmlFor='password_confirmation'>{language?.confirmPassword}</label>
+					<label className={appStyles['required']} htmlFor='password_confirmation'>{language?.confirmPassword}</label>
 					<input
 						id='password_confirmation'
 						name='password_confirmation'

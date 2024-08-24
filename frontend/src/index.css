@@ -58,6 +58,10 @@ li {
 	list-style: none;
 }
 
+label {
+	display: block;
+}
+
 #loader {
 	position: absolute;
 	height: 5px;

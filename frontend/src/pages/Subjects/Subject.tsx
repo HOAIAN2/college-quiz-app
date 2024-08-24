@@ -116,7 +116,7 @@ export default function Subject() {
 									<input name='is_active' defaultValue='1' hidden />
 									<div className={styles['group-inputs']}>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
+											<label className={appStyles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 											<input
 												id='shortcode'
 												disabled={!permissions.has('subject_update')}
@@ -126,7 +126,7 @@ export default function Subject() {
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='name'>{language?.name}</label>
+											<label className={appStyles['required']} htmlFor='name'>{language?.name}</label>
 											<input
 												id='name'
 												disabled={!permissions.has('subject_update')}

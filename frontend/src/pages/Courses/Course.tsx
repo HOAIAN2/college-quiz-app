@@ -135,7 +135,7 @@ export default function Course() {
 									<input name='is_active' defaultValue='1' hidden />
 									<div className={styles['group-inputs']}>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
+											<label className={appStyles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 											<input
 												id='shortcode'
 												disabled={disabledUpdate}
@@ -145,7 +145,7 @@ export default function Course() {
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='name'>{language?.name}</label>
+											<label className={appStyles['required']} htmlFor='name'>{language?.name}</label>
 											<input
 												id='name'
 												disabled={disabledUpdate}
@@ -155,7 +155,7 @@ export default function Course() {
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='teacher_id'>{language?.teacher}</label>
+											<label className={appStyles['required']} htmlFor='teacher_id'>{language?.teacher}</label>
 											<CustomDataList
 												name='teacher_id'
 												onInput={e => { setQueryUser(e.currentTarget.value); }}
@@ -176,7 +176,7 @@ export default function Course() {
 											/>
 										</div>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']}>{language?.subject}</label>
+											<label className={appStyles['required']}>{language?.subject}</label>
 											<input
 												disabled
 												defaultValue={queryData.data.subject.name}

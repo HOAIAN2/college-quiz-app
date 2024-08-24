@@ -48,16 +48,6 @@ p {
 	color: red;
 }
 
-label {
-	display: block;
-}
-
-label.required::after {
-	content: "*";
-	color: red;
-	margin-left: 5px;
-}
-
 .input-item {
 	height: 40px;
 	width: 100%;

@@ -114,7 +114,7 @@ export default function CreateExam({
 							<input hidden readOnly name='course_id' value={courseDetail.id} />
 							<div className={styles['group-inputs']}>
 								<div className={styles['wrap-item']}>
-									<label className={styles['required']} htmlFor='name'>{language?.name}</label>
+									<label className={appStyles['required']} htmlFor='name'>{language?.name}</label>
 									<input
 										id='name'
 										name='name'
@@ -122,7 +122,7 @@ export default function CreateExam({
 										type='text' />
 								</div>
 								<div className={styles['wrap-item']}>
-									<label className={styles['required']} htmlFor='exam_date'>{language?.examDate}</label>
+									<label className={appStyles['required']} htmlFor='exam_date'>{language?.examDate}</label>
 									<DatePicker
 										initialValue={new Date()}
 										inputProps={
@@ -137,7 +137,7 @@ export default function CreateExam({
 									/>
 								</div>
 								<div className={styles['wrap-item']}>
-									<label className={styles['required']} htmlFor='exam_time'>{language?.examTime}</label>
+									<label className={appStyles['required']} htmlFor='exam_time'>{language?.examTime}</label>
 									<input
 										onBeforeInput={(e: React.CompositionEvent<HTMLInputElement>) => {
 											if (e.data === '.') e.preventDefault();

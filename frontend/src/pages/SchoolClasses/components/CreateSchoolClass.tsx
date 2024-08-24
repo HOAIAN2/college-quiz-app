@@ -98,7 +98,7 @@ export default function CreateSchoolClass({
 						className={styles['form-data']}>
 						<div className={styles['group-inputs']}>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
+								<label className={appStyles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 								<input
 									id='shortcode'
 									name='shortcode'
@@ -106,7 +106,7 @@ export default function CreateSchoolClass({
 									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='name'>{language?.name}</label>
+								<label className={appStyles['required']} htmlFor='name'>{language?.name}</label>
 								<input
 									id='name'
 									name='name'
@@ -114,7 +114,7 @@ export default function CreateSchoolClass({
 									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
+								<label className={appStyles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
 								<CustomDataList
 									name='faculty_id'
 									onInput={e => { setQueryFaculty(e.currentTarget.value); }}

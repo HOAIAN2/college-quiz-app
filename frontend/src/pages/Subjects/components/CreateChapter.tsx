@@ -88,7 +88,7 @@ export default function CreateChapter({
 						<div className={styles['group-inputs']}>
 							<input readOnly hidden name='subject_id' value={subjectId} />
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='chapter_number'>{language?.chapterNumber}</label>
+								<label className={appStyles['required']} htmlFor='chapter_number'>{language?.chapterNumber}</label>
 								<input
 									id='chapter_number'
 									name='chapter_number'
@@ -97,7 +97,7 @@ export default function CreateChapter({
 									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='name'>{language?.name}</label>
+								<label className={appStyles['required']} htmlFor='name'>{language?.name}</label>
 								<input
 									id='name'
 									name='name'

@@ -133,7 +133,7 @@ export default function ViewUser({
 									className={styles['form-data']}>
 									<div className={styles['group-inputs']}>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='email'>{language?.email}</label>
+											<label className={appStyles['required']} htmlFor='email'>{language?.email}</label>
 											<input
 												id='email'
 												disabled={disabledUpdate}
@@ -153,7 +153,7 @@ export default function ViewUser({
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='first_name'>{language?.firstName}</label>
+											<label className={appStyles['required']} htmlFor='first_name'>{language?.firstName}</label>
 											<input
 												id='first_name'
 												disabled={disabledUpdate}
@@ -163,7 +163,7 @@ export default function ViewUser({
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='last_name'>{language?.lastName}</label>
+											<label className={appStyles['required']} htmlFor='last_name'>{language?.lastName}</label>
 											<input
 												id='last_name'
 												disabled={disabledUpdate}
@@ -173,7 +173,7 @@ export default function ViewUser({
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
+											<label className={appStyles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 											<input
 												id='shortcode'
 												disabled={disabledUpdate}
@@ -184,7 +184,7 @@ export default function ViewUser({
 										</div>
 										{queryData.data.role.name === 'student' ?
 											<div style={{ zIndex: 3 }} className={styles['wrap-item']}>
-												<label className={styles['required']} htmlFor='school_class_id'>{language?.class}</label>
+												<label className={appStyles['required']} htmlFor='school_class_id'>{language?.class}</label>
 												<CustomDataList
 													name='school_class_id'
 													defaultOption={
@@ -204,7 +204,7 @@ export default function ViewUser({
 											</div>
 											: queryData.data.role.name === 'teacher' ?
 												<div style={{ zIndex: 3 }} className={styles['wrap-item']}>
-													<label className={styles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
+													<label className={appStyles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
 													<CustomDataList
 														name='faculty_id'
 														defaultOption={
@@ -227,7 +227,7 @@ export default function ViewUser({
 										<div
 											className={styles['wrap-item']}
 											style={{ zIndex: 2 }}>
-											<label className={styles['required']} htmlFor=''>{language?.genders.gender}</label>
+											<label className={appStyles['required']} htmlFor=''>{language?.genders.gender}</label>
 											<CustomSelect
 												name='gender'
 												defaultOption={
@@ -240,7 +240,7 @@ export default function ViewUser({
 											/>
 										</div>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='address'>{language?.address}</label>
+											<label className={appStyles['required']} htmlFor='address'>{language?.address}</label>
 											<input
 												id='address'
 												disabled={disabledUpdate}
@@ -250,7 +250,7 @@ export default function ViewUser({
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
+											<label className={appStyles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
 											<DatePicker
 												initialValue={new Date(queryData.data.birthDate)}
 												inputProps={
@@ -266,7 +266,7 @@ export default function ViewUser({
 											/>
 										</div>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor=''>{language?.status.accountStatus}</label>
+											<label className={appStyles['required']} htmlFor=''>{language?.status.accountStatus}</label>
 											<CustomSelect
 												name='is_active'
 												defaultOption={

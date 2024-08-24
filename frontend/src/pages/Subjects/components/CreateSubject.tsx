@@ -83,7 +83,7 @@ export default function CreateSubject({
 						className={styles['form-data']}>
 						<div className={styles['group-inputs']}>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
+								<label className={appStyles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 								<input
 									id='shortcode'
 									name='shortcode'
@@ -91,7 +91,7 @@ export default function CreateSubject({
 									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='name'>{language?.name}</label>
+								<label className={appStyles['required']} htmlFor='name'>{language?.name}</label>
 								<input
 									id='name'
 									name='name'

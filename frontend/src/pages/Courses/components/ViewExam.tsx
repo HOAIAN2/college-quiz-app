@@ -142,7 +142,7 @@ export default function ViewExam({
 									className={styles['form-data']}>
 									<div className={styles['group-inputs']}>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='name'>{language?.name}</label>
+											<label className={appStyles['required']} htmlFor='name'>{language?.name}</label>
 											<input
 												id='name'
 												name='name'
@@ -152,7 +152,7 @@ export default function ViewExam({
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='exam_date'>{language?.examDate}</label>
+											<label className={appStyles['required']} htmlFor='exam_date'>{language?.examDate}</label>
 											<DatePicker
 												initialValue={new Date(queryData.data.examDate)}
 												inputProps={
@@ -168,7 +168,7 @@ export default function ViewExam({
 											/>
 										</div>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='exam_time'>{language?.examTime}</label>
+											<label className={appStyles['required']} htmlFor='exam_time'>{language?.examTime}</label>
 											<input
 												onBeforeInput={(e: React.CompositionEvent<HTMLInputElement>) => {
 													if (e.data === '.') e.preventDefault();

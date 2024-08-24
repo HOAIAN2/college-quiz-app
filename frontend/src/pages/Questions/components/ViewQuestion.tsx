@@ -62,7 +62,7 @@ export default function ViewQuestion({
 	});
 	const handleUpdateQuestion = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		e.preventDefault();
-		document.querySelector(`.${styles['form-data']}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
+		document.querySelector(`.${globalStyles['form-data']}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
 			node.classList.remove('error');
 			formUtils.getParentElement(node)?.removeAttribute('data-error');
 		});
@@ -181,7 +181,7 @@ export default function ViewQuestion({
 												/>
 											</div>
 											<div className={globalStyles['wrap-item']}>
-												<label className={globalStyles['required']}>{language?.level}</label>
+												<label className={appStyles['required']}>{language?.level}</label>
 												<CustomSelect
 													name='level'
 													disabled={disabledUpdate}
@@ -203,7 +203,7 @@ export default function ViewQuestion({
 												/>
 											</div>
 											<div className={css(globalStyles['wrap-item'], globalStyles['textarea'])}>
-												<label className={globalStyles['required']} htmlFor='content'>{language?.content}</label>
+												<label className={appStyles['required']} htmlFor='content'>{language?.content}</label>
 												<textarea
 													disabled={disabledUpdate}
 													defaultValue={queryData.data.content}
@@ -246,7 +246,7 @@ export default function ViewQuestion({
 														className={css(styles['textarea-group'], globalStyles['wrap-item'], globalStyles['textarea'])}>
 														<div className={styles['wrap-label']}>
 															<label style={{ cursor: 'pointer' }}
-																className={globalStyles['required']}
+																className={appStyles['required']}
 																onClick={() => {
 																	setTrueOptionKey(String(option.key));
 																}}

@@ -91,7 +91,7 @@ export default function Semester() {
 									<input name='is_active' defaultValue='1' hidden />
 									<div className={styles['group-inputs']}>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='name'>{language?.name}</label>
+											<label className={appStyles['required']} htmlFor='name'>{language?.name}</label>
 											<input
 												id='name'
 												name='name'
@@ -101,7 +101,7 @@ export default function Semester() {
 												type='text' />
 										</div>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='start_date'>{language?.startDate}</label>
+											<label className={appStyles['required']} htmlFor='start_date'>{language?.startDate}</label>
 											<DatePicker
 												initialValue={new Date(queryData.data.startDate)}
 												inputProps={
@@ -117,7 +117,7 @@ export default function Semester() {
 											/>
 										</div>
 										<div className={styles['wrap-item']}>
-											<label className={styles['required']} htmlFor='end_date'>{language?.endDate}</label>
+											<label className={appStyles['required']} htmlFor='end_date'>{language?.endDate}</label>
 											<DatePicker
 												initialValue={new Date(queryData.data.endDate)}
 												inputProps={

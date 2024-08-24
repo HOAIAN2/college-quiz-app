@@ -124,7 +124,7 @@ export default function CreateUser({
 						className={styles['form-data']}>
 						<div className={styles['group-inputs']}>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='email'>{language?.email}</label>
+								<label className={appStyles['required']} htmlFor='email'>{language?.email}</label>
 								<input
 									id='email'
 									name='email'
@@ -140,7 +140,7 @@ export default function CreateUser({
 									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='first_name'>{language?.firstName}</label>
+								<label className={appStyles['required']} htmlFor='first_name'>{language?.firstName}</label>
 								<input
 									id='first_name'
 									name='first_name'
@@ -148,7 +148,7 @@ export default function CreateUser({
 									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='last_name'>{language?.lastName}</label>
+								<label className={appStyles['required']} htmlFor='last_name'>{language?.lastName}</label>
 								<input
 									id='last_name'
 									name='last_name'
@@ -156,7 +156,7 @@ export default function CreateUser({
 									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
+								<label className={appStyles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
 								<input
 									id='shortcode'
 									name='shortcode'
@@ -165,7 +165,7 @@ export default function CreateUser({
 							</div>
 							{role === 'student' ?
 								<div style={{ zIndex: 2 }} className={styles['wrap-item']}>
-									<label className={styles['required']} htmlFor='school_class_id'>{language?.class}</label>
+									<label className={appStyles['required']} htmlFor='school_class_id'>{language?.class}</label>
 									<CustomDataList
 										name='school_class_id'
 										onInput={e => { setQueryClass(e.currentTarget.value); }}
@@ -179,7 +179,7 @@ export default function CreateUser({
 								</div>
 								: role === 'teacher' ?
 									<div style={{ zIndex: 2 }} className={styles['wrap-item']}>
-										<label className={styles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
+										<label className={appStyles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
 										<CustomDataList
 											name='faculty_id'
 											onInput={e => { setQueryFaculty(e.currentTarget.value); }}
@@ -194,7 +194,7 @@ export default function CreateUser({
 									: null
 							}
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor=''>{language?.genders.gender}</label>
+								<label className={appStyles['required']} htmlFor=''>{language?.genders.gender}</label>
 								<CustomSelect
 									name='gender'
 									defaultOption={options[0]}
@@ -203,7 +203,7 @@ export default function CreateUser({
 								/>
 							</div>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='address'>{language?.address}</label>
+								<label className={appStyles['required']} htmlFor='address'>{language?.address}</label>
 								<input
 									id='address'
 									name='address'
@@ -211,7 +211,7 @@ export default function CreateUser({
 									type='text' />
 							</div>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
+								<label className={appStyles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
 								<DatePicker
 									initialValue={new Date()}
 									inputProps={
@@ -226,7 +226,7 @@ export default function CreateUser({
 								/>
 							</div>
 							<div className={styles['wrap-item']}>
-								<label className={styles['required']} htmlFor='password'>{language?.password}</label>
+								<label className={appStyles['required']} htmlFor='password'>{language?.password}</label>
 								<input
 									id='password'
 									name='password'

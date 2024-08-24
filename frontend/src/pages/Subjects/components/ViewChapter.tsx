@@ -105,7 +105,7 @@ export default function ViewChapter({
 								className={styles['form-data']}>
 								<div className={styles['group-inputs']}>
 									<div className={styles['wrap-item']}>
-										<label className={styles['required']} htmlFor='chapter_number'>{language?.chapterNumber}</label>
+										<label className={appStyles['required']} htmlFor='chapter_number'>{language?.chapterNumber}</label>
 										<input
 											id='chapter_number'
 											name='chapter_number'
@@ -115,7 +115,7 @@ export default function ViewChapter({
 											type='text' />
 									</div>
 									<div className={styles['wrap-item']}>
-										<label className={styles['required']} htmlFor='name'>{language?.name}</label>
+										<label className={appStyles['required']} htmlFor='name'>{language?.name}</label>
 										<input
 											id='name'
 											disabled={disabledUpdate}
