@@ -1,5 +1,6 @@
 import { apiGetUser, apiUpdateUser } from '@api/user';
 import CustomSelect from '@components/CustomSelect';
+import DatePicker from '@components/DatePicker';
 import Loading from '@components/Loading';
 import SuspenseLoading from '@components/SuspenseLoading';
 import QUERY_KEYS from '@constants/query-keys';
@@ -9,9 +10,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import createFormUtils from '@utils/createFormUtils';
 import css from '@utils/css';
 import languageUtils from '@utils/languageUtils';
-import renderMonth from '@utils/renderMonth';
 import { SyntheticEvent, useEffect, useState } from 'react';
-import Datetime from 'react-datetime';
 import { FiSave } from 'react-icons/fi';
 import { PiKey } from 'react-icons/pi';
 import ChangePassword from './components/ChangePassword';
@@ -180,9 +179,8 @@ export default function Profile() {
 							</div>
 							<div className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
-								<Datetime
+								<DatePicker
 									initialValue={new Date(queryData.data.user.birthDate)}
-									renderMonth={renderMonth}
 									inputProps={
 										{
 											id: 'birth_date',

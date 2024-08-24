@@ -1,5 +1,6 @@
 import { apiDeleteExam, apiGetExamById, apiUpdateExam } from '@api/exam';
 import { apiGetAllUser } from '@api/user';
+import DatePicker from '@components/DatePicker';
 import Loading from '@components/Loading';
 import YesNoPopUp from '@components/YesNoPopUp';
 import { AUTO_COMPLETE_DEBOUNCE } from '@config/env';
@@ -13,9 +14,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import createFormUtils from '@utils/createFormUtils';
 import css from '@utils/css';
 import languageUtils from '@utils/languageUtils';
-import renderMonth from '@utils/renderMonth';
 import { useEffect, useState } from 'react';
-import Datetime from 'react-datetime';
 import { FiSave } from 'react-icons/fi';
 import { MdDeleteOutline } from 'react-icons/md';
 import { RxCross2 } from 'react-icons/rx';
@@ -154,9 +153,8 @@ export default function ViewExam({
 										</div>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='exam_date'>{language?.examDate}</label>
-											<Datetime
+											<DatePicker
 												initialValue={new Date(queryData.data.examDate)}
-												renderMonth={renderMonth}
 												inputProps={
 													{
 														id: 'exam_date',

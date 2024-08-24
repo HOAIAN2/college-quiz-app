@@ -17,7 +17,6 @@ import VerifyEmail from './pages/Auth/VerifyEmail';
 import NotFound from './pages/Errors/NotFound';
 import Profile from './pages/Profile/Profile';
 
-import 'react-datetime/css/react-datetime.css';
 import './styles/App.module.css';
 
 const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));

@@ -1,6 +1,7 @@
 import { apiCreateExam } from '@api/exam';
 import { apiGetSubjectById } from '@api/subject';
 import { apiGetAllUser } from '@api/user';
+import DatePicker from '@components/DatePicker';
 import Loading from '@components/Loading';
 import { AUTO_COMPLETE_DEBOUNCE } from '@config/env';
 import CSS_TIMING from '@constants/css-timing';
@@ -13,9 +14,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import createFormUtils from '@utils/createFormUtils';
 import css from '@utils/css';
 import languageUtils from '@utils/languageUtils';
-import renderMonth from '@utils/renderMonth';
 import { useEffect, useState } from 'react';
-import Datetime from 'react-datetime';
 import { FiSave } from 'react-icons/fi';
 import { RxCross2 } from 'react-icons/rx';
 import { toast } from 'sonner';
@@ -124,9 +123,8 @@ export default function CreateExam({
 								</div>
 								<div className={styles['wrap-item']}>
 									<label className={styles['required']} htmlFor='exam_date'>{language?.examDate}</label>
-									<Datetime
+									<DatePicker
 										initialValue={new Date()}
-										renderMonth={renderMonth}
 										inputProps={
 											{
 												id: 'exam_date',

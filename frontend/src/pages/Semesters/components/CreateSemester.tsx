@@ -1,13 +1,12 @@
 import { apiCreateSemester } from '@api/semester';
+import DatePicker from '@components/DatePicker';
 import Loading from '@components/Loading';
 import CSS_TIMING from '@constants/css-timing';
 import useLanguage from '@hooks/useLanguage';
 import { useMutation } from '@tanstack/react-query';
 import createFormUtils from '@utils/createFormUtils';
 import css from '@utils/css';
-import renderMonth from '@utils/renderMonth';
 import { SyntheticEvent, useEffect, useState } from 'react';
-import Datetime from 'react-datetime';
 import { FiSave } from 'react-icons/fi';
 import { RxCross2 } from 'react-icons/rx';
 
@@ -94,9 +93,8 @@ export default function CreateSemester({
 							</div>
 							<div className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='start_date'>{language?.startDate}</label>
-								<Datetime
+								<DatePicker
 									initialValue={new Date()}
-									renderMonth={renderMonth}
 									inputProps={
 										{
 											id: 'start_date',
@@ -110,9 +108,8 @@ export default function CreateSemester({
 							</div>
 							<div className={styles['wrap-item']}>
 								<label className={styles['required']} htmlFor='end_date'>{language?.endDate}</label>
-								<Datetime
+								<DatePicker
 									initialValue={new Date()}
-									renderMonth={renderMonth}
 									inputProps={
 										{
 											id: 'end_date',

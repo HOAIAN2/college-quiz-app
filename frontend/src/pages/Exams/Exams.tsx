@@ -1,4 +1,5 @@
 import { apiGetExamsByMonth } from '@api/exam';
+import DatePicker from '@components/DatePicker';
 import Loading from '@components/Loading';
 import QUERY_KEYS from '@constants/query-keys';
 import useAppContext from '@hooks/useAppContext';
@@ -7,11 +8,9 @@ import useLanguage from '@hooks/useLanguage';
 import { ExamInMonth } from '@models/exam';
 import { useQuery } from '@tanstack/react-query';
 import css from '@utils/css';
-import renderMonth from '@utils/renderMonth';
 import timeUtils from '@utils/timeUtils';
 import moment from 'moment';
 import { useCallback, useEffect, useRef } from 'react';
-import Datetime from 'react-datetime';
 import { Link, Navigate, useSearchParams } from 'react-router-dom';
 
 import appStyles from '@styles/App.module.css';
@@ -84,9 +83,7 @@ export default function Exams() {
 				<section className={styles['filter-form']}>
 					<div className={styles['wrap-input-item']}>
 						<label htmlFor='month'>{language?.month}</label>
-						<Datetime
-							renderMonth={renderMonth}
-							locale={appLanguage.language}
+						<DatePicker
 							initialValue={initQueryDate()}
 							inputProps={
 								{

@@ -3,6 +3,7 @@ import { apiAutoCompleteSchoolClass } from '@api/school-class';
 import { apiGetUserById, apiUpdateUser } from '@api/user';
 import CustomDataList from '@components/CustomDataList';
 import CustomSelect from '@components/CustomSelect';
+import DatePicker from '@components/DatePicker';
 import Loading from '@components/Loading';
 import { AUTO_COMPLETE_DEBOUNCE } from '@config/env';
 import CSS_TIMING from '@constants/css-timing';
@@ -14,9 +15,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import createFormUtils from '@utils/createFormUtils';
 import css from '@utils/css';
 import languageUtils from '@utils/languageUtils';
-import renderMonth from '@utils/renderMonth';
 import { SyntheticEvent, useEffect, useState } from 'react';
-import Datetime from 'react-datetime';
 import { FiSave } from 'react-icons/fi';
 import { RxCross2 } from 'react-icons/rx';
 
@@ -252,9 +251,8 @@ export default function ViewUser({
 										</div>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
-											<Datetime
+											<DatePicker
 												initialValue={new Date(queryData.data.birthDate)}
-												renderMonth={renderMonth}
 												inputProps={
 													{
 														id: 'birth_date',

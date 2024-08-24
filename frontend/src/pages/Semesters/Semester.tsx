@@ -1,4 +1,5 @@
 import { apiDeleteSemester, apiGetSemesterById, apiUpdateSemester } from '@api/semester';
+import DatePicker from '@components/DatePicker';
 import Loading from '@components/Loading';
 import YesNoPopUp from '@components/YesNoPopUp';
 import QUERY_KEYS from '@constants/query-keys';
@@ -8,7 +9,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import createFormUtils from '@utils/createFormUtils';
 import css from '@utils/css';
 import { SyntheticEvent, useEffect, useState } from 'react';
-import Datetime from 'react-datetime';
 import { MdDeleteOutline } from 'react-icons/md';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 
@@ -102,7 +102,7 @@ export default function Semester() {
 										</div>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='start_date'>{language?.startDate}</label>
-											<Datetime
+											<DatePicker
 												initialValue={new Date(queryData.data.startDate)}
 												inputProps={
 													{
@@ -118,7 +118,7 @@ export default function Semester() {
 										</div>
 										<div className={styles['wrap-item']}>
 											<label className={styles['required']} htmlFor='end_date'>{language?.endDate}</label>
-											<Datetime
+											<DatePicker
 												initialValue={new Date(queryData.data.endDate)}
 												inputProps={
 													{
