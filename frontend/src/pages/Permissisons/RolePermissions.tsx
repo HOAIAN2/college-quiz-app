@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from './styles/RolePermissions.module.css';
+
 import { apiGetRolePermissions, apiUpdateRolePermissions } from '@api/role-permission';
 import Loading from '@components/Loading';
 import QUERY_KEYS from '@constants/query-keys';
@@ -8,9 +11,6 @@ import css from '@utils/css';
 import { useEffect } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { Navigate, useParams } from 'react-router-dom';
-
-import appStyles from '@styles/App.module.css';
-import styles from './styles/RolePermissions.module.css';
 
 export default function RolePermissions() {
 	const { permissions, appLanguage, appTitle } = useAppContext();

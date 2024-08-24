@@ -1,12 +1,12 @@
+import appStyles from '@styles/App.module.css';
+import styles from './styles/ScorePopUp.module.css';
+
+import useLanguage from '@hooks/useLanguage';
+import { ExamResult } from '@models/exam';
+import caculateScore from '@utils/caculateScore';
 import confetti from 'canvas-confetti';
 import { TiArrowBack } from 'react-icons/ti';
 import { useNavigate } from 'react-router-dom';
-import useLanguage from '../hooks/useLanguage';
-import { ExamResult } from '../models/exam';
-import caculateScore from '../utils/caculateScore';
-
-import appStyles from '@styles/App.module.css';
-import styles from './styles/ScorePopUp.module.css';
 
 type ScorePopUpProps = {
 	data: ExamResult;

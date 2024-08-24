@@ -1,9 +1,9 @@
+import appStyles from '@styles/App.module.css';
+import styles from '../styles/DashboardCard.module.css';
+
 import css from '@utils/css';
 import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-
-import appStyles from '@styles/App.module.css';
-import styles from '../styles/DashboardCard.module.css';
 
 type DashboardCardProps = {
 	to?: string;

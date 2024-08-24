@@ -1,8 +1,8 @@
+import styles from '../styles/ExamsEachMonthChart.module.css';
+
 import useAppContext from '@hooks/useAppContext';
 import Chart from 'chart.js/auto';
 import { useEffect, useRef } from 'react';
-
-import styles from '../styles/ExamsEachMonthChart.module.css';
 
 type ExamsEachMonthChartProps = {
 	data: number[];

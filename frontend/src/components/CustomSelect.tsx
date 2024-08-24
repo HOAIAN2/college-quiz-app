@@ -1,10 +1,10 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import useAppContext from '../hooks/useAppContext';
-import { Option } from '../models/option';
-import css from '../utils/css';
-
 import appStyles from '@styles/App.module.css';
 import styles from './styles/CustomSelect.module.css';
+
+import useAppContext from '@hooks/useAppContext';
+import { Option } from '@models/option';
+import css from '@utils/css';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 type CustomSelectProps = {
 	name?: string;

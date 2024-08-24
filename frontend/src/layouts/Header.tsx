@@ -1,3 +1,11 @@
+import styles from './styles/Header.module.css';
+import sidebarStyles from './styles/Sidebar.module.css';
+
+import { apiLogout } from '@api/auth';
+import CustomSelect from '@components/CustomSelect';
+import useAppContext from '@hooks/useAppContext';
+import useLanguage from '@hooks/useLanguage';
+import languageUtils from '@utils/languageUtils';
 import { useEffect, useRef } from 'react';
 import { AiOutlineUser } from 'react-icons/ai';
 import {
@@ -5,14 +13,6 @@ import {
 } from 'react-icons/bi';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
-import { apiLogout } from '../api/auth';
-import CustomSelect from '../components/CustomSelect';
-import useAppContext from '../hooks/useAppContext';
-import useLanguage from '../hooks/useLanguage';
-import languageUtils from '../utils/languageUtils';
-
-import styles from './styles/Header.module.css';
-import sidebarStyles from './styles/Sidebar.module.css';
 
 export default function Header() {
 	const { DOM, user, appLanguage, appTitle } = useAppContext();

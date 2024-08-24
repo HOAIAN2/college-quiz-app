@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from './styles/Semester.module.css';
+
 import { apiDeleteSemester, apiGetSemesterById, apiUpdateSemester } from '@api/semester';
 import DatePicker from '@components/DatePicker';
 import Loading from '@components/Loading';
@@ -11,9 +14,6 @@ import css from '@utils/css';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
-
-import appStyles from '@styles/App.module.css';
-import styles from './styles/Semester.module.css';
 
 export default function Semester() {
 	const { permissions } = useAppContext();

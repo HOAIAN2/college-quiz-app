@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '@styles/CreateModel.module.css';
+
 import { apiCreateCourse } from '@api/course';
 import { apiAutoCompleteSubject } from '@api/subject';
 import { apiAutoCompleteUser } from '@api/user';
@@ -17,9 +20,6 @@ import languageUtils from '@utils/languageUtils';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { RxCross2 } from 'react-icons/rx';
-
-import appStyles from '@styles/App.module.css';
-import styles from '@styles/CreateModel.module.css';
 
 type CreateCourseProps = {
 	semester: Semester;

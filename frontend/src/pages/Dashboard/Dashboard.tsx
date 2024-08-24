@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from './styles/Dashboard.module.css';
+
 import { apiGetDashboard } from '@api/dashboard';
 import Loading from '@components/Loading';
 import QUERY_KEYS from '@constants/query-keys';
@@ -14,9 +17,6 @@ import {
 import { Link } from 'react-router-dom';
 import DashboardCard from './components/DashboardCard';
 import ExamsEachMonthChart from './components/ExamsEachMonthChart';
-
-import appStyles from '@styles/App.module.css';
-import styles from './styles/Dashboard.module.css';
 
 export default function Dashboard() {
 	const { permissions, appLanguage } = useAppContext();

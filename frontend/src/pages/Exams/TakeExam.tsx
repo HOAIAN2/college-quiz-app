@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from './styles/TakeExam.module.css';
+
 import { apiGetTakeExam, apiSubmitExam, apiSyncExamAnswersCache } from '@api/exam';
 import Loading from '@components/Loading';
 import ScorePopUp from '@components/ScorePopUp';
@@ -15,9 +18,6 @@ import { TbSend } from 'react-icons/tb';
 import { Navigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import ExamQuestion from './components/ExamQuestion';
-
-import appStyles from '@styles/App.module.css';
-import styles from './styles/TakeExam.module.css';
 
 export default function TakeExam() {
 	const { id } = useParams();

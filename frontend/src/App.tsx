@@ -1,3 +1,5 @@
+import './styles/App.module.css';
+
 import SuspenseLoading from '@components/SuspenseLoading';
 import {
 	QueryClient,
@@ -17,7 +19,6 @@ import VerifyEmail from './pages/Auth/VerifyEmail';
 import NotFound from './pages/Errors/NotFound';
 import Profile from './pages/Profile/Profile';
 
-import './styles/App.module.css';
 
 const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
 const Users = lazy(() => import('./pages/Users/Users'));

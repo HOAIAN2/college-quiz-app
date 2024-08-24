@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from './styles/Course.module.css';
+
 import { apiDeleteCourse, apiGetCourseById, apiUpdateCourse } from '@api/course';
 import { apiAutoCompleteUser } from '@api/user';
 import CustomDataList from '@components/CustomDataList';
@@ -21,9 +24,6 @@ import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import CreateExam from './components/CreateExam';
 import UpdateCourseStudents from './components/UpdateCourseStudents';
 import ViewExam from './components/ViewExam';
-
-import appStyles from '@styles/App.module.css';
-import styles from './styles/Course.module.css';
 
 export default function Course() {
 	const { courseId } = useParams();

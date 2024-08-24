@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '@styles/Table.module.css';
+
 import useAppContext from '@hooks/useAppContext';
 import useLanguage from '@hooks/useLanguage';
 import { FacultyDetail } from '@models/faculty';
@@ -8,9 +11,6 @@ import { useState } from 'react';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { SetURLSearchParams } from 'react-router-dom';
 import ViewFaculty from './ViewFaculty';
-
-import appStyles from '@styles/App.module.css';
-import styles from '@styles/Table.module.css';
 
 type FacultiesTableProps = {
 	data?: Pagination<FacultyDetail>;

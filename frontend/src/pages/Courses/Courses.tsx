@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '@styles/CardPage.module.css';
+
 import { apiGetCourses } from '@api/course';
 import { apiGetSemesterById } from '@api/semester';
 import Loading from '@components/Loading';
@@ -13,9 +16,6 @@ import { LuBookOpenCheck } from 'react-icons/lu';
 import { RiAddFill } from 'react-icons/ri';
 import { Link, Navigate, useLocation, useParams, useSearchParams } from 'react-router-dom';
 import CreateCourse from './components/CreateCourse';
-
-import appStyles from '@styles/App.module.css';
-import styles from '@styles/CardPage.module.css';
 
 export default function Courses() {
 	const { state } = useLocation() as { state: Semester | null; };

@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
-import { Option } from '../models/option';
-import css from '../utils/css';
-
 import appStyles from '@styles/App.module.css';
 import styles from './styles/CustomDataList.module.css';
+
+import { Option } from '@models/option';
+import css from '@utils/css';
+import { useEffect, useRef, useState } from 'react';
 
 type CustomDataListProps = {
 	name?: string;

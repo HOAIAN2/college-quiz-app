@@ -1,16 +1,16 @@
+import appStyles from '@styles/App.module.css';
+import styles from './styles/ImportData.module.css';
+
+import CSS_TIMING from '@constants/css-timing';
+import useLanguage from '@hooks/useLanguage';
 import { useMutation } from '@tanstack/react-query';
+import css from '@utils/css';
 import { useEffect, useRef, useState } from 'react';
 import {
 	IoMdAddCircleOutline,
 } from 'react-icons/io';
 import { RxCross2 } from 'react-icons/rx';
-import CSS_TIMING from '../constants/css-timing';
-import useLanguage from '../hooks/useLanguage';
-import css from '../utils/css';
 import Loading from './Loading';
-
-import appStyles from '@styles/App.module.css';
-import styles from './styles/ImportData.module.css';
 
 type ImportDataProps = {
 	title?: string;

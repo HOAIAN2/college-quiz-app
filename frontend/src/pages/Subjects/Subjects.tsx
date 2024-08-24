@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '@styles/CardPage.module.css';
+
 import { apiGetSubjects } from '@api/subject';
 import Loading from '@components/Loading';
 import QUERY_KEYS from '@constants/query-keys';
@@ -11,9 +14,6 @@ import { LuBookOpenCheck } from 'react-icons/lu';
 import { RiAddFill } from 'react-icons/ri';
 import { Link, Navigate, useSearchParams } from 'react-router-dom';
 import CreateSubject from './components/CreateSubject';
-
-import appStyles from '@styles/App.module.css';
-import styles from '@styles/CardPage.module.css';
 
 export default function Subjects() {
 	const { permissions } = useAppContext();

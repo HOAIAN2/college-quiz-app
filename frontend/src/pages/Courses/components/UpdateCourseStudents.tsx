@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '../styles/UpdateCourseStudents.module.css';
+
 import { apiUpdateCourseStudents } from '@api/course';
 import { apiGetAllUser } from '@api/user';
 import Loading from '@components/Loading';
@@ -14,9 +17,6 @@ import { useEffect, useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { PiStudent } from 'react-icons/pi';
 import { RxCross2 } from 'react-icons/rx';
-
-import appStyles from '@styles/App.module.css';
-import styles from '../styles/UpdateCourseStudents.module.css';
 
 type UpdateCourseStudentsProps = {
 	courseDetail: CourseDetail;

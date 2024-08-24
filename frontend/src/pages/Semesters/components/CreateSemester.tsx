@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '@styles/CreateModel.module.css';
+
 import { apiCreateSemester } from '@api/semester';
 import DatePicker from '@components/DatePicker';
 import Loading from '@components/Loading';
@@ -9,9 +12,6 @@ import css from '@utils/css';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { RxCross2 } from 'react-icons/rx';
-
-import appStyles from '@styles/App.module.css';
-import styles from '@styles/CreateModel.module.css';
 
 type CreateSemesterProps = {
 	onMutateSuccess: () => void;

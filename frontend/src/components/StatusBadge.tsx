@@ -1,6 +1,6 @@
-import css from '../utils/css';
-
 import style from './styles/StatusBadge.module.css';
+
+import css from '@utils/css';
 
 type StatusBadgeProps = {
 	color: 'red' | 'green' | 'yellow';

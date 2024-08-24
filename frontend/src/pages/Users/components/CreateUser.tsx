@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '@styles/CreateModel.module.css';
+
 import { apiAutoCompleteFaculty } from '@api/faculty';
 import { apiAutoCompleteSchoolClass } from '@api/school-class';
 import { apiCreateUser } from '@api/user';
@@ -19,9 +22,6 @@ import { FiSave } from 'react-icons/fi';
 import {
 	RxCross2
 } from 'react-icons/rx';
-
-import appStyles from '@styles/App.module.css';
-import styles from '@styles/CreateModel.module.css';
 
 type CreateUserProps = {
 	role: RoleName;

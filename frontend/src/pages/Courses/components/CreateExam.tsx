@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '../styles/CreateViewExam.module.css';
+
 import { apiCreateExam } from '@api/exam';
 import { apiGetSubjectById } from '@api/subject';
 import { apiGetAllUser } from '@api/user';
@@ -18,9 +21,6 @@ import { useEffect, useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { RxCross2 } from 'react-icons/rx';
 import { toast } from 'sonner';
-
-import appStyles from '@styles/App.module.css';
-import styles from '../styles/CreateViewExam.module.css';
 
 type CreateExamProps = {
 	courseDetail: CourseDetail;

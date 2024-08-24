@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '@styles/CreateModel.module.css';
+
 import { apiAutoCompleteFaculty } from '@api/faculty';
 import { apiCreateSchoolClass } from '@api/school-class';
 import CustomDataList from '@components/CustomDataList';
@@ -13,9 +16,6 @@ import css from '@utils/css';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { RxCross2 } from 'react-icons/rx';
-
-import appStyles from '@styles/App.module.css';
-import styles from '@styles/CreateModel.module.css';
 
 type CreateSchoolClassProps = {
 	onMutateSuccess: () => void;

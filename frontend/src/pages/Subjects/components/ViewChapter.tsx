@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '@styles/ViewModel.module.css';
+
 import { apiDeleteChapter, apiUpdateChapter } from '@api/chapter';
 import Loading from '@components/Loading';
 import YesNoPopUp from '@components/YesNoPopUp';
@@ -12,9 +15,6 @@ import { SyntheticEvent, useEffect, useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { MdDeleteOutline } from 'react-icons/md';
 import { RxCross2 } from 'react-icons/rx';
-
-import appStyles from '@styles/App.module.css';
-import styles from '@styles/ViewModel.module.css';
 
 type ViewChapterProps = {
 	data: Chapter;

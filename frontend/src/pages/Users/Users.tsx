@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '@styles/TablePage.module.css';
+
 import { apiDeleteUserByIds, apiGetUsersByType, apiImportUsers } from '@api/user';
 import CustomSelect from '@components/CustomSelect';
 import ImportData from '@components/ImportData';
@@ -25,9 +28,6 @@ import { Navigate, useSearchParams } from 'react-router-dom';
 import CreateUser from './components/CreateUser';
 import ExportUsers from './components/ExportUsers';
 import UsersTable from './components/UsersTable';
-
-import appStyles from '@styles/App.module.css';
-import styles from '@styles/TablePage.module.css';
 
 type UsersProps = {
 	role: RoleName;

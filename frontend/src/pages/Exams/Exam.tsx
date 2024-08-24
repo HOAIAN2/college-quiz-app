@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from './styles/Exam.module.css';
+
 import { apiExportExamResult, apiGetExamById, apiUpdateExamStatus } from '@api/exam';
 import Loading from '@components/Loading';
 import YesNoPopUp from '@components/YesNoPopUp';
@@ -15,9 +18,6 @@ import { BiExport } from 'react-icons/bi';
 import { ImCancelCircle } from 'react-icons/im';
 import { LuAlarmClock, LuRefreshCw } from 'react-icons/lu';
 import { Link, Navigate, useParams } from 'react-router-dom';
-
-import appStyles from '@styles/App.module.css';
-import styles from './styles/Exam.module.css';
 
 export default function Exam() {
 	const { user, appLanguage, permissions } = useAppContext();

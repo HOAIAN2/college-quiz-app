@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '../styles/ChangePassword.module.css';
+
 import { apiChangePassword } from '@api/auth';
 import CSS_TIMING from '@constants/css-timing';
 import useLanguage from '@hooks/useLanguage';
@@ -5,9 +8,6 @@ import css from '@utils/css';
 import { useEffect, useRef, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import { useNavigate } from 'react-router-dom';
-
-import appStyles from '@styles/App.module.css';
-import styles from '../styles/ChangePassword.module.css';
 
 type ChangePasswordProps = {
 	setShowPopup: React.Dispatch<React.SetStateAction<boolean>>;

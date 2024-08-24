@@ -1,10 +1,10 @@
+import styles from './styles/AuthLayout.module.css';
+
+import { apiGetUser } from '@api/user';
+import useAppContext from '@hooks/useAppContext';
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { apiGetUser } from '../api/user';
-import useAppContext from '../hooks/useAppContext';
 import Header from './Header';
-
-import styles from './styles/AuthLayout.module.css';
 
 export default function AuthLayout() {
 	const [checking, setChecking] = useState(true);

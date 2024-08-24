@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '@styles/TablePage.module.css';
+
 import { apiDeleteSchoolClassIds, apiGetSchoolClasses } from '@api/school-class';
 import CustomSelect from '@components/CustomSelect';
 import Loading from '@components/Loading';
@@ -14,9 +17,6 @@ import { RiAddFill } from 'react-icons/ri';
 import { Navigate, useSearchParams } from 'react-router-dom';
 import CreateSchoolClass from './components/CreateSchoolClass';
 import SchoolClassesTable from './components/SchoolClassesTable';
-
-import appStyles from '@styles/App.module.css';
-import styles from '@styles/TablePage.module.css';
 
 export default function SchoolClasses() {
 	const { permissions } = useAppContext();

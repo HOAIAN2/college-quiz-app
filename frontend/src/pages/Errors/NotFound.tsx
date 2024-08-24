@@ -1,5 +1,6 @@
-import useLanguage from '@hooks/useLanguage';
 import styles from './styles/NotFound.module.css';
+
+import useLanguage from '@hooks/useLanguage';
 
 export default function NotFound() {
 	const language = useLanguage('page.not_found');

@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '@styles/ViewModel.module.css';
+
 import { apiGetFacultyById, apiUpdateFaculty } from '@api/faculty';
 import { apiAutoCompleteUser } from '@api/user';
 import CustomDataList from '@components/CustomDataList';
@@ -15,9 +18,6 @@ import languageUtils from '@utils/languageUtils';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { RxCross2 } from 'react-icons/rx';
-
-import appStyles from '@styles/App.module.css';
-import styles from '@styles/ViewModel.module.css';
 
 type ViewFacultyProps = {
 	id: number;

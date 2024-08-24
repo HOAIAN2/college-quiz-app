@@ -1,11 +1,11 @@
+import appStyles from '@styles/App.module.css';
+import styles from './styles/ForgotPassword.module.css';
+
 import { apiResetPassword, apiSendPasswordResetEmail, apiVerifyPasswordResetCode } from '@api/auth';
 import useLanguage from '@hooks/useLanguage';
 import css from '@utils/css';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-
-import appStyles from '@styles/App.module.css';
-import styles from './styles/ForgotPassword.module.css';
 
 export default function ForgotPassword() {
 	const language = useLanguage('page.forgot_password');

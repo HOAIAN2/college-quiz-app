@@ -1,12 +1,12 @@
+import appStyles from '@styles/App.module.css';
+import styles from './styles/Login.module.css';
+
 import { apiLogin, apiSendEmailVerification } from '@api/auth';
 import useAppContext from '@hooks/useAppContext';
 import useLanguage from '@hooks/useLanguage';
 import css from '@utils/css';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-
-import appStyles from '@styles/App.module.css';
-import styles from './styles/Login.module.css';
 
 export default function Login() {
 	const language = useLanguage('page.login');

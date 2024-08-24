@@ -1,3 +1,7 @@
+import appStyles from '@styles/App.module.css';
+import globalStyles from '@styles/CreateModel.module.css';
+import styles from '../styles/CreateQuestion.module.css';
+
 import { apiCreateQuestion } from '@api/question';
 import CustomSelect from '@components/CustomSelect';
 import Loading from '@components/Loading';
@@ -15,10 +19,6 @@ import { MdDeleteOutline } from 'react-icons/md';
 import { RiAddFill } from 'react-icons/ri';
 import { RxCross2 } from 'react-icons/rx';
 import { toast } from 'sonner';
-
-import appStyles from '@styles/App.module.css';
-import globalStyles from '@styles/CreateModel.module.css';
-import styles from '../styles/CreateQuestion.module.css';
 
 type CreateQuestionProps = {
 	subjectDetail: SubjectDetail;

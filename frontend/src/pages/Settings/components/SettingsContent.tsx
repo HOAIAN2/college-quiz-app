@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '../styles/SettingsContent.module.css';
+
 import { apiGetLoginSessions, apiRevokeLoginSession } from '@api/auth';
 import { apiDeleteLogFile, apiDownloadLogFile, apiRunArtisan } from '@api/settings';
 import Loading from '@components/Loading';
@@ -9,9 +12,6 @@ import css from '@utils/css';
 import { saveBlob } from '@utils/saveBlob';
 import tokenUtils from '@utils/tokenUtils';
 import { useRef } from 'react';
-
-import appStyles from '@styles/App.module.css';
-import styles from '../styles/SettingsContent.module.css';
 
 export default function SettingsContent({ name }: { name: string; }) {
 	const { user } = useAppContext();

@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '@styles/CardPage.module.css';
+
 import { apiGetSemesters } from '@api/semester';
 import Loading from '@components/Loading';
 import QUERY_KEYS from '@constants/query-keys';
@@ -11,9 +14,6 @@ import { LuBookOpenCheck } from 'react-icons/lu';
 import { RiAddFill } from 'react-icons/ri';
 import { Link, Navigate, useSearchParams } from 'react-router-dom';
 import CreateSemester from './components/CreateSemester';
-
-import appStyles from '@styles/App.module.css';
-import styles from '@styles/CardPage.module.css';
 
 export default function Semesters() {
 	const { permissions, appLanguage } = useAppContext();

@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '@styles/TablePage.module.css';
+
 import { apiDeleteFacultiesByIds, apiGetFaculties } from '@api/faculty';
 import CustomSelect from '@components/CustomSelect';
 import Loading from '@components/Loading';
@@ -14,9 +17,6 @@ import { RiAddFill } from 'react-icons/ri';
 import { Navigate, useSearchParams } from 'react-router-dom';
 import CreateFaculty from './components/CreateFaculty';
 import FacultiesTable from './components/FacultiesTable';
-
-import appStyles from '@styles/App.module.css';
-import styles from '@styles/TablePage.module.css';
 
 export default function Faculties() {
 	const { permissions } = useAppContext();

@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '@styles/CardPage.module.css';
+
 import { apiGetExamsByMonth } from '@api/exam';
 import DatePicker from '@components/DatePicker';
 import Loading from '@components/Loading';
@@ -12,9 +15,6 @@ import timeUtils from '@utils/timeUtils';
 import moment from 'moment';
 import { useCallback, useEffect, useRef } from 'react';
 import { Link, Navigate, useSearchParams } from 'react-router-dom';
-
-import appStyles from '@styles/App.module.css';
-import styles from '@styles/CardPage.module.css';
 
 export default function Exams() {
 	const forceUpdate = useForceUpdate();

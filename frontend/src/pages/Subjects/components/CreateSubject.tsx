@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '@styles/CreateModel.module.css';
+
 import { apiCreateSubject } from '@api/subject';
 import Loading from '@components/Loading';
 import CSS_TIMING from '@constants/css-timing';
@@ -8,9 +11,6 @@ import css from '@utils/css';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { RxCross2 } from 'react-icons/rx';
-
-import appStyles from '@styles/App.module.css';
-import styles from '@styles/CreateModel.module.css';
 
 type CreateSubjectProps = {
 	onMutateSuccess: () => void;

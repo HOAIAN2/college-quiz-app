@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '@styles/ViewModel.module.css';
+
 import { apiAutoCompleteFaculty } from '@api/faculty';
 import { apiAutoCompleteSchoolClass } from '@api/school-class';
 import { apiGetUserById, apiUpdateUser } from '@api/user';
@@ -18,9 +21,6 @@ import languageUtils from '@utils/languageUtils';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { RxCross2 } from 'react-icons/rx';
-
-import appStyles from '@styles/App.module.css';
-import styles from '@styles/ViewModel.module.css';
 
 type ViewUserProps = {
 	id: number;

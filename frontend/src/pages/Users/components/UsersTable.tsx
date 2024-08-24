@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '@styles/Table.module.css';
+
 import StatusBadge from '@components/StatusBadge';
 import useAppContext from '@hooks/useAppContext';
 import useLanguage from '@hooks/useLanguage';
@@ -11,9 +14,6 @@ import { GiFemale, GiMale } from 'react-icons/gi';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { SetURLSearchParams } from 'react-router-dom';
 import ViewUser from './ViewUser';
-
-import appStyles from '@styles/App.module.css';
-import styles from '@styles/Table.module.css';
 
 type UsersTableProps = {
 	role: RoleName;

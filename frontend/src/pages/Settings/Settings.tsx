@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from './styles/Settings.module.css';
+
 import useLanguage from '@hooks/useLanguage';
 import css from '@utils/css';
 import { useEffect, useState } from 'react';
@@ -6,9 +9,6 @@ import { IoMdNotificationsOutline } from 'react-icons/io';
 import { MdOutlineSecurity } from 'react-icons/md';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import SettingsContent from './components/SettingsContent';
-
-import appStyles from '@styles/App.module.css';
-import styles from './styles/Settings.module.css';
 
 const STRICT_WIDTH = 800;
 

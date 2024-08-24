@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '../styles/ExportUsers.module.css';
+
 import { apiExportUsers, apiGetUserExportableFields } from '@api/user';
 import Loading from '@components/Loading';
 import CSS_TIMING from '@constants/css-timing';
@@ -9,9 +12,6 @@ import css from '@utils/css';
 import { saveBlob } from '@utils/saveBlob';
 import { useEffect, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
-
-import appStyles from '@styles/App.module.css';
-import styles from '../styles/ExportUsers.module.css';
 
 type ExportUsersProps = {
 	role: RoleName;

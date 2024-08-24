@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '../styles/CreateViewExam.module.css';
+
 import { apiDeleteExam, apiGetExamById, apiUpdateExam } from '@api/exam';
 import { apiGetAllUser } from '@api/user';
 import DatePicker from '@components/DatePicker';
@@ -18,9 +21,6 @@ import { useEffect, useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { MdDeleteOutline } from 'react-icons/md';
 import { RxCross2 } from 'react-icons/rx';
-
-import appStyles from '@styles/App.module.css';
-import styles from '../styles/CreateViewExam.module.css';
 
 type ViewExamProps = {
 	id: number;

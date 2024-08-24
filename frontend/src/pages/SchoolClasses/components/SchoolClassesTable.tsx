@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from '@styles/Table.module.css';
+
 import useAppContext from '@hooks/useAppContext';
 import useLanguage from '@hooks/useLanguage';
 import { Pagination } from '@models/response';
@@ -7,9 +10,6 @@ import { useState } from 'react';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { SetURLSearchParams } from 'react-router-dom';
 import ViewSchoolClass from './ViewSchoolClass';
-
-import appStyles from '@styles/App.module.css';
-import styles from '@styles/Table.module.css';
 
 type SchoolClassesTableProps = {
 	data?: Pagination<SchoolClassDetail>;

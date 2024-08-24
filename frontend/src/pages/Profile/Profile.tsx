@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from './styles/Profile.module.css';
+
 import { apiGetUser, apiUpdateUser } from '@api/user';
 import CustomSelect from '@components/CustomSelect';
 import DatePicker from '@components/DatePicker';
@@ -14,9 +17,6 @@ import { SyntheticEvent, useEffect, useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { PiKey } from 'react-icons/pi';
 import ChangePassword from './components/ChangePassword';
-
-import appStyles from '@styles/App.module.css';
-import styles from './styles/Profile.module.css';
 
 export default function Profile() {
 	const language = useLanguage('page.profile');

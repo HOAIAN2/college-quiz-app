@@ -1,12 +1,12 @@
-import { useMutation } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
-import { RxCross2 } from 'react-icons/rx';
-import CSS_TIMING from '../constants/css-timing';
-import css from '../utils/css';
-import Loading from './Loading';
-
 import appStyles from '@styles/App.module.css';
 import styles from './styles/YesNoPopUp.module.css';
+
+import CSS_TIMING from '@constants/css-timing';
+import { useMutation } from '@tanstack/react-query';
+import css from '@utils/css';
+import { useEffect, useState } from 'react';
+import { RxCross2 } from 'react-icons/rx';
+import Loading from './Loading';
 
 type YesNoPopUpProps = {
 	message: string;

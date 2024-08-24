@@ -1,11 +1,11 @@
+import styles from '../styles/ExamQuestion.module.css';
+
 import useLanguage from '@hooks/useLanguage';
 import { ExamQuestion as TExamQuestion } from '@models/exam';
 import css from '@utils/css';
 import languageUtils from '@utils/languageUtils';
 import { useState } from 'react';
 import { MdOutlineRadioButtonChecked, MdOutlineRadioButtonUnchecked } from 'react-icons/md';
-
-import styles from '../styles/ExamQuestion.module.css';
 
 type ExamQuestionProps = {
 	index: number;

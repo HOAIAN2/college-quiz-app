@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from './styles/Permissions.module.css';
+
 import { apiGetRolePermissionCount } from '@api/role-permission';
 import Loading from '@components/Loading';
 import QUERY_KEYS from '@constants/query-keys';
@@ -7,9 +10,6 @@ import { useQuery } from '@tanstack/react-query';
 import css from '@utils/css';
 import { LuUsers2 } from 'react-icons/lu';
 import { Link, Navigate } from 'react-router-dom';
-
-import appStyles from '@styles/App.module.css';
-import styles from './styles/Permissions.module.css';
 
 export default function Permissisons() {
 	const { permissions } = useAppContext();

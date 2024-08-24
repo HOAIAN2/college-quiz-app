@@ -1,3 +1,6 @@
+import appStyles from '@styles/App.module.css';
+import styles from './styles/Subject.module.css';
+
 import { apiDeleteSubject, apiGetSubjectById, apiUpdateSubject } from '@api/subject';
 import Loading from '@components/Loading';
 import YesNoPopUp from '@components/YesNoPopUp';
@@ -14,9 +17,6 @@ import { RiAddFill } from 'react-icons/ri';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import CreateChapter from './components/CreateChapter';
 import ViewChapter from './components/ViewChapter';
-
-import appStyles from '@styles/App.module.css';
-import styles from './styles/Subject.module.css';
 
 export default function Subject() {
 	const { id } = useParams();

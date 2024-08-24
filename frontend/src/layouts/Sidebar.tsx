@@ -1,3 +1,10 @@
+import styles from './styles/Sidebar.module.css';
+
+import { API_HOST } from '@config/env';
+import useAppContext from '@hooks/useAppContext';
+import useLanguage from '@hooks/useLanguage';
+import css from '@utils/css';
+import getMetaContent from '@utils/getMetaContent';
 import { useEffect } from 'react';
 import {
 	AiOutlineUser
@@ -19,13 +26,6 @@ import {
 } from 'react-icons/si';
 import { TbBrandAuth0 } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
-import { API_HOST } from '../config/env';
-import useAppContext from '../hooks/useAppContext';
-import useLanguage from '../hooks/useLanguage';
-import css from '../utils/css';
-import getMetaContent from '../utils/getMetaContent';
-
-import styles from './styles/Sidebar.module.css';
 
 export default function Sidebar() {
 	const { DOM, permissions, appTitle } = useAppContext();

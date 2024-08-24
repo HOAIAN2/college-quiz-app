@@ -1,12 +1,12 @@
+import appStyles from '@styles/App.module.css';
+import styles from './styles/VerifyEmail.module.css';
+
 import { apiSendEmailVerification, apiVerifyEmail } from '@api/auth';
 import useLanguage from '@hooks/useLanguage';
 import { User } from '@models/user';
 import css from '@utils/css';
 import { useEffect, useState } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-
-import appStyles from '@styles/App.module.css';
-import styles from './styles/VerifyEmail.module.css';
 
 export default function VerifyEmail() {
 	const [countDown, setCountDown] = useState(0);
