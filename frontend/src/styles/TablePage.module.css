@@ -3,6 +3,10 @@
 	height: calc(100% - 50px);
 }
 
+.table-page-content:only-child {
+	height: 100%;
+}
+
 .filter-form {
 	height: 75px;
 	width: 100%;

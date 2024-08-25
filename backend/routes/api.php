@@ -15,8 +15,10 @@ use App\Http\Controllers\Api\SubjectController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
+const AUTH_MIDDLEWARES = ['auth:sanctum', 'validate-token'];
+
 Route::prefix('/settings')->controller(SettingsController::class)->group(function () {
-	Route::middleware(['auth:sanctum', 'validate-token'])->group(function () {
+	Route::middleware(AUTH_MIDDLEWARES)->group(function () {
 		Route::post('/run-artisan', 'runArtisan');
 		Route::get('/log', 'getLogFile');
 		Route::delete('/log', 'deleteLogFile');
@@ -25,7 +27,7 @@ Route::prefix('/settings')->controller(SettingsController::class)->group(functio
 
 Route::prefix('/auth')->controller(AuthController::class)->group(function () {
 	Route::post('/login', 'login');
-	Route::middleware(['auth:sanctum', 'validate-token'])->group(function () {
+	Route::middleware(AUTH_MIDDLEWARES)->group(function () {
 		Route::get('/sessions', 'loginSessions');
 		Route::delete('/sessions/{id}', 'revokeLoginSession');
 		Route::post('/logout', 'logout');
@@ -40,7 +42,7 @@ Route::prefix('/auth')->controller(AuthController::class)->group(function () {
 	Route::post('/reset-password', 'resetPassword');
 });
 
-Route::prefix('/users')->middleware(['auth:sanctum', 'validate-token'])
+Route::prefix('/users')->middleware(AUTH_MIDDLEWARES)
 	->controller(UserController::class)->group(function () {
 		Route::get('/query', 'getUsersByType');
 		Route::post('/import', 'importUsers');
@@ -55,12 +57,12 @@ Route::prefix('/users')->middleware(['auth:sanctum', 'validate-token'])
 		Route::delete('/', 'destroy');
 	});
 
-Route::prefix('/dashboard')->middleware(['auth:sanctum', 'validate-token'])
+Route::prefix('/dashboard')->middleware(AUTH_MIDDLEWARES)
 	->controller(DashboardController::class)->group(function () {
 		Route::get('/', 'index');
 	});
 
-Route::prefix('/school-classes')->middleware(['auth:sanctum', 'validate-token'])
+Route::prefix('/school-classes')->middleware(AUTH_MIDDLEWARES)
 	->controller(SchoolClassController::class)->group(function () {
 		Route::get('/complete', 'autocomplete');
 		Route::get('/{id}', 'show');
@@ -70,7 +72,7 @@ Route::prefix('/school-classes')->middleware(['auth:sanctum', 'validate-token'])
 		Route::delete('/', 'destroy');
 	});
 
-Route::prefix('/faculties')->middleware(['auth:sanctum', 'validate-token'])
+Route::prefix('/faculties')->middleware(AUTH_MIDDLEWARES)
 	->controller(FacultyController::class)->group(function () {
 		Route::get('/complete', 'autocomplete');
 		Route::get('/{id}', 'show');
@@ -80,7 +82,7 @@ Route::prefix('/faculties')->middleware(['auth:sanctum', 'validate-token'])
 		Route::delete('/', 'destroy');
 	});
 
-Route::prefix('/subjects')->middleware(['auth:sanctum', 'validate-token'])
+Route::prefix('/subjects')->middleware(AUTH_MIDDLEWARES)
 	->controller(SubjectController::class)->group(function () {
 		Route::get('/complete', 'autocomplete');
 		Route::get('/{id}', 'show');
@@ -90,21 +92,21 @@ Route::prefix('/subjects')->middleware(['auth:sanctum', 'validate-token'])
 		Route::post('/', 'store');
 	});
 
-Route::prefix('/chapters')->middleware(['auth:sanctum', 'validate-token'])
+Route::prefix('/chapters')->middleware(AUTH_MIDDLEWARES)
 	->controller(ChapterController::class)->group(function () {
 		Route::put('/{id}', 'update');
 		Route::delete('/{id}', 'destroy');
 		Route::post('/', 'store');
 	});
 
-Route::prefix('/role-permissions')->middleware(['auth:sanctum', 'validate-token'])
+Route::prefix('/role-permissions')->middleware(AUTH_MIDDLEWARES)
 	->controller(RolePermissionController::class)->group(function () {
 		Route::get('/{id}', 'show');
 		Route::put('/{id}', 'update');
 		Route::get('/', 'index');
 	});
 
-Route::prefix('/questions')->middleware(['auth:sanctum', 'validate-token'])
+Route::prefix('/questions')->middleware(AUTH_MIDDLEWARES)
 	->controller(QuestionController::class)->group(function () {
 		Route::get('/{id}', 'show');
 		Route::put('/{id}', 'update');
@@ -113,7 +115,7 @@ Route::prefix('/questions')->middleware(['auth:sanctum', 'validate-token'])
 		Route::post('/', 'store');
 	});
 
-Route::prefix('/semesters')->middleware(['auth:sanctum', 'validate-token'])
+Route::prefix('/semesters')->middleware(AUTH_MIDDLEWARES)
 	->controller(SemesterController::class)->group(function () {
 		Route::get('/complete', 'autocomplete');
 		Route::get('/{id}', 'show');
@@ -123,7 +125,7 @@ Route::prefix('/semesters')->middleware(['auth:sanctum', 'validate-token'])
 		Route::post('/', 'store');
 	});
 
-Route::prefix('/courses')->middleware(['auth:sanctum', 'validate-token'])
+Route::prefix('/courses')->middleware(AUTH_MIDDLEWARES)
 	->controller(CourseController::class)->group(function () {
 		Route::get('/{id}', 'show');
 		Route::put('/{id}', 'update');
@@ -133,7 +135,7 @@ Route::prefix('/courses')->middleware(['auth:sanctum', 'validate-token'])
 		Route::post('/', 'store');
 	});
 
-Route::prefix('/exams')->middleware(['auth:sanctum', 'validate-token'])
+Route::prefix('/exams')->middleware(AUTH_MIDDLEWARES)
 	->controller(ExamController::class)->group(function () {
 		Route::middleware(App\Http\Middleware\RevokeOtherTokens::class)
 			->group(function () {

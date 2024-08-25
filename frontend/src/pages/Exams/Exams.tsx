@@ -38,7 +38,7 @@ export default function Exams() {
 	}, [forceUpdate]);
 	const showExamStatus = (exam: ExamInMonth) => {
 		const examDate = new Date(exam.examDate);
-		const getClassNames = (color: string) => css(styles['badge'], styles[color]);
+		const getClassNames = (color: 'red' | 'green' | 'yellow') => css(styles['badge'], styles[color]);
 		if (exam.cancelledAt != null) {
 			return <div className={getClassNames('red')}>{language?.cancelled}</div>;
 		}

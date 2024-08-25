@@ -30,7 +30,7 @@ function useAppContextValue() {
 			setPermissions: setPermissions,
 			has: (permissionName: string) => permissions.includes(permissionName),
 			hasAnyFormList(permissionNames: string[]) {
-				return permissionNames.some(permission => permissionNames.includes(permission));
+				return permissionNames.some(permission => permissions.includes(permission));
 			}
 		},
 		appTitle: {
