@@ -1,6 +1,8 @@
 #!/bin/sh
+ROOT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-./build.sh
+$SCRIPT_DIR/build.sh
+cd $ROOT_DIR
 rm app.tar.gz
 cd backend
 composer install --optimize-autoloader --no-dev
@@ -11,4 +13,4 @@ echo 'Compressing...'
 tar --exclude=node_modules -czf ../app.tar.gz *
 echo 'Completed!'
 composer i
-cd $SCRIPT_DIR
+cd $ROOT_DIR

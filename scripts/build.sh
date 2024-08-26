@@ -1,8 +1,8 @@
 #!/bin/sh
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+ROOT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )
 cd frontend
 npm run build
-cd $SCRIPT_DIR
+cd $ROOT_DIR
 cd backend
 rm public/index.html
 rm public/favicon.ico
