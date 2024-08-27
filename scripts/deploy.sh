@@ -10,7 +10,7 @@ php artisan optimize:clear
 rm -f storage/logs/laravel.log
 rm -rf storage/framework/sessions/*
 echo 'Compressing...'
-tar --exclude=node_modules -czf ../app.tar.gz *
+tar --exclude=node_modules --exclude=dump -czf ../app.tar.gz *
 echo 'Completed!'
 composer i
 cd $ROOT_DIR
