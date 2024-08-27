@@ -24,37 +24,37 @@
 		"removeComments": true,
 		"baseUrl": ".",
 		"paths": {
-			"@components/*": [
+			"~components/*": [
 				"src/components/*"
 			],
-			"@utils/*": [
+			"~utils/*": [
 				"src/utils/*"
 			],
-			"@config/*": [
+			"~config/*": [
 				"src/config/*"
 			],
-			"@pages/*": [
+			"~pages/*": [
 				"src/pages/*"
 			],
-			"@hooks/*": [
+			"~hooks/*": [
 				"src/hooks/*"
 			],
-			"@constants/*": [
+			"~constants/*": [
 				"src/constants/*"
 			],
-			"@api/*": [
+			"~api/*": [
 				"src/api/*"
 			],
-			"@models/*": [
+			"~models/*": [
 				"src/models/*"
 			],
-			"@styles/*": [
+			"~styles/*": [
 				"src/styles/*"
 			],
-			"@layouts/*": [
+			"~layouts/*": [
 				"src/layouts/*"
 			],
-			"@/*": [
+			"~/*": [
 				"src/*"
 			]
 		},

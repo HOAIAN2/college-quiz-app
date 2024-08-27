@@ -1,6 +1,5 @@
 import './styles/App.module.css';
 
-import SuspenseLoading from '@components/SuspenseLoading';
 import {
 	QueryClient,
 	QueryClientProvider,
@@ -10,6 +9,7 @@ import 'moment/dist/locale/vi';
 import { Suspense, lazy } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Toaster } from 'sonner';
+import SuspenseLoading from '~components/SuspenseLoading';
 import useAppContext from './hooks/useAppContext';
 import AuthLayout from './layouts/AuthLayout';
 import DashboardLayout from './layouts/DashboardLayout';

@@ -1,23 +1,23 @@
-import appStyles from '@styles/App.module.css';
+import appStyles from '~styles/App.module.css';
 import styles from './styles/Exam.module.css';
 
-import { apiExportExamResult, apiGetExamById, apiUpdateExamStatus } from '@api/exam';
-import Loading from '@components/Loading';
-import YesNoPopUp from '@components/YesNoPopUp';
-import QUERY_KEYS from '@constants/query-keys';
-import useAppContext from '@hooks/useAppContext';
-import useLanguage from '@hooks/useLanguage';
+import { apiExportExamResult, apiGetExamById, apiUpdateExamStatus } from '~api/exam';
 import { useQuery } from '@tanstack/react-query';
-import caculateScore from '@utils/caculateScore';
-import css from '@utils/css';
-import languageUtils from '@utils/languageUtils';
-import { saveBlob } from '@utils/saveBlob';
 import moment from 'moment';
 import { useState } from 'react';
 import { BiExport } from 'react-icons/bi';
 import { ImCancelCircle } from 'react-icons/im';
 import { LuAlarmClock, LuRefreshCw } from 'react-icons/lu';
 import { Link, Navigate, useParams } from 'react-router-dom';
+import Loading from '~components/Loading';
+import YesNoPopUp from '~components/YesNoPopUp';
+import QUERY_KEYS from '~constants/query-keys';
+import useAppContext from '~hooks/useAppContext';
+import useLanguage from '~hooks/useLanguage';
+import caculateScore from '~utils/caculateScore';
+import css from '~utils/css';
+import languageUtils from '~utils/languageUtils';
+import { saveBlob } from '~utils/saveBlob';
 
 export default function Exam() {
 	const { user, appLanguage, permissions } = useAppContext();

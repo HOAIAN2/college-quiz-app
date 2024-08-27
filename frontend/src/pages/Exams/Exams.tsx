@@ -1,20 +1,20 @@
-import appStyles from '@styles/App.module.css';
-import styles from '@styles/CardPage.module.css';
+import appStyles from '~styles/App.module.css';
+import styles from '~styles/CardPage.module.css';
 
-import { apiGetExamsByMonth } from '@api/exam';
-import DatePicker from '@components/DatePicker';
-import Loading from '@components/Loading';
-import QUERY_KEYS from '@constants/query-keys';
-import useAppContext from '@hooks/useAppContext';
-import useForceUpdate from '@hooks/useForceUpdate';
-import useLanguage from '@hooks/useLanguage';
-import { ExamInMonth } from '@models/exam';
 import { useQuery } from '@tanstack/react-query';
-import css from '@utils/css';
-import timeUtils from '@utils/timeUtils';
 import moment from 'moment';
 import { useCallback, useEffect, useRef } from 'react';
 import { Link, Navigate, useSearchParams } from 'react-router-dom';
+import { apiGetExamsByMonth } from '~api/exam';
+import DatePicker from '~components/DatePicker';
+import Loading from '~components/Loading';
+import QUERY_KEYS from '~constants/query-keys';
+import useAppContext from '~hooks/useAppContext';
+import useForceUpdate from '~hooks/useForceUpdate';
+import useLanguage from '~hooks/useLanguage';
+import { ExamInMonth } from '~models/exam';
+import css from '~utils/css';
+import timeUtils from '~utils/timeUtils';
 
 export default function Exams() {
 	const forceUpdate = useForceUpdate();

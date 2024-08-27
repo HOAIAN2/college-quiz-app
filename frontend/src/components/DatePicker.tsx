@@ -1,6 +1,6 @@
 import 'react-datetime/css/react-datetime.css';
 
-import useAppContext from '@hooks/useAppContext';
+import useAppContext from '~hooks/useAppContext';
 import moment from 'moment';
 import React from 'react';
 import Datetime, { DatetimepickerProps } from 'react-datetime';
