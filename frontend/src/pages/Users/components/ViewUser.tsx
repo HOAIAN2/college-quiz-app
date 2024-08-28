@@ -1,13 +1,13 @@
 import appStyles from '~styles/App.module.css';
 import styles from '~styles/ViewModel.module.css';
 
-import { apiAutoCompleteFaculty } from '~api/faculty';
-import { apiAutoCompleteSchoolClass } from '~api/school-class';
-import { apiGetUserById, apiUpdateUser } from '~api/user';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { RxCross2 } from 'react-icons/rx';
+import { apiAutoCompleteFaculty } from '~api/faculty';
+import { apiAutoCompleteSchoolClass } from '~api/school-class';
+import { apiGetUserById, apiUpdateUser } from '~api/user';
 import CustomDataList from '~components/CustomDataList';
 import CustomSelect from '~components/CustomSelect';
 import DatePicker from '~components/DatePicker';
@@ -64,7 +64,7 @@ export default function ViewUser({
     });
     const handleUpdateUser = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
         e.preventDefault();
-        document.querySelector(`.${styles['form-data']}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
+        document.querySelector(`.${styles.formData}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
             node.classList.remove('error');
             formUtils.getParentElement(node)?.removeAttribute('data-error');
         });
@@ -97,8 +97,8 @@ export default function ViewUser({
         <div
             className={
                 css(
-                    styles['view-model-container'],
-                    hide ? styles['hide'] : ''
+                    styles.viewModelContainer,
+                    hide ? styles.hide : ''
                 )
             }>
             {
@@ -107,13 +107,13 @@ export default function ViewUser({
             <div
                 className={
                     css(
-                        styles['view-model-form'],
-                        hide ? styles['hide'] : ''
+                        styles.viewModelForm,
+                        hide ? styles.hide : ''
                     )
                 }>
-                <div className={styles['header']}>
-                    <h2 className={styles['title']}>{languageUtils.getFullName(queryData.data?.firstName, queryData.data?.lastName)}</h2>
-                    <div className={styles['esc-button']}
+                <div className={styles.header}>
+                    <h2 className={styles.title}>{languageUtils.getFullName(queryData.data?.firstName, queryData.data?.lastName)}</h2>
+                    <div className={styles.escButton}
                         onClick={handleClosePopUp}
                     >
                         <RxCross2 />
@@ -123,68 +123,68 @@ export default function ViewUser({
                     {
                         queryData.isLoading ? <Loading /> : null
                     }
-                    <div className={styles['form-content']}>
+                    <div className={styles.formContent}>
                         {
                             queryData.data ? (
                                 <form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
                                     mutate(e);
                                 }}
                                     onInput={(e) => { formUtils.handleOnInput(e); }}
-                                    className={styles['form-data']}>
-                                    <div className={styles['group-inputs']}>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={appStyles['required']} htmlFor='email'>{language?.email}</label>
+                                    className={styles.formData}>
+                                    <div className={styles.groupInputs}>
+                                        <div className={styles.wrapItem}>
+                                            <label className={appStyles.required} htmlFor='email'>{language?.email}</label>
                                             <input
                                                 id='email'
                                                 disabled={disabledUpdate}
                                                 defaultValue={queryData.data.email}
                                                 name='email'
-                                                className={css(appStyles['input-d'], styles['input-item'])}
+                                                className={css(appStyles.input, styles.inputItem)}
                                                 type='text' />
                                         </div>
-                                        <div className={styles['wrap-item']}>
+                                        <div className={styles.wrapItem}>
                                             <label htmlFor='phone_number'>{language?.phoneNumber}</label>
                                             <input
                                                 id='phone_number'
                                                 disabled={disabledUpdate}
                                                 defaultValue={queryData.data.phoneNumber || ''}
                                                 name='phone_number'
-                                                className={css(appStyles['input-d'], styles['input-item'])}
+                                                className={css(appStyles.input, styles.inputItem)}
                                                 type='text' />
                                         </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={appStyles['required']} htmlFor='first_name'>{language?.firstName}</label>
+                                        <div className={styles.wrapItem}>
+                                            <label className={appStyles.required} htmlFor='first_name'>{language?.firstName}</label>
                                             <input
                                                 id='first_name'
                                                 disabled={disabledUpdate}
                                                 defaultValue={queryData.data.firstName}
                                                 name='first_name'
-                                                className={css(appStyles['input-d'], styles['input-item'])}
+                                                className={css(appStyles.input, styles.inputItem)}
                                                 type='text' />
                                         </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={appStyles['required']} htmlFor='last_name'>{language?.lastName}</label>
+                                        <div className={styles.wrapItem}>
+                                            <label className={appStyles.required} htmlFor='last_name'>{language?.lastName}</label>
                                             <input
                                                 id='last_name'
                                                 disabled={disabledUpdate}
                                                 defaultValue={queryData.data.lastName}
                                                 name='last_name'
-                                                className={css(appStyles['input-d'], styles['input-item'])}
+                                                className={css(appStyles.input, styles.inputItem)}
                                                 type='text' />
                                         </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={appStyles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
+                                        <div className={styles.wrapItem}>
+                                            <label className={appStyles.required} htmlFor='shortcode'>{language?.shortcode}</label>
                                             <input
                                                 id='shortcode'
                                                 disabled={disabledUpdate}
                                                 defaultValue={queryData.data.shortcode}
                                                 name='shortcode'
-                                                className={css(appStyles['input-d'], styles['input-item'])}
+                                                className={css(appStyles.input, styles.inputItem)}
                                                 type='text' />
                                         </div>
                                         {queryData.data.role.name === 'student' ?
-                                            <div style={{ zIndex: 3 }} className={styles['wrap-item']}>
-                                                <label className={appStyles['required']} htmlFor='school_class_id'>{language?.class}</label>
+                                            <div style={{ zIndex: 3 }} className={styles.wrapItem}>
+                                                <label className={appStyles.required} htmlFor='school_class_id'>{language?.class}</label>
                                                 <CustomDataList
                                                     name='school_class_id'
                                                     defaultOption={
@@ -203,8 +203,8 @@ export default function ViewUser({
                                                 />
                                             </div>
                                             : queryData.data.role.name === 'teacher' ?
-                                                <div style={{ zIndex: 3 }} className={styles['wrap-item']}>
-                                                    <label className={appStyles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
+                                                <div style={{ zIndex: 3 }} className={styles.wrapItem}>
+                                                    <label className={appStyles.required} htmlFor='faculty_id'>{language?.faculty}</label>
                                                     <CustomDataList
                                                         name='faculty_id'
                                                         defaultOption={
@@ -225,9 +225,9 @@ export default function ViewUser({
                                                 : null
                                         }
                                         <div
-                                            className={styles['wrap-item']}
+                                            className={styles.wrapItem}
                                             style={{ zIndex: 2 }}>
-                                            <label className={appStyles['required']} htmlFor=''>{language?.genders.gender}</label>
+                                            <label className={appStyles.required} htmlFor=''>{language?.genders.gender}</label>
                                             <CustomSelect
                                                 name='gender'
                                                 defaultOption={
@@ -236,21 +236,21 @@ export default function ViewUser({
                                                 }
                                                 disabled={disabledUpdate}
                                                 options={genderOptions}
-                                                className={styles['custom-select']}
+                                                className={styles.customSelect}
                                             />
                                         </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={appStyles['required']} htmlFor='address'>{language?.address}</label>
+                                        <div className={styles.wrapItem}>
+                                            <label className={appStyles.required} htmlFor='address'>{language?.address}</label>
                                             <input
                                                 id='address'
                                                 disabled={disabledUpdate}
                                                 defaultValue={queryData.data.address}
                                                 name='address'
-                                                className={css(appStyles['input-d'], styles['input-item'])}
+                                                className={css(appStyles.input, styles.inputItem)}
                                                 type='text' />
                                         </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={appStyles['required']} htmlFor='birth_date'>{language?.birthDate}</label>
+                                        <div className={styles.wrapItem}>
+                                            <label className={appStyles.required} htmlFor='birth_date'>{language?.birthDate}</label>
                                             <DatePicker
                                                 initialValue={new Date(queryData.data.birthDate)}
                                                 inputProps={
@@ -258,15 +258,15 @@ export default function ViewUser({
                                                         id: 'birth_date',
                                                         disabled: disabledUpdate,
                                                         name: 'birth_date',
-                                                        className: css(appStyles['input-d'], styles['input-item'])
+                                                        className: css(appStyles.input, styles.inputItem)
                                                     }
                                                 }
                                                 closeOnSelect={true}
                                                 timeFormat={false}
                                             />
                                         </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={appStyles['required']} htmlFor=''>{language?.status.accountStatus}</label>
+                                        <div className={styles.wrapItem}>
+                                            <label className={appStyles.required} htmlFor=''>{language?.status.accountStatus}</label>
                                             <CustomSelect
                                                 name='is_active'
                                                 defaultOption={
@@ -275,28 +275,28 @@ export default function ViewUser({
                                                 }
                                                 disabled={disabledUpdate}
                                                 options={statusOptions}
-                                                className={styles['custom-select']}
+                                                className={styles.customSelect}
                                             />
                                         </div>
-                                        <div className={styles['wrap-item']}>
+                                        <div className={styles.wrapItem}>
                                             <label htmlFor='password'>{language?.password}</label>
                                             <input
                                                 id='password'
                                                 disabled={disabledUpdate}
                                                 placeholder={language?.leaveBlank}
                                                 name='password'
-                                                className={css(appStyles['input-d'], styles['input-item'])}
+                                                className={css(appStyles.input, styles.inputItem)}
                                                 type='password' />
                                         </div>
                                     </div>
                                     {
                                         permissions.has('user_update') ?
-                                            <div className={styles['action-items']}>
+                                            <div className={styles.actionItems}>
                                                 <button name='save'
                                                     className={
                                                         css(
-                                                            appStyles['action-item-d'],
-                                                            isPending ? appStyles['button-submitting'] : ''
+                                                            appStyles.actionItem,
+                                                            isPending ? appStyles.buttonSubmitting : ''
                                                         )
                                                     }
                                                 ><FiSave />{language?.save}</button>

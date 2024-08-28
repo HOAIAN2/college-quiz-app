@@ -1,12 +1,12 @@
 import appStyles from '~styles/App.module.css';
 import styles from '~styles/CardPage.module.css';
 
-import { apiGetSemesters } from '~api/semester';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { LuBookOpenCheck } from 'react-icons/lu';
 import { RiAddFill } from 'react-icons/ri';
 import { Link, Navigate, useSearchParams } from 'react-router-dom';
+import { apiGetSemesters } from '~api/semester';
 import Loading from '~components/Loading';
 import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
@@ -47,15 +47,15 @@ export default function Semesters() {
                     onMutateSuccess={onMutateSuccess}
                     setShowPopUp={setShowCreatePopUp}
                 /> : null}
-            <div className={appStyles['dashboard-d']}>
+            <div className={appStyles.dashboard}>
                 {
                     permissions.hasAnyFormList(['semester_create', 'semester_update', 'semester_delete'])
                         ?
-                        <div className={appStyles['action-bar-d']}>
+                        <div className={appStyles.actionBar}>
                             {
                                 permissions.has('semester_create') ?
                                     <div
-                                        className={appStyles['action-item-d']}
+                                        className={appStyles.actionItem}
                                         onClick={() => {
                                             setShowCreatePopUp(true);
                                         }}
@@ -67,35 +67,35 @@ export default function Semesters() {
                         </div>
                         : null
                 }
-                <div className={styles['page-content']}>
+                <div className={styles.pageContent}>
                     {
                         queryData.isLoading ? <Loading /> : null
                     }
-                    <div className={styles['filter-form']}>
-                        <div className={styles['wrap-input-item']}>
+                    <div className={styles.filterForm}>
+                        <div className={styles.wrapInputItem}>
                             <label>{language?.filter.search}</label>
                             <input
                                 onInput={(e) => {
                                     setSearchQuery(e.currentTarget.value);
                                 }}
                                 defaultValue={queryDebounce}
-                                className={css(appStyles['input-d'], styles['input-item'])}
+                                className={css(appStyles.input, styles.inputItem)}
                             />
                         </div>
                     </div>
-                    <div className={styles['wrap-card-container']}>
-                        <div className={styles['card-container']}>
+                    <div className={styles.wrapCardContainer}>
+                        <div className={styles.cardContainer}>
                             {queryData.data ?
                                 queryData.data.map(item => {
                                     return (
                                         <Link
                                             to={String(item.id)}
                                             key={`semester-${item.id}`}
-                                            className={css(appStyles['dashboard-card-d'], styles['card'])}>
-                                            <div className={styles['card-top']}>
+                                            className={css(appStyles.dashboardCard, styles.card)}>
+                                            <div className={styles.cardTop}>
                                                 {item.name}
                                             </div>
-                                            <div className={styles['card-bottom']}>
+                                            <div className={styles.cardBottom}>
                                                 <LuBookOpenCheck />
                                                 {
                                                     [

@@ -1,4 +1,4 @@
-.table-content {
+.tableContent {
 	max-width: 100%;
 	margin: 0 auto;
 	margin-bottom: 30px;
@@ -37,13 +37,13 @@ th {
 	opacity: 0.8;
 }
 
-.column-id,
-.column-select {
+.columnId,
+.columnSelect {
 	width: 30px;
 	text-align: center;
 }
 
-.column-status {
+.columnStatus {
 	width: 50px;
 	white-space: nowrap;
 }
@@ -73,21 +73,21 @@ th {
 	padding-left: 15px;
 }
 
-.column.super-large {
+.column.superLarge {
 	width: 250px;
 	padding-left: 15px;
 }
 
-.column-select {
+.columnSelect {
 	min-width: 40px;
 }
 
-.column-select>input {
+.columnSelect>input {
 	accent-color: var(--color-blue);
 	cursor: pointer;
 }
 
-.column-content-status {
+.columnContentStatus {
 	width: 70px;
 	height: 30px;
 	display: flex;
@@ -96,23 +96,23 @@ th {
 	margin: 0 auto;
 }
 
-.column-content-name>svg {
+.columnContentName>svg {
 	margin-right: 5px;
 }
 
-.column-content-name.male>svg {
+.columnContentName.male>svg {
 	color: blue;
 }
 
-.column-content-name.female>svg {
+.columnContentName.female>svg {
 	color: rgb(235, 112, 132);
 }
 
-.table-footer {
+.tableFooter {
 	margin-top: 15px;
 }
 
-.table-links {
+.tableLinks {
 	width: fit-content;
 	height: 30px;
 	margin-top: 10px;
@@ -120,12 +120,12 @@ th {
 	gap: 5px;
 }
 
-.link-content {
+.linkContent {
 	display: flex;
 	justify-content: center;
 }
 
-.table-links>.link-content>button {
+.tableLinks>.linkContent>button {
 	margin: unset;
 	height: 30px;
 	width: 30px;
@@ -135,20 +135,20 @@ th {
 	outline: none;
 }
 
-.table-links>.link-content>button.inactive {
+.tableLinks>.linkContent>button.inactive {
 	background: none;
 	box-shadow: none;
 	border: none;
 	color: black;
 }
 
-.table-links>.link-content>button.next-previous {
+.tableLinks>.linkContent>button.nextPrevious {
 	color: black;
 	background: none;
 	border: none;
 	outline: none;
 }
 
-.table-links>.link-content>button.next-previous>svg {
+.tableLinks>.linkContent>button.nextPrevious>svg {
 	margin-top: 5px;
 }

@@ -1,8 +1,6 @@
 import appStyles from '~styles/App.module.css';
 import styles from './styles/Course.module.css';
 
-import { apiDeleteCourse, apiGetCourseById, apiUpdateCourse } from '~api/course';
-import { apiAutoCompleteUser } from '~api/user';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { FiSave } from 'react-icons/fi';
@@ -10,6 +8,8 @@ import { LuPenSquare } from 'react-icons/lu';
 import { MdDeleteOutline } from 'react-icons/md';
 import { RiAddFill } from 'react-icons/ri';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { apiDeleteCourse, apiGetCourseById, apiUpdateCourse } from '~api/course';
+import { apiAutoCompleteUser } from '~api/user';
 import CustomDataList from '~components/CustomDataList';
 import Loading from '~components/Loading';
 import YesNoPopUp from '~components/YesNoPopUp';
@@ -52,7 +52,7 @@ export default function Course() {
     });
     const handleUpdateCourse = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
         e.preventDefault();
-        document.querySelector(`.${styles['form-data']}`)?.querySelectorAll('input[name]').forEach(node => {
+        document.querySelector(`.${styles.formData}`)?.querySelectorAll('input[name]').forEach(node => {
             const element = node as HTMLInputElement;
             element.classList.remove('error');
             formUtils.getParentElement(element)?.removeAttribute('data-error');
@@ -116,46 +116,46 @@ export default function Course() {
                     langYes={language?.langYes}
                     langNo={language?.langNo}
                 /> : null}
-            <main className={css(appStyles['dashboard-d'], styles['page-content'])}>
+            <main className={css(appStyles.dashboard, styles.pageContent)}>
                 {
                     queryData.isLoading ? <Loading /> : null
                 }
                 {
                     queryData.data ?
                         <>
-                            <section className={styles['form-content']}>
-                                <div className={styles['header']}>
-                                    <h2 className={styles['title']}>{queryData.data.name}</h2>
+                            <section className={styles.formContent}>
+                                <div className={styles.header}>
+                                    <h2 className={styles.title}>{queryData.data.name}</h2>
                                 </div>
                                 <form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
                                     mutate(e);
                                 }}
                                     onInput={e => { formUtils.handleOnInput(e); }}
-                                    className={styles['form-data']}>
+                                    className={styles.formData}>
                                     <input name='is_active' defaultValue='1' hidden />
-                                    <div className={styles['group-inputs']}>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={appStyles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
+                                    <div className={styles.groupInputs}>
+                                        <div className={styles.wrapItem}>
+                                            <label className={appStyles.required} htmlFor='shortcode'>{language?.shortcode}</label>
                                             <input
                                                 id='shortcode'
                                                 disabled={disabledUpdate}
                                                 defaultValue={queryData.data.shortcode}
                                                 name='shortcode'
-                                                className={css(appStyles['input-d'], styles['input-item'])}
+                                                className={css(appStyles.input, styles.inputItem)}
                                                 type='text' />
                                         </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={appStyles['required']} htmlFor='name'>{language?.name}</label>
+                                        <div className={styles.wrapItem}>
+                                            <label className={appStyles.required} htmlFor='name'>{language?.name}</label>
                                             <input
                                                 id='name'
                                                 disabled={disabledUpdate}
                                                 defaultValue={queryData.data.name}
                                                 name='name'
-                                                className={css(appStyles['input-d'], styles['input-item'])}
+                                                className={css(appStyles.input, styles.inputItem)}
                                                 type='text' />
                                         </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={appStyles['required']} htmlFor='teacher_id'>{language?.teacher}</label>
+                                        <div className={styles.wrapItem}>
+                                            <label className={appStyles.required} htmlFor='teacher_id'>{language?.teacher}</label>
                                             <CustomDataList
                                                 name='teacher_id'
                                                 onInput={e => { setQueryUser(e.currentTarget.value); }}
@@ -172,29 +172,29 @@ export default function Course() {
                                                         value: String(item.id)
                                                     };
                                                 }) : []}
-                                                className={styles['custom-select']}
+                                                className={styles.customSelect}
                                             />
                                         </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={appStyles['required']}>{language?.subject}</label>
+                                        <div className={styles.wrapItem}>
+                                            <label className={appStyles.required}>{language?.subject}</label>
                                             <input
                                                 disabled
                                                 defaultValue={queryData.data.subject.name}
-                                                className={css(appStyles['input-d'], styles['input-item'])}
+                                                className={css(appStyles.input, styles.inputItem)}
                                                 type='text' />
                                         </div>
                                     </div>
                                     {
                                         permissions.hasAnyFormList(['course_update', 'course_delete']) ?
-                                            <div className={styles['action-items']}>
+                                            <div className={styles.actionItems}>
                                                 {
                                                     permissions.has('course_update') ?
                                                         <button
                                                             name='save'
                                                             className={
                                                                 css(
-                                                                    appStyles['action-item-d'],
-                                                                    isPending ? appStyles['button-submitting'] : ''
+                                                                    appStyles.actionItem,
+                                                                    isPending ? appStyles.buttonSubmitting : ''
                                                                 )
                                                             }
                                                         ><FiSave />{language?.save}</button> : null
@@ -206,7 +206,7 @@ export default function Course() {
                                                             onClick={() => {
                                                                 setShowDeletePopUp(true);
                                                             }}
-                                                            className={appStyles['action-item-white-border-red-d']}>
+                                                            className={appStyles.actionItemWhiteBorderRed}>
                                                             <MdDeleteOutline /> {language?.delete}
                                                         </button> : null
                                                 }
@@ -216,17 +216,17 @@ export default function Course() {
                                 </form>
                             </section>
                             <section>
-                                <div className={styles['header']}>
-                                    <h2 className={styles['title']}>{language?.studentList}</h2>
+                                <div className={styles.header}>
+                                    <h2 className={styles.title}>{language?.studentList}</h2>
                                 </div>
                                 {
                                     permissions.has('course_update') ?
                                         <div
-                                            className={appStyles['action-bar-d']}
+                                            className={appStyles.actionBar}
                                             style={{ paddingLeft: '20px' }}
                                         >
                                             <button
-                                                className={css(appStyles['action-item-d'], styles['edit-students-button'])}
+                                                className={css(appStyles.actionItem, styles.editStudentsButton)}
                                                 onClick={() => {
                                                     setShowUpdateStudentsPopUp(true);
                                                 }}
@@ -239,7 +239,7 @@ export default function Course() {
                                         </div>
                                         : null
                                 }
-                                <div className={styles['enrollments-container']}>
+                                <div className={styles.enrollmentsContainer}>
                                     {
                                         queryData.data.enrollments
                                             .map(enrollment => {
@@ -249,9 +249,9 @@ export default function Course() {
                                                     <div
                                                         title={[fullName, schoolClass].join(' ')}
                                                         key={`enrollment-${enrollment.id}`}
-                                                        className={css(appStyles['dashboard-card-d'], styles['card'])}
+                                                        className={css(appStyles.dashboardCard, styles.card)}
                                                     >
-                                                        <div className={styles['card-content']}>
+                                                        <div className={styles.cardContent}>
                                                             {[fullName, `(${schoolClass})`].join(' ')}
                                                         </div>
                                                     </div>
@@ -260,8 +260,8 @@ export default function Course() {
                                     }
                                 </div>
                             </section>
-                            <div className={styles['header']}>
-                                <h2 className={styles['title']}>{language?.examtList}</h2>
+                            <div className={styles.header}>
+                                <h2 className={styles.title}>{language?.examtList}</h2>
                             </div>
                             {
                                 permissions.has('exam_create') ?
@@ -269,7 +269,7 @@ export default function Course() {
                                         style={{ paddingLeft: '20px' }}
                                     >
                                         <button
-                                            className={appStyles['action-item-d']}
+                                            className={appStyles.actionItem}
                                             onClick={() => {
                                                 setShowCreateExamPopUp(true);
                                             }}
@@ -279,7 +279,7 @@ export default function Course() {
                                     </div>
                                     : null
                             }
-                            <div className={styles['exams-container']}>
+                            <div className={styles.examsContainer}>
                                 {
                                     queryData.data.exams
                                         .map(exam => {
@@ -291,17 +291,17 @@ export default function Course() {
                                                         setExamId(exam.id);
                                                         setShowViewExamPopUp(true);
                                                     }}
-                                                    className={css(appStyles['dashboard-card-d'], styles['exam-card'])}
+                                                    className={css(appStyles.dashboardCard, styles.examCard)}
                                                 >
-                                                    <div className={styles['card-section']}>
+                                                    <div className={styles.cardSection}>
                                                         <p>
                                                             {exam.name}
                                                         </p>
                                                     </div>
-                                                    <div className={styles['card-section']}>
+                                                    <div className={styles.cardSection}>
                                                         {new Date(exam.examDate).toLocaleString(appLanguage.language)}
                                                     </div>
-                                                    <div className={styles['card-section']}>
+                                                    <div className={styles.cardSection}>
                                                         {
                                                             [
                                                                 language?.minutes.replace('@number', String(exam.examTime)),

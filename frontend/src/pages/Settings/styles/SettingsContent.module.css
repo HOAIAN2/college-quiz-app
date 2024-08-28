@@ -10,22 +10,22 @@
 	/* border-bottom: 1px solid var(--color-gray); */
 }
 
-.action-items {
+.actionItems {
 	display: flex;
 	gap: 10px;
 }
 
-.input-item {
+.inputItem {
 	height: 40px;
 	width: 300px;
 }
 
-.button-item {
+.buttonItem {
 	height: 40px;
 	width: 80px;
 }
 
-.sessions-list>li {
+.sessionsList>li {
 	border: 1px solid var(--color-gray);
 	border-radius: var(--border-radius-low);
 	/* background: var(--color-white); */
@@ -34,6 +34,6 @@
 	margin-bottom: 10px;
 }
 
-.current-session {
+.currentSession {
 	color: var(--color-soft-green);
 }

@@ -1,4 +1,4 @@
-.custom-select {
+.customSelect {
 	position: relative;
 	height: 40px;
 	cursor: pointer;
@@ -15,7 +15,7 @@
 	display: none;
 }
 
-.select-dropbox {
+.selectDropbox {
 	padding: 0;
 	background-color: white;
 	position: absolute;
@@ -25,7 +25,7 @@
 	height: fit-content;
 }
 
-.select-item {
+.selectItem {
 	padding: 0;
 	height: 40px;
 	width: 100%;
@@ -34,10 +34,10 @@
 	cursor: pointer;
 }
 
-.select-item:hover {
+.selectItem:hover {
 	background-color: var(--color-white);
 }
 
-.select-item>span {
+.selectItem>span {
 	margin-left: 10px;
 }

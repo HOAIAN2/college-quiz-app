@@ -45,8 +45,8 @@ export default function YesNoPopUp({
         <div
             className={
                 css(
-                    styles['yes-no-pop-up-container'],
-                    hide ? styles['hide'] : ''
+                    styles.yesNoPopUpContainer,
+                    hide ? styles.hide : ''
                 )
             }>
             {
@@ -55,31 +55,31 @@ export default function YesNoPopUp({
             <div
                 className={
                     css(
-                        styles['yes-no-pop-up-form'],
-                        hide ? styles['hide'] : ''
+                        styles.yesNoPopUpForm,
+                        hide ? styles.hide : ''
                     )
                 }>
-                <div className={styles['header']}>
+                <div className={styles.header}>
                     <div
-                        className={styles['esc-button']}
+                        className={styles.escButton}
                         onClick={handleClosePopUp}
                     >
                         <RxCross2 />
                     </div>
                 </div>
-                <div className={styles['form-data']}>
-                    <div className={styles['message']} >
-                        <div className={styles['message-content']}>
+                <div className={styles.formData}>
+                    <div className={styles.message} >
+                        <div className={styles.messageContent}>
                             {message}
                         </div>
                     </div>
-                    <div className={styles['action-items']}>
+                    <div className={styles.actionItems}>
                         <button
                             onClick={handleClosePopUp}
                             className={
                                 css(
-                                    appStyles['action-item-white-border-red-d'],
-                                    mutation.isPending ? styles['pending'] : ''
+                                    appStyles.actionItemWhiteBorderRed,
+                                    mutation.isPending ? styles.pending : ''
                                 )
                             }>
                             {langNo}
@@ -88,8 +88,8 @@ export default function YesNoPopUp({
                             onClick={() => { mutation.mutate(); }}
                             className={
                                 css(
-                                    appStyles['action-item-white-d'],
-                                    mutation.isPending ? styles['pending'] : ''
+                                    appStyles.actionItemWhite,
+                                    mutation.isPending ? styles.pending : ''
                                 )
                             }>
                             {langYes}

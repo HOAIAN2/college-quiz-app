@@ -1,4 +1,4 @@
-.yes-no-pop-up-container {
+.yesNoPopUpContainer {
 	width: 100vw;
 	height: 100vh;
 	position: fixed;
@@ -14,11 +14,11 @@
 	transition-property: background, opacity;
 }
 
-.yes-no-pop-up-container.hide {
+.yesNoPopUpContainer.hide {
 	opacity: 0;
 }
 
-.yes-no-pop-up-form {
+.yesNoPopUpForm {
 	width: 300px;
 	aspect-ratio: 1.5;
 	/* box-shadow: 0px 0px 10px var(--color-shadow); */
@@ -28,7 +28,7 @@
 	transition: var(--transition-timing-medium);
 }
 
-.yes-no-pop-up-form.hide {
+.yesNoPopUpForm.hide {
 	opacity: 0;
 	scale: 0.9;
 }
@@ -45,12 +45,12 @@
 	font-size: 20px;
 }
 
-.header>.esc-button {
+.header>.escButton {
 	font-size: 22px;
 	cursor: pointer;
 }
 
-.form-data {
+.formData {
 	width: 100%;
 	min-height: calc(100% - 40px);
 	height: fit-content;
@@ -67,13 +67,13 @@
 	justify-content: center;
 }
 
-.message>.message-content {
+.message>.messageContent {
 	font-weight: 600;
 	font-size: 18px;
 	text-align: center;
 }
 
-.action-items {
+.actionItems {
 	height: 50px;
 	display: flex;
 	justify-content: space-between;

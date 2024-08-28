@@ -41,7 +41,7 @@ export default function ViewChapter({
     const disabledUpdate = !permissions.has('subject_update');
     const handleUpdateChapter = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
         e.preventDefault();
-        document.querySelector(`.${styles['form-data']}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
+        document.querySelector(`.${styles.formData}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
             node.classList.remove('error');
             formUtils.getParentElement(node)?.removeAttribute('data-error');
         });
@@ -74,8 +74,8 @@ export default function ViewChapter({
             <div
                 className={
                     css(
-                        styles['view-model-container'],
-                        hide ? styles['hide'] : ''
+                        styles.viewModelContainer,
+                        hide ? styles.hide : ''
                     )
                 }>
                 {
@@ -84,54 +84,54 @@ export default function ViewChapter({
                 <div
                     className={
                         css(
-                            styles['view-model-form'],
-                            hide ? styles['hide'] : ''
+                            styles.viewModelForm,
+                            hide ? styles.hide : ''
                         )
                     }>
-                    <div className={styles['header']}>
-                        <h2 className={styles['title']}>{data.name}</h2>
-                        <div className={styles['esc-button']}
+                    <div className={styles.header}>
+                        <h2 className={styles.title}>{data.name}</h2>
+                        <div className={styles.escButton}
                             onClick={handleClosePopUp}
                         >
                             <RxCross2 />
                         </div>
                     </div>
                     <>
-                        <div className={styles['form-content']}>
+                        <div className={styles.formContent}>
                             <form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
                                 mutate(e);
                             }}
                                 onInput={(e) => { formUtils.handleOnInput(e); }}
-                                className={styles['form-data']}>
-                                <div className={styles['group-inputs']}>
-                                    <div className={styles['wrap-item']}>
-                                        <label className={appStyles['required']} htmlFor='chapter_number'>{language?.chapterNumber}</label>
+                                className={styles.formData}>
+                                <div className={styles.groupInputs}>
+                                    <div className={styles.wrapItem}>
+                                        <label className={appStyles.required} htmlFor='chapter_number'>{language?.chapterNumber}</label>
                                         <input
                                             id='chapter_number'
                                             name='chapter_number'
                                             disabled={disabledUpdate}
                                             defaultValue={data.chapterNumber}
-                                            className={css(appStyles['input-d'], styles['input-item'])}
+                                            className={css(appStyles.input, styles.inputItem)}
                                             type='text' />
                                     </div>
-                                    <div className={styles['wrap-item']}>
-                                        <label className={appStyles['required']} htmlFor='name'>{language?.name}</label>
+                                    <div className={styles.wrapItem}>
+                                        <label className={appStyles.required} htmlFor='name'>{language?.name}</label>
                                         <input
                                             id='name'
                                             disabled={disabledUpdate}
                                             defaultValue={data.name}
                                             name='name'
-                                            className={css(appStyles['input-d'], styles['input-item'])}
+                                            className={css(appStyles.input, styles.inputItem)}
                                             type='text' />
                                     </div>
                                 </div>
                                 {
                                     permissions.has('subject_update') ?
-                                        <div className={styles['action-items']}>
+                                        <div className={styles.actionItems}>
                                             <button name='save'
                                                 className={
                                                     css(
-                                                        appStyles['action-item-d'],
+                                                        appStyles.actionItem,
                                                         isPending ? 'button-submitting' : ''
                                                     )
                                                 }
@@ -142,7 +142,7 @@ export default function ViewChapter({
                                                 onClick={() => {
                                                     setShowDeletePopUp(true);
                                                 }}
-                                                className={appStyles['action-item-white-border-red-d']}>
+                                                className={appStyles.actionItemWhiteBorderRed}>
                                                 <MdDeleteOutline /> {language?.delete}
                                             </button>
                                         </div>

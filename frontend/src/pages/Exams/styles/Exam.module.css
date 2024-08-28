@@ -1,4 +1,4 @@
-.page-content {
+.pageContent {
 	width: 100%;
 	height: 100%;
 	/* height: calc(100% - 50px); */
@@ -18,39 +18,39 @@
 	font-size: larger;
 }
 
-.exam-info-container {
+.examInfoContainer {
 	width: 100%;
 	height: calc(fit-content + 50px);
 }
 
-.exam-info {
+.examInfo {
 	height: fit-content;
 	display: flex;
 	flex-direction: column;
 }
 
-.group-infos {
+.groupInfos {
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
 }
 
-.wrap-item {
+.wrapItem {
 	position: relative;
 	height: 90px;
 	flex: 0 0 30%;
 }
 
-.supervisors-container {
+.supervisorsContainer {
 	flex: 0 0 100%;
 }
 
-.wrap-item>* {
+.wrapItem>* {
 	font-size: 16px !important;
 }
 
-.action-items {
+.actionItems {
 	margin-top: 10px;
 	height: 50px;
 	display: flex;
@@ -59,7 +59,7 @@
 	gap: 10px;
 }
 
-.action-items>button {
+.actionItems>button {
 	min-width: 80px;
 	width: fit-content;
 	display: flex;
@@ -73,13 +73,13 @@
 	pointer-events: none;
 }
 
-.result-container {
+.resultContainer {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 }
 
-.table-container {
+.tableContainer {
 	margin-bottom: 30px;
 	width: fit-content;
 	height: fit-content;
@@ -139,7 +139,7 @@ th {
 	width: 150px;
 }
 
-.column.super-large {
+.column.superLarge {
 	width: 250px;
 }
 
@@ -148,7 +148,7 @@ th {
 }
 
 @media (width<=800px) {
-	.group-infos {
+	.groupInfos {
 		flex-direction: column;
 		padding-right: 20px;
 		gap: 20px;

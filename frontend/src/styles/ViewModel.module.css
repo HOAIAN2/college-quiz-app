@@ -1,4 +1,4 @@
-.view-model-container {
+.viewModelContainer {
 	width: 100vw;
 	height: 100vh;
 	position: fixed;
@@ -14,11 +14,11 @@
 	transition-property: background, opacity;
 }
 
-.view-model-container.hide {
+.viewModelContainer.hide {
 	opacity: 0;
 }
 
-.view-model-form {
+.viewModelForm {
 	width: 90%;
 	height: 90%;
 	/* box-shadow: 0px 0px 10px var(--color-shadow); */
@@ -29,7 +29,7 @@
 	overflow-y: hidden;
 }
 
-.view-model-form.hide {
+.viewModelForm.hide {
 	opacity: 0;
 	scale: 0.9;
 }
@@ -46,18 +46,18 @@
 	font-size: 20px;
 }
 
-.header>.esc-button {
+.header>.escButton {
 	font-size: 22px;
 	cursor: pointer;
 }
 
-.form-content {
+.formContent {
 	flex: 1;
 	height: calc(100% - 40px);
 	overflow-y: auto;
 }
 
-.form-data {
+.formData {
 	min-height: 100%;
 	height: fit-content;
 	display: flex;
@@ -66,54 +66,54 @@
 	padding: 10px;
 }
 
-.group-inputs {
+.groupInputs {
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
 }
 
-.wrap-item {
+.wrapItem {
 	position: relative;
 	margin-left: 20px;
 	height: 90px;
 	flex: 0 0 30%;
 }
 
-.wrap-item.textarea {
+.wrapItem.textarea {
 	flex: 0 0 95%;
 	height: fit-content;
 }
 
-.wrap-item.textarea>.input-item {
+.wrapItem.textarea>.inputItem {
 	padding: 20px;
 	min-height: 70px;
 	resize: none;
 	overflow: hidden;
 }
 
-.wrap-item::after {
+.wrapItem::after {
 	content: attr(data-error);
 	width: fit-content;
 	color: red;
 }
 
-.input-item {
+.inputItem {
 	height: 40px;
 	width: 100%;
 }
 
-.input-item.error {
+.inputItem.error {
 	border-color: red;
 }
 
-.custom-select {
+.customSelect {
 	width: 100%;
 	margin-left: 0;
 	z-index: 1;
 }
 
-.action-items {
+.actionItems {
 	margin-top: 10px;
 	height: 50px;
 	display: flex;
@@ -130,20 +130,20 @@
 
 
 @media (width<=800px) {
-	.view-model-form {
+	.viewModelForm {
 		width: 100%;
 		height: 100%;
 		border-radius: 0px;
 	}
 
-	.group-inputs {
+	.groupInputs {
 		flex-wrap: unset;
 		flex-direction: column;
 		padding-right: 20px;
 		gap: 20px;
 	}
 
-	.wrap-item {
+	.wrapItem {
 		flex: unset;
 	}
 }

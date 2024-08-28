@@ -38,7 +38,7 @@ export default function Exams() {
 	}, [forceUpdate]);
 	const showExamStatus = (exam: ExamInMonth) => {
 		const examDate = new Date(exam.examDate);
-		const getClassNames = (color: 'red' | 'green' | 'yellow') => css(styles['badge'], styles[color]);
+		const getClassNames = (color: 'red' | 'green' | 'yellow') => css(styles.badge, styles[color]);
 		if (exam.cancelledAt != null) {
 			return <div className={getClassNames('red')}>{language?.cancelled}</div>;
 		}
@@ -76,12 +76,12 @@ export default function Exams() {
 	if (!permissions.has('exam_view')) return <Navigate to='/' />;
 	return (
 		<>
-			<main className={css(appStyles['dashboard-d'])}>
+			<main className={css(appStyles.dashboard)}>
 				{
 					queryData.isLoading ? <Loading /> : null
 				}
-				<section className={styles['filter-form']}>
-					<div className={styles['wrap-input-item']}>
+				<section className={styles.filterForm}>
+					<div className={styles.wrapInputItem}>
 						<label htmlFor='month'>{language?.month}</label>
 						<DatePicker
 							initialValue={initQueryDate()}
@@ -89,7 +89,7 @@ export default function Exams() {
 								{
 									id: 'month',
 									name: 'month',
-									className: css(appStyles['input-d'], styles['input-item'])
+									className: css(appStyles.input, styles.inputItem)
 								}
 							}
 							onChange={e => {
@@ -104,25 +104,25 @@ export default function Exams() {
 						/>
 					</div>
 				</section>
-				<section className={styles['wrap-card-container']}>
-					<div className={styles['card-container']}>
+				<section className={styles.wrapCardContainer}>
+					<div className={styles.cardContainer}>
 						{queryData.data ?
 							queryData.data.map(item => {
 								return (
 									<Link
 										key={`exam-${item.id}`}
 										to={String(item.id)}
-										className={css(appStyles['dashboard-card-d'], styles['card'])}
+										className={css(appStyles.dashboardCard, styles.card)}
 									>
-										<div className={styles['card-section']}>
-											<p className={styles['content']}>
+										<div className={styles.cardSection}>
+											<p className={styles.content}>
 												{item.name}
 											</p>
 										</div>
-										<div className={styles['card-section']}>
+										<div className={styles.cardSection}>
 											{showExamStatus(item)}
 										</div>
-										<div className={styles['card-section']}>
+										<div className={styles.cardSection}>
 											{item.course.subject.name}
 										</div>
 									</Link>

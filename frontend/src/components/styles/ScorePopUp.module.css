@@ -1,4 +1,4 @@
-.score-popup-container {
+.scorePopupContainer {
 	width: 100vw;
 	height: 100vh;
 	position: fixed;
@@ -14,7 +14,7 @@
 	transition-property: background, opacity;
 }
 
-.score-content {
+.scoreContent {
 	width: 300px;
 	height: fit-content;
 	background-color: white;
@@ -37,11 +37,11 @@
 	text-align: center;
 }
 
-.content-data {
+.contentData {
 	height: calc(100% - 40px);
 }
 
-.group-data {
+.groupData {
 	height: calc(100% - 60px);
 	display: flex;
 	flex-direction: column;
@@ -49,7 +49,7 @@
 	align-items: center;
 }
 
-.group-items {
+.groupItems {
 	flex: 0 0 calc(25% - 20px);
 	width: 80%;
 	padding: 20px;
@@ -115,7 +115,7 @@
 	background: var(--color-soft-red);
 }
 
-.action-items {
+.actionItems {
 	height: 60px;
 	display: flex;
 	align-items: center;
@@ -124,7 +124,7 @@
 	gap: 10px;
 }
 
-.action-items>button {
+.actionItems>button {
 	width: fit-content;
 	min-width: 80px;
 	height: 40px;

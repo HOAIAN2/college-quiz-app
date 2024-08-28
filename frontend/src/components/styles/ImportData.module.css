@@ -1,4 +1,4 @@
-.import-data-container {
+.importDataContainer {
 	width: 100vw;
 	height: 100vh;
 	position: fixed;
@@ -14,11 +14,11 @@
 	transition-property: background, opacity;
 }
 
-.import-data-container.hide {
+.importDataContainer.hide {
 	opacity: 0;
 }
 
-.import-data-form {
+.importDataForm {
 	width: 400px;
 	height: 50%;
 	border-radius: var(--border-radius-low);
@@ -29,7 +29,7 @@
 	transition: var(--transition-timing-medium);
 }
 
-.import-data-form.hide {
+.importDataForm.hide {
 	opacity: 0;
 	scale: 0.9;
 }
@@ -46,12 +46,12 @@
 	font-size: 20px;
 }
 
-.header>.esc-button {
+.header>.escButton {
 	font-size: 22px;
 	cursor: pointer;
 }
 
-.form-data {
+.formData {
 	width: 100%;
 	height: calc(100% - 40px);
 	display: flex;
@@ -60,13 +60,13 @@
 	padding: 10px;
 }
 
-.drag-area {
+.dragArea {
 	width: 100%;
 	height: calc(100% - (50px));
 	position: relative;
 }
 
-.drag-area-dashed {
+.dragAreaDashed {
 	width: 93%;
 	height: 93%;
 	border: 3px dashed var(--color-blue);
@@ -78,11 +78,11 @@
 	cursor: pointer;
 }
 
-.drag-area-dashed.drag {
+.dragAreaDashed.drag {
 	background: rgba(108, 164, 249, 0.3);
 }
 
-.drag-area-content {
+.dragAreaContent {
 	width: 100%;
 	position: absolute;
 	top: 50%;
@@ -90,7 +90,7 @@
 	transform: translate(-50%, -50%);
 }
 
-.drag-area-content>.file-name {
+.dragAreaContent>.fileName {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -99,16 +99,16 @@
 	text-overflow: ellipsis;
 }
 
-.drag-area-content>.file-name>svg {
+.dragAreaContent>.fileName>svg {
 	font-size: 64px;
 	color: var(--color-blue);
 }
 
-.drag-area-content>.file-name.have-file>svg {
+.dragAreaContent>.fileName.haveFile>svg {
 	color: var(--color-green);
 }
 
-.action-items {
+.actionItems {
 	height: 50px;
 	display: flex;
 	align-items: center;
@@ -116,7 +116,7 @@
 	gap: 10px;
 }
 
-.action-items>a {
+.actionItems>a {
 	width: fit-content;
 }
 

@@ -13,7 +13,7 @@ export default function StatusBadge({
     return (
         <div
             title={content}
-            className={css(style['badge'], style[color])}>
+            className={css(style.badge, style[color])}>
         </div>
     );
 }

@@ -1,12 +1,12 @@
 import appStyles from '~styles/App.module.css';
 import styles from '~styles/ViewModel.module.css';
 
-import { apiAutoCompleteFaculty } from '~api/faculty';
-import { apiGetSchoolClassById, apiUpdateSchoolClass } from '~api/school-class';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { RxCross2 } from 'react-icons/rx';
+import { apiAutoCompleteFaculty } from '~api/faculty';
+import { apiGetSchoolClassById, apiUpdateSchoolClass } from '~api/school-class';
 import CustomDataList from '~components/CustomDataList';
 import Loading from '~components/Loading';
 import { AUTO_COMPLETE_DEBOUNCE } from '~config/env';
@@ -54,7 +54,7 @@ export default function ViewSchoolClass({
     });
     const handleUpdateSchoolClass = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
         e.preventDefault();
-        document.querySelector(`.${styles['form-data']}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
+        document.querySelector(`.${styles.formData}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
             node.classList.remove('error');
             formUtils.getParentElement(node)?.removeAttribute('data-error');
         });
@@ -78,8 +78,8 @@ export default function ViewSchoolClass({
         <div
             className={
                 css(
-                    styles['view-model-container'],
-                    hide ? styles['hide'] : ''
+                    styles.viewModelContainer,
+                    hide ? styles.hide : ''
                 )
             }>
             {
@@ -88,13 +88,13 @@ export default function ViewSchoolClass({
             <div
                 className={
                     css(
-                        styles['view-model-form'],
-                        hide ? styles['hide'] : ''
+                        styles.viewModelForm,
+                        hide ? styles.hide : ''
                     )
                 }>
-                <div className={styles['header']}>
-                    <h2 className={styles['title']}>{queryData.data?.name}</h2>
-                    <div className={styles['esc-button']}
+                <div className={styles.header}>
+                    <h2 className={styles.title}>{queryData.data?.name}</h2>
+                    <div className={styles.escButton}
                         onClick={handleClosePopUp}
                     >
                         <RxCross2 />
@@ -104,37 +104,37 @@ export default function ViewSchoolClass({
                     {
                         queryData.isLoading ? <Loading /> : null
                     }
-                    <div className={styles['form-content']}>
+                    <div className={styles.formContent}>
                         {
                             queryData.data ? (
                                 <form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
                                     mutate(e);
                                 }}
                                     onInput={(e) => { formUtils.handleOnInput(e); }}
-                                    className={styles['form-data']}>
-                                    <div className={styles['group-inputs']}>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={appStyles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
+                                    className={styles.formData}>
+                                    <div className={styles.groupInputs}>
+                                        <div className={styles.wrapItem}>
+                                            <label className={appStyles.required} htmlFor='shortcode'>{language?.shortcode}</label>
                                             <input
                                                 id='shortcode'
                                                 disabled={disabledUpdate}
                                                 defaultValue={queryData.data.shortcode}
                                                 name='shortcode'
-                                                className={css(appStyles['input-d'], styles['input-item'])}
+                                                className={css(appStyles.input, styles.inputItem)}
                                                 type='text' />
                                         </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={appStyles['required']} htmlFor='name'>{language?.name}</label>
+                                        <div className={styles.wrapItem}>
+                                            <label className={appStyles.required} htmlFor='name'>{language?.name}</label>
                                             <input
                                                 id='name'
                                                 disabled={disabledUpdate}
                                                 defaultValue={queryData.data.name}
                                                 name='name'
-                                                className={css(appStyles['input-d'], styles['input-item'])}
+                                                className={css(appStyles.input, styles.inputItem)}
                                                 type='text' />
                                         </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={appStyles['required']} htmlFor='faculty_id'>{language?.faculty}</label>
+                                        <div className={styles.wrapItem}>
+                                            <label className={appStyles.required} htmlFor='faculty_id'>{language?.faculty}</label>
                                             <CustomDataList
                                                 name='faculty_id'
                                                 disabled={disabledUpdate}
@@ -155,12 +155,12 @@ export default function ViewSchoolClass({
                                     </div>
                                     {
                                         permissions.has('school_class_update') ?
-                                            <div className={styles['action-items']}>
+                                            <div className={styles.actionItems}>
                                                 <button name='save'
                                                     className={
                                                         css(
-                                                            appStyles['action-item-d'],
-                                                            isPending ? appStyles['button-submitting'] : ''
+                                                            appStyles.actionItem,
+                                                            isPending ? appStyles.buttonSubmitting : ''
                                                         )
                                                     }>
                                                     <FiSave />

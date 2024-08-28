@@ -1,4 +1,4 @@
-.export-users-container {
+.exportUsersContainer {
 	width: 100vw;
 	height: 100vh;
 	position: fixed;
@@ -14,11 +14,11 @@
 	transition-property: background, opacity;
 }
 
-.export-users-container.hide {
+.exportUsersContainer.hide {
 	opacity: 0;
 }
 
-.export-users-form {
+.exportUsersForm {
 	width: 450px;
 	height: 60%;
 	border-radius: var(--border-radius-low);
@@ -29,7 +29,7 @@
 	transition: var(--transition-timing-medium);
 }
 
-.export-users-form.hide {
+.exportUsersForm.hide {
 	opacity: 0;
 	scale: 0.9;
 }
@@ -46,12 +46,12 @@
 	font-size: 20px;
 }
 
-.header>.esc-button {
+.header>.escButton {
 	font-size: 22px;
 	cursor: pointer;
 }
 
-.form-data {
+.formData {
 	width: 100%;
 	height: calc(100% - 40px);
 	display: flex;
@@ -60,7 +60,7 @@
 	padding: 10px;
 }
 
-.group-inputs {
+.groupInputs {
 	height: 100%;
 	width: 100%;
 	overflow: auto;
@@ -69,7 +69,7 @@
 	gap: 10px;
 }
 
-.wrap-item {
+.wrapItem {
 	width: fit-content;
 	position: relative;
 	margin-left: 10px;
@@ -77,18 +77,18 @@
 	align-items: center;
 }
 
-.wrap-item>.label {
+.wrapItem>.label {
 	margin: 0 10px 0 10px;
 	font-size: 16px;
 }
 
-.wrap-item>input {
+.wrapItem>input {
 	accent-color: var(--color-blue);
 	width: 20px;
 	height: 20px;
 }
 
-.action-items {
+.actionItems {
 	height: 50px;
 	display: flex;
 	align-items: center;
@@ -96,12 +96,12 @@
 	gap: 10px;
 }
 
-.action-items>a {
+.actionItems>a {
 	width: fit-content;
 }
 
 @media(width<=800px) {
-	.export-users-form {
+	.exportUsersForm {
 		width: 90%;
 	}
 }

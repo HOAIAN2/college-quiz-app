@@ -62,7 +62,7 @@ export default function ViewQuestion({
     });
     const handleUpdateQuestion = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
         e.preventDefault();
-        document.querySelector(`.${globalStyles['form-data']}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
+        document.querySelector(`.${globalStyles.formData}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
             node.classList.remove('error');
             formUtils.getParentElement(node)?.removeAttribute('data-error');
         });
@@ -116,8 +116,8 @@ export default function ViewQuestion({
             <div
                 className={
                     css(
-                        globalStyles['view-model-container'],
-                        hide ? globalStyles['hide'] : ''
+                        globalStyles.viewModelContainer,
+                        hide ? globalStyles.hide : ''
                     )
                 }>
                 {
@@ -126,13 +126,13 @@ export default function ViewQuestion({
                 <div
                     className={
                         css(
-                            globalStyles['view-model-form'],
-                            hide ? globalStyles['hide'] : ''
+                            globalStyles.viewModelForm,
+                            hide ? globalStyles.hide : ''
                         )
                     }>
-                    <div className={globalStyles['header']}>
-                        <h2 className={globalStyles['title']}>{language?.title}</h2>
-                        <div className={globalStyles['esc-button']}
+                    <div className={globalStyles.header}>
+                        <h2 className={globalStyles.title}>{language?.title}</h2>
+                        <div className={globalStyles.escButton}
                             onClick={handleClosePopUp}
                         >
                             <RxCross2 />
@@ -142,18 +142,18 @@ export default function ViewQuestion({
                         {
                             queryData.isLoading ? <Loading /> : null
                         }
-                        <div className={globalStyles['form-content']}>
+                        <div className={globalStyles.formContent}>
                             {
                                 queryData.data ? (
                                     <form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
                                         mutate(e);
                                     }}
                                         onInput={(e) => { formUtils.handleOnInput(e); }}
-                                        className={globalStyles['form-data']}>
+                                        className={globalStyles.formData}>
                                         <input name='true_option' readOnly hidden value={options.findIndex(option => option.key === trueOptionKey)} />
                                         <input name='subject_id' readOnly hidden value={subjectDetail.id} />
-                                        <div className={globalStyles['group-inputs']}>
-                                            <div style={{ zIndex: 2 }} className={globalStyles['wrap-item']}>
+                                        <div className={globalStyles.groupInputs}>
+                                            <div style={{ zIndex: 2 }} className={globalStyles.wrapItem}>
                                                 <label htmlFor='chapter_id'>{language?.chapter}</label>
                                                 <CustomSelect
                                                     name='chapter_id'
@@ -177,11 +177,11 @@ export default function ViewQuestion({
                                                                 label: `${chapter.chapterNumber}. ${chapter.name}`
                                                             }))]
                                                     }
-                                                    className={globalStyles['custom-select']}
+                                                    className={globalStyles.customSelect}
                                                 />
                                             </div>
-                                            <div className={globalStyles['wrap-item']}>
-                                                <label className={appStyles['required']}>{language?.level}</label>
+                                            <div className={globalStyles.wrapItem}>
+                                                <label className={appStyles.required}>{language?.level}</label>
                                                 <CustomSelect
                                                     name='level'
                                                     disabled={disabledUpdate}
@@ -199,17 +199,17 @@ export default function ViewQuestion({
                                                             };
                                                         }) : []
                                                     }
-                                                    className={globalStyles['custom-select']}
+                                                    className={globalStyles.customSelect}
                                                 />
                                             </div>
-                                            <div className={css(globalStyles['wrap-item'], globalStyles['textarea'])}>
-                                                <label className={appStyles['required']} htmlFor='content'>{language?.content}</label>
+                                            <div className={css(globalStyles.wrapItem, globalStyles.textarea)}>
+                                                <label className={appStyles.required} htmlFor='content'>{language?.content}</label>
                                                 <textarea
                                                     disabled={disabledUpdate}
                                                     defaultValue={queryData.data.content}
                                                     onInput={autoSizeTextArea}
                                                     name='content' id='content'
-                                                    className={css(appStyles['input-d'], globalStyles['input-item'])}
+                                                    className={css(appStyles.input, globalStyles.inputItem)}
                                                     cols={30} rows={50}>
                                                 </textarea>
                                             </div>
@@ -217,11 +217,11 @@ export default function ViewQuestion({
                                                 permissions.has('question_update') ?
                                                     <div
                                                         style={{ paddingLeft: '20px' }}
-                                                        className={appStyles['action-bar-d']}>
+                                                        className={appStyles.actionBar}>
                                                         {
                                                             <div
                                                                 style={{ width: 'fit-content' }}
-                                                                className={appStyles['action-item-d']}
+                                                                className={appStyles.actionItem}
                                                                 onClick={() => {
                                                                     setOptions([
                                                                         ...options,
@@ -238,15 +238,15 @@ export default function ViewQuestion({
                                                     </div> : null
                                             }
                                         </div>
-                                        <div className={globalStyles['group-inputs']}>
+                                        <div className={globalStyles.groupInputs}>
                                             {options.map((option, index) => {
                                                 return (
                                                     <div
                                                         key={option.key}
-                                                        className={css(styles['textarea-group'], globalStyles['wrap-item'], globalStyles['textarea'])}>
-                                                        <div className={styles['wrap-label']}>
+                                                        className={css(styles.textareaGroup, globalStyles.wrapItem, globalStyles.textarea)}>
+                                                        <div className={styles.wrapLabel}>
                                                             <label style={{ cursor: 'pointer' }}
-                                                                className={appStyles['required']}
+                                                                className={appStyles.required}
                                                                 onClick={() => {
                                                                     setTrueOptionKey(String(option.key));
                                                                 }}
@@ -263,7 +263,7 @@ export default function ViewQuestion({
                                                             onInput={autoSizeTextArea}
                                                             name='options[]'
                                                             disabled={disabledUpdate}
-                                                            className={css(appStyles['input-d'], globalStyles['input-item'], styles['textarea'])}
+                                                            className={css(appStyles.input, globalStyles.inputItem, styles.textarea)}
                                                             cols={30} rows={50}>
                                                         </textarea>
                                                         {
@@ -275,7 +275,7 @@ export default function ViewQuestion({
                                                                         }
                                                                         else setOptions(options.filter(item => item.key !== option.key));
                                                                     }}
-                                                                    className={appStyles['action-item-white-border-red-d']}
+                                                                    className={appStyles.actionItemWhiteBorderRed}
                                                                 >
                                                                     <MdDeleteOutline /> {language?.delete}
                                                                 </div> : null
@@ -286,13 +286,13 @@ export default function ViewQuestion({
                                         </div>
                                         {
                                             permissions.hasAnyFormList(['question_update', 'question_delete']) ?
-                                                <div className={globalStyles['action-items']}>
+                                                <div className={globalStyles.actionItems}>
                                                     {
                                                         permissions.has('question_update') ?
                                                             <button name='save'
                                                                 className={
                                                                     css(
-                                                                        appStyles['action-item-d'],
+                                                                        appStyles.actionItem,
                                                                         isPending ? 'button-submitting' : ''
                                                                     )
                                                                 }><FiSave />{language?.save}</button>
@@ -305,7 +305,7 @@ export default function ViewQuestion({
                                                                 onClick={() => {
                                                                     setShowDeletePopUp(true);
                                                                 }}
-                                                                className={appStyles['action-item-white-border-red-d']}
+                                                                className={appStyles.actionItemWhiteBorderRed}
                                                             >
                                                                 <MdDeleteOutline /> {language?.delete}
                                                             </button>

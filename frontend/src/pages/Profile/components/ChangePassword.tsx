@@ -1,10 +1,10 @@
 import appStyles from '~styles/App.module.css';
 import styles from '../styles/ChangePassword.module.css';
 
-import { apiChangePassword } from '~api/auth';
 import { useEffect, useRef, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import { useNavigate } from 'react-router-dom';
+import { apiChangePassword } from '~api/auth';
 import CSS_TIMING from '~constants/css-timing';
 import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
@@ -43,7 +43,7 @@ export default function ChangePassword({
         setBlockSubmit(true);
         seIsSubmitting(true);
         const formData = new FormData(e.currentTarget);
-        buttonRef.current?.classList.add(styles['submitting']);
+        buttonRef.current?.classList.add(styles.submitting);
         apiChangePassword(formData)
             .then(() => {
                 return navigate(0);
@@ -52,7 +52,7 @@ export default function ChangePassword({
                 setBlockSubmit(false);
                 seIsSubmitting(false);
             }).finally(() => {
-                buttonRef.current?.classList.remove(styles['submitting']);
+                buttonRef.current?.classList.remove(styles.submitting);
             });
     };
     useEffect(() => {
@@ -61,19 +61,19 @@ export default function ChangePassword({
     return (
         <div className={
             css(
-                styles['change-password-container'],
-                hide ? styles['hide'] : ''
+                styles.changePasswordContainer,
+                hide ? styles.hide : ''
             )
         }>
             <div className={
                 css(
-                    styles['change-password-form'],
-                    hide ? styles['hide'] : ''
+                    styles.changePasswordForm,
+                    hide ? styles.hide : ''
                 )
             }>
-                <div className={styles['header']}>
-                    <h2 className={styles['title']}>{language?.title}</h2>
-                    <div className={styles['esc-button']}
+                <div className={styles.header}>
+                    <h2 className={styles.title}>{language?.title}</h2>
+                    <div className={styles.escButton}
                         onClick={handleClosePopUp}
                     >
                         <RxCross2 />
@@ -81,37 +81,37 @@ export default function ChangePassword({
                 </div>
                 <form onSubmit={handleChangePassword}
                     onInput={handlePreventSubmit}
-                    className={styles['form-data']}>
-                    <div className={styles['group-inputs']}>
-                        <div className={styles['wrap-item']}>
-                            <label className={appStyles['required']} htmlFor=''>{language?.password}</label>
+                    className={styles.formData}>
+                    <div className={styles.groupInputs}>
+                        <div className={styles.wrapItem}>
+                            <label className={appStyles.required} htmlFor=''>{language?.password}</label>
                             <input
                                 name='current_password'
-                                className={css(appStyles['input-d'], styles['input-item'])}
+                                className={css(appStyles.input, styles.inputItem)}
                                 type='password' />
                         </div>
-                        <div className={styles['wrap-item']}>
-                            <label className={appStyles['required']} htmlFor=''>{language?.newPassword}</label>
+                        <div className={styles.wrapItem}>
+                            <label className={appStyles.required} htmlFor=''>{language?.newPassword}</label>
                             <input
                                 name='password'
-                                className={css(appStyles['input-d'], styles['input-item'])}
+                                className={css(appStyles.input, styles.inputItem)}
                                 type='password' />
                         </div>
-                        <div className={styles['wrap-item']}>
-                            <label className={appStyles['required']} htmlFor=''>{language?.confirmPassword}</label>
+                        <div className={styles.wrapItem}>
+                            <label className={appStyles.required} htmlFor=''>{language?.confirmPassword}</label>
                             <input
                                 name='password_confirmation'
-                                className={css(appStyles['input-d'], styles['input-item'])}
+                                className={css(appStyles.input, styles.inputItem)}
                                 type='password' />
                         </div>
-                        <div className={styles['wrap-item']}>
+                        <div className={styles.wrapItem}>
                             <button
                                 ref={buttonRef}
                                 className={
                                     css(
-                                        appStyles['action-item-d'],
-                                        styles['submit'],
-                                        blockSubmit && !buttonRef.current?.classList.contains(styles['submitting']) ? styles['blocking'] : ''
+                                        appStyles.actionItem,
+                                        styles.submit,
+                                        blockSubmit && !buttonRef.current?.classList.contains(styles.submitting) ? styles.blocking : ''
                                     )
                                 }>
                                 {!isSubmitting && language?.title}

@@ -1,13 +1,13 @@
-.table-page-content {
+.tablePageContent {
 	width: 100%;
 	height: calc(100% - 50px);
 }
 
-.table-page-content:only-child {
+.tablePageContent:only-child {
 	height: 100%;
 }
 
-.filter-form {
+.filterForm {
 	height: 75px;
 	width: 100%;
 	display: flex;
@@ -21,7 +21,7 @@
 	box-shadow: 0px 0px 10px var(--color-shadow);
 }
 
-.wrap-input-item {
+.wrapInputItem {
 	max-height: 40px;
 	max-width: 300px;
 	width: 100%;
@@ -31,18 +31,18 @@
 	gap: 10px;
 }
 
-.wrap-input-item>label {
+.wrapInputItem>label {
 	white-space: nowrap;
 }
 
-.input-item {
+.inputItem {
 	max-height: 40px;
 	max-width: 300px;
 	width: 80%;
 	height: 80%;
 }
 
-.custom-select {
+.customSelect {
 	z-index: 1;
 	max-height: 40px;
 	max-width: 300px;
@@ -50,7 +50,7 @@
 	height: 80%;
 }
 
-.wrap-table {
+.wrapTable {
 	width: 100%;
 	height: calc(100% - 75px);
 	overflow: auto;

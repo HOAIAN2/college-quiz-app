@@ -37,7 +37,7 @@ export default function CustomSelect({
         const handleClickOutside = (e: MouseEvent) => {
             const element = e.target as HTMLElement;
             if (element && !containerRef.current?.contains(element)) {
-                customSelectRef.current?.classList.add(styles['hidden']);
+                customSelectRef.current?.classList.add(styles.hidden);
             }
         };
         document.addEventListener('click', handleClickOutside);
@@ -50,13 +50,13 @@ export default function CustomSelect({
             ref={containerRef}
             onClick={() => {
                 if (disabled) return;
-                customSelectRef.current?.classList.toggle(styles['hidden']);
+                customSelectRef.current?.classList.toggle(styles.hidden);
             }}
             className={
                 css(
-                    appStyles['input-d'],
-                    styles['custom-select'],
-                    disabled ? styles['disabled'] : '',
+                    appStyles.input,
+                    styles.customSelect,
+                    disabled ? styles.disabled : '',
                     className
                 )
             }
@@ -70,7 +70,7 @@ export default function CustomSelect({
                 onChange={(e) => { e.preventDefault(); }} />
             <div
                 ref={customSelectRef}
-                className={css(appStyles['input-d'], styles['hidden'], styles['select-dropbox'])}
+                className={css(appStyles.input, styles.hidden, styles.selectDropbox)}
             >
                 {options.map(option => {
                     return (
@@ -79,7 +79,7 @@ export default function CustomSelect({
                                 onChange && onChange(option);
                                 setCurrent(option);
                             }}
-                            className={styles['select-item']}>
+                            className={styles.selectItem}>
                             <span>{option.label}</span>
                         </div>
                     );

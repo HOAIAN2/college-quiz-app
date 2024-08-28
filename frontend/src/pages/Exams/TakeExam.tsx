@@ -115,9 +115,9 @@ export default function TakeExam() {
                 queryData.data
                     && answers.length === queryData.data.examData.questions.length ?
                     <>
-                        <main className={styles['take-exam-container']}>
-                            <div className={styles['data-container']}>
-                                <div className={styles['title']}>
+                        <main className={styles.takeExamContainer}>
+                            <div className={styles.dataContainer}>
+                                <div className={styles.title}>
                                     <div>
                                         {queryData.data.examData.name}
                                     </div>
@@ -125,7 +125,7 @@ export default function TakeExam() {
                                         {language?.timeLeft}: {timeLeft}
                                     </div>
                                 </div>
-                                <div className={styles['questions-container']}>
+                                <div className={styles.questionsContainer}>
                                     {
                                         queryData.data.examData.questions.map((question, index) => {
                                             return (
@@ -141,10 +141,10 @@ export default function TakeExam() {
                                     }
                                 </div>
                                 {language?.numberOfQuestionsAnswered}: {answers.filter(i => i !== -1).length}/{answers.length}
-                                <div className={styles['action-items']}>
+                                <div className={styles.actionItems}>
                                     <button
                                         onClick={() => { setShowSubmitPopUp(true); }}
-                                        className={appStyles['action-item-d']}>
+                                        className={appStyles.actionItem}>
                                         <TbSend /> {language?.submit}
                                     </button>
                                 </div>

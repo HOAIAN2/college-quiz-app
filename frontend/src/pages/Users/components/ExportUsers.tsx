@@ -53,7 +53,7 @@ export default function ExportUsers({
             });
     };
     const handleSelectAll = (type: 'all' | 'none') => {
-        document.querySelector(`.${styles['form-data']}`)
+        document.querySelector(`.${styles.formData}`)
             ?.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')
             .forEach(item => {
                 if (type === 'all') item.checked = true;
@@ -66,20 +66,20 @@ export default function ExportUsers({
     return (
         <div className={
             css(
-                styles['export-users-container'],
-                hide ? styles['hide'] : ''
+                styles.exportUsersContainer,
+                hide ? styles.hide : ''
             )
         }>
             <div
                 className={
                     css(
-                        styles['export-users-form'],
-                        hide ? styles['hide'] : ''
+                        styles.exportUsersForm,
+                        hide ? styles.hide : ''
                     )
                 }>
-                <div className={styles['header']}>
-                    <h2 className={styles['title']}>{language?.selectFields}</h2>
-                    <div className={styles['esc-button']}
+                <div className={styles.header}>
+                    <h2 className={styles.title}>{language?.selectFields}</h2>
+                    <div className={styles.escButton}
                         onClick={handleClosePopUp}
                     >
                         <RxCross2 />
@@ -90,24 +90,24 @@ export default function ExportUsers({
                 }
                 {
                     queryData.data ?
-                        <form onSubmit={handleExportUsers} className={styles['form-data']}>
+                        <form onSubmit={handleExportUsers} className={styles.formData}>
                             {
                                 queryData.data.map(item => {
                                     return (
-                                        <div key={`exportable-${item.field}`} className={styles['wrap-item']}>
+                                        <div key={`exportable-${item.field}`} className={styles.wrapItem}>
                                             <input id={item.field} type='checkbox' name='fields[]' value={item.field} />
-                                            <label htmlFor={item.field} className={styles['label']}>{item.fieldName}</label>
+                                            <label htmlFor={item.field} className={styles.label}>{item.fieldName}</label>
                                         </div>
                                     );
                                 })
                             }
-                            <div className={styles['action-items']}>
+                            <div className={styles.actionItems}>
                                 <button
                                     name='save'
                                     className={
                                         css(
-                                            appStyles['action-item-d'],
-                                            isPending ? appStyles['button-submitting'] : ''
+                                            appStyles.actionItem,
+                                            isPending ? appStyles.buttonSubmitting : ''
                                         )
                                     }>
                                     {language?.save}
@@ -116,13 +116,13 @@ export default function ExportUsers({
                                     onClick={() => { handleSelectAll('none'); }}
                                     style={{ width: 'fit-content' }}
                                     type='button'
-                                    className={appStyles['action-item-white-d']}
+                                    className={appStyles.actionItemWhite}
                                 >{language?.deselectAll}
                                 </button>
                                 <button
                                     onClick={() => { handleSelectAll('all'); }}
                                     type='button'
-                                    className={appStyles['action-item-white-d']}>
+                                    className={appStyles.actionItemWhite}>
                                     {language?.selectAll}
                                 </button>
                             </div>

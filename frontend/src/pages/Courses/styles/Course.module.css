@@ -1,4 +1,4 @@
-.page-content {
+.pageContent {
 	width: 100%;
 	height: 100%;
 	/* height: calc(100% - 50px); */
@@ -18,7 +18,7 @@
 	font-size: larger;
 }
 
-.form-content {
+.formContent {
 	width: 100%;
 	height: calc(fit-content + 50px);
 	/* background: white;
@@ -26,7 +26,7 @@
     box-shadow: 0px 0px 10px var(--color-shadow); */
 }
 
-.form-data {
+.formData {
 	height: fit-content;
 	display: flex;
 	flex-direction: column;
@@ -34,42 +34,42 @@
 	/* padding: 10px; */
 }
 
-.group-inputs {
+.groupInputs {
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
 }
 
-.wrap-item {
+.wrapItem {
 	position: relative;
 	margin-left: 20px;
 	height: 90px;
 	flex: 0 0 30%;
 }
 
-.wrap-item::after {
+.wrapItem::after {
 	content: attr(data-error);
 	width: fit-content;
 	color: red;
 }
 
-.input-item {
+.inputItem {
 	height: 40px;
 	width: 100%;
 }
 
-.input-item.error {
+.inputItem.error {
 	border-color: red;
 }
 
-.custom-select {
+.customSelect {
 	width: 100%;
 	margin-left: 0;
 	z-index: 1;
 }
 
-.action-items {
+.actionItems {
 	margin-top: 10px;
 	height: 50px;
 	display: flex;
@@ -79,7 +79,7 @@
 	padding-right: 20px;
 }
 
-.edit-students-button {
+.editStudentsButton {
 	width: fit-content;
 	gap: 5px;
 }
@@ -90,8 +90,8 @@
 	pointer-events: none;
 }
 
-.enrollments-container,
-.exams-container {
+.enrollmentsContainer,
+.examsContainer {
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
@@ -114,12 +114,12 @@
 }
 
 
-.card>.card-content {
+.card>.cardContent {
 	display: flex;
 	align-items: center;
 }
 
-.exam-card {
+.examCard {
 	flex: 0 0 calc(25% - 15px);
 	min-width: 160px;
 	height: 150px;
@@ -133,13 +133,13 @@
 	cursor: pointer;
 }
 
-.exam-card>.card-section>svg {
+.examCard>.cardSection>svg {
 	position: relative;
 	top: 4px;
 	margin-right: 10px;
 }
 
-.exam-card>.card-section>p {
+.examCard>.cardSection>p {
 	font-size: 16px;
 	display: -webkit-box;
 	line-clamp: 2;
@@ -150,13 +150,13 @@
 @media (width<=1000px) {
 
 	.card,
-	.exam-card {
+	.examCard {
 		flex: 0 0 calc(50% - 10px);
 	}
 }
 
 @media (width<=800px) {
-	.group-inputs {
+	.groupInputs {
 		flex-direction: column;
 		padding-right: 20px;
 		gap: 20px;

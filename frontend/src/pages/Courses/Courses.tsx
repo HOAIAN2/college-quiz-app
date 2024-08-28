@@ -72,15 +72,15 @@ export default function Courses() {
                     onMutateSuccess={onMutateSuccess}
                     setShowPopUp={setShowCreatePopUp}
                 /> : null}
-            <main className={appStyles['dashboard-d']}>
+            <main className={appStyles.dashboard}>
                 {
                     permissions.hasAnyFormList(['course_create',])
                         ?
-                        <section className={appStyles['action-bar-d']}>
+                        <section className={appStyles.actionBar}>
                             {
                                 permissions.has('course_create') ?
                                     <div
-                                        className={appStyles['action-item-d']}
+                                        className={appStyles.actionItem}
                                         onClick={() => {
                                             setShowCreatePopUp(true);
                                         }}
@@ -92,36 +92,36 @@ export default function Courses() {
                         </section>
                         : null
                 }
-                <section className={styles['page-content']}>
+                <section className={styles.pageContent}>
                     {
                         queryData.isLoading ? <Loading /> : null
                     }
-                    <div className={styles['filter-form']}>
-                        <div className={styles['wrap-input-item']}>
+                    <div className={styles.filterForm}>
+                        <div className={styles.wrapInputItem}>
                             <label>{language?.filter.search}</label>
                             <input
                                 onInput={(e) => {
                                     setSearchQuery(e.currentTarget.value);
                                 }}
                                 defaultValue={queryDebounce}
-                                className={css(appStyles['input-d'], styles['input-item'])}
+                                className={css(appStyles.input, styles.inputItem)}
                             />
                         </div>
                     </div>
-                    <div className={styles['wrap-card-container']}>
-                        <div className={styles['card-container']}>
+                    <div className={styles.wrapCardContainer}>
+                        <div className={styles.cardContainer}>
                             {queryData.data ?
                                 queryData.data.map(item => {
                                     return (
                                         <Link
                                             key={`course-${item.id}`}
                                             to={`${item.id}`}
-                                            className={css(appStyles['dashboard-card-d'], styles['card'])
+                                            className={css(appStyles.dashboardCard, styles.card)
                                             }>
-                                            <div className={styles['card-top']}>
+                                            <div className={styles.cardTop}>
                                                 {item.name}
                                             </div>
-                                            <div className={styles['card-bottom']}>
+                                            <div className={styles.cardBottom}>
                                                 <LuBookOpenCheck />
                                                 {item.shortcode}
                                             </div>

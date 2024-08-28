@@ -1,7 +1,5 @@
 import styles from './styles/Sidebar.module.css';
 
-import useAppContext from '~hooks/useAppContext';
-import useLanguage from '~hooks/useLanguage';
 import { useEffect } from 'react';
 import {
     AiOutlineUser
@@ -24,6 +22,8 @@ import {
 import { TbBrandAuth0 } from 'react-icons/tb';
 import { Link } from 'react-router-dom';
 import { API_HOST } from '~config/env';
+import useAppContext from '~hooks/useAppContext';
+import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
 import getMetaContent from '~utils/getMetaContent';
 
@@ -100,8 +100,8 @@ export default function Sidebar() {
     ];
     useEffect(() => {
         function updateSize() {
-            if (window.innerWidth < 800) DOM.sideBarRef.current?.classList.add(styles['hide']);
-            else DOM.sideBarRef.current?.classList.remove(styles['hide']);
+            if (window.innerWidth < 800) DOM.sideBarRef.current?.classList.add(styles.hide);
+            else DOM.sideBarRef.current?.classList.remove(styles.hide);
         }
         window.addEventListener('resize', updateSize);
         return () => window.removeEventListener('resize', updateSize);
@@ -115,21 +115,21 @@ export default function Sidebar() {
     return (
         <nav ref={DOM.sideBarRef} className={
             css(
-                styles['sidebar'],
-                window.innerWidth < 800 ? styles['hide'] : ''
+                styles.sidebar,
+                window.innerWidth < 800 ? styles.hide : ''
             )
         }>
-            <ul className={styles['list']}>{
+            <ul className={styles.list}>{
                 navBarItems.map((feature, index) => {
                     if (feature.isActive === false) return;
                     return (
                         <li onClick={e => {
                             e.currentTarget.querySelector('a')?.click();
-                            if (window.innerWidth < 800) DOM.sideBarRef.current?.classList.add(styles['hide']);
+                            if (window.innerWidth < 800) DOM.sideBarRef.current?.classList.add(styles.hide);
                         }} key={index} className={
                             css(
-                                styles['list-item'],
-                                feature.to === window.location.pathname.split('/')[1] ? styles['current'] : ''
+                                styles.listItem,
+                                feature.to === window.location.pathname.split('/')[1] ? styles.current : ''
                             )
                         }>
                             <Link to={feature.to}>
@@ -140,15 +140,15 @@ export default function Sidebar() {
                     );
                 })
             }</ul>
-            <div className={styles['footer']}>
-                <div className={styles['links']}>
+            <div className={styles.footer}>
+                <div className={styles.links}>
                     <a target='_blank' href={`${API_HOST}/term`}>{language?.term}</a>
                     <a target='_blank' href={`${API_HOST}/privacy`}>{language?.privacy}</a>
                     <a target='_blank' href={`${API_HOST}/security`}>{language?.security}</a>
                     <a target='_blank' href="https://hoaian2.netlify.app/">{language?.contact}</a>
                     <a target='_blank' href="https://github.com/HOAIAN2/college-quiz-app">{language?.docs}</a>
                 </div>
-                <div className={styles['app-infos']}>
+                <div className={styles.appInfos}>
                     <small>App version: {__APP_VERSION__}</small> <br />
                     <small>Build date: {__APP_BUILD_DATE__}</small> <br />
                     <small>&#169; {new Date().getFullYear()} {getMetaContent('author')}</small>

@@ -1,7 +1,6 @@
 import appStyles from '~styles/App.module.css';
 import styles from './styles/Exam.module.css';
 
-import { apiExportExamResult, apiGetExamById, apiUpdateExamStatus } from '~api/exam';
 import { useQuery } from '@tanstack/react-query';
 import moment from 'moment';
 import { useState } from 'react';
@@ -9,6 +8,7 @@ import { BiExport } from 'react-icons/bi';
 import { ImCancelCircle } from 'react-icons/im';
 import { LuAlarmClock, LuRefreshCw } from 'react-icons/lu';
 import { Link, Navigate, useParams } from 'react-router-dom';
+import { apiExportExamResult, apiGetExamById, apiUpdateExamStatus } from '~api/exam';
 import Loading from '~components/Loading';
 import YesNoPopUp from '~components/YesNoPopUp';
 import QUERY_KEYS from '~constants/query-keys';
@@ -75,34 +75,34 @@ export default function Exam() {
 					langYes={language?.langYes}
 					langNo={language?.langNo}
 				/> : null}
-			<main className={css(appStyles['dashboard-d'], styles['page-content'])}>
+			<main className={css(appStyles.dashboard, styles.pageContent)}>
 				{
 					queryData.isLoading ? <Loading /> : null
 				}
 				{
 					queryData.data ?
 						<>
-							<section className={styles['exam-info-container']}>
-								<div className={styles['header']}>
-									<h2 className={styles['title']}>{language?.exam}</h2>
+							<section className={styles.examInfoContainer}>
+								<div className={styles.header}>
+									<h2 className={styles.title}>{language?.exam}</h2>
 								</div>
-								<div className={styles['exam-info']}>
-									<div className={styles['group-infos']}>
-										<div className={styles['wrap-item']}>
+								<div className={styles.examInfo}>
+									<div className={styles.groupInfos}>
+										<div className={styles.wrapItem}>
 											<label>{language?.name}: </label>
 											<p>{queryData.data.name}</p>
 										</div>
-										<div className={styles['wrap-item']}>
+										<div className={styles.wrapItem}>
 											<label>{language?.examDate}: </label>
 											<p>{new Date(queryData.data.examDate).toLocaleString(appLanguage.language)}</p>
 										</div>
-										<div className={styles['wrap-item']}>
+										<div className={styles.wrapItem}>
 											<label>{language?.examTime}: </label>
 											<p>
 												{moment.duration(queryData.data.examTime, 'minutes').humanize()}
 											</p>
 										</div>
-										<div className={css(styles['wrap-item'], styles['supervisors-container'])}>
+										<div className={css(styles.wrapItem, styles.supervisorsContainer)}>
 											<label>{language?.supervisors}</label>
 											<p>
 												{queryData.data.examSupervisors.map(supervisor => {
@@ -117,7 +117,7 @@ export default function Exam() {
 								</div>
 								{
 									permissions.hasAnyFormList(['exam_update', 'exam_submit']) ?
-										<div className={styles['action-items']}>
+										<div className={styles.actionItems}>
 											{
 												permissions.has('exam_submit')
 													&& queryData.data.startedAt !== null
@@ -127,7 +127,7 @@ export default function Exam() {
 															style={{ width: 'fit-content' }}
 															to='take'
 															type='button'
-															className={appStyles['action-item-d']}
+															className={appStyles.actionItem}
 														>
 															<LuAlarmClock />{language?.doExam}
 														</Link>
@@ -143,7 +143,7 @@ export default function Exam() {
 																		setShowStartExamPopUp(true);
 																	}}
 																	type='button'
-																	className={appStyles['action-item-d']}
+																	className={appStyles.actionItem}
 																><LuAlarmClock /> {language?.startExam}
 																</button>
 																: null
@@ -153,7 +153,7 @@ export default function Exam() {
 															onClick={() => {
 																setShowCancelExamPopUp(true);
 															}}
-															className={appStyles['action-item-white-border-red-d']}>
+															className={appStyles.actionItemWhiteBorderRed}>
 															<ImCancelCircle /> {language?.cancelExam}
 														</button>
 													</> : null
@@ -162,19 +162,19 @@ export default function Exam() {
 										: null
 								}
 							</section>
-							<section className={styles['result-container']}>
-								<div className={styles['header']}>
-									<h2 className={styles['title']}>{language?.result}</h2>
+							<section className={styles.resultContainer}>
+								<div className={styles.header}>
+									<h2 className={styles.title}>{language?.result}</h2>
 								</div>
-								<div className={appStyles['action-bar-d']}
+								<div className={appStyles.actionBar}
 									style={{ marginBottom: '20px' }}
 								>
 									<button
 										className={
 											css(
-												queryData.isFetching ? appStyles['button-submitting'] : '',
-												queryData.isFetching ? styles['refreshing'] : '',
-												appStyles['action-item-d']
+												queryData.isFetching ? appStyles.buttonSubmitting : '',
+												queryData.isFetching ? styles.refreshing : '',
+												appStyles.actionItem
 											)
 										}
 										onClick={() => { queryData.refetch(); }}
@@ -185,8 +185,8 @@ export default function Exam() {
 									<button
 										className={
 											css(
-												isExporting ? appStyles['button-submitting'] : '',
-												appStyles['action-item-white-d']
+												isExporting ? appStyles.buttonSubmitting : '',
+												appStyles.actionItemWhite
 											)
 										}
 										onClick={handleExportExamResult}
@@ -195,20 +195,20 @@ export default function Exam() {
 										{language?.export}
 									</button>
 								</div>
-								<div className={styles['table-container']}>
-									<table className={styles['table']}>
+								<div className={styles.tableContainer}>
+									<table className={styles.table}>
 										<thead>
 											<tr>
-												<th className={css(styles['column'], styles['super-large'])}>
+												<th className={css(styles.column, styles.superLarge)}>
 													{language?.name}
 												</th>
-												<th className={css(styles['column'], styles['medium'])}>
+												<th className={css(styles.column, styles.medium)}>
 													{language?.schoolClass}
 												</th>
-												<th className={css(styles['column'], styles['medium'])}>
+												<th className={css(styles.column, styles.medium)}>
 													{language?.genders.gender}
 												</th>
-												<th className={css(styles['column'], styles['medium'])}>
+												<th className={css(styles.column, styles.medium)}>
 													{language?.score}
 												</th>
 											</tr>
@@ -218,16 +218,16 @@ export default function Exam() {
 												queryData.data.result.map(item => {
 													return (
 														<tr key={`exam-result-${item.studentId}`}>
-															<td className={css(styles['column'], styles['super-large'])}>
+															<td className={css(styles.column, styles.superLarge)}>
 																{languageUtils.getFullName(item.firstName, item.lastName)}
 															</td>
-															<td className={css(styles['column'], styles['medium'])}>
+															<td className={css(styles.column, styles.medium)}>
 																{item.schoolClassShortcode}
 															</td>
-															<td className={css(styles['column'], styles['medium'])}>
+															<td className={css(styles.column, styles.medium)}>
 																{language?.genders[item.gender]}
 															</td>
-															<td className={css(styles['column'], styles['medium'])}>
+															<td className={css(styles.column, styles.medium)}>
 																{item.correctCount === null
 																	? language?.didNotSubmitted :
 																	caculateScore(item.correctCount, item.questionCount)}

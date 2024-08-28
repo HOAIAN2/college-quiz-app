@@ -29,9 +29,9 @@ export default function DashboardLayout() {
 	}, []);
 	if (checking) return null;
 	return (
-		<div className={styles['dashboard-layout']}>
+		<div className={styles.dashboardLayout}>
 			<Header />
-			<div className={styles['dashboard-content']}>
+			<div className={styles.dashboardContent}>
 				<Sidebar />
 				<Outlet />
 			</div>

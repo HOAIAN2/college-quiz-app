@@ -1,7 +1,6 @@
 import appStyles from '~styles/App.module.css';
 import styles from './styles/Dashboard.module.css';
 
-import { apiGetDashboard } from '~api/dashboard';
 import { useQuery } from '@tanstack/react-query';
 import { GrCertificate } from 'react-icons/gr';
 import {
@@ -10,6 +9,7 @@ import {
     PiStudent
 } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
+import { apiGetDashboard } from '~api/dashboard';
 import Loading from '~components/Loading';
 import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
@@ -31,14 +31,14 @@ export default function Dashboard() {
         });
     };
     return (
-        <main className={css(appStyles['dashboard-d'], styles['dashboard'])}>
+        <main className={css(appStyles.dashboard, styles.dashboard)}>
             {
                 queryData.isLoading ? <Loading /> : null
             }
             {
                 !queryData.isError && queryData.data ?
                     <>
-                        <section className={styles['wrap-dashboard-item']}>
+                        <section className={styles.wrapDashboardItem}>
                             <DashboardCard
                                 to={permissions.has('user_view') ? '/students' : undefined}
                                 color='magenta'
@@ -63,21 +63,21 @@ export default function Dashboard() {
                                 data={formatNumber(queryData.data?.examsInThisMonth)}
                                 icon={<PiExam />} />
                         </section>
-                        <div className={css(styles['wrap-sections'])}>
-                            <section className={css(styles['section'])}>
+                        <div className={css(styles.wrapSections)}>
+                            <section className={css(styles.section)}>
                                 <h2
-                                    className={styles['section-title']}
+                                    className={styles.sectionTitle}
                                     style={{ marginBottom: '10px' }}
                                 >
                                     {language?.todayExams}
                                 </h2>
-                                <ul className={styles['today-exams-list']}>
+                                <ul className={styles.todayExamsList}>
                                     {
                                         queryData.data.todayExams.map(exam => {
                                             return (
                                                 <li
                                                     key={`exam-${exam.id}`}
-                                                    className={css(appStyles['dashboard-card-d'], styles['today-exams-item'])}
+                                                    className={css(appStyles.dashboardCard, styles.todayExamsItem)}
                                                 >
                                                     <Link to={`exams/${exam.id}`}>
                                                         <span>{exam.name}</span>

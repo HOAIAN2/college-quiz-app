@@ -59,7 +59,7 @@ export default function ViewExam({
     });
     const handleUpdateExam = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        document.querySelector(`.${styles['form-data']}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
+        document.querySelector(`.${styles.formData}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
             node.classList.remove('error');
             formUtils.getParentElement(node)?.removeAttribute('data-error');
         });
@@ -110,8 +110,8 @@ export default function ViewExam({
                 /> : null}
             <div className={
                 css(
-                    styles['create-view-exam-container'],
-                    hide ? styles['hide'] : ''
+                    styles.createViewExamContainer,
+                    hide ? styles.hide : ''
                 )
             }>
                 {
@@ -122,37 +122,37 @@ export default function ViewExam({
                 }
                 <div className={
                     css(
-                        styles['create-view-exam-form'],
-                        hide ? styles['hide'] : ''
+                        styles.createViewExamForm,
+                        hide ? styles.hide : ''
                     )
                 }>
-                    <div className={styles['header']}>
-                        <h2 className={styles['title']}>{language?.exam}</h2>
-                        <div className={styles['esc-button']}
+                    <div className={styles.header}>
+                        <h2 className={styles.title}>{language?.exam}</h2>
+                        <div className={styles.escButton}
                             onClick={handleClosePopUp}
                         >
                             <RxCross2 />
                         </div>
                     </div>
-                    <div className={styles['form-content']}>
+                    <div className={styles.formContent}>
                         {
                             queryData.data ?
                                 <form
                                     onSubmit={e => { mutate(e); }}
-                                    className={styles['form-data']}>
-                                    <div className={styles['group-inputs']}>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={appStyles['required']} htmlFor='name'>{language?.name}</label>
+                                    className={styles.formData}>
+                                    <div className={styles.groupInputs}>
+                                        <div className={styles.wrapItem}>
+                                            <label className={appStyles.required} htmlFor='name'>{language?.name}</label>
                                             <input
                                                 id='name'
                                                 name='name'
                                                 defaultValue={queryData.data.name}
                                                 disabled={disabledUpdate}
-                                                className={css(appStyles['input-d'], styles['input-item'])}
+                                                className={css(appStyles.input, styles.inputItem)}
                                                 type='text' />
                                         </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={appStyles['required']} htmlFor='exam_date'>{language?.examDate}</label>
+                                        <div className={styles.wrapItem}>
+                                            <label className={appStyles.required} htmlFor='exam_date'>{language?.examDate}</label>
                                             <DatePicker
                                                 initialValue={new Date(queryData.data.examDate)}
                                                 inputProps={
@@ -160,15 +160,15 @@ export default function ViewExam({
                                                         id: 'exam_date',
                                                         name: 'exam_date',
                                                         disabled: disabledUpdate,
-                                                        className: css(appStyles['input-d'], styles['input-item'])
+                                                        className: css(appStyles.input, styles.inputItem)
                                                     }
                                                 }
                                                 closeOnSelect={true}
                                                 timeFormat={true}
                                             />
                                         </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={appStyles['required']} htmlFor='exam_time'>{language?.examTime}</label>
+                                        <div className={styles.wrapItem}>
+                                            <label className={appStyles.required} htmlFor='exam_time'>{language?.examTime}</label>
                                             <input
                                                 onBeforeInput={(e: React.CompositionEvent<HTMLInputElement>) => {
                                                     if (e.data === '.') e.preventDefault();
@@ -179,17 +179,17 @@ export default function ViewExam({
                                                 disabled={disabledUpdate}
                                                 min={0}
                                                 max={60 * 60 * 24}
-                                                className={css(appStyles['input-d'], styles['input-item'])}
+                                                className={css(appStyles.input, styles.inputItem)}
                                                 type='number'
                                             />
                                         </div>
                                         {
                                             queryData.data ?
                                                 <>
-                                                    <div className={styles['wrap-item']}>
+                                                    <div className={styles.wrapItem}>
                                                         <span>{language?.totalQuestions}: {queryData.data.questionsCount}</span>
                                                     </div>
-                                                    <div className={css(styles['wrap-item'], styles['data-container'])}>
+                                                    <div className={css(styles.wrapItem, styles.dataContainer)}>
                                                         {/* <label>{language?.supervisors}</label> */}
                                                         {
                                                             permissions.has('user_view') ?
@@ -198,17 +198,17 @@ export default function ViewExam({
                                                                     onInput={e => {
                                                                         setQueryUser(e.currentTarget.value);
                                                                     }}
-                                                                    className={css(appStyles['input-d'], styles['input-item'])}
+                                                                    className={css(appStyles.input, styles.inputItem)}
                                                                     type='text' />
                                                                 : null
                                                         }
                                                         <label>{language?.supervisors}</label>
-                                                        <ul className={styles['joined-supervisors-container']}>
+                                                        <ul className={styles.joinedSupervisorsContainer}>
                                                             {
                                                                 supervisors.map((supervisor, index) => {
                                                                     return (
                                                                         <li
-                                                                            className={styles['joined-supervisor']}
+                                                                            className={styles.joinedSupervisor}
                                                                             key={`joined-supervisor-${supervisor.id}`}
                                                                         >
                                                                             <div>
@@ -239,7 +239,7 @@ export default function ViewExam({
                                                             permissions.has('user_view') ?
                                                                 <>
                                                                     <label>{language?.allSupervisors}</label>
-                                                                    <ul className={styles['all-supervisor-conatiner']}>
+                                                                    <ul className={styles.allSupervisorConatiner}>
                                                                         {userQueryData.data ?
                                                                             userQueryData.data
                                                                                 .filter(user => !supervisors.find(supervisor => supervisor.id === user.id))
@@ -250,10 +250,10 @@ export default function ViewExam({
                                                                                             newSupervisors.push(user);
                                                                                             setSupervisors(newSupervisors);
                                                                                         }}
-                                                                                        className={css(appStyles['dashboard-card-d'], styles['card'])}
+                                                                                        className={css(appStyles.dashboardCard, styles.card)}
                                                                                         key={`user-${user.id}`}
                                                                                     >
-                                                                                        <div className={styles['card-left']}>
+                                                                                        <div className={styles.cardLeft}>
                                                                                             <span>{languageUtils.getFullName(user.firstName, user.lastName)}</span>
                                                                                             <span>{user.faculty?.name}</span>
                                                                                         </div>
@@ -269,14 +269,14 @@ export default function ViewExam({
                                     </div>
                                     {
                                         permissions.hasAnyFormList(['exam_update', 'exam_delete']) && !isExamStarted() ?
-                                            <div className={styles['action-items']}>
+                                            <div className={styles.actionItems}>
                                                 {
                                                     permissions.has('exam_update') && !isExamStarted() ?
                                                         <button name='save'
                                                             className={
                                                                 css(
-                                                                    appStyles['action-item-d'],
-                                                                    isPending ? appStyles['button-submitting'] : ''
+                                                                    appStyles.actionItem,
+                                                                    isPending ? appStyles.buttonSubmitting : ''
                                                                 )
                                                             }
                                                         ><FiSave />{language?.save}
@@ -289,7 +289,7 @@ export default function ViewExam({
                                                             onClick={() => {
                                                                 setShowDeletePopUp(true);
                                                             }}
-                                                            className={appStyles['action-item-white-border-red-d']}>
+                                                            className={appStyles.actionItemWhiteBorderRed}>
                                                             <MdDeleteOutline /> {language?.delete}
                                                         </button> : null
                                                 }

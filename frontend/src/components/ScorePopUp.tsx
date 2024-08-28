@@ -31,13 +31,13 @@ export default function ScorePopUp({
     const renderScore = () => {
         const percent = data.correctCount / data.questionCount;
         const getColorClass = () => {
-            if (percent >= 0.7) return styles['green'];
-            if (percent >= 0.5) return styles['yellow'];
-            return styles['red'];
+            if (percent >= 0.7) return styles.green;
+            if (percent >= 0.5) return styles.yellow;
+            return styles.red;
         };
         const colorClass = getColorClass();
         return (
-            <div className={`${styles['score']} ${colorClass}`}>
+            <div className={`${styles.score} ${colorClass}`}>
                 {score}
             </div>
         );
@@ -54,26 +54,26 @@ export default function ScorePopUp({
         });
     }
     return (
-        <div className={styles['score-popup-container']}>
-            <div className={styles['score-content']}>
-                <div className={styles['title']}>
+        <div className={styles.scorePopupContainer}>
+            <div className={styles.scoreContent}>
+                <div className={styles.title}>
                     <h2>{language?.examResult}</h2>
                 </div>
-                <div className={styles['content-data']}>
-                    <div className={styles['group-data']}>
-                        <div className={styles['group-items']}>
-                            <div className={styles['label']}>{language?.score}</div>
+                <div className={styles.contentData}>
+                    <div className={styles.groupData}>
+                        <div className={styles.groupItems}>
+                            <div className={styles.label}>{language?.score}</div>
                             {renderScore()}
                         </div>
-                        <div className={styles['group-items']}>
-                            <div className={styles['label']}>{language?.numberOfCorrectQuestion}: {data.correctCount}/{data.questionCount}</div>
+                        <div className={styles.groupItems}>
+                            <div className={styles.label}>{language?.numberOfCorrectQuestion}: {data.correctCount}/{data.questionCount}</div>
                         </div>
                         <p>{`IP: ${data.ip}`}</p>
                     </div>
-                    <div className={styles['action-items']}>
+                    <div className={styles.actionItems}>
                         <button
                             onClick={handleClosePopUp}
-                            className={appStyles['button-d']}>
+                            className={appStyles.button}>
                             <TiArrowBack />
                             {language?.goBack}
                         </button>

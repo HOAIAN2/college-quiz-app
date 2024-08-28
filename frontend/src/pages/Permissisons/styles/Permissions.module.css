@@ -1,14 +1,14 @@
-.permission-container {
+.permissionContainer {
 	width: 100%;
 	height: 100%;
 	position: relative;
 }
 
-.permission-content {
+.permissionContent {
 	width: 100%;
 }
 
-.list-conatiner {
+.listConatiner {
 	width: 100%;
 	height: fit-content;
 	display: flex;
@@ -16,7 +16,7 @@
 	gap: 10px;
 }
 
-.list-item {
+.listItem {
 	list-style-type: none;
 	height: 75px;
 	flex: 0 0 calc(50% - 10px);
@@ -33,7 +33,7 @@
 	box-shadow: 0px 0px 10px var(--color-shadow);
 }
 
-.list-anchor {
+.listAnchor {
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -41,40 +41,40 @@
 	align-items: center;
 }
 
-.item-left {
+.itemLeft {
 	display: flex;
 	align-items: center;
 }
 
-.item-left>svg {
+.itemLeft>svg {
 	font-size: 18px;
 }
 
-.item-left>.name {
+.itemLeft>.name {
 	margin-left: 10px;
 	font-size: 16px;
 }
 
-.item-right>.name {
+.itemRight>.name {
 	font-size: 16px;
 }
 
-.item-right>span:first-child {
+.itemRight>span:first-child {
 	margin-right: 10px;
 }
 
 
 @media(width<=800px) {
-	.permission-content {
+	.permissionContent {
 		padding: 20px;
 	}
 
-	.list-conatiner {
+	.listConatiner {
 		flex-wrap: wrap;
 		gap: 0px;
 	}
 
-	.list-item {
+	.listItem {
 		width: 100%;
 		flex: 0 0 100%;
 	}

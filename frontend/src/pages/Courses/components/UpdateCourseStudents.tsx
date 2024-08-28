@@ -58,8 +58,8 @@ export default function UpdateCourseStudents({
     return (
         <div className={
             css(
-                styles['update-course-students-container'],
-                hide ? styles['hide'] : ''
+                styles.updateCourseStudentsContainer,
+                hide ? styles.hide : ''
             )
         }>
             {
@@ -67,35 +67,35 @@ export default function UpdateCourseStudents({
             }
             <div className={
                 css(
-                    styles['update-course-students-form'],
-                    hide ? styles['hide'] : ''
+                    styles.updateCourseStudentsForm,
+                    hide ? styles.hide : ''
                 )
             }>
-                <div className={styles['header']}>
-                    <h2 className={styles['title']}>{language?.title}</h2>
-                    <div className={styles['esc-button']}
+                <div className={styles.header}>
+                    <h2 className={styles.title}>{language?.title}</h2>
+                    <div className={styles.escButton}
                         onClick={handleClosePopUp}
                     >
                         <RxCross2 />
                     </div>
                 </div>
-                <div className={styles['form-content']}>
+                <div className={styles.formContent}>
                     <input
                         placeholder={language?.search}
                         onInput={e => {
                             setQueryUser(e.currentTarget.value);
                         }}
-                        className={css(appStyles['input-d'], styles['input-item'])}
+                        className={css(appStyles.input, styles.inputItem)}
                         type='text' />
-                    <div className={styles['wrap-data-container']}>
-                        <div className={styles['data-container']}>
+                    <div className={styles.wrapDataContainer}>
+                        <div className={styles.dataContainer}>
                             <label>{language?.joinedStudents}</label>
-                            <ul className={styles['joined-students-container']}>
+                            <ul className={styles.joinedStudentsContainer}>
                                 {
                                     students.map((student, index) => {
                                         return (
                                             <li
-                                                className={styles['joined-student']}
+                                                className={styles.joinedStudent}
                                                 key={`joined-student-${student.id}`}
                                             >
                                                 <div>
@@ -122,7 +122,7 @@ export default function UpdateCourseStudents({
                                 }
                             </ul>
                             <label>{language?.allStudents}</label>
-                            <ul className={styles['all-student-conatiner']}>
+                            <ul className={styles.allStudentConatiner}>
                                 {userQueryData.data ?
                                     userQueryData.data
                                         .filter(user => !students.find(student => student.id === user.id))
@@ -133,10 +133,10 @@ export default function UpdateCourseStudents({
                                                     newStudents.push(user);
                                                     setStudents(newStudents);
                                                 }}
-                                                className={css(appStyles['dashboard-card-d'], styles['card'])}
+                                                className={css(appStyles.dashboardCard, styles.card)}
                                                 key={`user-${user.id}`}
                                             >
-                                                <div className={styles['card-left']}>
+                                                <div className={styles.cardLeft}>
                                                     <PiStudent />
                                                     <span>{languageUtils.getFullName(user.firstName, user.lastName)}</span>
                                                     <span>{user.schoolClass?.shortcode}</span>
@@ -147,13 +147,13 @@ export default function UpdateCourseStudents({
                             </ul>
                         </div>
                     </div>
-                    <div className={styles['action-items']}>
+                    <div className={styles.actionItems}>
                         <button
                             onClick={() => { mutate(); }}
                             className={
                                 css(
-                                    appStyles['action-item-d'],
-                                    isPending ? appStyles['button-submitting'] : ''
+                                    appStyles.actionItem,
+                                    isPending ? appStyles.buttonSubmitting : ''
                                 )
                             }>
                             <FiSave />{language?.save}

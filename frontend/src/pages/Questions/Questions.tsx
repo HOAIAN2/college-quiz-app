@@ -82,15 +82,15 @@ export default function Questions() {
                     setShowPopUp={setShowCreatePopUp}
                     subjectDetail={subjectDetail}
                 /> : null}
-            <main className={appStyles['dashboard-d']}>
+            <main className={appStyles.dashboard}>
                 {
                     permissions.hasAnyFormList(['question_create'])
                         ?
-                        <section className={appStyles['action-bar-d']}>
+                        <section className={appStyles.actionBar}>
                             {
                                 permissions.has('question_create') ?
                                     <div
-                                        className={appStyles['action-item-d']}
+                                        className={appStyles.actionItem}
                                         onClick={() => {
                                             setShowCreatePopUp(true);
                                         }}
@@ -102,12 +102,12 @@ export default function Questions() {
                         </section>
                         : null
                 }
-                <section className={styles['page-content']}>
+                <section className={styles.pageContent}>
                     {
                         queryData.isLoading ? <Loading /> : null
                     }
-                    <div className={styles['filter-form']}>
-                        <div className={styles['wrap-input-item']}>
+                    <div className={styles.filterForm}>
+                        <div className={styles.wrapInputItem}>
                             <label>{language?.filter.chapter}</label>
                             <CustomSelect
                                 defaultOption={
@@ -132,10 +132,10 @@ export default function Questions() {
                                     else searchParams.delete('chapter');
                                     setSearchParams(searchParams);
                                 }}
-                                className={styles['custom-select']}
+                                className={styles.customSelect}
                             />
                         </div>
-                        <div className={styles['wrap-input-item']}>
+                        <div className={styles.wrapInputItem}>
                             <label htmlFor="">{language?.filter.search}</label>
                             <input
                                 onInput={(e) => {
@@ -143,12 +143,12 @@ export default function Questions() {
                                 }}
                                 name='search'
                                 defaultValue={queryDebounce}
-                                className={css(appStyles['input-d'], styles['input-item'])}
+                                className={css(appStyles.input, styles.inputItem)}
                             />
                         </div>
                     </div>
-                    <div className={styles['wrap-card-container']}>
-                        <div className={styles['card-container']}>
+                    <div className={styles.wrapCardContainer}>
+                        <div className={styles.cardContainer}>
                             {queryData.data ?
                                 queryData.data.map(item => {
                                     return (
@@ -158,13 +158,13 @@ export default function Questions() {
                                                 setShowViewPopUp(true);
                                             }}
                                             key={`subject-${item.id}`}
-                                            className={css(appStyles['dashboard-card-d'], styles['card'])}>
-                                            <div className={styles['card-top']}>
-                                                <p className={styles['content']}>
+                                            className={css(appStyles.dashboardCard, styles.card)}>
+                                            <div className={styles.cardTop}>
+                                                <p className={styles.content}>
                                                     {item.content}
                                                 </p>
                                             </div>
-                                            <div className={styles['card-bottom']}>
+                                            <div className={styles.cardBottom}>
                                                 <AiOutlineQuestionCircle />
                                                 {language?.questionLevel[item.level]}
                                             </div>

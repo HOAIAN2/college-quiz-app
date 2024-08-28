@@ -1,10 +1,10 @@
 import appStyles from '~styles/App.module.css';
 import styles from './styles/Permissions.module.css';
 
-import { apiGetRolePermissionCount } from '~api/role-permission';
 import { useQuery } from '@tanstack/react-query';
 import { LuUsers2 } from 'react-icons/lu';
 import { Link, Navigate } from 'react-router-dom';
+import { apiGetRolePermissionCount } from '~api/role-permission';
 import Loading from '~components/Loading';
 import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
@@ -21,33 +21,33 @@ export default function Permissisons() {
     });
     if (!permissions.has('role_permission_view')) return <Navigate to='/' />;
     return (
-        <div className={css(appStyles['dashboard-d'], styles['permission-container'])}>
+        <div className={css(appStyles.dashboard, styles.permissionContainer)}>
             {
                 queryData.isLoading ? <Loading /> : null}
             {
                 queryData.data ?
-                    <div className={styles['permission-content']}>
-                        <ul className={styles['list-conatiner']}>
+                    <div className={styles.permissionContent}>
+                        <ul className={styles.listConatiner}>
                             {
                                 queryData.data.map((item) => {
                                     return (
-                                        <li className={styles['list-item']}
+                                        <li className={styles.listItem}
                                             key={`role-${item.id}`}>
                                             <Link
-                                                className={styles['list-anchor']}
+                                                className={styles.listAnchor}
                                                 to={item.id.toString()}>
-                                                <div className={styles['item-left']}>
+                                                <div className={styles.itemLeft}>
                                                     <LuUsers2 />
-                                                    <span className={styles['name']}>
+                                                    <span className={styles.name}>
                                                         {item.displayName}
                                                     </span>
                                                 </div>
-                                                <div className={styles['item-right']}>
+                                                <div className={styles.itemRight}>
                                                     <span
-                                                        className={styles['name']}
+                                                        className={styles.name}
                                                     >{language?.permissionsCount}</span>
                                                     <span
-                                                        className={styles['name']}
+                                                        className={styles.name}
                                                     >
                                                         {item.permissionsCount}
                                                     </span>

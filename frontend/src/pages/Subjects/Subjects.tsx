@@ -1,12 +1,12 @@
 import appStyles from '~styles/App.module.css';
 import styles from '~styles/CardPage.module.css';
 
-import { apiGetSubjects } from '~api/subject';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { LuBookOpenCheck } from 'react-icons/lu';
 import { RiAddFill } from 'react-icons/ri';
 import { Link, Navigate, useSearchParams } from 'react-router-dom';
+import { apiGetSubjects } from '~api/subject';
 import Loading from '~components/Loading';
 import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
@@ -47,15 +47,15 @@ export default function Subjects() {
                     onMutateSuccess={onMutateSuccess}
                     setShowPopUp={setShowCreatePopUp}
                 /> : null}
-            <main className={appStyles['dashboard-d']}>
+            <main className={appStyles.dashboard}>
                 {
                     permissions.hasAnyFormList(['subject_create'])
                         ?
-                        <section className={appStyles['action-bar-d']}>
+                        <section className={appStyles.actionBar}>
                             {
                                 permissions.has('subject_create') ?
                                     <button
-                                        className={appStyles['action-item-d']}
+                                        className={appStyles.actionItem}
                                         onClick={() => {
                                             setShowCreatePopUp(true);
                                         }}
@@ -67,38 +67,38 @@ export default function Subjects() {
                         </section>
                         : null
                 }
-                <section className={styles['page-content']}>
+                <section className={styles.pageContent}>
                     {
                         queryData.isLoading ? <Loading /> : null
                     }
-                    <div className={styles['filter-form']}>
-                        <div className={styles['wrap-input-item']}>
+                    <div className={styles.filterForm}>
+                        <div className={styles.wrapInputItem}>
                             <label>{language?.filter.search}</label>
                             <input
                                 onInput={(e) => {
                                     setSearchQuery(e.currentTarget.value);
                                 }}
                                 defaultValue={queryDebounce}
-                                className={css(appStyles['input-d'], styles['input-item'])}
+                                className={css(appStyles.input, styles.inputItem)}
                             />
                         </div>
                     </div>
-                    <div className={styles['wrap-card-container']}>
-                        <div className={styles['card-container']}>
+                    <div className={styles.wrapCardContainer}>
+                        <div className={styles.cardContainer}>
                             {queryData.data ?
                                 queryData.data.map(item => {
                                     return (
                                         <Link
                                             key={`subject-${item.id}`}
                                             to={String(item.id)}
-                                            className={css(appStyles['dashboard-card-d'], styles['card'])}
+                                            className={css(appStyles.dashboardCard, styles.card)}
                                         >
-                                            <div className={styles['card-top']}>
-                                                <p className={styles['content']}>
+                                            <div className={styles.cardTop}>
+                                                <p className={styles.content}>
                                                     {item.name}
                                                 </p>
                                             </div>
-                                            <div className={styles['card-bottom']}>
+                                            <div className={styles.cardBottom}>
                                                 <LuBookOpenCheck />
                                                 {item.shortcode}
                                             </div>

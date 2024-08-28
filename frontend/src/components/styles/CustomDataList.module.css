@@ -1,4 +1,4 @@
-.custom-datalist {
+.customDatalist {
 	position: relative;
 	height: 40px;
 	cursor: pointer;
@@ -10,7 +10,7 @@
 	cursor: default;
 }
 
-.input-item {
+.inputItem {
 	height: 40px;
 	width: 100%;
 }
@@ -19,7 +19,7 @@
 	display: none;
 }
 
-.select-dropbox {
+.selectDropbox {
 	padding: 0;
 	background: white;
 	position: absolute;
@@ -29,7 +29,7 @@
 	height: fit-content;
 }
 
-.select-item {
+.selectItem {
 	padding: 0;
 	height: 40px;
 	width: 100%;
@@ -38,10 +38,10 @@
 	cursor: pointer;
 }
 
-.select-item:hover {
+.selectItem:hover {
 	background-color: var(--color-white);
 }
 
-.select-item>span {
+.selectItem>span {
 	margin-left: 10px;
 }

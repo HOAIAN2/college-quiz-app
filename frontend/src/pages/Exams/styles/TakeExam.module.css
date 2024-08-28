@@ -1,4 +1,4 @@
-.take-exam-container {
+.takeExamContainer {
 	padding: 20px;
 	width: 100%;
 	display: flex;
@@ -8,7 +8,7 @@
 	background: var(--color-background);
 }
 
-.data-container {
+.dataContainer {
 	width: 100%;
 	height: fit-content;
 	display: flex;
@@ -27,13 +27,13 @@
 	font-weight: bold;
 }
 
-.questions-container {
+.questionsContainer {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
 }
 
-.action-items {
+.actionItems {
 	height: 50px;
 	display: flex;
 	align-items: center;

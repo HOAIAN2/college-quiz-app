@@ -1,4 +1,4 @@
-.page-content {
+.pageContent {
 	width: 100%;
 	height: 100%;
 	overflow-y: auto;
@@ -15,53 +15,53 @@
 	font-size: larger;
 }
 
-.form-content {
+.formContent {
 	width: 100%;
 	height: calc(fit-content + 50px);
 }
 
-.form-data {
+.formData {
 	height: fit-content;
 	display: flex;
 	flex-direction: column;
 }
 
-.group-inputs {
+.groupInputs {
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
 }
 
-.wrap-item {
+.wrapItem {
 	position: relative;
 	margin-left: 20px;
 	height: 90px;
 	flex: 0 0 30%;
 }
 
-.wrap-item::after {
+.wrapItem::after {
 	content: attr(data-error);
 	width: fit-content;
 	color: red;
 }
 
-.input-item {
+.inputItem {
 	height: 40px;
 	width: 100%;
 }
 
-.input-item.error {
+.inputItem.error {
 	border-color: red;
 }
 
-.custom-select {
+.customSelect {
 	width: 100%;
 	margin-left: 0;
 	z-index: 1;
 }
 
-.action-items {
+.actionItems {
 	margin-top: 10px;
 	height: 50px;
 	display: flex;
@@ -78,13 +78,13 @@
 }
 
 @media (width<=800px) {
-	.group-inputs {
+	.groupInputs {
 		flex-direction: column;
 		padding-right: 20px;
 		gap: 20px;
 	}
 
-	.action-items {
+	.actionItems {
 		padding-right: 20px;
 	}
 }

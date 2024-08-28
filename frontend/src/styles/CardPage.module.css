@@ -1,14 +1,14 @@
-.page-content {
+.pageContent {
 	width: 100%;
 	height: calc(100% - 50px);
 	position: relative;
 }
 
-.page-content:only-child {
+.pageContent:only-child {
 	height: 100%;
 }
 
-.filter-form {
+.filterForm {
 	height: 75px;
 	width: 100%;
 	display: flex;
@@ -22,7 +22,7 @@
 	box-shadow: 0px 0px 10px var(--color-shadow);
 }
 
-.wrap-input-item {
+.wrapInputItem {
 	max-height: 40px;
 	max-width: 300px;
 	width: 100%;
@@ -32,16 +32,16 @@
 	gap: 10px;
 }
 
-.wrap-input-item>label {
+.wrapInputItem>label {
 	white-space: nowrap;
 }
 
-.input-item {
+.inputItem {
 	height: 40px;
 	width: 100%;
 }
 
-.custom-select {
+.customSelect {
 	z-index: 1;
 	max-height: 40px;
 	max-width: 300px;
@@ -49,12 +49,12 @@
 	height: 100%;
 }
 
-.wrap-card-container {
+.wrapCardContainer {
 	height: calc(100% - 100px);
 	overflow-y: auto;
 }
 
-.card-container {
+.cardContainer {
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
@@ -74,13 +74,13 @@
 	border-color: var(--color-soft-magenta);
 }
 
-.card>.card-top {
+.card>.cardTop {
 	height: 50%;
 	width: 100%;
 	padding: 0px 20px 0px 20px;
 }
 
-.card-top>.content {
+.cardTop>.content {
 	font-size: 16px;
 	display: -webkit-box;
 	line-clamp: 3;
@@ -88,22 +88,22 @@
 	overflow: hidden;
 }
 
-.card>.card-bottom {
+.card>.cardBottom {
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	margin-left: 20px;
 }
 
-.card>.card-bottom>svg {
+.card>.cardBottom>svg {
 	font-size: 18px;
 }
 
-.card-section {
+.cardSection {
 	padding: 0 10px 0 10px;
 }
 
-.card>.card-section>p {
+.card>.cardSection>p {
 	font-size: 16px;
 	display: -webkit-box;
 	line-clamp: 2;

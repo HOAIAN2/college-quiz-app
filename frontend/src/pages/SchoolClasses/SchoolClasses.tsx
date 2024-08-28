@@ -1,12 +1,12 @@
 import appStyles from '~styles/App.module.css';
 import styles from '~styles/TablePage.module.css';
 
-import { apiDeleteSchoolClassIds, apiGetSchoolClasses } from '~api/school-class';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { RiAddFill } from 'react-icons/ri';
 import { Navigate, useSearchParams } from 'react-router-dom';
+import { apiDeleteSchoolClassIds, apiGetSchoolClasses } from '~api/school-class';
 import CustomSelect from '~components/CustomSelect';
 import Loading from '~components/Loading';
 import YesNoPopUp from '~components/YesNoPopUp';
@@ -78,14 +78,14 @@ export default function SchoolClasses() {
                     langYes={language?.langYes}
                     langNo={language?.langNo}
                 /> : null}
-            <main className={appStyles['dashboard-d']}>
+            <main className={appStyles.dashboard}>
                 {
                     permissions.hasAnyFormList(['school_class_create', 'school_class_delete'])
                         ?
-                        <section className={appStyles['action-bar-d']}>
+                        <section className={appStyles.actionBar}>
                             {
                                 permissions.has('school_class_create') ?
-                                    <div className={appStyles['action-item-d']}
+                                    <div className={appStyles.actionItem}
                                         onClick={() => {
                                             setShowCreatePopUp(true);
                                         }}
@@ -100,7 +100,7 @@ export default function SchoolClasses() {
                                         onClick={() => {
                                             setShowDeletePopUp(true);
                                         }}
-                                        className={appStyles['action-item-white-border-red-d']}>
+                                        className={appStyles.actionItemWhiteBorderRed}>
                                         <MdDeleteOutline /> {language?.delete}
                                     </div>
                                     : null
@@ -108,9 +108,9 @@ export default function SchoolClasses() {
                         </section>
                         : null
                 }
-                <section className={styles['table-page-content']}>
-                    <div className={styles['filter-form']}>
-                        <div className={styles['wrap-input-item']}>
+                <section className={styles.tablePageContent}>
+                    <div className={styles.filterForm}>
+                        <div className={styles.wrapInputItem}>
                             <label>{language?.filter.perPage}</label>
                             <CustomSelect
                                 defaultOption={
@@ -145,21 +145,21 @@ export default function SchoolClasses() {
                                     searchParams.set('per_page', option.value);
                                     setSearchParams(searchParams);
                                 }}
-                                className={styles['custom-select']}
+                                className={styles.customSelect}
                             />
                         </div>
-                        <div className={styles['wrap-input-item']}>
+                        <div className={styles.wrapInputItem}>
                             <label>{language?.filter.search}</label>
                             <input
                                 onInput={(e) => {
                                     setSearchQuery(e.currentTarget.value);
                                 }}
                                 defaultValue={queryDebounce}
-                                className={css(appStyles['input-d'], styles['input-item'])}
+                                className={css(appStyles.input, styles.inputItem)}
                             />
                         </div>
                     </div>
-                    <div className={styles['wrap-table']}>
+                    <div className={styles.wrapTable}>
                         {
                             queryData.isLoading ? <Loading /> : null
                         }

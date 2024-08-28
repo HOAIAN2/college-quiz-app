@@ -1,4 +1,4 @@
-.loading-container {
+.loadingContainer {
 	flex: 1;
 	height: 100%;
 	display: inline-block;
@@ -8,7 +8,7 @@
 	background-color: white;
 }
 
-.lds-spinner {
+.ldsSpinner {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -20,12 +20,12 @@
 	height: 80px;
 }
 
-.lds-spinner div {
+.ldsSpinner div {
 	transform-origin: 40px 40px;
-	animation: lds-spinner 1.2s linear infinite;
+	animation: ldsSpinner 1.2s linear infinite;
 }
 
-.lds-spinner div:after {
+.ldsSpinner div:after {
 	content: " ";
 	display: block;
 	position: absolute;
@@ -37,67 +37,67 @@
 	background: rgb(0, 0, 0);
 }
 
-.lds-spinner div:nth-child(1) {
+.ldsSpinner div:nth-child(1) {
 	transform: rotate(0deg);
 	animation-delay: -1.1s;
 }
 
-.lds-spinner div:nth-child(2) {
+.ldsSpinner div:nth-child(2) {
 	transform: rotate(30deg);
 	animation-delay: -1s;
 }
 
-.lds-spinner div:nth-child(3) {
+.ldsSpinner div:nth-child(3) {
 	transform: rotate(60deg);
 	animation-delay: -0.9s;
 }
 
-.lds-spinner div:nth-child(4) {
+.ldsSpinner div:nth-child(4) {
 	transform: rotate(90deg);
 	animation-delay: -0.8s;
 }
 
-.lds-spinner div:nth-child(5) {
+.ldsSpinner div:nth-child(5) {
 	transform: rotate(120deg);
 	animation-delay: -0.7s;
 }
 
-.lds-spinner div:nth-child(6) {
+.ldsSpinner div:nth-child(6) {
 	transform: rotate(150deg);
 	animation-delay: -0.6s;
 }
 
-.lds-spinner div:nth-child(7) {
+.ldsSpinner div:nth-child(7) {
 	transform: rotate(180deg);
 	animation-delay: -0.5s;
 }
 
-.lds-spinner div:nth-child(8) {
+.ldsSpinner div:nth-child(8) {
 	transform: rotate(210deg);
 	animation-delay: -0.4s;
 }
 
-.lds-spinner div:nth-child(9) {
+.ldsSpinner div:nth-child(9) {
 	transform: rotate(240deg);
 	animation-delay: -0.3s;
 }
 
-.lds-spinner div:nth-child(10) {
+.ldsSpinner div:nth-child(10) {
 	transform: rotate(270deg);
 	animation-delay: -0.2s;
 }
 
-.lds-spinner div:nth-child(11) {
+.ldsSpinner div:nth-child(11) {
 	transform: rotate(300deg);
 	animation-delay: -0.1s;
 }
 
-.lds-spinner div:nth-child(12) {
+.ldsSpinner div:nth-child(12) {
 	transform: rotate(330deg);
 	animation-delay: 0s;
 }
 
-@keyframes lds-spinner {
+@keyframes ldsSpinner {
 	0% {
 		opacity: 1;
 	}

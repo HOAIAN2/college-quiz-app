@@ -41,33 +41,33 @@ export default function VerifyEmail() {
     }, [countDown]);
     if (!user) return <Navigate to='/' />;
     return (
-        <main className={styles['verify-email-page']}>
-            <form onSubmit={handleVerify} className={styles['form-data']}>
+        <main className={styles.verifyEmailPage}>
+            <form onSubmit={handleVerify} className={styles.formData}>
                 <h2>{language?.emailVerification}</h2>
                 <p>{language?.verificationMessage} <b>{user?.email}</b>.</p>
                 <p>{language?.enterCodePrompt}</p>
-                <div className={styles['wrap-item']}>
-                    <label className={appStyles['required']} htmlFor='verify_code'>{language?.verificationCodeLabel}</label>
+                <div className={styles.wrapItem}>
+                    <label className={appStyles.required} htmlFor='verify_code'>{language?.verificationCodeLabel}</label>
                     <input
                         required
                         id='verify_code'
                         name='verify_code'
-                        className={css(appStyles['input-d'], styles['input-item'])}
+                        className={css(appStyles.input, styles.inputItem)}
                         type='text'
                         placeholder={new Date().getFullYear().toString()}
                     />
                 </div>
-                <div className={styles['wrap-item']}>
-                    <button className={css(appStyles['action-item-d'], styles['input-item'])}>
+                <div className={styles.wrapItem}>
+                    <button className={css(appStyles.actionItem, styles.inputItem)}>
                         {language?.verify}
                     </button>
                 </div>
-                <div className={styles['wrap-item']}>
+                <div className={styles.wrapItem}>
                     <p>{language?.resendMessage} <b
                         className={
                             css(
-                                styles['resend-button'],
-                                countDown !== 0 ? styles['disabled'] : ''
+                                styles.resendButton,
+                                countDown !== 0 ? styles.disabled : ''
                             )
                         }
                         onClick={sendVerifyEmail} >

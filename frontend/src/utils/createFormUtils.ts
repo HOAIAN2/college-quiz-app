@@ -2,7 +2,7 @@ export default function createFormUtils(styles: CSSModuleClasses) {
 	return {
 		getParentElement(element: HTMLInputElement | HTMLTextAreaElement) {
 			let parent = element.parentElement as HTMLElement;
-			while (!parent.classList.contains(styles['wrap-item']) && parent.nodeName !== 'FORM') {
+			while (!parent.classList.contains(styles.wrapItem) && parent.nodeName !== 'FORM') {
 				parent = parent.parentElement as HTMLElement;
 			}
 			if (parent.nodeName !== 'FORM') return parent;

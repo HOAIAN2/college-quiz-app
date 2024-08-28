@@ -37,7 +37,7 @@ export default function Subject() {
     const handleUpdateSubject = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
         e.preventDefault();
         if (!permissions.has('subject_update')) return;
-        document.querySelector(`.${styles['form-data']}`)?.querySelectorAll('input[name]').forEach(node => {
+        document.querySelector(`.${styles.formData}`)?.querySelectorAll('input[name]').forEach(node => {
             const element = node as HTMLInputElement;
             element.classList.remove('error');
             formUtils.getParentElement(element)?.removeAttribute('data-error');
@@ -94,7 +94,7 @@ export default function Subject() {
                     langYes={language?.langYes}
                     langNo={language?.langNo}
                 /> : null}
-            <main className={css(appStyles['dashboard-d'], styles['page-content'])}>
+            <main className={css(appStyles.dashboard, styles.pageContent)}>
                 {
                     queryData.isLoading ? <Loading /> : null
                 }
@@ -104,48 +104,48 @@ export default function Subject() {
                 {
                     queryData.data ?
                         <>
-                            <section className={styles['form-content']}>
-                                <div className={styles['header']}>
-                                    <h2 className={styles['title']}>{queryData.data.name}</h2>
+                            <section className={styles.formContent}>
+                                <div className={styles.header}>
+                                    <h2 className={styles.title}>{queryData.data.name}</h2>
                                 </div>
                                 <form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
                                     mutate(e);
                                 }}
                                     onInput={e => { formUtils.handleOnInput(e); }}
-                                    className={styles['form-data']}>
+                                    className={styles.formData}>
                                     <input name='is_active' defaultValue='1' hidden />
-                                    <div className={styles['group-inputs']}>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={appStyles['required']} htmlFor='shortcode'>{language?.shortcode}</label>
+                                    <div className={styles.groupInputs}>
+                                        <div className={styles.wrapItem}>
+                                            <label className={appStyles.required} htmlFor='shortcode'>{language?.shortcode}</label>
                                             <input
                                                 id='shortcode'
                                                 disabled={!permissions.has('subject_update')}
                                                 defaultValue={queryData.data.shortcode}
                                                 name='shortcode'
-                                                className={css(appStyles['input-d'], styles['input-item'])}
+                                                className={css(appStyles.input, styles.inputItem)}
                                                 type='text' />
                                         </div>
-                                        <div className={styles['wrap-item']}>
-                                            <label className={appStyles['required']} htmlFor='name'>{language?.name}</label>
+                                        <div className={styles.wrapItem}>
+                                            <label className={appStyles.required} htmlFor='name'>{language?.name}</label>
                                             <input
                                                 id='name'
                                                 disabled={!permissions.has('subject_update')}
                                                 defaultValue={queryData.data.name}
                                                 name='name'
-                                                className={css(appStyles['input-d'], styles['input-item'])}
+                                                className={css(appStyles.input, styles.inputItem)}
                                                 type='text' />
                                         </div>
                                     </div>
                                     {
                                         permissions.hasAnyFormList(['subject_update', 'subject_delete']) ?
-                                            <div className={styles['action-items']}>
+                                            <div className={styles.actionItems}>
                                                 {
                                                     permissions.has('subject_update') ?
                                                         <button name='save'
                                                             className={
                                                                 css(
-                                                                    appStyles['action-item-d'],
-                                                                    isPending ? appStyles['button-submitting'] : ''
+                                                                    appStyles.actionItem,
+                                                                    isPending ? appStyles.buttonSubmitting : ''
                                                                 )
                                                             }
                                                         >{language?.save}</button> : null
@@ -157,7 +157,7 @@ export default function Subject() {
                                                             onClick={() => {
                                                                 setShowDeletePopUp(true);
                                                             }}
-                                                            className={appStyles['action-item-white-border-red-d']}>
+                                                            className={appStyles.actionItemWhiteBorderRed}>
                                                             <MdDeleteOutline /> {language?.delete}
                                                         </button>
                                                         : null
@@ -167,15 +167,15 @@ export default function Subject() {
                                     }
                                 </form>
                             </section>
-                            <div className={styles['header']}>
-                                <h2 className={styles['title']}>{language?.chapters}</h2>
+                            <div className={styles.header}>
+                                <h2 className={styles.title}>{language?.chapters}</h2>
                             </div>
                             {
                                 permissions.has('subject_update') ?
-                                    <div className={appStyles['action-bar-d']}
+                                    <div className={appStyles.actionBar}
                                         style={{ paddingLeft: '20px' }}
                                     >
-                                        <div className={appStyles['action-item-d']}
+                                        <div className={appStyles.actionItem}
                                             onClick={() => {
                                                 setShowCreateChapterPopUp(true);
                                             }}
@@ -185,7 +185,7 @@ export default function Subject() {
                                     </div>
                                     : null
                             }
-                            <div className={styles['chapters-container']}>
+                            <div className={styles.chaptersContainer}>
                                 {
                                     queryData.data.chapters.sort((a, b) =>
                                         a.chapterNumber - b.chapterNumber
@@ -194,16 +194,16 @@ export default function Subject() {
                                             return (
                                                 <div
                                                     key={`chapter-${chapter.id}`}
-                                                    className={css(appStyles['dashboard-card-d'], styles['card'])}
+                                                    className={css(appStyles.dashboardCard, styles.card)}
                                                     onClick={() => {
                                                         setCurrentChapter(chapter);
                                                         setShowViewChapterPopUp(true);
                                                     }}
                                                 >
-                                                    <div className={styles['card-top']}>
+                                                    <div className={styles.cardTop}>
                                                         {`${chapter.chapterNumber}. ${chapter.name}`}
                                                     </div>
-                                                    <div className={styles['card-bottom']}>
+                                                    <div className={styles.cardBottom}>
                                                         {`${chapter.questionsCount} ${language?.questions.toLocaleLowerCase()}`}
                                                     </div>
                                                 </div>
@@ -216,8 +216,8 @@ export default function Subject() {
                                     <Link
                                         to='questions'
                                         state={queryData.data}
-                                        className={styles['header']}>
-                                        <h2 className={styles['title']}>
+                                        className={styles.header}>
+                                        <h2 className={styles.title}>
                                             {language?.questions}
                                         </h2>
                                     </Link>

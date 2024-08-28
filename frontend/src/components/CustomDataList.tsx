@@ -32,9 +32,9 @@ export default function CustomDataList({
         const handleClickOutside = (e: MouseEvent) => {
             const element = e.target as HTMLElement;
             if (element && !customDataListContainerRef.current?.contains(element)) {
-                customDataListRef.current?.classList.add(styles['hidden']);
+                customDataListRef.current?.classList.add(styles.hidden);
             }
-            // else customDataListRef.current?.classList.remove(styles['hidden'])
+            // else customDataListRef.current?.classList.remove(styles.hidden)
         };
         document.addEventListener('click', handleClickOutside);
         return () => {
@@ -46,25 +46,25 @@ export default function CustomDataList({
             ref={customDataListContainerRef}
             className={
                 css(
-                    styles['custom-datalist'],
-                    // styles['hidden'],
-                    disabled ? styles['disabled'] : '',
+                    styles.customDatalist,
+                    // styles.hidden,
+                    disabled ? styles.disabled : '',
                     className
                 )
             }
         >
             <input
                 onClick={() => {
-                    customDataListRef.current?.classList.remove(styles['hidden']);
+                    customDataListRef.current?.classList.remove(styles.hidden);
                 }}
                 data-selector={name}
                 // name={name}
-                className={css(appStyles['input-d'], styles['input-item'])}
+                className={css(appStyles.input, styles.inputItem)}
                 value={currentText}
                 disabled={disabled}
                 onInput={e => {
                     const currentTarget = e.currentTarget;
-                    customDataListRef.current?.classList.remove(styles['hidden']);
+                    customDataListRef.current?.classList.remove(styles.hidden);
                     setCurrentText(currentTarget.value);
                     if (!currentTarget.value) setValue('');
                     onInput && onInput(e);
@@ -78,9 +78,9 @@ export default function CustomDataList({
                         ref={customDataListRef}
                         onClick={() => {
                             if (disabled) return;
-                            customDataListRef.current?.classList.add(styles['hidden']);
+                            customDataListRef.current?.classList.add(styles.hidden);
                         }}
-                        className={css(appStyles['input-d'], styles['select-dropbox'])}
+                        className={css(appStyles.input, styles.selectDropbox)}
                     >
                         {options.map(option => {
                             return (
@@ -90,7 +90,7 @@ export default function CustomDataList({
                                         setCurrentText(option.label || '');
                                         setValue(option.value);
                                     }}
-                                    className={styles['select-item']}>
+                                    className={styles.selectItem}>
                                     <span>{option.label}</span>
                                 </div>
                             );

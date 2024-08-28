@@ -1,8 +1,8 @@
 import styles from '../styles/ExamsEachMonthChart.module.css';
 
-import useAppContext from '~hooks/useAppContext';
 import Chart from 'chart.js/auto';
 import { useEffect, useRef } from 'react';
+import useAppContext from '~hooks/useAppContext';
 
 type ExamsEachMonthChartProps = {
 	data: number[];
@@ -79,7 +79,7 @@ export default function ExamsEachMonthChart({
 	}, [appLanguage.language, data, label]);
 
 	return (
-		<section className={styles['chart-container']}>
+		<section className={styles.chartContainer}>
 			<canvas ref={chartRef}></canvas>
 		</section>
 	);

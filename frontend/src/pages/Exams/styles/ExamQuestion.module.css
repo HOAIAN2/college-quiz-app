@@ -1,4 +1,4 @@
-.exam-question-container {
+.examQuestionContainer {
 	width: 100%;
 	height: fit-content;
 	border-radius: var(--border-radius-low);
@@ -8,12 +8,12 @@
 	padding: 10px;
 }
 
-.question-content,
-.question-option {
+.questionContent,
+.questionOption {
 	font-size: 16px !important;
 }
 
-.question-option-container {
+.questionOptionContainer {
 	cursor: pointer;
 	display: flex;
 	align-items: center;
@@ -21,11 +21,11 @@
 }
 
 
-.question-option-container>svg {
+.questionOptionContainer>svg {
 	font-size: 16px !important;
 	color: unset;
 }
 
-.question-option-container.checked>svg {
+.questionOptionContainer.checked>svg {
 	color: var(--color-blue);
 }

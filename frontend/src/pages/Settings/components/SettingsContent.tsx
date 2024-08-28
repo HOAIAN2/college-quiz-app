@@ -1,10 +1,10 @@
 import appStyles from '~styles/App.module.css';
 import styles from '../styles/SettingsContent.module.css';
 
-import { apiGetLoginSessions, apiRevokeLoginSession } from '~api/auth';
-import { apiDeleteLogFile, apiDownloadLogFile, apiRunArtisan } from '~api/settings';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRef } from 'react';
+import { apiGetLoginSessions, apiRevokeLoginSession } from '~api/auth';
+import { apiDeleteLogFile, apiDownloadLogFile, apiRunArtisan } from '~api/settings';
 import Loading from '~components/Loading';
 import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
@@ -33,29 +33,29 @@ function SystemContent() {
         const command = artisanCommandInputRef.current?.value.trim();
         if (!command) return;
         const button = e.currentTarget;
-        button.classList.add(appStyles['button-submitting']);
+        button.classList.add(appStyles.buttonSubmitting);
         apiRunArtisan(command)
             .finally(() => {
-                button.classList.remove(appStyles['button-submitting']);
+                button.classList.remove(appStyles.buttonSubmitting);
             });
     };
     const handleDownloadLogFile = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const button = e.currentTarget;
-        button.classList.add(appStyles['button-submitting']);
+        button.classList.add(appStyles.buttonSubmitting);
         apiDownloadLogFile('laravel.log')
             .then(res => {
                 saveBlob(res.data, res.fileName);
             })
             .finally(() => {
-                button.classList.remove(appStyles['button-submitting']);
+                button.classList.remove(appStyles.buttonSubmitting);
             });
     };
     const handleDeleteLogFile = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         const button = e.currentTarget;
-        button.classList.add(appStyles['button-submitting']);
+        button.classList.add(appStyles.buttonSubmitting);
         apiDeleteLogFile()
             .finally(() => {
-                button.classList.remove(appStyles['button-submitting']);
+                button.classList.remove(appStyles.buttonSubmitting);
             });
     };
     return (
@@ -63,33 +63,33 @@ function SystemContent() {
             {
                 user.user?.role.name === 'admin' ?
                     <>
-                        <article className={styles['article']}>
+                        <article className={styles.article}>
                             <h3>{language?.artisancommand}</h3>
                             <p>{language?.runArtisanCommand}</p>
                             <label>{language?.command}</label>
                             <input
                                 ref={artisanCommandInputRef}
-                                className={css(appStyles['input-d'], styles['input-item'])}
+                                className={css(appStyles.input, styles.inputItem)}
                                 placeholder='schedule:run'
                             />
-                            <div className={styles['action-items']}>
+                            <div className={styles.actionItems}>
                                 <button
                                     onClick={handleRunArtisan}
-                                    className={css(appStyles['action-item-d'], styles['button-item'])}
+                                    className={css(appStyles.actionItem, styles.buttonItem)}
                                 >{language?.run}</button>
                             </div>
                         </article>
-                        <article className={styles['article']}>
+                        <article className={styles.article}>
                             <h3>{language?.logFile}</h3>
                             <p>{language?.logDescription}</p>
-                            <div className={styles['action-items']}>
+                            <div className={styles.actionItems}>
                                 <button
                                     onClick={handleDownloadLogFile}
-                                    className={css(appStyles['action-item-d'], styles['button-item'])}
+                                    className={css(appStyles.actionItem, styles.buttonItem)}
                                 >{language?.download}</button>
                                 <button
                                     onClick={handleDeleteLogFile}
-                                    className={css(appStyles['action-item-white-border-red-d'], styles['button-item'])}
+                                    className={css(appStyles.actionItemWhiteBorderRed, styles.buttonItem)}
                                 >{language?.delete}</button>
                             </div>
                         </article>
@@ -119,9 +119,9 @@ function SecurityContent() {
             {
                 queryData.isLoading ? <Loading /> : null
             }
-            <article className={styles['article']}>
+            <article className={styles.article}>
                 <h3>{language?.loginSession}</h3>
-                <ul className={styles['sessions-list']}>
+                <ul className={styles.sessionsList}>
                     {
                         queryData.data?.map(session => {
                             return (
@@ -131,14 +131,14 @@ function SecurityContent() {
                                     </big>
                                     {
                                         session.id === currentTokenId ?
-                                            <b className={styles['current-session']}>{language?.currentSession}</b> : null
+                                            <b className={styles.currentSession}>{language?.currentSession}</b> : null
                                     }
                                     <p>{language?.lastActivedAt} {new Date(session.lastUsedAt).toLocaleString(appLanguage.language)}</p>
                                     <p>{language?.loginedAt}: {new Date(session.createdAt).toLocaleString(appLanguage.language)}</p>
                                     <p>{language?.userAgent}: {session.name.userAgent}</p>
                                     <button
                                         onClick={() => { mutate(session.id); }}
-                                        className={css(appStyles['action-item-white-border-red-d'], styles['button-item'])}
+                                        className={css(appStyles.actionItemWhiteBorderRed, styles.buttonItem)}
                                     >{language?.revoke}</button>
                                 </li>
                             );

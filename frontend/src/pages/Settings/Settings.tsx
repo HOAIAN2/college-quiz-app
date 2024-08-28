@@ -1,13 +1,13 @@
 import appStyles from '~styles/App.module.css';
 import styles from './styles/Settings.module.css';
 
-import useLanguage from '~hooks/useLanguage';
-import css from '~utils/css';
 import { useEffect, useState } from 'react';
 import { HiOutlineWrenchScrewdriver } from 'react-icons/hi2';
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import { MdOutlineSecurity } from 'react-icons/md';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import useLanguage from '~hooks/useLanguage';
+import css from '~utils/css';
 import SettingsContent from './components/SettingsContent';
 
 const STRICT_WIDTH = 800;
@@ -55,10 +55,10 @@ export default function Settings() {
         };
     }, [isWindowWidthExceeded]);
     return (
-        <main className={css(appStyles['dashboard-d'], styles['page-content'])}>
+        <main className={css(appStyles.dashboard, styles.pageContent)}>
             {
                 window.innerWidth > STRICT_WIDTH || name === undefined ?
-                    <section className={styles['nav-bar']}>
+                    <section className={styles.navBar}>
                         <h2 style={{ marginLeft: 10 }}>{language?.settings}</h2>
                         <ul>
                             {
@@ -68,8 +68,8 @@ export default function Settings() {
                                         <li key={`settings-${setting.to}`}
                                             className={
                                                 css(
-                                                    styles['list-item'],
-                                                    setting.to === window.location.pathname.split('/')[2] ? styles['current'] : ''
+                                                    styles.listItem,
+                                                    setting.to === window.location.pathname.split('/')[2] ? styles.current : ''
                                                 )
                                             }
                                         >
@@ -86,7 +86,7 @@ export default function Settings() {
             }
             {
                 name !== undefined ?
-                    <section className={styles['setting-content']}>
+                    <section className={styles.settingContent}>
                         <SettingsContent name={name!} />
                     </section> : null
             }

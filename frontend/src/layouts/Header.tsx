@@ -1,10 +1,6 @@
 import styles from './styles/Header.module.css';
 import sidebarStyles from './styles/Sidebar.module.css';
 
-import { apiLogout } from '~api/auth';
-import useAppContext from '~hooks/useAppContext';
-import useLanguage from '~hooks/useLanguage';
-import languageUtils from '~utils/languageUtils';
 import { useEffect, useRef } from 'react';
 import { AiOutlineUser } from 'react-icons/ai';
 import {
@@ -12,7 +8,11 @@ import {
 } from 'react-icons/bi';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
+import { apiLogout } from '~api/auth';
 import CustomSelect from '~components/CustomSelect';
+import useAppContext from '~hooks/useAppContext';
+import useLanguage from '~hooks/useLanguage';
+import languageUtils from '~utils/languageUtils';
 
 export default function Header() {
     const { DOM, user, appLanguage, appTitle } = useAppContext();
@@ -25,13 +25,13 @@ export default function Header() {
             });
     };
     const handleToggleDropdownProfile = () => {
-        profileDropdownRef.current?.classList.toggle(styles['show']);
+        profileDropdownRef.current?.classList.toggle(styles.show);
     };
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
             const element = e.target as HTMLElement;
             if (element && !profileDropdownRef.current?.contains(element)) {
-                profileDropdownRef.current?.classList.remove(styles['show']);
+                profileDropdownRef.current?.classList.remove(styles.show);
             }
         };
         document.addEventListener('click', handleClickOutside);
@@ -40,14 +40,14 @@ export default function Header() {
         };
     }, []);
     return (
-        <header className={styles['header']}>
+        <header className={styles.header}>
             <div id='loader'></div>
-            <div className={styles['left-items']}>
+            <div className={styles.leftItems}>
                 {
                     user.user ?
                         <>
-                            <div className={styles['toggle']} onClick={() => {
-                                DOM.sideBarRef.current?.classList.toggle(sidebarStyles['hide']);
+                            <div className={styles.toggle} onClick={() => {
+                                DOM.sideBarRef.current?.classList.toggle(sidebarStyles.hide);
                             }}>
                                 <RxHamburgerMenu />
                             </div>
@@ -56,14 +56,14 @@ export default function Header() {
                 <Link to='/'>
                     <img style={{ userSelect: 'none' }} height={30} src={'/favicon.ico'} alt="app icon" />
                 </Link>
-                <h1 style={{ userSelect: 'none' }} className={styles['app-title']}>{appTitle.title}</h1>
+                <h1 style={{ userSelect: 'none' }} className={styles.appTitle}>{appTitle.title}</h1>
             </div>
-            <div className={styles['right-items']}>
+            <div className={styles.rightItems}>
                 <div>
                     <CustomSelect
                         defaultOption={languageUtils.languageCodeName.find(lang => lang.value === appLanguage.language)!}
                         options={languageUtils.languageCodeName}
-                        className={styles['select-language']}
+                        className={styles.selectLanguage}
                         onChange={option => {
                             appLanguage.setLanguage(option.value);
                             languageUtils.setLanguage(option.value);
@@ -75,19 +75,19 @@ export default function Header() {
                         <>
                             <div
                                 ref={profileDropdownRef}
-                                onClick={handleToggleDropdownProfile} className={styles['right-item']}>
+                                onClick={handleToggleDropdownProfile} className={styles.rightItem}>
                                 <AiOutlineUser />
-                                <div onClick={handleToggleDropdownProfile} className={styles['drop-down']}>
+                                <div onClick={handleToggleDropdownProfile} className={styles.dropDown}>
                                     <Link
                                         onClick={handleToggleDropdownProfile}
                                         to='/profile'
-                                        className={styles['drop-item']}
+                                        className={styles.dropItem}
                                         title={languageUtils.getFullName(user.user?.firstName, user.user?.lastName)}
                                     >
                                         <AiOutlineUser />
                                         <span>{language?.profile}</span>
                                     </Link>
-                                    <div onClick={handleLogout} className={styles['drop-item']}>
+                                    <div onClick={handleLogout} className={styles.dropItem}>
                                         <BiLogOut />
                                         <span>{language?.logout}</span>
                                     </div>
