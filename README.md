@@ -57,6 +57,23 @@ VITE_DEV_SERVER_PORT=8000
 VITE_OVERRIDE_HTTP_METHOD=true
 ```
 
+## Editor settings
+
+This project combine both frontend and backend, maybe it some extensions not correctly. Here is my vscode settings for this project:
+
+```json
+{
+ "LaravelExtraIntellisense.basePath": "./backend",
+ "LaravelExtraIntellisense.basePathForCode": "./backend",
+ "laravel_goto_view.folders": {
+  "default": "/backend/resources/views",
+  "js": "/backend/resources/js/Pages",
+  "vendor": "/backend/resources/views/vendor"
+ },
+ "typescript.tsdk": "./frontend/node_modules/typescript/lib",
+}
+```
+
 ## Deploy
 
 ### Free hosting
