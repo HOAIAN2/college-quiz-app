@@ -1,6 +1,6 @@
 .tablePageContent {
 	width: 100%;
-	height: calc(100% - 50px);
+	height: fit-content;
 }
 
 .tablePageContent:only-child {
@@ -52,8 +52,7 @@
 
 .wrapTable {
 	width: 100%;
-	height: calc(100% - 75px);
-	overflow: auto;
+	height: calc(100%);
 	position: relative;
 	border-radius: var(--border-radius-low);
 }

@@ -1,6 +1,6 @@
 .pageContent {
 	width: 100%;
-	height: calc(100% - 50px);
+	/* height: calc(100% - 50px); */
 	position: relative;
 }
 
@@ -50,8 +50,8 @@
 }
 
 .wrapCardContainer {
-	height: calc(100% - 100px);
-	overflow-y: auto;
+	height: calc(100%);
+	/* overflow-y: auto; */
 }
 
 .cardContainer {
