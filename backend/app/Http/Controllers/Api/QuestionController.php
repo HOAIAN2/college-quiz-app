@@ -24,7 +24,7 @@ class QuestionController extends Controller
 				$data = $data->where('chapter_id', '=', $request->chapter_id);
 			}
 			if ($request->search != null) {
-				$data = $data->search($request->search);
+				$data = $data->whereFullText(Question::FULLTEXT, $request->search);
 			}
 			return Reply::successWithData($data->get(), '');
 		} catch (\Exception $error) {

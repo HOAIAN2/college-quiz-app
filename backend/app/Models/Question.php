@@ -34,12 +34,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Question extends Model
 {
-	use Searchable;
 	protected $table = 'questions';
 
-	protected $searchable = [
-		'content',
-	];
+	const FULLTEXT = ['content'];
 
 	protected function casts()
 	{

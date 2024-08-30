@@ -28,13 +28,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Subject extends Model
 {
-	use Searchable;
 	protected $table = 'subjects';
 
-	protected $searchable = [
-		'shortcode',
-		'name',
-	];
+	const FULLTEXT = ['name'];
 
 	protected $fillable = [
 		'shortcode',

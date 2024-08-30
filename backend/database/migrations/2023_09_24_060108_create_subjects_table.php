@@ -16,6 +16,8 @@ return new class extends Migration
 			$table->string('shortcode')->unique();
 			$table->string('name');
 			$table->datetimes();
+
+			$table->fullText(['name']);
 		});
 	}
 

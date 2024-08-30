@@ -25,6 +25,8 @@ return new class extends Migration
 			$table->foreign('last_updated_by')->references('id')->on('users')->nullOnDelete();
 			$table->foreign('subject_id')->references('id')->on('subjects')->cascadeOnDelete();
 			$table->foreign('chapter_id')->references('id')->on('chapters')->nullOnDelete();
+
+			$table->fullText(['content']);
 		});
 	}
 

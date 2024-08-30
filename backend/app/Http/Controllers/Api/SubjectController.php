@@ -28,7 +28,7 @@ class SubjectController extends Controller
 
 		try {
 			if ($request->search != null) {
-				$subjects = $subjects->search($request->search);
+				$subjects = $subjects->whereFullText(Subject::FULLTEXT, $request->search);
 			}
 			$subjects = $subjects->get();
 			return Reply::successWithData($subjects, '');
