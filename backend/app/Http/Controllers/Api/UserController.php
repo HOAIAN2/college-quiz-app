@@ -149,6 +149,13 @@ class UserController extends Controller
 		try {
 			$users = User::with(['role', 'school_class', 'faculty'])
 				->where('role_id', '=', RoleType::valueFromName($request->role));
+			// Filter
+			if ($request->school_class) {
+				//
+			}
+			if ($request->faculty) {
+				//
+			}
 			if ($request->search != null) {
 				$users = $users->search($request->search);
 			}

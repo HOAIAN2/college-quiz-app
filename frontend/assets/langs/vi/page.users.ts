@@ -12,5 +12,7 @@ export default {
 	},
 	deleteMessage: 'Bạn có chắc chắn muốn xóa @n bản ghi không? Hành động này không thể hoàn tác.',
 	langYes: 'Có',
-	langNo: 'Không'
+	langNo: 'Không',
+	class: 'Lớp',
+	faculty: 'Khoa',
 };

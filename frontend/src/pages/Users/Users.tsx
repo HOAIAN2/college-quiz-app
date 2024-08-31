@@ -13,11 +13,15 @@ import {
 	RiAddFill
 } from 'react-icons/ri';
 import { Navigate, useSearchParams } from 'react-router-dom';
+import { apiAutoCompleteFaculty } from '~api/faculty';
+import { apiAutoCompleteSchoolClass } from '~api/school-class';
 import { apiDeleteUserByIds, apiGetUsersByType, apiImportUsers } from '~api/user';
+import CustomDataList from '~components/CustomDataList';
 import CustomSelect from '~components/CustomSelect';
 import ImportData from '~components/ImportData';
 import Loading from '~components/Loading';
 import YesNoPopUp from '~components/YesNoPopUp';
+import { AUTO_COMPLETE_DEBOUNCE } from '~config/env';
 import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
 import useDebounce from '~hooks/useDebounce';
@@ -45,6 +49,10 @@ export default function Users({
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
 	const queryDebounce = useDebounce(searchQuery);
+	const [queryClass, setQueryClass] = useState('');
+	const [queryFaculty, setQueryFaculty] = useState('');
+	const debounceQueryClass = useDebounce(queryClass, AUTO_COMPLETE_DEBOUNCE);
+	const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE);
 	const queryClient = useQueryClient();
 	const queryData = useQuery({
 		queryKey: [
@@ -63,6 +71,16 @@ export default function Users({
 			search: queryDebounce,
 		}),
 		enabled: permissions.has('user_view')
+	});
+	const classQueryData = useQuery({
+		queryKey: [QUERY_KEYS.AUTO_COMPLETE_SCHOOL_CLASS, { search: debounceQueryClass }],
+		queryFn: () => apiAutoCompleteSchoolClass(debounceQueryClass),
+		enabled: debounceQueryClass ? true : false
+	});
+	const facultyQueryData = useQuery({
+		queryKey: [QUERY_KEYS.AUTO_COMPLETE_FACULTY, { search: debounceQueryFaculty }],
+		queryFn: () => apiAutoCompleteFaculty(debounceQueryFaculty),
+		enabled: debounceQueryFaculty ? true : false
 	});
 	const importFunction = async (file: File) => {
 		return apiImportUsers(file, role);
@@ -217,6 +235,70 @@ export default function Users({
 								className={styles.customSelect}
 							/>
 						</div>
+						{role === 'student' ?
+							<div style={{ zIndex: 2 }} className={styles.wrapInputItem}>
+								<label htmlFor='school_class'>{language?.class}</label>
+								<CustomDataList
+									key='school_class-custom-datalist'
+									name='school_class'
+									defaultOption={
+										{
+											label: searchParams.get('school_class') || '',
+											value: searchParams.get('school_class') || ''
+										}
+									}
+									onInput={e => {
+										setQueryClass(e.currentTarget.value);
+										if (!e.currentTarget.value.trim()) {
+											searchParams.delete('school_class');
+											setSearchParams(searchParams);
+										}
+									}}
+									options={classQueryData.data ? classQueryData.data.map(item => {
+										return {
+											label: item.name,
+											value: String(item.name)
+										};
+									}) : []}
+									onChange={(option) => {
+										searchParams.set('school_class', String(option.value));
+										setSearchParams(searchParams);
+									}}
+								/>
+							</div>
+							: role === 'teacher' ?
+								<div style={{ zIndex: 2 }} className={styles.wrapInputItem}>
+									<label htmlFor='faculty'>{language?.faculty}</label>
+									<CustomDataList
+										key='fauculty-custom-datalist'
+										name='faculty'
+										defaultOption={
+											{
+												label: searchParams.get('faculty') || '',
+												value: searchParams.get('faculty') || ''
+											}
+										}
+										onInput={e => {
+											setQueryFaculty(e.currentTarget.value);
+											if (!e.currentTarget.value.trim()) {
+												searchParams.delete('faculty');
+												setSearchParams(searchParams);
+											}
+										}}
+										options={facultyQueryData.data ? facultyQueryData.data.map(item => {
+											return {
+												label: item.name,
+												value: String(item.name)
+											};
+										}) : []}
+										onChange={(option) => {
+											searchParams.set('faculty', String(option.value));
+											setSearchParams(searchParams);
+										}}
+									/>
+								</div>
+								: null
+						}
 						<div className={styles.wrapInputItem}>
 							<label>{language?.filter.search}</label>
 							<input
