@@ -28,6 +28,8 @@ class GetByTypeRequest extends FormRequest
 			'per_page' => ['required', 'integer', 'in:10,20,30,40,50'],
 			'page' => ['nullable', 'integer'],
 			'search' => ['nullable', 'string'],
+			'school_class_id' => ['nullable', 'integer'],
+			'faculty_id' => ['nullable', 'integer'],
 		];
 	}
 }

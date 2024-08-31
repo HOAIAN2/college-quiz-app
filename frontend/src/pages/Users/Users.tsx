@@ -2,7 +2,7 @@ import appStyles from '~styles/App.module.css';
 import styles from '~styles/TablePage.module.css';
 
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
 	BiExport,
 	BiImport
@@ -13,8 +13,8 @@ import {
 	RiAddFill
 } from 'react-icons/ri';
 import { Navigate, useSearchParams } from 'react-router-dom';
-import { apiAutoCompleteFaculty } from '~api/faculty';
-import { apiAutoCompleteSchoolClass } from '~api/school-class';
+import { apiAutoCompleteFaculty, apiGetFacultyById } from '~api/faculty';
+import { apiAutoCompleteSchoolClass, apiGetSchoolClassById } from '~api/school-class';
 import { apiDeleteUserByIds, apiGetUsersByType, apiImportUsers } from '~api/user';
 import CustomDataList from '~components/CustomDataList';
 import CustomSelect from '~components/CustomSelect';
@@ -32,6 +32,9 @@ import { importTemplateFileUrl } from '~utils/template';
 import CreateUser from './components/CreateUser';
 import ExportUsers from './components/ExportUsers';
 import UsersTable from './components/UsersTable';
+
+const schoolClassFilterKey = 'school_class';
+const facultyFilterKey = 'faculty';
 
 type UsersProps = {
 	role: RoleName;
@@ -53,6 +56,8 @@ export default function Users({
 	const [queryFaculty, setQueryFaculty] = useState('');
 	const debounceQueryClass = useDebounce(queryClass, AUTO_COMPLETE_DEBOUNCE);
 	const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE);
+	const initClass = useRef(searchParams.get(schoolClassFilterKey) || '');
+	const initFaculty = useRef(searchParams.get(facultyFilterKey) || '');
 	const queryClient = useQueryClient();
 	const queryData = useQuery({
 		queryKey: [
@@ -61,7 +66,9 @@ export default function Users({
 				role: role,
 				page: searchParams.get('page') || '1',
 				perPage: searchParams.get('per_page') || '10',
-				search: queryDebounce
+				search: queryDebounce,
+				facultyId: searchParams.get(facultyFilterKey) || undefined,
+				schoolClassId: searchParams.get(schoolClassFilterKey) || undefined
 			}
 		],
 		queryFn: () => apiGetUsersByType({
@@ -69,6 +76,8 @@ export default function Users({
 			page: Number(searchParams.get('page')),
 			perPage: Number(searchParams.get('per_page')),
 			search: queryDebounce,
+			facultyId: searchParams.get(facultyFilterKey) || undefined,
+			schoolClassId: searchParams.get(schoolClassFilterKey) || undefined
 		}),
 		enabled: permissions.has('user_view')
 	});
@@ -76,6 +85,16 @@ export default function Users({
 		queryKey: [QUERY_KEYS.AUTO_COMPLETE_SCHOOL_CLASS, { search: debounceQueryClass }],
 		queryFn: () => apiAutoCompleteSchoolClass(debounceQueryClass),
 		enabled: debounceQueryClass ? true : false
+	});
+	const initClassQueryData = useQuery({
+		queryKey: [QUERY_KEYS.SCHOOL_CLASS_DETAIL, { id: initClass.current }],
+		queryFn: () => apiGetSchoolClassById(initClass.current),
+		enabled: initClass.current ? true : false,
+	});
+	const initFacultyQueryData = useQuery({
+		queryKey: [QUERY_KEYS.FACULTY_DETAIL, { id: initFaculty.current }],
+		queryFn: () => apiGetFacultyById(initFaculty.current),
+		enabled: initFaculty.current ? true : false,
 	});
 	const facultyQueryData = useQuery({
 		queryKey: [QUERY_KEYS.AUTO_COMPLETE_FACULTY, { search: debounceQueryFaculty }],
@@ -108,6 +127,8 @@ export default function Users({
 		setSearchParams(searchParams);
 	}, [queryDebounce, searchParams, setSearchParams]);
 	if (!permissions.has('user_view')) return <Navigate to='/' />;
+	if (initClass.current && !initClassQueryData.data) return null;
+	if (initFaculty.current && !initFacultyQueryData.data) return null;
 	return (
 		<>
 			{showCreatePopUp === true ?
@@ -197,7 +218,7 @@ export default function Users({
 				}
 				<section className={styles.tablePageContent}>
 					<div className={styles.filterForm}>
-						<div className={styles.wrapInputItem}>
+						<div style={{ zIndex: 2 }} className={styles.wrapInputItem}>
 							<label>{language?.filter.perPage}</label>
 							<CustomSelect
 								defaultOption={
@@ -236,63 +257,63 @@ export default function Users({
 							/>
 						</div>
 						{role === 'student' ?
-							<div style={{ zIndex: 2 }} className={styles.wrapInputItem}>
-								<label htmlFor='school_class'>{language?.class}</label>
+							<div style={{ zIndex: 1 }} className={styles.wrapInputItem}>
+								<label htmlFor={schoolClassFilterKey}>{language?.class}</label>
 								<CustomDataList
 									key='school_class-custom-datalist'
-									name='school_class'
+									name={schoolClassFilterKey}
 									defaultOption={
 										{
-											label: searchParams.get('school_class') || '',
-											value: searchParams.get('school_class') || ''
+											label: initClass.current ? initClassQueryData.data!.name : '',
+											value: initClass.current ? String(initClassQueryData.data!.id) : ''
 										}
 									}
 									onInput={e => {
 										setQueryClass(e.currentTarget.value);
 										if (!e.currentTarget.value.trim()) {
-											searchParams.delete('school_class');
+											searchParams.delete(schoolClassFilterKey);
 											setSearchParams(searchParams);
 										}
 									}}
 									options={classQueryData.data ? classQueryData.data.map(item => {
 										return {
 											label: item.name,
-											value: String(item.name)
+											value: String(item.id)
 										};
 									}) : []}
 									onChange={(option) => {
-										searchParams.set('school_class', String(option.value));
+										searchParams.set(schoolClassFilterKey, String(option.value));
 										setSearchParams(searchParams);
 									}}
 								/>
 							</div>
 							: role === 'teacher' ?
-								<div style={{ zIndex: 2 }} className={styles.wrapInputItem}>
-									<label htmlFor='faculty'>{language?.faculty}</label>
+								<div style={{ zIndex: 1 }} className={styles.wrapInputItem}>
+									<label htmlFor={facultyFilterKey}>{language?.faculty}</label>
 									<CustomDataList
 										key='fauculty-custom-datalist'
-										name='faculty'
+										name={facultyFilterKey}
 										defaultOption={
 											{
-												label: searchParams.get('faculty') || '',
-												value: searchParams.get('faculty') || ''
+												label: initFaculty.current ? initFacultyQueryData.data!.name : '',
+												value: initFaculty.current ? String(initFacultyQueryData.data!.id) : ''
 											}
 										}
 										onInput={e => {
 											setQueryFaculty(e.currentTarget.value);
 											if (!e.currentTarget.value.trim()) {
-												searchParams.delete('faculty');
+												searchParams.delete(facultyFilterKey);
 												setSearchParams(searchParams);
 											}
 										}}
 										options={facultyQueryData.data ? facultyQueryData.data.map(item => {
 											return {
 												label: item.name,
-												value: String(item.name)
+												value: String(item.id)
 											};
 										}) : []}
 										onChange={(option) => {
-											searchParams.set('faculty', String(option.value));
+											searchParams.set(facultyFilterKey, String(option.value));
 											setSearchParams(searchParams);
 										}}
 									/>

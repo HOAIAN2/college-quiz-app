@@ -78,7 +78,9 @@ export async function apiGetUsersByType(query: QueryUserType) {
 				role: query.role,
 				page: query.page || 1,
 				per_page: query.perPage || 10,
-				search: query.search
+				search: query.search,
+				faculty_id: query.facultyId,
+				school_class_id: query.schoolClassId
 			}
 		});
 		const { data } = res.data as ApiResponseWithData<Pagination<UserDetail>>;

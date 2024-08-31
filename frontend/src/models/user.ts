@@ -35,4 +35,6 @@ export type QueryUserType = {
 	page?: number;
 	perPage?: number;
 	search?: string;
+	schoolClassId?: string;
+	facultyId?: string;
 };

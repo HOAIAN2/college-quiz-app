@@ -62,10 +62,7 @@ class User extends Authenticatable
 	protected $searchable = [
 		'first_name',
 		'last_name',
-		'email',
-		'shortcode',
-		'school_class.shortcode',
-		'faculty.shortcode',
+		'address'
 	];
 
 	protected function casts()
