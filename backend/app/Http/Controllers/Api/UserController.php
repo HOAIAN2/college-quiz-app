@@ -157,7 +157,12 @@ class UserController extends Controller
 				$users = $users->where('faculty_id', $request->faculty_id);
 			}
 			if ($request->search != null) {
-				$users = $users->search($request->search);
+				$users = $users->where(function ($query) use ($request) {
+					$query->search($request->search);
+					if (ctype_alnum($request->search)) {
+						$query->orWhere('shortcode', 'like', "$request->search%");
+					}
+				});
 			}
 
 			$users = $users->latest('id')->paginate($request->per_page);
