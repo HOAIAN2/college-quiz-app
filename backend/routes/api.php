@@ -15,7 +15,7 @@ use App\Http\Controllers\Api\SubjectController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
-const AUTH_MIDDLEWARES = ['auth:sanctum', 'validate-token'];
+if (!defined('AUTH_MIDDLEWARES')) define('AUTH_MIDDLEWARES', ['auth:sanctum', 'validate-token']);
 
 Route::prefix('/settings')->controller(SettingsController::class)->group(function () {
 	Route::middleware(AUTH_MIDDLEWARES)->group(function () {
