@@ -11,8 +11,13 @@ else
   exit 1
 fi
 
-echo "Enter dump directory: (exluce trailing slash)"
-read EXPORT_SQL_DIR
+# Check if the dump directory argument is provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 /path/to/dump/directory"
+  exit 1
+fi
+
+EXPORT_SQL_DIR=$1
 
 # Backup database
 TIMESTAMP=$(date +%s)
