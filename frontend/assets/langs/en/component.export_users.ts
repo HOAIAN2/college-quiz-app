@@ -5,5 +5,9 @@ export default {
 	admin: 'Admin',
 	selectAll: 'Select all',
 	deselectAll: 'Deselect all',
-	save: 'Save'
+	save: 'Save',
+	applyFilter: 'Apply filtter',
+	exportStudents: 'Export students',
+	exportTeachers: 'Export teachers',
+	options: 'Options'
 };

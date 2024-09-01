@@ -126,12 +126,13 @@ export async function apiGetUserExportableFields(role: RoleName) {
 	}
 }
 
-export async function apiExportUsers(role: RoleName, fields: (string)[], defaultFileName: string) {
+export async function apiExportUsers(role: RoleName, fields: (string)[], defaultFileName: string, filter?: Record<string, string>) {
 	try {
 		const res: AxiosResponse<Blob> = await request.get(pathUtils.join(prefix, 'export'), {
 			params: {
 				role: role,
-				fields: fields
+				fields: fields,
+				...filter
 			},
 			responseType: 'blob'
 		});

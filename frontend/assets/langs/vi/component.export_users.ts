@@ -5,5 +5,9 @@ export default {
 	admin: 'Admin',
 	selectAll: 'Chọn hết',
 	deselectAll: 'Bỏ chọn hết',
-	save: 'Lưu'
+	save: 'Lưu',
+	applyFilter: 'Áp dụng bộ lọc',
+	exportStudents: 'Xuất sinh viên',
+	exportTeachers: 'Xuất giáo viên',
+	options: 'Lựa chọn'
 };

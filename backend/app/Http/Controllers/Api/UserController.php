@@ -301,6 +301,21 @@ class UserController extends Controller
 			if ($data['role'] == 'student') $query = $query->with('school_class');
 			if ($data['role'] == 'teacher') $query = $query->with('faculty');
 
+			if ($request->school_class_id) {
+				$query = $query->where('school_class_id', $request->school_class_id);
+			}
+			if ($request->faculty_id) {
+				$query = $query->where('faculty_id', $request->faculty_id);
+			}
+			if ($request->search != null) {
+				$query = $query->where(function ($query) use ($request) {
+					$query->whereFullText(User::FULLTEXT, $request->search);
+					if (ctype_alnum($request->search)) {
+						$query->orWhere('shortcode', 'like', "$request->search%");
+					}
+				});
+			}
+
 			$hiddens = (new User())->getHidden();
 			$columns = array_filter($data['fields'], function ($value) use ($hiddens) {
 				return !in_array($value, $hiddens);

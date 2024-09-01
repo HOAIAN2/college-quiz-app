@@ -2,7 +2,7 @@ import appStyles from '~styles/App.module.css';
 import styles from '../styles/ExportUsers.module.css';
 
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import { apiExportUsers, apiGetUserExportableFields } from '~api/user';
 import Loading from '~components/Loading';
@@ -25,6 +25,7 @@ export default function ExportUsers({
 	const language = useLanguage('component.export_users');
 	const [hide, setHide] = useState(true);
 	const [isPending, setIsPending] = useState(false);
+	const applyFilterRef = useRef<HTMLInputElement>(null);
 	const handleClosePopUp = () => {
 		setHide(true);
 		setTimeout(() => {
@@ -33,7 +34,8 @@ export default function ExportUsers({
 	};
 	const queryData = useQuery({
 		queryKey: [QUERY_KEYS.USER_EXPORTABLE_FIELDS],
-		queryFn: () => apiGetUserExportableFields(role)
+		queryFn: () => apiGetUserExportableFields(role),
+		refetchOnWindowFocus: false
 	});
 	const handleExportUsers = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -42,9 +44,18 @@ export default function ExportUsers({
 		formData.forEach((value) => {
 			fields.push(value as string);
 		});
+		const filter: Record<string, string> = {};
+		if (applyFilterRef.current?.checked) {
+			const searchParams = new URLSearchParams(window.location.search);
+			searchParams.delete('per_page');
+			searchParams.delete('page');
+			searchParams.forEach((value, key) => {
+				filter[key] = value;
+			});
+		}
 		setIsPending(true);
 		const defaultFileName = `Export-${role}-${new Date().toISOString().split('T')[0]}.xlsx`;
-		apiExportUsers(role, fields, defaultFileName)
+		apiExportUsers(role, fields, defaultFileName, filter)
 			.then(res => {
 				saveBlob(res.data, res.fileName);
 			})
@@ -78,7 +89,7 @@ export default function ExportUsers({
 					)
 				}>
 				<div className={styles.header}>
-					<h2 className={styles.title}>{language?.selectFields}</h2>
+					<h2 className={styles.title}>{role === 'student' ? language?.exportStudents : language?.exportTeachers}</h2>
 					<div className={styles.escButton}
 						onClick={handleClosePopUp}
 					>
@@ -91,6 +102,12 @@ export default function ExportUsers({
 				{
 					queryData.data ?
 						<form onSubmit={handleExportUsers} className={styles.formData}>
+							<h3>{language?.options}</h3>
+							<div className={styles.wrapItem}>
+								<input ref={applyFilterRef} id={'export_users_apply_filter'} type='checkbox' />
+								<label htmlFor={'export_users_apply_filter'} className={styles.label}>{language?.applyFilter}</label>
+							</div>
+							<h3>{language?.selectFields}</h3>
 							{
 								queryData.data.map(item => {
 									return (

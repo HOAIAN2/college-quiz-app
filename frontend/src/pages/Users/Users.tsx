@@ -33,8 +33,8 @@ import CreateUser from './components/CreateUser';
 import ExportUsers from './components/ExportUsers';
 import UsersTable from './components/UsersTable';
 
-const schoolClassFilterKey = 'school_class';
-const facultyFilterKey = 'faculty';
+const schoolClassFilterKey = 'school_class_id';
+const facultyFilterKey = 'faculty_id';
 
 type UsersProps = {
 	role: RoleName;

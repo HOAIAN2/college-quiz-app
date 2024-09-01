@@ -26,6 +26,9 @@ class ExportRequest extends FormRequest
 		return [
 			'role' => ['required', 'string', 'in:student,teacher,admin'],
 			'fields' => ['required', 'array'],
+			'search' => ['nullable', 'string'],
+			'school_class_id' => ['nullable', 'integer'],
+			'faculty_id' => ['nullable', 'integer'],
 		];
 	}
 }
