@@ -28,9 +28,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Subject extends Model
 {
-	protected $table = 'subjects';
-
 	const FULLTEXT = ['name'];
+
+	protected $table = 'subjects';
 
 	protected $fillable = [
 		'shortcode',

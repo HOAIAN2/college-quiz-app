@@ -34,9 +34,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Question extends Model
 {
-	protected $table = 'questions';
-
 	const FULLTEXT = ['content'];
+
+	protected $table = 'questions';
 
 	protected function casts()
 	{

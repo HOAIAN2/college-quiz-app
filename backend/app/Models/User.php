@@ -56,6 +56,11 @@ class User extends Authenticatable
 	use HasApiTokens, Notifiable, Searchable;
 
 	const DATE_FORMAT = 'Y-m-d\TH:i:sP';
+	const FULLTEXT = [
+		'first_name',
+		'last_name',
+		'address',
+	];
 
 	protected $table = 'users';
 

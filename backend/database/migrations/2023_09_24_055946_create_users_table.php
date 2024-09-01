@@ -30,6 +30,12 @@ return new class extends Migration
 			$table->rememberToken();
 			$table->datetimes();
 			$table->foreign('role_id')->references('id')->on('roles')->cascadeOnDelete();
+
+			$table->fullText([
+				'first_name',
+				'last_name',
+				'address'
+			]);
 		});
 	}
 

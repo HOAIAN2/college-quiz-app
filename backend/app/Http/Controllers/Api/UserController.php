@@ -158,7 +158,7 @@ class UserController extends Controller
 			}
 			if ($request->search != null) {
 				$users = $users->where(function ($query) use ($request) {
-					$query->search($request->search);
+					$query->whereFullText(User::FULLTEXT, $request->search);
 					if (ctype_alnum($request->search)) {
 						$query->orWhere('shortcode', 'like', "$request->search%");
 					}
