@@ -35,7 +35,7 @@ COPY backend .
 
 # Install Composer dependencies
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts && \
+RUN composer install --optimize-autoloader --no-dev && \
 	php artisan optimize:clear && \
 	rm -f storage/logs/laravel.log && \
 	rm -rf storage/framework/sessions/* && \
