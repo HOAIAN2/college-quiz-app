@@ -107,22 +107,24 @@ export default function ExportUsers({
 				{
 					queryData.data ?
 						<form onSubmit={handleExportUsers} className={styles.formData}>
-							<h3>{language?.options}</h3>
-							<div className={styles.wrapItem}>
-								<input ref={applyFilterRef} id={'export_users_apply_filter'} type='checkbox' />
-								<label htmlFor={'export_users_apply_filter'} className={styles.label}>{language?.applyFilter}</label>
+							<div className={styles.groupInputs}>
+								<h3>{language?.options}</h3>
+								<div className={styles.wrapItem}>
+									<input ref={applyFilterRef} id={'export_users_apply_filter'} type='checkbox' />
+									<label htmlFor={'export_users_apply_filter'} className={styles.label}>{language?.applyFilter}</label>
+								</div>
+								<h3>{language?.selectFields}</h3>
+								{
+									queryData.data.map(item => {
+										return (
+											<div key={`exportable-${item.field}`} className={styles.wrapItem}>
+												<input id={item.field} type='checkbox' name='fields[]' value={item.field} />
+												<label htmlFor={item.field} className={styles.label}>{item.fieldName}</label>
+											</div>
+										);
+									})
+								}
 							</div>
-							<h3>{language?.selectFields}</h3>
-							{
-								queryData.data.map(item => {
-									return (
-										<div key={`exportable-${item.field}`} className={styles.wrapItem}>
-											<input id={item.field} type='checkbox' name='fields[]' value={item.field} />
-											<label htmlFor={item.field} className={styles.label}>{item.fieldName}</label>
-										</div>
-									);
-								})
-							}
 							<div className={styles.actionItems}>
 								<button
 									name='save'

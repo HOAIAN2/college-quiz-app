@@ -20,7 +20,7 @@
 
 .exportUsersForm {
 	width: 450px;
-	height: 60%;
+	height: 70%;
 	border-radius: var(--border-radius-low);
 	/* box-shadow: 0px 0px 10px var(--color-shadow); */
 	background-color: white;
