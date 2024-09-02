@@ -14,13 +14,6 @@ use Illuminate\Support\Facades\DB;
 
 class SchoolClassController extends Controller
 {
-	private int $autoCompleteResultLimit = 0;
-
-	public function __construct()
-	{
-		$this->autoCompleteResultLimit = (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5);
-	}
-
 	public function index(IndexRequest $request)
 	{
 		$user = $this->getUser();

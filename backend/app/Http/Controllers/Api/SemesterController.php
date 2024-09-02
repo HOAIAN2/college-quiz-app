@@ -12,14 +12,6 @@ use Illuminate\Support\Facades\DB;
 
 class SemesterController extends Controller
 {
-	private int $autoCompleteResultLimit = 0;
-	private int $defaultLimit = 50;
-
-	public function __construct()
-	{
-		$this->autoCompleteResultLimit = (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5);
-	}
-
 	public function index(Request $request)
 	{
 		$user = $this->getUser();

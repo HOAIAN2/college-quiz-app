@@ -17,8 +17,6 @@ use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
-	private int $defaultLimit = 50;
-
 	public function index(IndexRequest $request)
 	{
 		$user = $this->getUser();

@@ -28,13 +28,6 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class UserController extends Controller
 {
-	private int $autoCompleteResultLimit = 0;
-
-	public function __construct()
-	{
-		$this->autoCompleteResultLimit = (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5);
-	}
-
 	public function index()
 	{
 		$data = (object)[];
