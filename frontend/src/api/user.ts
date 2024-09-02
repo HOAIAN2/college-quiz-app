@@ -4,6 +4,7 @@ import request from '../config/api';
 import { ApiResponseWithData, ExportableResponse, Pagination } from '../models/response';
 import { RoleName } from '../models/role';
 import {
+	ExportQueryUserType,
 	QueryUserType,
 	User,
 	UserDetail,
@@ -126,14 +127,10 @@ export async function apiGetUserExportableFields(role: RoleName) {
 	}
 }
 
-export async function apiExportUsers(role: RoleName, fields: (string)[], defaultFileName: string, filter?: Record<string, string>) {
+export async function apiExportUsers(query: ExportQueryUserType, defaultFileName: string) {
 	try {
 		const res: AxiosResponse<Blob> = await request.get(pathUtils.join(prefix, 'export'), {
-			params: {
-				role: role,
-				fields: fields,
-				...filter
-			},
+			params: query,
 			responseType: 'blob'
 		});
 		const contentDisposition = res.headers['content-disposition'] as string | undefined;

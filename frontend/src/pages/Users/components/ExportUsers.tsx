@@ -10,8 +10,12 @@ import CSS_TIMING from '~constants/css-timing';
 import QUERY_KEYS from '~constants/query-keys';
 import useLanguage from '~hooks/useLanguage';
 import { RoleName } from '~models/role';
+import { ExportQueryUserType } from '~models/user';
 import css from '~utils/css';
 import { saveBlob } from '~utils/saveBlob';
+
+const schoolClassFilterKey = 'school_class_id';
+const facultyFilterKey = 'faculty_id';
 
 type ExportUsersProps = {
 	role: RoleName;
@@ -40,22 +44,23 @@ export default function ExportUsers({
 	const handleExportUsers = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
+		const query: ExportQueryUserType = {
+			role: role,
+			fields: formData.getAll('fields[]') as string[]
+		};
 		const fields: string[] = [];
 		formData.forEach((value) => {
 			fields.push(value as string);
 		});
-		const filter: Record<string, string> = {};
 		if (applyFilterRef.current?.checked) {
 			const searchParams = new URLSearchParams(window.location.search);
-			searchParams.delete('per_page');
-			searchParams.delete('page');
-			searchParams.forEach((value, key) => {
-				filter[key] = value;
-			});
+			query.schoolClassId = searchParams.get(schoolClassFilterKey) || undefined;
+			query.facultyId = searchParams.get(facultyFilterKey) || undefined;
+			query.search = searchParams.get('search') || undefined;
 		}
 		setIsPending(true);
 		const defaultFileName = `Export-${role}-${new Date().toISOString().split('T')[0]}.xlsx`;
-		apiExportUsers(role, fields, defaultFileName, filter)
+		apiExportUsers(query, defaultFileName)
 			.then(res => {
 				saveBlob(res.data, res.fileName);
 			})

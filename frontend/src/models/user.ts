@@ -38,3 +38,7 @@ export type QueryUserType = {
 	schoolClassId?: string;
 	facultyId?: string;
 };
+
+export type ExportQueryUserType = Omit<QueryUserType, 'page' | 'perPage'> & {
+	fields: string[];
+};
