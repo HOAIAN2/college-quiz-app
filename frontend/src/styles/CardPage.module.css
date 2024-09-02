@@ -1,11 +1,6 @@
 .pageContent {
 	width: 100%;
-	/* height: calc(100% - 50px); */
 	position: relative;
-}
-
-.pageContent:only-child {
-	height: 100%;
 }
 
 .filterForm {
