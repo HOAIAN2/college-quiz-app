@@ -157,7 +157,7 @@ export default function Questions() {
 												setQuestionId(item.id);
 												setShowViewPopUp(true);
 											}}
-											key={`subject-${item.id}`}
+											key={`question-${item.id}`}
 											className={css(appStyles.dashboardCard, styles.card)}>
 											<div className={styles.cardTop}>
 												<p className={styles.content}>
