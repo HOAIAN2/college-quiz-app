@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 class SubjectController extends Controller
 {
 	private int $autoCompleteResultLimit = 0;
+	private int $defaultLimit = 50;
 
 	public function __construct()
 	{
@@ -30,7 +31,9 @@ class SubjectController extends Controller
 			if ($request->search != null) {
 				$subjects = $subjects->whereFullText(Subject::FULLTEXT, $request->search);
 			}
-			$subjects = $subjects->get();
+			$subjects = $subjects
+				->limit($this->defaultLimit)
+				->get();
 			return Reply::successWithData($subjects, '');
 		} catch (\Exception $error) {
 			return $this->handleException($error);

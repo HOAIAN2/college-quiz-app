@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 class SemesterController extends Controller
 {
 	private int $autoCompleteResultLimit = 0;
+	private int $defaultLimit = 50;
 
 	public function __construct()
 	{
@@ -29,7 +30,10 @@ class SemesterController extends Controller
 			if ($request->search != null) {
 				$data = $data->search($request->search);
 			}
-			$data = $data->latest('id')->get();
+			$data = $data
+				->limit($this->defaultLimit)
+				->latest('id')
+				->get();
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
 			return $this->handleException($error);

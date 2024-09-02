@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 
 class QuestionController extends Controller
 {
+	private int $defaultLimit = 50;
+
 	public function index(IndexRequest $request)
 	{
 		$user = $this->getUser();
@@ -26,7 +28,10 @@ class QuestionController extends Controller
 			if ($request->search != null) {
 				$data = $data->whereFullText(Question::FULLTEXT, $request->search);
 			}
-			return Reply::successWithData($data->get(), '');
+			$data = $data
+				->limit($this->defaultLimit)
+				->get();
+			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
 			return $this->handleException($error);
 		}

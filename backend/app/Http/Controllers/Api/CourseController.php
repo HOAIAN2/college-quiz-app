@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
+	private int $defaultLimit = 50;
+
 	public function index(IndexRequest $request)
 	{
 		$user = $this->getUser();
@@ -27,7 +29,10 @@ class CourseController extends Controller
 			if ($request->search != null) {
 				$data = $data->search($request->search);
 			}
-			$data = $data->latest('id')->get();
+			$data = $data
+				->limit($this->defaultLimit)
+				->latest('id')
+				->get();
 			return Reply::successWithData($data, '');
 		} catch (\Exception $error) {
 			return $this->handleException($error);
