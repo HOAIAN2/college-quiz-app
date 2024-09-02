@@ -124,6 +124,14 @@ $middleware->group('api', [
   ]);
 ```
 
+## Backup database
+
+Use any tool or just cli like this (I'm using marriadb)
+
+```console
+mariadb-dump --user=[YOUR_USERNAME] --password=[YOUR_PASSWORD] [DATABASE_NAME]--host=<127.0.0.1> --port=<PORT> -r backup.sql
+```
+
 ## Databse Diagram
 
 ![DB Diagram](./img/college-quiz-app.png)
