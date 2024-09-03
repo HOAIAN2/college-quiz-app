@@ -126,10 +126,10 @@ $middleware->group('api', [
 
 ## Backup database
 
-Use any tool or just cli like this (I'm using marriadb)
+Use any tool or cli like `mysqldump`, `mariadb-dump`. I already create a Python scripts to backup database with some extra features like: auto create folder when not exists, auto delete old backup files.
 
 ```console
-mariadb-dump --user=[YOUR_USERNAME] --password=[YOUR_PASSWORD] [DATABASE_NAME]--host=<127.0.0.1> --port=<PORT> -r backup.sql
+python scripts/backup_db.py --user=[YOUR_USERNAME] --password=[YOUR_PASSWORD] --database=[DATABASE_NAME] --out-dir='/backup'
 ```
 
 ## Databse Diagram

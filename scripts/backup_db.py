@@ -49,3 +49,13 @@ exit_code = os.system(command = command)
 
 if exit_code != 0:
     os.remove(final_path)
+else:
+    keep_days = 7
+    seconds_of_day = 86400
+    list_of_files = os.listdir(out_dir)
+    for file in list_of_files:
+        file_location = os.path.join(out_dir, file)
+        file_time = os.stat(file_location).st_mtime
+        if(file_time < timestamp - seconds_of_day * keep_days):
+            os.remove(file_location)
+
