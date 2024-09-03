@@ -19,6 +19,7 @@ parser.add_argument('--host', type=str, default='127.0.0.1', help='Database host
 parser.add_argument('--port', type=int, default=3306, help='Database port (3306)')
 parser.add_argument('--database', type=str, required=True, help='Database name')
 parser.add_argument('--out-dir', type=str, required=True, help='Out dir')
+parser.add_argument('--keep-days', type=int, default=7, help='Number of days to keep old backup files')
 
 args = parser.parse_args()
 
@@ -50,7 +51,7 @@ exit_code = os.system(command = command)
 if exit_code != 0:
     os.remove(final_path)
 else:
-    keep_days = 7
+    keep_days = args.keep_days
     seconds_of_day = 86400
     list_of_files = os.listdir(out_dir)
     for file in list_of_files:
