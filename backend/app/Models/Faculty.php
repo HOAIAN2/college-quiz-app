@@ -37,8 +37,6 @@ class Faculty extends Model
 	protected $searchable = [
 		'shortcode',
 		'name',
-		'email',
-		'phone_number',
 	];
 
 	protected function casts()
