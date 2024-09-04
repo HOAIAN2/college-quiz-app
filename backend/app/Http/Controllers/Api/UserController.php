@@ -349,9 +349,11 @@ class UserController extends Controller
 		try {
 			$users = User::with(['role', 'school_class', 'faculty'])
 				->where('role_id', '=', RoleType::valueFromName($request->role))
-				->search($request->search)
-				->latest('id')
-				->take($this->autoCompleteResultLimit * 20)
+				->latest('id');
+			if ($request->search) {
+				$users = $users->search($request->search);
+			}
+			$users = $users->take($this->autoCompleteResultLimit * 20)
 				->get();
 			return Reply::successWithData($users, '');
 		} catch (\Exception $error) {
