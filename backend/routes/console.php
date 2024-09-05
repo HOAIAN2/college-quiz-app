@@ -9,8 +9,3 @@ Schedule::call(function () {
 	Artisan::call('app:clear-expired-otp-codes');
 })
 	->everyMinute();
-
-Schedule::call(function () {
-	Artisan::call('app:backup-database');
-})->name('Backup database')
-	->daily();
