@@ -40,7 +40,7 @@ class AuthController extends Controller
 			if (!Hash::check($request->password, $data->user->password)) {
 				return Reply::error('auth.errors.password_incorrect');
 			}
-			if (!$data->user->email_verified_at && env('MUST_VERIFY_EMAIL')) {
+			if (!$data->user->email_verified_at && config('custom.app.must_verify_email')) {
 				return Reply::successWithData($data, '');
 			}
 			$data->token = $data->user->createToken(json_encode([

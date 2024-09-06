@@ -12,8 +12,8 @@ abstract class Controller
 
 	public function __construct()
 	{
-		$this->autoCompleteResultLimit = (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5);
-		$this->defaultLimit = (int) env('DEFAULT_QUERY_LIMIT', 50);
+		$this->autoCompleteResultLimit = config('custom.query.auto_complete_result_limit');
+		$this->defaultLimit = config('custom.query.default_limit');
 	}
 
 	public function getUser(): mixed

@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
 		Route::pattern('id', '([1-9]+[0-9]*)');
 
 		RateLimiter::for('api', function (Request $request) {
-			return Limit::perMinute(env('DEFAULT_RATE_LIMIT', 100))->by($request->user()?->id ?: $request->ip());
+			return Limit::perMinute(config('custom.app.default_rate_limit'))->by($request->user()?->id ?: $request->ip());
 		});
 
 		if (config('app.debug') == true && !app()->runningInConsole())

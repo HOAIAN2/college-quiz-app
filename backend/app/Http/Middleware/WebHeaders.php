@@ -16,7 +16,7 @@ class WebHeaders
 	public function handle(Request $request, Closure $next): Response
 	{
 		$response = $next($request);
-		$response->headers->set('Content-Security-Policy', env('CONTENT_SECURITY_POLICY'));
+		$response->headers->set('Content-Security-Policy', config('custom.app.content_security_policy'));
 		return $response;
 	}
 }

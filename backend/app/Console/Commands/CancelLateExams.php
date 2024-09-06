@@ -27,7 +27,7 @@ class CancelLateExams extends Command
 	 */
 	public function handle()
 	{
-		$max_late_seconds = env('MAX_LATE_SECONDS');
+		$max_late_seconds = config('custom.exam.max_late_seconds');
 		if ($max_late_seconds == null) return;
 		$now = Carbon::now();
 

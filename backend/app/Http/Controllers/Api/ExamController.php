@@ -37,7 +37,7 @@ class ExamController extends Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->allowLateSubmitSeconds = (int)env('EXAM_ALLOW_LATE_SUBMIT_SECONDS', 120);
+		$this->allowLateSubmitSeconds = config('custom.exam.allow_late_submit_seconds');
 	}
 
 	public function index(IndexRequest $request)

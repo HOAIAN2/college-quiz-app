@@ -9,7 +9,7 @@ class NumberHelper
 	public static function caculateScore(int|null $correct_count, int $question_count)
 	{
 		return $correct_count != null
-			? ($correct_count / $question_count) * (int)env('BASE_SCORE_SCALE', 10)
+			? ($correct_count / $question_count) * config('custom.exam.base_score_scale')
 			: 0;
 	}
 
