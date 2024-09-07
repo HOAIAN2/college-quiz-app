@@ -43,7 +43,8 @@ command = ' '.join([
     f'--host={host}',
     f'--port={port}',
     f'--databases {database}',
-    f'--result-file {final_path}'
+    f'--result-file {final_path}',
+    '--skip-ssl'
 ])
 
 exit_code = os.system(command = command)
@@ -55,8 +56,9 @@ else:
     seconds_of_day = 86400
     list_of_files = os.listdir(out_dir)
     for file in list_of_files:
+        if (file.endswith('.sql') == False): continue
         file_location = os.path.join(out_dir, file)
         file_time = os.stat(file_location).st_mtime
-        if(file_time < timestamp - seconds_of_day * keep_days):
+        if (file_time < timestamp - seconds_of_day * keep_days):
             os.remove(file_location)
 
