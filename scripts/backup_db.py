@@ -11,7 +11,7 @@ if shutil.which(dump_program) is None:
     print('Make sure that you have mariadb-dump or mysqldump')
     exit(1)
 
-parser = argparse.ArgumentParser(description="Backup database")
+parser = argparse.ArgumentParser(description="Python script use to backup MySQL / MariaDB database with some features like auto delete old backup files,...")
 
 parser.add_argument('--user', type=str, required=True, help='Database user')
 parser.add_argument('--password', type=str, required=True, help='Database password')
