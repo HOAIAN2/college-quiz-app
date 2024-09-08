@@ -130,7 +130,13 @@ export async function apiGetUserExportableFields(role: RoleName) {
 export async function apiExportUsers(query: ExportQueryUserType, defaultFileName: string) {
 	try {
 		const res: AxiosResponse<Blob> = await request.get(pathUtils.join(prefix, 'export'), {
-			params: query,
+			params: {
+				role: query.role,
+				fields: query.fields,
+				search: query.search,
+				faculty_id: query.facultyId,
+				school_class_id: query.schoolClassId
+			},
 			responseType: 'blob'
 		});
 		const contentDisposition = res.headers['content-disposition'] as string | undefined;
