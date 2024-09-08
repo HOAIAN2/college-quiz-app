@@ -5,3 +5,13 @@ services:
     ports:
       - "80:80"
     restart: unless-stopped
+
+  redis:
+    image: redis:7.4-alpine
+    privileged: true
+    command: [ "sh", "-c", "sysctl vm.overcommit_memory=1 && redis-server" ]
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    volumes:
+      - "./redis-data:/data"

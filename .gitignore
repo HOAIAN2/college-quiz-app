@@ -13,3 +13,5 @@ docker/php/zz-docker.conf
 .env
 .env.backup
 .env.production
+
+/redis-data
