@@ -4,7 +4,7 @@ return [
 	'exam' => [
 		'base_score_scale' => (int)env('BASE_SCORE_SCALE', 10),
 		'max_late_seconds' => env('MAX_LATE_SECONDS'),
-		'allow_late_submit_seconds' => (int)env('EXAM_ALLOW_LATE_SUBMIT_SECONDS', 120),
+		'allow_late_submit_seconds' => (int)env('EXAM_ALLOW_LATE_SUBMIT_SECONDS', 60),
 	],
 	'app' => [
 		'app_author' => env('APP_AUTHOR'),
@@ -12,7 +12,7 @@ return [
 		'run_tasks_interval' => env('RUN_TASK_INTERVAL'),
 		'otp_code_timeout_seconds' => (int)env('OTP_CODE_TIMEOUT_SECONDS', 600),
 		'token_expiration_minutes' => env('TOKEN_EXPIRATION_MINUTES'),
-		'default_rate_limit' => env('DEFAULT_RATE_LIMIT', 100),
+		'default_rate_limit' => (int)env('DEFAULT_RATE_LIMIT', 100),
 		'content_security_policy' => env('CONTENT_SECURITY_POLICY'),
 	],
 	'query' => [
