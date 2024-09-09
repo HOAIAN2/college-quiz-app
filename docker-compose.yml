@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
 
   redis:
-    image: redis:7.4-alpine
+    image: redis:alpine
     privileged: true
     command: [ "sh", "-c", "sysctl vm.overcommit_memory=1 && redis-server" ]
     ports:
