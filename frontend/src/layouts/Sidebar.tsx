@@ -30,7 +30,7 @@ import getMetaContent from '~utils/getMetaContent';
 export default function Sidebar() {
 	const { DOM, permissions, appTitle } = useAppContext();
 	const language = useLanguage('component.sidebar');
-	const navBarItems = [
+	const sidebarItems = [
 		{
 			name: language?.dashboard,
 			to: '',
@@ -107,7 +107,7 @@ export default function Sidebar() {
 		return () => window.removeEventListener('resize', updateSize);
 	}, [DOM.sideBarRef]);
 	useEffect(() => {
-		const currentFeature = navBarItems.find(feature => {
+		const currentFeature = sidebarItems.find(feature => {
 			return feature.to === window.location.pathname.split('/')[1];
 		});
 		if (currentFeature?.name) appTitle.setAppTitle(currentFeature.name);
@@ -120,7 +120,7 @@ export default function Sidebar() {
 			)
 		}>
 			<ul className={styles.list}>{
-				navBarItems.map((feature, index) => {
+				sidebarItems.map((feature, index) => {
 					if (feature.isActive === false) return;
 					return (
 						<li onClick={e => {
