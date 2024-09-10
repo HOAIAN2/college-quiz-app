@@ -1,4 +1,5 @@
 export default {
+	profile: 'Profile',
 	genders: {
 		male: 'Male',
 		female: 'Female',

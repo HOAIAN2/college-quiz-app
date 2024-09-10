@@ -6,6 +6,7 @@ import { HiOutlineWrenchScrewdriver } from 'react-icons/hi2';
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import { MdOutlineSecurity } from 'react-icons/md';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
 import SettingsContent from './components/SettingsContent';
@@ -13,6 +14,7 @@ import SettingsContent from './components/SettingsContent';
 const STRICT_WIDTH = 800;
 
 export default function Settings() {
+	const { appTitle } = useAppContext();
 	const language = useLanguage('page.settings');
 	const [isWindowWidthExceeded, setIsWindowWidthExceeded] = useState(window.innerWidth > STRICT_WIDTH);
 	const { name } = useParams();
@@ -54,6 +56,9 @@ export default function Settings() {
 			window.removeEventListener('resize', handleResize);
 		};
 	}, [isWindowWidthExceeded]);
+	useEffect(() => {
+		if (language) appTitle.setAppTitle(language.settings);
+	}, [appTitle, language]);
 	return (
 		<main className={css(appStyles.dashboard, styles.pageContent)}>
 			{

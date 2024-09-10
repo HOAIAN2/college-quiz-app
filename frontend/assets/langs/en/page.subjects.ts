@@ -1,4 +1,5 @@
 export default {
+	subjects: 'Subjects',
 	add: 'Add',
 	// import: 'Import',
 	// export: 'Export',

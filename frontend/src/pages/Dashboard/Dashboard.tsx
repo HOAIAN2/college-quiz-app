@@ -2,6 +2,7 @@ import appStyles from '~styles/App.module.css';
 import styles from './styles/Dashboard.module.css';
 
 import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { GrCertificate } from 'react-icons/gr';
 import {
 	PiChalkboardTeacherLight,
@@ -19,7 +20,7 @@ import DashboardCard from './components/DashboardCard';
 import ExamsEachMonthChart from './components/ExamsEachMonthChart';
 
 export default function Dashboard() {
-	const { permissions, appLanguage } = useAppContext();
+	const { permissions, appLanguage, appTitle } = useAppContext();
 	const language = useLanguage('page.dashboard');
 	const queryData = useQuery({
 		queryKey: [QUERY_KEYS.PAGE_DASHBOARD],
@@ -30,6 +31,9 @@ export default function Dashboard() {
 			notation: 'compact'
 		});
 	};
+	useEffect(() => {
+		if (language) appTitle.setAppTitle(language.dashboard);
+	}, [appTitle, language]);
 	return (
 		<main className={css(appStyles.dashboard, styles.dashboard)}>
 			{

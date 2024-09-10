@@ -2,6 +2,7 @@ import appStyles from '~styles/App.module.css';
 import styles from './styles/Permissions.module.css';
 
 import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { LuUsers2 } from 'react-icons/lu';
 import { Link, Navigate } from 'react-router-dom';
 import { apiGetRolePermissionCount } from '~api/role-permission';
@@ -12,13 +13,16 @@ import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
 
 export default function Permissisons() {
-	const { permissions } = useAppContext();
+	const { permissions, appTitle } = useAppContext();
 	const language = useLanguage('page.permissions');
 	const queryData = useQuery({
 		queryKey: [QUERY_KEYS.PAGE_PERMISSIONS],
 		queryFn: apiGetRolePermissionCount,
 		enabled: permissions.has('role_permission_view')
 	});
+	useEffect(() => {
+		if (language) appTitle.setAppTitle(language.permissions);
+	}, [appTitle, language]);
 	if (!permissions.has('role_permission_view')) return <Navigate to='/' />;
 	return (
 		<div className={css(appStyles.dashboard, styles.permissionContainer)}>

@@ -1,4 +1,5 @@
 export default {
+	subjects: 'Môn học',
 	add: 'Thêm',
 	// import: 'Nhập',
 	// export: 'Xuất',

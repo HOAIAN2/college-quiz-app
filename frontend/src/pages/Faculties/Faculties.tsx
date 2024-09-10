@@ -19,7 +19,7 @@ import CreateFaculty from './components/CreateFaculty';
 import FacultiesTable from './components/FacultiesTable';
 
 export default function Faculties() {
-	const { permissions } = useAppContext();
+	const { permissions, appTitle } = useAppContext();
 	const language = useLanguage('page.faculties');
 	const [showCreatePopUp, setShowCreatePopUp] = useState(false);
 	const [showDeletePopUp, setShowDeletePopUp] = useState(false);
@@ -61,6 +61,9 @@ export default function Faculties() {
 		else searchParams.set('search', queryDebounce);
 		setSearchParams(searchParams);
 	}, [queryDebounce, searchParams, setSearchParams]);
+	useEffect(() => {
+		if (language) appTitle.setAppTitle(language.faculties);
+	}, [appTitle, language]);
 	if (!permissions.has('faculty_view')) return <Navigate to='/' />;
 	return (
 		<>

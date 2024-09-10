@@ -19,7 +19,7 @@ import CreateSchoolClass from './components/CreateSchoolClass';
 import SchoolClassesTable from './components/SchoolClassesTable';
 
 export default function SchoolClasses() {
-	const { permissions } = useAppContext();
+	const { permissions, appTitle } = useAppContext();
 	const language = useLanguage('page.school_classes');
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [showCreatePopUp, setShowCreatePopUp] = useState(false);
@@ -61,6 +61,9 @@ export default function SchoolClasses() {
 		else searchParams.set('search', queryDebounce);
 		setSearchParams(searchParams);
 	}, [queryDebounce, searchParams, setSearchParams]);
+	useEffect(() => {
+		if (language) appTitle.setAppTitle(language.schoolClasses);
+	}, [appTitle, language]);
 	if (!permissions.has('school_class_view')) return <Navigate to='/' />;
 	return (
 		<>

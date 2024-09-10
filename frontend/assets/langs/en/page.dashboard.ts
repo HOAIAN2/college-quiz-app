@@ -1,4 +1,5 @@
 export default {
+	dashboard: 'Dashboard',
 	items: {
 		numberOfTeachers: 'Number of teachers',
 		numberOfStudents: 'Number of students',

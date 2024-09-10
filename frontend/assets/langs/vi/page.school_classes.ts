@@ -1,4 +1,5 @@
 export default {
+	schoolClasses: 'Lớp học',
 	add: 'Thêm',
 	import: 'Nhập',
 	export: 'Xuất',

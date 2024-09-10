@@ -16,11 +16,11 @@ import css from '~utils/css';
 import CreateSemester from './components/CreateSemester';
 
 export default function Semesters() {
-	const { permissions, appLanguage } = useAppContext();
+	const { permissions, appLanguage, appTitle } = useAppContext();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
 	const queryDebounce = useDebounce(searchQuery);
-	const language = useLanguage('page.subjects');
+	const language = useLanguage('page.semesters');
 	const [showCreatePopUp, setShowCreatePopUp] = useState(false);
 	const queryClient = useQueryClient();
 	const queryData = useQuery({
@@ -39,6 +39,9 @@ export default function Semesters() {
 			queryClient.refetchQueries({ queryKey: [key] });
 		});
 	};
+	useEffect(() => {
+		if (language) appTitle.setAppTitle(language.semesters);
+	}, [appTitle, language]);
 	if (!permissions.has('semester_view')) return <Navigate to='/' />;
 	return (
 		<>

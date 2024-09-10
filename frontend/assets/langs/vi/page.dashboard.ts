@@ -1,4 +1,5 @@
 export default {
+	dashboard: 'Tổng quan',
 	items: {
 		numberOfTeachers: 'Số lượng giáo viên',
 		numberOfStudents: 'Số lượng học sinh',

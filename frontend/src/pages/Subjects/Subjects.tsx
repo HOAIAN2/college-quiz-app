@@ -16,7 +16,7 @@ import css from '~utils/css';
 import CreateSubject from './components/CreateSubject';
 
 export default function Subjects() {
-	const { permissions } = useAppContext();
+	const { permissions, appTitle } = useAppContext();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
 	const queryDebounce = useDebounce(searchQuery);
@@ -39,6 +39,9 @@ export default function Subjects() {
 			queryClient.refetchQueries({ queryKey: [key] });
 		});
 	};
+	useEffect(() => {
+		if (language) appTitle.setAppTitle(language.subjects);
+	}, [appTitle, language]);
 	if (!permissions.has('subject_view')) return <Navigate to='/' />;
 	return (
 		<>

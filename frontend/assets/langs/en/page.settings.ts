@@ -1,5 +1,5 @@
 export default {
-	settings: 'Setting',
+	settings: 'Settings',
 	system: 'System',
 	notifications: 'Notifications',
 	security: 'Security'

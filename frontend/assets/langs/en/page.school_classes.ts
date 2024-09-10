@@ -1,4 +1,5 @@
 export default {
+	schoolClasses: 'School Classes',
 	add: 'Add',
 	import: 'Import',
 	export: 'Export',

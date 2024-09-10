@@ -1,4 +1,5 @@
 export default {
+	semesters: 'Semesters',
 	add: 'Add',
 	// import: 'Import',
 	// export: 'Export',

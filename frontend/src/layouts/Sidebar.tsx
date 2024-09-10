@@ -28,7 +28,7 @@ import css from '~utils/css';
 import getMetaContent from '~utils/getMetaContent';
 
 export default function Sidebar() {
-	const { DOM, permissions, appTitle } = useAppContext();
+	const { DOM, permissions } = useAppContext();
 	const language = useLanguage('component.sidebar');
 	const sidebarItems = [
 		{
@@ -106,12 +106,6 @@ export default function Sidebar() {
 		window.addEventListener('resize', updateSize);
 		return () => window.removeEventListener('resize', updateSize);
 	}, [DOM.sideBarRef]);
-	useEffect(() => {
-		const currentFeature = sidebarItems.find(feature => {
-			return feature.to === window.location.pathname.split('/')[1];
-		});
-		if (currentFeature?.name) appTitle.setAppTitle(currentFeature.name);
-	});
 	return (
 		<nav ref={DOM.sideBarRef} className={
 			css(

@@ -1,4 +1,5 @@
 export default {
+	profile: 'Cá nhân',
 	genders: {
 		male: 'Nam',
 		female: 'Nữ',

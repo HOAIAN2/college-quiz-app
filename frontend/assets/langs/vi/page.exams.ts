@@ -1,4 +1,5 @@
 export default {
+	exams: 'Bài thi',
 	month: 'Tháng',
 	minutes: 'Phút',
 	inProgress: 'Đang diễn ra',

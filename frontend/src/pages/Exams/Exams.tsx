@@ -19,7 +19,7 @@ import timeUtils from '~utils/timeUtils';
 export default function Exams() {
 	const forceUpdate = useForceUpdate();
 	const [searchParams, setSearchParams] = useSearchParams();
-	const { appLanguage, permissions } = useAppContext();
+	const { appLanguage, permissions, appTitle } = useAppContext();
 	const language = useLanguage('page.exams');
 	const requestRef = useRef<number>();
 	const monthYearFormat = moment.localeData()
@@ -73,6 +73,9 @@ export default function Exams() {
 		requestRef.current = requestAnimationFrame(animate);
 		return () => cancelAnimationFrame(requestRef.current!);
 	}, [animate, queryData.data]);
+	useEffect(() => {
+		if (language) appTitle.setAppTitle(language.exams);
+	}, [appTitle, language]);
 	if (!permissions.has('exam_view')) return <Navigate to='/' />;
 	return (
 		<>

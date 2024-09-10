@@ -1,4 +1,5 @@
 export default {
+	semesters: 'Học kỳ',
 	add: 'Thêm',
 	// import: 'Nhập',
 	// export: 'Xuất',

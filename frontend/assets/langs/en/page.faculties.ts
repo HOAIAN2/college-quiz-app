@@ -1,4 +1,5 @@
 export default {
+	faculties: 'Faculties',
 	add: 'Add',
 	import: 'Import',
 	export: 'Export',

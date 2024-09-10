@@ -1,4 +1,5 @@
 export default {
+	faculties: 'Khoa',
 	add: 'Thêm',
 	import: 'Nhập',
 	export: 'Xuất',

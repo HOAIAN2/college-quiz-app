@@ -43,7 +43,7 @@ export default function Users({
 	role
 }: UsersProps) {
 	const language = useLanguage('page.users');
-	const { permissions } = useAppContext();
+	const { permissions, appTitle } = useAppContext();
 	const [showCreatePopUp, setShowCreatePopUp] = useState(false);
 	const [showExportPopUp, setShowExportPopUp] = useState(false);
 	const [showImportPopUp, setShowImportPopUp] = useState(false);
@@ -126,6 +126,12 @@ export default function Users({
 		else searchParams.set('search', queryDebounce);
 		setSearchParams(searchParams);
 	}, [queryDebounce, searchParams, setSearchParams]);
+	useEffect(() => {
+		if (language) {
+			if (role === 'student') appTitle.setAppTitle(language.student);
+			if (role === 'teacher') appTitle.setAppTitle(language.teacher);
+		}
+	}, [appTitle, language, role]);
 	if (!permissions.has('user_view')) return <Navigate to='/' />;
 	if (initClass.current && !initClassQueryData.data) return null;
 	if (initFaculty.current && !initFacultyQueryData.data) return null;
