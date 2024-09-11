@@ -43,15 +43,23 @@ command = ' '.join([
     f'--host={host}',
     f'--port={port}',
     f'--databases {database}',
+    '--skip-ssl',
+    '--quick',
+    '--single-transaction',
+    '--compress',
     f'--result-file {final_path}',
-    '--skip-ssl'
 ])
+
+start_time = time.time()
 
 exit_code = os.system(command = command)
 
 if exit_code != 0:
     os.remove(final_path)
 else:
+    end_time = time.time()
+    print(f'Dump time: {end_time - start_time} seconds')
+
     keep_days = args.keep_days
     seconds_of_day = 86400
     list_of_files = os.listdir(out_dir)
