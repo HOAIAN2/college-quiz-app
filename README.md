@@ -126,11 +126,7 @@ $middleware->group('api', [
 
 ## Backup database
 
-Use any tool or cli like `mysqldump`, `mariadb-dump`. I already create a Python scripts to backup database with some extra features like: auto create folder when not exists, auto delete old backup files.
-
-```console
-python scripts/backup_db.py --user=[YOUR_USERNAME] --password=[YOUR_PASSWORD] --database=[DATABASE_NAME] --out-dir='/backup'
-```
+Use any tool or cli like `mysqldump`, `mariadb-dump`. I already write a NodeJS wrapper base on `mysqldump` for better performance. <https://github.com/HOAIAN2/mysql-backup>
 
 ## Databse Diagram
 
