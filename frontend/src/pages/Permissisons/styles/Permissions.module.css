@@ -28,7 +28,7 @@
 	margin-bottom: 15px;
 	background: white;
 	cursor: pointer;
-	border-left: 5px solid var(--color-soft-magenta);
+	border-left: 5px solid var(--color-primary);
 	border-radius: var(--border-radius-low);
 	box-shadow: 0px 0px 10px var(--color-shadow);
 }

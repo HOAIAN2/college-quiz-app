@@ -15,7 +15,7 @@
 			var(--color-primary),
 			var(--color-soft-blue),
 			var(--color-soft-green),
-			var(--color-soft-magenta));
+			var(--color-primary));
 	background-clip: text;
 	color: transparent;
 	animation: gradient 5s ease infinite;
@@ -23,7 +23,7 @@
 }
 
 .goHome {
-	color: var(--color-soft-magenta);
+	color: var(--color-primary);
 }
 
 @keyframes gradient {

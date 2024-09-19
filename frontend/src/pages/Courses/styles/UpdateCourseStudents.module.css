@@ -123,7 +123,7 @@
 	align-items: center;
 	border-radius: var(--border-radius-low);
 	border: 1px solid var(--color-shadow);
-	border-left: 5px solid var(--color-soft-magenta);
+	border-left: 5px solid var(--color-primary);
 	cursor: pointer;
 	padding: 0px 20px 0px 20px;
 }
