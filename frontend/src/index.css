@@ -19,8 +19,12 @@
 	--color-soft-blue: rgb(54, 185, 204);
 	--color-soft-red: rgb(250, 143, 173);
 	--color-soft-green: rgb(28, 200, 138);
+
+	--color-primary: var(--color-blue);
+
 	--border-radius-low: 5px;
 	--border-radius-medium: 15px;
+
 	--transition-timing-fast: .3s;
 	--transition-timing-medium: .4s;
 	--transition-timing-slow: .5s;
@@ -67,7 +71,7 @@ label {
 	height: 5px;
 	top: 0;
 	left: 0;
-	background-color: var(--color-blue);
+	background-color: var(--color-primary);
 }
 
 @media (width>=500px) {

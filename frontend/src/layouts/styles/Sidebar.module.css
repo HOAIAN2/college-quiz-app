@@ -43,7 +43,7 @@
 	content: '';
 	height: 100%;
 	width: 5px;
-	background-color: var(--color-blue);
+	background-color: var(--color-primary);
 	position: absolute;
 	left: -20px;
 	transition: var(--transition-timing-fast);
@@ -58,7 +58,7 @@
 	content: '';
 	height: 100%;
 	width: 5px;
-	background-color: var(--color-blue);
+	background-color: var(--color-primary);
 	position: absolute;
 	translate: 20px 0px;
 	transition: var(--transition-timing-fast);

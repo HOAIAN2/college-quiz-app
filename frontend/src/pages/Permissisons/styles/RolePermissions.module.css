@@ -33,7 +33,7 @@
 }
 
 .permissionItem>input {
-	accent-color: var(--color-blue);
+	accent-color: var(--color-primary);
 	width: 20px;
 	height: 20px;
 }

@@ -27,5 +27,5 @@
 }
 
 .questionOptionContainer.checked>svg {
-	color: var(--color-blue);
+	color: var(--color-primary);
 }

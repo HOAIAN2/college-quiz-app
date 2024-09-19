@@ -12,7 +12,7 @@
 	font-weight: 600;
 	user-select: none;
 	background: linear-gradient(45deg,
-			var(--color-blue),
+			var(--color-primary),
 			var(--color-soft-blue),
 			var(--color-soft-green),
 			var(--color-soft-magenta));

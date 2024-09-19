@@ -82,7 +82,7 @@ th {
 }
 
 .columnSelect>input {
-	accent-color: var(--color-blue);
+	accent-color: var(--color-primary);
 	cursor: pointer;
 }
 

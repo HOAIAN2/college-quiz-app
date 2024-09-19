@@ -69,7 +69,7 @@
 .dragAreaDashed {
 	width: 93%;
 	height: 93%;
-	border: 3px dashed var(--color-blue);
+	border: 3px dashed var(--color-primary);
 	border-radius: var(--border-radius-medium);
 	position: absolute;
 	top: 50%;
@@ -101,7 +101,7 @@
 
 .dragAreaContent>.fileName>svg {
 	font-size: 64px;
-	color: var(--color-blue);
+	color: var(--color-primary);
 }
 
 .dragAreaContent>.fileName.haveFile>svg {
