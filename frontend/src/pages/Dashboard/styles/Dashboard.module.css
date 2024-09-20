@@ -1,104 +1,104 @@
 .dashboard {
-	width: 100%;
-	height: 100%;
-	position: relative;
-	overflow-y: auto;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow-y: auto;
 }
 
 .wrapDashboardItem {
-	height: fit-content;
-	width: 100%;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	align-items: center;
-	gap: 20px;
-	padding-top: 10px;
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding-top: 10px;
 }
 
 .section {
-	background: white;
-	padding: 10px;
-	border-radius: var(--border-radius-low);
+    background: white;
+    padding: 10px;
+    border-radius: var(--border-radius-low);
 }
 
 .wrapSections {
-	width: 100%;
-	margin-top: 20px;
-	padding-left: 10px;
-	padding-right: 10px;
-	display: flex;
-	gap: 10px;
-	height: 350px;
+    width: 100%;
+    margin-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    gap: 10px;
+    height: 350px;
 }
 
 .wrapSections>section:nth-child(1) {
-	min-width: 40%;
-	min-height: 100%;
+    min-width: 40%;
+    min-height: 100%;
 }
 
 .wrapSections>section:nth-child(2) {
-	min-width: calc(60% - 10px);
-	min-height: 100%;
+    min-width: calc(60% - 10px);
+    min-height: 100%;
 }
 
 .sectionTitle {
-	font-size: large !important;
+    font-size: large !important;
 }
 
 .todayExamsList {
-	height: 90%;
-	display: flex;
-	flex-direction: column;
-	gap: 15px;
-	overflow-y: auto;
-	animation: animate-today-exams var(--transition-timing-slow) ease;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+    animation: animate-today-exams var(--transition-timing-slow) ease;
 }
 
 .todayExamsItem {
-	width: 100%;
-	min-height: 50px;
-	max-height: 50px;
-	border-radius: var(--border-radius-low);
-	border: 1px solid var(--color-shadow);
-	border-left: 5px solid var(--color-primary);
-	cursor: pointer;
-	box-shadow: none;
+    width: 100%;
+    min-height: 50px;
+    max-height: 50px;
+    border-radius: var(--border-radius-low);
+    border: 1px solid var(--color-shadow);
+    border-left: 5px solid var(--color-primary);
+    cursor: pointer;
+    box-shadow: none;
 }
 
 .todayExamsItem>a {
-	width: 100%;
-	height: 100%;
-	padding: 0px 20px 0px 20px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    padding: 0px 20px 0px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 @media (width<=800px) {
-	.wrapSections {
-		height: 700px;
-		flex-wrap: nowrap;
-		flex-direction: column;
-	}
+    .wrapSections {
+        height: 700px;
+        flex-wrap: nowrap;
+        flex-direction: column;
+    }
 
-	.wrapSections>section:nth-child(1) {
-		min-width: 100%;
-		min-height: 50%;
-	}
+    .wrapSections>section:nth-child(1) {
+        min-width: 100%;
+        min-height: 50%;
+    }
 
-	.wrapSections>section:nth-child(2) {
-		min-width: 100%;
-		min-height: 50%;
-	}
+    .wrapSections>section:nth-child(2) {
+        min-width: 100%;
+        min-height: 50%;
+    }
 }
 
 @keyframes animate-today-exams {
-	0% {
-		gap: 0px;
-	}
+    0% {
+        gap: 0px;
+    }
 
-	100% {
-		gap: 15px;
-	}
+    100% {
+        gap: 15px;
+    }
 }

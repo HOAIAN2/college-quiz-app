@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import request from '../config/api';
 import {
-	ApiResponseWithData,
-	RolePermissionsResponse
+    ApiResponseWithData,
+    RolePermissionsResponse
 } from '../models/response';
 import { RoleWithPermissionCount } from '../models/role';
 import pathUtils from '../utils/pathUtils';
@@ -10,37 +10,37 @@ import pathUtils from '../utils/pathUtils';
 const prefix = 'role-permissions';
 
 export async function apiGetRolePermissionCount() {
-	try {
-		const res = await request.get(pathUtils.join(prefix));
-		const { data } = res.data as ApiResponseWithData<RoleWithPermissionCount[]>;
-		return data;
-	} catch (error: any) {
-		throw new Error(error.message);
-	}
+    try {
+        const res = await request.get(pathUtils.join(prefix));
+        const { data } = res.data as ApiResponseWithData<RoleWithPermissionCount[]>;
+        return data;
+    } catch (error: any) {
+        throw new Error(error.message);
+    }
 }
 
 export async function apiGetRolePermissions(id: number) {
-	try {
-		const res = await request.get(pathUtils.join(prefix, id));
-		const { data } = res.data as ApiResponseWithData<RolePermissionsResponse>;
-		return data;
-	} catch (error: any) {
-		throw new Error(error.message);
-	}
+    try {
+        const res = await request.get(pathUtils.join(prefix, id));
+        const { data } = res.data as ApiResponseWithData<RolePermissionsResponse>;
+        return data;
+    } catch (error: any) {
+        throw new Error(error.message);
+    }
 }
 
 export async function apiUpdateRolePermissions(id: number | string, permissionIds: (number | string)[]) {
-	try {
-		const encodedData = new URLSearchParams();
-		permissionIds.forEach(item => {
-			encodedData.append('ids[]', String(item));
-		});
-		await request.put(pathUtils.join(prefix, id), encodedData, {
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			}
-		});
-	} catch (error: any) {
-		throw new Error(error.message);
-	}
+    try {
+        const encodedData = new URLSearchParams();
+        permissionIds.forEach(item => {
+            encodedData.append('ids[]', String(item));
+        });
+        await request.put(pathUtils.join(prefix, id), encodedData, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+    } catch (error: any) {
+        throw new Error(error.message);
+    }
 }

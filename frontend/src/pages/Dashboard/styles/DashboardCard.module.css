@@ -1,47 +1,47 @@
 .dashboardCard {
-	flex: 0 0 calc(25% - 20px);
-	min-width: 160px;
-	height: 150px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	border-radius: var(--border-radius-low);
-	border-left: 5px solid;
+    flex: 0 0 calc(25% - 20px);
+    min-width: 160px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: var(--border-radius-low);
+    border-left: 5px solid;
 }
 
 .dashboardCard>.cardTop {
-	height: 50%;
-	font-size: 38px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 0px 20px 0px 20px;
+    height: 50%;
+    font-size: 38px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px 0px 20px;
 }
 
 .dashboardCard>.cardBottom {
-	margin-left: 20px;
+    margin-left: 20px;
 }
 
 .containerMagenta {
-	border-color: var(--color-primary);
+    border-color: var(--color-primary);
 }
 
 .containerBlue {
-	border-color: var(--color-soft-blue);
+    border-color: var(--color-soft-blue);
 }
 
 .containerRed {
-	border-color: var(--color-soft-red);
+    border-color: var(--color-soft-red);
 }
 
 .containerGreen {
-	border-color: var(--color-soft-green);
+    border-color: var(--color-soft-green);
 }
 
 @media (width<=1000px) {
-	.dashboardCard {
-		flex: 0 0 calc(50% - 20px);
-	}
+    .dashboardCard {
+        flex: 0 0 calc(50% - 20px);
+    }
 }
 
 @media (width<=800px) {}

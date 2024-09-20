@@ -24,18 +24,18 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Permission extends Model
 {
-	protected $table = 'permissions';
+    protected $table = 'permissions';
 
-	protected function casts()
-	{
-		return [
-			'name'
-		];
-	}
+    protected function casts()
+    {
+        return [
+            'name'
+        ];
+    }
 
-	public function roles()
-	{
-		return $this->belongsToMany(Role::class, 'role_permissions')
-			->withTimestamps();
-	}
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_permissions')
+            ->withTimestamps();
+    }
 }

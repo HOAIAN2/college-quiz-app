@@ -8,30 +8,32 @@ use Illuminate\Validation\Rule;
 
 class UpdateRequest extends FormRequest
 {
-	use CustomValidateResponse;
-	/**
-	 * Determine if the user is authorized to make this request.
-	 */
-	public function authorize(): bool
-	{
-		return true;
-	}
+    use CustomValidateResponse;
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
 
-	/**
-	 * Get the validation rules that apply to the request.
-	 *
-	 * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-	 */
-	public function rules(): array
-	{
-		return [
-			'chapter_number' => [
-				'required', 'integer', 'min:1',
-				Rule::unique('chapters')->where(function ($query) {
-					return $query->where('subject_id', $this->subject_id);
-				})->ignore($this->id),
-			],
-			'name' => ['required', 'string', 'max:255'],
-		];
-	}
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'chapter_number' => [
+                'required',
+                'integer',
+                'min:1',
+                Rule::unique('chapters')->where(function ($query) {
+                    return $query->where('subject_id', $this->subject_id);
+                })->ignore($this->id),
+            ],
+            'name' => ['required', 'string', 'max:255'],
+        ];
+    }
 }

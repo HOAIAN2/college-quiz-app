@@ -27,43 +27,43 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Semester extends Model
 {
-	use Searchable;
-	protected $table = 'semesters';
+    use Searchable;
+    protected $table = 'semesters';
 
-	const DATE_FORMAT = 'Y-m-d\TH:i:sP';
+    const DATE_FORMAT = 'Y-m-d\TH:i:sP';
 
-	protected $searchable = [
-		'name',
-		'start_date',
-		'end_date',
-	];
+    protected $searchable = [
+        'name',
+        'start_date',
+        'end_date',
+    ];
 
-	protected function casts()
-	{
-		return [
-			'start_date' => 'datetime:' . self::DATE_FORMAT,
-			'end_date' => 'datetime:' . self::DATE_FORMAT
-		];
-	}
+    protected function casts()
+    {
+        return [
+            'start_date' => 'datetime:' . self::DATE_FORMAT,
+            'end_date' => 'datetime:' . self::DATE_FORMAT
+        ];
+    }
 
-	protected $fillable = [
-		'name',
-		'start_date',
-		'end_date'
-	];
+    protected $fillable = [
+        'name',
+        'start_date',
+        'end_date'
+    ];
 
-	protected $hidden = [
-		'created_at',
-		'updated_at'
-	];
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
 
-	public function courses()
-	{
-		return $this->hasMany(Course::class);
-	}
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 
-	public function isOver()
-	{
-		return Carbon::now()->greaterThan($this->end_date);
-	}
+    public function isOver()
+    {
+        return Carbon::now()->greaterThan($this->end_date);
+    }
 }

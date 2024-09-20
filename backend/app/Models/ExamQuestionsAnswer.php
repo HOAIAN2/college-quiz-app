@@ -30,61 +30,61 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ExamQuestionsAnswer extends Model
 {
-	protected $table = 'exam_questions_answers';
+    protected $table = 'exam_questions_answers';
 
-	protected function casts()
-	{
-		return [
-			'user_id' => 'int',
-			'exam_id' => 'int',
-			'question_id' => 'int',
-			'answer_id' => 'int',
-			'is_correct' => 'bool'
-		];
-	}
+    protected function casts()
+    {
+        return [
+            'user_id' => 'int',
+            'exam_id' => 'int',
+            'question_id' => 'int',
+            'answer_id' => 'int',
+            'is_correct' => 'bool'
+        ];
+    }
 
-	protected $fillable = [
-		'user_id',
-		'exam_id',
-		'question_id',
-		'answer_id',
-		'is_correct'
-	];
+    protected $fillable = [
+        'user_id',
+        'exam_id',
+        'question_id',
+        'answer_id',
+        'is_correct'
+    ];
 
-	protected $hidden = [
-		'created_at',
-		'updated_at'
-	];
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
 
-	public function question_option()
-	{
-		return $this->belongsTo(QuestionOption::class, 'answer_id');
-	}
+    public function question_option()
+    {
+        return $this->belongsTo(QuestionOption::class, 'answer_id');
+    }
 
-	public function exam()
-	{
-		return $this->belongsTo(Exam::class);
-	}
+    public function exam()
+    {
+        return $this->belongsTo(Exam::class);
+    }
 
-	public function exam_question()
-	{
-		return $this->belongsTo(ExamQuestion::class, 'question_id');
-	}
+    public function exam_question()
+    {
+        return $this->belongsTo(ExamQuestion::class, 'question_id');
+    }
 
-	public function user()
-	{
-		return $this->belongsTo(User::class);
-	}
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
-	public function gradeAnswer()
-	{
-		$is_correct = QuestionOption::where('id', '=', $this->answer_id)
-			->where('question_id', '=', $this->question_id)
-			->pluck('is_correct')
-			->first();
-		if ($is_correct != null) {
-			$this->is_correct = $is_correct;
-			$this->save();
-		}
-	}
+    public function gradeAnswer()
+    {
+        $is_correct = QuestionOption::where('id', '=', $this->answer_id)
+            ->where('question_id', '=', $this->question_id)
+            ->pluck('is_correct')
+            ->first();
+        if ($is_correct != null) {
+            $this->is_correct = $is_correct;
+            $this->save();
+        }
+    }
 }

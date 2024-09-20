@@ -27,34 +27,34 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Chapter extends Model
 {
-	protected $table = 'chapters';
+    protected $table = 'chapters';
 
-	protected function casts()
-	{
-		return [
-			'subject_id' => 'int',
-			'chapter_number' => 'int'
-		];
-	}
+    protected function casts()
+    {
+        return [
+            'subject_id' => 'int',
+            'chapter_number' => 'int'
+        ];
+    }
 
-	protected $fillable = [
-		'subject_id',
-		'chapter_number',
-		'name'
-	];
+    protected $fillable = [
+        'subject_id',
+        'chapter_number',
+        'name'
+    ];
 
-	protected $hidden = [
-		'created_at',
-		'updated_at'
-	];
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
 
-	public function subject()
-	{
-		return $this->belongsTo(Subject::class);
-	}
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
 
-	public function questions()
-	{
-		return $this->hasMany(Question::class);
-	}
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
 }

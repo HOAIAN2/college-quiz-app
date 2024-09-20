@@ -1,19 +1,19 @@
 .textareaGroup {
-	flex: 0 0 calc(50% - 35px) !important;
-	height: fit-content;
+    flex: 0 0 calc(50% - 35px) !important;
+    height: fit-content;
 }
 
 .wrapLabel {
-	display: flex;
-	align-items: center;
-	gap: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .wrapLabel>svg {
-	color: var(--color-soft-green);
+    color: var(--color-soft-green);
 }
 
 .textarea {
-	resize: vertical;
-	min-height: 70px;
+    resize: vertical;
+    min-height: 70px;
 }

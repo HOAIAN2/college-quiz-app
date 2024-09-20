@@ -1,16 +1,16 @@
 export type Permission = {
-	id: number;
-	name: string;
-	createdAt: string;
-	updatedAt: string;
+    id: number;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
 };
 export type PermissionWithPivot = Permission & {
-	pivot: Pivot;
+    pivot: Pivot;
 };
 
 type Pivot = {
-	roleId: number;
-	permissionId: number;
-	createdAt: number;
-	updatedAt: number;
+    roleId: number;
+    permissionId: number;
+    createdAt: number;
+    updatedAt: number;
 };

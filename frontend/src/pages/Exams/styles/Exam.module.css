@@ -1,166 +1,166 @@
 .pageContent {
-	width: 100%;
-	height: 100%;
-	/* height: calc(100% - 50px); */
-	position: relative;
-	/* background: white; */
-	overflow-y: auto;
-	padding: 20px;
+    width: 100%;
+    height: 100%;
+    /* height: calc(100% - 50px); */
+    position: relative;
+    /* background: white; */
+    overflow-y: auto;
+    padding: 20px;
 }
 
 .header {
-	height: 50px;
-	display: flex;
-	align-items: center;
+    height: 50px;
+    display: flex;
+    align-items: center;
 }
 
 .header>.title {
-	font-size: larger;
+    font-size: larger;
 }
 
 .examInfoContainer {
-	width: 100%;
-	height: calc(fit-content + 50px);
+    width: 100%;
+    height: calc(fit-content + 50px);
 }
 
 .examInfo {
-	height: fit-content;
-	display: flex;
-	flex-direction: column;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
 }
 
 .groupInfos {
-	width: 100%;
-	display: flex;
-	flex-wrap: wrap;
-	gap: 10px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .wrapItem {
-	position: relative;
-	height: 90px;
-	flex: 0 0 30%;
+    position: relative;
+    height: 90px;
+    flex: 0 0 30%;
 }
 
 .supervisorsContainer {
-	flex: 0 0 100%;
+    flex: 0 0 100%;
 }
 
 .wrapItem>* {
-	font-size: 16px !important;
+    font-size: 16px !important;
 }
 
 .actionItems {
-	margin-top: 10px;
-	height: 50px;
-	display: flex;
-	align-items: center;
-	flex-direction: row-reverse;
-	gap: 10px;
+    margin-top: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    gap: 10px;
 }
 
 .actionItems>button {
-	min-width: 80px;
-	width: fit-content;
-	display: flex;
-	align-items: center;
-	gap: 5px;
+    min-width: 80px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .pending {
-	opacity: 0.7;
-	cursor: default;
-	pointer-events: none;
+    opacity: 0.7;
+    cursor: default;
+    pointer-events: none;
 }
 
 .resultContainer {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .tableContainer {
-	margin-bottom: 30px;
-	width: fit-content;
-	height: fit-content;
-	padding: 15px;
-	border-radius: var(--border-radius-low);
-	border: 1px solid var(--color-gray);
-	background: white;
-	overflow-x: auto;
+    margin-bottom: 30px;
+    width: fit-content;
+    height: fit-content;
+    padding: 15px;
+    border-radius: var(--border-radius-low);
+    border: 1px solid var(--color-gray);
+    background: white;
+    overflow-x: auto;
 }
 
 .table {
-	display: block;
-	width: fit-content;
-	height: fit-content;
-	border-collapse: collapse;
+    display: block;
+    width: fit-content;
+    height: fit-content;
+    border-collapse: collapse;
 }
 
 .table>tbody {
-	width: fit-content;
+    width: fit-content;
 }
 
 .table>tbody>tr,
 th {
-	height: 30px;
+    height: 30px;
 }
 
 .table>tbody>tr {
-	border-bottom: 1px solid var(--color-shadow);
-	cursor: pointer;
+    border-bottom: 1px solid var(--color-shadow);
+    cursor: pointer;
 }
 
 .table>tbody>tr:hover {
-	opacity: 0.8;
+    opacity: 0.8;
 }
 
 .column {
-	white-space: nowrap;
-	height: 30px;
-	overflow: hidden;
-	text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .column.tiny {
-	width: 30px;
+    width: 30px;
 }
 
 .column.small {
-	width: 50px;
+    width: 50px;
 }
 
 .column.medium {
-	width: 100px;
-	text-align: center;
+    width: 100px;
+    text-align: center;
 }
 
 .column.large {
-	width: 150px;
+    width: 150px;
 }
 
 .column.superLarge {
-	width: 250px;
+    width: 250px;
 }
 
 .refreshing>svg {
-	animation: rotate 0.4s infinite ease;
+    animation: rotate 0.4s infinite ease;
 }
 
 @media (width<=800px) {
-	.groupInfos {
-		flex-direction: column;
-		padding-right: 20px;
-		gap: 20px;
-	}
+    .groupInfos {
+        flex-direction: column;
+        padding-right: 20px;
+        gap: 20px;
+    }
 }
 
 @keyframes rotate {
-	0% {
-		rotate: 0;
-	}
+    0% {
+        rotate: 0;
+    }
 
-	100% {
-		rotate: 360deg;
-	}
+    100% {
+        rotate: 360deg;
+    }
 }

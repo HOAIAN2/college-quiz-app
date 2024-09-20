@@ -1,53 +1,53 @@
 .rolePermissionContainer {
-	width: 100%;
-	height: 100%;
-	position: relative;
-	overflow: auto;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: auto;
 }
 
 .permissionContainer {
-	height: fit-content;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	gap: 20px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
 }
 
 .permissionList {
-	height: calc(100% - 50px);
-	display: flex;
-	flex-wrap: wrap;
-	gap: 20px;
+    height: calc(100% - 50px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .permissionItem {
-	flex: 0 0 calc((100% / 3) - 20px);
-	white-space: nowrap;
-	list-style-type: none;
-	display: flex;
-	align-items: center;
+    flex: 0 0 calc((100% / 3) - 20px);
+    white-space: nowrap;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
 }
 
 .permissionItem>label {
-	margin-left: 10px;
+    margin-left: 10px;
 }
 
 .permissionItem>input {
-	accent-color: var(--color-primary);
-	width: 20px;
-	height: 20px;
+    accent-color: var(--color-primary);
+    width: 20px;
+    height: 20px;
 }
 
 .actionItems {
-	height: 50px;
-	display: flex;
-	align-items: center;
-	flex-direction: row-reverse;
-	gap: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    gap: 10px;
 }
 
 @media(width<=800px) {
-	.permissionItem {
-		flex: 0 0 calc(50% - 20px);
-	}
+    .permissionItem {
+        flex: 0 0 calc(50% - 20px);
+    }
 }

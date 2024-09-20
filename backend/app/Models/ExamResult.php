@@ -31,41 +31,41 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ExamResult extends Model
 {
-	protected $table = 'exam_results';
+    protected $table = 'exam_results';
 
-	const DATE_FORMAT = 'Y-m-d\TH:i:sP';
+    const DATE_FORMAT = 'Y-m-d\TH:i:sP';
 
-	protected function casts()
-	{
-		return [
-			'exam_id' => 'int',
-			'user_id' => 'int',
-			'correct_count' => 'int',
-			'question_count' => 'int',
-			'cancelled_at' => 'datetime',
-			'created_at' => 'datetime' . self::DATE_FORMAT,
-			'updated_at' => 'datetime' . self::DATE_FORMAT,
-		];
-	}
+    protected function casts()
+    {
+        return [
+            'exam_id' => 'int',
+            'user_id' => 'int',
+            'correct_count' => 'int',
+            'question_count' => 'int',
+            'cancelled_at' => 'datetime',
+            'created_at' => 'datetime' . self::DATE_FORMAT,
+            'updated_at' => 'datetime' . self::DATE_FORMAT,
+        ];
+    }
 
-	protected $fillable = [
-		'exam_id',
-		'user_id',
-		'correct_count',
-		'question_count',
-		'ip',
-		'user_agent',
-		'cancelled_at',
-		'cancellation_reason'
-	];
+    protected $fillable = [
+        'exam_id',
+        'user_id',
+        'correct_count',
+        'question_count',
+        'ip',
+        'user_agent',
+        'cancelled_at',
+        'cancellation_reason'
+    ];
 
-	public function exam()
-	{
-		return $this->belongsTo(Exam::class);
-	}
+    public function exam()
+    {
+        return $this->belongsTo(Exam::class);
+    }
 
-	public function user()
-	{
-		return $this->belongsTo(User::class);
-	}
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

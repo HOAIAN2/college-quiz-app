@@ -14,103 +14,103 @@ use Illuminate\Support\Facades\DB;
 
 class FacultyController extends Controller
 {
-	public function index(IndexRequest $request)
-	{
-		$user = $this->getUser();
-		abort_if(!$user->hasPermission('faculty_view'), 403);
+    public function index(IndexRequest $request)
+    {
+        $user = $this->getUser();
+        abort_if(!$user->hasPermission('faculty_view'), 403);
 
-		$faculties = Faculty::with([
-			'leader'
-		])->latest('id');
+        $faculties = Faculty::with([
+            'leader'
+        ])->latest('id');
 
-		try {
-			if ($request->search != null) {
-				$faculties = $faculties->search($request->search);
-			}
-			$faculties = $faculties->paginate($request->per_page);
-			return Reply::successWithData($faculties, '');
-		} catch (\Exception $error) {
-			return $this->handleException($error);
-		}
-	}
+        try {
+            if ($request->search != null) {
+                $faculties = $faculties->search($request->search);
+            }
+            $faculties = $faculties->paginate($request->per_page);
+            return Reply::successWithData($faculties, '');
+        } catch (\Exception $error) {
+            return $this->handleException($error);
+        }
+    }
 
-	public function store(StoreRequest $request)
-	{
-		$user = $this->getUser();
-		abort_if(!$user->hasPermission('faculty_create'), 403);
-		$data = $request->validated();
-		DB::beginTransaction();
+    public function store(StoreRequest $request)
+    {
+        $user = $this->getUser();
+        abort_if(!$user->hasPermission('faculty_create'), 403);
+        $data = $request->validated();
+        DB::beginTransaction();
 
-		try {
-			Faculty::create($data);
-			DB::commit();
-			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Exception $error) {
-			DB::rollBack();
-			return $this->handleException($error);
-		}
-	}
+        try {
+            Faculty::create($data);
+            DB::commit();
+            return Reply::successWithMessage('app.successes.record_save_success');
+        } catch (\Exception $error) {
+            DB::rollBack();
+            return $this->handleException($error);
+        }
+    }
 
-	public function show(string $id)
-	{
-		$user = $this->getUser();
-		abort_if(!$user->hasPermission('faculty_view'), 403);
+    public function show(string $id)
+    {
+        $user = $this->getUser();
+        abort_if(!$user->hasPermission('faculty_view'), 403);
 
-		try {
-			$data = Faculty::with([
-				'leader'
-			])->findOrFail($id);
-			return Reply::successWithData($data, '');
-		} catch (\Exception $error) {
-			return $this->handleException($error);
-		}
-	}
+        try {
+            $data = Faculty::with([
+                'leader'
+            ])->findOrFail($id);
+            return Reply::successWithData($data, '');
+        } catch (\Exception $error) {
+            return $this->handleException($error);
+        }
+    }
 
-	public function update(UpdateRequest $request, string $id)
-	{
-		$user = $this->getUser();
-		abort_if(!$user->hasPermission('faculty_update'), 403);
-		$data = $request->validated();
-		DB::beginTransaction();
+    public function update(UpdateRequest $request, string $id)
+    {
+        $user = $this->getUser();
+        abort_if(!$user->hasPermission('faculty_update'), 403);
+        $data = $request->validated();
+        DB::beginTransaction();
 
-		try {
-			$faculty = Faculty::findOrFail($id);
-			$faculty->update($data);
-			DB::commit();
-			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Exception $error) {
-			DB::rollBack();
-			return $this->handleException($error);
-		}
-	}
+        try {
+            $faculty = Faculty::findOrFail($id);
+            $faculty->update($data);
+            DB::commit();
+            return Reply::successWithMessage('app.successes.record_save_success');
+        } catch (\Exception $error) {
+            DB::rollBack();
+            return $this->handleException($error);
+        }
+    }
 
-	public function destroy(DeleteRequest $request)
-	{
-		$user = $this->getUser();
-		abort_if(!$user->hasPermission('faculty_delete'), 403);
-		DB::beginTransaction();
+    public function destroy(DeleteRequest $request)
+    {
+        $user = $this->getUser();
+        abort_if(!$user->hasPermission('faculty_delete'), 403);
+        DB::beginTransaction();
 
-		try {
-			Faculty::destroy($request->ids);
-			DB::commit();
-			return Reply::successWithMessage('app.successes.record_delete_success');
-		} catch (\Exception $error) {
-			DB::rollBack();
-			return $this->handleException($error);
-		}
-	}
-	public function autocomplete(Request $request)
-	{
-		$user = $this->getUser();
-		abort_if(!$user->hasPermission('faculty_view'), 403);
+        try {
+            Faculty::destroy($request->ids);
+            DB::commit();
+            return Reply::successWithMessage('app.successes.record_delete_success');
+        } catch (\Exception $error) {
+            DB::rollBack();
+            return $this->handleException($error);
+        }
+    }
+    public function autocomplete(Request $request)
+    {
+        $user = $this->getUser();
+        abort_if(!$user->hasPermission('faculty_view'), 403);
 
-		try {
-			$school_classes = Faculty::search($request->search)
-				->take($this->autoCompleteResultLimit)
-				->get();
-			return Reply::successWithData($school_classes, '');
-		} catch (\Exception $error) {
-			return $this->handleException($error);
-		}
-	}
+        try {
+            $school_classes = Faculty::search($request->search)
+                ->take($this->autoCompleteResultLimit)
+                ->get();
+            return Reply::successWithData($school_classes, '');
+        } catch (\Exception $error) {
+            return $this->handleException($error);
+        }
+    }
 }

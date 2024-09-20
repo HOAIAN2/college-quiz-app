@@ -7,13 +7,13 @@ import pathUtils from '../utils/pathUtils';
 const prefix = 'dashboard';
 
 export async function apiGetDashboard() {
-	try {
-		const res = await request.get(pathUtils.join(prefix));
-		const { data } = res.data as ApiResponseWithData<DashboarData>;
-		return data;
-	} catch (error: any) {
-		if (!error.response) throw new Error(error.message);
-		const message = error.response.data.message;
-		throw new Error(message);
-	}
+    try {
+        const res = await request.get(pathUtils.join(prefix));
+        const { data } = res.data as ApiResponseWithData<DashboarData>;
+        return data;
+    } catch (error: any) {
+        if (!error.response) throw new Error(error.message);
+        const message = error.response.data.message;
+        throw new Error(message);
+    }
 }

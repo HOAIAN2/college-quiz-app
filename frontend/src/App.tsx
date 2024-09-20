@@ -1,8 +1,8 @@
 import './styles/App.module.css';
 
 import {
-	QueryClient,
-	QueryClientProvider,
+    QueryClient,
+    QueryClientProvider,
 } from '@tanstack/react-query';
 import moment from 'moment';
 import 'moment/dist/locale/vi';
@@ -39,182 +39,182 @@ const TakeExam = lazy(() => import('./pages/Exams/TakeExam'));
 const Settings = lazy(() => import('./pages/Settings/Settings'));
 
 const router = createBrowserRouter([
-	{
-		errorElement: <NotFound />,
-		children: [
-			{
-				path: 'auth',
-				element: <AuthLayout />,
-				children: [
-					{
-						path: 'login',
-						element: <Login />
-					},
-					{
-						path: 'verify-email',
-						element: <VerifyEmail />
-					},
-					{
-						path: 'forgot-password',
-						element: <ForgotPassword />
-					},
-				]
-			},
-			{
-				path: '/',
-				element: <DashboardLayout />,
-				children: [
-					{
-						index: true,
-						element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>,
-					},
-					{
-						path: 'subjects',
-						children: [
-							{
-								index: true,
-								element: <Suspense fallback={<SuspenseLoading />}><Subjects /></Suspense>
-							},
-							{
-								path: ':id',
-								children: [
-									{
-										index: true,
-										element: <Suspense fallback={<SuspenseLoading />}><Subject /></Suspense>
-									},
-									{
-										path: 'questions',
-										element: <Suspense fallback={<SuspenseLoading />}><Questions /></Suspense>
-									}
-								],
-							}
-						]
-					},
-					{
-						path: 'profile',
-						element: <Profile />
-					},
-					{
-						path: 'faculties',
-						element: <Suspense fallback={<SuspenseLoading />}><Faculties /></Suspense>
-					},
-					{
-						path: 'school-classes',
-						element: <Suspense fallback={<SuspenseLoading />}><SchoolClasses /></Suspense>
-					},
-					{
-						path: 'semesters',
-						children: [
-							{
-								index: true,
-								element: <Suspense fallback={<SuspenseLoading />}><Semesters /></Suspense>
-							},
-							{
-								path: ':id',
-								children: [
-									{
-										index: true,
-										element: <Suspense fallback={<SuspenseLoading />}><Semester /></Suspense>,
-									},
-									{
-										path: 'courses',
-										children: [
-											{
-												index: true,
-												element: <Suspense fallback={<SuspenseLoading />}><Courses /></Suspense>,
-											},
-											{
-												path: ':courseId',
-												element: <Suspense fallback={<SuspenseLoading />}><Course /></Suspense>
-											}
-										],
-									}
-								]
-							}
-						]
-					},
-					{
-						path: 'exams',
-						children: [
-							{
-								index: true,
-								element: <Suspense fallback={<SuspenseLoading />}><Exams /></Suspense>
-							},
-							{
-								path: ':id',
-								children: [
-									{
-										index: true,
-										element: <Suspense fallback={<SuspenseLoading />}><Exam /></Suspense>
-									},
-									{
-										path: 'take',
-										element: <Suspense fallback={<SuspenseLoading />}><TakeExam /></Suspense>
-									},
-								]
-							}
-						],
-					},
-					{
-						path: 'teachers',
-						element: <Suspense fallback={<SuspenseLoading />}><Users role='teacher' /></Suspense>
-					},
-					{
-						path: 'students',
-						element: <Suspense fallback={<SuspenseLoading />}><Users role='student' /></Suspense>
-					},
-					{
-						path: 'permissions',
-						children: [
-							{
-								index: true,
-								element: <Suspense fallback={<SuspenseLoading />}><Permissisons /></Suspense>
-							},
-							{
-								path: ':id',
-								element: <Suspense fallback={<SuspenseLoading />}><RolePermissions /></Suspense>
-							},
-						],
-					},
-					{
-						path: 'settings',
-						element: <Suspense fallback={<SuspenseLoading />}><Settings /></Suspense>,
-						children: [
-							{
-								index: true,
-								element: <Suspense fallback={<SuspenseLoading />}><Settings /></Suspense>
-							},
-							{
-								path: ':name',
-								element: <Suspense fallback={<SuspenseLoading />}><Settings /></Suspense>
-							},
-						],
-					},
-				]
-			}
-		]
-	}
+    {
+        errorElement: <NotFound />,
+        children: [
+            {
+                path: 'auth',
+                element: <AuthLayout />,
+                children: [
+                    {
+                        path: 'login',
+                        element: <Login />
+                    },
+                    {
+                        path: 'verify-email',
+                        element: <VerifyEmail />
+                    },
+                    {
+                        path: 'forgot-password',
+                        element: <ForgotPassword />
+                    },
+                ]
+            },
+            {
+                path: '/',
+                element: <DashboardLayout />,
+                children: [
+                    {
+                        index: true,
+                        element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>,
+                    },
+                    {
+                        path: 'subjects',
+                        children: [
+                            {
+                                index: true,
+                                element: <Suspense fallback={<SuspenseLoading />}><Subjects /></Suspense>
+                            },
+                            {
+                                path: ':id',
+                                children: [
+                                    {
+                                        index: true,
+                                        element: <Suspense fallback={<SuspenseLoading />}><Subject /></Suspense>
+                                    },
+                                    {
+                                        path: 'questions',
+                                        element: <Suspense fallback={<SuspenseLoading />}><Questions /></Suspense>
+                                    }
+                                ],
+                            }
+                        ]
+                    },
+                    {
+                        path: 'profile',
+                        element: <Profile />
+                    },
+                    {
+                        path: 'faculties',
+                        element: <Suspense fallback={<SuspenseLoading />}><Faculties /></Suspense>
+                    },
+                    {
+                        path: 'school-classes',
+                        element: <Suspense fallback={<SuspenseLoading />}><SchoolClasses /></Suspense>
+                    },
+                    {
+                        path: 'semesters',
+                        children: [
+                            {
+                                index: true,
+                                element: <Suspense fallback={<SuspenseLoading />}><Semesters /></Suspense>
+                            },
+                            {
+                                path: ':id',
+                                children: [
+                                    {
+                                        index: true,
+                                        element: <Suspense fallback={<SuspenseLoading />}><Semester /></Suspense>,
+                                    },
+                                    {
+                                        path: 'courses',
+                                        children: [
+                                            {
+                                                index: true,
+                                                element: <Suspense fallback={<SuspenseLoading />}><Courses /></Suspense>,
+                                            },
+                                            {
+                                                path: ':courseId',
+                                                element: <Suspense fallback={<SuspenseLoading />}><Course /></Suspense>
+                                            }
+                                        ],
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        path: 'exams',
+                        children: [
+                            {
+                                index: true,
+                                element: <Suspense fallback={<SuspenseLoading />}><Exams /></Suspense>
+                            },
+                            {
+                                path: ':id',
+                                children: [
+                                    {
+                                        index: true,
+                                        element: <Suspense fallback={<SuspenseLoading />}><Exam /></Suspense>
+                                    },
+                                    {
+                                        path: 'take',
+                                        element: <Suspense fallback={<SuspenseLoading />}><TakeExam /></Suspense>
+                                    },
+                                ]
+                            }
+                        ],
+                    },
+                    {
+                        path: 'teachers',
+                        element: <Suspense fallback={<SuspenseLoading />}><Users role='teacher' /></Suspense>
+                    },
+                    {
+                        path: 'students',
+                        element: <Suspense fallback={<SuspenseLoading />}><Users role='student' /></Suspense>
+                    },
+                    {
+                        path: 'permissions',
+                        children: [
+                            {
+                                index: true,
+                                element: <Suspense fallback={<SuspenseLoading />}><Permissisons /></Suspense>
+                            },
+                            {
+                                path: ':id',
+                                element: <Suspense fallback={<SuspenseLoading />}><RolePermissions /></Suspense>
+                            },
+                        ],
+                    },
+                    {
+                        path: 'settings',
+                        element: <Suspense fallback={<SuspenseLoading />}><Settings /></Suspense>,
+                        children: [
+                            {
+                                index: true,
+                                element: <Suspense fallback={<SuspenseLoading />}><Settings /></Suspense>
+                            },
+                            {
+                                path: ':name',
+                                element: <Suspense fallback={<SuspenseLoading />}><Settings /></Suspense>
+                            },
+                        ],
+                    },
+                ]
+            }
+        ]
+    }
 ]);
 
 const queryClient = new QueryClient();
 
 export default function App() {
-	const { appLanguage } = useAppContext();
-	moment.locale(appLanguage.language);
-	return (
-		<>
-			<Toaster
-				richColors
-				closeButton
-				visibleToasts={5}
-				position='bottom-left'
-				toastOptions={{
-					duration: 3000
-				}}
-			/>
-			<QueryClientProvider client={queryClient}>
-				<RouterProvider router={router} />
-			</QueryClientProvider>
-		</>
-	);
+    const { appLanguage } = useAppContext();
+    moment.locale(appLanguage.language);
+    return (
+        <>
+            <Toaster
+                richColors
+                closeButton
+                visibleToasts={5}
+                position='bottom-left'
+                toastOptions={{
+                    duration: 3000
+                }}
+            />
+            <QueryClientProvider client={queryClient}>
+                <RouterProvider router={router} />
+            </QueryClientProvider>
+        </>
+    );
 }

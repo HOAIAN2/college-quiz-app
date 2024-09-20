@@ -1,3 +1,3 @@
 export default {
-	question: 'Câu hỏi'
+    question: 'Câu hỏi'
 };

@@ -13,58 +13,58 @@ import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
 
 export default function Permissisons() {
-	const { permissions, appTitle } = useAppContext();
-	const language = useLanguage('page.permissions');
-	const queryData = useQuery({
-		queryKey: [QUERY_KEYS.PAGE_PERMISSIONS],
-		queryFn: apiGetRolePermissionCount,
-		enabled: permissions.has('role_permission_view')
-	});
-	useEffect(() => {
-		if (language) appTitle.setAppTitle(language.permissions);
-	}, [appTitle, language]);
-	if (!permissions.has('role_permission_view')) return <Navigate to='/' />;
-	return (
-		<div className={css(appStyles.dashboard, styles.permissionContainer)}>
-			{
-				queryData.isLoading ? <Loading /> : null}
-			{
-				queryData.data ?
-					<div className={styles.permissionContent}>
-						<ul className={styles.listConatiner}>
-							{
-								queryData.data.map((item) => {
-									return (
-										<li className={styles.listItem}
-											key={`role-${item.id}`}>
-											<Link
-												className={styles.listAnchor}
-												to={item.id.toString()}>
-												<div className={styles.itemLeft}>
-													<LuUsers2 />
-													<span className={styles.name}>
-														{item.displayName}
-													</span>
-												</div>
-												<div className={styles.itemRight}>
-													<span
-														className={styles.name}
-													>{language?.permissionsCount}</span>
-													<span
-														className={styles.name}
-													>
-														{item.permissionsCount}
-													</span>
-												</div>
-											</Link>
-										</li>
-									);
-								})
-							}
-						</ul>
-					</div>
-					: null
-			}
-		</div>
-	);
+    const { permissions, appTitle } = useAppContext();
+    const language = useLanguage('page.permissions');
+    const queryData = useQuery({
+        queryKey: [QUERY_KEYS.PAGE_PERMISSIONS],
+        queryFn: apiGetRolePermissionCount,
+        enabled: permissions.has('role_permission_view')
+    });
+    useEffect(() => {
+        if (language) appTitle.setAppTitle(language.permissions);
+    }, [appTitle, language]);
+    if (!permissions.has('role_permission_view')) return <Navigate to='/' />;
+    return (
+        <div className={css(appStyles.dashboard, styles.permissionContainer)}>
+            {
+                queryData.isLoading ? <Loading /> : null}
+            {
+                queryData.data ?
+                    <div className={styles.permissionContent}>
+                        <ul className={styles.listConatiner}>
+                            {
+                                queryData.data.map((item) => {
+                                    return (
+                                        <li className={styles.listItem}
+                                            key={`role-${item.id}`}>
+                                            <Link
+                                                className={styles.listAnchor}
+                                                to={item.id.toString()}>
+                                                <div className={styles.itemLeft}>
+                                                    <LuUsers2 />
+                                                    <span className={styles.name}>
+                                                        {item.displayName}
+                                                    </span>
+                                                </div>
+                                                <div className={styles.itemRight}>
+                                                    <span
+                                                        className={styles.name}
+                                                    >{language?.permissionsCount}</span>
+                                                    <span
+                                                        className={styles.name}
+                                                    >
+                                                        {item.permissionsCount}
+                                                    </span>
+                                                </div>
+                                            </Link>
+                                        </li>
+                                    );
+                                })
+                            }
+                        </ul>
+                    </div>
+                    : null
+            }
+        </div>
+    );
 }

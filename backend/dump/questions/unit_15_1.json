@@ -1,401 +1,401 @@
 [
-	{
-		"content": "My husband and I take turns cleaning ________ the kitchen depending ________ who gets home from work earlier.",
-		"answers": [
-			{
-				"content": "away / to",
-				"is_correct": false
-			},
-			{
-				"content": "from / in",
-				"is_correct": false
-			},
-			{
-				"content": "up / on",
-				"is_correct": true
-			},
-			{
-				"content": "with / for",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "The efforts for the advancement of women have resulted ________ several respectively achievement in women's life and work.",
-		"answers": [
-			{
-				"content": "at",
-				"is_correct": false
-			},
-			{
-				"content": "with",
-				"is_correct": false
-			},
-			{
-				"content": "for",
-				"is_correct": false
-			},
-			{
-				"content": "in",
-				"is_correct": true
-			}
-		]
-	},
-	{
-		"content": "The women's movement has affirmed women's rights to non- discrimination ________ education, employment and economic and social activities.",
-		"answers": [
-			{
-				"content": "in",
-				"is_correct": true
-			},
-			{
-				"content": "of",
-				"is_correct": false
-			},
-			{
-				"content": "from",
-				"is_correct": false
-			},
-			{
-				"content": "about",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "Before we had kids, I used to do more housework than my husband did, but he was working thirteen hour days at the office compared ________ my eight-hour ones.",
-		"answers": [
-			{
-				"content": "with",
-				"is_correct": true
-			},
-			{
-				"content": "about",
-				"is_correct": false
-			},
-			{
-				"content": "for",
-				"is_correct": false
-			},
-			{
-				"content": "on",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "Thomas has often boasted ________ his son's golfing ability.",
-		"answers": [
-			{
-				"content": "on",
-				"is_correct": false
-			},
-			{
-				"content": "to",
-				"is_correct": false
-			},
-			{
-				"content": "about",
-				"is_correct": true
-			},
-			{
-				"content": "over",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "Although I did not totally agree ________ feminist's policies, I certainly admired their audacity, dedication and courage.",
-		"answers": [
-			{
-				"content": "for",
-				"is_correct": false
-			},
-			{
-				"content": "with",
-				"is_correct": true
-			},
-			{
-				"content": "along",
-				"is_correct": false
-			},
-			{
-				"content": "up",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "A woman's role in society was defined by the Feminists on whether they were contributors ________ society or not.",
-		"answers": [
-			{
-				"content": "upon",
-				"is_correct": false
-			},
-			{
-				"content": "to",
-				"is_correct": true
-			},
-			{
-				"content": "off",
-				"is_correct": false
-			},
-			{
-				"content": "away",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "If you have an old blanket, ________ it along so that we have something to sit on at the beach.",
-		"answers": [
-			{
-				"content": "bring",
-				"is_correct": true
-			},
-			{
-				"content": "go",
-				"is_correct": false
-			},
-			{
-				"content": "put",
-				"is_correct": false
-			},
-			{
-				"content": "keep",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "Although the team was both mentally and physically exhausted, they ________ on walking.",
-		"answers": [
-			{
-				"content": "stopped",
-				"is_correct": false
-			},
-			{
-				"content": "kept",
-				"is_correct": true
-			},
-			{
-				"content": "took",
-				"is_correct": false
-			},
-			{
-				"content": "put",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "Before the plane ________ off, the flight attendant told everyone to fasten their seat belts and put their chairs in an upright position.",
-		"answers": [
-			{
-				"content": "woke",
-				"is_correct": false
-			},
-			{
-				"content": "brought",
-				"is_correct": false
-			},
-			{
-				"content": "kept",
-				"is_correct": false
-			},
-			{
-				"content": "took",
-				"is_correct": true
-			}
-		]
-	},
-	{
-		"content": "Alice opened the door and found that it ________ to a small passage.",
-		"answers": [
-			{
-				"content": "led",
-				"is_correct": true
-			},
-			{
-				"content": "showed",
-				"is_correct": false
-			},
-			{
-				"content": "cut",
-				"is_correct": false
-			},
-			{
-				"content": "pointed",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "Jack is having his lawyer ________ up the contract to make sure that all of the legalities are properly dealt with.",
-		"answers": [
-			{
-				"content": "go",
-				"is_correct": false
-			},
-			{
-				"content": "look",
-				"is_correct": false
-			},
-			{
-				"content": "get",
-				"is_correct": false
-			},
-			{
-				"content": "draw",
-				"is_correct": true
-			}
-		]
-	},
-	{
-		"content": "I cannot believe Peter and Mary ________ up last week. They have been married for almost fifteen years. I hope they get back together.",
-		"answers": [
-			{
-				"content": "went",
-				"is_correct": false
-			},
-			{
-				"content": "gave",
-				"is_correct": false
-			},
-			{
-				"content": "broke",
-				"is_correct": true
-			},
-			{
-				"content": "looked",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "The teacher asked a difficult question, but finally Ted______ a good answer.",
-		"answers": [
-			{
-				"content": "put up with",
-				"is_correct": false
-			},
-			{
-				"content": "kept pace with",
-				"is_correct": false
-			},
-			{
-				"content": "made way for",
-				"is_correct": false
-			},
-			{
-				"content": "came up with",
-				"is_correct": true
-			}
-		]
-	},
-	{
-		"content": "It’s hard to _______well with him. He’s got such a difficult character.",
-		"answers": [
-			{
-				"content": "get over",
-				"is_correct": false
-			},
-			{
-				"content": "get on",
-				"is_correct": true
-			},
-			{
-				"content": "get into",
-				"is_correct": false
-			},
-			{
-				"content": "get in",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "She _______a big fortune when she was young, so she didn’t have to work hard.",
-		"answers": [
-			{
-				"content": "came into",
-				"is_correct": true
-			},
-			{
-				"content": "came up",
-				"is_correct": false
-			},
-			{
-				"content": "came across",
-				"is_correct": false
-			},
-			{
-				"content": "came round",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "Sportsmen ______their political differences on the sports field.",
-		"answers": [
-			{
-				"content": "take part",
-				"is_correct": false
-			},
-			{
-				"content": "put aside",
-				"is_correct": true
-			},
-			{
-				"content": "take place",
-				"is_correct": false
-			},
-			{
-				"content": "keep apart ",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "Learning English isn’t so difficult once you _____.",
-		"answers": [
-			{
-				"content": "get down to it",
-				"is_correct": true
-			},
-			{
-				"content": "get off it",
-				"is_correct": false
-			},
-			{
-				"content": "get on it",
-				"is_correct": false
-			},
-			{
-				"content": "get down with it",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "The government hopes to_______its plans for introducing cable for TV.",
-		"answers": [
-			{
-				"content": "keep on",
-				"is_correct": false
-			},
-			{
-				"content": "carry on",
-				"is_correct": false
-			},
-			{
-				"content": "carry out",
-				"is_correct": true
-			},
-			{
-				"content": "turn out",
-				"is_correct": false
-			}
-		]
-	}
+    {
+        "content": "My husband and I take turns cleaning ________ the kitchen depending ________ who gets home from work earlier.",
+        "answers": [
+            {
+                "content": "away / to",
+                "is_correct": false
+            },
+            {
+                "content": "from / in",
+                "is_correct": false
+            },
+            {
+                "content": "up / on",
+                "is_correct": true
+            },
+            {
+                "content": "with / for",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "The efforts for the advancement of women have resulted ________ several respectively achievement in women's life and work.",
+        "answers": [
+            {
+                "content": "at",
+                "is_correct": false
+            },
+            {
+                "content": "with",
+                "is_correct": false
+            },
+            {
+                "content": "for",
+                "is_correct": false
+            },
+            {
+                "content": "in",
+                "is_correct": true
+            }
+        ]
+    },
+    {
+        "content": "The women's movement has affirmed women's rights to non- discrimination ________ education, employment and economic and social activities.",
+        "answers": [
+            {
+                "content": "in",
+                "is_correct": true
+            },
+            {
+                "content": "of",
+                "is_correct": false
+            },
+            {
+                "content": "from",
+                "is_correct": false
+            },
+            {
+                "content": "about",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "Before we had kids, I used to do more housework than my husband did, but he was working thirteen hour days at the office compared ________ my eight-hour ones.",
+        "answers": [
+            {
+                "content": "with",
+                "is_correct": true
+            },
+            {
+                "content": "about",
+                "is_correct": false
+            },
+            {
+                "content": "for",
+                "is_correct": false
+            },
+            {
+                "content": "on",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "Thomas has often boasted ________ his son's golfing ability.",
+        "answers": [
+            {
+                "content": "on",
+                "is_correct": false
+            },
+            {
+                "content": "to",
+                "is_correct": false
+            },
+            {
+                "content": "about",
+                "is_correct": true
+            },
+            {
+                "content": "over",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "Although I did not totally agree ________ feminist's policies, I certainly admired their audacity, dedication and courage.",
+        "answers": [
+            {
+                "content": "for",
+                "is_correct": false
+            },
+            {
+                "content": "with",
+                "is_correct": true
+            },
+            {
+                "content": "along",
+                "is_correct": false
+            },
+            {
+                "content": "up",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "A woman's role in society was defined by the Feminists on whether they were contributors ________ society or not.",
+        "answers": [
+            {
+                "content": "upon",
+                "is_correct": false
+            },
+            {
+                "content": "to",
+                "is_correct": true
+            },
+            {
+                "content": "off",
+                "is_correct": false
+            },
+            {
+                "content": "away",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "If you have an old blanket, ________ it along so that we have something to sit on at the beach.",
+        "answers": [
+            {
+                "content": "bring",
+                "is_correct": true
+            },
+            {
+                "content": "go",
+                "is_correct": false
+            },
+            {
+                "content": "put",
+                "is_correct": false
+            },
+            {
+                "content": "keep",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "Although the team was both mentally and physically exhausted, they ________ on walking.",
+        "answers": [
+            {
+                "content": "stopped",
+                "is_correct": false
+            },
+            {
+                "content": "kept",
+                "is_correct": true
+            },
+            {
+                "content": "took",
+                "is_correct": false
+            },
+            {
+                "content": "put",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "Before the plane ________ off, the flight attendant told everyone to fasten their seat belts and put their chairs in an upright position.",
+        "answers": [
+            {
+                "content": "woke",
+                "is_correct": false
+            },
+            {
+                "content": "brought",
+                "is_correct": false
+            },
+            {
+                "content": "kept",
+                "is_correct": false
+            },
+            {
+                "content": "took",
+                "is_correct": true
+            }
+        ]
+    },
+    {
+        "content": "Alice opened the door and found that it ________ to a small passage.",
+        "answers": [
+            {
+                "content": "led",
+                "is_correct": true
+            },
+            {
+                "content": "showed",
+                "is_correct": false
+            },
+            {
+                "content": "cut",
+                "is_correct": false
+            },
+            {
+                "content": "pointed",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "Jack is having his lawyer ________ up the contract to make sure that all of the legalities are properly dealt with.",
+        "answers": [
+            {
+                "content": "go",
+                "is_correct": false
+            },
+            {
+                "content": "look",
+                "is_correct": false
+            },
+            {
+                "content": "get",
+                "is_correct": false
+            },
+            {
+                "content": "draw",
+                "is_correct": true
+            }
+        ]
+    },
+    {
+        "content": "I cannot believe Peter and Mary ________ up last week. They have been married for almost fifteen years. I hope they get back together.",
+        "answers": [
+            {
+                "content": "went",
+                "is_correct": false
+            },
+            {
+                "content": "gave",
+                "is_correct": false
+            },
+            {
+                "content": "broke",
+                "is_correct": true
+            },
+            {
+                "content": "looked",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "The teacher asked a difficult question, but finally Ted______ a good answer.",
+        "answers": [
+            {
+                "content": "put up with",
+                "is_correct": false
+            },
+            {
+                "content": "kept pace with",
+                "is_correct": false
+            },
+            {
+                "content": "made way for",
+                "is_correct": false
+            },
+            {
+                "content": "came up with",
+                "is_correct": true
+            }
+        ]
+    },
+    {
+        "content": "It’s hard to _______well with him. He’s got such a difficult character.",
+        "answers": [
+            {
+                "content": "get over",
+                "is_correct": false
+            },
+            {
+                "content": "get on",
+                "is_correct": true
+            },
+            {
+                "content": "get into",
+                "is_correct": false
+            },
+            {
+                "content": "get in",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "She _______a big fortune when she was young, so she didn’t have to work hard.",
+        "answers": [
+            {
+                "content": "came into",
+                "is_correct": true
+            },
+            {
+                "content": "came up",
+                "is_correct": false
+            },
+            {
+                "content": "came across",
+                "is_correct": false
+            },
+            {
+                "content": "came round",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "Sportsmen ______their political differences on the sports field.",
+        "answers": [
+            {
+                "content": "take part",
+                "is_correct": false
+            },
+            {
+                "content": "put aside",
+                "is_correct": true
+            },
+            {
+                "content": "take place",
+                "is_correct": false
+            },
+            {
+                "content": "keep apart ",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "Learning English isn’t so difficult once you _____.",
+        "answers": [
+            {
+                "content": "get down to it",
+                "is_correct": true
+            },
+            {
+                "content": "get off it",
+                "is_correct": false
+            },
+            {
+                "content": "get on it",
+                "is_correct": false
+            },
+            {
+                "content": "get down with it",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "The government hopes to_______its plans for introducing cable for TV.",
+        "answers": [
+            {
+                "content": "keep on",
+                "is_correct": false
+            },
+            {
+                "content": "carry on",
+                "is_correct": false
+            },
+            {
+                "content": "carry out",
+                "is_correct": true
+            },
+            {
+                "content": "turn out",
+                "is_correct": false
+            }
+        ]
+    }
 ]

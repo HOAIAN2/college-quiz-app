@@ -25,34 +25,34 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Enrollment extends Model
 {
-	protected $table = 'enrollments';
+    protected $table = 'enrollments';
 
-	protected function casts()
-	{
-		return [
-			'course_id' => 'int',
-			'student_id' => 'int'
-		];
-	}
+    protected function casts()
+    {
+        return [
+            'course_id' => 'int',
+            'student_id' => 'int'
+        ];
+    }
 
 
-	protected $fillable = [
-		'course_id',
-		'student_id'
-	];
+    protected $fillable = [
+        'course_id',
+        'student_id'
+    ];
 
-	protected $hidden = [
-		'created_at',
-		'updated_at'
-	];
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
 
-	public function course()
-	{
-		return $this->belongsTo(Course::class);
-	}
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 
-	public function user()
-	{
-		return $this->belongsTo(User::class, 'student_id');
-	}
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'student_id');
+    }
 }

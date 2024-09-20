@@ -28,38 +28,38 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Subject extends Model
 {
-	use Searchable;
+    use Searchable;
 
-	const FULLTEXT = ['name'];
+    const FULLTEXT = ['name'];
 
-	protected $table = 'subjects';
+    protected $table = 'subjects';
 
-	protected $searchable = [
-		'name',
-	];
+    protected $searchable = [
+        'name',
+    ];
 
-	protected $fillable = [
-		'shortcode',
-		'name'
-	];
+    protected $fillable = [
+        'shortcode',
+        'name'
+    ];
 
-	protected $hidden = [
-		'created_at',
-		'updated_at'
-	];
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
 
-	public function chapters()
-	{
-		return $this->hasMany(Chapter::class);
-	}
+    public function chapters()
+    {
+        return $this->hasMany(Chapter::class);
+    }
 
-	public function courses()
-	{
-		return $this->hasMany(Course::class);
-	}
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 
-	public function questions()
-	{
-		return $this->hasMany(Question::class);
-	}
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
 }

@@ -1,107 +1,107 @@
 .exportUsersContainer {
-	width: 100vw;
-	height: 100vh;
-	position: fixed;
-	top: 0;
-	left: 0;
-	background: rgba(0, 0, 0, 0.5);
-	z-index: 10;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	overflow-y: scroll;
-	transition: var(--transition-timing-fast);
-	transition-property: background, opacity;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+    transition: var(--transition-timing-fast);
+    transition-property: background, opacity;
 }
 
 .exportUsersContainer.hide {
-	opacity: 0;
+    opacity: 0;
 }
 
 .exportUsersForm {
-	width: 450px;
-	height: 70%;
-	border-radius: var(--border-radius-low);
-	/* box-shadow: 0px 0px 10px var(--color-shadow); */
-	background-color: white;
-	border-radius: var(--border-radius-low);
-	transform-origin: center center;
-	transition: var(--transition-timing-medium);
+    width: 450px;
+    height: 70%;
+    border-radius: var(--border-radius-low);
+    /* box-shadow: 0px 0px 10px var(--color-shadow); */
+    background-color: white;
+    border-radius: var(--border-radius-low);
+    transform-origin: center center;
+    transition: var(--transition-timing-medium);
 }
 
 .exportUsersForm.hide {
-	opacity: 0;
-	scale: 0.9;
+    opacity: 0;
+    scale: 0.9;
 }
 
 .header {
-	height: 40px;
-	padding: 10px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+    height: 40px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .header>.title {
-	font-size: 20px;
+    font-size: 20px;
 }
 
 .header>.escButton {
-	font-size: 22px;
-	cursor: pointer;
+    font-size: 22px;
+    cursor: pointer;
 }
 
 .formData {
-	width: 100%;
-	height: calc(100% - 40px);
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	padding: 10px;
+    width: 100%;
+    height: calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
 }
 
 .groupInputs {
-	height: 100%;
-	width: 100%;
-	overflow: auto;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .wrapItem {
-	width: fit-content;
-	position: relative;
-	margin-left: 10px;
-	display: flex;
-	align-items: center;
+    width: fit-content;
+    position: relative;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
 }
 
 .wrapItem>.label {
-	margin: 0 10px 0 10px;
-	font-size: 16px;
+    margin: 0 10px 0 10px;
+    font-size: 16px;
 }
 
 .wrapItem>input {
-	accent-color: var(--color-primary);
-	width: 20px;
-	height: 20px;
+    accent-color: var(--color-primary);
+    width: 20px;
+    height: 20px;
 }
 
 .actionItems {
-	height: 50px;
-	display: flex;
-	align-items: center;
-	flex-direction: row-reverse;
-	gap: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    gap: 10px;
 }
 
 .actionItems>a {
-	width: fit-content;
+    width: fit-content;
 }
 
 @media(width<=800px) {
-	.exportUsersForm {
-		width: 90%;
-	}
+    .exportUsersForm {
+        width: 90%;
+    }
 }

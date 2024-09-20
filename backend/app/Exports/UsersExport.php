@@ -12,81 +12,81 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Illuminate\Support\Str;
 
 class UsersExport implements
-	FromCollection,
-	WithHeadings,
-	ShouldAutoSize,
-	WithStyles,
-	WithMapping
+    FromCollection,
+    WithHeadings,
+    ShouldAutoSize,
+    WithStyles,
+    WithMapping
 {
-	public Collection $collection;
-	public array $headers = [];
-	public array $columns = [];
+    public Collection $collection;
+    public array $headers = [];
+    public array $columns = [];
 
-	public function __construct(Collection $collection, $columns = [])
-	{
-		$headers = array_map(function ($value) {
-			if (Str::contains($value, '.')) {
-				[$model, $fieldName] = explode('.', $value);
-				return trans("headers.$model.$fieldName");
-			} else return trans("headers.users.$value");
-		}, $columns);
+    public function __construct(Collection $collection, $columns = [])
+    {
+        $headers = array_map(function ($value) {
+            if (Str::contains($value, '.')) {
+                [$model, $fieldName] = explode('.', $value);
+                return trans("headers.$model.$fieldName");
+            } else return trans("headers.users.$value");
+        }, $columns);
 
-		$this->collection = $collection;
-		$this->headers = $headers;
-		$this->columns = $columns;
-	}
+        $this->collection = $collection;
+        $this->headers = $headers;
+        $this->columns = $columns;
+    }
 
-	public function collection()
-	{
-		return $this->collection;
-	}
+    public function collection()
+    {
+        return $this->collection;
+    }
 
-	public function headings(): array
-	{
-		return $this->headers;
-	}
+    public function headings(): array
+    {
+        return $this->headers;
+    }
 
-	public function styles(Worksheet $sheet)
-	{
-		// Get the highest column and row
-		$highestColumn = $sheet->getHighestColumn();
-		$highestRow = $sheet->getHighestRow();
+    public function styles(Worksheet $sheet)
+    {
+        // Get the highest column and row
+        $highestColumn = $sheet->getHighestColumn();
+        $highestRow = $sheet->getHighestRow();
 
-		// Apply styles to the entire header row
-		$sheet->getStyle('1:1')->applyFromArray([
-			'font' => [
-				'bold' => true,
-			],
-			'alignment' => [
-				'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-			],
-		]);
+        // Apply styles to the entire header row
+        $sheet->getStyle('1:1')->applyFromArray([
+            'font' => [
+                'bold' => true,
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+            ],
+        ]);
 
-		// Apply styles to all cells in the sheet
-		$sheet->getStyle('A1:' . $highestColumn . $highestRow)->applyFromArray([
-			'font' => [
-				'name' => 'Times New Roman',
-				'size' => 12,
-			],
-			'borders' => [
-				'allBorders' => [
-					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-				],
-			],
-		]);
-	}
+        // Apply styles to all cells in the sheet
+        $sheet->getStyle('A1:' . $highestColumn . $highestRow)->applyFromArray([
+            'font' => [
+                'name' => 'Times New Roman',
+                'size' => 12,
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                ],
+            ],
+        ]);
+    }
 
-	public function map($user): array
-	{
-		$data = array_map(function ($column) use ($user) {
-			if (Str::contains($column, '.')) {
-				[$relation, $relationColumn] = explode('.', $column);
-				if ($user->relationLoaded($relation))
-					return $user->{$relation}->{$relationColumn};
-				return null;
-			}
-			return $user->{$column};
-		}, $this->columns);
-		return $data;
-	}
+    public function map($user): array
+    {
+        $data = array_map(function ($column) use ($user) {
+            if (Str::contains($column, '.')) {
+                [$relation, $relationColumn] = explode('.', $column);
+                if ($user->relationLoaded($relation))
+                    return $user->{$relation}->{$relationColumn};
+                return null;
+            }
+            return $user->{$column};
+        }, $this->columns);
+        return $data;
+    }
 }

@@ -6,8 +6,8 @@ use App\Traits\EnumResolver;
 
 enum OtpCodeType: string
 {
-	use EnumResolver;
+    use EnumResolver;
 
-	case VERIFY_EMAIL = 'verify_email';
-	case PASSWORD_RESET = 'password_reset';
+    case VERIFY_EMAIL = 'verify_email';
+    case PASSWORD_RESET = 'password_reset';
 }

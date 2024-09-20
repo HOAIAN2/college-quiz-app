@@ -1,39 +1,39 @@
 .article {
-	max-width: 1000px;
-	width: 100%;
-	height: fit-content;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	padding: 10px;
-	background: white;
-	/* border-bottom: 1px solid var(--color-gray); */
+    max-width: 1000px;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    background: white;
+    /* border-bottom: 1px solid var(--color-gray); */
 }
 
 .actionItems {
-	display: flex;
-	gap: 10px;
+    display: flex;
+    gap: 10px;
 }
 
 .inputItem {
-	height: 40px;
-	width: 300px;
+    height: 40px;
+    width: 300px;
 }
 
 .buttonItem {
-	height: 40px;
-	width: 80px;
+    height: 40px;
+    width: 80px;
 }
 
 .sessionsList>li {
-	border: 1px solid var(--color-gray);
-	border-radius: var(--border-radius-low);
-	/* background: var(--color-white); */
-	padding: 10px;
-	margin-top: 10px;
-	margin-bottom: 10px;
+    border: 1px solid var(--color-gray);
+    border-radius: var(--border-radius-low);
+    /* background: var(--color-white); */
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .currentSession {
-	color: var(--color-soft-green);
+    color: var(--color-soft-green);
 }

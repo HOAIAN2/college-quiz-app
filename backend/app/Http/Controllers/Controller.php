@@ -7,24 +7,24 @@ use Illuminate\Support\Facades\Log;
 
 abstract class Controller
 {
-	protected int $autoCompleteResultLimit = 0;
-	protected int $defaultLimit = 50;
+    protected int $autoCompleteResultLimit = 0;
+    protected int $defaultLimit = 50;
 
-	public function __construct()
-	{
-		$this->autoCompleteResultLimit = config('custom.query.auto_complete_result_limit');
-		$this->defaultLimit = config('custom.query.default_limit');
-	}
+    public function __construct()
+    {
+        $this->autoCompleteResultLimit = config('custom.query.auto_complete_result_limit');
+        $this->defaultLimit = config('custom.query.default_limit');
+    }
 
-	public function getUser(): mixed
-	{
-		return auth('sanctum')->user();
-	}
+    public function getUser(): mixed
+    {
+        return auth('sanctum')->user();
+    }
 
-	public function handleException(\Exception $error)
-	{
-		Log::error($error);
-		$message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
-		return Reply::error($message, [], 500);
-	}
+    public function handleException(\Exception $error)
+    {
+        Log::error($error);
+        $message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
+        return Reply::error($message, [], 500);
+    }
 }

@@ -1,6 +1,6 @@
 export default {
-	settings: 'Settings',
-	system: 'System',
-	notifications: 'Notifications',
-	security: 'Security'
+    settings: 'Settings',
+    system: 'System',
+    notifications: 'Notifications',
+    security: 'Security'
 };

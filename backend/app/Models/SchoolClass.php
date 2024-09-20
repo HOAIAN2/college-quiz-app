@@ -29,35 +29,35 @@ use Illuminate\Database\Eloquent\Model;
  */
 class SchoolClass extends Model
 {
-	use Searchable;
+    use Searchable;
 
-	protected $table = 'school_classes';
+    protected $table = 'school_classes';
 
-	protected $searchable = [
-		'shortcode',
-		'name',
-	];
+    protected $searchable = [
+        'shortcode',
+        'name',
+    ];
 
-	protected function casts()
-	{
-		return [
-			'faculty_id' => 'int'
-		];
-	}
+    protected function casts()
+    {
+        return [
+            'faculty_id' => 'int'
+        ];
+    }
 
-	protected $fillable = [
-		'shortcode',
-		'name',
-		'faculty_id'
-	];
+    protected $fillable = [
+        'shortcode',
+        'name',
+        'faculty_id'
+    ];
 
-	public function faculty()
-	{
-		return $this->belongsTo(Faculty::class);
-	}
+    public function faculty()
+    {
+        return $this->belongsTo(Faculty::class);
+    }
 
-	public function students()
-	{
-		return $this->hasMany(User::class);
-	}
+    public function students()
+    {
+        return $this->hasMany(User::class);
+    }
 }

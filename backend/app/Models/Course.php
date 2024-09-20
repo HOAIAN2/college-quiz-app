@@ -33,74 +33,74 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Course extends Model
 {
-	use Searchable;
+    use Searchable;
 
-	protected $table = 'courses';
+    protected $table = 'courses';
 
-	protected $searchable = [
-		'shortcode',
-		'name',
-	];
+    protected $searchable = [
+        'shortcode',
+        'name',
+    ];
 
-	protected function casts()
-	{
-		return [
-			'teacher_id' => 'int',
-			'subject_id' => 'int',
-			'semester_id' => 'int'
-		];
-	}
+    protected function casts()
+    {
+        return [
+            'teacher_id' => 'int',
+            'subject_id' => 'int',
+            'semester_id' => 'int'
+        ];
+    }
 
-	protected $fillable = [
-		'teacher_id',
-		'subject_id',
-		'semester_id',
-		'shortcode',
-		'name'
-	];
+    protected $fillable = [
+        'teacher_id',
+        'subject_id',
+        'semester_id',
+        'shortcode',
+        'name'
+    ];
 
-	protected $hidden = [
-		'created_at',
-		'updated_at'
-	];
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
 
-	public function semester()
-	{
-		return $this->belongsTo(Semester::class);
-	}
+    public function semester()
+    {
+        return $this->belongsTo(Semester::class);
+    }
 
-	public function subject()
-	{
-		return $this->belongsTo(Subject::class);
-	}
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
 
-	public function teacher()
-	{
-		return $this->belongsTo(User::class, 'teacher_id');
-	}
+    public function teacher()
+    {
+        return $this->belongsTo(User::class, 'teacher_id');
+    }
 
-	public function enrollments()
-	{
-		return $this->hasMany(Enrollment::class);
-	}
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class);
+    }
 
-	public function exams()
-	{
-		return $this->hasMany(Exam::class);
-	}
+    public function exams()
+    {
+        return $this->hasMany(Exam::class);
+    }
 
-	public function hasStudent(int $id)
-	{
-		return $this->enrollments()->where('student_id', '=', $id)->exists();
-	}
+    public function hasStudent(int $id)
+    {
+        return $this->enrollments()->where('student_id', '=', $id)->exists();
+    }
 
-	public function hasAnyStudentFromList(array $ids)
-	{
-		return $this->enrollments()->whereIn('student_id', $ids)->exists();
-	}
+    public function hasAnyStudentFromList(array $ids)
+    {
+        return $this->enrollments()->whereIn('student_id', $ids)->exists();
+    }
 
-	public function isOver()
-	{
-		return $this->semester->isOver();
-	}
+    public function isOver()
+    {
+        return $this->semester->isOver();
+    }
 }

@@ -25,28 +25,28 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ExamSupervisor extends Model
 {
-	protected $table = 'exam_supervisors';
+    protected $table = 'exam_supervisors';
 
-	protected function casts()
-	{
-		return [
-			'exam_id' => 'int',
-			'user_id' => 'int'
-		];
-	}
+    protected function casts()
+    {
+        return [
+            'exam_id' => 'int',
+            'user_id' => 'int'
+        ];
+    }
 
-	protected $fillable = [
-		'exam_id',
-		'user_id'
-	];
+    protected $fillable = [
+        'exam_id',
+        'user_id'
+    ];
 
-	public function exam()
-	{
-		return $this->belongsTo(Exam::class);
-	}
+    public function exam()
+    {
+        return $this->belongsTo(Exam::class);
+    }
 
-	public function user()
-	{
-		return $this->belongsTo(User::class);
-	}
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

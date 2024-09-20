@@ -1,43 +1,43 @@
 .customSelect {
-	position: relative;
-	height: 40px;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	padding-left: 10px;
+    position: relative;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
 }
 
 .disabled {
-	cursor: default;
+    cursor: default;
 }
 
 .hidden {
-	display: none;
+    display: none;
 }
 
 .selectDropbox {
-	padding: 0;
-	background-color: white;
-	position: absolute;
-	left: 0;
-	top: 45px;
-	width: 100%;
-	height: fit-content;
+    padding: 0;
+    background-color: white;
+    position: absolute;
+    left: 0;
+    top: 45px;
+    width: 100%;
+    height: fit-content;
 }
 
 .selectItem {
-	padding: 0;
-	height: 40px;
-	width: 100%;
-	display: flex;
-	align-items: center;
-	cursor: pointer;
+    padding: 0;
+    height: 40px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
 .selectItem:hover {
-	background-color: var(--color-white);
+    background-color: var(--color-white);
 }
 
 .selectItem>span {
-	margin-left: 10px;
+    margin-left: 10px;
 }

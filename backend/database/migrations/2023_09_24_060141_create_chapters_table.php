@@ -6,26 +6,26 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-	/**
-	 * Run the migrations.
-	 */
-	public function up(): void
-	{
-		Schema::create('chapters', function (Blueprint $table) {
-			$table->id();
-			$table->unsignedBigInteger('subject_id');
-			$table->integer('chapter_number');
-			$table->string('name');
-			$table->datetimes();
-			$table->foreign('subject_id')->references('id')->on('subjects')->cascadeOnDelete();
-		});
-	}
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('chapters', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('subject_id');
+            $table->integer('chapter_number');
+            $table->string('name');
+            $table->datetimes();
+            $table->foreign('subject_id')->references('id')->on('subjects')->cascadeOnDelete();
+        });
+    }
 
-	/**
-	 * Reverse the migrations.
-	 */
-	public function down(): void
-	{
-		Schema::dropIfExists('chapters');
-	}
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('chapters');
+    }
 };

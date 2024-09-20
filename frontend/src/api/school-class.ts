@@ -8,77 +8,77 @@ import pathUtils from '../utils/pathUtils';
 const prefix = 'school-classes';
 
 export async function apiAutoCompleteSchoolClass(search: string) {
-	try {
-		const res = await request.get(pathUtils.join(prefix, 'complete'), {
-			params: {
-				search: search
-			}
-		});
-		const { data } = res.data as ApiResponseWithData<SchoolClass[]>;
-		return data;
-	} catch (error: any) {
-		if (!error.response) throw new Error(error.message);
-		const message = error.response.data.message;
-		throw new Error(message);
-	}
+    try {
+        const res = await request.get(pathUtils.join(prefix, 'complete'), {
+            params: {
+                search: search
+            }
+        });
+        const { data } = res.data as ApiResponseWithData<SchoolClass[]>;
+        return data;
+    } catch (error: any) {
+        if (!error.response) throw new Error(error.message);
+        const message = error.response.data.message;
+        throw new Error(message);
+    }
 }
 export async function apiGetSchoolClasses(query?: QuerySchoolClassType) {
-	try {
-		const res = await request.get(pathUtils.join(prefix), {
-			params: {
-				page: query?.page || 1,
-				per_page: query?.perPage || 10,
-				search: query?.search
-			}
-		});
-		const { data } = res.data as ApiResponseWithData<Pagination<SchoolClassDetail>>;
-		return data;
-	} catch (error: any) {
-		throw new Error(error.message);
-	}
+    try {
+        const res = await request.get(pathUtils.join(prefix), {
+            params: {
+                page: query?.page || 1,
+                per_page: query?.perPage || 10,
+                search: query?.search
+            }
+        });
+        const { data } = res.data as ApiResponseWithData<Pagination<SchoolClassDetail>>;
+        return data;
+    } catch (error: any) {
+        throw new Error(error.message);
+    }
 }
 export async function apiGetSchoolClassById(id: string | number) {
-	try {
-		const res = await request.get(pathUtils.join(prefix, id));
-		const { data } = res.data as ApiResponseWithData<SchoolClassDetail>;
-		return data;
-	} catch (error: any) {
-		throw new Error(error.message);
-	}
+    try {
+        const res = await request.get(pathUtils.join(prefix, id));
+        const { data } = res.data as ApiResponseWithData<SchoolClassDetail>;
+        return data;
+    } catch (error: any) {
+        throw new Error(error.message);
+    }
 }
 export async function apiUpdateSchoolClass(formData: FormData, id: string | number) {
-	try {
-		const encodedData = encodeFormData(formData);
-		await request.put(pathUtils.join(prefix, id), encodedData, {
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			}
-		});
-	} catch (error: any) {
-		if (!error.response) throw new Error(error.message);
-		const message = error.response.data.message;
-		if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-		throw new Error(message);
-	}
+    try {
+        const encodedData = encodeFormData(formData);
+        await request.put(pathUtils.join(prefix, id), encodedData, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+    } catch (error: any) {
+        if (!error.response) throw new Error(error.message);
+        const message = error.response.data.message;
+        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
+        throw new Error(message);
+    }
 }
 export async function apiDeleteSchoolClassIds(ids: (string | number)[]) {
-	try {
-		await request.delete(pathUtils.join(prefix), {
-			params: {
-				ids: ids,
-			}
-		});
-	} catch (error: any) {
-		throw new Error(error.message);
-	}
+    try {
+        await request.delete(pathUtils.join(prefix), {
+            params: {
+                ids: ids,
+            }
+        });
+    } catch (error: any) {
+        throw new Error(error.message);
+    }
 }
 export async function apiCreateSchoolClass(formData: FormData) {
-	try {
-		await request.post(pathUtils.join(prefix), formData);
-	} catch (error: any) {
-		if (!error.response) throw new Error(error.message);
-		const message = error.response.data.message;
-		if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-		throw new Error(message);
-	}
+    try {
+        await request.post(pathUtils.join(prefix), formData);
+    } catch (error: any) {
+        if (!error.response) throw new Error(error.message);
+        const message = error.response.data.message;
+        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
+        throw new Error(message);
+    }
 }

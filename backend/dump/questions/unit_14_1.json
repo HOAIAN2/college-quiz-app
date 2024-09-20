@@ -1,422 +1,422 @@
 [
-	{
-		"content": "Elizabeth is fond ______ going to dances.",
-		"answers": [
-			{
-				"content": "in",
-				"is_correct": false
-			},
-			{
-				"content": "of                              ",
-				"is_correct": true
-			},
-			{
-				"content": "with           ",
-				"is_correct": false
-			},
-			{
-				"content": "at          ",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "House cats are distantly related ______ lions and tigers. ",
-		"answers": [
-			{
-				"content": "in",
-				"is_correct": false
-			},
-			{
-				"content": "to",
-				"is_correct": true
-			},
-			{
-				"content": "of",
-				"is_correct": false
-			},
-			{
-				"content": "about",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "Is this type of soil suitable ___ growing tomatoes ? ",
-		"answers": [
-			{
-				"content": "for",
-				"is_correct": true
-			},
-			{
-				"content": "about",
-				"is_correct": false
-			},
-			{
-				"content": "in",
-				"is_correct": false
-			},
-			{
-				"content": "at",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "Were you aware _____ the regulations against smoking in this area ?\\n\\n",
-		"answers": [
-			{
-				"content": "in",
-				"is_correct": false
-			},
-			{
-				"content": "with",
-				"is_correct": false
-			},
-			{
-				"content": "of",
-				"is_correct": true
-			},
-			{
-				"content": "about",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "One meter is approximately equal _____ a yard.\\n\\n",
-		"answers": [
-			{
-				"content": "about",
-				"is_correct": false
-			},
-			{
-				"content": "on",
-				"is_correct": false
-			},
-			{
-				"content": "to",
-				"is_correct": true
-			},
-			{
-				"content": "with",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "Jane doesn't spend much money _____ clothes. \\n\\n",
-		"answers": [
-			{
-				"content": "over",
-				"is_correct": false
-			},
-			{
-				"content": "about",
-				"is_correct": false
-			},
-			{
-				"content": "at",
-				"is_correct": false
-			},
-			{
-				"content": "on",
-				"is_correct": true
-			}
-		]
-	},
-	{
-		"content": "She always takes good care _____ her children. \\n\\n",
-		"answers": [
-			{
-				"content": "for",
-				"is_correct": false
-			},
-			{
-				"content": "in",
-				"is_correct": false
-			},
-			{
-				"content": "with",
-				"is_correct": false
-			},
-			{
-				"content": "of",
-				"is_correct": true
-			}
-		]
-	},
-	{
-		"content": "Boy! _______ away all your toys and  go to bed right now.",
-		"answers": [
-			{
-				"content": "Come",
-				"is_correct": false
-			},
-			{
-				"content": "Lie",
-				"is_correct": false
-			},
-			{
-				"content": "Put",
-				"is_correct": true
-			},
-			{
-				"content": "Sit",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "I have been trying to ring him up all day and I could not ______ through.",
-		"answers": [
-			{
-				"content": "get",
-				"is_correct": true
-			},
-			{
-				"content": "take",
-				"is_correct": false
-			},
-			{
-				"content": "look",
-				"is_correct": false
-			},
-			{
-				"content": "hang",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "The water supply of  the building was ______ off because the pipes burst.",
-		"answers": [
-			{
-				"content": "handed",
-				"is_correct": false
-			},
-			{
-				"content": "held",
-				"is_correct": false
-			},
-			{
-				"content": "cut",
-				"is_correct": true
-			},
-			{
-				"content": "paid",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "I would be grateful if you kept the news _______ yourself. Do not tell anyone about it.",
-		"answers": [
-			{
-				"content": "from",
-				"is_correct": false
-			},
-			{
-				"content": "to",
-				"is_correct": true
-			},
-			{
-				"content": "for",
-				"is_correct": false
-			},
-			{
-				"content": "at",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "I do not use those things any more. You can _______ them away.",
-		"answers": [
-			{
-				"content": "get",
-				"is_correct": false
-			},
-			{
-				"content": "fall",
-				"is_correct": false
-			},
-			{
-				"content": "throw",
-				"is_correct": true
-			},
-			{
-				"content": "make",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "They were late for work because their car _______ down.",
-		"answers": [
-			{
-				"content": "got",
-				"is_correct": false
-			},
-			{
-				"content": "put",
-				"is_correct": false
-			},
-			{
-				"content": "cut",
-				"is_correct": false
-			},
-			{
-				"content": "broke",
-				"is_correct": true
-			}
-		]
-	},
-	{
-		"content": "The authority _______ down that building to build a supermarket.",
-		"answers": [
-			{
-				"content": "knocked",
-				"is_correct": true
-			},
-			{
-				"content": "came",
-				"is_correct": false
-			},
-			{
-				"content": "went",
-				"is_correct": false
-			},
-			{
-				"content": "fell",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "He did not particularly want to _______any competitive sport.",
-		"answers": [
-			{
-				"content": "use up",
-				"is_correct": false
-			},
-			{
-				"content": "do with           ",
-				"is_correct": false
-			},
-			{
-				"content": "take up",
-				"is_correct": true
-			},
-			{
-				"content": "go on",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "I am tired because I ________late last night.",
-		"answers": [
-			{
-				"content": "stayed up        ",
-				"is_correct": true
-			},
-			{
-				"content": "kept off                      ",
-				"is_correct": false
-			},
-			{
-				"content": "put out",
-				"is_correct": false
-			},
-			{
-				"content": "brought up",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "The stranger came ________me and asked, \"Is there a post office near here?\"",
-		"answers": [
-			{
-				"content": "on to               ",
-				"is_correct": false
-			},
-			{
-				"content": "away from      ",
-				"is_correct": false
-			},
-			{
-				"content": "out of",
-				"is_correct": false
-			},
-			{
-				"content": "up to",
-				"is_correct": true
-			}
-		]
-	},
-	{
-		"content": "The elevator is not running today. It is ________ order.",
-		"answers": [
-			{
-				"content": " to",
-				"is_correct": false
-			},
-			{
-				"content": "out ",
-				"is_correct": false
-			},
-			{
-				"content": "out of ",
-				"is_correct": true
-			},
-			{
-				"content": "in",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "That problem is _______ them. We can't make _______ our mind yet.",
-		"answers": [
-			{
-				"content": "out off/on       ",
-				"is_correct": false
-			},
-			{
-				"content": "up to/up ",
-				"is_correct": true
-			},
-			{
-				"content": "away from/for",
-				"is_correct": false
-			},
-			{
-				"content": "on for/off",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "I know you find the course boring, Pauline, but since you've started it, you might as well_____it.",
-		"answers": [
-			{
-				"content": "go with",
-				"is_correct": false
-			},
-			{
-				"content": "go through with",
-				"is_correct": true
-			},
-			{
-				"content": "go ahead",
-				"is_correct": false
-			},
-			{
-				"content": "go off",
-				"is_correct": false
-			}
-		]
-	}
+    {
+        "content": "Elizabeth is fond ______ going to dances.",
+        "answers": [
+            {
+                "content": "in",
+                "is_correct": false
+            },
+            {
+                "content": "of                              ",
+                "is_correct": true
+            },
+            {
+                "content": "with           ",
+                "is_correct": false
+            },
+            {
+                "content": "at          ",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "House cats are distantly related ______ lions and tigers. ",
+        "answers": [
+            {
+                "content": "in",
+                "is_correct": false
+            },
+            {
+                "content": "to",
+                "is_correct": true
+            },
+            {
+                "content": "of",
+                "is_correct": false
+            },
+            {
+                "content": "about",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "Is this type of soil suitable ___ growing tomatoes ? ",
+        "answers": [
+            {
+                "content": "for",
+                "is_correct": true
+            },
+            {
+                "content": "about",
+                "is_correct": false
+            },
+            {
+                "content": "in",
+                "is_correct": false
+            },
+            {
+                "content": "at",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "Were you aware _____ the regulations against smoking in this area ?\\n\\n",
+        "answers": [
+            {
+                "content": "in",
+                "is_correct": false
+            },
+            {
+                "content": "with",
+                "is_correct": false
+            },
+            {
+                "content": "of",
+                "is_correct": true
+            },
+            {
+                "content": "about",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "One meter is approximately equal _____ a yard.\\n\\n",
+        "answers": [
+            {
+                "content": "about",
+                "is_correct": false
+            },
+            {
+                "content": "on",
+                "is_correct": false
+            },
+            {
+                "content": "to",
+                "is_correct": true
+            },
+            {
+                "content": "with",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "Jane doesn't spend much money _____ clothes. \\n\\n",
+        "answers": [
+            {
+                "content": "over",
+                "is_correct": false
+            },
+            {
+                "content": "about",
+                "is_correct": false
+            },
+            {
+                "content": "at",
+                "is_correct": false
+            },
+            {
+                "content": "on",
+                "is_correct": true
+            }
+        ]
+    },
+    {
+        "content": "She always takes good care _____ her children. \\n\\n",
+        "answers": [
+            {
+                "content": "for",
+                "is_correct": false
+            },
+            {
+                "content": "in",
+                "is_correct": false
+            },
+            {
+                "content": "with",
+                "is_correct": false
+            },
+            {
+                "content": "of",
+                "is_correct": true
+            }
+        ]
+    },
+    {
+        "content": "Boy! _______ away all your toys and  go to bed right now.",
+        "answers": [
+            {
+                "content": "Come",
+                "is_correct": false
+            },
+            {
+                "content": "Lie",
+                "is_correct": false
+            },
+            {
+                "content": "Put",
+                "is_correct": true
+            },
+            {
+                "content": "Sit",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "I have been trying to ring him up all day and I could not ______ through.",
+        "answers": [
+            {
+                "content": "get",
+                "is_correct": true
+            },
+            {
+                "content": "take",
+                "is_correct": false
+            },
+            {
+                "content": "look",
+                "is_correct": false
+            },
+            {
+                "content": "hang",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "The water supply of  the building was ______ off because the pipes burst.",
+        "answers": [
+            {
+                "content": "handed",
+                "is_correct": false
+            },
+            {
+                "content": "held",
+                "is_correct": false
+            },
+            {
+                "content": "cut",
+                "is_correct": true
+            },
+            {
+                "content": "paid",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "I would be grateful if you kept the news _______ yourself. Do not tell anyone about it.",
+        "answers": [
+            {
+                "content": "from",
+                "is_correct": false
+            },
+            {
+                "content": "to",
+                "is_correct": true
+            },
+            {
+                "content": "for",
+                "is_correct": false
+            },
+            {
+                "content": "at",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "I do not use those things any more. You can _______ them away.",
+        "answers": [
+            {
+                "content": "get",
+                "is_correct": false
+            },
+            {
+                "content": "fall",
+                "is_correct": false
+            },
+            {
+                "content": "throw",
+                "is_correct": true
+            },
+            {
+                "content": "make",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "They were late for work because their car _______ down.",
+        "answers": [
+            {
+                "content": "got",
+                "is_correct": false
+            },
+            {
+                "content": "put",
+                "is_correct": false
+            },
+            {
+                "content": "cut",
+                "is_correct": false
+            },
+            {
+                "content": "broke",
+                "is_correct": true
+            }
+        ]
+    },
+    {
+        "content": "The authority _______ down that building to build a supermarket.",
+        "answers": [
+            {
+                "content": "knocked",
+                "is_correct": true
+            },
+            {
+                "content": "came",
+                "is_correct": false
+            },
+            {
+                "content": "went",
+                "is_correct": false
+            },
+            {
+                "content": "fell",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "He did not particularly want to _______any competitive sport.",
+        "answers": [
+            {
+                "content": "use up",
+                "is_correct": false
+            },
+            {
+                "content": "do with           ",
+                "is_correct": false
+            },
+            {
+                "content": "take up",
+                "is_correct": true
+            },
+            {
+                "content": "go on",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "I am tired because I ________late last night.",
+        "answers": [
+            {
+                "content": "stayed up        ",
+                "is_correct": true
+            },
+            {
+                "content": "kept off                      ",
+                "is_correct": false
+            },
+            {
+                "content": "put out",
+                "is_correct": false
+            },
+            {
+                "content": "brought up",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "The stranger came ________me and asked, \"Is there a post office near here?\"",
+        "answers": [
+            {
+                "content": "on to               ",
+                "is_correct": false
+            },
+            {
+                "content": "away from      ",
+                "is_correct": false
+            },
+            {
+                "content": "out of",
+                "is_correct": false
+            },
+            {
+                "content": "up to",
+                "is_correct": true
+            }
+        ]
+    },
+    {
+        "content": "The elevator is not running today. It is ________ order.",
+        "answers": [
+            {
+                "content": " to",
+                "is_correct": false
+            },
+            {
+                "content": "out ",
+                "is_correct": false
+            },
+            {
+                "content": "out of ",
+                "is_correct": true
+            },
+            {
+                "content": "in",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "That problem is _______ them. We can't make _______ our mind yet.",
+        "answers": [
+            {
+                "content": "out off/on       ",
+                "is_correct": false
+            },
+            {
+                "content": "up to/up ",
+                "is_correct": true
+            },
+            {
+                "content": "away from/for",
+                "is_correct": false
+            },
+            {
+                "content": "on for/off",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "I know you find the course boring, Pauline, but since you've started it, you might as well_____it.",
+        "answers": [
+            {
+                "content": "go with",
+                "is_correct": false
+            },
+            {
+                "content": "go through with",
+                "is_correct": true
+            },
+            {
+                "content": "go ahead",
+                "is_correct": false
+            },
+            {
+                "content": "go off",
+                "is_correct": false
+            }
+        ]
+    }
 ]

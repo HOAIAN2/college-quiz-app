@@ -1,8 +1,8 @@
 export default function isValidJson(string: string) {
-	try {
-		JSON.parse(string);
-		return true;
-	} catch {
-		return false;
-	}
+    try {
+        JSON.parse(string);
+        return true;
+    } catch {
+        return false;
+    }
 }

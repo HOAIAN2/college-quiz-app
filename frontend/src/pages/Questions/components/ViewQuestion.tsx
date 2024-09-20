@@ -24,302 +24,302 @@ import createFormUtils from '~utils/createFormUtils';
 import css from '~utils/css';
 
 type ViewQuestionProps = {
-	id: number;
-	subjectDetail: SubjectDetail;
-	onMutateSuccess: () => void;
-	setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>;
+    id: number;
+    subjectDetail: SubjectDetail;
+    onMutateSuccess: () => void;
+    setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 type Option = {
-	key: string,
-	content: string;
+    key: string,
+    content: string;
 };
 
 export default function ViewQuestion({
-	id,
-	subjectDetail,
-	onMutateSuccess,
-	setShowPopUp
+    id,
+    subjectDetail,
+    onMutateSuccess,
+    setShowPopUp
 }: ViewQuestionProps) {
-	const { permissions } = useAppContext();
-	const [hide, setHide] = useState(true);
-	const [options, setOptions] = useState<Option[]>([]);
-	const [showDeletePopUp, setShowDeletePopUp] = useState(false);
-	const [trueOptionKey, setTrueOptionKey] = useState<string>();
-	const language = useLanguage('component.view_question');
-	const queryClient = useQueryClient();
-	const handleClosePopUp = () => {
-		setHide(true);
-		setTimeout(() => {
-			setShowPopUp(false);
-		}, CSS_TIMING.TRANSITION_TIMING_FAST);
-	};
-	const formUtils = createFormUtils(globalStyles);
-	const disabledUpdate = !permissions.has('question_update');
-	const queryData = useQuery({
-		queryKey: [QUERY_KEYS.QUESTION_DETAIL, { id: id }],
-		queryFn: () => apiGetQuestionById(id)
-	});
-	const handleUpdateQuestion = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
-		e.preventDefault();
-		document.querySelector(`.${globalStyles.formData}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
-			node.classList.remove('error');
-			formUtils.getParentElement(node)?.removeAttribute('data-error');
-		});
-		const form = e.target as HTMLFormElement;
-		const formData = new FormData(form);
-		await apiUpdateQuestion(formData, id);
-	};
-	const { mutate, isPending } = useMutation({
-		mutationFn: handleUpdateQuestion,
-		onError: (error) => { formUtils.showFormError(error); },
-		onSuccess: onMutateSuccess
-	});
-	const handleDeleteQuestion = async () => {
-		await apiDeleteQuestion(id);
-	};
-	useEffect(() => {
-		setHide(false);
-		return () => {
-			queryClient.removeQueries({ queryKey: [QUERY_KEYS.QUESTION_DETAIL, { id: id }] });
-		};
-	}, [id, queryClient]);
-	useEffect(() => {
-		if (queryData.data) {
-			const questionOptions = queryData.data.questionOptions.map(item => {
-				return {
-					key: item.id.toString(),
-					content: item.content,
-					isCorrect: item.isCorrect
-				};
-			});
-			setOptions(questionOptions.map(item => {
-				return {
-					key: item.key,
-					content: item.content
-				};
-			}));
-			setTrueOptionKey(questionOptions.find(item => item.isCorrect)?.key);
-		}
-	}, [queryData.data]);
-	return (
-		<>
-			{showDeletePopUp === true ?
-				<YesNoPopUp
-					message={language?.deleteMessage || ''}
-					mutateFunction={handleDeleteQuestion}
-					setShowPopUp={setShowDeletePopUp}
-					onMutateSuccess={() => { onMutateSuccess(); handleClosePopUp(); }}
-					langYes={language?.langYes}
-					langNo={language?.langNo}
-				/> : null}
-			<div
-				className={
-					css(
-						globalStyles.viewModelContainer,
-						hide ? globalStyles.hide : ''
-					)
-				}>
-				{
-					isPending ? <Loading /> : null
-				}
-				<div
-					className={
-						css(
-							globalStyles.viewModelForm,
-							hide ? globalStyles.hide : ''
-						)
-					}>
-					<div className={globalStyles.header}>
-						<h2 className={globalStyles.title}>{language?.title}</h2>
-						<div className={globalStyles.escButton}
-							onClick={handleClosePopUp}
-						>
-							<RxCross2 />
-						</div>
-					</div>
-					<>
-						{
-							queryData.isLoading ? <Loading /> : null
-						}
-						<div className={globalStyles.formContent}>
-							{
-								queryData.data ? (
-									<form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
-										mutate(e);
-									}}
-										onInput={(e) => { formUtils.handleOnInput(e); }}
-										className={globalStyles.formData}>
-										<input name='true_option' readOnly hidden value={options.findIndex(option => option.key === trueOptionKey)} />
-										<input name='subject_id' readOnly hidden value={subjectDetail.id} />
-										<div className={globalStyles.groupInputs}>
-											<div style={{ zIndex: 2 }} className={globalStyles.wrapItem}>
-												<label htmlFor='chapter_id'>{language?.chapter}</label>
-												<CustomSelect
-													name='chapter_id'
-													disabled={disabledUpdate}
-													defaultOption={(() => {
-														const chapter = subjectDetail.chapters.find(item => item.id == queryData.data.chapterId);
-														return {
-															label: chapter?.name || language?.unselect,
-															value: String(chapter?.id || '')
-														};
-													})()
-													}
-													options={
-														[
-															{
-																label: language?.unselect,
-																value: ''
-															},
-															...subjectDetail.chapters.map(chapter => ({
-																value: String(chapter.id),
-																label: `${chapter.chapterNumber}. ${chapter.name}`
-															}))]
-													}
-													className={globalStyles.customSelect}
-												/>
-											</div>
-											<div className={globalStyles.wrapItem}>
-												<label className={appStyles.required}>{language?.level}</label>
-												<CustomSelect
-													name='level'
-													disabled={disabledUpdate}
-													defaultOption={
-														{
-															label: language?.questionLevel[queryData.data.level],
-															value: queryData.data.level
-														}
-													}
-													options={language ?
-														Object.keys(language.questionLevel).map(item => {
-															return {
-																value: item,
-																label: language.questionLevel[item as keyof typeof language.questionLevel]
-															};
-														}) : []
-													}
-													className={globalStyles.customSelect}
-												/>
-											</div>
-											<div className={css(globalStyles.wrapItem, globalStyles.textarea)}>
-												<label className={appStyles.required} htmlFor='content'>{language?.content}</label>
-												<textarea
-													disabled={disabledUpdate}
-													defaultValue={queryData.data.content}
-													onInput={autoSizeTextArea}
-													name='content' id='content'
-													className={css(appStyles.input, globalStyles.inputItem)}
-													cols={30} rows={50}>
-												</textarea>
-											</div>
-											{
-												permissions.has('question_update') ?
-													<div
-														style={{ paddingLeft: '20px' }}
-														className={appStyles.actionBar}>
-														{
-															<div
-																style={{ width: 'fit-content' }}
-																className={appStyles.actionItem}
-																onClick={() => {
-																	setOptions([
-																		...options,
-																		{
-																			key: new Date().getTime().toString(),
-																			content: ''
-																		}
-																	]);
-																}}
-															>
-																<RiAddFill /> {language?.addOption}
-															</div>
-														}
-													</div> : null
-											}
-										</div>
-										<div className={globalStyles.groupInputs}>
-											{options.map((option, index) => {
-												return (
-													<div
-														key={option.key}
-														className={css(styles.textareaGroup, globalStyles.wrapItem, globalStyles.textarea)}>
-														<div className={styles.wrapLabel}>
-															<label style={{ cursor: 'pointer' }}
-																className={appStyles.required}
-																onClick={() => {
-																	setTrueOptionKey(String(option.key));
-																}}
-															>{`${language?.answer} ${index + 1}`}</label>
-															{
-																option.key === trueOptionKey ?
-																	<FaRegCircleCheck />
-																	: null
-															}
-														</div>
-														<textarea
-															defaultValue={option.content}
-															data-selector={`options.${index}`}
-															onInput={autoSizeTextArea}
-															name='options[]'
-															disabled={disabledUpdate}
-															className={css(appStyles.input, globalStyles.inputItem, styles.textarea)}
-															cols={30} rows={50}>
-														</textarea>
-														{
-															permissions.has('question_update') ?
-																<div
-																	onClick={() => {
-																		if (options.length == 2) {
-																			toast.error(language?.deleteOptionError);
-																		}
-																		else setOptions(options.filter(item => item.key !== option.key));
-																	}}
-																	className={appStyles.actionItemWhiteBorderRed}
-																>
-																	<MdDeleteOutline /> {language?.delete}
-																</div> : null
-														}
-													</div>
-												);
-											})}
-										</div>
-										{
-											permissions.hasAnyFormList(['question_update', 'question_delete']) ?
-												<div className={globalStyles.actionItems}>
-													{
-														permissions.has('question_update') ?
-															<button name='save'
-																className={
-																	css(
-																		appStyles.actionItem,
-																		isPending ? 'button-submitting' : ''
-																	)
-																}><FiSave />{language?.save}</button>
-															: null
-													}
-													{
-														permissions.has('question_delete') ?
-															<button
-																type='button'
-																onClick={() => {
-																	setShowDeletePopUp(true);
-																}}
-																className={appStyles.actionItemWhiteBorderRed}
-															>
-																<MdDeleteOutline /> {language?.delete}
-															</button>
-															: null
-													}
-												</div> : null
-										}
-									</form>
-								) : null
-							}
-						</div>
-					</>
-				</div>
-			</div>
-		</>
-	);
+    const { permissions } = useAppContext();
+    const [hide, setHide] = useState(true);
+    const [options, setOptions] = useState<Option[]>([]);
+    const [showDeletePopUp, setShowDeletePopUp] = useState(false);
+    const [trueOptionKey, setTrueOptionKey] = useState<string>();
+    const language = useLanguage('component.view_question');
+    const queryClient = useQueryClient();
+    const handleClosePopUp = () => {
+        setHide(true);
+        setTimeout(() => {
+            setShowPopUp(false);
+        }, CSS_TIMING.TRANSITION_TIMING_FAST);
+    };
+    const formUtils = createFormUtils(globalStyles);
+    const disabledUpdate = !permissions.has('question_update');
+    const queryData = useQuery({
+        queryKey: [QUERY_KEYS.QUESTION_DETAIL, { id: id }],
+        queryFn: () => apiGetQuestionById(id)
+    });
+    const handleUpdateQuestion = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
+        e.preventDefault();
+        document.querySelector(`.${globalStyles.formData}`)?.querySelectorAll<HTMLInputElement>('input[name]').forEach(node => {
+            node.classList.remove('error');
+            formUtils.getParentElement(node)?.removeAttribute('data-error');
+        });
+        const form = e.target as HTMLFormElement;
+        const formData = new FormData(form);
+        await apiUpdateQuestion(formData, id);
+    };
+    const { mutate, isPending } = useMutation({
+        mutationFn: handleUpdateQuestion,
+        onError: (error) => { formUtils.showFormError(error); },
+        onSuccess: onMutateSuccess
+    });
+    const handleDeleteQuestion = async () => {
+        await apiDeleteQuestion(id);
+    };
+    useEffect(() => {
+        setHide(false);
+        return () => {
+            queryClient.removeQueries({ queryKey: [QUERY_KEYS.QUESTION_DETAIL, { id: id }] });
+        };
+    }, [id, queryClient]);
+    useEffect(() => {
+        if (queryData.data) {
+            const questionOptions = queryData.data.questionOptions.map(item => {
+                return {
+                    key: item.id.toString(),
+                    content: item.content,
+                    isCorrect: item.isCorrect
+                };
+            });
+            setOptions(questionOptions.map(item => {
+                return {
+                    key: item.key,
+                    content: item.content
+                };
+            }));
+            setTrueOptionKey(questionOptions.find(item => item.isCorrect)?.key);
+        }
+    }, [queryData.data]);
+    return (
+        <>
+            {showDeletePopUp === true ?
+                <YesNoPopUp
+                    message={language?.deleteMessage || ''}
+                    mutateFunction={handleDeleteQuestion}
+                    setShowPopUp={setShowDeletePopUp}
+                    onMutateSuccess={() => { onMutateSuccess(); handleClosePopUp(); }}
+                    langYes={language?.langYes}
+                    langNo={language?.langNo}
+                /> : null}
+            <div
+                className={
+                    css(
+                        globalStyles.viewModelContainer,
+                        hide ? globalStyles.hide : ''
+                    )
+                }>
+                {
+                    isPending ? <Loading /> : null
+                }
+                <div
+                    className={
+                        css(
+                            globalStyles.viewModelForm,
+                            hide ? globalStyles.hide : ''
+                        )
+                    }>
+                    <div className={globalStyles.header}>
+                        <h2 className={globalStyles.title}>{language?.title}</h2>
+                        <div className={globalStyles.escButton}
+                            onClick={handleClosePopUp}
+                        >
+                            <RxCross2 />
+                        </div>
+                    </div>
+                    <>
+                        {
+                            queryData.isLoading ? <Loading /> : null
+                        }
+                        <div className={globalStyles.formContent}>
+                            {
+                                queryData.data ? (
+                                    <form onSubmit={(e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
+                                        mutate(e);
+                                    }}
+                                        onInput={(e) => { formUtils.handleOnInput(e); }}
+                                        className={globalStyles.formData}>
+                                        <input name='true_option' readOnly hidden value={options.findIndex(option => option.key === trueOptionKey)} />
+                                        <input name='subject_id' readOnly hidden value={subjectDetail.id} />
+                                        <div className={globalStyles.groupInputs}>
+                                            <div style={{ zIndex: 2 }} className={globalStyles.wrapItem}>
+                                                <label htmlFor='chapter_id'>{language?.chapter}</label>
+                                                <CustomSelect
+                                                    name='chapter_id'
+                                                    disabled={disabledUpdate}
+                                                    defaultOption={(() => {
+                                                        const chapter = subjectDetail.chapters.find(item => item.id == queryData.data.chapterId);
+                                                        return {
+                                                            label: chapter?.name || language?.unselect,
+                                                            value: String(chapter?.id || '')
+                                                        };
+                                                    })()
+                                                    }
+                                                    options={
+                                                        [
+                                                            {
+                                                                label: language?.unselect,
+                                                                value: ''
+                                                            },
+                                                            ...subjectDetail.chapters.map(chapter => ({
+                                                                value: String(chapter.id),
+                                                                label: `${chapter.chapterNumber}. ${chapter.name}`
+                                                            }))]
+                                                    }
+                                                    className={globalStyles.customSelect}
+                                                />
+                                            </div>
+                                            <div className={globalStyles.wrapItem}>
+                                                <label className={appStyles.required}>{language?.level}</label>
+                                                <CustomSelect
+                                                    name='level'
+                                                    disabled={disabledUpdate}
+                                                    defaultOption={
+                                                        {
+                                                            label: language?.questionLevel[queryData.data.level],
+                                                            value: queryData.data.level
+                                                        }
+                                                    }
+                                                    options={language ?
+                                                        Object.keys(language.questionLevel).map(item => {
+                                                            return {
+                                                                value: item,
+                                                                label: language.questionLevel[item as keyof typeof language.questionLevel]
+                                                            };
+                                                        }) : []
+                                                    }
+                                                    className={globalStyles.customSelect}
+                                                />
+                                            </div>
+                                            <div className={css(globalStyles.wrapItem, globalStyles.textarea)}>
+                                                <label className={appStyles.required} htmlFor='content'>{language?.content}</label>
+                                                <textarea
+                                                    disabled={disabledUpdate}
+                                                    defaultValue={queryData.data.content}
+                                                    onInput={autoSizeTextArea}
+                                                    name='content' id='content'
+                                                    className={css(appStyles.input, globalStyles.inputItem)}
+                                                    cols={30} rows={50}>
+                                                </textarea>
+                                            </div>
+                                            {
+                                                permissions.has('question_update') ?
+                                                    <div
+                                                        style={{ paddingLeft: '20px' }}
+                                                        className={appStyles.actionBar}>
+                                                        {
+                                                            <div
+                                                                style={{ width: 'fit-content' }}
+                                                                className={appStyles.actionItem}
+                                                                onClick={() => {
+                                                                    setOptions([
+                                                                        ...options,
+                                                                        {
+                                                                            key: new Date().getTime().toString(),
+                                                                            content: ''
+                                                                        }
+                                                                    ]);
+                                                                }}
+                                                            >
+                                                                <RiAddFill /> {language?.addOption}
+                                                            </div>
+                                                        }
+                                                    </div> : null
+                                            }
+                                        </div>
+                                        <div className={globalStyles.groupInputs}>
+                                            {options.map((option, index) => {
+                                                return (
+                                                    <div
+                                                        key={option.key}
+                                                        className={css(styles.textareaGroup, globalStyles.wrapItem, globalStyles.textarea)}>
+                                                        <div className={styles.wrapLabel}>
+                                                            <label style={{ cursor: 'pointer' }}
+                                                                className={appStyles.required}
+                                                                onClick={() => {
+                                                                    setTrueOptionKey(String(option.key));
+                                                                }}
+                                                            >{`${language?.answer} ${index + 1}`}</label>
+                                                            {
+                                                                option.key === trueOptionKey ?
+                                                                    <FaRegCircleCheck />
+                                                                    : null
+                                                            }
+                                                        </div>
+                                                        <textarea
+                                                            defaultValue={option.content}
+                                                            data-selector={`options.${index}`}
+                                                            onInput={autoSizeTextArea}
+                                                            name='options[]'
+                                                            disabled={disabledUpdate}
+                                                            className={css(appStyles.input, globalStyles.inputItem, styles.textarea)}
+                                                            cols={30} rows={50}>
+                                                        </textarea>
+                                                        {
+                                                            permissions.has('question_update') ?
+                                                                <div
+                                                                    onClick={() => {
+                                                                        if (options.length == 2) {
+                                                                            toast.error(language?.deleteOptionError);
+                                                                        }
+                                                                        else setOptions(options.filter(item => item.key !== option.key));
+                                                                    }}
+                                                                    className={appStyles.actionItemWhiteBorderRed}
+                                                                >
+                                                                    <MdDeleteOutline /> {language?.delete}
+                                                                </div> : null
+                                                        }
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                        {
+                                            permissions.hasAnyFormList(['question_update', 'question_delete']) ?
+                                                <div className={globalStyles.actionItems}>
+                                                    {
+                                                        permissions.has('question_update') ?
+                                                            <button name='save'
+                                                                className={
+                                                                    css(
+                                                                        appStyles.actionItem,
+                                                                        isPending ? 'button-submitting' : ''
+                                                                    )
+                                                                }><FiSave />{language?.save}</button>
+                                                            : null
+                                                    }
+                                                    {
+                                                        permissions.has('question_delete') ?
+                                                            <button
+                                                                type='button'
+                                                                onClick={() => {
+                                                                    setShowDeletePopUp(true);
+                                                                }}
+                                                                className={appStyles.actionItemWhiteBorderRed}
+                                                            >
+                                                                <MdDeleteOutline /> {language?.delete}
+                                                            </button>
+                                                            : null
+                                                    }
+                                                </div> : null
+                                        }
+                                    </form>
+                                ) : null
+                            }
+                        </div>
+                    </>
+                </div>
+            </div>
+        </>
+    );
 }

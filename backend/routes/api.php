@@ -18,136 +18,136 @@ use Illuminate\Support\Facades\Route;
 if (!defined('AUTH_MIDDLEWARES')) define('AUTH_MIDDLEWARES', ['auth:sanctum', 'validate-token']);
 
 Route::prefix('/settings')->controller(SettingsController::class)->group(function () {
-	Route::middleware(AUTH_MIDDLEWARES)->group(function () {
-		Route::post('/run-artisan', 'runArtisan');
-		Route::get('/log', 'getLogFile');
-		Route::delete('/log', 'deleteLogFile');
-	});
+    Route::middleware(AUTH_MIDDLEWARES)->group(function () {
+        Route::post('/run-artisan', 'runArtisan');
+        Route::get('/log', 'getLogFile');
+        Route::delete('/log', 'deleteLogFile');
+    });
 });
 
 Route::prefix('/auth')->controller(AuthController::class)->group(function () {
-	Route::post('/login', 'login');
-	Route::middleware(AUTH_MIDDLEWARES)->group(function () {
-		Route::get('/sessions', 'loginSessions');
-		Route::delete('/sessions/{id}', 'revokeLoginSession');
-		Route::post('/logout', 'logout');
-		Route::post('/change-password', 'changePassword');
-	});
+    Route::post('/login', 'login');
+    Route::middleware(AUTH_MIDDLEWARES)->group(function () {
+        Route::get('/sessions', 'loginSessions');
+        Route::delete('/sessions/{id}', 'revokeLoginSession');
+        Route::post('/logout', 'logout');
+        Route::post('/change-password', 'changePassword');
+    });
 
-	Route::post('/send-email-verification', 'sendEmailVerification')->middleware('throttle:3,1');
-	Route::post('/verify-email', 'verifyEmail');
+    Route::post('/send-email-verification', 'sendEmailVerification')->middleware('throttle:3,1');
+    Route::post('/verify-email', 'verifyEmail');
 
-	Route::post('/send-password-reset-email', 'sendPasswordResetEmail')->middleware('throttle:3,1');
-	Route::post('/verify-password-reset-code', 'verifyPasswordResetCode');
-	Route::post('/reset-password', 'resetPassword');
+    Route::post('/send-password-reset-email', 'sendPasswordResetEmail')->middleware('throttle:3,1');
+    Route::post('/verify-password-reset-code', 'verifyPasswordResetCode');
+    Route::post('/reset-password', 'resetPassword');
 });
 
 Route::prefix('/users')->middleware(AUTH_MIDDLEWARES)
-	->controller(UserController::class)->group(function () {
-		Route::get('/query', 'getUsersByType');
-		Route::post('/import', 'importUsers');
-		Route::get('/export', 'exportUsers');
-		Route::get('/exportable', 'exportableFields');
-		Route::get('/all-user', 'getAllUsers');
-		Route::get('/complete', 'autocomplete');
-		Route::get('/{id}', 'show');
-		Route::put('/{id}', 'update');
-		Route::get('/', 'index');
-		Route::post('/', 'store');
-		Route::delete('/', 'destroy');
-	});
+    ->controller(UserController::class)->group(function () {
+        Route::get('/query', 'getUsersByType');
+        Route::post('/import', 'importUsers');
+        Route::get('/export', 'exportUsers');
+        Route::get('/exportable', 'exportableFields');
+        Route::get('/all-user', 'getAllUsers');
+        Route::get('/complete', 'autocomplete');
+        Route::get('/{id}', 'show');
+        Route::put('/{id}', 'update');
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::delete('/', 'destroy');
+    });
 
 Route::prefix('/dashboard')->middleware(AUTH_MIDDLEWARES)
-	->controller(DashboardController::class)->group(function () {
-		Route::get('/', 'index');
-	});
+    ->controller(DashboardController::class)->group(function () {
+        Route::get('/', 'index');
+    });
 
 Route::prefix('/school-classes')->middleware(AUTH_MIDDLEWARES)
-	->controller(SchoolClassController::class)->group(function () {
-		Route::get('/complete', 'autocomplete');
-		Route::get('/{id}', 'show');
-		Route::put('/{id}', 'update');
-		Route::get('/', 'index');
-		Route::post('/', 'store');
-		Route::delete('/', 'destroy');
-	});
+    ->controller(SchoolClassController::class)->group(function () {
+        Route::get('/complete', 'autocomplete');
+        Route::get('/{id}', 'show');
+        Route::put('/{id}', 'update');
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::delete('/', 'destroy');
+    });
 
 Route::prefix('/faculties')->middleware(AUTH_MIDDLEWARES)
-	->controller(FacultyController::class)->group(function () {
-		Route::get('/complete', 'autocomplete');
-		Route::get('/{id}', 'show');
-		Route::put('/{id}', 'update');
-		Route::get('/', 'index');
-		Route::post('/', 'store');
-		Route::delete('/', 'destroy');
-	});
+    ->controller(FacultyController::class)->group(function () {
+        Route::get('/complete', 'autocomplete');
+        Route::get('/{id}', 'show');
+        Route::put('/{id}', 'update');
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+        Route::delete('/', 'destroy');
+    });
 
 Route::prefix('/subjects')->middleware(AUTH_MIDDLEWARES)
-	->controller(SubjectController::class)->group(function () {
-		Route::get('/complete', 'autocomplete');
-		Route::get('/{id}', 'show');
-		Route::put('/{id}', 'update');
-		Route::delete('/{id}', 'destroy');
-		Route::get('/', 'index');
-		Route::post('/', 'store');
-	});
+    ->controller(SubjectController::class)->group(function () {
+        Route::get('/complete', 'autocomplete');
+        Route::get('/{id}', 'show');
+        Route::put('/{id}', 'update');
+        Route::delete('/{id}', 'destroy');
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+    });
 
 Route::prefix('/chapters')->middleware(AUTH_MIDDLEWARES)
-	->controller(ChapterController::class)->group(function () {
-		Route::put('/{id}', 'update');
-		Route::delete('/{id}', 'destroy');
-		Route::post('/', 'store');
-	});
+    ->controller(ChapterController::class)->group(function () {
+        Route::put('/{id}', 'update');
+        Route::delete('/{id}', 'destroy');
+        Route::post('/', 'store');
+    });
 
 Route::prefix('/role-permissions')->middleware(AUTH_MIDDLEWARES)
-	->controller(RolePermissionController::class)->group(function () {
-		Route::get('/{id}', 'show');
-		Route::put('/{id}', 'update');
-		Route::get('/', 'index');
-	});
+    ->controller(RolePermissionController::class)->group(function () {
+        Route::get('/{id}', 'show');
+        Route::put('/{id}', 'update');
+        Route::get('/', 'index');
+    });
 
 Route::prefix('/questions')->middleware(AUTH_MIDDLEWARES)
-	->controller(QuestionController::class)->group(function () {
-		Route::get('/{id}', 'show');
-		Route::put('/{id}', 'update');
-		Route::delete('/{id}', 'destroy');
-		Route::get('/', 'index');
-		Route::post('/', 'store');
-	});
+    ->controller(QuestionController::class)->group(function () {
+        Route::get('/{id}', 'show');
+        Route::put('/{id}', 'update');
+        Route::delete('/{id}', 'destroy');
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+    });
 
 Route::prefix('/semesters')->middleware(AUTH_MIDDLEWARES)
-	->controller(SemesterController::class)->group(function () {
-		Route::get('/complete', 'autocomplete');
-		Route::get('/{id}', 'show');
-		Route::put('/{id}', 'update');
-		Route::delete('/{id}', 'destroy');
-		Route::get('/', 'index');
-		Route::post('/', 'store');
-	});
+    ->controller(SemesterController::class)->group(function () {
+        Route::get('/complete', 'autocomplete');
+        Route::get('/{id}', 'show');
+        Route::put('/{id}', 'update');
+        Route::delete('/{id}', 'destroy');
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+    });
 
 Route::prefix('/courses')->middleware(AUTH_MIDDLEWARES)
-	->controller(CourseController::class)->group(function () {
-		Route::get('/{id}', 'show');
-		Route::put('/{id}', 'update');
-		Route::delete('/{id}', 'destroy');
-		Route::put('/{id}/students', 'updateStudents');
-		Route::get('/', 'index');
-		Route::post('/', 'store');
-	});
+    ->controller(CourseController::class)->group(function () {
+        Route::get('/{id}', 'show');
+        Route::put('/{id}', 'update');
+        Route::delete('/{id}', 'destroy');
+        Route::put('/{id}/students', 'updateStudents');
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+    });
 
 Route::prefix('/exams')->middleware(AUTH_MIDDLEWARES)
-	->controller(ExamController::class)->group(function () {
-		Route::middleware(App\Http\Middleware\RevokeOtherTokens::class)
-			->group(function () {
-				Route::post('/{id}/sync-cache', 'syncCache');
-				Route::get('/{id}/take', 'take');
-				Route::post('/{id}/submit', 'submit');
-			});
-		Route::get('/{id}/export-result', 'exportResult');
-		Route::post('/{id}/status', 'updateStatus');
-		Route::get('/{id}', 'show');
-		Route::put('/{id}', 'update');
-		Route::delete('/{id}', 'destroy');
-		Route::get('/', 'index');
-		Route::post('/', 'store');
-	});
+    ->controller(ExamController::class)->group(function () {
+        Route::middleware(App\Http\Middleware\RevokeOtherTokens::class)
+            ->group(function () {
+                Route::post('/{id}/sync-cache', 'syncCache');
+                Route::get('/{id}/take', 'take');
+                Route::post('/{id}/submit', 'submit');
+            });
+        Route::get('/{id}/export-result', 'exportResult');
+        Route::post('/{id}/status', 'updateStatus');
+        Route::get('/{id}', 'show');
+        Route::put('/{id}', 'update');
+        Route::delete('/{id}', 'destroy');
+        Route::get('/', 'index');
+        Route::post('/', 'store');
+    });

@@ -13,28 +13,28 @@ use Illuminate\Database\Events\QueryExecuted;
 
 class AppServiceProvider extends ServiceProvider
 {
-	/**
-	 * Register any application services.
-	 */
-	public function register(): void
-	{
-		//
-	}
+    /**
+     * Register any application services.
+     */
+    public function register(): void
+    {
+        //
+    }
 
-	/**
-	 * Bootstrap any application services.
-	 */
-	public function boot(): void
-	{
-		Route::pattern('id', '([1-9]+[0-9]*)');
+    /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
+    {
+        Route::pattern('id', '([1-9]+[0-9]*)');
 
-		RateLimiter::for('api', function (Request $request) {
-			return Limit::perMinute(config('custom.app.default_rate_limit'))->by($request->user()?->id ?: $request->ip());
-		});
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(config('custom.app.default_rate_limit'))->by($request->user()?->id ?: $request->ip());
+        });
 
-		if (config('app.debug') == true && !app()->runningInConsole())
-			DB::listen(function (QueryExecuted $query) {
-				Log::info("{$query->sql} => {$query->time} ms");
-			});
-	}
+        if (config('app.debug') == true && !app()->runningInConsole())
+            DB::listen(function (QueryExecuted $query) {
+                Log::info("{$query->sql} => {$query->time} ms");
+            });
+    }
 }

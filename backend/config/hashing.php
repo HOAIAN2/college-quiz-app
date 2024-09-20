@@ -2,7 +2,7 @@
 
 return [
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Default Hash Driver
     |--------------------------------------------------------------------------
@@ -15,9 +15,9 @@ return [
     |
     */
 
-	'driver' => env('HASH_DRIVER', 'bcrypt'),
+    'driver' => env('HASH_DRIVER', 'bcrypt'),
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Bcrypt Options
     |--------------------------------------------------------------------------
@@ -28,12 +28,12 @@ return [
     |
     */
 
-	'bcrypt' => [
-		'rounds' => env('BCRYPT_ROUNDS', 10),
-		'verify' => env('HASH_VERIFY', false),
-	],
+    'bcrypt' => [
+        'rounds' => env('BCRYPT_ROUNDS', 10),
+        'verify' => env('HASH_VERIFY', false),
+    ],
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Argon Options
     |--------------------------------------------------------------------------
@@ -44,14 +44,14 @@ return [
     |
     */
 
-	'argon' => [
-		'memory' => env('ARGON_MEMORY', 65536),
-		'threads' => env('ARGON_THREADS', 1),
-		'time' => env('ARGON_TIME', 4),
-		'verify' => env('HASH_VERIFY', true),
-	],
+    'argon' => [
+        'memory' => env('ARGON_MEMORY', 65536),
+        'threads' => env('ARGON_THREADS', 1),
+        'time' => env('ARGON_TIME', 4),
+        'verify' => env('HASH_VERIFY', true),
+    ],
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Rehash On Login
     |--------------------------------------------------------------------------
@@ -62,6 +62,6 @@ return [
     |
     */
 
-	'rehash_on_login' => true,
+    'rehash_on_login' => true,
 
 ];

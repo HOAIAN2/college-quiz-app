@@ -10,9 +10,9 @@ use App\Traits\EnumResolver;
  */
 enum RoleType: int
 {
-	use EnumResolver;
+    use EnumResolver;
 
-	case ADMIN = 1;
-	case TEACHER = 2;
-	case STUDENT = 3;
+    case ADMIN = 1;
+    case TEACHER = 2;
+    case STUDENT = 3;
 }

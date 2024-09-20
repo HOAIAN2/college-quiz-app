@@ -1,422 +1,422 @@
 [
-	{
-		"content": "As she did so, her parents became _______.",
-		"answers": [
-			{
-				"content": "the angriest",
-				"is_correct": false
-			},
-			{
-				"content": "the most angry",
-				"is_correct": false
-			},
-			{
-				"content": "the more angry",
-				"is_correct": false
-			},
-			{
-				"content": "angrier and angrier",
-				"is_correct": true
-			}
-		]
-	},
-	{
-		"content": "People should eat ____ and do ____ to reduce the risk of heart disease.",
-		"answers": [
-			{
-				"content": "less fat / more exercise                       ",
-				"is_correct": true
-			},
-			{
-				"content": "less and less fat / the more exercise",
-				"is_correct": false
-			},
-			{
-				"content": "the less fat / the more exercise",
-				"is_correct": false
-			},
-			{
-				"content": "fatter / more exercise",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "It gets _______ to understand what the professor has explained.",
-		"answers": [
-			{
-				"content": "the more difficult",
-				"is_correct": false
-			},
-			{
-				"content": "more difficult than     ",
-				"is_correct": false
-			},
-			{
-				"content": "difficult more and more         ",
-				"is_correct": false
-			},
-			{
-				"content": "more and more difficult",
-				"is_correct": true
-			}
-		]
-	},
-	{
-		"content": "Thanks to the progress of science and technology, our lives have become _______.",
-		"answers": [
-			{
-				"content": "more and more good  ",
-				"is_correct": false
-			},
-			{
-				"content": "better and better         ",
-				"is_correct": true
-			},
-			{
-				"content": "the more and more good        ",
-				"is_correct": false
-			},
-			{
-				"content": "gooder and gooder",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "Peter is _______ John.",
-		"answers": [
-			{
-				"content": "younger and more intelligent than",
-				"is_correct": true
-			},
-			{
-				"content": "more young and intelligent than",
-				"is_correct": false
-			},
-			{
-				"content": "more intelligent and younger than",
-				"is_correct": false
-			},
-			{
-				"content": "the more intelligent and younger than",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "It gets _______ when the winter is coming.",
-		"answers": [
-			{
-				"content": "cold and cold",
-				"is_correct": false
-			},
-			{
-				"content": "the coldest and coldest",
-				"is_correct": false
-			},
-			{
-				"content": "colder and colder",
-				"is_correct": true
-			},
-			{
-				"content": "more and more cold",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "The climber was seventy miles in the wrong direction and got _______.",
-		"answers": [
-			{
-				"content": "more panicked            ",
-				"is_correct": false
-			},
-			{
-				"content": "the more panicked",
-				"is_correct": false
-			},
-			{
-				"content": "more than panicked    ",
-				"is_correct": false
-			},
-			{
-				"content": "more and more panicked",
-				"is_correct": true
-			}
-		]
-	},
-	{
-		"content": "My neighbor is driving me mad! It seems that _______ it is at night, _______ he plays his music!",
-		"answers": [
-			{
-				"content": "the less / the more loud          ",
-				"is_correct": false
-			},
-			{
-				"content": "the less / less",
-				"is_correct": false
-			},
-			{
-				"content": "the more late / the more loudlier                    ",
-				"is_correct": false
-			},
-			{
-				"content": "the later / the louder",
-				"is_correct": true
-			}
-		]
-	},
-	{
-		"content": "He spent a year in India and loves spicy food. _______ the food is, _______ he likes it.",
-		"answers": [
-			{
-				"content": "The hotter / the more and more",
-				"is_correct": false
-			},
-			{
-				"content": "The hotter / the more",
-				"is_correct": true
-			},
-			{
-				"content": "The more and more hot / the more",
-				"is_correct": false
-			},
-			{
-				"content": "The hottest / the most",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "Of course, you can come to the party. _______.",
-		"answers": [
-			{
-				"content": "The more the merrier  ",
-				"is_correct": true
-			},
-			{
-				"content": "The more, the merrier",
-				"is_correct": false
-			},
-			{
-				"content": "The more and merrier",
-				"is_correct": false
-			},
-			{
-				"content": "The more and more merrier",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "You must drive slower in built up areas. _______ you drive in the city, it is _______ that you will have an accident.",
-		"answers": [
-			{
-				"content": "The faster and faster / the more                     ",
-				"is_correct": false
-			},
-			{
-				"content": "The faster / the more probable",
-				"is_correct": true
-			},
-			{
-				"content": "The more and more fast / the more and more probable",
-				"is_correct": false
-			},
-			{
-				"content": "The more fastly / the probable",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "Earning money has always been the thing that pleases him most. _____ he becomes, _____he is.",
-		"answers": [
-			{
-				"content": "The more rich / the more happy         ",
-				"is_correct": false
-			},
-			{
-				"content": "The richest / the happiest",
-				"is_correct": false
-			},
-			{
-				"content": "The richer / the happier",
-				"is_correct": true
-			},
-			{
-				"content": "Richer and richer / happier and happier",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "The faster we finish, _______.",
-		"answers": [
-			{
-				"content": "the sooner we can leave         ",
-				"is_correct": true
-			},
-			{
-				"content": "we can leave sooner and sooner",
-				"is_correct": false
-			},
-			{
-				"content": "the sooner can we leave                     ",
-				"is_correct": false
-			},
-			{
-				"content": "we can leave the sooner",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "We need _______ information about this English course.",
-		"answers": [
-			{
-				"content": "far",
-				"is_correct": false
-			},
-			{
-				"content": "father",
-				"is_correct": false
-			},
-			{
-				"content": "further",
-				"is_correct": true
-			},
-			{
-				"content": "farer",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "Robert does not have _______ Peter does.",
-		"answers": [
-			{
-				"content": "money more than",
-				"is_correct": false
-			},
-			{
-				"content": "as many money as      ",
-				"is_correct": false
-			},
-			{
-				"content": "more money as",
-				"is_correct": false
-			},
-			{
-				"content": "as much money as",
-				"is_correct": true
-			}
-		]
-	},
-	{
-		"content": "The Mekong Delta is _______ deltas in Vietnam.",
-		"answers": [
-			{
-				"content": "the largest of the two",
-				"is_correct": false
-			},
-			{
-				"content": "the more larger of the two     ",
-				"is_correct": false
-			},
-			{
-				"content": "one of the two largest",
-				"is_correct": true
-			},
-			{
-				"content": "one of the two larger",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "She is _______ a spectator.",
-		"answers": [
-			{
-				"content": "more an athlete than               ",
-				"is_correct": false
-			},
-			{
-				"content": "more of an athlete than          ",
-				"is_correct": true
-			},
-			{
-				"content": "an athlete more than   ",
-				"is_correct": false
-			},
-			{
-				"content": "an athlete of more than",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "His house is _______ mine.",
-		"answers": [
-			{
-				"content": "twice as big as            ",
-				"is_correct": true
-			},
-			{
-				"content": "as twice big as",
-				"is_correct": false
-			},
-			{
-				"content": "as two times big as",
-				"is_correct": false
-			},
-			{
-				"content": "as big as twice",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "I feel _______ I did yesterday.",
-		"answers": [
-			{
-				"content": "much more tired than",
-				"is_correct": true
-			},
-			{
-				"content": "many more tired than ",
-				"is_correct": false
-			},
-			{
-				"content": "as many tired as",
-				"is_correct": false
-			},
-			{
-				"content": "as more tired as",
-				"is_correct": false
-			}
-		]
-	},
-	{
-		"content": "The Sears Tower is _______ building in Chicago.",
-		"answers": [
-			{
-				"content": "taller",
-				"is_correct": false
-			},
-			{
-				"content": "the more tall",
-				"is_correct": false
-			},
-			{
-				"content": "the tallest                    ",
-				"is_correct": true
-			},
-			{
-				"content": "taller and taller",
-				"is_correct": false
-			}
-		]
-	}
+    {
+        "content": "As she did so, her parents became _______.",
+        "answers": [
+            {
+                "content": "the angriest",
+                "is_correct": false
+            },
+            {
+                "content": "the most angry",
+                "is_correct": false
+            },
+            {
+                "content": "the more angry",
+                "is_correct": false
+            },
+            {
+                "content": "angrier and angrier",
+                "is_correct": true
+            }
+        ]
+    },
+    {
+        "content": "People should eat ____ and do ____ to reduce the risk of heart disease.",
+        "answers": [
+            {
+                "content": "less fat / more exercise                       ",
+                "is_correct": true
+            },
+            {
+                "content": "less and less fat / the more exercise",
+                "is_correct": false
+            },
+            {
+                "content": "the less fat / the more exercise",
+                "is_correct": false
+            },
+            {
+                "content": "fatter / more exercise",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "It gets _______ to understand what the professor has explained.",
+        "answers": [
+            {
+                "content": "the more difficult",
+                "is_correct": false
+            },
+            {
+                "content": "more difficult than     ",
+                "is_correct": false
+            },
+            {
+                "content": "difficult more and more         ",
+                "is_correct": false
+            },
+            {
+                "content": "more and more difficult",
+                "is_correct": true
+            }
+        ]
+    },
+    {
+        "content": "Thanks to the progress of science and technology, our lives have become _______.",
+        "answers": [
+            {
+                "content": "more and more good  ",
+                "is_correct": false
+            },
+            {
+                "content": "better and better         ",
+                "is_correct": true
+            },
+            {
+                "content": "the more and more good        ",
+                "is_correct": false
+            },
+            {
+                "content": "gooder and gooder",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "Peter is _______ John.",
+        "answers": [
+            {
+                "content": "younger and more intelligent than",
+                "is_correct": true
+            },
+            {
+                "content": "more young and intelligent than",
+                "is_correct": false
+            },
+            {
+                "content": "more intelligent and younger than",
+                "is_correct": false
+            },
+            {
+                "content": "the more intelligent and younger than",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "It gets _______ when the winter is coming.",
+        "answers": [
+            {
+                "content": "cold and cold",
+                "is_correct": false
+            },
+            {
+                "content": "the coldest and coldest",
+                "is_correct": false
+            },
+            {
+                "content": "colder and colder",
+                "is_correct": true
+            },
+            {
+                "content": "more and more cold",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "The climber was seventy miles in the wrong direction and got _______.",
+        "answers": [
+            {
+                "content": "more panicked            ",
+                "is_correct": false
+            },
+            {
+                "content": "the more panicked",
+                "is_correct": false
+            },
+            {
+                "content": "more than panicked    ",
+                "is_correct": false
+            },
+            {
+                "content": "more and more panicked",
+                "is_correct": true
+            }
+        ]
+    },
+    {
+        "content": "My neighbor is driving me mad! It seems that _______ it is at night, _______ he plays his music!",
+        "answers": [
+            {
+                "content": "the less / the more loud          ",
+                "is_correct": false
+            },
+            {
+                "content": "the less / less",
+                "is_correct": false
+            },
+            {
+                "content": "the more late / the more loudlier                    ",
+                "is_correct": false
+            },
+            {
+                "content": "the later / the louder",
+                "is_correct": true
+            }
+        ]
+    },
+    {
+        "content": "He spent a year in India and loves spicy food. _______ the food is, _______ he likes it.",
+        "answers": [
+            {
+                "content": "The hotter / the more and more",
+                "is_correct": false
+            },
+            {
+                "content": "The hotter / the more",
+                "is_correct": true
+            },
+            {
+                "content": "The more and more hot / the more",
+                "is_correct": false
+            },
+            {
+                "content": "The hottest / the most",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "Of course, you can come to the party. _______.",
+        "answers": [
+            {
+                "content": "The more the merrier  ",
+                "is_correct": true
+            },
+            {
+                "content": "The more, the merrier",
+                "is_correct": false
+            },
+            {
+                "content": "The more and merrier",
+                "is_correct": false
+            },
+            {
+                "content": "The more and more merrier",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "You must drive slower in built up areas. _______ you drive in the city, it is _______ that you will have an accident.",
+        "answers": [
+            {
+                "content": "The faster and faster / the more                     ",
+                "is_correct": false
+            },
+            {
+                "content": "The faster / the more probable",
+                "is_correct": true
+            },
+            {
+                "content": "The more and more fast / the more and more probable",
+                "is_correct": false
+            },
+            {
+                "content": "The more fastly / the probable",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "Earning money has always been the thing that pleases him most. _____ he becomes, _____he is.",
+        "answers": [
+            {
+                "content": "The more rich / the more happy         ",
+                "is_correct": false
+            },
+            {
+                "content": "The richest / the happiest",
+                "is_correct": false
+            },
+            {
+                "content": "The richer / the happier",
+                "is_correct": true
+            },
+            {
+                "content": "Richer and richer / happier and happier",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "The faster we finish, _______.",
+        "answers": [
+            {
+                "content": "the sooner we can leave         ",
+                "is_correct": true
+            },
+            {
+                "content": "we can leave sooner and sooner",
+                "is_correct": false
+            },
+            {
+                "content": "the sooner can we leave                     ",
+                "is_correct": false
+            },
+            {
+                "content": "we can leave the sooner",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "We need _______ information about this English course.",
+        "answers": [
+            {
+                "content": "far",
+                "is_correct": false
+            },
+            {
+                "content": "father",
+                "is_correct": false
+            },
+            {
+                "content": "further",
+                "is_correct": true
+            },
+            {
+                "content": "farer",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "Robert does not have _______ Peter does.",
+        "answers": [
+            {
+                "content": "money more than",
+                "is_correct": false
+            },
+            {
+                "content": "as many money as      ",
+                "is_correct": false
+            },
+            {
+                "content": "more money as",
+                "is_correct": false
+            },
+            {
+                "content": "as much money as",
+                "is_correct": true
+            }
+        ]
+    },
+    {
+        "content": "The Mekong Delta is _______ deltas in Vietnam.",
+        "answers": [
+            {
+                "content": "the largest of the two",
+                "is_correct": false
+            },
+            {
+                "content": "the more larger of the two     ",
+                "is_correct": false
+            },
+            {
+                "content": "one of the two largest",
+                "is_correct": true
+            },
+            {
+                "content": "one of the two larger",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "She is _______ a spectator.",
+        "answers": [
+            {
+                "content": "more an athlete than               ",
+                "is_correct": false
+            },
+            {
+                "content": "more of an athlete than          ",
+                "is_correct": true
+            },
+            {
+                "content": "an athlete more than   ",
+                "is_correct": false
+            },
+            {
+                "content": "an athlete of more than",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "His house is _______ mine.",
+        "answers": [
+            {
+                "content": "twice as big as            ",
+                "is_correct": true
+            },
+            {
+                "content": "as twice big as",
+                "is_correct": false
+            },
+            {
+                "content": "as two times big as",
+                "is_correct": false
+            },
+            {
+                "content": "as big as twice",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "I feel _______ I did yesterday.",
+        "answers": [
+            {
+                "content": "much more tired than",
+                "is_correct": true
+            },
+            {
+                "content": "many more tired than ",
+                "is_correct": false
+            },
+            {
+                "content": "as many tired as",
+                "is_correct": false
+            },
+            {
+                "content": "as more tired as",
+                "is_correct": false
+            }
+        ]
+    },
+    {
+        "content": "The Sears Tower is _______ building in Chicago.",
+        "answers": [
+            {
+                "content": "taller",
+                "is_correct": false
+            },
+            {
+                "content": "the more tall",
+                "is_correct": false
+            },
+            {
+                "content": "the tallest                    ",
+                "is_correct": true
+            },
+            {
+                "content": "taller and taller",
+                "is_correct": false
+            }
+        ]
+    }
 ]

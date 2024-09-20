@@ -31,41 +31,41 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Faculty extends Model
 {
-	use Searchable;
-	protected $table = 'faculties';
+    use Searchable;
+    protected $table = 'faculties';
 
-	protected $searchable = [
-		'shortcode',
-		'name',
-	];
+    protected $searchable = [
+        'shortcode',
+        'name',
+    ];
 
-	protected function casts()
-	{
-		return [
-			'leader_id' => 'int'
-		];
-	}
+    protected function casts()
+    {
+        return [
+            'leader_id' => 'int'
+        ];
+    }
 
-	protected $fillable = [
-		'shortcode',
-		'name',
-		'email',
-		'phone_number',
-		'leader_id'
-	];
+    protected $fillable = [
+        'shortcode',
+        'name',
+        'email',
+        'phone_number',
+        'leader_id'
+    ];
 
-	public function leader()
-	{
-		return $this->belongsTo(User::class, 'leader_id');
-	}
+    public function leader()
+    {
+        return $this->belongsTo(User::class, 'leader_id');
+    }
 
-	public function school_classes()
-	{
-		return $this->hasMany(SchoolClass::class);
-	}
+    public function school_classes()
+    {
+        return $this->hasMany(SchoolClass::class);
+    }
 
-	public function users()
-	{
-		return $this->hasMany(User::class);
-	}
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

@@ -9,16 +9,16 @@ const fileList = fs.readdirSync(dir);
 const langModels = [];
 
 fileList.forEach(file => {
-	const fileName = path.parse(file).name;
-	langModels.push(
-		`'${fileName}': typeof import('../../assets/langs/en/${file}').default;`
-	);
+    const fileName = path.parse(file).name;
+    langModels.push(
+        `'${fileName}': typeof import('../../assets/langs/en/${file}').default;`
+    );
 });
 
 const result = [
-	'export type Language = {',
-	'\t@data',
-	'}'
+    'export type Language = {',
+    '\t@data',
+    '}'
 ].join('\n');
 
 fs.writeFileSync(targetModelFile, result.replace('@data', langModels.join('\n\t')) + '\n');

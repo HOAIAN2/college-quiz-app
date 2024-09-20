@@ -12,104 +12,104 @@ use Illuminate\Support\Facades\DB;
 
 class SubjectController extends Controller
 {
-	public function index(Request $request)
-	{
-		$user = $this->getUser();
-		abort_if(!$user->hasPermission('subject_view'), 403);
+    public function index(Request $request)
+    {
+        $user = $this->getUser();
+        abort_if(!$user->hasPermission('subject_view'), 403);
 
-		$subjects = Subject::select('*');
+        $subjects = Subject::select('*');
 
-		try {
-			if ($request->search != null) {
-				$subjects = $subjects->whereFullText(Subject::FULLTEXT, $request->search);
-			}
-			$subjects = $subjects
-				->limit($this->defaultLimit)
-				->get();
-			return Reply::successWithData($subjects, '');
-		} catch (\Exception $error) {
-			return $this->handleException($error);
-		}
-	}
+        try {
+            if ($request->search != null) {
+                $subjects = $subjects->whereFullText(Subject::FULLTEXT, $request->search);
+            }
+            $subjects = $subjects
+                ->limit($this->defaultLimit)
+                ->get();
+            return Reply::successWithData($subjects, '');
+        } catch (\Exception $error) {
+            return $this->handleException($error);
+        }
+    }
 
-	public function store(StoreRequest $request)
-	{
-		$user = $this->getUser();
-		abort_if(!$user->hasPermission('subject_create'), 403);
+    public function store(StoreRequest $request)
+    {
+        $user = $this->getUser();
+        abort_if(!$user->hasPermission('subject_create'), 403);
 
-		DB::beginTransaction();
-		try {
-			Subject::create($request->validated());
-			DB::commit();
-			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Exception $error) {
-			DB::rollBack();
-			return $this->handleException($error);
-		}
-	}
+        DB::beginTransaction();
+        try {
+            Subject::create($request->validated());
+            DB::commit();
+            return Reply::successWithMessage('app.successes.record_save_success');
+        } catch (\Exception $error) {
+            DB::rollBack();
+            return $this->handleException($error);
+        }
+    }
 
-	public function show(string $id)
-	{
-		$user = $this->getUser();
-		abort_if(!$user->hasPermission('subject_view'), 403);
+    public function show(string $id)
+    {
+        $user = $this->getUser();
+        abort_if(!$user->hasPermission('subject_view'), 403);
 
-		try {
-			$subject = Subject::with([
-				'chapters' => function ($query) {
-					$query->withCount(['questions']);
-				}
-			])->findOrFail($id);
-			return Reply::successWithData($subject, '');
-		} catch (\Exception $error) {
-			return $this->handleException($error);
-		}
-	}
+        try {
+            $subject = Subject::with([
+                'chapters' => function ($query) {
+                    $query->withCount(['questions']);
+                }
+            ])->findOrFail($id);
+            return Reply::successWithData($subject, '');
+        } catch (\Exception $error) {
+            return $this->handleException($error);
+        }
+    }
 
-	public function update(UpdateRequest $request, string $id)
-	{
-		$user = $this->getUser();
-		abort_if(!$user->hasPermission('subject_update'), 403);
+    public function update(UpdateRequest $request, string $id)
+    {
+        $user = $this->getUser();
+        abort_if(!$user->hasPermission('subject_update'), 403);
 
-		DB::beginTransaction();
-		try {
-			$subject = Subject::findOrFail($id);
-			$subject->update($request->validated());
-			DB::commit();
-			return Reply::successWithMessage('app.successes.record_save_success');
-		} catch (\Exception $error) {
-			DB::rollBack();
-			return $this->handleException($error);
-		}
-	}
+        DB::beginTransaction();
+        try {
+            $subject = Subject::findOrFail($id);
+            $subject->update($request->validated());
+            DB::commit();
+            return Reply::successWithMessage('app.successes.record_save_success');
+        } catch (\Exception $error) {
+            DB::rollBack();
+            return $this->handleException($error);
+        }
+    }
 
-	public function destroy(string $id)
-	{
-		$user = $this->getUser();
-		abort_if(!$user->hasPermission('subject_delete'), 403);
+    public function destroy(string $id)
+    {
+        $user = $this->getUser();
+        abort_if(!$user->hasPermission('subject_delete'), 403);
 
-		DB::beginTransaction();
-		try {
-			Subject::destroy($id);
-			DB::commit();
-			return Reply::successWithMessage('app.successes.record_delete_success');
-		} catch (\Exception $error) {
-			DB::rollBack();
-			return $this->handleException($error);
-		}
-	}
+        DB::beginTransaction();
+        try {
+            Subject::destroy($id);
+            DB::commit();
+            return Reply::successWithMessage('app.successes.record_delete_success');
+        } catch (\Exception $error) {
+            DB::rollBack();
+            return $this->handleException($error);
+        }
+    }
 
-	public function autocomplete(Request $request)
-	{
-		$user = $this->getUser();
-		abort_if(!$user->hasPermission('subject_view'), 403);
+    public function autocomplete(Request $request)
+    {
+        $user = $this->getUser();
+        abort_if(!$user->hasPermission('subject_view'), 403);
 
-		try {
-			$users = Subject::search($request->search)
-				->take($this->autoCompleteResultLimit)
-				->get();
-			return Reply::successWithData($users, '');
-		} catch (\Exception $error) {
-			return $this->handleException($error);
-		}
-	}
+        try {
+            $users = Subject::search($request->search)
+                ->take($this->autoCompleteResultLimit)
+                ->get();
+            return Reply::successWithData($users, '');
+        } catch (\Exception $error) {
+            return $this->handleException($error);
+        }
+    }
 }

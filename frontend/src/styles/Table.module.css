@@ -1,153 +1,153 @@
 .tableContent {
-	max-width: 100%;
-	margin: 0 auto;
-	width: fit-content;
-	height: fit-content;
-	padding: 15px;
-	border-radius: var(--border-radius-low);
-	box-shadow: 0px 0px 10px var(--color-shadow);
-	border: 1px solid var(--color-white);
-	background: white;
-	overflow-x: auto;
+    max-width: 100%;
+    margin: 0 auto;
+    width: fit-content;
+    height: fit-content;
+    padding: 15px;
+    border-radius: var(--border-radius-low);
+    box-shadow: 0px 0px 10px var(--color-shadow);
+    border: 1px solid var(--color-white);
+    background: white;
+    overflow-x: auto;
 }
 
 .main {
-	display: block;
-	width: fit-content;
-	height: fit-content;
-	border-collapse: collapse;
+    display: block;
+    width: fit-content;
+    height: fit-content;
+    border-collapse: collapse;
 }
 
 .main>tbody {
-	width: fit-content;
+    width: fit-content;
 }
 
 .main>tbody>tr,
 th {
-	height: 30px;
+    height: 30px;
 }
 
 .main>tbody>tr {
-	border-bottom: 1px solid var(--color-shadow);
-	cursor: pointer;
+    border-bottom: 1px solid var(--color-shadow);
+    cursor: pointer;
 }
 
 .main>tbody>tr:hover {
-	opacity: 0.8;
+    opacity: 0.8;
 }
 
 .columnId,
 .columnSelect {
-	width: 30px;
-	text-align: center;
+    width: 30px;
+    text-align: center;
 }
 
 .columnStatus {
-	width: 50px;
-	white-space: nowrap;
+    width: 50px;
+    white-space: nowrap;
 }
 
 .column {
-	white-space: nowrap;
-	height: 30px;
-	overflow: hidden;
-	text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .column.tiny {
-	width: 30px;
+    width: 30px;
 }
 
 .column.small {
-	width: 50px;
+    width: 50px;
 }
 
 .column.medium {
-	width: 100px;
-	padding-left: 15px;
+    width: 100px;
+    padding-left: 15px;
 }
 
 .column.large {
-	width: 150px;
-	padding-left: 15px;
+    width: 150px;
+    padding-left: 15px;
 }
 
 .column.superLarge {
-	width: 250px;
-	padding-left: 15px;
+    width: 250px;
+    padding-left: 15px;
 }
 
 .columnSelect {
-	min-width: 40px;
+    min-width: 40px;
 }
 
 .columnSelect>input {
-	accent-color: var(--color-primary);
-	cursor: pointer;
+    accent-color: var(--color-primary);
+    cursor: pointer;
 }
 
 .columnContentStatus {
-	width: 70px;
-	height: 30px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin: 0 auto;
+    width: 70px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
 }
 
 .columnContentName>svg {
-	margin-right: 5px;
+    margin-right: 5px;
 }
 
 .columnContentName.male>svg {
-	color: blue;
+    color: blue;
 }
 
 .columnContentName.female>svg {
-	color: rgb(235, 112, 132);
+    color: rgb(235, 112, 132);
 }
 
 .tableFooter {
-	margin-top: 15px;
+    margin-top: 15px;
 }
 
 .tableLinks {
-	width: fit-content;
-	height: 30px;
-	margin-top: 10px;
-	display: flex;
-	gap: 5px;
+    width: fit-content;
+    height: 30px;
+    margin-top: 10px;
+    display: flex;
+    gap: 5px;
 }
 
 .linkContent {
-	display: flex;
-	justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .tableLinks>.linkContent>button {
-	margin: unset;
-	height: 30px;
-	width: 30px;
-	color: white;
-	cursor: pointer;
-	border: none;
-	outline: none;
+    margin: unset;
+    height: 30px;
+    width: 30px;
+    color: white;
+    cursor: pointer;
+    border: none;
+    outline: none;
 }
 
 .tableLinks>.linkContent>button.inactive {
-	background: none;
-	box-shadow: none;
-	border: none;
-	color: black;
+    background: none;
+    box-shadow: none;
+    border: none;
+    color: black;
 }
 
 .tableLinks>.linkContent>button.nextPrevious {
-	color: black;
-	background: none;
-	border: none;
-	outline: none;
+    color: black;
+    background: none;
+    border: none;
+    outline: none;
 }
 
 .tableLinks>.linkContent>button.nextPrevious>svg {
-	margin-top: 5px;
+    margin-top: 5px;
 }

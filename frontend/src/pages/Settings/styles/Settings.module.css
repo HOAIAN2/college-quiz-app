@@ -1,69 +1,69 @@
 .pageContent {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	gap: 10px;
-	position: relative;
-	background: white;
-	padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 10px;
+    position: relative;
+    background: white;
+    padding: 0;
 }
 
 .navBar {
-	flex: 1;
-	max-width: 230px;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	padding: 10px;
-	background: white;
-	/* border-right: 1px solid var(--color-gray); */
-	overflow: auto;
+    flex: 1;
+    max-width: 230px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    background: white;
+    /* border-right: 1px solid var(--color-gray); */
+    overflow: auto;
 }
 
 .navBar:only-child {
-	flex-grow: 1;
-	max-width: 100%;
+    flex-grow: 1;
+    max-width: 100%;
 }
 
 .listItem {
-	width: 100%;
-	height: 50px;
-	cursor: pointer;
-	border-radius: var(--border-radius-low);
-	position: relative;
-	margin: 10px auto;
+    width: 100%;
+    height: 50px;
+    cursor: pointer;
+    border-radius: var(--border-radius-low);
+    position: relative;
+    margin: 10px auto;
 }
 
 .listItem:hover {
-	background-color: var(--color-white);
+    background-color: var(--color-white);
 }
 
 .listItem.current {
-	background-color: var(--color-white);
-	font-weight: bold;
+    background-color: var(--color-white);
+    font-weight: bold;
 }
 
 .listItem>a {
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	padding-left: 10px;
-	display: flex;
-	align-items: center;
-	gap: 20px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .listItem>a>svg {
-	font-size: 24px;
+    font-size: 24px;
 }
 
 .settingContent {
-	flex: 1;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 10px;
-	overflow-y: auto;
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    overflow-y: auto;
 }

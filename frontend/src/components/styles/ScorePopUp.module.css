@@ -1,154 +1,154 @@
 .scorePopupContainer {
-	width: 100vw;
-	height: 100vh;
-	position: fixed;
-	top: 0;
-	left: 0;
-	background: rgba(0, 0, 0, 0.5);
-	z-index: 10;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	overflow-y: scroll;
-	transition: var(--transition-timing-fast);
-	transition-property: background, opacity;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+    transition: var(--transition-timing-fast);
+    transition-property: background, opacity;
 }
 
 .scoreContent {
-	width: 300px;
-	height: fit-content;
-	background-color: white;
-	border-radius: var(--border-radius-low);
-	transform-origin: center center;
-	transition: var(--transition-timing-medium);
-	overflow-y: hidden;
-	animation: score-pop-up-animation 0.5s ease;
+    width: 300px;
+    height: fit-content;
+    background-color: white;
+    border-radius: var(--border-radius-low);
+    transform-origin: center center;
+    transition: var(--transition-timing-medium);
+    overflow-y: hidden;
+    animation: score-pop-up-animation 0.5s ease;
 }
 
 .title {
-	height: 40px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .title>h2 {
-	font-size: 18px !important;
-	text-align: center;
+    font-size: 18px !important;
+    text-align: center;
 }
 
 .contentData {
-	height: calc(100% - 40px);
+    height: calc(100% - 40px);
 }
 
 .groupData {
-	height: calc(100% - 60px);
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+    height: calc(100% - 60px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .groupItems {
-	flex: 0 0 calc(25% - 20px);
-	width: 80%;
-	padding: 20px;
-	height: 150px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 10px;
+    flex: 0 0 calc(25% - 20px);
+    width: 80%;
+    padding: 20px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 .label {
-	font-size: 20px !important;
-	font-weight: bold;
+    font-size: 20px !important;
+    font-weight: bold;
 }
 
 .score {
-	width: max-content;
-	padding: 10px;
-	border-radius: var(--border-radius-low);
-	color: white;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 32px !important;
-	font-weight: bold;
-	position: relative;
+    width: max-content;
+    padding: 10px;
+    border-radius: var(--border-radius-low);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px !important;
+    font-weight: bold;
+    position: relative;
 }
 
 .score::after {
-	content: '';
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	opacity: 0.2;
-	border-radius: var(--border-radius-low);
-	z-index: 10;
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.2;
+    border-radius: var(--border-radius-low);
+    z-index: 10;
 }
 
 
 .score.green {
-	color: var(--color-soft-green);
+    color: var(--color-soft-green);
 }
 
 .score.green::after {
-	background: var(--color-soft-green);
+    background: var(--color-soft-green);
 }
 
 .score.yellow {
-	color: var(--color-soft-yellow);
+    color: var(--color-soft-yellow);
 }
 
 .score.yellow::after {
-	background: var(--color-soft-yellow);
+    background: var(--color-soft-yellow);
 }
 
 .score.red {
-	color: var(--color-soft-red);
+    color: var(--color-soft-red);
 }
 
 .score.red::after {
-	background: var(--color-soft-red);
+    background: var(--color-soft-red);
 }
 
 .actionItems {
-	height: 60px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: row-reverse;
-	gap: 10px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
+    gap: 10px;
 }
 
 .actionItems>button {
-	width: fit-content;
-	min-width: 80px;
-	height: 40px;
-	display: flex;
-	align-items: center;
-	gap: 5px;
-	padding: 0px 10px 00px 10px;
+    width: fit-content;
+    min-width: 80px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0px 10px 00px 10px;
 }
 
 @keyframes score-pop-up-animation {
-	0% {
-		scale: 0.1;
-		opacity: 0.1;
-		translate: 0 200px;
-	}
+    0% {
+        scale: 0.1;
+        opacity: 0.1;
+        translate: 0 200px;
+    }
 
-	70% {
-		scale: 1.15;
-		opacity: 1;
-	}
+    70% {
+        scale: 1.15;
+        opacity: 1;
+    }
 
-	100% {
-		scale: 1;
-		opacity: 1;
-		translate: unset;
-	}
+    100% {
+        scale: 1;
+        opacity: 1;
+        translate: unset;
+    }
 }

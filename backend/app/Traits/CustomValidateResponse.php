@@ -10,24 +10,24 @@ use Illuminate\Support\Str;
 
 trait CustomValidateResponse
 {
-	protected function failedValidation(Validator $validator)
-	{
-		throw new HttpResponseException(response()->json([
-			'message' => $validator->errors()->first(),
-			'errors' => $validator->errors(),
-		], 422));
-	}
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'message' => $validator->errors()->first(),
+            'errors' => $validator->errors(),
+        ], 422));
+    }
 
-	protected function prepareForValidation(): void
-	{
-		$data = $this->all();
+    protected function prepareForValidation(): void
+    {
+        $data = $this->all();
 
-		foreach ($data as $key => $value) {
-			if (Str::contains($key, 'date') && App::getLocale() == 'vi') {
-				$data[$key] = Str::replace('/', '-', $value);
-			}
-		}
+        foreach ($data as $key => $value) {
+            if (Str::contains($key, 'date') && App::getLocale() == 'vi') {
+                $data[$key] = Str::replace('/', '-', $value);
+            }
+        }
 
-		$this->merge($data);
-	}
+        $this->merge($data);
+    }
 }

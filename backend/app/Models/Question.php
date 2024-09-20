@@ -34,64 +34,64 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Question extends Model
 {
-	const FULLTEXT = ['content'];
+    const FULLTEXT = ['content'];
 
-	protected $table = 'questions';
+    protected $table = 'questions';
 
-	protected function casts()
-	{
-		return [
-			'created_by' => 'int',
-			'last_updated_by' => 'int',
-			'subject_id' => 'int',
-			'chapter_id' => 'int'
-		];
-	}
+    protected function casts()
+    {
+        return [
+            'created_by' => 'int',
+            'last_updated_by' => 'int',
+            'subject_id' => 'int',
+            'chapter_id' => 'int'
+        ];
+    }
 
-	protected $fillable = [
-		'created_by',
-		'last_updated_by',
-		'subject_id',
-		'chapter_id',
-		'level',
-		'content'
-	];
+    protected $fillable = [
+        'created_by',
+        'last_updated_by',
+        'subject_id',
+        'chapter_id',
+        'level',
+        'content'
+    ];
 
-	public function chapter()
-	{
-		return $this->belongsTo(Chapter::class);
-	}
+    public function chapter()
+    {
+        return $this->belongsTo(Chapter::class);
+    }
 
-	public function created_by()
-	{
-		return $this->belongsTo(User::class, 'created_by');
-	}
+    public function created_by()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 
-	public function last_updated_by()
-	{
-		return $this->belongsTo(User::class, 'last_updated_by');
-	}
+    public function last_updated_by()
+    {
+        return $this->belongsTo(User::class, 'last_updated_by');
+    }
 
-	public function subject()
-	{
-		return $this->belongsTo(Subject::class);
-	}
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
 
-	public function exams()
-	{
-		return $this->belongsToMany(Exam::class, 'exam_questions')
-			->withPivot('id')
-			->withTimestamps();
-	}
+    public function exams()
+    {
+        return $this->belongsToMany(Exam::class, 'exam_questions')
+            ->withPivot('id')
+            ->withTimestamps();
+    }
 
-	public function question_options()
-	{
-		return $this->hasMany(QuestionOption::class);
-	}
+    public function question_options()
+    {
+        return $this->hasMany(QuestionOption::class);
+    }
 
-	public function hasOption($id)
-	{
-		return $this->id == QuestionOption::where('id', '=', $id)
-			->pluck('id')->first();
-	}
+    public function hasOption($id)
+    {
+        return $this->id == QuestionOption::where('id', '=', $id)
+            ->pluck('id')->first();
+    }
 }

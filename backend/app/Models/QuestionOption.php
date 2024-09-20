@@ -27,34 +27,34 @@ use Illuminate\Database\Eloquent\Model;
  */
 class QuestionOption extends Model
 {
-	protected $table = 'question_options';
+    protected $table = 'question_options';
 
-	protected function casts()
-	{
-		return [
-			'question_id' => 'int',
-			'is_correct' => 'bool'
-		];
-	}
+    protected function casts()
+    {
+        return [
+            'question_id' => 'int',
+            'is_correct' => 'bool'
+        ];
+    }
 
-	protected $fillable = [
-		'question_id',
-		'content',
-		'is_correct'
-	];
+    protected $fillable = [
+        'question_id',
+        'content',
+        'is_correct'
+    ];
 
-	protected $hidden = [
-		'created_at',
-		'updated_at'
-	];
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
 
-	public function question()
-	{
-		return $this->belongsTo(Question::class);
-	}
+    public function question()
+    {
+        return $this->belongsTo(Question::class);
+    }
 
-	public function exam_questions_answers()
-	{
-		return $this->hasMany(ExamQuestionsAnswer::class, 'answer_id');
-	}
+    public function exam_questions_answers()
+    {
+        return $this->hasMany(ExamQuestionsAnswer::class, 'answer_id');
+    }
 }
