@@ -21,10 +21,15 @@ trait CustomValidateResponse
     protected function prepareForValidation(): void
     {
         $data = $this->all();
+        $rules = $this->rules();
 
-        foreach ($data as $key => $value) {
-            if (Str::contains($key, 'date') && App::getLocale() == 'vi') {
-                $data[$key] = Str::replace('/', '-', $value);
+        if (App::getLocale() == 'vi') {
+            foreach ($rules as $key => $rule_set) {
+                if (is_array($rule_set) && in_array('date', $rule_set)) {
+                    $data[$key] = Str::replace('/', '-', $data[$key]);
+                } elseif (is_string($rule_set) && Str::contains($rule_set, 'date')) {
+                    $data[$key] = Str::replace('/', '-', $data[$key]);
+                }
             }
         }
 
