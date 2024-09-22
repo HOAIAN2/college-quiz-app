@@ -19,14 +19,16 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
         ]);
 
-        $this->call([
-            FacultySeeder::class,
-            ShoolClassSeeder::class,
-            SubjectSeeder::class,
-            ChapterSeeder::class,
-            StudentSeeder::class,
-            TeacherSeeder::class,
-            QuestionSeeder::class,
-        ]);
+        if (config('custom.app.demo')) {
+            $this->call([
+                FacultySeeder::class,
+                ShoolClassSeeder::class,
+                SubjectSeeder::class,
+                ChapterSeeder::class,
+                StudentSeeder::class,
+                TeacherSeeder::class,
+                QuestionSeeder::class,
+            ]);
+        }
     }
 }
