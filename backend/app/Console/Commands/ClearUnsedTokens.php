@@ -28,7 +28,7 @@ class ClearUnsedTokens extends Command
     public function handle()
     {
         $token_expiration_minutes = config('custom.app.token_expiration_minutes');
-        if ($token_expiration_minutes == null) return;
+        if (!$token_expiration_minutes) return;
 
         $user_id = auth('sanctum')->id();
         if ($user_id == null) return;
