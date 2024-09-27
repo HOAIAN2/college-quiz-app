@@ -42,7 +42,8 @@ RUN composer install --optimize-autoloader --no-dev && \
     php artisan view:clear && \
     rm -f storage/logs/laravel.log && \
     rm -rf storage/framework/sessions/* && \
-    php artisan optimize
+    php artisan optimize && \
+    rm /usr/local/bin/composer
 
 # Copy the built frontend assets to the Laravel public directory
 COPY --from=node-builder /app/dist /var/www/college-quiz-app/public
