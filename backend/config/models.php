@@ -229,9 +229,7 @@ return [
         */
 
         'hidden' => [
-            '*secret*',
-            '*password',
-            '*token',
+            '*secret*', '*password', '*token',
         ],
 
         /*
@@ -343,7 +341,9 @@ return [
         |     'billing_invoices' => 'Invoice',
         */
 
-        'model_names' => [],
+        'model_names' => [
+
+        ],
 
         /*
         |--------------------------------------------------------------------------
@@ -396,6 +396,19 @@ return [
         'with_property_constants' => false,
 
         /*
+         |--------------------------------------------------------------------------
+         | Optionally includes a full list of columns in the base generated models,
+         | which can be used to avoid making calls like
+         |
+         | ...
+         | \Illuminate\Support\Facades\Schema::getColumnListing
+         | ...
+         |
+         | which can be slow, especially for large tables.
+         */
+        'with_column_list' => false,
+
+        /*
         |--------------------------------------------------------------------------
         | Disable Pluralization Name
         |--------------------------------------------------------------------------
@@ -413,7 +426,9 @@ return [
         | You can enable pluralization for certain tables
         |
         */
-        'override_pluralize_for' => [],
+        'override_pluralize_for' => [
+
+        ],
 
         /*
         |--------------------------------------------------------------------------
@@ -502,18 +517,18 @@ return [
     |
     */
 
-    //    'connections' => [
-    //        'read_only_external' => [
-    //            'parent' => \App\Models\ReadOnlyModel::class,
-    //            'connection' => true,
-    //            'users' => [
-    //                'connection' => false,
-    //            ],
-    //            'my_other_database' => [
-    //                'password_resets' => [
-    //                    'connection' => false,
-    //                ]
-    //            ]
-    //        ],
-    //    ],
+//    'connections' => [
+//        'read_only_external' => [
+//            'parent' => \App\Models\ReadOnlyModel::class,
+//            'connection' => true,
+//            'users' => [
+//                'connection' => false,
+//            ],
+//            'my_other_database' => [
+//                'password_resets' => [
+//                    'connection' => false,
+//                ]
+//            ]
+//        ],
+//    ],
 ];
