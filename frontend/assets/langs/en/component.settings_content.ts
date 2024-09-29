@@ -12,5 +12,6 @@ export default {
     lastActivedAt: 'Last active',
     userAgent: 'User Agent',
     revoke: 'Revoke',
-    currentSession: 'Current session'
+    currentSession: 'Current session',
+    primaryColor: 'Primary color'
 };

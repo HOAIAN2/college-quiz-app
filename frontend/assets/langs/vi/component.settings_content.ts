@@ -12,5 +12,6 @@ export default {
     lastActivedAt: 'Hoạt động gần nhất',
     userAgent: 'User Agent',
     revoke: 'Hủy bỏ',
-    currentSession: 'Phiên hiện tại'
+    currentSession: 'Phiên hiện tại',
+    primaryColor: 'Màu chủ đạo',
 };

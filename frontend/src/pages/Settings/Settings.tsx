@@ -4,6 +4,7 @@ import styles from './styles/Settings.module.css';
 import { useEffect, useState } from 'react';
 import { HiOutlineWrenchScrewdriver } from 'react-icons/hi2';
 import { IoMdNotificationsOutline } from 'react-icons/io';
+import { IoColorPaletteOutline } from 'react-icons/io5';
 import { MdOutlineSecurity } from 'react-icons/md';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import useAppContext from '~hooks/useAppContext';
@@ -36,6 +37,12 @@ export default function Settings() {
             name: language?.security,
             to: 'security',
             icon: <MdOutlineSecurity />,
+            isActive: true
+        },
+        {
+            name: language?.theme,
+            to: 'theme',
+            icon: <IoColorPaletteOutline />,
             isActive: true
         },
     ];
