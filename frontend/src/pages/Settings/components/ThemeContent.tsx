@@ -30,7 +30,7 @@ export default function ThemeContent() {
                             return (
                                 <div
                                     key={color}
-                                    onClick={() => { themeUtils.setVariable('color-primary', color); }}
+                                    onClick={() => { themeUtils.setPrimaryColor(color); }}
                                     style={{
                                         cursor: 'pointer',
                                         width: '50px',

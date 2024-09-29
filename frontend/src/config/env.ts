@@ -12,3 +12,4 @@ export const API_HOST = env.VITE_API_HOST ? env.VITE_API_HOST
         window.location.origin;
 export const AUTO_COMPLETE_DEBOUNCE = Number(env.VITE_AUTO_COMPLETE_DEBOUNCE);
 export const BASE_SCORE_SCALE = Number(env.VITE_BASE_SCORE_SCALE);
+export const PRIMARY_COLOR_KEY = env.VITE_PRIMARY_COLOR_KEY as string;
