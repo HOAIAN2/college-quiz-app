@@ -20,7 +20,6 @@ import VerifyEmail from './pages/Auth/VerifyEmail';
 import NotFound from './pages/Errors/NotFound';
 import Profile from './pages/Profile/Profile';
 
-
 const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
 const Users = lazy(() => import('./pages/Users/Users'));
 const Permissisons = lazy(() => import('./pages/Permissisons/Permissisons'));
