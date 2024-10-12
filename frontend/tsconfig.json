@@ -1,73 +1,9 @@
 {
-    "compilerOptions": {
-        "target": "ES2020",
-        "useDefineForClassFields": true,
-        "lib": [
-            "ES2020",
-            "DOM",
-            "DOM.Iterable"
-        ],
-        "module": "ESNext",
-        "skipLibCheck": true,
-        /* Bundler mode */
-        "moduleResolution": "bundler",
-        "allowImportingTsExtensions": true,
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "noEmit": true,
-        "jsx": "react-jsx",
-        /* Linting */
-        "strict": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "noFallthroughCasesInSwitch": true,
-        "removeComments": true,
-        "baseUrl": ".",
-        "paths": {
-            "~components/*": [
-                "src/components/*"
-            ],
-            "~utils/*": [
-                "src/utils/*"
-            ],
-            "~config/*": [
-                "src/config/*"
-            ],
-            "~pages/*": [
-                "src/pages/*"
-            ],
-            "~hooks/*": [
-                "src/hooks/*"
-            ],
-            "~constants/*": [
-                "src/constants/*"
-            ],
-            "~api/*": [
-                "src/api/*"
-            ],
-            "~models/*": [
-                "src/models/*"
-            ],
-            "~styles/*": [
-                "src/styles/*"
-            ],
-            "~layouts/*": [
-                "src/layouts/*"
-            ],
-            "~/*": [
-                "src/*"
-            ]
-        },
-        "plugins": [
-            {
-                "name": "typescript-plugin-css-modules"
-            }
-        ]
-    },
-    "include": [
-        "src"
-    ],
+    "files": [],
     "references": [
+        {
+            "path": "./tsconfig.app.json"
+        },
         {
             "path": "./tsconfig.node.json"
         }
