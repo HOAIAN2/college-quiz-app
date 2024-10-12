@@ -18,7 +18,7 @@ fileList.forEach(file => {
 const result = [
     'export type Language = {',
     '\t@data',
-    '}'
+    '};'
 ].join('\n');
 
 fs.writeFileSync(targetModelFile, result.replace('@data', langModels.join('\n\t')) + '\n');
