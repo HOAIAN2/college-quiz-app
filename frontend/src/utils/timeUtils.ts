@@ -2,7 +2,12 @@ const timeUtils = {
     countDown(dateTime: Date) {
         const timeRemaining = (dateTime.getTime() - new Date().getTime()) / 1000;
         const date = new Date(0);
-        timeRemaining >= 0 ? date.setSeconds(timeRemaining) : date.setSeconds(0);
+        if (timeRemaining >= 0) {
+            date.setSeconds(timeRemaining);
+        }
+        else {
+            date.setSeconds(0);
+        }
         return date.toISOString().substring(11, 19);
     },
     isTimeWithinOneHour(dateTime: Date) {

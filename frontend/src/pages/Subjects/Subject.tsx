@@ -44,7 +44,7 @@ export default function Subject() {
         });
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
-        queryData.data && await apiUpdateSubject(formData, queryData.data.id);
+        if (queryData.data) await apiUpdateSubject(formData, queryData.data.id);
     };
     const { mutate, isPending } = useMutation({
         mutationFn: handleUpdateSubject,

@@ -59,7 +59,7 @@ export default function Course() {
         });
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
-        queryData.data && await apiUpdateCourse(formData, queryData.data.id);
+        if (queryData.data) await apiUpdateCourse(formData, queryData.data.id);
     };
     const { mutate, isPending } = useMutation({
         mutationFn: handleUpdateCourse,

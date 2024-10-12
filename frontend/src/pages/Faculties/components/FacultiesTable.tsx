@@ -63,7 +63,7 @@ export default function FacultiesTable({
         if (currentTarget.checked) {
             setSelectedRows(pre => {
                 pre.clear();
-                data && data.data.forEach(user => {
+                if (data) data.data.forEach(user => {
                     pre.add(user.id);
                 });
                 return structuredClone(pre);

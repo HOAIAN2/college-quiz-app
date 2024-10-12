@@ -38,7 +38,7 @@ export default function Profile() {
         });
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
-        queryData.data && await apiUpdateUser(formData, queryData.data.user.id);
+        if (queryData.data) await apiUpdateUser(formData, queryData.data.user.id);
     };
     const { mutate, isPending } = useMutation({
         mutationFn: handleUpdateUser,

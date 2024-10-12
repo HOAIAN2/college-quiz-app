@@ -67,7 +67,7 @@ export default function CustomDataList({
                     customDataListRef.current?.classList.remove(styles.hidden);
                     setCurrentText(currentTarget.value);
                     if (!currentTarget.value) setValue('');
-                    onInput && onInput(e);
+                    if (onInput) onInput(e);
                 }}
             />
             <input type='text' hidden value={value} name={name} onInput={() => { }} />
@@ -86,7 +86,7 @@ export default function CustomDataList({
                             return (
                                 <div key={option.value}
                                     onClick={() => {
-                                        onChange && onChange(option);
+                                        if (onChange) onChange(option);
                                         setCurrentText(option.label || '');
                                         setValue(option.value);
                                     }}

@@ -76,7 +76,7 @@ export default function CustomSelect({
                     return (
                         <div key={option.value}
                             onClick={() => {
-                                onChange && onChange(option);
+                                if (onChange) onChange(option);
                                 setCurrent(option);
                             }}
                             className={styles.selectItem}>
