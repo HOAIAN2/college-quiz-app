@@ -9,3 +9,5 @@ cd $ROOT_DIR
 cd frontend
 npm i
 cp .env.example .env
+cp docker/nginx/nginx.example.conf docker/nginx/nginx.conf
+cp docker/php/zz-docker.example.conf docker/php/zz-docker.conf

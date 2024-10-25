@@ -1,5 +1,7 @@
 # Docker things
 docker/php/zz-docker.conf
+docker/nginx/nginx.conf
+/redis-data
 
 # Ide
 /.fleet
@@ -13,5 +15,3 @@ docker/php/zz-docker.conf
 .env
 .env.backup
 .env.production
-
-/redis-data

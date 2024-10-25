@@ -54,7 +54,7 @@ RUN chown -R www-data:www-data /var/www/college-quiz-app/storage /var/www/colleg
 
 # Extra stuff: config, logging,...
 
-COPY ./docker/nginx.conf /etc/nginx/http.d/college-quiz-app.conf
+COPY ./docker/nginx/nginx.conf /etc/nginx/http.d/college-quiz-app.conf
 COPY ./docker/cronjob /etc/crontabs/root
 COPY ./docker/php/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 
