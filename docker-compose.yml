@@ -5,6 +5,8 @@ services:
         ports:
             - "80:80"
         restart: unless-stopped
+        volumes:
+            - "./backend/storage/logs:/var/www/college-quiz-app/storage/logs"
 
     redis:
         image: redis:alpine

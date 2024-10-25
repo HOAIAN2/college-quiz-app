@@ -51,6 +51,7 @@ COPY --from=node-builder /app/dist/index.html /var/www/college-quiz-app/resource
 
 # Grant permissions
 RUN chown -R www-data:www-data /var/www/college-quiz-app/storage /var/www/college-quiz-app/bootstrap/cache
+RUN chown -R 777 /var/www/college-quiz-app/storage/logs
 
 # Extra stuff: config, logging,...
 
