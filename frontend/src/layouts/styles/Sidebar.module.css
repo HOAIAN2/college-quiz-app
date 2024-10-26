@@ -25,7 +25,7 @@
 }
 
 .listItem {
-    list-style: none;
+    list-style-type: none;
     width: 90%;
     height: 50px;
     cursor: pointer;

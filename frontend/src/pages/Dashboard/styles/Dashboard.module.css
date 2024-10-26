@@ -53,6 +53,7 @@
     gap: 15px;
     overflow-y: auto;
     animation: animate-today-exams var(--transition-timing-slow) ease;
+    list-style-type: none;
 }
 
 .todayExamsItem {
