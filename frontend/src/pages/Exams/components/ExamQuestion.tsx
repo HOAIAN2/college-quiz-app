@@ -1,6 +1,6 @@
 import styles from '../styles/ExamQuestion.module.css';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { MdOutlineRadioButtonChecked, MdOutlineRadioButtonUnchecked } from 'react-icons/md';
 import useLanguage from '~hooks/useLanguage';
 import { ExamQuestion as TExamQuestion } from '~models/exam';
@@ -23,9 +23,11 @@ export default function ExamQuestion({
     const language = useLanguage('component.exam_question');
     return (
         <div className={styles.examQuestionContainer}>
-            <span className={styles.questionContent}>
-                {language?.question} {index + 1}. {question.content}
-            </span>
+            <p className={styles.questionContent}
+                dangerouslySetInnerHTML={{
+                    __html: `<span>${language?.question} ${index + 1}.</span> ${question.content}`
+                }}>
+            </p>
             {
                 question.questionOptions.map((option, i) => {
                     return (
@@ -46,12 +48,25 @@ export default function ExamQuestion({
                             key={`exam-question-option-${option.id}`}
                         >
                             {
-                                checkedIndex === i ? <MdOutlineRadioButtonChecked />
-                                    : <MdOutlineRadioButtonUnchecked />
+                                checkedIndex === i ?
+                                    <>
+                                        <MdOutlineRadioButtonChecked />
+                                        <span style={{ fontSize: '16px' }}>
+                                            {languageUtils.getLetterFromIndex(i)}.
+                                        </span>
+                                    </>
+                                    : <>
+                                        <MdOutlineRadioButtonUnchecked />
+                                        <span style={{ fontSize: '16px' }}>
+                                            {languageUtils.getLetterFromIndex(i)}.
+                                        </span>
+                                    </>
                             }
-                            <span className={styles.questionOption}>
-                                {languageUtils.getLetterFromIndex(i)}. {option.content}
-                            </span>
+                            <p className={styles.questionOption}
+                                dangerouslySetInnerHTML={{
+                                    __html: `${option.content}`
+                                }}>
+                            </p>
                         </div>
                     );
                 })

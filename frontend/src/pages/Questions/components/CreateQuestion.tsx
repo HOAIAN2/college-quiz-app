@@ -13,10 +13,10 @@ import { toast } from 'sonner';
 import { apiCreateQuestion } from '~api/question';
 import CustomSelect from '~components/CustomSelect';
 import Loading from '~components/Loading';
+import TextEditor from '~components/TextEditor';
 import CSS_TIMING from '~constants/css-timing';
 import useLanguage from '~hooks/useLanguage';
 import { SubjectDetail } from '~models/subject';
-import { autoSizeTextArea } from '~utils/autoSizeTextArea';
 import createFormUtils from '~utils/createFormUtils';
 import css from '~utils/css';
 
@@ -150,12 +150,10 @@ export default function CreateQuestion({
                             </div>
                             <div className={css(globalStyles.wrapItem, globalStyles.textarea)}>
                                 <label className={appStyles.required} htmlFor='content'>{language?.content}</label>
-                                <textarea
-                                    onChange={autoSizeTextArea}
-                                    name='content' id='content'
-                                    className={css(appStyles.input, globalStyles.inputItem)}
-                                >
-                                </textarea>
+                                <TextEditor
+                                    defaultContent=''
+                                    name='content'
+                                />
                             </div>
                             <div
                                 style={{ paddingLeft: '20px' }}
@@ -197,13 +195,10 @@ export default function CreateQuestion({
                                                     : null
                                             }
                                         </div>
-                                        <textarea
-                                            data-selector={`options.${index}`}
-                                            onInput={autoSizeTextArea}
+                                        <TextEditor
                                             name='options[]'
-                                            className={css(appStyles.input, globalStyles.inputItem, styles.textarea)}
-                                        >
-                                        </textarea>
+                                            defaultContent=''
+                                        />
                                         <div
                                             onClick={() => {
                                                 if (options.length == 2) {

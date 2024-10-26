@@ -160,8 +160,8 @@ export default function Questions() {
                                             key={`question-${item.id}`}
                                             className={css(appStyles.dashboardCard, styles.card)}>
                                             <div className={styles.cardTop}>
-                                                <p className={styles.content}>
-                                                    {item.content}
+                                                <p className={styles.content} dangerouslySetInnerHTML={{ __html: item.content }} >
+                                                    {/* {item.content} */}
                                                 </p>
                                             </div>
                                             <div className={styles.cardBottom}>

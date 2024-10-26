@@ -13,13 +13,13 @@ import { toast } from 'sonner';
 import { apiDeleteQuestion, apiGetQuestionById, apiUpdateQuestion } from '~api/question';
 import CustomSelect from '~components/CustomSelect';
 import Loading from '~components/Loading';
+import TextEditor from '~components/TextEditor';
 import YesNoPopUp from '~components/YesNoPopUp';
 import CSS_TIMING from '~constants/css-timing';
 import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
 import { SubjectDetail } from '~models/subject';
-import { autoSizeTextArea } from '~utils/autoSizeTextArea';
 import createFormUtils from '~utils/createFormUtils';
 import css from '~utils/css';
 
@@ -204,14 +204,11 @@ export default function ViewQuestion({
                                             </div>
                                             <div className={css(globalStyles.wrapItem, globalStyles.textarea)}>
                                                 <label className={appStyles.required} htmlFor='content'>{language?.content}</label>
-                                                <textarea
+                                                <TextEditor
                                                     disabled={disabledUpdate}
-                                                    defaultValue={queryData.data.content}
-                                                    onInput={autoSizeTextArea}
-                                                    name='content' id='content'
-                                                    className={css(appStyles.input, globalStyles.inputItem)}
-                                                    cols={30} rows={50}>
-                                                </textarea>
+                                                    name='content'
+                                                    defaultContent={queryData.data.content}
+                                                />
                                             </div>
                                             {
                                                 permissions.has('question_update') ?
@@ -257,15 +254,11 @@ export default function ViewQuestion({
                                                                     : null
                                                             }
                                                         </div>
-                                                        <textarea
-                                                            defaultValue={option.content}
-                                                            data-selector={`options.${index}`}
-                                                            onInput={autoSizeTextArea}
-                                                            name='options[]'
+                                                        <TextEditor
                                                             disabled={disabledUpdate}
-                                                            className={css(appStyles.input, globalStyles.inputItem, styles.textarea)}
-                                                            cols={30} rows={50}>
-                                                        </textarea>
+                                                            name='options[]'
+                                                            defaultContent={option.content}
+                                                        />
                                                         {
                                                             permissions.has('question_update') ?
                                                                 <div

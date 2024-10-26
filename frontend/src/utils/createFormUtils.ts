@@ -9,15 +9,21 @@ export default function createFormUtils(styles: CSSModuleClasses) {
             else return null;
         },
         showFormError(error: object) {
-            if (typeof error === 'object')
-                Object.keys(error).forEach(key => {
-                    const selector = `input[data-selector='${key}'],textarea[data-selector='${key}'],[name='${key}']`;
-                    const element = document.querySelector<HTMLInputElement | HTMLTextAreaElement>(selector);
-                    if (element) {
-                        element.classList.add('error');
-                        this.getParentElement(element)?.setAttribute('data-error', error[key as keyof typeof error][0] as string);
-                    }
-                });
+            if (typeof error !== 'object') return;
+            Object.entries(error).forEach(([key, messages]) => {
+                const message = messages[0];
+                const [baseKey, indexStr] = key.split('.');
+
+                const selector = indexStr ? `[name='${baseKey}[]']` : `[name='${baseKey}']`;
+                const element = indexStr
+                    ? document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(selector)[Number(indexStr)]
+                    : document.querySelector<HTMLInputElement | HTMLTextAreaElement>(selector);
+
+                if (element) {
+                    element.classList.add('error');
+                    this.getParentElement(element)?.setAttribute('data-error', message);
+                }
+            });
         },
         handleOnInput(e: React.FormEvent<HTMLFormElement>) {
             const element = e.target as HTMLInputElement;
