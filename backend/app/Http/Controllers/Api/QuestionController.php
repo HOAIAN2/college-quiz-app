@@ -97,9 +97,23 @@ class QuestionController extends Controller
             $targetQuestion->update($data);
             $question_options = $targetQuestion->question_options;
 
-            foreach ($question_options as $key => $option) {
-                $option->update([
-                    'content' => $request->options[$key],
+            $new_option_keys = collect($request->options)->keys();
+
+            foreach ($question_options as $key => $existing_option) {
+                if (!$new_option_keys->has($key)) {
+                    $existing_option->delete();
+                }
+            }
+
+            foreach ($request->options as $key => $option) {
+                if ($question_options->has($key)) {
+                    $question_options[$key]->update([
+                        'content' => $option,
+                        'is_correct' => $request->true_option == $key
+                    ]);
+                } else QuestionOption::create([
+                    'question_id' => $targetQuestion->id,
+                    'content' => $option,
                     'is_correct' => $request->true_option == $key
                 ]);
             }
