@@ -43,8 +43,8 @@ class ExamResult extends Model
             'correct_count' => 'int',
             'question_count' => 'int',
             'cancelled_at' => 'datetime',
-            'created_at' => 'datetime' . self::DATE_FORMAT,
-            'updated_at' => 'datetime' . self::DATE_FORMAT,
+            'created_at' => 'datetime:' . self::DATE_FORMAT,
+            'updated_at' => 'datetime:' . self::DATE_FORMAT,
         ];
     }
 
