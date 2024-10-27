@@ -13,7 +13,7 @@
     padding: 10px;
     margin-top: 10px;
     margin-bottom: 15px;
-    background: white;
+    background-color: white;
     border-radius: var(--border-radius-low);
     box-shadow: 0px 0px 10px var(--color-shadow);
 }
@@ -116,15 +116,15 @@
 }
 
 .badge.red {
-    background: var(--color-soft-red);
+    background-color: var(--color-soft-red);
 }
 
 .badge.green {
-    background: var(--color-soft-green);
+    background-color: var(--color-soft-green);
 }
 
 .badge.yellow {
-    background: var(--color-soft-yellow);
+    background-color: var(--color-soft-yellow);
     color: black;
 }
 

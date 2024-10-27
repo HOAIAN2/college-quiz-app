@@ -4,7 +4,7 @@
     border: 1px solid var(--color-shadow);
     border-radius: var(--border-radius-low);
     box-shadow: 0px 0px 10px var(--color-shadow);
-    background: white;
+    background-color: white;
 }
 
 .editorToolbar {
@@ -23,7 +23,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color var(--transition-timing-medium) ease;
+    transition: var(--transition-timing-fast);
+    transition-property: background-color;
 }
 
 .toolbarButton:hover {

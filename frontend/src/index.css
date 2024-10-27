@@ -81,11 +81,11 @@ label {
     }
 
     ::-webkit-scrollbar-thumb {
-        background: rgba(135, 135, 135, 0.7);
+        background-color: rgba(135, 135, 135, 0.7);
         border-radius: 4px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-        background: rgba(135, 135, 135, 1);
+        background-color: rgba(135, 135, 135, 1);
     }
 }

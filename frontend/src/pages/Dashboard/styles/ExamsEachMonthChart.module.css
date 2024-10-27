@@ -4,5 +4,5 @@
     align-items: center;
     padding: 20px;
     border-radius: var(--border-radius-low);
-    background: white;
+    background-color: white;
 }

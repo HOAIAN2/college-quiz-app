@@ -3,7 +3,7 @@
     height: 100%;
     /* height: calc(100% - 50px); */
     position: relative;
-    /* background: white; */
+    /* background-color: white; */
     overflow-y: auto;
 }
 
@@ -21,7 +21,7 @@
 .formContent {
     width: 100%;
     height: calc(fit-content + 50px);
-    /* background: white;
+    /* background-color: white;
     border-radius: var(--border-radius-low);
     box-shadow: 0px 0px 10px var(--color-shadow); */
 }

@@ -60,7 +60,7 @@
 .dropDown {
     position: absolute;
     width: 150px;
-    background: white;
+    background-color: white;
     padding: 0;
     position: absolute;
     right: 0px;
@@ -82,7 +82,7 @@
 }
 
 .dropItem:hover {
-    background: var(--color-white);
+    background-color: var(--color-white);
 }
 
 .dropItem>svg {

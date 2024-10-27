@@ -4,7 +4,7 @@
     display: flex;
     gap: 10px;
     position: relative;
-    background: white;
+    background-color: white;
     padding: 0;
 }
 
@@ -16,7 +16,7 @@
     flex-direction: column;
     gap: 10px;
     padding: 10px;
-    background: white;
+    background-color: white;
     /* border-right: 1px solid var(--color-gray); */
     overflow: auto;
 }

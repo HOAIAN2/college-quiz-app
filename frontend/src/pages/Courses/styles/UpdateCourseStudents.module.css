@@ -4,14 +4,14 @@
     position: fixed;
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 10;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow-y: scroll;
     transition: var(--transition-timing-fast);
-    transition-property: background, opacity;
+    transition-property: background-color, opacity;
 }
 
 .updateCourseStudentsContainer.hide {
@@ -94,7 +94,7 @@
     height: 50px;
     margin: 5px;
     display: inline-block;
-    /* background: var(--color-primary);
+    /* background-color: var(--color-primary);
 	color: white; */
     border-radius: var(--border-radius-low);
     border: 1px solid var(--color-shadow);
