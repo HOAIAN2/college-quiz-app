@@ -98,11 +98,16 @@ class QuestionController extends Controller
             $question_options = $targetQuestion->question_options;
 
             $new_option_keys = collect($request->options)->keys();
+            $ids_to_delete = [];
 
             foreach ($question_options as $key => $existing_option) {
                 if (!$new_option_keys->has($key)) {
-                    $existing_option->delete();
+                    $ids_to_delete[] = $existing_option->id;
                 }
+            }
+
+            if (count($ids_to_delete) != 0) {
+                QuestionOption::whereIn('id', $ids_to_delete)->delete();
             }
 
             foreach ($request->options as $key => $option) {
