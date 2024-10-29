@@ -18,7 +18,7 @@ class ValidateToken
         $token = $request->user()->currentAccessToken();
 
         abort_if(!$this->isValidIp($request, $token), 401);
-        abort_if(!$this->isValidUserAgent($request, $token), 401);
+        // abort_if(!$this->isValidUserAgent($request, $token), 401);
 
         return $next($request);
     }
