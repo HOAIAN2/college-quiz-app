@@ -6,7 +6,7 @@
 img
 dump
 scripts
-bootstrap/cache/*.php
-storage/framework/cache/*
-storage/framework/sessions/*
-storage/framework/views/*
+backend/bootstrap/cache/*.php
+backend/storage/framework/cache/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*
