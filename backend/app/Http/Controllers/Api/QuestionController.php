@@ -93,9 +93,9 @@ class QuestionController extends Controller
 
         DB::beginTransaction();
         try {
-            $targetQuestion = Question::findOrFail($id);
-            $targetQuestion->update($data);
-            $question_options = $targetQuestion->question_options;
+            $target_question = Question::findOrFail($id);
+            $target_question->update($data);
+            $question_options = $target_question->question_options;
 
             $new_option_keys = collect($request->options)->keys();
             $ids_to_delete = [];
@@ -117,7 +117,7 @@ class QuestionController extends Controller
                         'is_correct' => $request->true_option == $key
                     ]);
                 } else QuestionOption::create([
-                    'question_id' => $targetQuestion->id,
+                    'question_id' => $target_question->id,
                     'content' => $option,
                     'is_correct' => $request->true_option == $key
                 ]);
