@@ -4,6 +4,7 @@ cd $ROOT_DIR
 
 if [[ $1 = '--docker' ]] ; then
     docker compose build --no-cache
+    docker image prune --filter="dangling=true" --force
 else
     cd frontend
     npm run build
