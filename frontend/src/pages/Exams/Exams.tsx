@@ -107,30 +107,32 @@ export default function Exams() {
                         />
                     </div>
                 </section>
-                <section className={styles.wrapCardContainer}>
-                    <div className={styles.cardContainer}>
-                        {queryData.data ?
-                            queryData.data.map(item => {
-                                return (
-                                    <Link
-                                        key={`exam-${item.id}`}
-                                        to={String(item.id)}
-                                        className={css(appStyles.dashboardCard, styles.card)}
-                                    >
-                                        <div className={styles.cardSection}>
-                                            <p className={styles.content}>
-                                                {item.name}
-                                            </p>
-                                        </div>
-                                        <div className={styles.cardSection}>
-                                            {showExamStatus(item)}
-                                        </div>
-                                        <div className={styles.cardSection}>
-                                            {item.course.subject.name}
-                                        </div>
-                                    </Link>
-                                );
-                            }) : null}
+                <section className={styles.pageContent}>
+                    <div className={styles.wrapCardContainer}>
+                        <div className={styles.cardContainer}>
+                            {queryData.data ?
+                                queryData.data.map(item => {
+                                    return (
+                                        <Link
+                                            key={`exam-${item.id}`}
+                                            to={String(item.id)}
+                                            className={css(appStyles.dashboardCard, styles.card)}
+                                        >
+                                            <div className={styles.cardSection}>
+                                                <p className={styles.content}>
+                                                    {item.name}
+                                                </p>
+                                            </div>
+                                            <div className={styles.cardSection}>
+                                                {showExamStatus(item)}
+                                            </div>
+                                            <div className={styles.cardSection}>
+                                                {item.course.subject.name}
+                                            </div>
+                                        </Link>
+                                    );
+                                }) : null}
+                        </div>
                     </div>
                 </section>
             </main >
