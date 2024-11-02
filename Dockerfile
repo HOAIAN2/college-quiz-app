@@ -55,7 +55,7 @@ RUN chown -R 777 /var/www/college-quiz-app/storage/logs
 
 # Extra stuff: config, logging,...
 
-COPY ./docker/nginx/nginx.conf /etc/nginx/http.d/college-quiz-app.conf
+COPY ./docker/nginx/nginx.conf /etc/nginx/http.d/default.conf
 COPY ./docker/cronjob /etc/crontabs/root
 COPY ./docker/php/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 
