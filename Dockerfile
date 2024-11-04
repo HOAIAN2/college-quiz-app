@@ -35,7 +35,7 @@ COPY backend .
 
 # Install Composer dependencies
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
-RUN composer install --optimize-autoloader --no-dev && \
+RUN composer install --no-cache --optimize-autoloader --no-dev && \
     php artisan config:clear && \
     php artisan event:clear && \
     php artisan route:clear && \
