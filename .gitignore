@@ -1,6 +1,7 @@
 # Docker things
 docker/php/zz-docker.conf
 docker/nginx/nginx.conf
+docker/nginx/logs
 /redis-data
 
 # Ide
