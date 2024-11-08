@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExamResult\CancelRequest;
+use App\Http\Requests\ExamResult\RemarkRequest;
 use App\Models\ExamResult;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ExamResultController extends Controller
 {
@@ -52,7 +54,7 @@ class ExamResultController extends Controller
         //
     }
 
-    public function remark(string $id)
+    public function remark(RemarkRequest $request, string $id)
     {
         $user = $this->getUser();
         abort_if(!$user->isAdmin(), 403);
@@ -60,6 +62,9 @@ class ExamResultController extends Controller
 
         DB::beginTransaction();
         try {
+            if (!Hash::check($request->password, $user->password)) {
+                return Reply::error('auth.errors.password_incorrect');
+            }
             $target_exam_result = ExamResult::findOrFail($id);
             if (!$user->isAdmin()) {
                 return Reply::error('', [], 403);
@@ -99,10 +104,10 @@ class ExamResultController extends Controller
 
         DB::beginTransaction();
         try {
-            $target_exam_result = ExamResult::findOrFail($id);
-            if (!$user->isAdmin()) {
-                return Reply::error('', [], 403);
+            if (!Hash::check($request->password, $user->password)) {
+                return Reply::error('auth.errors.password_incorrect');
             }
+            $target_exam_result = ExamResult::findOrFail($id);
             $target_exam_result->update([
                 'cancellation_reason' => $request->cancellation_reason,
                 'cancelled_at' => Carbon::now()
