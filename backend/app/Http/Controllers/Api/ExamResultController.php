@@ -70,7 +70,7 @@ class ExamResultController extends Controller
                 return Reply::error('', [], 403);
             }
             $answers = $target_exam_result
-                ->exam()
+                ->exam
                 ->exam_questions_answers()
                 ->where('user_id', $target_exam_result->user_id)
                 ->get();
