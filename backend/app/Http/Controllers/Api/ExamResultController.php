@@ -66,9 +66,6 @@ class ExamResultController extends Controller
                 return Reply::error('auth.errors.password_incorrect');
             }
             $target_exam_result = ExamResult::findOrFail($id);
-            if (!$user->isAdmin()) {
-                return Reply::error('', [], 403);
-            }
             $answers = $target_exam_result
                 ->exam
                 ->exam_questions_answers()
