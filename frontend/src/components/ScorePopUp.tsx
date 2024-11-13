@@ -68,7 +68,7 @@ export default function ScorePopUp({
                         <div className={styles.groupItems}>
                             <div className={styles.label}>{language?.numberOfCorrectQuestion}: {data.correctCount}/{data.questionCount}</div>
                         </div>
-                        <p>{`IP: ${data.ip}`}</p>
+                        <p>{`${language?.ipAddress}: ${data.ip}`}</p>
                     </div>
                     <div className={styles.actionItems}>
                         <button
