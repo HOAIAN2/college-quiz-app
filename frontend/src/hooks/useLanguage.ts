@@ -20,6 +20,9 @@ export default function useLanguage<K extends keyof Language>(langFile: K) {
             .then((data) => {
                 setLanguage(data.default);
                 languageCache.set(cacheKey, data.default);
+            })
+            .catch((error) => {
+                console.log(error);
             });
     }, [appLanguage.language, cacheKey, langFile, language]);
     return language;
