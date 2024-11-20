@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('shortcode')->unique();
             $table->string('name');
             $table->string('email')->nullable();
-            $table->string('phone_number')->nullable();
+            $table->string('phone_number', 15)->nullable();
             $table->unsignedBigInteger('leader_id')->nullable();
             $table->datetimes();
             $table->foreign('leader_id')->references('id')->on('users')->nullOnDelete();
