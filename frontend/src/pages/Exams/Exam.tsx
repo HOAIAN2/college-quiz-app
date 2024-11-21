@@ -54,6 +54,16 @@ export default function Exam() {
                 setIsExporting(false);
             });
     };
+    const isExamOver = (() => {
+        if (!queryData.data) return false;
+        if (!queryData.data.startedAt) return false;
+        const startedAt = new Date(queryData.data.startedAt);
+        const endedAt = new Date(startedAt.getTime() + (queryData.data.examTime * 60 * 1000));
+        if (endedAt.getTime() < new Date().getTime()) {
+            return true;
+        }
+        else return false;
+    })();
     if (!permissions.has('exam_view')) return <Navigate to='/' />;
     return (
         <>
@@ -228,9 +238,10 @@ export default function Exam() {
                                                                 {language?.genders[item.gender]}
                                                             </td>
                                                             <td className={css(styles.column, styles.medium)}>
-                                                                {item.correctCount === null
-                                                                    ? language?.didNotSubmitted :
-                                                                    caculateScore(item.correctCount, item.questionCount)}
+                                                                {isExamOver === true && item.questionCount === null ? 0 :
+                                                                    item.correctCount === null
+                                                                        ? language?.didNotSubmitted :
+                                                                        caculateScore(item.correctCount, item.questionCount)}
                                                             </td>
                                                         </tr>
                                                     );
