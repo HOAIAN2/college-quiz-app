@@ -38,7 +38,10 @@ class UsersExport implements
 
     public function collection()
     {
-        return $this->collection;
+        return $this->collection->map(function ($user) {
+            $user->gender = trans("gender.$user->gender");
+            return $user;
+        });
     }
 
     public function headings(): array
