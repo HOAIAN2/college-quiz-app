@@ -41,9 +41,6 @@ export default function TextEditor({
         editable: Boolean(!disabled),
         shouldRerenderOnTransaction: Boolean(!disabled),
     });
-    const addImage = () => {
-        imageInputRef.current?.click();
-    };
     const loadImage = (e: React.FormEvent<HTMLInputElement>) => {
         const maxFileSize = String(__TEXT_EDITOR_MAX_FILE_SIZE__ / (1024 * 1024));
         const input = e.currentTarget;
@@ -116,7 +113,7 @@ export default function TextEditor({
                 </div>
                 <div
                     className={styles.toolbarButton}
-                    onClick={() => { addImage(); }}
+                    onClick={() => { imageInputRef.current?.click(); }}
                 >
                     <FaImage />
                 </div>
