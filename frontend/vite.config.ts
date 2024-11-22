@@ -27,5 +27,6 @@ export default defineConfig(({ mode }) => ({
     define: {
         __APP_VERSION__: JSON.stringify('1.0.0'),
         __APP_BUILD_DATE__: JSON.stringify(new Date().toISOString()),
+        __TEXT_EDITOR_MAX_FILE_SIZE__: 2 * 1024 * 1024
     }
 }));

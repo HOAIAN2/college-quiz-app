@@ -1,8 +1,12 @@
 import styles from './styles/TextEditor.module.css';
 
+import Image from '@tiptap/extension-image';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import { useRef } from 'react';
 import { FaBold, FaImage, FaItalic, FaRedo, FaUndo } from 'react-icons/fa';
+import { toast } from 'sonner';
+import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
 
 type TextEditorProps = {
@@ -18,8 +22,16 @@ export default function TextEditor({
     disabled,
     onChange
 }: TextEditorProps) {
+    const imageInputRef = useRef<HTMLInputElement>(null);
+    const language = useLanguage('component.text_editor');
     const editor = useEditor({
-        extensions: [StarterKit],
+        extensions: [
+            StarterKit,
+            Image.configure({
+                allowBase64: true,
+                HTMLAttributes: { class: styles.image }
+            })
+        ],
         content: defaultContent || null,
         onUpdate: ({ editor }) => {
             if (onChange) {
@@ -29,11 +41,34 @@ export default function TextEditor({
         editable: Boolean(!disabled),
         shouldRerenderOnTransaction: Boolean(!disabled),
     });
+    const addImage = () => {
+        imageInputRef.current?.click();
+    };
+    const loadImage = (e: React.FormEvent<HTMLInputElement>) => {
+        const maxFileSize = String(__TEXT_EDITOR_MAX_FILE_SIZE__ / (1024 * 1024));
+        const input = e.currentTarget;
+        if (!input.files) return;
+        const image = input.files[0];
+        if (image.size > __TEXT_EDITOR_MAX_FILE_SIZE__) {
+            toast.error(language?.maxFileSizeError.replace('@size', maxFileSize));
+            return;
+        }
+        const fileReader = new FileReader();
+        fileReader.addEventListener('load', (e) => {
+            if (e.target?.result) {
+                if (editor) {
+                    editor.chain().focus().setImage({ src: e.target?.result as string }).run();
+                }
+            }
+        });
+        fileReader.readAsDataURL(image);
+    };
     if (!editor) {
         return null;
     }
     return (
         <div className={styles.editorContainer}>
+            <input onInput={loadImage} ref={imageInputRef} hidden type="file" accept="image/png, image/jpeg" />
             <div className={styles.editorToolbar}>
                 {
                     name ?
@@ -81,7 +116,7 @@ export default function TextEditor({
                 </div>
                 <div
                     className={styles.toolbarButton}
-                    onClick={() => { }}
+                    onClick={() => { addImage(); }}
                 >
                     <FaImage />
                 </div>

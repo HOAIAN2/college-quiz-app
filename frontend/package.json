@@ -11,6 +11,7 @@
     },
     "dependencies": {
         "@tanstack/react-query": "^5.61.0",
+        "@tiptap/extension-image": "^2.10.1",
         "@tiptap/pm": "^2.10.1",
         "@tiptap/react": "^2.10.1",
         "@tiptap/starter-kit": "^2.10.1",

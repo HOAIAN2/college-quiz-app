@@ -70,6 +70,10 @@
     border-color: var(--color-primary);
 }
 
+.card img {
+    display: none;
+}
+
 .card>.cardTop {
     height: 50%;
     width: 100%;

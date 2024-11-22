@@ -19,6 +19,7 @@ export type Language = {
 	'component.score_pop_up': typeof import('../../assets/langs/en/component.score_pop_up.ts').default;
 	'component.settings_content': typeof import('../../assets/langs/en/component.settings_content.ts').default;
 	'component.sidebar': typeof import('../../assets/langs/en/component.sidebar.ts').default;
+	'component.text_editor': typeof import('../../assets/langs/en/component.text_editor.ts').default;
 	'component.update_course_students': typeof import('../../assets/langs/en/component.update_course_students.ts').default;
 	'component.users_table': typeof import('../../assets/langs/en/component.users_table.ts').default;
 	'component.view_chapter': typeof import('../../assets/langs/en/component.view_chapter.ts').default;

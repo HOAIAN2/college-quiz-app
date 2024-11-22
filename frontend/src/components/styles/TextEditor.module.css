@@ -41,3 +41,7 @@
 [contenteditable="true"] {
     outline: none;
 }
+
+.image {
+    max-width: 100%;
+}
