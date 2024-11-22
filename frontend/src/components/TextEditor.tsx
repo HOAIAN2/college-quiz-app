@@ -2,7 +2,7 @@ import styles from './styles/TextEditor.module.css';
 
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { FaBold, FaItalic, FaRedo, FaUndo } from 'react-icons/fa';
+import { FaBold, FaImage, FaItalic, FaRedo, FaUndo } from 'react-icons/fa';
 import css from '~utils/css';
 
 type TextEditorProps = {
@@ -78,6 +78,12 @@ export default function TextEditor({
                     onClick={() => editor.chain().focus().redo().run()}
                 >
                     <FaRedo />
+                </div>
+                <div
+                    className={styles.toolbarButton}
+                    onClick={() => { }}
+                >
+                    <FaImage />
                 </div>
             </div>
             <EditorContent editor={editor} className={styles.editorContent} />
