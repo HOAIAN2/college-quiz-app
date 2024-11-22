@@ -23,5 +23,6 @@ export default {
     },
     score: 'Score',
     didNotSubmitted: 'Not submitted',
-    export: 'Export'
+    export: 'Export',
+    submittedAt: 'Submitted at'
 };

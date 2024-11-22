@@ -1,6 +1,8 @@
+import { AppPermissionName } from './app-permission-name';
+
 export type Permission = {
     id: number;
-    name: string;
+    name: AppPermissionName;
     createdAt: string;
     updatedAt: string;
 };

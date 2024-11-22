@@ -221,6 +221,9 @@ export default function Exam() {
                                                 <th className={css(styles.column, styles.medium)}>
                                                     {language?.score}
                                                 </th>
+                                                <th className={css(styles.column, styles.medium)}>
+                                                    {language?.submittedAt}
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -242,6 +245,11 @@ export default function Exam() {
                                                                     item.correctCount === null
                                                                         ? language?.didNotSubmitted :
                                                                         caculateScore(item.correctCount, item.questionCount)}
+                                                            </td>
+                                                            <td className={css(styles.column, styles.medium)}>
+                                                                {item.submittedAt ?
+                                                                    new Date(item.submittedAt).toLocaleString(appLanguage.language)
+                                                                    : null}
                                                             </td>
                                                         </tr>
                                                     );

@@ -1,4 +1,5 @@
 import { ReactNode, createContext, useRef, useState } from 'react';
+import { AppPermissionName } from '~models/app-permission-name';
 import { UserDetail } from '../models/user';
 import languageUtils from '../utils/languageUtils';
 
@@ -10,7 +11,7 @@ export const AppContext = createContext<AppContextType>(init as AppContextType);
 function useAppContextValue() {
     const sidebarRef = useRef<HTMLDivElement>(null);
     const [language, setLanguage] = useState(languageUtils.getLanguage());
-    const [permissions, setPermissions] = useState<string[]>([]);
+    const [permissions, setPermissions] = useState<AppPermissionName[]>([]);
     const [user, setUser] = useState<UserDetail | undefined>();
     const [title, setTitle] = useState('');
     return {
@@ -28,8 +29,8 @@ function useAppContextValue() {
         permissions: {
             permissions: permissions,
             setPermissions: setPermissions,
-            has: (permissionName: string) => permissions.includes(permissionName),
-            hasAnyFormList(permissionNames: string[]) {
+            has: (permissionName: AppPermissionName) => permissions.includes(permissionName),
+            hasAnyFormList(permissionNames: AppPermissionName[]) {
                 return permissionNames.some(permission => permissions.includes(permission));
             }
         },

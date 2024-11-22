@@ -23,5 +23,6 @@ export default {
     },
     score: 'Điểm số',
     didNotSubmitted: 'Chưa nộp bài',
-    export: 'Xuất'
+    export: 'Xuất',
+    submittedAt: 'Thời gian nộp bài'
 };

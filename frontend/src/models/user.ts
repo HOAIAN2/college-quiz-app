@@ -1,3 +1,4 @@
+import { AppPermissionName } from './app-permission-name';
 import { Faculty } from './faculty';
 import { Role, RoleName } from './role';
 import { SchoolClass } from './school-class';
@@ -27,7 +28,7 @@ export type UserDetail = User & {
 
 export type UserWithPermissions = {
     user: UserDetail;
-    permissions: string[];
+    permissions: AppPermissionName[];
 };
 
 export type QueryUserType = {

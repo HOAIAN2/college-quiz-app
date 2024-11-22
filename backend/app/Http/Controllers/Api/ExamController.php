@@ -226,6 +226,7 @@ class ExamController extends Controller
                     'gender' => $student->gender,
                     'question_count' => $exam_result?->question_count,
                     'correct_count' => $exam_result?->correct_count,
+                    'submitted_at' => $exam_result?->created_at
                 ];
             }
             $data->result = $result;

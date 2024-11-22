@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\File;
 
 class GeneratePermissionType extends Command
 {
+
+    private $permission_names = [];
     /**
      * The name and signature of the console command.
      *
@@ -27,14 +29,14 @@ class GeneratePermissionType extends Command
      */
     public function handle()
     {
+        $this->permission_names = Permission::pluck('name')->toArray();
         $this->generateBackendType();
+        $this->generateFrontendType();
     }
 
     private function generateBackendType()
     {
-        $permission_names = Permission::pluck('name');
-
-        $str = <<<EOF
+        $content = <<<EOF
         <?php
 
         namespace App\Enums;
@@ -51,8 +53,22 @@ class GeneratePermissionType extends Command
         EOF;
         $enum_cases = array_map(function ($item) {
             return "case " . strtoupper($item) . ' = ' . '\'' . $item . '\'' . ';';
-        }, $permission_names->toArray());
-        $result = str_replace('@names', join("\n    ", $enum_cases), $str);
+        }, $this->permission_names);
+        $result = str_replace('@names', join("\n    ", $enum_cases), $content);
         File::put(app_path('Enums/PermissionType.php'), $result);
+    }
+
+    private function generateFrontendType()
+    {
+        $content = <<<EOF
+        export type PermissionName =
+            @names;
+
+        EOF;
+        $type_cases = array_map(function ($item) {
+            return '\'' . $item . '\'';
+        }, $this->permission_names);
+        $result = str_replace('@names', join(" |\n    ", $type_cases), $content);
+        File::put(base_path('../frontend/src/models/app-permission-name.ts'), $result);
     }
 }

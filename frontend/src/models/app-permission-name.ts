@@ -1,0 +1,36 @@
+export type AppPermissionName =
+    'course_create' |
+    'course_delete' |
+    'course_update' |
+    'course_view' |
+    'exam_create' |
+    'exam_delete' |
+    'exam_submit' |
+    'exam_update' |
+    'exam_view' |
+    'faculty_create' |
+    'faculty_delete' |
+    'faculty_update' |
+    'faculty_view' |
+    'question_create' |
+    'question_delete' |
+    'question_update' |
+    'question_view' |
+    'role_permission_grant' |
+    'role_permission_view' |
+    'school_class_create' |
+    'school_class_delete' |
+    'school_class_update' |
+    'school_class_view' |
+    'semester_create' |
+    'semester_delete' |
+    'semester_update' |
+    'semester_view' |
+    'subject_create' |
+    'subject_delete' |
+    'subject_update' |
+    'subject_view' |
+    'user_create' |
+    'user_delete' |
+    'user_update' |
+    'user_view';

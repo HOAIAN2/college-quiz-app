@@ -30,6 +30,7 @@ export type ExamDetail = Exam & {
         gender: 'male' | 'female';
         questionCount: number;
         correctCount: number | null;
+        submittedAt: string | null;
     }[];
     examSupervisors: {
         id: number;
