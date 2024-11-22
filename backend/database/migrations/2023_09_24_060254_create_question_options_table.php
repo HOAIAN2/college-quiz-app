@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('question_options', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('question_id');
-            $table->text('content');
+            $table->longText('content');
             $table->boolean('is_correct')->default(false);
             $table->datetimes();
             $table->foreign('question_id')->references('id')->on('questions')->cascadeOnDelete();
