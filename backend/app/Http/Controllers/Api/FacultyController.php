@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\PermissionType;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DeleteRequest;
@@ -17,7 +18,7 @@ class FacultyController extends Controller
     public function index(IndexRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('faculty_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::FACULTY_VIEW), 403);
 
         $faculties = Faculty::with([
             'leader'
@@ -37,7 +38,7 @@ class FacultyController extends Controller
     public function store(StoreRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('faculty_create'), 403);
+        abort_if(!$user->hasPermission(PermissionType::FACULTY_CREATE), 403);
         $data = $request->validated();
         DB::beginTransaction();
 
@@ -54,7 +55,7 @@ class FacultyController extends Controller
     public function show(string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('faculty_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::FACULTY_VIEW), 403);
 
         try {
             $data = Faculty::with([
@@ -69,7 +70,7 @@ class FacultyController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('faculty_update'), 403);
+        abort_if(!$user->hasPermission(PermissionType::FACULTY_UPDATE), 403);
         $data = $request->validated();
         DB::beginTransaction();
 
@@ -87,7 +88,7 @@ class FacultyController extends Controller
     public function destroy(DeleteRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('faculty_delete'), 403);
+        abort_if(!$user->hasPermission(PermissionType::FACULTY_DELETE), 403);
         DB::beginTransaction();
 
         try {
@@ -102,7 +103,7 @@ class FacultyController extends Controller
     public function autocomplete(Request $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('faculty_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::FACULTY_VIEW), 403);
 
         try {
             $school_classes = Faculty::search($request->search)

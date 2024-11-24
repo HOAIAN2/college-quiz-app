@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\PermissionType;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Question\IndexRequest;
@@ -16,7 +17,7 @@ class QuestionController extends Controller
     public function index(IndexRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('question_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::QUESTION_VIEW), 403);
 
         try {
             $data = Question::where('subject_id', '=', $request->subject_id);
@@ -38,7 +39,7 @@ class QuestionController extends Controller
     public function store(StoreRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('question_create'), 403);
+        abort_if(!$user->hasPermission(PermissionType::QUESTION_CREATE), 403);
 
         $question_data = collect($request->validated())->except([
             'options',
@@ -70,7 +71,7 @@ class QuestionController extends Controller
     public function show(string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('question_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::QUESTION_VIEW), 403);
 
         try {
             $data = Question::with(['question_options'])->findOrFail($id);
@@ -83,7 +84,7 @@ class QuestionController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('question_update'), 403);
+        abort_if(!$user->hasPermission(PermissionType::QUESTION_UPDATE), 403);
         $data = collect($request->validated())
             ->except([
                 'options',
@@ -134,7 +135,7 @@ class QuestionController extends Controller
     public function destroy(string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('question_delete'), 403);
+        abort_if(!$user->hasPermission(PermissionType::QUESTION_DELETE), 403);
 
         DB::beginTransaction();
         try {

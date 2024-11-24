@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\PermissionType;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Subject\StoreRequest;
@@ -15,7 +16,7 @@ class SubjectController extends Controller
     public function index(Request $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('subject_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::SUBJECT_VIEW), 403);
 
         $subjects = Subject::select('*');
 
@@ -35,7 +36,7 @@ class SubjectController extends Controller
     public function store(StoreRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('subject_create'), 403);
+        abort_if(!$user->hasPermission(PermissionType::SUBJECT_CREATE), 403);
 
         DB::beginTransaction();
         try {
@@ -51,7 +52,7 @@ class SubjectController extends Controller
     public function show(string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('subject_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::SUBJECT_VIEW), 403);
 
         try {
             $subject = Subject::with([
@@ -68,7 +69,7 @@ class SubjectController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('subject_update'), 403);
+        abort_if(!$user->hasPermission(PermissionType::SUBJECT_UPDATE), 403);
 
         DB::beginTransaction();
         try {
@@ -85,7 +86,7 @@ class SubjectController extends Controller
     public function destroy(string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('subject_delete'), 403);
+        abort_if(!$user->hasPermission(PermissionType::SUBJECT_DELETE), 403);
 
         DB::beginTransaction();
         try {
@@ -101,7 +102,7 @@ class SubjectController extends Controller
     public function autocomplete(Request $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('subject_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::SUBJECT_VIEW), 403);
 
         try {
             $users = Subject::search($request->search)

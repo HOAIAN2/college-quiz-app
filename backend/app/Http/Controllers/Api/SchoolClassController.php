@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\PermissionType;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DeleteRequest;
@@ -17,7 +18,7 @@ class SchoolClassController extends Controller
     public function index(IndexRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('school_class_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::SCHOOL_CLASS_VIEW), 403);
 
         $school_classes = SchoolClass::with(['faculty'])->latest('id');
 
@@ -35,7 +36,7 @@ class SchoolClassController extends Controller
     public function store(StoreRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('school_class_create'), 403);
+        abort_if(!$user->hasPermission(PermissionType::SCHOOL_CLASS_CREATE), 403);
         $data = $request->validated();
 
         DB::beginTransaction();
@@ -52,7 +53,7 @@ class SchoolClassController extends Controller
     public function show(string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('school_class_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::SCHOOL_CLASS_VIEW), 403);
 
         try {
             $data = SchoolClass::with(['faculty'])->findOrFail($id);
@@ -65,7 +66,7 @@ class SchoolClassController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('school_class_update'), 403);
+        abort_if(!$user->hasPermission(PermissionType::SCHOOL_CLASS_UPDATE), 403);
         $data = $request->validated();
 
         DB::beginTransaction();
@@ -83,7 +84,7 @@ class SchoolClassController extends Controller
     public function destroy(DeleteRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('school_class_delete'), 403);
+        abort_if(!$user->hasPermission(PermissionType::SCHOOL_CLASS_DELETE), 403);
         DB::beginTransaction();
 
         try {
@@ -99,7 +100,7 @@ class SchoolClassController extends Controller
     public function autocomplete(Request $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('school_class_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::SCHOOL_CLASS_VIEW), 403);
 
         try {
             $school_classes = SchoolClass::search($request->search)

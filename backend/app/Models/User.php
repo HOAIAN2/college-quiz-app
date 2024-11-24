@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Enums\PermissionType;
 use App\Enums\RoleType;
 use App\Traits\Searchable;
 use Carbon\Carbon;
@@ -172,7 +173,7 @@ class User extends Authenticatable
         return $this->role_id == RoleType::TEACHER->value;
     }
 
-    public function hasPermission(string $name)
+    public function hasPermission(string|PermissionType $name)
     {
         return $this->role->permissions()->where('name', '=', $name)->exists();
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\PermissionType;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RolePermission\UpdateRequest;
@@ -20,7 +21,7 @@ class RolePermissionController extends Controller
     public function index()
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('role_permission_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::ROLE_PERMISSION_VIEW), 403);
 
         try {
             $data = Role::withCount('permissions')
@@ -38,7 +39,7 @@ class RolePermissionController extends Controller
     public function show(string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('role_permission_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::ROLE_PERMISSION_VIEW), 403);
         $data = (object)[];
 
         try {
@@ -59,7 +60,7 @@ class RolePermissionController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('role_permission_grant'), 403);
+        abort_if(!$user->hasPermission(PermissionType::ROLE_PERMISSION_GRANT), 403);
 
         DB::beginTransaction();
         try {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\PermissionType;
 use App\Enums\RoleType;
 use App\Exports\UsersExport;
 use App\Helper\Reply;
@@ -43,7 +44,7 @@ class UserController extends Controller
     public function store(StoreRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('user_create'), 403);
+        abort_if(!$user->hasPermission(PermissionType::USER_CREATE), 403);
 
         DB::beginTransaction();
         try {
@@ -71,7 +72,7 @@ class UserController extends Controller
     public function show(string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('user_view') && $id != $user->id, 403);
+        abort_if(!$user->hasPermission(PermissionType::USER_VIEW) && $id != $user->id, 403);
 
         try {
             $data = User::with(['role', 'school_class', 'faculty'])->findOrFail($id);
@@ -84,7 +85,7 @@ class UserController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('user_update'), 403);
+        abort_if(!$user->hasPermission(PermissionType::USER_UPDATE), 403);
 
         DB::beginTransaction();
         try {
@@ -121,7 +122,7 @@ class UserController extends Controller
     public function destroy(DeleteRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('user_delete'), 403);
+        abort_if(!$user->hasPermission(PermissionType::USER_DELETE), 403);
 
         DB::beginTransaction();
         try {
@@ -137,7 +138,7 @@ class UserController extends Controller
     public function getUsersByType(GetByTypeRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('user_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::USER_VIEW), 403);
 
         try {
             $users = User::with(['role', 'school_class', 'faculty'])
@@ -168,7 +169,7 @@ class UserController extends Controller
     public function importUsers(ImportRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('user_create'), 403);
+        abort_if(!$user->hasPermission(PermissionType::USER_CREATE), 403);
 
         DB::beginTransaction();
         try {
@@ -243,7 +244,7 @@ class UserController extends Controller
     public function exportableFields(ExportableRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('user_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::USER_VIEW), 403);
 
         $hiddens = $user->getHidden();
         $fillable = $user->getFillable();
@@ -286,7 +287,7 @@ class UserController extends Controller
     public function exportUsers(ExportRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('user_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::USER_VIEW), 403);
         $data = $request->validated();
 
         try {
@@ -328,7 +329,7 @@ class UserController extends Controller
     public function autocomplete(AutoCompleteRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('user_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::USER_VIEW), 403);
 
         try {
             $users = User::where('role_id', '=', RoleType::valueFromName($request->role))
@@ -344,7 +345,7 @@ class UserController extends Controller
     public function getAllUsers(GetAllRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('user_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::USER_VIEW), 403);
 
         try {
             $users = User::with(['role', 'school_class', 'faculty'])

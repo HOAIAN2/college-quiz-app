@@ -89,6 +89,17 @@ export default function TakeExam() {
             queryClient.removeQueries({ queryKey: [QUERY_KEYS.EXAM_QUESTIONS, { examId: id }] });
         };
     }, [id, queryClient, queryData.data]);
+    useEffect(() => {
+        const handleVisibilityStateChange = () => {
+            if (document.visibilityState === 'hidden') {
+                console.log('Document hidden');
+            }
+        };
+        document.addEventListener('visibilitychange', handleVisibilityStateChange);
+        return () => {
+            document.removeEventListener('visibilitychange', handleVisibilityStateChange);
+        };
+    }, []);
     if (queryData.isError) return <Navigate to={`/exams/${id}`} />;
     return (
         <>

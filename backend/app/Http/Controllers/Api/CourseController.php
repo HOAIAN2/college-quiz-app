@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\PermissionType;
 use App\Enums\RoleType;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
@@ -20,7 +21,7 @@ class CourseController extends Controller
     public function index(IndexRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('course_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::COURSE_VIEW), 403);
 
         try {
             $data = Course::where('semester_id', '=', $request->semester_id);
@@ -40,7 +41,7 @@ class CourseController extends Controller
     public function store(StoreRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('course_create'), 403);
+        abort_if(!$user->hasPermission(PermissionType::COURSE_CREATE), 403);
         $data = $request->validated();
 
         DB::beginTransaction();
@@ -63,7 +64,7 @@ class CourseController extends Controller
     public function show(string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('course_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::COURSE_VIEW), 403);
 
         try {
             $courses = Course::with([
@@ -85,7 +86,7 @@ class CourseController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('course_update'), 403);
+        abort_if(!$user->hasPermission(PermissionType::COURSE_UPDATE), 403);
         $data = $request->validated();
         DB::beginTransaction();
 
@@ -108,7 +109,7 @@ class CourseController extends Controller
     public function destroy(string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('course_delete'), 403);
+        abort_if(!$user->hasPermission(PermissionType::COURSE_DELETE), 403);
 
         DB::beginTransaction();
         try {
@@ -124,7 +125,7 @@ class CourseController extends Controller
     public function updateStudents(UpdateStudentsRequest $request, string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('role_permission_grant'), 403);
+        abort_if(!$user->hasPermission(PermissionType::COURSE_UPDATE), 403);
 
         DB::beginTransaction();
         try {

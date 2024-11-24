@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\PermissionType;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Semester\StoreRequest;
@@ -15,7 +16,7 @@ class SemesterController extends Controller
     public function index(Request $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('semester_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::SEMESTER_VIEW), 403);
 
         try {
             $data = Semester::select('*');
@@ -36,7 +37,7 @@ class SemesterController extends Controller
     {
 
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('semester_create'), 403);
+        abort_if(!$user->hasPermission(PermissionType::SEMESTER_CREATE), 403);
         $data = $request->validated();
         $data['start_date'] = Carbon::parse($request->start_date);
         $data['end_date'] = Carbon::parse($request->end_date);
@@ -55,7 +56,7 @@ class SemesterController extends Controller
     public function show(string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('semester_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::SEMESTER_VIEW), 403);
 
         try {
             $semester = Semester::findOrFail($id);
@@ -68,7 +69,7 @@ class SemesterController extends Controller
     public function update(StoreRequest $request, string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('semester_update'), 403);
+        abort_if(!$user->hasPermission(PermissionType::SEMESTER_UPDATE), 403);
         $data = $request->validated();
         $data['start_date'] = Carbon::parse($request->start_date);
         $data['end_date'] = Carbon::parse($request->end_date);
@@ -88,7 +89,7 @@ class SemesterController extends Controller
     public function destroy(string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('semester_delete'), 403);
+        abort_if(!$user->hasPermission(PermissionType::SEMESTER_DELETE), 403);
 
         DB::beginTransaction();
         try {
@@ -104,7 +105,7 @@ class SemesterController extends Controller
     public function autocomplete(Request $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('semester_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::SEMESTER_VIEW), 403);
 
         try {
             $semesters = Semester::where('end_date', '>=', Carbon::now())

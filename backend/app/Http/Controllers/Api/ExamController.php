@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\PermissionType;
 use App\Enums\RoleType;
 use App\Exports\ExamResultsExport;
 use App\Helper\NumberHelper;
@@ -43,7 +44,7 @@ class ExamController extends Controller
     public function index(IndexRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('exam_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::EXAM_VIEW), 403);
         $date = Carbon::now();
         $relations = [
             'course',
@@ -96,7 +97,7 @@ class ExamController extends Controller
     public function store(StoreRequest $request)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('exam_create'), 403);
+        abort_if(!$user->hasPermission(PermissionType::EXAM_CREATE), 403);
 
         DB::beginTransaction();
         try {
@@ -184,7 +185,7 @@ class ExamController extends Controller
     public function show(string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('exam_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::EXAM_VIEW), 403);
         $relations = [
             'exam_supervisors.user',
         ];
@@ -239,7 +240,7 @@ class ExamController extends Controller
     public function update(UpdateRequest $request, string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('exam_update'), 403);
+        abort_if(!$user->hasPermission(PermissionType::EXAM_UPDATE), 403);
         $data = collect($request->validated())->except(['supervisor_ids'])->toArray();
 
         DB::beginTransaction();
@@ -310,7 +311,7 @@ class ExamController extends Controller
     public function destroy(string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('exam_delete'), 403);
+        abort_if(!$user->hasPermission(PermissionType::EXAM_DELETE), 403);
 
         DB::beginTransaction();
         try {
@@ -349,7 +350,7 @@ class ExamController extends Controller
     public function updateStatus(UpdateStatusRequest $request, string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('exam_update'), 403);
+        abort_if(!$user->hasPermission(PermissionType::EXAM_UPDATE), 403);
         $now = Carbon::now();
 
         DB::beginTransaction();
@@ -397,7 +398,7 @@ class ExamController extends Controller
     public function take(string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('exam_submit'), 403);
+        abort_if(!$user->hasPermission(PermissionType::EXAM_SUBMIT), 403);
         $now = Carbon::now();
 
         DB::beginTransaction();
@@ -464,7 +465,7 @@ class ExamController extends Controller
     public function submit(SubmitRequest $request, string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('exam_submit'), 403);
+        abort_if(!$user->hasPermission(PermissionType::EXAM_SUBMIT), 403);
         $now = Carbon::now();
         $answers = $request->answers;
 
@@ -561,7 +562,7 @@ class ExamController extends Controller
     public function exportResult(string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('exam_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::EXAM_VIEW), 403);
         $now = Carbon::now();
 
         try {
@@ -614,7 +615,7 @@ class ExamController extends Controller
     public function syncCache(SyncAnswerCacheRequest $request, string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission('exam_submit'), 403);
+        abort_if(!$user->hasPermission(PermissionType::EXAM_SUBMIT), 403);
         $now = Carbon::now();
 
         try {
