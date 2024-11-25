@@ -68,32 +68,11 @@ class RolePermissionController extends Controller
                 ->where('name', '<>', 'admin')
                 ->findOrFail($id);
 
-            if ($request->ids == null) {
-                RolePermission::where('role_id', '=', $role->id)
-                    ->delete();
-            } else {
-                $will_be_deleted_permission_ids = $role->permissions()
-                    ->whereNotIn('id', $request->ids)->pluck('id');
-
-                RolePermission::where('role_id', '=', $role->id)
-                    ->whereIn('permission_id', $will_be_deleted_permission_ids)
-                    ->delete();
-
-                $existing_permission_ids = $role->permissions()
-                    ->whereIn('id', $request->ids)->pluck('id')->toArray();
-
-                $permission_ids = Permission::whereNotIn('name', $this->ignore_permissions)
-                    ->whereIn('id', $request->ids)
-                    ->pluck('id');
-
-                foreach ($permission_ids as $permission_id) {
-                    if (in_array($permission_id, $existing_permission_ids)) continue;
-                    RolePermission::create([
-                        'role_id' => $role->id,
-                        'permission_id' => $permission_id
-                    ]);
-                }
-            }
+            $permission_ids = Permission::whereIn('id', $request->ids)
+                ->whereNotIn('name', $this->ignore_permissions)
+                ->pluck('id')
+                ->toArray();
+            $role->permissions()->sync($permission_ids);
             DB::commit();
             return Reply::successWithMessage('app.successes.record_save_success');
         } catch (\Exception $error) {

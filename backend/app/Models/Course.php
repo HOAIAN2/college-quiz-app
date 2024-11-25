@@ -84,6 +84,12 @@ class Course extends Model
         return $this->hasMany(Enrollment::class);
     }
 
+    public function students()
+    {
+        return $this->belongsToMany(User::class, 'enrollments', 'course_id', 'student_id')
+            ->withTimestamps();
+    }
+
     public function exams()
     {
         return $this->hasMany(Exam::class);

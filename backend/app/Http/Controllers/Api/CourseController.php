@@ -133,35 +133,11 @@ class CourseController extends Controller
             if ($target_course->semester->isOver()) {
                 return Reply::error('app.errors.semester_end', [], 400);
             }
-
-            if ($request->student_ids == null) {
-                Enrollment::where('course_id', '=', $target_course->id)
-                    ->delete();
-            } else {
-                $will_be_deleted_student_ids = $target_course->enrollments()
-                    ->whereNotIn('student_id', $request->student_ids)
-                    ->pluck('student_id');
-
-                Enrollment::where('course_id', '=', $target_course->id)
-                    ->whereIn('student_id', $will_be_deleted_student_ids)
-                    ->delete();
-
-                $existing_student_ids = $target_course->enrollments()
-                    ->whereIn('student_id', $request->student_ids)
-                    ->pluck('student_id')->toArray();
-
-                $student_ids = User::where('role_id', '=', RoleType::STUDENT)
-                    ->whereIn('id', $request->student_ids)
-                    ->pluck('id');
-
-                foreach ($student_ids as $student_id) {
-                    if (in_array($student_id, $existing_student_ids)) continue;
-                    Enrollment::create([
-                        'course_id' => $target_course->id,
-                        'student_id' => $student_id
-                    ]);
-                }
-            }
+            $student_ids  = User::where('role_id', RoleType::STUDENT)
+                ->whereIn('id', $request->student_ids)
+                ->pluck('id')
+                ->toArray();
+            $target_course->students()->sync($student_ids);
             DB::commit();
             return Reply::successWithMessage('app.successes.record_save_success');
         } catch (\Exception $error) {
