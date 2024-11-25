@@ -64,8 +64,7 @@ class RolePermissionController extends Controller
 
         DB::beginTransaction();
         try {
-            $role = Role::with('permissions')
-                ->where('name', '<>', 'admin')
+            $role = Role::where('name', '<>', 'admin')
                 ->findOrFail($id);
 
             $permission_ids = Permission::whereIn('id', $request->ids)
