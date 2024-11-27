@@ -16,7 +16,7 @@ class ServeFilesController extends Controller
             // Retrieve the file contents
             $file = Storage::disk('upload')->get($filename);
             return response()->make($file, 200, [
-                // 'Content-Type' => $mimeType,
+                'Content-Type' => $mimeType,
                 'Cache-Control' => 'public, max-age=86400', // Cache for 1 day (86400 seconds)
                 'Expires' => now()->addDay()->toRfc1123String(),
             ]);
