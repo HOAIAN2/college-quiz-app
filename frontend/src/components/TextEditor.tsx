@@ -29,7 +29,7 @@ export default function TextEditor({
             StarterKit,
             Image.configure({
                 allowBase64: true,
-                HTMLAttributes: { class: styles.image }
+                // HTMLAttributes: { class: styles.image }
             })
         ],
         content: defaultContent || null,

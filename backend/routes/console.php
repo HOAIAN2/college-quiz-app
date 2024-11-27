@@ -9,3 +9,8 @@ Schedule::call(function () {
     Artisan::call('app:clear-expired-otp-codes');
 })
     ->everyMinute();
+
+
+Schedule::call((function () {
+    Artisan::call('app:delete-dangling-images');
+}))->weekly();

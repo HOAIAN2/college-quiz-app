@@ -9,6 +9,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * Class QuestionOption
@@ -56,5 +57,23 @@ class QuestionOption extends Model
     public function exam_questions_answers()
     {
         return $this->hasMany(ExamQuestionsAnswer::class, 'answer_id');
+    }
+
+    public function getContentAttribute($value)
+    {
+        libxml_use_internal_errors(true);
+        $htmlString = mb_convert_encoding($value, 'UTF-8', 'auto');
+        $dom = new \DOMDocument();
+        @$dom->loadHTML(mb_convert_encoding($htmlString, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
+        $images = $dom->getElementsByTagName('img');
+
+        foreach ($images as $img) {
+            $src = $img->attributes['src']->textContent;
+            if (Str::startsWith($src, '/uploads')) {
+                $img->attributes['src']->textContent = request()->schemeAndHttpHost() . $src;
+            }
+        }
+        return $dom->saveHTML();
     }
 }

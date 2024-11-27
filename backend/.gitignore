@@ -23,3 +23,6 @@ yarn-error.log
 # Build
 /public/assets
 /public/index.html
+
+# Uploads
+/storage/uploads

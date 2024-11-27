@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Enums\PermissionType;
+use App\Helper\DOMStringHelper;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Question\IndexRequest;
@@ -11,6 +12,7 @@ use App\Http\Requests\Question\UpdateRequest;
 use App\Models\Question;
 use App\Models\QuestionOption;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class QuestionController extends Controller
 {
@@ -49,14 +51,14 @@ class QuestionController extends Controller
 
         DB::beginTransaction();
         try {
-            $question_options = $request->options;
-            # Save question
+            $question_data['content'] = DOMStringHelper::processImagesFromDOM($question_data['content']);
             $question = Question::create($question_data);
-            # Save question options
+
+            $question_options = $request->options;
             foreach ($question_options as $key => $value) {
                 QuestionOption::create([
                     'question_id' => $question->id,
-                    'content' => $value,
+                    'content' => DOMStringHelper::processImagesFromDOM($value),
                     'is_correct' => $request->true_option == $key
                 ]);
             }
@@ -85,15 +87,18 @@ class QuestionController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::QUESTION_UPDATE), 403);
+
         $data = collect($request->validated())
             ->except([
                 'options',
                 'true_option',
             ])->toArray();
+
         $data['last_updated_by'] = $user->id;
 
         DB::beginTransaction();
         try {
+            $data['content'] = DOMStringHelper::processImagesFromDOM($data['content']);
             $target_question = Question::findOrFail($id);
             $target_question->update($data);
             $question_options = $target_question->question_options;
@@ -114,12 +119,12 @@ class QuestionController extends Controller
             foreach ($request->options as $key => $option) {
                 if ($question_options->has($key)) {
                     $question_options[$key]->update([
-                        'content' => $option,
+                        'content' => DOMStringHelper::processImagesFromDOM($option),
                         'is_correct' => $request->true_option == $key
                     ]);
                 } else QuestionOption::create([
                     'question_id' => $target_question->id,
-                    'content' => $option,
+                    'content' => DOMStringHelper::processImagesFromDOM($option),
                     'is_correct' => $request->true_option == $key
                 ]);
             }
