@@ -4,7 +4,7 @@ import styles from '~styles/CardPage.module.css';
 import { useQuery } from '@tanstack/react-query';
 import moment from 'moment';
 import { useCallback, useEffect, useRef } from 'react';
-import { Link, Navigate, useSearchParams } from 'react-router-dom';
+import { Link, Navigate, useSearchParams } from 'react-router';
 import { apiGetExamsByMonth } from '~api/exam';
 import DatePicker from '~components/DatePicker';
 import Loading from '~components/Loading';

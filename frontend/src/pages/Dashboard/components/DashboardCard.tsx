@@ -2,7 +2,7 @@ import appStyles from '~styles/App.module.css';
 import styles from '../styles/DashboardCard.module.css';
 
 import { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import css from '~utils/css';
 
 type DashboardCardProps = {

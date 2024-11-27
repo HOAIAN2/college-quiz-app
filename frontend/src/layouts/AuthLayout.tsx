@@ -1,7 +1,7 @@
 import styles from './styles/AuthLayout.module.css';
 
 import { useEffect, useState } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router';
 import { apiGetUser } from '~api/user';
 import useAppContext from '~hooks/useAppContext';
 import Header from './Header';

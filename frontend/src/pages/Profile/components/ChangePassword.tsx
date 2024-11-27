@@ -3,7 +3,7 @@ import styles from '../styles/ChangePassword.module.css';
 
 import { useEffect, useRef, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { apiChangePassword } from '~api/auth';
 import CSS_TIMING from '~constants/css-timing';
 import useLanguage from '~hooks/useLanguage';

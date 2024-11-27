@@ -7,7 +7,7 @@ import {
     BiLogOut
 } from 'react-icons/bi';
 import { RxHamburgerMenu } from 'react-icons/rx';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { apiLogout } from '~api/auth';
 import CustomSelect from '~components/CustomSelect';
 import useAppContext from '~hooks/useAppContext';

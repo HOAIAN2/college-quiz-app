@@ -5,7 +5,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { RiAddFill } from 'react-icons/ri';
-import { Navigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router';
 import { apiDeleteSchoolClassIds, apiGetSchoolClasses } from '~api/school-class';
 import CustomSelect from '~components/CustomSelect';
 import Loading from '~components/Loading';

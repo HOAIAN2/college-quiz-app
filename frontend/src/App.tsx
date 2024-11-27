@@ -7,7 +7,7 @@ import {
 import moment from 'moment';
 import 'moment/dist/locale/vi';
 import { Suspense, lazy, useEffect } from 'react';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router';
 import { Toaster } from 'sonner';
 import SuspenseLoading from '~components/SuspenseLoading';
 import themeUtils from '~utils/themeUtils';

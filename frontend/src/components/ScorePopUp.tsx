@@ -3,7 +3,7 @@ import styles from './styles/ScorePopUp.module.css';
 
 import confetti from 'canvas-confetti';
 import { TiArrowBack } from 'react-icons/ti';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import useLanguage from '~hooks/useLanguage';
 import { ExamResult } from '~models/exam';
 import caculateScore from '~utils/caculateScore';

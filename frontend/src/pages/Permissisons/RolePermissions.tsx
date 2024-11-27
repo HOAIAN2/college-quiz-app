@@ -4,7 +4,7 @@ import styles from './styles/RolePermissions.module.css';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { FiSave } from 'react-icons/fi';
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router';
 import { apiGetRolePermissions, apiUpdateRolePermissions } from '~api/role-permission';
 import Loading from '~components/Loading';
 import QUERY_KEYS from '~constants/query-keys';
