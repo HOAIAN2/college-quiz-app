@@ -10,4 +10,5 @@ backend/storage/framework/cache/*
 backend/storage/framework/sessions/*
 backend/storage/framework/views/*
 backend/storage/logs/laravel.log
+backend/storage/uploads*
 backend/dump
