@@ -29,6 +29,7 @@ export default function TextEditor({
             StarterKit,
             Image.configure({
                 allowBase64: true,
+                inline: true,
                 // HTMLAttributes: { class: styles.image }
             })
         ],
