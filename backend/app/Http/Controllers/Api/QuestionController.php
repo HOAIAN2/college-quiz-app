@@ -12,7 +12,6 @@ use App\Http\Requests\Question\UpdateRequest;
 use App\Models\Question;
 use App\Models\QuestionOption;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class QuestionController extends Controller
 {

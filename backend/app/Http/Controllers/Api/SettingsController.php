@@ -11,6 +11,20 @@ use Illuminate\Support\Facades\File;
 
 class SettingsController extends Controller
 {
+    public function getCommands(Request $request)
+    {
+        try {
+            $command_names = array_values(array_map(function ($command) {
+                return $command->getName();
+            }, Artisan::all()));
+
+            return Reply::successWithData($command_names);
+        } catch (\Exception $error) {
+            Log::error($error);
+            return Reply::error('app.errors.something_went_wrong', [], 500);
+        }
+    }
+
     public function runArtisan(Request $request)
     {
         $command = $request->get('command');
