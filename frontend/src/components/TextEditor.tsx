@@ -65,7 +65,7 @@ export default function TextEditor({
     }
     return (
         <div className={styles.editorContainer}>
-            <input onInput={loadImage} ref={imageInputRef} hidden type="file" accept="image/png, image/jpeg" />
+            <input onChange={loadImage} ref={imageInputRef} hidden type="file" accept="image/png, image/jpeg" />
             <div className={styles.editorToolbar}>
                 {
                     name ?
