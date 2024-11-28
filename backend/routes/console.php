@@ -12,5 +12,5 @@ Schedule::call(function () {
 
 
 Schedule::call((function () {
-    Artisan::call('app:delete-dangling-images');
+    Artisan::call('app:cleanup-images');
 }))->weekly();

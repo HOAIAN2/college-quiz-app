@@ -8,14 +8,14 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class DeleteDanglingImages extends Command
+class CleanupImages extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:delete-dangling-images';
+    protected $signature = 'app:cleanup-images';
 
     /**
      * The console command description.
@@ -30,26 +30,9 @@ class DeleteDanglingImages extends Command
     public function handle()
     {
         $question_images = [];
+        $contents = array_merge(Question::pluck('content')->toArray(), QuestionOption::pluck('content')->toArray());
 
-        $question_contents = Question::pluck('content');
-        foreach ($question_contents as $content) {
-            libxml_use_internal_errors(true);
-            $htmlString = mb_convert_encoding($content, 'UTF-8', 'auto');
-            $dom = new \DOMDocument();
-            @$dom->loadHTML(mb_convert_encoding($htmlString, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            libxml_clear_errors();
-            $images = $dom->getElementsByTagName('img');
-
-            foreach ($images as $img) {
-                $src = $img->attributes['src']->textContent;
-                if (Str::startsWith($src, '/uploads')) {
-                    $question_images[] = Str::replace('/uploads/', '', $src);
-                }
-            }
-        }
-
-        $question_option_contents = QuestionOption::pluck('content');
-        foreach ($question_option_contents as $content) {
+        foreach ($contents as $content) {
             libxml_use_internal_errors(true);
             $htmlString = mb_convert_encoding($content, 'UTF-8', 'auto');
             $dom = new \DOMDocument();
