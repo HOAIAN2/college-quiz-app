@@ -26,14 +26,14 @@ class ValidateToken
     private function isValidIp($request, $token)
     {
         $request_id = $request->ip();
-        $token_ip = json_decode($token->name)->ip;
+        $token_ip = $token->ip;
         return $token_ip == $request_id;
     }
 
     private function isValidUserAgent($request, $token)
     {
         $request_user_agent = $request->userAgent();
-        $token_user_agent = json_decode($token->name)->userAgent;
+        $token_user_agent = $token->user_agent;
         return $request_user_agent == $token_user_agent;
     }
 }

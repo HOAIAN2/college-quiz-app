@@ -38,7 +38,7 @@ export default function SecurityContent() {
                             return (
                                 <li key={`session-${session.id}`}>
                                     <big>
-                                        <h4 style={{ marginBottom: '10px' }}>{session.name.ip}</h4>
+                                        <h4 style={{ marginBottom: '10px' }}>{session.ip}</h4>
                                     </big>
                                     {
                                         session.id === currentTokenId ?
@@ -46,7 +46,7 @@ export default function SecurityContent() {
                                     }
                                     <p>{language?.lastActivedAt} {new Date(session.lastUsedAt).toLocaleString(appLanguage.language)}</p>
                                     <p>{language?.loginedAt}: {new Date(session.createdAt).toLocaleString(appLanguage.language)}</p>
-                                    <p>{language?.userAgent}: {session.name.userAgent}</p>
+                                    <p>{language?.userAgent}: {session.userAgent}</p>
                                     <button
                                         onClick={() => { mutate(session.id); }}
                                         className={css(appStyles.actionItemWhiteBorderRed, styles.buttonItem)}

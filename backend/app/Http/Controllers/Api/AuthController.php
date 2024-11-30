@@ -43,10 +43,7 @@ class AuthController extends Controller
             if (!$data->user->email_verified_at && config('custom.app.must_verify_email')) {
                 return Reply::successWithData($data, '');
             }
-            $data->token = $data->user->createToken(json_encode([
-                'ip' => $request->ip(),
-                'userAgent' => $request->userAgent()
-            ]))->plainTextToken;
+            $data->token = $data->user->createToken("{$data->user->role->name} token")->plainTextToken;
             return Reply::successWithData($data, '');
         } catch (\Exception $error) {
             return $this->handleException($error);
@@ -249,11 +246,7 @@ class AuthController extends Controller
 
         try {
             $tokens = $user->tokens()->latest('last_used_at')
-                ->get()
-                ->each(function ($token) {
-                    $token->setAttribute('name', json_decode($token->getAttribute('name'), true));
-                    $token->makeHidden(['tokenable_type']);
-                });
+                ->get();
             return Reply::successWithData($tokens, '');
         } catch (\Exception $error) {
             return $this->handleException($error);

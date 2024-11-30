@@ -1,10 +1,9 @@
 export type PersonalAccessToken = {
     id: number;
     tokenableId: number;
-    name: {
-        ip: string;
-        userAgent: string;
-    };
+    name: string;
+    ip: string | null;
+    userAgent: string | null;
     abilities: string[];
     lastUsedAt: string;
     expiresAt: string | null;
