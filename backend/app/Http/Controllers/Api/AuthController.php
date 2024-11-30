@@ -91,6 +91,7 @@ class AuthController extends Controller
 
     public function sendEmailVerification(SendEmailVerificationRequest $request)
     {
+        DB::beginTransaction();
         try {
             $user = User::whereNull('email_verified_at')
                 ->where('email', '=', $request->email)
@@ -107,8 +108,10 @@ class AuthController extends Controller
             $verify_email = new VerifyEmail($code);
             Mail::to($user)->send($verify_email);
 
+            DB::commit();
             return Reply::success();
         } catch (\Exception $error) {
+            DB::rollBack();
             return $this->handleException($error);
         }
     }
@@ -151,6 +154,7 @@ class AuthController extends Controller
 
     public function sendPasswordResetEmail(SendPasswordResetEmailRequest $request)
     {
+        DB::beginTransaction();
         try {
             $user = User::where('email', '=', $request->email)->first();
             if (!$user) {
@@ -170,14 +174,17 @@ class AuthController extends Controller
 
             $password_reset_email = new PasswordResetEmail($code);
             Mail::to($user)->send($password_reset_email);
+            DB::commit();
             return Reply::success();
         } catch (\Exception $error) {
+            DB::rollBack();
             return $this->handleException($error);
         }
     }
 
     public function verifyPasswordResetCode(VerifyEmailRequest $request)
     {
+        DB::beginTransaction();
         try {
             $user = User::where('email', '=', $request->email)->first();
             if (!$user) {
@@ -195,8 +202,10 @@ class AuthController extends Controller
             if ($is_valid_otp == false) {
                 return Reply::error('auth.errors.verify_code_mismatch', [], 400);
             }
+            DB::commit();
             return Reply::success();
         } catch (\Exception $error) {
+            DB::rollBack();
             return $this->handleException($error);
         }
     }
