@@ -1,8 +1,10 @@
 import appStyles from '~styles/App.module.css';
 import styles from '../styles/SettingsContent.module.css';
 
+import { useQuery } from '@tanstack/react-query';
 import { useRef } from 'react';
-import { apiDeleteLogFile, apiDownloadLogFile, apiRunArtisan } from '~api/settings';
+import { apiDeleteLogFile, apiDownloadLogFile, apiGetCallableCommands, apiRunArtisan } from '~api/settings';
+import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
@@ -41,6 +43,11 @@ export default function SystemContent() {
                 button.classList.remove(appStyles.buttonSubmitting);
             });
     };
+    const queryData = useQuery({
+        queryKey: [QUERY_KEYS.CALLABLE_COMMANDS],
+        queryFn: apiGetCallableCommands,
+        refetchOnWindowFocus: false
+    });
     return (
         <>
             {
@@ -54,7 +61,15 @@ export default function SystemContent() {
                                 ref={artisanCommandInputRef}
                                 className={css(appStyles.input, styles.inputItem)}
                                 placeholder='schedule:run'
+                                list='commands'
                             />
+                            <datalist id='commands'>
+                                {queryData.data?.map(command => {
+                                    return (
+                                        <option key={command} value={command}></option>
+                                    );
+                                })}
+                            </datalist>
                             <div className={styles.actionItems}>
                                 <button
                                     onClick={handleRunArtisan}

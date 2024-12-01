@@ -20,6 +20,7 @@ if (!defined('AUTH_MIDDLEWARES')) define('AUTH_MIDDLEWARES', ['auth:sanctum', 'v
 
 Route::prefix('/settings')->controller(SettingsController::class)->group(function () {
     Route::middleware(AUTH_MIDDLEWARES)->group(function () {
+        Route::get('/commands', 'getCommands');
         Route::post('/run-artisan', 'runArtisan');
         Route::get('/log', 'getLogFile');
         Route::delete('/log', 'deleteLogFile');

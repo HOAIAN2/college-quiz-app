@@ -11,14 +11,33 @@ use Illuminate\Support\Facades\File;
 
 class SettingsController extends Controller
 {
+    public array $callableCommands = [
+        'app:cancel-late-exams',
+        'app:cleanup-images',
+        'app:clear-expired-otp-codes',
+        'app:clear-unsed-tokens',
+
+        'schedule:run',
+
+        'optimize',
+        'optimize:clear',
+
+        'route:cache',
+        'route:clear',
+        'cache:clear',
+        'cache:forget',
+        'clear-compiled',
+        'config:cache',
+        'config:clear',
+        'view:cache',
+        'view:clear',
+        'event:clear',
+    ];
+
     public function getCommands(Request $request)
     {
         try {
-            $command_names = array_values(array_map(function ($command) {
-                return $command->getName();
-            }, Artisan::all()));
-
-            return Reply::successWithData($command_names);
+            return Reply::successWithData($this->callableCommands, '');
         } catch (\Exception $error) {
             Log::error($error);
             return Reply::error('app.errors.something_went_wrong', [], 500);
@@ -28,6 +47,7 @@ class SettingsController extends Controller
     public function runArtisan(Request $request)
     {
         $command = $request->get('command');
+        abort_if(!in_array($command, $this->callableCommands), 403);
 
         try {
             /**

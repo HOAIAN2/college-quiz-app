@@ -29,7 +29,8 @@ const keys = [
     'PAGE_EXAMS',
     'EXAM',
     'EXAM_QUESTIONS',
-    'LOGIN_SESSIONS'
+    'LOGIN_SESSIONS',
+    'CALLABLE_COMMANDS',
 ] as const;
 
 type QueryKey = (typeof keys)[number];
