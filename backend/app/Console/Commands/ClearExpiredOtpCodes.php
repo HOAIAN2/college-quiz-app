@@ -19,7 +19,7 @@ class ClearExpiredOtpCodes extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Clear expired otp';
 
     /**
      * Execute the console command.

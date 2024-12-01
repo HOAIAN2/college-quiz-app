@@ -90,12 +90,6 @@ class Question extends Model
         return $this->hasMany(QuestionOption::class);
     }
 
-    public function hasOption($id)
-    {
-        return $this->id == QuestionOption::where('id', '=', $id)
-            ->pluck('id')->first();
-    }
-
     public function getContentAttribute($value)
     {
         libxml_use_internal_errors(true);

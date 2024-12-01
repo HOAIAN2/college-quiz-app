@@ -22,7 +22,7 @@ class GeneratePermissionType extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Create Enum Permission for backend and type for frontend';
 
     /**
      * Execute the console command.

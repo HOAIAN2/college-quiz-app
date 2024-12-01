@@ -22,7 +22,7 @@ class CleanupImages extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Clean up images that deleted in database';
 
     /**
      * Execute the console command.
