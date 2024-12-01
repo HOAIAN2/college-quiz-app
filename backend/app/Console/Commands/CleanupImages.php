@@ -30,23 +30,18 @@ class CleanupImages extends Command
     public function handle()
     {
         $question_images = [];
-        $contents = array_merge(Question::pluck('content')->toArray(), QuestionOption::pluck('content')->toArray());
 
-        foreach ($contents as $content) {
-            libxml_use_internal_errors(true);
-            $htmlString = mb_convert_encoding($content, 'UTF-8', 'auto');
-            $dom = new \DOMDocument();
-            @$dom->loadHTML(mb_convert_encoding($htmlString, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-            libxml_clear_errors();
-            $images = $dom->getElementsByTagName('img');
-
-            foreach ($images as $img) {
-                $src = $img->attributes['src']->textContent;
-                if (Str::startsWith($src, '/uploads')) {
-                    $question_images[] = Str::replace('/uploads/', '', $src);
-                }
+        Question::select('content')->chunk(100, function ($questions) use (&$question_images) {
+            foreach ($questions as $question) {
+                $question_images = array_merge($question_images, $this->extractImagePathsFromContent($question->content));
             }
-        }
+        });
+
+        QuestionOption::select('content')->chunk(100, function ($options) use (&$question_images) {
+            foreach ($options as $option) {
+                $question_images = array_merge($question_images, $this->extractImagePathsFromContent($option->content));
+            }
+        });
 
         $files = Storage::allFiles();
         $ignore_files = ['.gitignore'];
@@ -57,5 +52,25 @@ class CleanupImages extends Command
         });
 
         Storage::delete($files);
+    }
+
+    protected function extractImagePathsFromContent(string $content): array
+    {
+        $image_paths = [];
+        libxml_use_internal_errors(true);
+        $html_string = mb_convert_encoding($content, 'UTF-8', 'auto');
+        $dom = new \DOMDocument();
+        @$dom->loadHTML(mb_convert_encoding($html_string, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
+        $images = $dom->getElementsByTagName('img');
+
+        foreach ($images as $img) {
+            $src = $img->attributes['src']->textContent;
+            if (Str::startsWith($src, '/uploads')) {
+                $image_paths[] = Str::replace('/uploads/', '', $src);
+            }
+        }
+
+        return $image_paths;
     }
 }
