@@ -27,6 +27,8 @@ import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
 import getMetaContent from '~utils/getMetaContent';
 
+const STRICT_WIDTH = 800;
+
 export default function Sidebar() {
     const { DOM, permissions } = useAppContext();
     const language = useLanguage('component.sidebar');
@@ -100,7 +102,7 @@ export default function Sidebar() {
     ];
     useEffect(() => {
         function updateSize() {
-            if (window.innerWidth < 800) DOM.sideBarRef.current?.classList.add(styles.hide);
+            if (window.innerWidth < STRICT_WIDTH) DOM.sideBarRef.current?.classList.add(styles.hide);
             else DOM.sideBarRef.current?.classList.remove(styles.hide);
         }
         window.addEventListener('resize', updateSize);
@@ -110,7 +112,7 @@ export default function Sidebar() {
         <nav ref={DOM.sideBarRef} className={
             css(
                 styles.sidebar,
-                window.innerWidth < 800 ? styles.hide : ''
+                window.innerWidth < STRICT_WIDTH ? styles.hide : ''
             )
         }>
             <ul className={styles.list}>{
@@ -119,7 +121,7 @@ export default function Sidebar() {
                     return (
                         <li onClick={e => {
                             e.currentTarget.querySelector('a')?.click();
-                            if (window.innerWidth < 800) DOM.sideBarRef.current?.classList.add(styles.hide);
+                            if (window.innerWidth < STRICT_WIDTH) DOM.sideBarRef.current?.classList.add(styles.hide);
                         }} key={index} className={
                             css(
                                 styles.listItem,
