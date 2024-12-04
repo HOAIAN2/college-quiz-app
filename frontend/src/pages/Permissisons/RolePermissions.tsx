@@ -1,7 +1,7 @@
 import appStyles from '~styles/App.module.css';
 import styles from './styles/RolePermissions.module.css';
 
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { Navigate, useParams } from 'react-router';
@@ -17,10 +17,12 @@ export default function RolePermissions() {
     const language = useLanguage('page.role_permissions');
     const { id } = useParams();
     const disabledUpdate = !permissions.has('role_permission_grant');
+    const queryClient = useQueryClient();
     const queryData = useQuery({
         queryKey: [QUERY_KEYS.PAGE_ROLE_PERMISSIONS, { id: id }],
         queryFn: () => apiGetRolePermissions(Number(id)),
-        enabled: permissions.has('role_permission_view')
+        enabled: permissions.has('role_permission_view'),
+        refetchOnWindowFocus: false
     });
     const handleUpdatePermission = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -54,8 +56,11 @@ export default function RolePermissions() {
         if (permissions.has('role_permission_view')) {
             queryData.refetch();
         }
+        return () => {
+            queryClient.removeQueries({ queryKey: [QUERY_KEYS.PAGE_ROLE_PERMISSIONS, { id: id }] });
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [permissions, appLanguage.language]);
+    }, [appLanguage.language]);
     if (!permissions.has('role_permission_view')) return <Navigate to='/' />;
     return (
         <div className={css(appStyles.dashboard, styles.rolePermissionContainer)}

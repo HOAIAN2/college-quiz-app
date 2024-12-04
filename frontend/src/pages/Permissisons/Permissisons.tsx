@@ -3,7 +3,7 @@ import styles from './styles/Permissions.module.css';
 
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import { LuUsers2 } from 'react-icons/lu';
+import { LuUsers } from 'react-icons/lu';
 import { Link, Navigate } from 'react-router';
 import { apiGetRolePermissionCount } from '~api/role-permission';
 import Loading from '~components/Loading';
@@ -41,7 +41,7 @@ export default function Permissisons() {
                                                 className={styles.listAnchor}
                                                 to={item.id.toString()}>
                                                 <div className={styles.itemLeft}>
-                                                    <LuUsers2 />
+                                                    <LuUsers />
                                                     <span className={styles.name}>
                                                         {item.displayName}
                                                     </span>

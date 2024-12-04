@@ -3,8 +3,7 @@ import styles from './styles/Course.module.css';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { SyntheticEvent, useEffect, useState } from 'react';
-import { FiSave } from 'react-icons/fi';
-import { LuPenSquare } from 'react-icons/lu';
+import { FiEdit, FiSave } from 'react-icons/fi';
 import { MdDeleteOutline } from 'react-icons/md';
 import { RiAddFill } from 'react-icons/ri';
 import { Navigate, useNavigate, useParams } from 'react-router';
@@ -231,7 +230,7 @@ export default function Course() {
                                                     setShowUpdateStudentsPopUp(true);
                                                 }}
                                             >
-                                                <LuPenSquare />
+                                                <FiEdit />
                                                 <span>
                                                     {language?.edit}
                                                 </span>

@@ -20,7 +20,7 @@ class Reply
         ], $status);
     }
 
-    public static function successWithData($data = [], $message, $status = 200)
+    public static function successWithData($data = [], $message = '', $status = 200)
     {
         $response = [
             'status' => 'success',
