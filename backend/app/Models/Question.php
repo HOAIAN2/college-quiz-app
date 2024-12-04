@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Question
@@ -35,6 +36,8 @@ use Illuminate\Support\Str;
  */
 class Question extends Model
 {
+    use SoftDeletes;
+
     const FULLTEXT = ['content'];
 
     protected $table = 'questions';
