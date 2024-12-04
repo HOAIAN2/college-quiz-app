@@ -85,7 +85,7 @@ class ExamController extends Controller
                         ->get();
                     break;
                 default:
-                    return Reply::error('app.errors.something_went_wrong', [], 500);
+                    return Reply::error(trans('app.errors.something_went_wrong'), 500);
                     break;
             }
             return Reply::successWithData($data, '');
@@ -114,19 +114,19 @@ class ExamController extends Controller
                     $course = $course->findOrFail($request->course_id);
                     break;
                 default:
-                    return Reply::error('app.errors.something_went_wrong', [], 500);
+                    return Reply::error(trans('app.errors.something_went_wrong'), 500);
                     break;
             }
 
             $course_end_date = Carbon::parse($course->semester->end_date);
             if ($course->isOver()) {
-                return Reply::error('app.errors.semester_end', [], 400);
+                return Reply::error(trans('app.errors.semester_end'), 400);
             }
             $exam_date = Carbon::parse($request->exam_date);
             if ($exam_date->greaterThanOrEqualTo($course_end_date)) {
-                return Reply::error('app.errors.exam_date_greater_than_semester', [
+                return Reply::error(trans('app.errors.exam_date_greater_than_semester', [
                     'date' => $course_end_date
-                ], 400);
+                ], 400));
             }
             $chapters = Chapter::withCount('questions')
                 ->where('subject_id', '=', $course->subject_id)
@@ -149,7 +149,7 @@ class ExamController extends Controller
                 > array_sum(array_values($request->question_counts))
             ) {
                 DB::rollBack();
-                return Reply::error('exam.expert_question_limit_error');
+                return Reply::error(trans('exam.expert_question_limit_error'));
             }
 
             foreach ($chapters as $key => $chapter) {
@@ -236,10 +236,10 @@ class ExamController extends Controller
                 // If still not enough, send error
                 if (count($chapter_question_ids) != $chapter->max_select_question) {
                     DB::rollBack();
-                    return Reply::error('app.errors.max_chapter_question_count', [
+                    return Reply::error(trans('app.errors.max_chapter_question_count', [
                         'name' => "$chapter->chapter_number. $chapter->name",
                         'number' => $chapter->questions_count
-                    ], 400);
+                    ], 400));
                 }
                 $question_ids = array_merge($question_ids, $chapter_question_ids);
             }
@@ -260,7 +260,7 @@ class ExamController extends Controller
                 ]);
             }
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_save_success');
+            return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -293,7 +293,7 @@ class ExamController extends Controller
                         });
                     break;
                 default:
-                    return Reply::error('app.errors.something_went_wrong', [], 500);
+                    return Reply::error(trans('app.errors.something_went_wrong'), 500);
                     break;
             }
             $data = $data->findOrFail($id);
@@ -342,7 +342,7 @@ class ExamController extends Controller
                     $target_exam = $target_exam->findOrFail($id);
                     break;
                 default:
-                    return Reply::error('app.errors.something_went_wrong', [], 500);
+                    return Reply::error(trans('app.errors.something_went_wrong'), 500);
                     break;
             }
             $exam_started_at = $target_exam->started_at != null
@@ -351,7 +351,7 @@ class ExamController extends Controller
                 $exam_started_at != null &&
                 Carbon::now()->greaterThan($exam_started_at)
             ) {
-                return Reply::error('app.errors.exam_has_end');
+                return Reply::error(trans('app.errors.exam_has_end'));
             }
             $data['exam_date'] = Carbon::parse($data['exam_date']);
             $target_exam->update($data);
@@ -386,7 +386,7 @@ class ExamController extends Controller
                 }
             }
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_save_success');
+            return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -412,7 +412,7 @@ class ExamController extends Controller
                     $exam = $exam->findOrFail($id);
                     break;
                 default:
-                    return Reply::error('app.errors.something_went_wrong', [], 500);
+                    return Reply::error(trans('app.errors.something_went_wrong'), 500);
                     break;
             }
             $exam_started_at = $exam->started_at != null
@@ -421,11 +421,11 @@ class ExamController extends Controller
                 $exam_started_at != null &&
                 Carbon::now()->greaterThan($exam_started_at)
             ) {
-                return Reply::error('app.errors.exam_has_start');
+                return Reply::error(trans('app.errors.exam_has_start'));
             }
             $exam->delete();
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_delete_success');
+            return Reply::successWithMessage(trans('app.successes.record_delete_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -450,30 +450,30 @@ class ExamController extends Controller
             switch ($request->status) {
                 case 'start':
                     if ($target_exam->cancelled_at != null) {
-                        return Reply::error('app.errors.exam_has_cancel');
+                        return Reply::error(trans('app.errors.exam_has_cancel'));
                     }
                     if ($now->lessThan(Carbon::parse($target_exam->exam_date))) {
-                        return Reply::error('app.errors.not_yet_time_for_exam');
+                        return Reply::error(trans('app.errors.not_yet_time_for_exam'));
                     }
                     if ($target_exam->started_at == null) {
                         $target_exam->update([
                             'started_at' => $now
                         ]);
-                    } else return Reply::error('app.errors.exam_has_start');
+                    } else return Reply::error(trans('app.errors.exam_has_start'));
                     break;
                 case 'cancel':
                     if ($target_exam->cancelled_at == null) {
                         $target_exam->update([
                             'cancelled_at' => $now
                         ]);
-                    } else return Reply::error('app.errors.exam_has_cancel');
+                    } else return Reply::error(trans('app.errors.exam_has_cancel'));
                     break;
                 default:
-                    return Reply::error('app.errors.something_went_wrong', [], 500);
+                    return Reply::error(trans('app.errors.something_went_wrong'), 500);
                     break;
             }
             DB::commit();
-            return Reply::successWithMessage('app.successes.success');
+            return Reply::successWithMessage(trans('app.successes.success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -532,10 +532,10 @@ class ExamController extends Controller
             $exam_started_at = Carbon::parse($exam->started_at);
             $exam_ended_at = $exam_started_at->copy()->addMinutes($exam->exam_time + $this->allowLateSubmitSeconds / 60);
             if ($now->lessThan($exam_started_at)) {
-                return Reply::error('app.errors.exam_not_start');
+                return Reply::error(trans('app.errors.exam_not_start'));
             }
             if ($now->greaterThan($exam_ended_at)) {
-                return Reply::error('app.errors.exam_has_end');
+                return Reply::error(trans('app.errors.exam_has_end'));
             }
             Cache::put($question_cache_key, $exam, $exam_ended_at);
             DB::commit();
@@ -596,11 +596,11 @@ class ExamController extends Controller
             }
 
             if ($now->lessThan($exam_date)) {
-                return Reply::error('app.errors.exam_not_start');
+                return Reply::error(trans('app.errors.exam_not_start'));
             }
 
             if ($now->greaterThan($exam_end_date)) {
-                return Reply::error('app.errors.exam_has_end');
+                return Reply::error(trans('app.errors.exam_has_end'));
             }
 
             # Save and caculate score
@@ -637,7 +637,6 @@ class ExamController extends Controller
             Cache::forget($answers_cache_key);
             DB::commit();
             return Reply::successWithData($result_data, '');
-            return Reply::successWithMessage('app.successes.record_save_success');
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -669,7 +668,7 @@ class ExamController extends Controller
                         });
                     break;
                 default:
-                    return Reply::error('app.errors.something_went_wrong', [], 500);
+                    return Reply::error(trans('app.errors.something_went_wrong'), 500);
                     break;
             }
             $exam = $exam->findOrFail($id);
@@ -722,10 +721,10 @@ class ExamController extends Controller
             $exam_started_at = Carbon::parse($exam->started_at);
             $exam_ended_at = $exam_started_at->copy()->addMinutes($exam->exam_time);
             if ($now->lessThan($exam_started_at)) {
-                return Reply::error('app.errors.exam_not_start');
+                return Reply::error(trans('app.errors.exam_not_start'));
             }
             if ($now->greaterThan($exam_ended_at)) {
-                return Reply::error('app.errors.exam_has_end');
+                return Reply::error(trans('app.errors.exam_has_end'));
             }
             Cache::put(
                 $answers_cache_key,

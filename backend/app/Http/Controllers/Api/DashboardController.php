@@ -68,7 +68,7 @@ class DashboardController extends Controller
                         });
                     break;
                 default:
-                    return Reply::error('app.errors.something_went_wrong', [], 500);
+                    return Reply::error(trans('app.errors.something_went_wrong'), 500);
             }
             $exams_each_month = $exams_each_month->pluck('count', 'month')
                 ->toArray();

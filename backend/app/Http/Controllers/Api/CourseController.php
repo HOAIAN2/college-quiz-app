@@ -48,13 +48,13 @@ class CourseController extends Controller
         try {
             $semester = Semester::findOrFail($request->semester_id);
             if ($semester->isOver()) {
-                return Reply::error('app.errors.semester_end', [], 400);
+                return Reply::error(trans('app.errors.semester_end'), 400);
             }
             User::where('role_id', '=', RoleType::TEACHER)
                 ->select('id')->findOrFail($request->teacher_id);
             Course::create($data);
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_save_success');
+            return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -93,13 +93,13 @@ class CourseController extends Controller
         try {
             $target_course = Course::findOrFail($id);
             if ($target_course->semester->isOver()) {
-                return Reply::error('app.errors.semester_end', [], 400);
+                return Reply::error(trans('app.errors.semester_end'), 400);
             }
             User::where('role_id', '=', RoleType::TEACHER)
                 ->select('id')->findOrFail($request->teacher_id);
             $target_course->update($data);
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_save_success');
+            return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -115,7 +115,7 @@ class CourseController extends Controller
         try {
             Course::destroy($id);
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_delete_success');
+            return Reply::successWithMessage(trans('app.successes.record_delete_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -131,7 +131,7 @@ class CourseController extends Controller
         try {
             $target_course = Course::findOrFail($id);
             if ($target_course->semester->isOver()) {
-                return Reply::error('app.errors.semester_end', [], 400);
+                return Reply::error(trans('app.errors.semester_end'), 400);
             }
             $student_ids  = User::where('role_id', RoleType::STUDENT)
                 ->whereIn('id', $request->student_ids)
@@ -139,7 +139,7 @@ class CourseController extends Controller
                 ->toArray();
             $target_course->students()->sync($student_ids);
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_save_success');
+            return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);

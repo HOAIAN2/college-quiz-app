@@ -62,7 +62,7 @@ class UserController extends Controller
             $data['birth_date'] = Carbon::parse($request->birth_date);
             User::create($data);
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_save_success');
+            return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -112,7 +112,7 @@ class UserController extends Controller
             $targetUser->update($data);
             DB::commit();
             if ($data['is_active'] == 0) $targetUser->tokens()->delete();
-            return Reply::successWithMessage('app.successes.record_save_success');
+            return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -128,7 +128,7 @@ class UserController extends Controller
         try {
             User::destroy($request->ids);
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_delete_success');
+            return Reply::successWithMessage(trans('app.successes.record_delete_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -220,21 +220,21 @@ class UserController extends Controller
                 $data[] = $validated_record;
             }
             if (count($non_exists_classes) != 0) {
-                return Reply::error('app.errors.class_not_exists', [
+                return Reply::error(trans('app.errors.class_not_exists', [
                     'shortcodes' => implode(', ', $non_exists_classes)
-                ]);
+                ]));
             }
             if (count($non_exists_faculties) != 0) {
-                return Reply::error('app.errors.faculty_not_exists', [
+                return Reply::error(trans('app.errors.faculty_not_exists', [
                     'shortcodes' => implode(', ', $non_exists_faculties)
-                ]);
+                ]));
             }
 
             foreach ($data as $row) {
                 User::create($row);
             }
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_save_success');
+            return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);

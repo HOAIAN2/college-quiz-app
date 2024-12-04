@@ -73,7 +73,7 @@ class RolePermissionController extends Controller
                 ->toArray();
             $role->permissions()->sync($permission_ids);
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_save_success');
+            return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);

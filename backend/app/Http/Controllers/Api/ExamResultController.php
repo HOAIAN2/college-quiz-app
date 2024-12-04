@@ -63,7 +63,7 @@ class ExamResultController extends Controller
         DB::beginTransaction();
         try {
             if (!Hash::check($request->password, $user->password)) {
-                return Reply::error('auth.errors.password_incorrect');
+                return Reply::error(trans('auth.errors.password_incorrect'));
             }
             $target_exam_result = ExamResult::findOrFail($id);
             $answers = $target_exam_result
@@ -86,7 +86,7 @@ class ExamResultController extends Controller
                 'correct_count' => $correct_count
             ]);
             DB::commit();
-            return Reply::successWithMessage('app.successes.success');
+            return Reply::successWithMessage(trans('app.successes.success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -102,7 +102,7 @@ class ExamResultController extends Controller
         DB::beginTransaction();
         try {
             if (!Hash::check($request->password, $user->password)) {
-                return Reply::error('auth.errors.password_incorrect');
+                return Reply::error(trans('auth.errors.password_incorrect'));
             }
             $target_exam_result = ExamResult::findOrFail($id);
             $target_exam_result->update([
@@ -110,7 +110,7 @@ class ExamResultController extends Controller
                 'cancelled_at' => Carbon::now()
             ]);
             DB::commit();
-            return Reply::successWithMessage('app.successes.success');
+            return Reply::successWithMessage(trans('app.successes.success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);

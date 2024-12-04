@@ -62,7 +62,7 @@ class QuestionController extends Controller
                 ]);
             }
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_save_success');
+            return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -129,7 +129,7 @@ class QuestionController extends Controller
             }
 
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_save_success');
+            return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -145,7 +145,7 @@ class QuestionController extends Controller
         try {
             Question::destroy($id);
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_delete_success');
+            return Reply::successWithMessage(trans('app.successes.record_delete_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);

@@ -42,7 +42,7 @@ class SubjectController extends Controller
         try {
             Subject::create($request->validated());
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_save_success');
+            return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -76,7 +76,7 @@ class SubjectController extends Controller
             $subject = Subject::findOrFail($id);
             $subject->update($request->validated());
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_save_success');
+            return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -92,7 +92,7 @@ class SubjectController extends Controller
         try {
             Subject::destroy($id);
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_delete_success');
+            return Reply::successWithMessage(trans('app.successes.record_delete_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);

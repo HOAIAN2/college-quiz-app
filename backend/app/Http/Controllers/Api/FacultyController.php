@@ -45,7 +45,7 @@ class FacultyController extends Controller
         try {
             Faculty::create($data);
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_save_success');
+            return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -78,7 +78,7 @@ class FacultyController extends Controller
             $faculty = Faculty::findOrFail($id);
             $faculty->update($data);
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_save_success');
+            return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -94,7 +94,7 @@ class FacultyController extends Controller
         try {
             Faculty::destroy($request->ids);
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_delete_success');
+            return Reply::successWithMessage(trans('app.successes.record_delete_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);

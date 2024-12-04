@@ -21,7 +21,7 @@ class ChapterController extends Controller
         try {
             Chapter::create($request->validated());
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_save_success');
+            return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -38,7 +38,7 @@ class ChapterController extends Controller
             $chapter = Chapter::findOrFail($id);
             $chapter->update($request->validated());
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_save_success');
+            return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -54,7 +54,7 @@ class ChapterController extends Controller
         try {
             Chapter::destroy($id);
             DB::commit();
-            return Reply::successWithMessage('app.successes.record_delete_success');
+            return Reply::successWithMessage(trans('app.successes.record_delete_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);

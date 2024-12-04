@@ -40,7 +40,7 @@ class SettingsController extends Controller
             return Reply::successWithData($this->callableCommands, '');
         } catch (\Exception $error) {
             Log::error($error);
-            return Reply::error('app.errors.something_went_wrong', [], 500);
+            return Reply::error(trans('app.errors.something_went_wrong'), 500);
         }
     }
 
@@ -58,7 +58,7 @@ class SettingsController extends Controller
             return Reply::successWithMessage($message);
         } catch (\Exception $error) {
             Log::error($error);
-            return Reply::error('app.errors.something_went_wrong', [], 500);
+            return Reply::error(trans('app.errors.something_went_wrong'), 500);
         }
     }
 
@@ -69,7 +69,7 @@ class SettingsController extends Controller
         if (File::exists($log_file_path)) {
             return response()->download($log_file_path);
         }
-        return Reply::error('app.errors.log_file_not_exist');
+        return Reply::error(trans('app.errors.log_file_not_exist'));
     }
 
     public function deleteLogFile()
@@ -77,6 +77,6 @@ class SettingsController extends Controller
         abort_if(!$this->getUser()->isAdmin(), 403);
         $log_file_path = storage_path('logs/laravel.log');
         File::delete($log_file_path);
-        return Reply::successWithMessage('app.successes.success');
+        return Reply::successWithMessage(trans('app.successes.success'));
     }
 }

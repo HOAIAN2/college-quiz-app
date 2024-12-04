@@ -32,13 +32,13 @@ class AuthController extends Controller
             ];
             $data->user = User::with('role')->where('email', '=', $request->email)->first();
             if (!$data->user) {
-                return Reply::error('auth.errors.email_not_found', [], 404);
+                return Reply::error(trans('auth.errors.email_not_found'), 404);
             }
             if ($data->user->is_active == false) {
-                return Reply::error('auth.errors.account_disabled');
+                return Reply::error(trans('auth.errors.account_disabled'));
             }
             if (!Hash::check($request->password, $data->user->password)) {
-                return Reply::error('auth.errors.password_incorrect');
+                return Reply::error(trans('auth.errors.password_incorrect'));
             }
             if (!$data->user->email_verified_at && config('custom.app.must_verify_email')) {
                 return Reply::successWithData($data, '');
@@ -69,17 +69,17 @@ class AuthController extends Controller
         DB::beginTransaction();
         try {
             if (!Hash::check($request->current_password, $user->password)) {
-                return Reply::error('auth.errors.password_incorrect');
+                return Reply::error(trans('auth.errors.password_incorrect'));
             }
             if ($request->current_password == $request->password) {
-                return Reply::error('auth.errors.new_password_is_same');
+                return Reply::error(trans('auth.errors.new_password_is_same'));
             }
             $user->update([
                 'password' => Hash::make($request->password),
             ]);
             $user->tokens()->delete();
             DB::commit();
-            return Reply::successWithMessage('auth.successes.change_password_success');
+            return Reply::successWithMessage(trans('auth.successes.change_password_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -121,10 +121,10 @@ class AuthController extends Controller
                 ->where('email', '=', $request->email)
                 ->first();
             if (!$user) {
-                return Reply::error('auth.errors.email_not_found', [], 404);
+                return Reply::error(trans('auth.errors.email_not_found'), 404);
             }
             if ($user->is_active == false) {
-                return Reply::error('auth.errors.account_disabled');
+                return Reply::error(trans('auth.errors.account_disabled'));
             }
 
             $otp_code = $user->otp_codes()
@@ -133,7 +133,7 @@ class AuthController extends Controller
                 ->first();
 
             if ($otp_code == null) {
-                return Reply::error('auth.errors.verify_code_mismatch', [], 400);
+                return Reply::error(trans('auth.errors.verify_code_mismatch'), 400);
             }
             $user->email_verified_at = Carbon::now();
             $token = $user->createToken("{$user->role->name} token")->plainTextToken;
@@ -155,10 +155,10 @@ class AuthController extends Controller
         try {
             $user = User::where('email', '=', $request->email)->first();
             if (!$user) {
-                return Reply::error('auth.errors.email_not_found', [], 404);
+                return Reply::error(trans('auth.errors.email_not_found'), 404);
             }
             if ($user->is_active == false) {
-                return Reply::error('auth.errors.account_disabled');
+                return Reply::error(trans('auth.errors.account_disabled'));
             }
 
             $code = NumberHelper::randomDitgits();
@@ -185,10 +185,10 @@ class AuthController extends Controller
         try {
             $user = User::where('email', '=', $request->email)->first();
             if (!$user) {
-                return Reply::error('auth.errors.email_not_found', [], 404);
+                return Reply::error(trans('auth.errors.email_not_found'), 404);
             }
             if ($user->is_active == false) {
-                return Reply::error('auth.errors.account_disabled');
+                return Reply::error(trans('auth.errors.account_disabled'));
             }
 
             $is_valid_otp = $user->otp_codes()
@@ -197,7 +197,7 @@ class AuthController extends Controller
                 ->exists();
 
             if ($is_valid_otp == false) {
-                return Reply::error('auth.errors.verify_code_mismatch', [], 400);
+                return Reply::error(trans('auth.errors.verify_code_mismatch'), 400);
             }
             DB::commit();
             return Reply::success();
@@ -213,10 +213,10 @@ class AuthController extends Controller
         try {
             $user = User::where('email', '=', $request->email)->first();
             if (!$user) {
-                return Reply::error('auth.errors.email_not_found', [], 404);
+                return Reply::error(trans('auth.errors.email_not_found'), 404);
             }
             if ($user->is_active == false) {
-                return Reply::error('auth.errors.account_disabled');
+                return Reply::error(trans('auth.errors.account_disabled'));
             }
 
             $otp_code = $user->otp_codes()
@@ -225,7 +225,7 @@ class AuthController extends Controller
                 ->first();
 
             if ($otp_code == null) {
-                return Reply::error('auth.errors.verify_code_mismatch', [], 400);
+                return Reply::error(trans('auth.errors.verify_code_mismatch'));
             }
             $user->update([
                 'password' => Hash::make($request->password),
@@ -233,7 +233,7 @@ class AuthController extends Controller
             $user->tokens()->delete();
             $otp_code->delete();
             DB::commit();
-            return Reply::successWithMessage('auth.successes.change_password_success');
+            return Reply::successWithMessage(trans('auth.successes.change_password_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
@@ -263,7 +263,7 @@ class AuthController extends Controller
                 ->where('id', $id)
                 ->delete();
             DB::commit();
-            return Reply::successWithMessage('app.successes.success');
+            return Reply::successWithMessage(trans('app.successes.success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);

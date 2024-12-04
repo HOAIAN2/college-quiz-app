@@ -24,7 +24,7 @@ abstract class Controller
     public function handleException(\Exception $error)
     {
         Log::error($error);
-        $message = config('app.debug') ? $error->getMessage() : 'app.errors.something_went_wrong';
+        $message = config('app.debug') ? $error->getMessage() : trans('app.errors.something_went_wrong');
         return Reply::error($message, [], 500);
     }
 }
