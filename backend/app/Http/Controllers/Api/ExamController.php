@@ -138,18 +138,104 @@ class ExamController extends Controller
                 'exam_date' => $exam_date,
                 'exam_time' => $request->exam_time,
             ]);
-            $question_ids = [];
+
+            $expert_count = $request->expert_count;
+            $hard_count = $request->hard_count;
+            $medium_count = $request->medium_count;
+
+            // Validate phrase
+            if (
+                array_sum([$expert_count, $hard_count, $medium_count])
+                > array_sum(array_values($request->question_counts))
+            ) {
+                DB::rollBack();
+                return Reply::error('exam.expert_question_limit_error');
+            }
+
             foreach ($chapters as $key => $chapter) {
-                if ($request->question_counts[$key] == null) {
-                    continue;
+                $chapter->max_select_question = $request->question_counts[$key];
+            }
+            $chapters = $chapters->filter(function ($chapter) {
+                return $chapter->max_select_question != null;
+            })->shuffle();
+
+            $question_ids = [];
+            foreach ($chapters as $chapter) {
+                $chapter_question_ids = [];
+                if ($chapter != $chapters->last()) {
+                    do {
+                        $chapter_expert_count = random_int(0, $expert_count);
+                        $chapter_hard_count = random_int(0, $hard_count);
+                        $chapter_medium_count = random_int(0, $medium_count);
+                    } while (
+                        array_sum([$chapter_expert_count, $chapter_hard_count, $chapter_medium_count])
+                        > $chapter->max_select_question
+                    );
+                } else {
+                    $chapter_expert_count = $expert_count;
+                    $chapter_hard_count = $hard_count;
+                    $chapter_medium_count = $medium_count;
                 }
-                $chapter_question_ids = Question::where('subject_id', '=', $course->subject_id)
-                    ->where('chapter_id', '=', $chapter->id)
-                    ->inRandomOrder()
-                    ->take($request->question_counts[$key])
-                    ->pluck('id')
-                    ->toArray();
-                if (count($chapter_question_ids) != $request->question_counts[$key]) {
+                // Select random expert
+                if ($chapter_expert_count != 0) {
+                    $expert_questions_ids = Question::where('subject_id', '=', $course->subject_id)
+                        ->where('chapter_id', '=', $chapter->id)
+                        ->where('level', '=', 'expert')
+                        ->inRandomOrder()
+                        ->take($chapter_expert_count)
+                        ->pluck('id')
+                        ->toArray();
+                    $chapter_question_ids = array_merge($chapter_question_ids, $expert_questions_ids);
+                    $expert_count = $expert_count - count($expert_questions_ids);
+                }
+                // Select random hard
+                if ($chapter_hard_count != 0) {
+                    $hard_questions_ids = Question::where('subject_id', '=', $course->subject_id)
+                        ->where('chapter_id', '=', $chapter->id)
+                        ->where('level', '=', 'hard')
+                        ->inRandomOrder()
+                        ->take($chapter_hard_count)
+                        ->pluck('id')
+                        ->toArray();
+                    $chapter_question_ids = array_merge($chapter_question_ids, $hard_questions_ids);
+                    $hard_count = $hard_count - count($hard_questions_ids);
+                }
+                // Select random medium
+                if ($chapter_medium_count != 0) {
+                    $medium_questions_ids = Question::where('subject_id', '=', $course->subject_id)
+                        ->where('chapter_id', '=', $chapter->id)
+                        ->where('level', '=', 'medium')
+                        ->inRandomOrder()
+                        ->take($chapter_medium_count)
+                        ->pluck('id')
+                        ->toArray();
+                    $chapter_question_ids = array_merge($chapter_question_ids, $medium_questions_ids);
+                    $medium_count = $medium_count - count($medium_questions_ids);
+                }
+                // Not enough, select easy questions
+                if (count($chapter_question_ids) < $chapter->max_select_question) {
+                    $easy_questions_ids = Question::where('subject_id', '=', $course->subject_id)
+                        ->where('chapter_id', '=', $chapter->id)
+                        ->where('level', '=', 'easy')
+                        ->inRandomOrder()
+                        ->take($chapter->max_select_question - count($chapter_question_ids))
+                        ->pluck('id')
+                        ->toArray();
+                    $chapter_question_ids = array_merge($chapter_question_ids,  $easy_questions_ids);
+                }
+                // Still not enough, select random and ignore level
+                if (count($chapter_question_ids) < $chapter->max_select_question) {
+                    $additional_questions_ids = Question::where('subject_id', '=', $course->subject_id)
+                        ->where('chapter_id', '=', $chapter->id)
+                        ->inRandomOrder()
+                        ->take($chapter->max_select_question - count($chapter_question_ids))
+                        ->pluck('id')
+                        ->toArray();
+                    $chapter_question_ids = array_merge($chapter_question_ids,  $additional_questions_ids);
+                }
+                // If still not enough, send error
+                if (count($chapter_question_ids) != $chapter->max_select_question) {
+                    DB::rollBack();
                     return Reply::error('app.errors.max_chapter_question_count', [
                         'name' => "$chapter->chapter_number. $chapter->name",
                         'number' => $chapter->questions_count
@@ -157,7 +243,6 @@ class ExamController extends Controller
                 }
                 $question_ids = array_merge($question_ids, $chapter_question_ids);
             }
-            # Random order all questions
             shuffle($question_ids);
             foreach ($question_ids as $question_id) {
                 ExamQuestion::create([

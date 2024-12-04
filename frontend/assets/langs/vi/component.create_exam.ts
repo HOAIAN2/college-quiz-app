@@ -11,4 +11,7 @@ export default {
     search: 'Tìm kiếm',
     joinedSupervisors: 'Giám thị đã tham gia',
     allSupervisors: 'Toàn bộ giám thị',
+    numberOfExpertQuestions: 'Số lượng câu rất khó',
+    numebrOfHardQuestions: 'Số lượng câu khó',
+    numberOfMediumQuestion: 'Số lượng câu trung bình',
 };

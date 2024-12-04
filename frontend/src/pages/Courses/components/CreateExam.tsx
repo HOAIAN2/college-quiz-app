@@ -194,6 +194,33 @@ export default function CreateExam({
                                             <div className={styles.wrapItem}>
                                                 <span>{language?.totalQuestions}: {totalQuestion}</span>
                                             </div>
+                                            <div className={styles.wrapItem}>
+                                                <label htmlFor='expert_count'>{language?.numberOfExpertQuestions}</label>
+                                                <input
+                                                    id='expert_count'
+                                                    name='expert_count'
+                                                    className={css(appStyles.input, styles.inputItem)}
+                                                    type='number'
+                                                />
+                                            </div>
+                                            <div className={styles.wrapItem}>
+                                                <label htmlFor='hard_count'>{language?.numebrOfHardQuestions}</label>
+                                                <input
+                                                    id='hard_count'
+                                                    name='hard_count'
+                                                    className={css(appStyles.input, styles.inputItem)}
+                                                    type='number'
+                                                />
+                                            </div>
+                                            <div className={styles.wrapItem}>
+                                                <label htmlFor='medium_count'>{language?.numberOfMediumQuestion}</label>
+                                                <input
+                                                    id='medium_count'
+                                                    name='medium_count'
+                                                    className={css(appStyles.input, styles.inputItem)}
+                                                    type='number'
+                                                />
+                                            </div>
                                             <div className={css(styles.wrapItem, styles.dataContainer)}>
                                                 <label>{language?.supervisors}</label>
                                                 <input

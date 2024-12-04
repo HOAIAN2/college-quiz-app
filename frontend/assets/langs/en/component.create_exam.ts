@@ -11,4 +11,7 @@ export default {
     search: 'Search',
     joinedSupervisors: 'Joined Supervisors',
     allSupervisors: 'All Supervisors',
+    numberOfExpertQuestions: 'Number of expert questions',
+    numebrOfHardQuestions: 'Number of hard questions',
+    numberOfMediumQuestion: 'Number of medium questions',
 };

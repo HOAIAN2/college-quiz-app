@@ -25,6 +25,7 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         $now = Carbon::now()->toDateTimeString();
+        $max_questions = array_sum($this->supervisor_ids);
         return [
             'name' => ['required'],
             'exam_date' => ['required', 'date', "after:$now"],
@@ -34,6 +35,9 @@ class StoreRequest extends FormRequest
             'question_counts.*' => ['nullable', 'integer', 'min:1'],
             'supervisor_ids' => ['required', 'array'],
             'supervisor_ids.*' => ['required', 'integer'],
+            'expert_count' => ['nullable', 'integer', "max:$max_questions"],
+            'hard_count' => ['nullable', 'integer', "max:$max_questions"],
+            'medium_count' => ['nullable', 'integer', "max:$max_questions"],
         ];
     }
 }
