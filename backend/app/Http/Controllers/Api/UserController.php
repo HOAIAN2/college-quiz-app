@@ -220,12 +220,12 @@ class UserController extends Controller
                 $data[] = $validated_record;
             }
             if (count($non_exists_classes) != 0) {
-                return Reply::error('app.errors.classNotExists', [
+                return Reply::error('app.errors.class_not_exists', [
                     'shortcodes' => implode(', ', $non_exists_classes)
                 ]);
             }
             if (count($non_exists_faculties) != 0) {
-                return Reply::error('app.errors.facultyNotExists', [
+                return Reply::error('app.errors.faculty_not_exists', [
                     'shortcodes' => implode(', ', $non_exists_faculties)
                 ]);
             }
