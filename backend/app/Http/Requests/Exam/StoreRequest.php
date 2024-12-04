@@ -34,7 +34,7 @@ class StoreRequest extends FormRequest
             'question_counts' => ['required', 'array'],
             'question_counts.*' => ['nullable', 'integer', 'min:1'],
             'supervisor_ids' => ['required', 'array'],
-            'supervisor_ids.*' => ['required', 'integer'],
+            'supervisor_ids.*' => ['required', 'integer', 'distinct'],
             'expert_count' => ['nullable', 'integer', "max:$max_questions"],
             'hard_count' => ['nullable', 'integer', "max:$max_questions"],
             'medium_count' => ['nullable', 'integer', "max:$max_questions"],
