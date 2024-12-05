@@ -7,6 +7,7 @@ import { apiLogin, apiSendEmailVerification } from '~api/auth';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
+import getCookieValue from '~utils/getCookieValue';
 
 export default function Login() {
     const language = useLanguage('page.login');
@@ -84,6 +85,33 @@ export default function Login() {
                         {!isSubmitting && language?.login}
                     </button>
                 </div>
+                {
+                    getCookieValue('demo_credentials')
+                        ?
+                        <div className={styles.wrapInput}>
+                            <button
+                                onClick={() => {
+                                    const demoCredentials = getCookieValue('demo_credentials')!;
+                                    const email: string = JSON.parse(demoCredentials).email;
+                                    const password: string = JSON.parse(demoCredentials).password;
+                                    document.querySelector<HTMLInputElement>('input[name="email"]')!.value = email;
+                                    document.querySelector<HTMLInputElement>('input[name="password"]')!.value = password;
+
+                                    const event = new Event('input', { bubbles: true });
+                                    document.querySelector('form')!.dispatchEvent(event);
+                                }}
+                                type='button'
+                                className={
+                                    css(
+                                        appStyles.actionItemWhite,
+                                        styles.submit,
+                                    )
+                                }>
+                                {language?.demoAccount}
+                            </button>
+                        </div>
+                        : null
+                }
             </form>
         </main>
     );

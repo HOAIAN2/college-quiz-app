@@ -18,7 +18,6 @@ import ForgotPassword from './pages/Auth/ForgotPassword';
 import Login from './pages/Auth/Login';
 import VerifyEmail from './pages/Auth/VerifyEmail';
 import NotFound from './pages/Errors/NotFound';
-import Profile from './pages/Profile/Profile';
 
 const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
 const Users = lazy(() => import('./pages/Users/Users'));
@@ -37,6 +36,7 @@ const Exams = lazy(() => import('./pages/Exams/Exams'));
 const Exam = lazy(() => import('./pages/Exams/Exam'));
 const TakeExam = lazy(() => import('./pages/Exams/TakeExam'));
 const Settings = lazy(() => import('./pages/Settings/Settings'));
+const Profile = lazy(() => import('./pages/Profile/Profile'));
 
 const router = createBrowserRouter([
     {
