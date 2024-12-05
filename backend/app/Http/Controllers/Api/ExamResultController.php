@@ -83,7 +83,8 @@ class ExamResultController extends Controller
                 }
             }
             $target_exam_result->update([
-                'correct_count' => $correct_count
+                'correct_count' => $correct_count,
+                'remark_by_user_id' => $user->id
             ]);
             DB::commit();
             return Reply::successWithMessage(trans('app.successes.success'));
@@ -106,7 +107,8 @@ class ExamResultController extends Controller
             $target_exam_result = ExamResult::findOrFail($id);
             $target_exam_result->update([
                 'cancellation_reason' => $request->cancellation_reason,
-                'cancelled_at' => Carbon::now()
+                'cancelled_at' => Carbon::now(),
+                'cancelled_by_user_id' => $user->id
             ]);
             DB::commit();
             return Reply::successWithMessage(trans('app.successes.success'));

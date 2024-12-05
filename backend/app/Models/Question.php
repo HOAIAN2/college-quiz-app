@@ -17,8 +17,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Class Question
  *
  * @property int $id
- * @property int|null $created_by
- * @property int|null $last_updated_by
+ * @property int|null $created_by_user_id
+ * @property int|null $last_updated_by_user_id
  * @property int $subject_id
  * @property int|null $chapter_id
  * @property string $level
@@ -45,16 +45,16 @@ class Question extends Model
     protected function casts()
     {
         return [
-            'created_by' => 'int',
-            'last_updated_by' => 'int',
+            'created_by_user_id' => 'int',
+            'last_updated_by_user_id' => 'int',
             'subject_id' => 'int',
             'chapter_id' => 'int'
         ];
     }
 
     protected $fillable = [
-        'created_by',
-        'last_updated_by',
+        'created_by_user_id',
+        'last_updated_by_user_id',
         'subject_id',
         'chapter_id',
         'level',
@@ -68,12 +68,12 @@ class Question extends Model
 
     public function created_by()
     {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->belongsTo(User::class, 'created_by_user_id');
     }
 
     public function last_updated_by()
     {
-        return $this->belongsTo(User::class, 'last_updated_by');
+        return $this->belongsTo(User::class, 'last_updated_by_user_id');
     }
 
     public function subject()

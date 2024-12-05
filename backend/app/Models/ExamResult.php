@@ -21,6 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $user_agent
  * @property Carbon|null $cancelled_at
  * @property string|null $cancellation_reason
+ * @property int|null $cancelled_by_user_id
+ * @property int|null $remark_by_user_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
@@ -56,7 +58,9 @@ class ExamResult extends Model
         'ip',
         'user_agent',
         'cancelled_at',
-        'cancellation_reason'
+        'cancellation_reason',
+        'cancelled_by_user_id',
+        'remark_by_user_id',
     ];
 
     public function exam()
@@ -67,5 +71,15 @@ class ExamResult extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function cancelled_by()
+    {
+        return $this->belongsTo(User::class, 'cancelled_by_user_id');
+    }
+
+    public function remark_by()
+    {
+        return $this->belongsTo(User::class, 'remark_by_user_id');
     }
 }

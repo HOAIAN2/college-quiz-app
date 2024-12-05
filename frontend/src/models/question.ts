@@ -2,8 +2,8 @@ type QuestionLevel = 'easy' | 'medium' | 'hard' | 'expert';
 
 export type Question = {
     id: number;
-    createdBy: number | null;
-    lastUpdatedBy: number | null;
+    createdByUserId: number | null;
+    lastUpdatedByUserId: number | null;
     subjectId: number;
     chapterId?: number | null;
     level: QuestionLevel;

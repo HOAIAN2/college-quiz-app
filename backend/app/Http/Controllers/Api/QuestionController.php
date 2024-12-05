@@ -46,7 +46,7 @@ class QuestionController extends Controller
             'options',
             'true_option'
         ])->toArray();
-        $question_data['created_by'] = $user->id;
+        $question_data['created_by_user_id'] = $user->id;
 
         DB::beginTransaction();
         try {
@@ -93,7 +93,7 @@ class QuestionController extends Controller
                 'true_option',
             ])->toArray();
 
-        $data['last_updated_by'] = $user->id;
+        $data['last_updated_by_user_id'] = $user->id;
 
         DB::beginTransaction();
         try {
