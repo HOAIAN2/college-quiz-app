@@ -20,7 +20,7 @@ return [
         'auto_complete_result_limit' => (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5),
         'default_limit' => (int) env('DEFAULT_QUERY_LIMIT', 50),
     ],
-    'credentials' => [
+    'demo_credentials' => [
         'password' => (string)env('DEMO_PASSWORD'),
     ],
 ];
