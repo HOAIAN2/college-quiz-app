@@ -1,10 +1,12 @@
-export type AppPermissionName =
+export type PermissionName =
     'course_create' |
     'course_delete' |
     'course_update' |
     'course_view' |
     'exam_create' |
     'exam_delete' |
+    'exam_result_cancel' |
+    'exam_result_remark' |
     'exam_submit' |
     'exam_update' |
     'exam_view' |

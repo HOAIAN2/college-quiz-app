@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\PermissionType;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExamResult\CancelRequest;
@@ -57,8 +58,7 @@ class ExamResultController extends Controller
     public function remark(RemarkRequest $request, string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->isAdmin(), 403);
-        // abort_if(!$user->hasPermission('exam_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::EXAM_RESULT_REMARK), 403);
 
         DB::beginTransaction();
         try {
@@ -96,8 +96,7 @@ class ExamResultController extends Controller
     public function cancel(CancelRequest $request, string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->isAdmin(), 403);
-        // abort_if(!$user->hasPermission('exam_view'), 403);
+        abort_if(!$user->hasPermission(PermissionType::EXAM_RESULT_CANCEL), 403);
 
         DB::beginTransaction();
         try {

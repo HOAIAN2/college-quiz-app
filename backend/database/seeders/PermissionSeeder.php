@@ -57,6 +57,9 @@ class PermissionSeeder extends Seeder
             ['name' => 'semester_create'],
             ['name' => 'semester_update'],
             ['name' => 'semester_delete'],
+
+            ['name' => 'exam_result_remark'],
+            ['name' => 'exam_result_cancel'],
         ];
         foreach ($permissions as $permission) {
             Permission::create($permission);

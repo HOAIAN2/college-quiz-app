@@ -36,4 +36,6 @@ return [
     'semester_create' => 'Tạo Học Kỳ',
     'semester_update' => 'Cập Nhật Học Kỳ',
     'semester_delete' => 'Xóa Học Kỳ',
+    'exam_result_remark' => 'Phúc Khảo Bài Thi',
+    'exam_result_cancel' => 'Hủy Kết Quả Bài Thi',
 ];
