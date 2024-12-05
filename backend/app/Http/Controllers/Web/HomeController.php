@@ -16,6 +16,8 @@ class HomeController extends Controller
                 'password' => config('custom.credentials.password')
             ]);
             Cookie::queue('demo_credentials', $credentials, 30, null, null, false, false);
+        } else {
+            Cookie::queue(Cookie::forget('demo_credentials'));
         }
         return view('index');
     }
