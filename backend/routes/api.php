@@ -157,7 +157,7 @@ Route::prefix('/exams')->middleware(AUTH_MIDDLEWARES)
 Route::prefix('/exam-result')->middleware(AUTH_MIDDLEWARES)
     ->controller(ExamResultController::class)->group(function () {
         Route::get('/{id}', 'show');
-        Route::get('/remark/{id}', 'remark');
-        Route::post('/cancel/{id}', 'cancel');
+        Route::get('/{id}/remark', 'remark');
+        Route::post('/{id}/cancel', 'cancel');
         Route::get('/', 'index');
     });
