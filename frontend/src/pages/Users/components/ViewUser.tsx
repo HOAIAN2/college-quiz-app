@@ -10,7 +10,6 @@ import { apiAutoCompleteSchoolClass } from '~api/school-class';
 import { apiGetUserById, apiUpdateUser } from '~api/user';
 import CustomDataList from '~components/CustomDataList';
 import CustomSelect from '~components/CustomSelect';
-import DatePicker from '~components/DatePicker';
 import Loading from '~components/Loading';
 import { AUTO_COMPLETE_DEBOUNCE } from '~config/env';
 import CSS_TIMING from '~constants/css-timing';
@@ -20,6 +19,7 @@ import useDebounce from '~hooks/useDebounce';
 import useLanguage from '~hooks/useLanguage';
 import createFormUtils from '~utils/createFormUtils';
 import css from '~utils/css';
+import dateFormat from '~utils/date-format';
 import languageUtils from '~utils/languageUtils';
 
 type ViewUserProps = {
@@ -251,18 +251,14 @@ export default function ViewUser({
                                         </div>
                                         <div className={styles.wrapItem}>
                                             <label className={appStyles.required} htmlFor='birth_date'>{language?.birthDate}</label>
-                                            <DatePicker
-                                                initialValue={new Date(queryData.data.birthDate)}
-                                                inputProps={
-                                                    {
-                                                        id: 'birth_date',
-                                                        disabled: disabledUpdate,
-                                                        name: 'birth_date',
-                                                        className: css(appStyles.input, styles.inputItem)
-                                                    }
-                                                }
-                                                closeOnSelect={true}
-                                                timeFormat={false}
+                                            <input
+                                                defaultValue={dateFormat.toDateString(new Date(queryData.data.birthDate))}
+                                                max={dateFormat.toDateString(new Date())}
+                                                type='date'
+                                                id='birth_date'
+                                                name='birth_date'
+                                                className={css(appStyles.input, styles.inputItem)}
+                                                disabled={disabledUpdate}
                                             />
                                         </div>
                                         <div className={styles.wrapItem}>

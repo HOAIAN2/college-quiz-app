@@ -42,6 +42,7 @@ return [
         'teacher_id' => 'teacher',
         'exam_date' => 'exam date',
         'exam_time' => 'exam time',
+        'question_counts' => 'questions count'
     ],
     'custom' => [
         'role' => [
@@ -89,4 +90,5 @@ return [
             'required' => 'Please select at least one supervisor'
         ]
     ],
+    'attribute_sum_min' => 'Total of :attribute must be at least :min'
 ];

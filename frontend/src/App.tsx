@@ -4,14 +4,11 @@ import {
     QueryClient,
     QueryClientProvider,
 } from '@tanstack/react-query';
-import moment from 'moment';
-import 'moment/dist/locale/vi';
 import { Suspense, lazy, useEffect } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router';
 import { Toaster } from 'sonner';
 import SuspenseLoading from '~components/SuspenseLoading';
 import themeUtils from '~utils/themeUtils';
-import useAppContext from './hooks/useAppContext';
 import AuthLayout from './layouts/AuthLayout';
 import DashboardLayout from './layouts/DashboardLayout';
 import ForgotPassword from './pages/Auth/ForgotPassword';
@@ -199,8 +196,6 @@ const router = createBrowserRouter([
 const queryClient = new QueryClient();
 
 export default function App() {
-    const { appLanguage } = useAppContext();
-    moment.locale(appLanguage.language);
     useEffect(() => {
         const primaryColor = themeUtils.getPrimaryColor();
         if (primaryColor) {

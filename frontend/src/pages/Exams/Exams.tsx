@@ -2,11 +2,9 @@ import appStyles from '~styles/App.module.css';
 import styles from '~styles/CardPage.module.css';
 
 import { useQuery } from '@tanstack/react-query';
-import moment from 'moment';
 import { useCallback, useEffect, useRef } from 'react';
 import { Link, Navigate, useSearchParams } from 'react-router';
 import { apiGetExamsByMonth } from '~api/exam';
-import DatePicker from '~components/DatePicker';
 import Loading from '~components/Loading';
 import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
@@ -22,15 +20,11 @@ export default function Exams() {
     const { appLanguage, permissions, appTitle } = useAppContext();
     const language = useLanguage('page.exams');
     const requestRef = useRef<number>();
-    const monthYearFormat = moment.localeData()
-        .longDateFormat('L')
-        .replace(/D[\\/\-\\.]?/g, '')
-        .trim();
     const initQueryDate = () => {
         const year = searchParams.get('year');
         const month = searchParams.get('month');
-        if (month && year) return new Date(Number(year), Number(month) - 1);
-        return new Date();
+        if (month && year) return `${year}-${month}`;
+        return `${new Date().getFullYear()}-${new Date().getMonth() + 1}`;
     };
     const animate = useCallback(() => {
         forceUpdate();
@@ -86,24 +80,18 @@ export default function Exams() {
                 <section className={styles.filterForm}>
                     <div className={styles.wrapInputItem}>
                         <label htmlFor='month'>{language?.month}</label>
-                        <DatePicker
-                            initialValue={initQueryDate()}
-                            inputProps={
-                                {
-                                    id: 'month',
-                                    name: 'month',
-                                    className: css(appStyles.input, styles.inputItem)
-                                }
-                            }
+                        <input
+                            defaultValue={initQueryDate()}
+                            id='month'
+                            name='month'
+                            type='month'
+                            className={css(appStyles.input, styles.inputItem)}
                             onChange={e => {
-                                const date = new Date(e.toString());
+                                const date = new Date(e.target.valueAsDate!);
                                 searchParams.set('month', String(date.getMonth() + 1));
                                 searchParams.set('year', String(date.getFullYear()));
                                 setSearchParams(searchParams);
                             }}
-                            closeOnSelect={true}
-                            dateFormat={monthYearFormat}
-                            timeFormat={false}
                         />
                     </div>
                 </section>

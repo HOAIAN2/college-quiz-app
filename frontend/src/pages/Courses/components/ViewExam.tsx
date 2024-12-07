@@ -8,7 +8,6 @@ import { MdDeleteOutline } from 'react-icons/md';
 import { RxCross2 } from 'react-icons/rx';
 import { apiDeleteExam, apiGetExamById, apiUpdateExam } from '~api/exam';
 import { apiGetAllUser } from '~api/user';
-import DatePicker from '~components/DatePicker';
 import Loading from '~components/Loading';
 import YesNoPopUp from '~components/YesNoPopUp';
 import { AUTO_COMPLETE_DEBOUNCE } from '~config/env';
@@ -20,6 +19,7 @@ import useLanguage from '~hooks/useLanguage';
 import { User } from '~models/user';
 import createFormUtils from '~utils/createFormUtils';
 import css from '~utils/css';
+import dateFormat from '~utils/date-format';
 import languageUtils from '~utils/languageUtils';
 
 type ViewExamProps = {
@@ -153,18 +153,13 @@ export default function ViewExam({
                                         </div>
                                         <div className={styles.wrapItem}>
                                             <label className={appStyles.required} htmlFor='exam_date'>{language?.examDate}</label>
-                                            <DatePicker
-                                                initialValue={new Date(queryData.data.examDate)}
-                                                inputProps={
-                                                    {
-                                                        id: 'exam_date',
-                                                        name: 'exam_date',
-                                                        disabled: disabledUpdate,
-                                                        className: css(appStyles.input, styles.inputItem)
-                                                    }
-                                                }
-                                                closeOnSelect={true}
-                                                timeFormat={true}
+                                            <input
+                                                defaultValue={dateFormat.toDateTimeMinuteString(new Date(queryData.data.examDate))}
+                                                type='datetime-local'
+                                                name='exam_date'
+                                                id='exam_date'
+                                                disabled={disabledUpdate}
+                                                className={css(appStyles.input, styles.inputItem)}
                                             />
                                         </div>
                                         <div className={styles.wrapItem}>

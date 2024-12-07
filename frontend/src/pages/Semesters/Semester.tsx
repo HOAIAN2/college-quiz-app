@@ -6,7 +6,6 @@ import { SyntheticEvent, useEffect, useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { Link, Navigate, useNavigate, useParams } from 'react-router';
 import { apiDeleteSemester, apiGetSemesterById, apiUpdateSemester } from '~api/semester';
-import DatePicker from '~components/DatePicker';
 import Loading from '~components/Loading';
 import YesNoPopUp from '~components/YesNoPopUp';
 import QUERY_KEYS from '~constants/query-keys';
@@ -14,6 +13,7 @@ import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
 import createFormUtils from '~utils/createFormUtils';
 import css from '~utils/css';
+import dateFormat from '~utils/date-format';
 
 export default function Semester() {
     const { permissions } = useAppContext();
@@ -102,34 +102,24 @@ export default function Semester() {
                                         </div>
                                         <div className={styles.wrapItem}>
                                             <label className={appStyles.required} htmlFor='start_date'>{language?.startDate}</label>
-                                            <DatePicker
-                                                initialValue={new Date(queryData.data.startDate)}
-                                                inputProps={
-                                                    {
-                                                        id: 'start_date',
-                                                        name: 'start_date',
-                                                        className: css(appStyles.input, styles.inputItem),
-                                                        disabled: disabledUpdate
-                                                    }
-                                                }
-                                                closeOnSelect={true}
-                                                timeFormat={false}
+                                            <input
+                                                defaultValue={dateFormat.toDateString(new Date(queryData.data.startDate))}
+                                                id='start_date'
+                                                name='start_date'
+                                                type='date'
+                                                className={css(appStyles.input, styles.inputItem)}
+                                                disabled={disabledUpdate}
                                             />
                                         </div>
                                         <div className={styles.wrapItem}>
                                             <label className={appStyles.required} htmlFor='end_date'>{language?.endDate}</label>
-                                            <DatePicker
-                                                initialValue={new Date(queryData.data.endDate)}
-                                                inputProps={
-                                                    {
-                                                        id: 'end_date',
-                                                        name: 'end_date',
-                                                        className: css(appStyles.input, styles.inputItem),
-                                                        disabled: disabledUpdate
-                                                    }
-                                                }
-                                                closeOnSelect={true}
-                                                timeFormat={false}
+                                            <input
+                                                defaultValue={dateFormat.toDateString(new Date(queryData.data.endDate))}
+                                                id='end_date'
+                                                name='end_date'
+                                                type='date'
+                                                className={css(appStyles.input, styles.inputItem)}
+                                                disabled={disabledUpdate}
                                             />
                                         </div>
                                     </div>

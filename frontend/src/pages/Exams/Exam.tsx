@@ -2,7 +2,6 @@ import appStyles from '~styles/App.module.css';
 import styles from './styles/Exam.module.css';
 
 import { useQuery } from '@tanstack/react-query';
-import moment from 'moment';
 import { useState } from 'react';
 import { BiExport } from 'react-icons/bi';
 import { ImCancelCircle } from 'react-icons/im';
@@ -64,6 +63,11 @@ export default function Exam() {
         }
         else return false;
     })();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const durationFormat = new Intl.DurationFormat(appLanguage.language, {
+        style: 'long'
+    });
     if (!permissions.has('exam_view')) return <Navigate to='/' />;
     return (
         <>
@@ -109,7 +113,7 @@ export default function Exam() {
                                         <div className={styles.wrapItem}>
                                             <label>{language?.examTime}: </label>
                                             <p>
-                                                {moment.duration(queryData.data.examTime, 'minutes').humanize()}
+                                                {durationFormat.format({ minutes: queryData.data.examTime })}
                                             </p>
                                         </div>
                                         <div className={css(styles.wrapItem, styles.supervisorsContainer)}>

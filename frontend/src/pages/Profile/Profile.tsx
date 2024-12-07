@@ -7,7 +7,6 @@ import { FiSave } from 'react-icons/fi';
 import { PiKey } from 'react-icons/pi';
 import { apiGetUser, apiUpdateUser } from '~api/user';
 import CustomSelect from '~components/CustomSelect';
-import DatePicker from '~components/DatePicker';
 import Loading from '~components/Loading';
 import SuspenseLoading from '~components/SuspenseLoading';
 import QUERY_KEYS from '~constants/query-keys';
@@ -15,6 +14,7 @@ import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
 import createFormUtils from '~utils/createFormUtils';
 import css from '~utils/css';
+import dateFormat from '~utils/date-format';
 import languageUtils from '~utils/languageUtils';
 import ChangePassword from './components/ChangePassword';
 
@@ -182,18 +182,14 @@ export default function Profile() {
                             </div>
                             <div className={styles.wrapItem}>
                                 <label className={appStyles.required} htmlFor='birth_date'>{language?.birthDate}</label>
-                                <DatePicker
-                                    initialValue={new Date(queryData.data.user.birthDate)}
-                                    inputProps={
-                                        {
-                                            id: 'birth_date',
-                                            disabled: disabledUpdate,
-                                            name: 'birth_date',
-                                            className: css(appStyles.input, styles.inputItem)
-                                        }
-                                    }
-                                    closeOnSelect={true}
-                                    timeFormat={false}
+                                <input
+                                    defaultValue={dateFormat.toDateString(new Date(queryData.data.user.birthDate))}
+                                    max={dateFormat.toDateString(new Date())}
+                                    type='date'
+                                    id='birth_date'
+                                    name='birth_date'
+                                    disabled={disabledUpdate}
+                                    className={css(appStyles.input, styles.inputItem)}
                                 />
                             </div>
                         </div>

@@ -6,12 +6,12 @@ import { SyntheticEvent, useEffect, useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { RxCross2 } from 'react-icons/rx';
 import { apiCreateSemester } from '~api/semester';
-import DatePicker from '~components/DatePicker';
 import Loading from '~components/Loading';
 import CSS_TIMING from '~constants/css-timing';
 import useLanguage from '~hooks/useLanguage';
 import createFormUtils from '~utils/createFormUtils';
 import css from '~utils/css';
+import dateFormat from '~utils/date-format';
 
 type CreateSemesterProps = {
     onMutateSuccess: () => void;
@@ -93,32 +93,22 @@ export default function CreateSemester({
                             </div>
                             <div className={styles.wrapItem}>
                                 <label className={appStyles.required} htmlFor='start_date'>{language?.startDate}</label>
-                                <DatePicker
-                                    initialValue={new Date()}
-                                    inputProps={
-                                        {
-                                            id: 'start_date',
-                                            name: 'start_date',
-                                            className: css(appStyles.input, styles.inputItem)
-                                        }
-                                    }
-                                    closeOnSelect={true}
-                                    timeFormat={false}
+                                <input
+                                    defaultValue={dateFormat.toDateString(new Date())}
+                                    id='start_date'
+                                    name='start_date'
+                                    type='date'
+                                    className={css(appStyles.input, styles.inputItem)}
                                 />
                             </div>
                             <div className={styles.wrapItem}>
                                 <label className={appStyles.required} htmlFor='end_date'>{language?.endDate}</label>
-                                <DatePicker
-                                    initialValue={new Date()}
-                                    inputProps={
-                                        {
-                                            id: 'end_date',
-                                            name: 'end_date',
-                                            className: css(appStyles.input, styles.inputItem)
-                                        }
-                                    }
-                                    closeOnSelect={true}
-                                    timeFormat={false}
+                                <input
+                                    defaultValue={dateFormat.toDateString(new Date())}
+                                    id='end_date'
+                                    name='end_date'
+                                    type='date'
+                                    className={css(appStyles.input, styles.inputItem)}
                                 />
                             </div>
                         </div>

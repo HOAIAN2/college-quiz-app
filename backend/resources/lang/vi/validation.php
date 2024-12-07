@@ -42,6 +42,7 @@ return [
         'teacher_id' => 'giáo viên',
         'exam_date' => 'ngày thi',
         'exam_time' => 'thời gian thi',
+        'question_counts' => 'số lượng câu hỏi'
     ],
     'custom' => [
         'role' => [
@@ -89,4 +90,5 @@ return [
             'required' => 'Vui lòng chọn ít nhất 1 giám thị'
         ]
     ],
+    'attribute_sum_min' => 'Tổng của :attribute phải ít nhất là :min'
 ];
