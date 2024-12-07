@@ -11,7 +11,6 @@ import { apiGetSubjectById } from '~api/subject';
 import { apiGetAllUser } from '~api/user';
 import Loading from '~components/Loading';
 import { AUTO_COMPLETE_DEBOUNCE } from '~config/env';
-import CSS_TIMING from '~constants/css-timing';
 import QUERY_KEYS from '~constants/query-keys';
 import useDebounce from '~hooks/useDebounce';
 import useLanguage from '~hooks/useLanguage';
@@ -32,7 +31,6 @@ export default function CreateExam({
     onMutateSuccess,
     setShowPopUp
 }: CreateExamProps) {
-    const [hide, setHide] = useState(true);
     const [totalQuestion, setTotalQuestion] = useState(0);
     const [supervisors, setSupervisors] = useState<UserDetail[]>([]);
     const [queryUser, setQueryUser] = useState('');
@@ -40,10 +38,7 @@ export default function CreateExam({
     const language = useLanguage('component.create_exam');
     const queryClient = useQueryClient();
     const handleClosePopUp = () => {
-        setHide(true);
-        setTimeout(() => {
-            setShowPopUp(false);
-        }, CSS_TIMING.TRANSITION_TIMING_FAST);
+        setShowPopUp(false);
     };
     const formUtils = createFormUtils(styles);
     const queryData = useQuery({
@@ -74,7 +69,6 @@ export default function CreateExam({
         onSuccess: onMutateSuccess
     });
     useEffect(() => {
-        setHide(false);
         return () => {
             queryClient.removeQueries({ queryKey: [QUERY_KEYS.ALL_TEACHER] });
         };
@@ -84,7 +78,6 @@ export default function CreateExam({
             <div className={
                 css(
                     styles.createViewExamContainer,
-                    hide ? styles.hide : ''
                 )
             }>
                 {
@@ -96,7 +89,6 @@ export default function CreateExam({
                 <div className={
                     css(
                         styles.createViewExamForm,
-                        hide ? styles.hide : ''
                     )
                 }>
                     <div className={styles.header}>

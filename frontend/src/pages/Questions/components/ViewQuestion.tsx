@@ -15,7 +15,6 @@ import CustomSelect from '~components/CustomSelect';
 import Loading from '~components/Loading';
 import TextEditor from '~components/TextEditor';
 import YesNoPopUp from '~components/YesNoPopUp';
-import CSS_TIMING from '~constants/css-timing';
 import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
@@ -42,17 +41,13 @@ export default function ViewQuestion({
     setShowPopUp
 }: ViewQuestionProps) {
     const { permissions } = useAppContext();
-    const [hide, setHide] = useState(true);
     const [options, setOptions] = useState<Option[]>([]);
     const [showDeletePopUp, setShowDeletePopUp] = useState(false);
     const [trueOptionKey, setTrueOptionKey] = useState<string>();
     const language = useLanguage('component.view_question');
     const queryClient = useQueryClient();
     const handleClosePopUp = () => {
-        setHide(true);
-        setTimeout(() => {
-            setShowPopUp(false);
-        }, CSS_TIMING.TRANSITION_TIMING_FAST);
+        setShowPopUp(false);
     };
     const formUtils = createFormUtils(globalStyles);
     const disabledUpdate = !permissions.has('question_update');
@@ -79,7 +74,6 @@ export default function ViewQuestion({
         await apiDeleteQuestion(id);
     };
     useEffect(() => {
-        setHide(false);
         return () => {
             queryClient.removeQueries({ queryKey: [QUERY_KEYS.QUESTION_DETAIL, { id: id }] });
         };
@@ -117,7 +111,6 @@ export default function ViewQuestion({
                 className={
                     css(
                         globalStyles.viewModelContainer,
-                        hide ? globalStyles.hide : ''
                     )
                 }>
                 {
@@ -127,7 +120,6 @@ export default function ViewQuestion({
                     className={
                         css(
                             globalStyles.viewModelForm,
-                            hide ? globalStyles.hide : ''
                         )
                     }>
                     <div className={globalStyles.header}>

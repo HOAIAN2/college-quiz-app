@@ -2,12 +2,11 @@ import appStyles from '~styles/App.module.css';
 import styles from '~styles/CreateModel.module.css';
 
 import { useMutation } from '@tanstack/react-query';
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { RxCross2 } from 'react-icons/rx';
 import { apiCreateSemester } from '~api/semester';
 import Loading from '~components/Loading';
-import CSS_TIMING from '~constants/css-timing';
 import useLanguage from '~hooks/useLanguage';
 import createFormUtils from '~utils/createFormUtils';
 import css from '~utils/css';
@@ -22,13 +21,9 @@ export default function CreateSemester({
     onMutateSuccess,
     setShowPopUp
 }: CreateSemesterProps) {
-    const [hide, setHide] = useState(true);
     const language = useLanguage('component.create_semester');
     const handleClosePopUp = () => {
-        setHide(true);
-        setTimeout(() => {
-            setShowPopUp(false);
-        }, CSS_TIMING.TRANSITION_TIMING_FAST);
+        setShowPopUp(false);
     };
     const formUtils = createFormUtils(styles);
     const handleCreateFaculty = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
@@ -49,14 +44,10 @@ export default function CreateSemester({
         onError: (error) => { formUtils.showFormError(error); },
         onSuccess: onMutateSuccess
     });
-    useEffect(() => {
-        setHide(false);
-    }, []);
     return (
         <div className={
             css(
                 styles.createModelContainer,
-                hide ? styles.hide : ''
             )
         }>
             {
@@ -65,7 +56,6 @@ export default function CreateSemester({
             <div className={
                 css(
                     styles.createModelForm,
-                    hide ? styles.hide : ''
                 )
             }>
                 <div className={styles.header}>

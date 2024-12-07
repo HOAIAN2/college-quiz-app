@@ -11,7 +11,6 @@ import { apiAutoCompleteUser } from '~api/user';
 import CustomDataList from '~components/CustomDataList';
 import Loading from '~components/Loading';
 import { AUTO_COMPLETE_DEBOUNCE } from '~config/env';
-import CSS_TIMING from '~constants/css-timing';
 import QUERY_KEYS from '~constants/query-keys';
 import useDebounce from '~hooks/useDebounce';
 import useLanguage from '~hooks/useLanguage';
@@ -33,7 +32,6 @@ export default function CreateCourse({
     onMutateSuccess,
     setShowPopUp
 }: CreateCourseProps) {
-    const [hide, setHide] = useState(true);
     const language = useLanguage('component.create_course');
     const [queryUser, setQueryUser] = useState('');
     const [querySubject, setQuerySubject] = useState('');
@@ -42,10 +40,7 @@ export default function CreateCourse({
     const debounceQuerySubject = useDebounce(querySubject, AUTO_COMPLETE_DEBOUNCE);
     const queryClient = useQueryClient();
     const handleClosePopUp = () => {
-        setHide(true);
-        setTimeout(() => {
-            setShowPopUp(false);
-        }, CSS_TIMING.TRANSITION_TIMING_FAST);
+        setShowPopUp(false);
     };
     const formUtils = createFormUtils(styles);
     const userQueryData = useQuery({
@@ -90,7 +85,6 @@ export default function CreateCourse({
         setShortcode(name);
     };
     useEffect(() => {
-        setHide(false);
         return () => {
             queryClient.removeQueries({ queryKey: [QUERY_KEYS.AUTO_COMPLETE_USER] });
         };
@@ -99,7 +93,6 @@ export default function CreateCourse({
         <div className={
             css(
                 styles.createModelContainer,
-                hide ? styles.hide : ''
             )
         }>
             {
@@ -108,7 +101,6 @@ export default function CreateCourse({
             <div className={
                 css(
                     styles.createModelForm,
-                    hide ? styles.hide : ''
                 )
             }>
                 <div className={styles.header}>

@@ -2,12 +2,11 @@ import appStyles from '~styles/App.module.css';
 import styles from './styles/ImportData.module.css';
 
 import { useMutation } from '@tanstack/react-query';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import {
     IoMdAddCircleOutline,
 } from 'react-icons/io';
 import { RxCross2 } from 'react-icons/rx';
-import CSS_TIMING from '~constants/css-timing';
 import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
 import Loading from './Loading';
@@ -18,7 +17,7 @@ type ImportDataProps = {
     icon: React.ReactNode;
     importFunction: (file: File) => Promise<void>;
     onMutateSuccess: () => void;
-    setImportMode: React.Dispatch<React.SetStateAction<boolean>>;
+    setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>;
 };
 export default function ImportData({
     title,
@@ -26,17 +25,13 @@ export default function ImportData({
     icon,
     importFunction,
     onMutateSuccess,
-    setImportMode,
+    setShowPopUp,
 }: ImportDataProps) {
     const language = useLanguage('component.import_data');
-    const [hide, setHide] = useState(true);
     const [file, setFile] = useState<File>();
     const inputFileRef = useRef<HTMLInputElement>(null);
     const handleClosePopUp = () => {
-        setHide(true);
-        setTimeout(() => {
-            setImportMode(false);
-        }, CSS_TIMING.TRANSITION_TIMING_FAST);
+        setShowPopUp(false);
     };
     const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.currentTarget.files;
@@ -63,15 +58,11 @@ export default function ImportData({
         mutationFn: handleUploadFile,
         onSuccess: onMutateSuccess
     });
-    useEffect(() => {
-        setHide(false);
-    }, []);
     return (
         <div
             className={
                 css(
                     styles.importDataContainer,
-                    hide ? styles.hide : ''
                 )
             }>
             {mutation.isPending ?
@@ -80,7 +71,6 @@ export default function ImportData({
                 className={
                     css(
                         styles.importDataForm,
-                        hide ? styles.hide : ''
                     )
                 }>
                 <div className={styles.header}>

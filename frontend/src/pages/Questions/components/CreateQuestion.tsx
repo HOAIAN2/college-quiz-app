@@ -3,7 +3,7 @@ import globalStyles from '~styles/CreateModel.module.css';
 import styles from '../styles/CreateQuestion.module.css';
 
 import { useMutation } from '@tanstack/react-query';
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { FaRegCircleCheck } from 'react-icons/fa6';
 import { FiSave } from 'react-icons/fi';
 import { MdDeleteOutline } from 'react-icons/md';
@@ -14,7 +14,6 @@ import { apiCreateQuestion } from '~api/question';
 import CustomSelect from '~components/CustomSelect';
 import Loading from '~components/Loading';
 import TextEditor from '~components/TextEditor';
-import CSS_TIMING from '~constants/css-timing';
 import useLanguage from '~hooks/useLanguage';
 import { SubjectDetail } from '~models/subject';
 import createFormUtils from '~utils/createFormUtils';
@@ -36,17 +35,13 @@ export default function CreateQuestion({
     onMutateSuccess,
     setShowPopUp
 }: CreateQuestionProps) {
-    const [hide, setHide] = useState(true);
     const [options, setOptions] = useState<Option[]>(new Array(2).fill(null).map((_, index) => {
         return { key: index.toString(), content: '' };
     }));
     const [trueOptionKey, setTrueOptionKey] = useState<string>();
     const language = useLanguage('component.create_question');
     const handleClosePopUp = () => {
-        setHide(true);
-        setTimeout(() => {
-            setShowPopUp(false);
-        }, CSS_TIMING.TRANSITION_TIMING_FAST);
+        setShowPopUp(false);
     };
     const formUtils = createFormUtils(globalStyles);
     const handleCreateQuestion = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
@@ -67,14 +62,10 @@ export default function CreateQuestion({
         onError: (error) => { formUtils.showFormError(error); },
         onSuccess: onMutateSuccess
     });
-    useEffect(() => {
-        setHide(false);
-    }, []);
     return (
         <div className={
             css(
                 globalStyles.createModelContainer,
-                hide ? globalStyles.hide : ''
             )
         }>
             {
@@ -83,7 +74,6 @@ export default function CreateQuestion({
             <div className={
                 css(
                     globalStyles.createModelForm,
-                    hide ? globalStyles.hide : ''
                 )
             }>
                 <div className={globalStyles.header}>

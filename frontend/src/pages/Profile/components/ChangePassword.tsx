@@ -1,11 +1,10 @@
 import appStyles from '~styles/App.module.css';
 import styles from '../styles/ChangePassword.module.css';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import { useNavigate } from 'react-router';
 import { apiChangePassword } from '~api/auth';
-import CSS_TIMING from '~constants/css-timing';
 import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
 
@@ -18,14 +17,10 @@ export default function ChangePassword({
     const language = useLanguage('component.change_password');
     const [blockSubmit, setBlockSubmit] = useState(true);
     const [isSubmitting, seIsSubmitting] = useState(false);
-    const [hide, setHide] = useState(true);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const navigate = useNavigate();
     const handleClosePopUp = () => {
-        setHide(true);
-        setTimeout(() => {
-            setShowPopup(false);
-        }, CSS_TIMING.TRANSITION_TIMING_FAST);
+        setShowPopup(false);
     };
     const handlePreventSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         const formData = new FormData(e.currentTarget);
@@ -55,20 +50,15 @@ export default function ChangePassword({
                 buttonRef.current?.classList.remove(styles.submitting);
             });
     };
-    useEffect(() => {
-        setHide(false);
-    }, []);
     return (
         <div className={
             css(
                 styles.changePasswordContainer,
-                hide ? styles.hide : ''
             )
         }>
             <div className={
                 css(
                     styles.changePasswordForm,
-                    hide ? styles.hide : ''
                 )
             }>
                 <div className={styles.header}>

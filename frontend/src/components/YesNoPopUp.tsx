@@ -2,9 +2,7 @@ import appStyles from '~styles/App.module.css';
 import styles from './styles/YesNoPopUp.module.css';
 
 import { useMutation } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
-import CSS_TIMING from '~constants/css-timing';
 import css from '~utils/css';
 import Loading from './Loading';
 
@@ -24,12 +22,8 @@ export default function YesNoPopUp({
     langYes,
     langNo
 }: YesNoPopUpProps) {
-    const [hide, setHide] = useState(true);
     const handleClosePopUp = () => {
-        setHide(true);
-        setTimeout(() => {
-            setShowPopUp(false);
-        }, CSS_TIMING.TRANSITION_TIMING_FAST);
+        setShowPopUp(false);
     };
     const mutation = useMutation({
         mutationFn: mutateFunction,
@@ -38,15 +32,11 @@ export default function YesNoPopUp({
             handleClosePopUp();
         }
     });
-    useEffect(() => {
-        setHide(false);
-    }, []);
     return (
         <div
             className={
                 css(
                     styles.yesNoPopUpContainer,
-                    hide ? styles.hide : ''
                 )
             }>
             {
@@ -56,7 +46,6 @@ export default function YesNoPopUp({
                 className={
                     css(
                         styles.yesNoPopUpForm,
-                        hide ? styles.hide : ''
                     )
                 }>
                 <div className={styles.header}>

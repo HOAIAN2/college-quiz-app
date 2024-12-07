@@ -14,7 +14,6 @@ import CustomDataList from '~components/CustomDataList';
 import CustomSelect from '~components/CustomSelect';
 import Loading from '~components/Loading';
 import { AUTO_COMPLETE_DEBOUNCE } from '~config/env';
-import CSS_TIMING from '~constants/css-timing';
 import QUERY_KEYS from '~constants/query-keys';
 import useDebounce from '~hooks/useDebounce';
 import useLanguage from '~hooks/useLanguage';
@@ -34,17 +33,13 @@ export default function CreateUser({
     setShowPopUp
 }: CreateUserProps) {
     const language = useLanguage('component.create_user');
-    const [hide, setHide] = useState(true);
     const [queryClass, setQueryClass] = useState('');
     const [queryFaculty, setQueryFaculty] = useState('');
     const debounceQueryClass = useDebounce(queryClass, AUTO_COMPLETE_DEBOUNCE);
     const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE);
     const queryClient = useQueryClient();
     const handleClosePopUp = () => {
-        setHide(true);
-        setTimeout(() => {
-            setShowPopUp(false);
-        }, CSS_TIMING.TRANSITION_TIMING_FAST);
+        setShowPopUp(false);
     };
     const formUtils = createFormUtils(styles);
     const classQueryData = useQuery({
@@ -81,7 +76,6 @@ export default function CreateUser({
         { value: 'female', label: language?.genders.female },
     ];
     useEffect(() => {
-        setHide(false);
         return () => {
             queryClient.removeQueries({ queryKey: [QUERY_KEYS.AUTO_COMPLETE_FACULTY] });
             queryClient.removeQueries({ queryKey: [QUERY_KEYS.AUTO_COMPLETE_SCHOOL_CLASS] });
@@ -91,7 +85,6 @@ export default function CreateUser({
         <div className={
             css(
                 styles.createModelContainer,
-                hide ? styles.hide : ''
             )
         }>
             {
@@ -100,7 +93,6 @@ export default function CreateUser({
             <div className={
                 css(
                     styles.createModelForm,
-                    hide ? styles.hide : ''
                 )
             }>
                 <div className={styles.header}>

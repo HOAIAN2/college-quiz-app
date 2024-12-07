@@ -2,11 +2,10 @@ import appStyles from '~styles/App.module.css';
 import styles from '../styles/ExportUsers.module.css';
 
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import { apiExportUsers, apiGetUserExportableFields } from '~api/user';
 import Loading from '~components/Loading';
-import CSS_TIMING from '~constants/css-timing';
 import QUERY_KEYS from '~constants/query-keys';
 import useLanguage from '~hooks/useLanguage';
 import { RoleName } from '~models/role';
@@ -19,22 +18,18 @@ const facultyFilterKey = 'faculty_id';
 
 type ExportUsersProps = {
     role: RoleName;
-    setExportMode: React.Dispatch<React.SetStateAction<boolean>>;
+    setShowPopUp: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function ExportUsers({
     role,
-    setExportMode
+    setShowPopUp
 }: ExportUsersProps) {
     const language = useLanguage('component.export_users');
-    const [hide, setHide] = useState(true);
     const [isPending, setIsPending] = useState(false);
     const applyFilterRef = useRef<HTMLInputElement>(null);
     const handleClosePopUp = () => {
-        setHide(true);
-        setTimeout(() => {
-            setExportMode(false);
-        }, CSS_TIMING.TRANSITION_TIMING_FAST);
+        setShowPopUp(false);
     };
     const queryData = useQuery({
         queryKey: [QUERY_KEYS.USER_EXPORTABLE_FIELDS],
@@ -76,21 +71,16 @@ export default function ExportUsers({
                 else item.checked = false;
             });
     };
-    useEffect(() => {
-        setHide(false);
-    }, []);
     return (
         <div className={
             css(
                 styles.exportUsersContainer,
-                hide ? styles.hide : ''
             )
         }>
             <div
                 className={
                     css(
                         styles.exportUsersForm,
-                        hide ? styles.hide : ''
                     )
                 }>
                 <div className={styles.header}>

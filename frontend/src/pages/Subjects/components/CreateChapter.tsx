@@ -2,12 +2,11 @@ import appStyles from '~styles/App.module.css';
 import styles from '~styles/CreateModel.module.css';
 
 import { useMutation } from '@tanstack/react-query';
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { RxCross2 } from 'react-icons/rx';
 import { apiCreateChapter } from '~api/chapter';
 import Loading from '~components/Loading';
-import CSS_TIMING from '~constants/css-timing';
 import useLanguage from '~hooks/useLanguage';
 import createFormUtils from '~utils/createFormUtils';
 import css from '~utils/css';
@@ -26,12 +25,8 @@ export default function CreateChapter({
     setShowPopUp
 }: CreateChapterProps) {
     const language = useLanguage('component.create_chapter');
-    const [hide, setHide] = useState(true);
     const handleClosePopUp = () => {
-        setHide(true);
-        setTimeout(() => {
-            setShowPopUp(false);
-        }, CSS_TIMING.TRANSITION_TIMING_FAST);
+        setShowPopUp(false);
     };
     const formUtils = createFormUtils(styles);
     const handleCreateChapter = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
@@ -52,14 +47,10 @@ export default function CreateChapter({
         onError: (error) => { formUtils.showFormError(error); },
         onSuccess: onMutateSuccess
     });
-    useEffect(() => {
-        setHide(false);
-    }, []);
     return (
         <div className={
             css(
                 styles.createModelContainer,
-                hide ? styles.hide : ''
             )
         }>
             {
@@ -68,7 +59,6 @@ export default function CreateChapter({
             <div className={
                 css(
                     styles.createModelForm,
-                    hide ? styles.hide : ''
                 )
             }>
                 <div className={styles.header}>

@@ -2,14 +2,13 @@ import appStyles from '~styles/App.module.css';
 import styles from '~styles/ViewModel.module.css';
 
 import { useMutation } from '@tanstack/react-query';
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { MdDeleteOutline } from 'react-icons/md';
 import { RxCross2 } from 'react-icons/rx';
 import { apiDeleteChapter, apiUpdateChapter } from '~api/chapter';
 import Loading from '~components/Loading';
 import YesNoPopUp from '~components/YesNoPopUp';
-import CSS_TIMING from '~constants/css-timing';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
 import { Chapter } from '~models/chapter';
@@ -27,15 +26,11 @@ export default function ViewChapter({
     onMutateSuccess,
     setShowPopUp
 }: ViewChapterProps) {
-    const [hide, setHide] = useState(true);
     const [showDeletePopUp, setShowDeletePopUp] = useState(false);
     const language = useLanguage('component.view_chapter');
     const { permissions } = useAppContext();
     const handleClosePopUp = () => {
-        setHide(true);
-        setTimeout(() => {
-            setShowPopUp(false);
-        }, CSS_TIMING.TRANSITION_TIMING_FAST);
+        setShowPopUp(false);
     };
     const formUtils = createFormUtils(styles);
     const disabledUpdate = !permissions.has('subject_update');
@@ -57,9 +52,6 @@ export default function ViewChapter({
         onError: (error) => { formUtils.showFormError(error); },
         onSuccess: onMutateSuccess
     });
-    useEffect(() => {
-        setHide(false);
-    }, []);
     return (
         <>
             {showDeletePopUp === true ?
@@ -75,7 +67,6 @@ export default function ViewChapter({
                 className={
                     css(
                         styles.viewModelContainer,
-                        hide ? styles.hide : ''
                     )
                 }>
                 {
@@ -85,7 +76,6 @@ export default function ViewChapter({
                     className={
                         css(
                             styles.viewModelForm,
-                            hide ? styles.hide : ''
                         )
                     }>
                     <div className={styles.header}>

@@ -146,7 +146,7 @@ export default function Users({
             {showExportPopUp === true ?
                 <ExportUsers
                     role={role}
-                    setExportMode={setShowExportPopUp}
+                    setShowPopUp={setShowExportPopUp}
                 /> : null}
             {showDeletePopUp === true ?
                 <YesNoPopUp
@@ -167,7 +167,7 @@ export default function Users({
                     icon={<PiMicrosoftExcelLogoFill />}
                     teamplateUrl={importTemplateFileUrl[role]}
                     importFunction={importFunction}
-                    setImportMode={setShowImportPopUp}
+                    setShowPopUp={setShowImportPopUp}
                     onMutateSuccess={onMutateSuccess}
                 /> : null}
             <main className={appStyles.dashboard}>

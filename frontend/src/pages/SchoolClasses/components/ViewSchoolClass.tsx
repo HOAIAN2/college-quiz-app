@@ -10,7 +10,6 @@ import { apiGetSchoolClassById, apiUpdateSchoolClass } from '~api/school-class';
 import CustomDataList from '~components/CustomDataList';
 import Loading from '~components/Loading';
 import { AUTO_COMPLETE_DEBOUNCE } from '~config/env';
-import CSS_TIMING from '~constants/css-timing';
 import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
 import useDebounce from '~hooks/useDebounce';
@@ -29,17 +28,13 @@ export default function ViewSchoolClass({
     onMutateSuccess,
     setShowPopUp
 }: ViewSchoolClassProps) {
-    const [hide, setHide] = useState(true);
     const language = useLanguage('component.view_school_class');
     const { permissions } = useAppContext();
     const [queryFaculty, setQueryFaculty] = useState('');
     const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE);
     const queryClient = useQueryClient();
     const handleClosePopUp = () => {
-        setHide(true);
-        setTimeout(() => {
-            setShowPopUp(false);
-        }, CSS_TIMING.TRANSITION_TIMING_FAST);
+        setShowPopUp(false);
     };
     const disabledUpdate = !permissions.has('school_class_update');
     const formUtils = createFormUtils(styles);
@@ -68,7 +63,6 @@ export default function ViewSchoolClass({
         onSuccess: onMutateSuccess
     });
     useEffect(() => {
-        setHide(false);
         return () => {
             queryClient.removeQueries({ queryKey: [QUERY_KEYS.SCHOOL_CLASS_DETAIL, { id: id }] });
             queryClient.removeQueries({ queryKey: [QUERY_KEYS.AUTO_COMPLETE_FACULTY] });
@@ -79,7 +73,6 @@ export default function ViewSchoolClass({
             className={
                 css(
                     styles.viewModelContainer,
-                    hide ? styles.hide : ''
                 )
             }>
             {
@@ -89,7 +82,6 @@ export default function ViewSchoolClass({
                 className={
                     css(
                         styles.viewModelForm,
-                        hide ? styles.hide : ''
                     )
                 }>
                 <div className={styles.header}>
