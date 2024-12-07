@@ -25,7 +25,7 @@ class GetByTypeRequest extends FormRequest
     {
         return [
             'role' => ['required', 'string', 'in:student,teacher,admin'],
-            'per_page' => ['required', 'integer', 'in:10,20,30,40,50'],
+            'per_page' => ['required', 'integer', 'min:10','max:100'],
             'page' => ['nullable', 'integer'],
             'search' => ['nullable', 'string'],
             'school_class_id' => ['nullable', 'integer'],
