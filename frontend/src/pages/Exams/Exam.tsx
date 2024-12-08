@@ -151,7 +151,7 @@ export default function Exam() {
                                                 permissions.has('exam_update') ?
                                                     <>
                                                         {
-                                                            permissions.has('exam_update') && queryData.data.startedAt === null ?
+                                                            queryData.data.startedAt === null && queryData.data.cancelledAt === null ?
                                                                 <button
                                                                     onClick={() => {
                                                                         setShowStartExamPopUp(true);
@@ -162,14 +162,18 @@ export default function Exam() {
                                                                 </button>
                                                                 : null
                                                         }
-                                                        <button
-                                                            type='button'
-                                                            onClick={() => {
-                                                                setShowCancelExamPopUp(true);
-                                                            }}
-                                                            className={appStyles.actionItemWhiteBorderRed}>
-                                                            <ImCancelCircle /> {language?.cancelExam}
-                                                        </button>
+                                                        {
+                                                            !isExamOver && queryData.data.cancelledAt === null ?
+                                                                <button
+                                                                    type='button'
+                                                                    onClick={() => {
+                                                                        setShowCancelExamPopUp(true);
+                                                                    }}
+                                                                    className={appStyles.actionItemWhiteBorderRed}>
+                                                                    <ImCancelCircle /> {language?.cancelExam}
+                                                                </button>
+                                                                : null
+                                                        }
                                                     </> : null
                                             }
                                         </div>

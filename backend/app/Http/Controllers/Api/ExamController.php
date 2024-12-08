@@ -447,6 +447,17 @@ class ExamController extends Controller
             if (!$user->isAdmin() && !$has_update_status_permission) {
                 return Reply::error('', [], 403);
             }
+            // Check is exam over
+            $is_exam_over = false;
+            if ($target_exam->started_at) {
+                $started_at = Carbon::parse($target_exam->started_at);
+                if ($now->greaterThan($started_at->addMinutes($target_exam->exam_time))) {
+                    $is_exam_over = true;
+                }
+            }
+            if ($is_exam_over) {
+                return Reply::error(trans('app.errors.exam_has_end'));
+            }
             switch ($request->status) {
                 case 'start':
                     if ($target_exam->cancelled_at != null) {
