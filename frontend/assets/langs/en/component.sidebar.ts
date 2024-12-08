@@ -7,6 +7,7 @@ export default {
     profile: 'Profile',
     exams: 'Exam',
     questions: 'Questions',
+    admins: 'Admins',
     teachers: 'Teachers',
     students: 'Students',
     permission: 'Permission',

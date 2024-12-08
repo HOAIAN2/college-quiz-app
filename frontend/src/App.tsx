@@ -161,6 +161,10 @@ const router = createBrowserRouter([
                         element: <Suspense fallback={<SuspenseLoading />}><Users role='student' /></Suspense>
                     },
                     {
+                        path: 'admins',
+                        element: <Suspense fallback={<SuspenseLoading />}><Users role='admin' /></Suspense>
+                    },
+                    {
                         path: 'permissions',
                         children: [
                             {

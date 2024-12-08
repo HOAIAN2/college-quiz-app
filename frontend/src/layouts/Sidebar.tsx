@@ -13,6 +13,7 @@ import {
     PiExam,
     PiStudent,
 } from 'react-icons/pi';
+import { RiAdminLine } from 'react-icons/ri';
 import {
     RxDashboard
 } from 'react-icons/rx';
@@ -44,6 +45,12 @@ export default function Sidebar() {
             to: 'profile',
             icon: <AiOutlineUser />,
             isActive: true
+        },
+        {
+            name: language?.admins,
+            to: 'admins',
+            icon: <RiAdminLine />,
+            isActive: permissions.has('user_view')
         },
         {
             name: language?.teachers,

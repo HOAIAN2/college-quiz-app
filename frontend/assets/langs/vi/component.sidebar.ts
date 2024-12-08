@@ -7,6 +7,7 @@ export default {
     profile: 'Cá nhân',
     exams: 'Bài thi',
     questions: 'Câu hỏi',
+    admins: 'Quản trị',
     teachers: 'Giáo viên',
     students: 'Học sinh',
     permission: 'Phân quyền',
