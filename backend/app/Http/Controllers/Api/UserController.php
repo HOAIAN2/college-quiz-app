@@ -89,29 +89,32 @@ class UserController extends Controller
 
         DB::beginTransaction();
         try {
-            $targetUser = User::with('role')->findOrFail($id);
+            $target_user = User::with('role')->findOrFail($id);
 
             $data = collect($request->validated())->except(['password', 'school_class_id', 'faculty_id'])->toArray();
 
             if ($user->id == $id) $data['is_active'] = 1;
-            if ($request->password != null) $data['password'] = Hash::make($request->password);
 
-            if ($targetUser->role_id == RoleType::STUDENT->value) {
+            if ($request->password != null && $target_user->role_id != RoleType::ADMIN->value) {
+                $data['password'] = Hash::make($request->password);
+            }
+
+            if ($target_user->role_id == RoleType::STUDENT->value) {
                 $data['school_class_id'] = $request->school_class_id;
             }
 
-            if ($targetUser->role_id == RoleType::TEACHER->value) {
+            if ($target_user->role_id == RoleType::TEACHER->value) {
                 $data['faculty_id'] = $request->faculty_id;
             }
 
-            if ($targetUser->email != $data['email']) {
+            if ($target_user->email != $data['email']) {
                 $data['email_verified_at'] = null;
             }
 
             $data['birth_date'] = Carbon::parse($request->birth_date);
-            $targetUser->update($data);
+            $target_user->update($data);
             DB::commit();
-            if ($data['is_active'] == 0) $targetUser->tokens()->delete();
+            if ($data['is_active'] == 0) $target_user->tokens()->delete();
             return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
             DB::rollBack();
@@ -126,7 +129,9 @@ class UserController extends Controller
 
         DB::beginTransaction();
         try {
-            User::destroy($request->ids);
+            User::whereIn('id', $request->ids)
+                ->where('id', '<>', $user->id)
+                ->delete();
             DB::commit();
             return Reply::successWithMessage(trans('app.successes.record_delete_success'));
         } catch (\Exception $error) {
