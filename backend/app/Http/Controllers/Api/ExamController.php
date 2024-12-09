@@ -445,7 +445,7 @@ class ExamController extends Controller
                 ->where('user_id', '=', $user->id)
                 ->exists();
             if (!$user->isAdmin() && !$has_update_status_permission) {
-                return Reply::error('', 403);
+                return Reply::error(trans('app.errors.403'), 403);
             }
             // Check is exam over
             $is_exam_over = false;

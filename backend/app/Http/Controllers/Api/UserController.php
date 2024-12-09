@@ -92,7 +92,7 @@ class UserController extends Controller
             $target_user = User::with('role')->findOrFail($id);
 
             if ($target_user->role_id == RoleType::ADMIN->value && $user->id != $target_user->id) {
-                return Reply::error('', 403);
+                return Reply::error(trans('app.errors.403'), 403);
             }
 
             $data = collect($request->validated())->except(['password', 'school_class_id', 'faculty_id'])->toArray();

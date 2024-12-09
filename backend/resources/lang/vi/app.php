@@ -25,6 +25,7 @@ return [
         'exam_has_start' => 'Bài thi đã bắt đầu',
         'exam_has_cancel' => 'Bài thi đã bị hủy',
         'not_yet_time_for_exam' => 'Chưa tới giờ thi',
-        'log_file_not_exist' => 'File log không tồn tại'
+        'log_file_not_exist' => 'File log không tồn tại',
+        '403' => 'Quyền truy cập bị từ chối'
     ],
 ];
