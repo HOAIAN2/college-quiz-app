@@ -286,7 +286,7 @@ export default function ViewUser({
                                         </div>
                                     </div>
                                     {
-                                        permissions.has('user_update') ?
+                                        permissions.has('user_update') && !disabledUpdate ?
                                             <div className={styles.actionItems}>
                                                 <button name='save'
                                                     className={
