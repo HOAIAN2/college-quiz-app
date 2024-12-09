@@ -43,18 +43,25 @@
     box-shadow: none;
 }
 
-.rightItem {
+.profileItem {
+    height: 40px;
+    padding: 10px;
+    border-radius: var(--border-radius-low);
     position: relative;
     overflow: hidden;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--color-shadow);
+    grid-gap: 5px;
 }
 
-.rightItem.show {
+.profileItem.show {
     overflow: visible;
 }
 
-.rightItem>svg {
-    font-size: 24px;
+.profileItem>svg {
+    font-size: 18px;
 }
 
 .dropDown {

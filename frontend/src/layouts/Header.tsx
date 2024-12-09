@@ -6,6 +6,7 @@ import { AiOutlineUser } from 'react-icons/ai';
 import {
     BiLogOut
 } from 'react-icons/bi';
+import { LuCircleUserRound } from 'react-icons/lu';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { Link } from 'react-router';
 import { apiLogout } from '~api/auth';
@@ -75,8 +76,9 @@ export default function Header() {
                         <>
                             <div
                                 ref={profileDropdownRef}
-                                onClick={handleToggleDropdownProfile} className={styles.rightItem}>
-                                <AiOutlineUser />
+                                onClick={handleToggleDropdownProfile} className={styles.profileItem}>
+                                <LuCircleUserRound />
+                                <div>{languageUtils.getFullName(user.user.firstName, user.user.lastName)}</div>
                                 <div onClick={handleToggleDropdownProfile} className={styles.dropDown}>
                                     <Link
                                         onClick={handleToggleDropdownProfile}
@@ -88,7 +90,7 @@ export default function Header() {
                                         <span>{language?.profile}</span>
                                     </Link>
                                     <div onClick={handleLogout} className={styles.dropItem}>
-                                        <BiLogOut />
+                                        <BiLogOut style={{ color: 'var(--color-red)' }} />
                                         <span>{language?.logout}</span>
                                     </div>
                                 </div>
