@@ -35,6 +35,7 @@ export default function ViewUser({
     const { permissions } = useAppContext();
     const [queryClass, setQueryClass] = useState('');
     const [queryFaculty, setQueryFaculty] = useState('');
+    const [disabledUpdate, setDisabledUpdate] = useState(!permissions.has('user_update'));
     const debouceQueryClass = useDebounce(queryClass, AUTO_COMPLETE_DEBOUNCE);
     const debounceQueryFaculty = useDebounce(queryFaculty, AUTO_COMPLETE_DEBOUNCE);
     const queryClient = useQueryClient();
@@ -42,7 +43,6 @@ export default function ViewUser({
         setShowPopUp(false);
     };
     const formUtils = createFormUtils(styles);
-    const disabledUpdate = !permissions.has('user_update');
     const queryData = useQuery({
         queryKey: [QUERY_KEYS.USER_DETAIL, { id: id }],
         queryFn: () => apiGetUserById(id)
@@ -87,6 +87,12 @@ export default function ViewUser({
             queryClient.removeQueries({ queryKey: [QUERY_KEYS.AUTO_COMPLETE_SCHOOL_CLASS] });
         };
     }, [queryClient, id]);
+    useEffect(() => {
+        if (!queryData.data) return;
+        if (queryData.data.role.name === 'admin') {
+            setDisabledUpdate(true);
+        }
+    }, [queryData.data]);
     return (
         <div
             className={
@@ -192,6 +198,7 @@ export default function ViewUser({
                                                             value: String(item.id)
                                                         };
                                                     }) : []}
+                                                    disabled={disabledUpdate}
                                                 />
                                             </div>
                                             : queryData.data.role.name === 'teacher' ?
@@ -212,6 +219,7 @@ export default function ViewUser({
                                                                 value: String(item.id)
                                                             };
                                                         }) : []}
+                                                        disabled={disabledUpdate}
                                                     />
                                                 </div>
                                                 : null

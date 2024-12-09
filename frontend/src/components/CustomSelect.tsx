@@ -61,7 +61,7 @@ export default function CustomSelect({
                 )
             }
         >
-            <span>{current.label}</span>
+            <span style={{ opacity: disabled ? 0.7 : 1 }}>{current.label}</span>
             <input type='text'
                 name={name}
                 value={current.value}
