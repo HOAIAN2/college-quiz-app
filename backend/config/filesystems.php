@@ -71,10 +71,10 @@ return [
             'password' => env('FTP_PASSWORD'),
 
             // Optional FTP Settings...
-            'port' => env('FTP_PORT', 21),
+            'port' => (int)env('FTP_PORT', 21),
             'root' => env('FTP_ROOT'),
             'passive' => true,
-            // 'ssl' => true,
+            'ssl' => (boolean)env('FTP_SSL', true),
             'timeout' => 30,
         ],
     ],
