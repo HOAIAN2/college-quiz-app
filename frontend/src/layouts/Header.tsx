@@ -8,7 +8,7 @@ import {
 } from 'react-icons/bi';
 import { LuCircleUserRound } from 'react-icons/lu';
 import { RxHamburgerMenu } from 'react-icons/rx';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { apiLogout } from '~api/auth';
 import CustomSelect from '~components/CustomSelect';
 import useAppContext from '~hooks/useAppContext';

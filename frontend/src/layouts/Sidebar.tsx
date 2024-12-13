@@ -21,7 +21,7 @@ import {
     SiGoogleclassroom
 } from 'react-icons/si';
 import { TbBrandAuth0 } from 'react-icons/tb';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { API_HOST } from '~config/env';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';

@@ -4,7 +4,7 @@ import styles from './styles/Semester.module.css';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
-import { Link, Navigate, useNavigate, useParams } from 'react-router';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { apiDeleteSemester, apiGetSemesterById, apiUpdateSemester } from '~api/semester';
 import Loading from '~components/Loading';
 import YesNoPopUp from '~components/YesNoPopUp';

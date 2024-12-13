@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { sha256 } from 'js-sha256';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { TbSend } from 'react-icons/tb';
-import { Navigate, useParams } from 'react-router';
+import { Navigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { apiGetTakeExam, apiSubmitExam, apiSyncExamAnswersCache } from '~api/exam';
 import Loading from '~components/Loading';

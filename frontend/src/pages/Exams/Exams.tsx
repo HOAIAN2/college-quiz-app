@@ -3,7 +3,7 @@ import styles from '~styles/CardPage.module.css';
 
 import { useQuery } from '@tanstack/react-query';
 import { useCallback, useEffect, useRef } from 'react';
-import { Link, Navigate, useSearchParams } from 'react-router';
+import { Link, Navigate, useSearchParams } from 'react-router-dom';
 import { apiGetExamsByMonth } from '~api/exam';
 import Loading from '~components/Loading';
 import QUERY_KEYS from '~constants/query-keys';

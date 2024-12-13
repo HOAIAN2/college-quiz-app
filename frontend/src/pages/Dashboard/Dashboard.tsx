@@ -9,7 +9,7 @@ import {
     PiExam,
     PiStudent
 } from 'react-icons/pi';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { apiGetDashboard } from '~api/dashboard';
 import Loading from '~components/Loading';
 import QUERY_KEYS from '~constants/query-keys';

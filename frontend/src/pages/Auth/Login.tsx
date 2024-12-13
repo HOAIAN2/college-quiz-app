@@ -2,7 +2,7 @@ import appStyles from '~styles/App.module.css';
 import styles from './styles/Login.module.css';
 
 import { useEffect, useRef, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { apiLogin, apiSendEmailVerification } from '~api/auth';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';

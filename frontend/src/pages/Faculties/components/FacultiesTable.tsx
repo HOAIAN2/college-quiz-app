@@ -3,7 +3,7 @@ import styles from '~styles/Table.module.css';
 
 import { useState } from 'react';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
-import { SetURLSearchParams } from 'react-router';
+import { SetURLSearchParams } from 'react-router-dom';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
 import { FacultyDetail } from '~models/faculty';

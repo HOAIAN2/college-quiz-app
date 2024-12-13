@@ -2,7 +2,7 @@ import appStyles from '~styles/App.module.css';
 import styles from './styles/VerifyEmail.module.css';
 
 import { useEffect, useState } from 'react';
-import { Navigate, useLocation, useNavigate } from 'react-router';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { apiSendEmailVerification, apiVerifyEmail } from '~api/auth';
 import useLanguage from '~hooks/useLanguage';
 import { User } from '~models/user';

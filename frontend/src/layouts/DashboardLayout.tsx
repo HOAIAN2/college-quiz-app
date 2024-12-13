@@ -1,7 +1,7 @@
 import styles from './styles/DashboardLayout.module.css';
 
 import { useEffect, useState } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { apiGetUser } from '../api/user';
 import useAppContext from '../hooks/useAppContext';
 import Header from './Header';
