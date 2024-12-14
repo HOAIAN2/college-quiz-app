@@ -1,12 +1,12 @@
 import styles from './styles/DashboardLayout.module.css';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import SuspenseLoading from '~components/SuspenseLoading';
 import { apiGetUser } from '../api/user';
 import useAppContext from '../hooks/useAppContext';
 import Header from './Header';
 import Sidebar from './Sidebar';
-
 
 export default function DashboardLayout() {
     const { user, permissions } = useAppContext();
@@ -33,7 +33,9 @@ export default function DashboardLayout() {
             <Header />
             <div className={styles.dashboardContent}>
                 <Sidebar />
-                <Outlet />
+                <Suspense fallback={<SuspenseLoading />} key={location.key}>
+                    <Outlet />
+                </Suspense>
             </div>
         </div>
     );

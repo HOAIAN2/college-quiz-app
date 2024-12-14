@@ -4,10 +4,9 @@ import {
     QueryClient,
     QueryClientProvider,
 } from '@tanstack/react-query';
-import { Suspense, lazy, useEffect } from 'react';
+import { lazy, useEffect } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { Toaster } from 'sonner';
-import SuspenseLoading from '~components/SuspenseLoading';
 import themeUtils from '~utils/themeUtils';
 import AuthLayout from './layouts/AuthLayout';
 import DashboardLayout from './layouts/DashboardLayout';
@@ -63,25 +62,25 @@ const router = createBrowserRouter([
                 children: [
                     {
                         index: true,
-                        element: <Suspense fallback={<SuspenseLoading />}><Dashboard /></Suspense>,
+                        element: <Dashboard />
                     },
                     {
                         path: 'subjects',
                         children: [
                             {
                                 index: true,
-                                element: <Suspense fallback={<SuspenseLoading />}><Subjects /></Suspense>
+                                element: <Subjects />
                             },
                             {
                                 path: ':id',
                                 children: [
                                     {
                                         index: true,
-                                        element: <Suspense fallback={<SuspenseLoading />}><Subject /></Suspense>
+                                        element: <Subject />
                                     },
                                     {
                                         path: 'questions',
-                                        element: <Suspense fallback={<SuspenseLoading />}><Questions /></Suspense>
+                                        element: <Questions />
                                     }
                                 ],
                             }
@@ -89,40 +88,40 @@ const router = createBrowserRouter([
                     },
                     {
                         path: 'profile',
-                        element: <Suspense fallback={<SuspenseLoading />}><Profile /></Suspense>
+                        element: <Profile />
                     },
                     {
                         path: 'faculties',
-                        element: <Suspense fallback={<SuspenseLoading />}><Faculties /></Suspense>
+                        element: <Faculties />
                     },
                     {
                         path: 'school-classes',
-                        element: <Suspense fallback={<SuspenseLoading />}><SchoolClasses /></Suspense>
+                        element: <SchoolClasses />
                     },
                     {
                         path: 'semesters',
                         children: [
                             {
                                 index: true,
-                                element: <Suspense fallback={<SuspenseLoading />}><Semesters /></Suspense>
+                                element: <Semesters />
                             },
                             {
                                 path: ':id',
                                 children: [
                                     {
                                         index: true,
-                                        element: <Suspense fallback={<SuspenseLoading />}><Semester /></Suspense>,
+                                        element: <Semester />
                                     },
                                     {
                                         path: 'courses',
                                         children: [
                                             {
                                                 index: true,
-                                                element: <Suspense fallback={<SuspenseLoading />}><Courses /></Suspense>,
+                                                element: <Courses />
                                             },
                                             {
                                                 path: ':courseId',
-                                                element: <Suspense fallback={<SuspenseLoading />}><Course /></Suspense>
+                                                element: <Course />
                                             }
                                         ],
                                     }
@@ -135,18 +134,18 @@ const router = createBrowserRouter([
                         children: [
                             {
                                 index: true,
-                                element: <Suspense fallback={<SuspenseLoading />}><Exams /></Suspense>
+                                element: <Exams />
                             },
                             {
                                 path: ':id',
                                 children: [
                                     {
                                         index: true,
-                                        element: <Suspense fallback={<SuspenseLoading />}><Exam /></Suspense>
+                                        element: <Exam />
                                     },
                                     {
                                         path: 'take',
-                                        element: <Suspense fallback={<SuspenseLoading />}><TakeExam /></Suspense>
+                                        element: <TakeExam />
                                     },
                                 ]
                             }
@@ -154,40 +153,40 @@ const router = createBrowserRouter([
                     },
                     {
                         path: 'teachers',
-                        element: <Suspense fallback={<SuspenseLoading />}><Users role='teacher' /></Suspense>
+                        element: <Users role='teacher' />
                     },
                     {
                         path: 'students',
-                        element: <Suspense fallback={<SuspenseLoading />}><Users role='student' /></Suspense>
+                        element: <Users role='student' />
                     },
                     {
                         path: 'admins',
-                        element: <Suspense fallback={<SuspenseLoading />}><Users role='admin' /></Suspense>
+                        element: <Users role='admin' />
                     },
                     {
                         path: 'permissions',
                         children: [
                             {
                                 index: true,
-                                element: <Suspense fallback={<SuspenseLoading />}><Permissisons /></Suspense>
+                                element: <Permissisons />
                             },
                             {
                                 path: ':id',
-                                element: <Suspense fallback={<SuspenseLoading />}><RolePermissions /></Suspense>
+                                element: <RolePermissions />
                             },
                         ],
                     },
                     {
                         path: 'settings',
-                        element: <Suspense fallback={<SuspenseLoading />}><Settings /></Suspense>,
+                        element: <Settings />,
                         children: [
                             {
                                 index: true,
-                                element: <Suspense fallback={<SuspenseLoading />}><Settings /></Suspense>
+                                element: <Settings />
                             },
                             {
                                 path: ':name',
-                                element: <Suspense fallback={<SuspenseLoading />}><Settings /></Suspense>
+                                element: <Settings />
                             },
                         ],
                     },
