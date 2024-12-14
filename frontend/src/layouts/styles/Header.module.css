@@ -7,7 +7,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0px 20px;
-    z-index: 2;
+    z-index: 200;
 }
 
 .leftItems {

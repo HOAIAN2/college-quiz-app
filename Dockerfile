@@ -21,7 +21,7 @@ RUN apk add --no-cache \
     zlib-dev \
     nginx \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
-    && docker-php-ext-install -j$(nproc) gd intl opcache pdo pdo_mysql zip
+    && docker-php-ext-install -j$(nproc) gd intl opcache pdo pdo_mysql zip ftp
 
 # Redis extension
 RUN apk --no-cache add pcre-dev ${PHPIZE_DEPS} \
