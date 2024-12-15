@@ -61,7 +61,7 @@ class GeneratePermissionType extends Command
     private function generateFrontendType()
     {
         $content = <<<EOF
-        export type PermissionName =
+        export type AppPermissionName =
             @names;
 
         EOF;

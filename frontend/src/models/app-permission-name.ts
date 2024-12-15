@@ -1,4 +1,4 @@
-export type PermissionName =
+export type AppPermissionName =
     'course_create' |
     'course_delete' |
     'course_update' |
