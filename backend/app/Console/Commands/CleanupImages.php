@@ -54,6 +54,11 @@ class CleanupImages extends Command
         Storage::delete($files_to_delete);
     }
 
+    /**
+     * This function not work in expected behavior because the getContentAttribute($value) function
+     * in Question and QuestionOption model will override all /uploads image path
+     * when code not running in console
+     */
     protected function extractImagePathsFromContent(string $content): array
     {
         $image_paths = [];
@@ -64,10 +69,15 @@ class CleanupImages extends Command
         libxml_clear_errors();
         $images = $dom->getElementsByTagName('img');
 
+        // Replace token when command not run in console (throught api call, etc)
+        $replace_token = app()->runningInConsole() ?
+            '/uploads/'
+            : request()->schemeAndHttpHost() . '/uploads/';
+
         foreach ($images as $img) {
             $src = $img->attributes['src']->textContent;
-            if (Str::startsWith($src, '/uploads')) {
-                $image_paths[] = Str::replace('/uploads/', '', $src);
+            if (Str::startsWith($src, $replace_token)) {
+                $image_paths[] = Str::replace($replace_token, '', $src);
             }
         }
 
