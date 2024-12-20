@@ -46,12 +46,12 @@ class CleanupImages extends Command
         $files = Storage::allFiles();
         $ignore_files = ['.gitignore'];
 
-        $files = array_filter($files, function ($file) use ($question_images, $ignore_files) {
+        $files_to_delete = array_filter($files, function ($file) use ($question_images, $ignore_files) {
             if (in_array($file, $ignore_files)) return false;
             return !in_array($file, $question_images);
         });
 
-        Storage::delete($files);
+        Storage::delete($files_to_delete);
     }
 
     protected function extractImagePathsFromContent(string $content): array
