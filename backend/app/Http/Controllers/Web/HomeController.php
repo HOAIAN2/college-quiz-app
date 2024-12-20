@@ -11,16 +11,21 @@ class HomeController extends Controller
 {
     public function index()
     {
-        if (config('custom.app.demo')) {
-            $credentials = json_encode([
-                'email' => User::where('role_id', RoleType::ADMIN)->select('email')->first()->email,
-                'password' => config('custom.demo_credentials.password')
-            ]);
-            Cookie::queue('demo_credentials', $credentials, 30, null, null, false, false);
-        } else {
-            Cookie::queue(Cookie::forget('demo_credentials'));
+        try {
+            if (config('custom.app.demo')) {
+                $credentials = json_encode([
+                    'email' => User::where('role_id', RoleType::ADMIN)->select('email')->first()->email,
+                    'password' => config('custom.demo_credentials.password')
+                ]);
+                Cookie::queue('demo_credentials', $credentials, 30, null, null, false, false);
+            } else {
+                Cookie::queue(Cookie::forget('demo_credentials'));
+            }
+        } catch (\Exception $error) {
+            $this->handleException($error);
+        } finally {
+            return view('index');
         }
-        return view('index');
     }
 
     public function privacy()
