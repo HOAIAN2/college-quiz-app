@@ -135,6 +135,7 @@ export default function Exam() {
                                             {
                                                 permissions.has('exam_submit')
                                                     && queryData.data.startedAt !== null
+                                                    && !isExamOver
                                                     && !isSubmitted ?
                                                     <>
                                                         <Link
