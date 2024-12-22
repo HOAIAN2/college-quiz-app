@@ -10,6 +10,7 @@ export type Question = {
     content: string;
     createdAt: string;
     updatedAt: string;
+    deletedAt: string;
 };
 
 export type QueryQuestionType = {
