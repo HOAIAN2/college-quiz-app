@@ -19,7 +19,7 @@ export default function Exams() {
     const [searchParams, setSearchParams] = useSearchParams();
     const { appLanguage, permissions, appTitle } = useAppContext();
     const language = useLanguage('page.exams');
-    const requestRef = useRef<number>();
+    const requestRef = useRef<number>(0);
     const initQueryDate = () => {
         const year = searchParams.get('year');
         const month = searchParams.get('month');
