@@ -36,13 +36,6 @@ export default function TakeExam() {
         staleTime: Infinity,
         retry: 0
     });
-    const animate = useCallback(() => {
-        if (!queryData.data) return;
-        const newTimeLeft = timeUtils.countDown(new Date(Date.parse(queryData.data.examData.startedAt!)
-            + queryData.data.examData.examTime * 60000));
-        setTimeLeft(newTimeLeft);
-        requestRef.current = requestAnimationFrame(animate);
-    }, [queryData.data]);
     useEffect(() => {
         if (answers.length === 0) return;
         apiSyncExamAnswersCache(String(id), answers);
@@ -53,6 +46,20 @@ export default function TakeExam() {
             setExamResult(data);
         },
     });
+    const animate = useCallback(() => {
+        if (!queryData.data) return;
+        const newTimeLeft = timeUtils.countDown(new Date(Date.parse(queryData.data.examData.startedAt!)
+            + queryData.data.examData.examTime * 60000));
+        setTimeLeft(newTimeLeft);
+        requestRef.current = requestAnimationFrame(animate);
+        // Auto submit
+        const endAt = new Date(queryData.data.examData.startedAt!).getTime() + (queryData.data.examData.examTime * 60 * 1000);
+        const now = new Date().getTime();
+        if (now > endAt && !isPending && !examResult) {
+            mutateAsync();
+            toast.info(language?.autoSubmitInfo);
+        }
+    }, [examResult, isPending, language?.autoSubmitInfo, mutateAsync, queryData.data]);
     useEffect(() => {
         if (examResult) return;
         requestRef.current = requestAnimationFrame(animate);
@@ -62,15 +69,6 @@ export default function TakeExam() {
         if (!queryData.data) return;
         setBypassKey(sha256(queryData.data.examData.startedAt!));
     }, [queryData.data]);
-    useEffect(() => {
-        if (!queryData.data) return;
-        const endAt = new Date(queryData.data.examData.startedAt!).getTime() + (queryData.data.examData.examTime * 60 * 1000);
-        const now = new Date().getTime();
-        if (now > endAt && !isPending && !examResult) {
-            mutateAsync();
-            toast.info(language?.autoSubmitInfo);
-        }
-    });
     useEffect(() => {
         if (!queryData.data) return;
         appTitle.setAppTitle(queryData.data.examData.name);
