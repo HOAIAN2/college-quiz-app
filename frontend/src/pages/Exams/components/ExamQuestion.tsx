@@ -50,16 +50,16 @@ export default function ExamQuestion({
                             {
                                 checkedIndex === i ?
                                     <>
-                                        <MdOutlineRadioButtonChecked />
-                                        <span style={{ fontSize: '16px' }}>
+                                        <div className={styles.answerCheckBox}>
+                                            <MdOutlineRadioButtonChecked />
                                             {languageUtils.getLetterFromIndex(i)}.
-                                        </span>
+                                        </div>
                                     </>
                                     : <>
-                                        <MdOutlineRadioButtonUnchecked />
-                                        <span style={{ fontSize: '16px' }}>
+                                        <div className={styles.answerCheckBox}>
+                                            <MdOutlineRadioButtonUnchecked />
                                             {languageUtils.getLetterFromIndex(i)}.
-                                        </span>
+                                        </div>
                                     </>
                             }
                             <p className={styles.questionOption}

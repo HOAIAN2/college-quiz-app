@@ -33,20 +33,10 @@
     gap: 20px;
 }
 
-.questionsContainer img {
-    width: 50%;
-}
-
 .actionItems {
     height: 50px;
     display: flex;
     align-items: center;
     flex-direction: row-reverse;
     gap: 10px;
-}
-
-@media (width<=800px) {
-    .questionsContainer img {
-        width: 100%;
-    }
 }
