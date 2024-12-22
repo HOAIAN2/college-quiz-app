@@ -13,7 +13,6 @@ import ScorePopUp from '~components/ScorePopUp';
 import YesNoPopUp from '~components/YesNoPopUp';
 import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
-import useForceUpdate from '~hooks/useForceUpdate';
 import useLanguage from '~hooks/useLanguage';
 import { ExamResult } from '~models/exam';
 import timeUtils from '~utils/timeUtils';
@@ -25,15 +24,11 @@ export default function TakeExam() {
     const [showSubmitPopUp, setShowSubmitPopUp] = useState(false);
     const [examResult, setExamResult] = useState<ExamResult>();
     const [bypassKey, setBypassKey] = useState('');
+    const [timeLeft, setTimeLeft] = useState('');
     const queryClient = useQueryClient();
-    const requestRef = useRef<number>();
+    const requestRef = useRef<number>(0);
     const [answers, setAnswers] = useState<number[]>([]);
     const language = useLanguage('page.take_exam');
-    const forceUpdate = useForceUpdate();
-    const animate = useCallback(() => {
-        forceUpdate();
-        requestRef.current = requestAnimationFrame(animate);
-    }, [forceUpdate]);
     const queryData = useQuery({
         queryKey: [QUERY_KEYS.EXAM_QUESTIONS, { examId: id }],
         queryFn: () => apiGetTakeExam(String(id)),
@@ -41,12 +36,17 @@ export default function TakeExam() {
         staleTime: Infinity,
         retry: 0
     });
+    const animate = useCallback(() => {
+        if (!queryData.data) return;
+        const newTimeLeft = timeUtils.countDown(new Date(Date.parse(queryData.data.examData.startedAt!)
+            + queryData.data.examData.examTime * 60000));
+        setTimeLeft(newTimeLeft);
+        requestRef.current = requestAnimationFrame(animate);
+    }, [queryData.data]);
     useEffect(() => {
         if (answers.length === 0) return;
         apiSyncExamAnswersCache(String(id), answers);
     }, [answers, id]);
-    const timeLeft = queryData.data ?
-        timeUtils.countDown(new Date(Date.parse(queryData.data.examData.startedAt!) + queryData.data.examData.examTime * 60000)) : '';
     const { mutateAsync, isPending } = useMutation({
         mutationFn: () => apiSubmitExam(String(id), answers, bypassKey),
         onSuccess: (data) => {
