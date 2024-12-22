@@ -33,7 +33,7 @@ export default function DashboardLayout() {
             <Header />
             <div className={styles.dashboardContent}>
                 <Sidebar />
-                <Suspense fallback={<SuspenseLoading />} key={location.key}>
+                <Suspense fallback={<SuspenseLoading />} key={location.pathname}>
                     <Outlet />
                 </Suspense>
             </div>
