@@ -101,6 +101,17 @@ class ExamController extends Controller
 
         DB::beginTransaction();
         try {
+            $expert_count = $request->expert_count;
+            $hard_count = $request->hard_count;
+            $medium_count = $request->medium_count;
+
+            // Validate phrase
+            if (
+                array_sum([$expert_count, $hard_count, $medium_count])
+                > array_sum(array_values($request->question_counts))
+            ) {
+                return Reply::error(trans('exam.question_level_limit_error'));
+            }
             # Check permission
             $course = Course::select('*');
             switch ($user->role_id) {
@@ -138,19 +149,6 @@ class ExamController extends Controller
                 'exam_date' => $exam_date,
                 'exam_time' => $request->exam_time,
             ]);
-
-            $expert_count = $request->expert_count;
-            $hard_count = $request->hard_count;
-            $medium_count = $request->medium_count;
-
-            // Validate phrase
-            if (
-                array_sum([$expert_count, $hard_count, $medium_count])
-                > array_sum(array_values($request->question_counts))
-            ) {
-                DB::rollBack();
-                return Reply::error(trans('exam.expert_question_limit_error'));
-            }
 
             foreach ($chapters as $key => $chapter) {
                 $chapter->max_select_question = $request->question_counts[$key];
