@@ -1,8 +1,7 @@
 import styles from './styles/DashboardLayout.module.css';
 
-import { Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import SuspenseLoading from '~components/SuspenseLoading';
 import { apiGetUser } from '../api/user';
 import useAppContext from '../hooks/useAppContext';
 import Header from './Header';
@@ -33,9 +32,7 @@ export default function DashboardLayout() {
             <Header />
             <div className={styles.dashboardContent}>
                 <Sidebar />
-                <Suspense fallback={<SuspenseLoading />} key={location.pathname}>
-                    <Outlet />
-                </Suspense>
+                <Outlet />
             </div>
         </div>
     );
