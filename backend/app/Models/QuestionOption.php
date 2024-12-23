@@ -9,6 +9,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 /**
@@ -28,6 +29,8 @@ use Illuminate\Support\Str;
  */
 class QuestionOption extends Model
 {
+    use SoftDeletes;
+    
     protected $table = 'question_options';
 
     protected function casts()
