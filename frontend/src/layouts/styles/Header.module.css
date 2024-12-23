@@ -61,7 +61,7 @@
 }
 
 .profileItem>svg {
-    font-size: 18px;
+    font-size: 24px;
 }
 
 .dropDown {
@@ -98,6 +98,14 @@
 
 @media (width<=500px) {
     .appTitle {
+        display: none;
+    }
+
+    .profileItem {
+        border: none;
+    }
+
+    .userFullName {
         display: none;
     }
 }

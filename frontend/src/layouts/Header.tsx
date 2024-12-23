@@ -78,7 +78,7 @@ export default function Header() {
                                 ref={profileDropdownRef}
                                 onClick={handleToggleDropdownProfile} className={styles.profileItem}>
                                 <LuCircleUserRound />
-                                <div>{languageUtils.getFullName(user.user.firstName, user.user.lastName)}</div>
+                                <div className={styles.userFullName}>{languageUtils.getFullName(user.user.firstName, user.user.lastName)}</div>
                                 <div onClick={handleToggleDropdownProfile} className={styles.dropDown}>
                                     <Link
                                         onClick={handleToggleDropdownProfile}
