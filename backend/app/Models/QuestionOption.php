@@ -21,6 +21,7 @@ use Illuminate\Support\Str;
  * @property bool $is_correct
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
  *
  * @property Question $question
  * @property Collection|ExamQuestionsAnswer[] $exam_questions_answers
