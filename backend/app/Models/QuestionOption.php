@@ -49,7 +49,8 @@ class QuestionOption extends Model
 
     protected $hidden = [
         'created_at',
-        'updated_at'
+        'updated_at',
+        'deleted_at'
     ];
 
     public function question()
