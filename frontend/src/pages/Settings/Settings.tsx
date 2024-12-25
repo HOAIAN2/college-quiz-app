@@ -3,7 +3,7 @@ import styles from './styles/Settings.module.css';
 
 import { useEffect, useState } from 'react';
 import { HiOutlineWrenchScrewdriver } from 'react-icons/hi2';
-import { IoMdNotificationsOutline } from 'react-icons/io';
+// import { IoMdNotificationsOutline } from 'react-icons/io';
 import { IoColorPaletteOutline } from 'react-icons/io5';
 import { MdOutlineSecurity } from 'react-icons/md';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -27,12 +27,12 @@ export default function Settings() {
             icon: <HiOutlineWrenchScrewdriver />,
             isActive: true
         },
-        {
-            name: language?.notifications,
-            to: 'notifications',
-            icon: <IoMdNotificationsOutline />,
-            isActive: true
-        },
+        // {
+        //     name: language?.notifications,
+        //     to: 'notifications',
+        //     icon: <IoMdNotificationsOutline />,
+        //     isActive: true
+        // },
         {
             name: language?.security,
             to: 'security',
