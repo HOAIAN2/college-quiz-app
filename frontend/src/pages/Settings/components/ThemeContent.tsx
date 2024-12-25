@@ -1,7 +1,9 @@
+import appStyles from '~styles/App.module.css';
 import settingsStyles from '../styles/SettingsContent.module.css';
 import styles from '../styles/ThemeContent.module.css';
 
 import useLanguage from '~hooks/useLanguage';
+import css from '~utils/css';
 import themeUtils from '~utils/themeUtils';
 
 export default function ThemeContent() {
@@ -28,6 +30,7 @@ export default function ThemeContent() {
                             return (
                                 <>
                                     <div
+                                        onClick={() => { themeUtils.setPrimaryColor(color); }}
                                         key={color}
                                         className={styles.accentColorItem}
                                         style={{
@@ -72,8 +75,11 @@ export default function ThemeContent() {
                     }
                 </div>
                 <div className={settingsStyles.actionItems}>
-                    <button className={settingsStyles.buttonItem}>Save</button>
-                    <button className={settingsStyles.buttonItem}>Reset</button>
+                    <button
+                        onClick={() => { themeUtils.setPrimaryColor(colors[0]); }}
+                        className={css(appStyles.actionItemWhite, settingsStyles.buttonItem)}>
+                        {language?.reset}
+                    </button>
                 </div>
             </article>
         </>

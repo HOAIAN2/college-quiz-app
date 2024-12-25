@@ -13,5 +13,6 @@ export default {
     userAgent: 'User Agent',
     revoke: 'Revoke',
     currentSession: 'Current session',
-    primaryColor: 'Primary color'
+    primaryColor: 'Primary color',
+    reset: 'Reset'
 };

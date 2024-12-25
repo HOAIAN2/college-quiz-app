@@ -14,4 +14,5 @@ export default {
     revoke: 'Hủy bỏ',
     currentSession: 'Phiên hiện tại',
     primaryColor: 'Màu chủ đạo',
+    reset: 'Đặt lại'
 };
