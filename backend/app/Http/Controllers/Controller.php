@@ -25,6 +25,9 @@ abstract class Controller
     {
         Log::error($error);
         $message = config('app.debug') ? $error->getMessage() : trans('app.errors.something_went_wrong');
-        return Reply::error($message, [], 500);
+        if ($error instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+            return Reply::error(trans('app.errors.404'), 400);
+        }
+        return Reply::error($message, 500);
     }
 }
