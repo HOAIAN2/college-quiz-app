@@ -7,7 +7,7 @@ const themeUtils = {
     },
     getVariable(key: string) {
         const variableName = key.startsWith('--') ? key : '--' + key;
-        getComputedStyle(document.documentElement).getPropertyValue(variableName);
+        return getComputedStyle(document.documentElement).getPropertyValue(variableName);
     },
     setPrimaryColor(value: string) {
         this.setVariable('color-primary', value);

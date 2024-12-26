@@ -24,7 +24,7 @@ export default function ThemeContent() {
         <>
             <article className={settingsStyles.article}>
                 <h3>{language?.primaryColor}</h3>
-                <div className={styles.accentColorContainer}>
+                <div className={styles.primaryColorContainer}>
                     {
                         colors.map(color => {
                             return (
@@ -32,17 +32,17 @@ export default function ThemeContent() {
                                     <div
                                         onClick={() => { themeUtils.setPrimaryColor(color); }}
                                         key={color}
-                                        className={styles.accentColorItem}
+                                        className={styles.primaryColorItem}
                                         style={{
                                             borderColor: color
                                         }}>
-                                        <div className={styles.accentColorSidebar}>
+                                        <div className={styles.primaryColorSidebar}>
                                             {
                                                 new Array(5).fill(0).map((_, index) => {
                                                     return (
                                                         <div
                                                             key={index}
-                                                            className={styles.accentColorSidebarItem}
+                                                            className={styles.primaryColorSidebarItem}
                                                             style={{
                                                                 background: index === 0 ? color : 'var(--color-background)',
                                                             }}
@@ -51,14 +51,14 @@ export default function ThemeContent() {
                                                 })
                                             }
                                         </div>
-                                        <div className={styles.accentColorMainContent}>
-                                            <div className={styles.accentColorHead}>
+                                        <div className={styles.primaryColorMainContent}>
+                                            <div className={styles.primaryColorHead}>
                                                 {
                                                     new Array(3).fill(0).map((_, index) => {
                                                         return (
                                                             <div
                                                                 key={index}
-                                                                className={styles.accentColorHeadItem}
+                                                                className={styles.primaryColorHeadItem}
                                                                 style={{
                                                                     backgroundColor: color,
                                                                 }}></div>
@@ -66,13 +66,24 @@ export default function ThemeContent() {
                                                     })
                                                 }
                                             </div>
-                                            <div className={styles.accentColorBody}></div>
+                                            <div className={styles.primaryColorBody}></div>
                                         </div>
                                     </div>
                                 </>
                             );
                         })
                     }
+                </div>
+                <div>
+                    <h4>{language?.primaryColorCustom}</h4>
+                    <input
+                        defaultValue={themeUtils.getPrimaryColor() || themeUtils.getVariable('color-primary')}
+                        onChange={e => {
+                            const selectedColor = e.currentTarget.value;
+                            themeUtils.setPrimaryColor(selectedColor);
+                        }}
+                        type='color'
+                    />
                 </div>
                 <div className={settingsStyles.actionItems}>
                     <button

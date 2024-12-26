@@ -14,5 +14,6 @@ export default {
     revoke: 'Hủy bỏ',
     currentSession: 'Phiên hiện tại',
     primaryColor: 'Màu chủ đạo',
+    primaryColorCustom: 'Không có màu bạn muốn ? Tự chọn ở đây',
     reset: 'Đặt lại'
 };

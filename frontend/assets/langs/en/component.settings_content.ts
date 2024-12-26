@@ -14,5 +14,6 @@ export default {
     revoke: 'Revoke',
     currentSession: 'Current session',
     primaryColor: 'Primary color',
+    primaryColorCustom: 'Don\'t see the color you want? Choose it here.',
     reset: 'Reset'
 };
