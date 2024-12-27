@@ -59,6 +59,7 @@ class ExamResultController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::EXAM_RESULT_REMARK), 403);
+        $now = Carbon::now();
 
         DB::beginTransaction();
         try {
@@ -66,6 +67,15 @@ class ExamResultController extends Controller
                 return Reply::error(trans('auth.errors.password_incorrect'));
             }
             $target_exam_result = ExamResult::findOrFail($id);
+
+            // Limit time to remark 2 months
+            if (!$now->subDays(60)->greaterThan(Carbon::parse($target_exam_result->created_at))) {
+                return Reply::error(trans('exam.can_remark_within_days', [
+                    'days' => 60
+                ]));
+            }
+
+            $target_exam_result->created_at;
             $answers = $target_exam_result
                 ->exam
                 ->exam_questions_answers()
