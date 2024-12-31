@@ -3,7 +3,7 @@
 ## Technologies
 
 - Laravel 11
-- React 18
+- React 19
 
 ## Prerequisites
 
@@ -136,32 +136,36 @@ Use any tool or cli like `mysqldump`, `mariadb-dump`. I already write a NodeJS w
 
 ### Dashboard UI
 
-![Demo](./img/Screenshot%202024-06-03%20075639.jpg)
+![Dashboard](./img/Screenshot%202024-12-31%20153408.jpg)
 
 ### Students UI
 
-![Demo](./img/Screenshot%202024-05-19%20092946.jpg)
+![Students](./img/Screenshot%202024-12-31%20152025.jpg)
+
+### Create Question UI
+
+![Create Question](./img/Screenshot%202024-12-31%20153146.jpg)
 
 ### Course UI
 
-![Demo](./img/Screenshot%202024-05-19%20093057.jpg)
-
-### Exams UI
-
-![Demo](./img/Screenshot%202024-05-19%20093427.jpg)
-
-![Demo](./img/Screenshot%202024-05-19%20094618.jpg)
+![Course](./img/Screenshot%202024-12-31%20152331.jpg)
 
 ### Exam UI
 
-![Demo](./img/Screenshot%202024-05-23%20124000.jpg)
+![Exam](./img/Screenshot%202024-12-31%20152502.jpg)
+
+![Exam](./img/Screenshot%202024-12-31%20153227.jpg)
 
 ### Take Exam UI
 
-![Demo](./img/Screenshot%202024-05-20%20144619.jpg)
+![Take Exam](./img/Screenshot%202024-12-31%20153244.jpg)
 
-### Exam Result UI
+![Take Exam](./img/Screenshot%202024-12-31%20153332.jpg)
 
-![Demo](./img/Screenshot%202024-05-20%20144710.jpg)
+![Take Exam](./img/Screenshot%202024-12-31%20153345.jpg)
+
+### Setting UI
+
+![Setting](./img/Screenshot%202024-12-31%20152533.jpg)
 
 Full review (Vietnamese) at Youtube: <https://www.youtube.com/watch?v=Xkss5f4N0vw>
