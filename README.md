@@ -17,7 +17,7 @@
 git clone https://github.com/HOAIAN2/college-quiz-app.git
 ```
 
-- Run `install.sh` to generate .env file and install libs for both server and client.
+- Run `./scripts/install.sh` to generate .env file and install libs for both server and client.
 - Edit Enviroment variables in .env file.
 
 ``` env
@@ -81,13 +81,7 @@ This project combine both frontend and backend, maybe it some extensions not cor
 Run Deploy file to build and compress all necessary files to app.tar.gz
 
 ```console
-./deploy.sh
-```
-
-Run `composer install` to continue development or just use this everytime.
-
-```console
-./build && ./deploy.sh && composer install
+./scripts/deploy.sh
 ```
 
 You can host front end and backend in 2 domain
@@ -101,12 +95,13 @@ VITE_API_HOST=
 You can host this with `docker` by run simple command
 
 ```console
+./scripts/build.sh --docker
 sudo docker composer up
 ```
 
 Docker settings save in `docker` directory, `Nginx` connect to `php-fpm` via unix socket instead of normal TCP socket. You can custom `php-fpm` settings by modify the `zz-docker.conf`, but you have to create the file first by copy content from `zz-docker.example.conf`
 
-I'm only setup `Nginx` with `php-fpm` so you have to host your database, cache server like redis yourself, just modify the `docker-compose.yml` or using any other way to host you database.
+I'm only setup `Nginx` with `php-fpm` and `Redis` so you have to host your database yourself, or just modify the `docker-compose.yml` or using any other way to host you database.
 
 ## Cron Job
 
@@ -118,7 +113,7 @@ $middleware->group('api', [
    'throttle:api',
    \Illuminate\Routing\Middleware\SubstituteBindings::class,
    \App\Http\Middleware\CamelCaseResponse::class,
-   \App\Http\Middleware\RunTasks::class,
+   \App\Http\Middleware\RunTasks::class, // Disable this thing if you already have real cron job
    // \App\Http\Middleware\Authenticate::class,
    // \App\Http\Middleware\AcceptContentType::class,
   ]);
