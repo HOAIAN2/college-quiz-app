@@ -9,8 +9,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Question\IndexRequest;
 use App\Http\Requests\Question\StoreRequest;
 use App\Http\Requests\Question\UpdateRequest;
+use App\Models\Chapter;
 use App\Models\Question;
 use App\Models\QuestionOption;
+use App\Models\Subject;
 use Illuminate\Support\Facades\DB;
 
 class QuestionController extends Controller
@@ -50,6 +52,12 @@ class QuestionController extends Controller
 
         DB::beginTransaction();
         try {
+            $is_valid_chapter = Chapter::where('subject_id', $question_data['subject_id'])
+                ->where('id', $question_data['chapter_id'])
+                ->exists();
+            if ($is_valid_chapter) {
+                return Reply::error('app.errors.404', 404);
+            }
             $question_data['content'] = DOMStringHelper::processImagesFromDOM($question_data['content']);
             $question = Question::create($question_data);
 
@@ -97,6 +105,12 @@ class QuestionController extends Controller
 
         DB::beginTransaction();
         try {
+            $is_valid_chapter = Chapter::where('subject_id', $data['subject_id'])
+                ->where('id', $data['chapter_id'])
+                ->exists();
+            if ($is_valid_chapter) {
+                return Reply::error('app.errors.404', 404);
+            }
             $data['content'] = DOMStringHelper::processImagesFromDOM($data['content']);
             $target_question = Question::findOrFail($id);
             $target_question->update($data);
