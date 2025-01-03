@@ -1,3 +1,5 @@
+import getCookieValue from '~utils/getCookieValue';
+
 const env = import.meta.env;
 
 export const VITE_DEV_SERVER_PORT = env.VITE_DEV_SERVER_PORT as string;
@@ -11,5 +13,7 @@ export const API_HOST = env.VITE_API_HOST ? env.VITE_API_HOST
         window.location.origin.replace(window.location.port, VITE_DEV_SERVER_PORT) :
         window.location.origin;
 export const AUTO_COMPLETE_DEBOUNCE = Number(env.VITE_AUTO_COMPLETE_DEBOUNCE);
-export const BASE_SCORE_SCALE = Number(env.VITE_BASE_SCORE_SCALE);
+export const BASE_SCORE_SCALE = getCookieValue('base_score_scale')
+    ? Number(getCookieValue('base_score_scale'))
+    : 10;
 export const PRIMARY_COLOR_KEY = env.VITE_PRIMARY_COLOR_KEY as string;

@@ -12,6 +12,7 @@ class EncryptCookies extends BaseEncrypter
      * @var array
      */
     protected $except = [
-        'demo_credentials'
+        'demo_credentials',
+        'base_score_scale'
     ];
 }

@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useRef, useState } from 'react';
+import { createContext, useRef, useState } from 'react';
 import { AppPermissionName } from '~models/app-permission-name';
 import { UserDetail } from '../models/user';
 import languageUtils from '../utils/languageUtils';
@@ -8,7 +8,7 @@ type AppContextType = ReturnType<typeof useAppContextValue>;
 const init: unknown = null;
 export const AppContext = createContext<AppContextType>(init as AppContextType);
 
-function useAppContextValue() {
+export function useAppContextValue() {
     const sidebarRef = useRef<HTMLDivElement>(null);
     const [language, setLanguage] = useState(languageUtils.getLanguage());
     const [permissions, setPermissions] = useState<AppPermissionName[]>([]);
@@ -42,13 +42,4 @@ function useAppContextValue() {
             }
         },
     };
-}
-
-export function AppContextProvider({ children }: { children: ReactNode; }) {
-    const contextValue = useAppContextValue();
-    return (
-        <AppContext.Provider value={contextValue}>
-            {children}
-        </AppContext.Provider>
-    );
 }
