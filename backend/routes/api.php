@@ -11,14 +11,14 @@ use App\Http\Controllers\Api\QuestionController;
 use App\Http\Controllers\Api\RolePermissionController;
 use App\Http\Controllers\Api\SchoolClassController;
 use App\Http\Controllers\Api\SemesterController;
-use App\Http\Controllers\Api\SettingsController;
+use App\Http\Controllers\Api\SettingController;
 use App\Http\Controllers\Api\SubjectController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
 if (!defined('AUTH_MIDDLEWARES')) define('AUTH_MIDDLEWARES', ['auth:sanctum', 'validate-token']);
 
-Route::prefix('/settings')->controller(SettingsController::class)->group(function () {
+Route::prefix('/settings')->controller(SettingController::class)->group(function () {
     Route::middleware(AUTH_MIDDLEWARES)->group(function () {
         Route::get('/commands', 'getCommands');
         Route::post('/run-artisan', 'runArtisan');

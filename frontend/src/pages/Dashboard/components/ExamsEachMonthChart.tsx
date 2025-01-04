@@ -3,6 +3,7 @@ import styles from '../styles/ExamsEachMonthChart.module.css';
 import Chart from 'chart.js/auto';
 import { useEffect, useRef } from 'react';
 import useAppContext from '~hooks/useAppContext';
+import themeUtils from '~utils/themeUtils';
 
 type ExamsEachMonthChartProps = {
     data: number[];
@@ -29,25 +30,23 @@ export default function ExamsEachMonthChart({
 
         const labels = data.map((_, index) => new Date(0, index).toLocaleString(appLanguage.language, { month: 'long' }));
 
-        const backgroundColors = [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(201, 203, 207, 0.2)'
-        ];
-        const borderColors = [
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)',
-            'rgb(153, 102, 255)',
-            'rgb(201, 203, 207)'
-        ];
-        // const color = getComputedStyle(document.documentElement).getPropertyValue('--color-blue')
+        const hexToRgb = (hex: string) => {
+            const sanitizedHex = hex.replace('#', '');
+            const bigint = parseInt(sanitizedHex, 16);
+            const r = (bigint >> 16) & 255;
+            const g = (bigint >> 8) & 255;
+            const b = bigint & 255;
+            return `rgb(${r}, ${g}, ${b})`;
+        };
+        const rgbToRgba = (rgb: string, alpha: number) => {
+            return rgb.replace('rgb', 'rgba').replace(')', `, ${alpha})`);
+        };
+        const color = themeUtils.getVariable('color-primary');
+
+        const opacityColor = (() => {
+            if (color.startsWith('#')) return rgbToRgba(hexToRgb(color), 0.2);
+            return rgbToRgba(color, 0.2);
+        })();
 
         chartInstanceRef.current = new Chart(ctx, {
             type: 'bar',
@@ -56,8 +55,8 @@ export default function ExamsEachMonthChart({
                 datasets: [{
                     label: label,
                     data: data,
-                    backgroundColor: backgroundColors,
-                    borderColor: borderColors,
+                    backgroundColor: opacityColor,
+                    borderColor: color,
                     borderWidth: 1
                 }]
             },
