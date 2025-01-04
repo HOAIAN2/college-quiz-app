@@ -68,6 +68,7 @@
 }
 
 .message>.messageContent {
+    white-space: pre-line;
     font-weight: 600;
     font-size: 18px;
     text-align: center;

@@ -98,6 +98,7 @@ export default function TakeExam() {
             document.removeEventListener('visibilitychange', handleVisibilityStateChange);
         };
     }, []);
+    const answerdQuestions = answers.filter(i => i !== -1).length;
     if (queryData.isError) return <Navigate to={`/exams/${id}`} />;
     return (
         <>
@@ -113,7 +114,7 @@ export default function TakeExam() {
                     setShowPopUp={setShowSubmitPopUp}
                     langYes={language?.langYes}
                     langNo={language?.langNo}
-                    message={language?.submitMessage.replace('@time', timeLeft) || ''}
+                    message={language?.submitMessage.replace('@time', timeLeft).replace('@answerdRate', String(`${answerdQuestions}/${answers.length}`)) || ''}
                     onMutateSuccess={() => { }}
                 /> : null
             }
@@ -149,7 +150,7 @@ export default function TakeExam() {
                                         })
                                     }
                                 </div>
-                                {language?.numberOfQuestionsAnswered}: {answers.filter(i => i !== -1).length}/{answers.length}
+                                {language?.numberOfQuestionsAnswered}: {answerdQuestions}/{answers.length}
                                 <div className={styles.actionItems}>
                                     <button
                                         onClick={() => { setShowSubmitPopUp(true); }}

@@ -1,6 +1,6 @@
 import styles from '../styles/ExamQuestion.module.css';
 
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { MdOutlineRadioButtonChecked, MdOutlineRadioButtonUnchecked } from 'react-icons/md';
 import useLanguage from '~hooks/useLanguage';
 import { ExamQuestion as TExamQuestion } from '~models/exam';
@@ -13,7 +13,8 @@ type ExamQuestionProps = {
     answerIndex: number;
     setAnswers: React.Dispatch<React.SetStateAction<number[]>>;
 };
-export default function ExamQuestion({
+
+const ExamQuestion = memo(function ExamQuestion ({
     index,
     question,
     answerIndex,
@@ -73,4 +74,6 @@ export default function ExamQuestion({
             }
         </div>
     );
-}
+});
+
+export default ExamQuestion;
