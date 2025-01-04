@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import apiUtils from '~utils/apiUtils';
 import request from '../config/api';
 import {
     ApiResponseWithData,
@@ -15,7 +16,7 @@ export async function apiGetRolePermissionCount() {
         const { data } = res.data as ApiResponseWithData<RoleWithPermissionCount[]>;
         return data;
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -25,7 +26,7 @@ export async function apiGetRolePermissions(id: number) {
         const { data } = res.data as ApiResponseWithData<RolePermissionsResponse>;
         return data;
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -41,6 +42,6 @@ export async function apiUpdateRolePermissions(id: number | string, permissionId
             }
         });
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }

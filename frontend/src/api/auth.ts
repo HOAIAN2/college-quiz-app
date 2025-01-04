@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import apiUtils from '~utils/apiUtils';
 import request from '../config/api';
 import { PersonalAccessToken } from '../models/auth';
 import { ApiResponseWithData, LoginResponse } from '../models/response';
@@ -14,9 +15,7 @@ export async function apiLogin(formData: FormData) {
         if (data.token) tokenUtils.setToken(data.token);
         return data;
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data;
-        throw new Error(message.message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiChangePassword(formData: FormData) {
@@ -24,18 +23,14 @@ export async function apiChangePassword(formData: FormData) {
         await request.post(pathUtils.join(prefix, 'change-password'), formData);
         tokenUtils.removeToken();
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiLogout() {
     try {
         await request.post(pathUtils.join(prefix, 'logout'), new FormData());
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
     finally {
         tokenUtils.removeToken();
@@ -47,9 +42,7 @@ export async function apiSendEmailVerification(email: string) {
     try {
         await request.post(pathUtils.join(prefix, 'send-email-verification'), formData);
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiVerifyEmail(email: string, verifyCode: string) {
@@ -61,9 +54,7 @@ export async function apiVerifyEmail(email: string, verifyCode: string) {
         const { data: { token } } = res.data as ApiResponseWithData<{ token: string; }>;
         tokenUtils.setToken(token);
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiSendPasswordResetEmail(email: string) {
@@ -72,9 +63,7 @@ export async function apiSendPasswordResetEmail(email: string) {
     try {
         await request.post(pathUtils.join(prefix, 'send-password-reset-email'), formData);
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiVerifyPasswordResetCode(email: string, verifyCode: string) {
@@ -84,18 +73,14 @@ export async function apiVerifyPasswordResetCode(email: string, verifyCode: stri
     try {
         await request.post(pathUtils.join(prefix, 'verify-password-reset-code'), formData);
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiResetPassword(formData: FormData) {
     try {
         await request.post(pathUtils.join(prefix, 'reset-password'), formData);
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiGetLoginSessions() {
@@ -104,17 +89,13 @@ export async function apiGetLoginSessions() {
         const { data } = res.data as ApiResponseWithData<PersonalAccessToken[]>;
         return data;
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiRevokeLoginSession(id: string | number) {
     try {
         await request.delete(pathUtils.join(prefix, 'sessions', id));
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }

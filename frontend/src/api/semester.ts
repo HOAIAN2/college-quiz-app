@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import apiUtils from '~utils/apiUtils';
 import request from '../config/api';
 import { ApiResponseWithData } from '../models/response';
 import { Semester } from '../models/semester';
@@ -17,7 +18,7 @@ export async function apiGetSemesters(query: string) {
         const { data } = res.data as ApiResponseWithData<Semester[]>;
         return data;
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -27,7 +28,7 @@ export async function apiGetSemesterById(id: string | number) {
         const { data } = res.data as ApiResponseWithData<Semester>;
         return data;
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -35,10 +36,7 @@ export async function apiCreateSemester(formData: FormData) {
     try {
         await request.post(pathUtils.join(prefix), formData);
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -51,10 +49,7 @@ export async function apiUpdateSemester(formData: FormData, id: string | number)
             }
         });
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -62,10 +57,7 @@ export async function apiDeleteSemester(id: string | number) {
     try {
         await request.delete(pathUtils.join(prefix, id));
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -79,8 +71,6 @@ export async function apiAutoCompleteSemester(search: string) {
         const { data } = res.data as ApiResponseWithData<Semester[]>;
         return data;
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }

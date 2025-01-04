@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import apiUtils from '~utils/apiUtils';
 import request from '../config/api';
 import { Faculty, FacultyDetail, QueryFacultyType } from '../models/faculty';
 import { ApiResponseWithData, Pagination } from '../models/response';
@@ -17,9 +18,7 @@ export async function apiAutoCompleteFaculty(search: string) {
         const { data } = res.data as ApiResponseWithData<Faculty[]>;
         return data;
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiGetFaculties(query?: QueryFacultyType) {
@@ -34,17 +33,14 @@ export async function apiGetFaculties(query?: QueryFacultyType) {
         const { data } = res.data as ApiResponseWithData<Pagination<FacultyDetail>>;
         return data;
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiCreateFaculty(formData: FormData) {
     try {
         await request.post(pathUtils.join(prefix), formData);
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiUpdateFaculty(formData: FormData, id: string | number) {
@@ -56,10 +52,7 @@ export async function apiUpdateFaculty(formData: FormData, id: string | number) 
             }
         });
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiGetFacultyById(id: string | number) {
@@ -68,7 +61,7 @@ export async function apiGetFacultyById(id: string | number) {
         const { data } = res.data as ApiResponseWithData<FacultyDetail>;
         return data;
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiDeleteFacultiesByIds(ids: (string | number)[]) {
@@ -79,6 +72,6 @@ export async function apiDeleteFacultiesByIds(ids: (string | number)[]) {
             }
         });
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }

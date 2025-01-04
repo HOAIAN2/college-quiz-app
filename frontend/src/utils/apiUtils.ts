@@ -10,6 +10,14 @@ const apiUtils = {
             return standardFilenameMatch[1];
         }
         return defaultFileName;
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    handleError(error: any) {
+        if (!error.response) throw new Error(error.message);
+        const message = error.response.data.message;
+        // Handle 422 error by Laravel
+        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
+        throw new Error(message);
     }
 };
 

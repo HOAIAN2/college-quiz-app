@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import apiUtils from '~utils/apiUtils';
 import request from '../config/api';
 import { QueryQuestionType, Question, QuestionDetail } from '../models/question';
 import { ApiResponseWithData } from '../models/response';
@@ -19,7 +20,7 @@ export async function apiGetQuestions(query: QueryQuestionType) {
         const { data } = res.data as ApiResponseWithData<Question[]>;
         return data;
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -27,10 +28,7 @@ export async function apiCreateQuestion(formData: FormData) {
     try {
         await request.post(pathUtils.join(prefix), formData);
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -40,7 +38,7 @@ export async function apiGetQuestionById(id: string | number) {
         const { data } = res.data as ApiResponseWithData<QuestionDetail>;
         return data;
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -53,10 +51,7 @@ export async function apiUpdateQuestion(formData: FormData, id: string | number)
             }
         });
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -64,9 +59,6 @@ export async function apiDeleteQuestion(id: string | number) {
     try {
         await request.delete(pathUtils.join(prefix, id));
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }

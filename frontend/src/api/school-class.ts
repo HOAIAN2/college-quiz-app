@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import apiUtils from '~utils/apiUtils';
 import request from '../config/api';
 import { ApiResponseWithData, Pagination } from '../models/response';
 import { QuerySchoolClassType, SchoolClass, SchoolClassDetail } from '../models/school-class';
@@ -17,9 +18,7 @@ export async function apiAutoCompleteSchoolClass(search: string) {
         const { data } = res.data as ApiResponseWithData<SchoolClass[]>;
         return data;
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiGetSchoolClasses(query?: QuerySchoolClassType) {
@@ -34,7 +33,7 @@ export async function apiGetSchoolClasses(query?: QuerySchoolClassType) {
         const { data } = res.data as ApiResponseWithData<Pagination<SchoolClassDetail>>;
         return data;
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiGetSchoolClassById(id: string | number) {
@@ -43,7 +42,7 @@ export async function apiGetSchoolClassById(id: string | number) {
         const { data } = res.data as ApiResponseWithData<SchoolClassDetail>;
         return data;
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiUpdateSchoolClass(formData: FormData, id: string | number) {
@@ -55,10 +54,7 @@ export async function apiUpdateSchoolClass(formData: FormData, id: string | numb
             }
         });
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiDeleteSchoolClassIds(ids: (string | number)[]) {
@@ -69,16 +65,13 @@ export async function apiDeleteSchoolClassIds(ids: (string | number)[]) {
             }
         });
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiCreateSchoolClass(formData: FormData) {
     try {
         await request.post(pathUtils.join(prefix), formData);
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }

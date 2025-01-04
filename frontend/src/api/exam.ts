@@ -20,7 +20,7 @@ export async function apiGetExamsByMonth(query: QueryExamType) {
         const { data } = res.data as ApiResponseWithData<ExamInMonth[]>;
         return data;
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -30,7 +30,7 @@ export async function apiGetExamById(id: string | number) {
         const { data } = res.data as ApiResponseWithData<ExamDetail>;
         return data;
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -38,10 +38,7 @@ export async function apiCreateExam(formData: FormData) {
     try {
         await request.post(pathUtils.join(prefix), formData);
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -54,10 +51,7 @@ export async function apiUpdateExam(formData: FormData, id: string | number) {
             }
         });
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -65,10 +59,7 @@ export async function apiDeleteExam(id: string | number) {
     try {
         await request.delete(pathUtils.join(prefix, id));
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -78,10 +69,7 @@ export async function apiUpdateExamStatus(status: 'start' | 'cancel', id: string
     try {
         await request.post(pathUtils.join(prefix, id, 'status'), formData);
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -91,10 +79,7 @@ export async function apiGetTakeExam(id: string | number) {
         const { data } = res.data as ApiResponseWithData<ExamWithQuestion>;
         return data;
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -107,10 +92,7 @@ export async function apiSubmitExam(id: string | number, answers: number[], bypa
         const { data } = res.data as ApiResponseWithData<ExamResult>;
         return data;
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -123,9 +105,7 @@ export async function apiExportExamResult(id: string | number, defaultFileName: 
         const fileName = apiUtils.getFileNameFromContentDisposition(contentDisposition, defaultFileName);
         return { data: res.data, fileName };
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -139,8 +119,6 @@ export async function apiSyncExamAnswersCache(id: string | number, answers: numb
         const { data } = res.data as ApiResponseWithData<number[] | null>;
         return data;
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }

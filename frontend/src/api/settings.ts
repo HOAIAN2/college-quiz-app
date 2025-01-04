@@ -13,10 +13,7 @@ export async function apiGetCallableCommands() {
         const { data } = res.data as ApiResponseWithData<string[]>;
         return data;
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiRunArtisan(command: string) {
@@ -25,10 +22,7 @@ export async function apiRunArtisan(command: string) {
     try {
         await request.post(pathUtils.join(prefix, 'run-artisan'), formData);
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiDownloadLogFile(defaultFileName: string) {
@@ -40,19 +34,13 @@ export async function apiDownloadLogFile(defaultFileName: string) {
         const fileName = apiUtils.getFileNameFromContentDisposition(contentDisposition, defaultFileName);
         return { data: res.data, fileName };
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 export async function apiDeleteLogFile() {
     try {
         await request.delete(pathUtils.join(prefix, 'log'));
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }

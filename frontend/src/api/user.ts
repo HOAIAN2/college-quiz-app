@@ -24,10 +24,7 @@ export async function apiGetUser() {
         const { data } = res.data as ApiResponseWithData<UserWithPermissions>;
         return data;
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        if (error.response.status === 401) tokenUtils.removeToken();
-        const message = error.response.data.message;
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -35,10 +32,7 @@ export async function apiCreateUser(formData: FormData) {
     try {
         await request.post(pathUtils.join(prefix), formData);
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -51,10 +45,7 @@ export async function apiUpdateUser(formData: FormData, id: string | number) {
             }
         });
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -65,10 +56,7 @@ export async function apiImportUsers(file: File, role: RoleName) {
     try {
         await request.post(pathUtils.join(prefix, 'import'), formData);
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -87,7 +75,7 @@ export async function apiGetUsersByType(query: QueryUserType) {
         const { data } = res.data as ApiResponseWithData<Pagination<UserDetail>>;
         return data;
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -97,7 +85,7 @@ export async function apiGetUserById(id: string | number) {
         const { data } = res.data as ApiResponseWithData<UserDetail>;
         return data;
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -109,7 +97,7 @@ export async function apiDeleteUserByIds(ids: (string | number)[]) {
             }
         });
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -123,7 +111,7 @@ export async function apiGetUserExportableFields(role: RoleName) {
         const { data } = res.data as AxiosResponse<ExportableResponse[]>;
         return data;
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -143,9 +131,7 @@ export async function apiExportUsers(query: ExportQueryUserType, defaultFileName
         const fileName = apiUtils.getFileNameFromContentDisposition(contentDisposition, defaultFileName);
         return { data: res.data, fileName };
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -160,9 +146,7 @@ export async function apiAutoCompleteUser(role: RoleName, search: string) {
         const { data } = res.data as ApiResponseWithData<User[]>;
         return data;
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -177,6 +161,6 @@ export async function apiGetAllUser(role: RoleName, search?: string) {
         const { data } = res.data as ApiResponseWithData<UserDetail[]>;
         return data;
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }

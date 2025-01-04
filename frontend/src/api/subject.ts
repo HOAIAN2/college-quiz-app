@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import apiUtils from '~utils/apiUtils';
 import request from '../config/api';
 import { ApiResponseWithData } from '../models/response';
 import { Subject, SubjectDetail } from '../models/subject';
@@ -17,7 +18,7 @@ export async function apiGetSubjects(query: string) {
         const { data } = res.data as ApiResponseWithData<Subject[]>;
         return data;
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -27,7 +28,7 @@ export async function apiGetSubjectById(id: string | number) {
         const { data } = res.data as ApiResponseWithData<SubjectDetail>;
         return data;
     } catch (error: any) {
-        throw new Error(error.message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -35,10 +36,7 @@ export async function apiCreateSubject(formData: FormData) {
     try {
         await request.post(pathUtils.join(prefix), formData);
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -51,10 +49,7 @@ export async function apiUpdateSubject(formData: FormData, id: string | number) 
             }
         });
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -62,10 +57,7 @@ export async function apiDeleteSubject(id: string | number) {
     try {
         await request.delete(pathUtils.join(prefix, id));
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        if (error.response.data.errors) return Promise.reject(error.response.data.errors);
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
 
@@ -79,8 +71,6 @@ export async function apiAutoCompleteSubject(search: string) {
         const { data } = res.data as ApiResponseWithData<Subject[]>;
         return data;
     } catch (error: any) {
-        if (!error.response) throw new Error(error.message);
-        const message = error.response.data.message;
-        throw new Error(message);
+        return apiUtils.handleError(error);
     }
 }
