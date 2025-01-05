@@ -119,9 +119,9 @@ export default function Exam() {
                                         <div className={css(styles.wrapItem, styles.supervisorsContainer)}>
                                             <label>{language?.supervisors}</label>
                                             <p>
-                                                {queryData.data.examSupervisors.map(supervisor => {
+                                                {queryData.data.supervisors.map(supervisor => {
                                                     return (
-                                                        languageUtils.getFullName(supervisor.user.firstName, supervisor.user.lastName)
+                                                        languageUtils.getFullName(supervisor.firstName, supervisor.lastName)
                                                     );
                                                 }).join(', ')
                                                 }

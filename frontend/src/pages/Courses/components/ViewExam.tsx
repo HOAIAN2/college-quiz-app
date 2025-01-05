@@ -82,7 +82,8 @@ export default function ViewExam({
     });
     useEffect(() => {
         if (queryData.data) {
-            setSupervisors(queryData.data.examSupervisors.map(supervisor => supervisor.user));
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            setSupervisors(queryData.data.supervisors.map(({ pivot, ...user }) => user));
         }
     }, [queryData.data]);
     useEffect(() => {

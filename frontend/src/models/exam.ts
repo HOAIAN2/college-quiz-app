@@ -32,14 +32,23 @@ export type ExamDetail = Exam & {
         correctCount: number | null;
         submittedAt: string | null;
     }[];
-    examSupervisors: {
-        id: number;
-        examId: number;
-        userId: number;
-        createdAt: string;
-        updatedAt: string;
-        user: User;
-    }[];
+    // examSupervisors: {
+    //     id: number;
+    //     examId: number;
+    //     userId: number;
+    //     createdAt: string;
+    //     updatedAt: string;
+    //     user: User;
+    // }[];
+    supervisors: (User & {
+        pivot: {
+            examId: number;
+            userId: number;
+            id: number;
+            createdAt: string;
+            updatedAt: string;
+        };
+    })[];
 };
 
 export type ExamWithQuestion = {

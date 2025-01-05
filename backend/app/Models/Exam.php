@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Collection|ExamQuestionsAnswer[] $exam_questions_answers
  * @property Collection|ExamQuestionsOrder[] $exam_questions_orders
  * @property Collection|ExamSupervisor[] $exam_supervisors
+ * @property Collection|User[] $supervisors
  * @property Collection|ExamResult[] $exam_results
  *
  * @package App\Models
@@ -83,6 +84,13 @@ class Exam extends Model
     public function exam_supervisors()
     {
         return $this->hasMany(ExamSupervisor::class);
+    }
+
+    public function supervisors()
+    {
+        return $this->belongsToMany(User::class, 'exam_supervisors')
+            ->withPivot('id')
+            ->withTimestamps();
     }
 
     public function exam_results()

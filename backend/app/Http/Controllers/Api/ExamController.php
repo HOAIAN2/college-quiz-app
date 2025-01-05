@@ -79,7 +79,7 @@ class ExamController extends Controller
                         ->whereHas('course.teacher', function ($query) use ($user) {
                             $query->where('id', '=', $user->id);
                         })
-                        ->orWhereHas('exam_supervisors', function ($query) use ($user) {
+                        ->orWhereHas('supervisors', function ($query) use ($user) {
                             $query->where('user_id', '=', $user->id);
                         })
                         ->get();
@@ -270,7 +270,8 @@ class ExamController extends Controller
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::EXAM_VIEW), 403);
         $relations = [
-            'exam_supervisors.user',
+            // 'exam_supervisors.user',
+            'supervisors',
         ];
 
         try {
@@ -288,6 +289,9 @@ class ExamController extends Controller
                     $data = $data
                         ->whereHas('course.teacher', function ($query) use ($user) {
                             $query->where('id', '=', $user->id);
+                        })
+                        ->orWhereHas('supervisors', function ($query) use ($user) {
+                            $query->where('user_id', '=', $user->id);
                         });
                     break;
                 default:
@@ -354,35 +358,10 @@ class ExamController extends Controller
             $data['exam_date'] = Carbon::parse($data['exam_date']);
             $target_exam->update($data);
 
-            # Update supervisors
-            if ($request->supervisor_ids == null) {
-                ExamSupervisor::where('exam_id', '=', $target_exam->id)
-                    ->delete();
-            } else {
-                $will_be_deleted_supervisor_ids = $target_exam->exam_supervisors()
-                    ->whereNotIn('user_id', $request->supervisor_ids)
-                    ->pluck('user_id');
-
-                ExamSupervisor::where('exam_id', '=', $target_exam->id)
-                    ->whereIn('user_id', $will_be_deleted_supervisor_ids)
-                    ->delete();
-
-                $existing_supervisor_ids = $target_exam->exam_supervisors()
-                    ->whereIn('user_id', $request->supervisor_ids)
-                    ->pluck('user_id')->toArray();
-
-                $supervisor_ids = User::where('role_id', '=', RoleType::TEACHER)
-                    ->whereIn('id', $request->supervisor_ids)
-                    ->pluck('id');
-
-                foreach ($supervisor_ids as $supervisor_id) {
-                    if (in_array($supervisor_id, $existing_supervisor_ids)) continue;
-                    ExamSupervisor::create([
-                        'exam_id' => $target_exam->id,
-                        'user_id' => $supervisor_id
-                    ]);
-                }
-            }
+            $supervisor_ids = User::where('role_id', '=', RoleType::TEACHER)
+                ->whereIn('id', $request->supervisor_ids ?? [])
+                ->pluck('id');
+            $target_exam->supervisors->sync($supervisor_ids);
             DB::commit();
             return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {

@@ -46,13 +46,19 @@ class DashboardController extends Controller
                 case RoleType::TEACHER->value:
                     $data->exams_in_this_month = $data->exams_in_this_month->whereHas('course.teacher', function ($query) use ($user) {
                         $query->where('id', '=', $user->id);
-                    })->count();
+                    })
+                        ->orWhereHas('supervisors', function ($query) use ($user) {
+                            $query->where('user_id', '=', $user->id);
+                        })->count();
                     $data->today_exams = $data->today_exams->whereHas('course.teacher', function ($query) use ($user) {
                         $query->where('id', '=', $user->id);
                     })->get();
                     $exams_each_month = $exams_each_month
                         ->whereHas('course.teacher', function ($query) use ($user) {
                             $query->where('id', '=', $user->id);
+                        })
+                        ->orWhereHas('supervisors', function ($query) use ($user) {
+                            $query->where('user_id', '=', $user->id);
                         });
                     break;
                 case RoleType::STUDENT->value:
