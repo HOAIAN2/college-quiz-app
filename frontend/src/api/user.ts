@@ -12,7 +12,6 @@ import {
 } from '../models/user';
 import apiUtils from '../utils/apiUtils';
 import encodeFormData from '../utils/encodeFormData';
-import pathUtils from '../utils/pathUtils';
 import tokenUtils from '../utils/tokenUtils';
 
 const prefix = 'users';
@@ -20,7 +19,8 @@ const prefix = 'users';
 export async function apiGetUser() {
     if (!tokenUtils.getToken()) throw new Error('no token');
     try {
-        const res = await request.get(pathUtils.join(prefix));
+        const apiPath = prefix;
+        const res = await request.get(apiPath);
         const { data } = res.data as ApiResponseWithData<UserWithPermissions>;
         return data;
     } catch (error: any) {
@@ -30,7 +30,8 @@ export async function apiGetUser() {
 
 export async function apiCreateUser(formData: FormData) {
     try {
-        await request.post(pathUtils.join(prefix), formData);
+        const apiPath = prefix;
+        await request.post(apiPath, formData);
     } catch (error: any) {
         return apiUtils.handleError(error);
     }
@@ -38,8 +39,9 @@ export async function apiCreateUser(formData: FormData) {
 
 export async function apiUpdateUser(formData: FormData, id: string | number) {
     try {
+        const apiPath = `${prefix}/${id}`;
         const encodedData = encodeFormData(formData);
-        await request.put(pathUtils.join(prefix, id), encodedData, {
+        await request.put(apiPath, encodedData, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
@@ -54,7 +56,8 @@ export async function apiImportUsers(file: File, role: RoleName) {
     formData.append('role', role);
     formData.append('file', file);
     try {
-        await request.post(pathUtils.join(prefix, 'import'), formData);
+        const apiPath = `${prefix}/import`;
+        await request.post(apiPath, formData);
     } catch (error: any) {
         return apiUtils.handleError(error);
     }
@@ -62,7 +65,8 @@ export async function apiImportUsers(file: File, role: RoleName) {
 
 export async function apiGetUsersByType(query: QueryUserType) {
     try {
-        const res = await request.get(pathUtils.join(prefix, 'query'), {
+        const apiPath = `${prefix}/query`;
+        const res = await request.get(apiPath, {
             params: {
                 role: query.role,
                 page: query.page || 1,
@@ -81,7 +85,8 @@ export async function apiGetUsersByType(query: QueryUserType) {
 
 export async function apiGetUserById(id: string | number) {
     try {
-        const res = await request.get(pathUtils.join(prefix, id));
+        const apiPath = `${prefix}/${id}`;
+        const res = await request.get(apiPath);
         const { data } = res.data as ApiResponseWithData<UserDetail>;
         return data;
     } catch (error: any) {
@@ -91,7 +96,8 @@ export async function apiGetUserById(id: string | number) {
 
 export async function apiDeleteUserByIds(ids: (string | number)[]) {
     try {
-        await request.delete(pathUtils.join(prefix), {
+        const apiPath = prefix;
+        await request.delete(apiPath, {
             params: {
                 ids: ids,
             }
@@ -103,7 +109,8 @@ export async function apiDeleteUserByIds(ids: (string | number)[]) {
 
 export async function apiGetUserExportableFields(role: RoleName) {
     try {
-        const res = await request.get(pathUtils.join(prefix, '/exportable'), {
+        const apiPath = `${prefix}/exportable`;
+        const res = await request.get(apiPath, {
             params: {
                 role: role,
             },
@@ -117,7 +124,8 @@ export async function apiGetUserExportableFields(role: RoleName) {
 
 export async function apiExportUsers(query: ExportQueryUserType, defaultFileName: string) {
     try {
-        const res: AxiosResponse<Blob> = await request.get(pathUtils.join(prefix, 'export'), {
+        const apiPath = `${prefix}/export`;
+        const res: AxiosResponse<Blob> = await request.get(apiPath, {
             params: {
                 role: query.role,
                 fields: query.fields,
@@ -137,7 +145,8 @@ export async function apiExportUsers(query: ExportQueryUserType, defaultFileName
 
 export async function apiAutoCompleteUser(role: RoleName, search: string) {
     try {
-        const res = await request.get(pathUtils.join(prefix, 'complete'), {
+        const apiPath = `${prefix}/complete`;
+        const res = await request.get(apiPath, {
             params: {
                 role: role,
                 search: search
@@ -152,7 +161,8 @@ export async function apiAutoCompleteUser(role: RoleName, search: string) {
 
 export async function apiGetAllUser(role: RoleName, search?: string) {
     try {
-        const res = await request.get(pathUtils.join(prefix, 'all-user'), {
+        const apiPath = `${prefix}/all-user`;
+        const res = await request.get(apiPath, {
             params: {
                 search: search,
                 role: role

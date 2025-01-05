@@ -4,13 +4,13 @@ import request from '../config/api';
 import { QueryQuestionType, Question, QuestionDetail } from '../models/question';
 import { ApiResponseWithData } from '../models/response';
 import encodeFormData from '../utils/encodeFormData';
-import pathUtils from '../utils/pathUtils';
 
 const prefix = 'questions';
 
 export async function apiGetQuestions(query: QueryQuestionType) {
     try {
-        const res = await request.get(pathUtils.join(prefix), {
+        const apiPath = prefix;
+        const res = await request.get(apiPath, {
             params: {
                 subject_id: query.subjectId,
                 chapter_id: query.chapterId,
@@ -26,7 +26,8 @@ export async function apiGetQuestions(query: QueryQuestionType) {
 
 export async function apiCreateQuestion(formData: FormData) {
     try {
-        await request.post(pathUtils.join(prefix), formData);
+        const apiPath = prefix;
+        await request.post(apiPath, formData);
     } catch (error: any) {
         return apiUtils.handleError(error);
     }
@@ -34,7 +35,8 @@ export async function apiCreateQuestion(formData: FormData) {
 
 export async function apiGetQuestionById(id: string | number) {
     try {
-        const res = await request.get(pathUtils.join(prefix, id));
+        const apiPath = `${prefix}/${id}`;
+        const res = await request.get(apiPath);
         const { data } = res.data as ApiResponseWithData<QuestionDetail>;
         return data;
     } catch (error: any) {
@@ -44,8 +46,9 @@ export async function apiGetQuestionById(id: string | number) {
 
 export async function apiUpdateQuestion(formData: FormData, id: string | number) {
     try {
+        const apiPath = `${prefix}/${id}`;
         const encodedData = encodeFormData(formData);
-        await request.put(pathUtils.join(prefix, id), encodedData, {
+        await request.put(apiPath, encodedData, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
@@ -57,7 +60,8 @@ export async function apiUpdateQuestion(formData: FormData, id: string | number)
 
 export async function apiDeleteQuestion(id: string | number) {
     try {
-        await request.delete(pathUtils.join(prefix, id));
+        const apiPath = `${prefix}/${id}`;
+        await request.delete(apiPath);
     } catch (error: any) {
         return apiUtils.handleError(error);
     }

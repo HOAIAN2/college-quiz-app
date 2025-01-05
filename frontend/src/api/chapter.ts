@@ -2,13 +2,13 @@
 import apiUtils from '~utils/apiUtils';
 import request from '../config/api';
 import encodeFormData from '../utils/encodeFormData';
-import pathUtils from '../utils/pathUtils';
 
 const prefix = 'chapters';
 
 export async function apiCreateChapter(formData: FormData) {
     try {
-        await request.post(pathUtils.join(prefix), formData);
+        const apiPath = prefix;
+        await request.post(apiPath, formData);
     } catch (error: any) {
         return apiUtils.handleError(error);
     }
@@ -16,8 +16,9 @@ export async function apiCreateChapter(formData: FormData) {
 
 export async function apiUpdateChapter(formData: FormData, id: string | number) {
     try {
+        const apiPath = `${prefix}/${id}`;
         const encodedData = encodeFormData(formData);
-        await request.put(pathUtils.join(prefix, id), encodedData, {
+        await request.put(apiPath, encodedData, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
@@ -29,7 +30,8 @@ export async function apiUpdateChapter(formData: FormData, id: string | number) 
 
 export async function apiDeleteChapter(id: string | number) {
     try {
-        await request.delete(pathUtils.join(prefix, id));
+        const apiPath = `${prefix}/${id}`;
+        await request.delete(apiPath);
     } catch (error: any) {
         return apiUtils.handleError(error);
     }

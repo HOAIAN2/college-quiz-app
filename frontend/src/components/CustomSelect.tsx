@@ -32,7 +32,8 @@ export default function CustomSelect({
     }, [current, defaultOption]);
     useLayoutEffect(() => {
         setCurrent(defaultOption);
-    }, [appLanguage.language, defaultOption]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [appLanguage.language]);
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
             const element = e.target as HTMLElement;

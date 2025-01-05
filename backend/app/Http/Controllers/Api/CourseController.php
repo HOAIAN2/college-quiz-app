@@ -134,7 +134,7 @@ class CourseController extends Controller
                 return Reply::error(trans('app.errors.semester_end'), 400);
             }
             $student_ids  = User::where('role_id', RoleType::STUDENT)
-                ->whereIn('id', $request->student_ids)
+                ->whereIn('id', $request->student_ids ?? [])
                 ->pluck('id')
                 ->toArray();
             $target_course->students()->sync($student_ids);

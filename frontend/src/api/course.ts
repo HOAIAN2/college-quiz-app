@@ -4,13 +4,13 @@ import request from '../config/api';
 import { Course, CourseDetail, QueryCourseType } from '../models/course';
 import { ApiResponseWithData } from '../models/response';
 import encodeFormData from '../utils/encodeFormData';
-import pathUtils from '../utils/pathUtils';
 
 const prefix = 'courses';
 
 export async function apiGetCourses(query: QueryCourseType) {
     try {
-        const res = await request.get(pathUtils.join(prefix), {
+        const apiPath = prefix;
+        const res = await request.get(apiPath, {
             params: {
                 search: query.search,
                 semester_id: query.semesterId
@@ -25,7 +25,8 @@ export async function apiGetCourses(query: QueryCourseType) {
 
 export async function apiGetCourseById(id: string | number) {
     try {
-        const res = await request.get(pathUtils.join(prefix, id));
+        const apiPath = `${prefix}/${id}`;
+        const res = await request.get(apiPath);
         const { data } = res.data as ApiResponseWithData<CourseDetail>;
         return data;
     } catch (error: any) {
@@ -35,7 +36,8 @@ export async function apiGetCourseById(id: string | number) {
 
 export async function apiCreateCourse(formData: FormData) {
     try {
-        await request.post(pathUtils.join(prefix), formData);
+        const apiPath = prefix;
+        await request.post(apiPath, formData);
     } catch (error: any) {
         return apiUtils.handleError(error);
     }
@@ -43,8 +45,9 @@ export async function apiCreateCourse(formData: FormData) {
 
 export async function apiUpdateCourse(formData: FormData, id: string | number) {
     try {
+        const apiPath = `${prefix}/${id}`;
         const encodedData = encodeFormData(formData);
-        await request.put(pathUtils.join(prefix, id), encodedData, {
+        await request.put(apiPath, encodedData, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
@@ -56,7 +59,8 @@ export async function apiUpdateCourse(formData: FormData, id: string | number) {
 
 export async function apiDeleteCourse(id: string | number) {
     try {
-        await request.delete(pathUtils.join(prefix, id));
+        const apiPath = `${prefix}/${id}`;
+        await request.delete(apiPath);
     } catch (error: any) {
         return apiUtils.handleError(error);
     }
@@ -64,11 +68,12 @@ export async function apiDeleteCourse(id: string | number) {
 
 export async function apiUpdateCourseStudents(studentIds: (string | number)[], id: string | number) {
     try {
+        const apiPath = `${prefix}/${id}/students`;
         const encodedData = new URLSearchParams();
         studentIds.forEach(item => {
             encodedData.append('student_ids[]', String(item));
         });
-        await request.put(pathUtils.join(prefix, id, 'students'), encodedData, {
+        await request.put(apiPath, encodedData, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }

@@ -67,7 +67,7 @@ class RolePermissionController extends Controller
             $role = Role::where('name', '<>', 'admin')
                 ->findOrFail($id);
 
-            $permission_ids = Permission::whereIn('id', $request->ids)
+            $permission_ids = Permission::whereIn('id', $request->ids ?? [])
                 ->whereNotIn('name', $this->ignore_permissions)
                 ->pluck('id')
                 ->toArray();

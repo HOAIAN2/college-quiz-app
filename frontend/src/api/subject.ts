@@ -4,13 +4,13 @@ import request from '../config/api';
 import { ApiResponseWithData } from '../models/response';
 import { Subject, SubjectDetail } from '../models/subject';
 import encodeFormData from '../utils/encodeFormData';
-import pathUtils from '../utils/pathUtils';
 
 const prefix = 'subjects';
 
 export async function apiGetSubjects(query: string) {
     try {
-        const res = await request.get(pathUtils.join(prefix), {
+        const apiPath = prefix;
+        const res = await request.get(apiPath, {
             params: {
                 search: query
             }
@@ -24,7 +24,8 @@ export async function apiGetSubjects(query: string) {
 
 export async function apiGetSubjectById(id: string | number) {
     try {
-        const res = await request.get(pathUtils.join(prefix, id));
+        const apiPath = `${prefix}/${id}`;
+        const res = await request.get(apiPath);
         const { data } = res.data as ApiResponseWithData<SubjectDetail>;
         return data;
     } catch (error: any) {
@@ -34,7 +35,8 @@ export async function apiGetSubjectById(id: string | number) {
 
 export async function apiCreateSubject(formData: FormData) {
     try {
-        await request.post(pathUtils.join(prefix), formData);
+        const apiPath = prefix;
+        await request.post(apiPath, formData);
     } catch (error: any) {
         return apiUtils.handleError(error);
     }
@@ -42,8 +44,9 @@ export async function apiCreateSubject(formData: FormData) {
 
 export async function apiUpdateSubject(formData: FormData, id: string | number) {
     try {
+        const apiPath = `${prefix}/${id}`;
         const data = encodeFormData(formData);
-        await request.put(pathUtils.join(prefix, id), data, {
+        await request.put(apiPath, data, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
@@ -55,7 +58,8 @@ export async function apiUpdateSubject(formData: FormData, id: string | number) 
 
 export async function apiDeleteSubject(id: string | number) {
     try {
-        await request.delete(pathUtils.join(prefix, id));
+        const apiPath = `${prefix}/${id}`;
+        await request.delete(apiPath);
     } catch (error: any) {
         return apiUtils.handleError(error);
     }
@@ -63,7 +67,8 @@ export async function apiDeleteSubject(id: string | number) {
 
 export async function apiAutoCompleteSubject(search: string) {
     try {
-        const res = await request.get(pathUtils.join(prefix, 'complete'), {
+        const apiPath = `${prefix}/complete`;
+        const res = await request.get(apiPath, {
             params: {
                 search: search
             }

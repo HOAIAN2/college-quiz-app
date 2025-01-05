@@ -3,14 +3,14 @@ import apiUtils from '~utils/apiUtils';
 import request from '../config/api';
 import { PersonalAccessToken } from '../models/auth';
 import { ApiResponseWithData, LoginResponse } from '../models/response';
-import pathUtils from '../utils/pathUtils';
 import tokenUtils from '../utils/tokenUtils';
 
 const prefix = 'auth';
 
 export async function apiLogin(formData: FormData) {
     try {
-        const res = await request.post(pathUtils.join(prefix, 'login'), formData);
+        const apiPath = `${prefix}/login`;
+        const res = await request.post(apiPath, formData);
         const { data } = res.data as ApiResponseWithData<LoginResponse>;
         if (data.token) tokenUtils.setToken(data.token);
         return data;
@@ -20,7 +20,8 @@ export async function apiLogin(formData: FormData) {
 }
 export async function apiChangePassword(formData: FormData) {
     try {
-        await request.post(pathUtils.join(prefix, 'change-password'), formData);
+        const apiPath = `${prefix}/change-password`;
+        await request.post(apiPath, formData);
         tokenUtils.removeToken();
     } catch (error: any) {
         return apiUtils.handleError(error);
@@ -28,7 +29,8 @@ export async function apiChangePassword(formData: FormData) {
 }
 export async function apiLogout() {
     try {
-        await request.post(pathUtils.join(prefix, 'logout'), new FormData());
+        const apiPath = `${prefix}/logout`;
+        await request.post(apiPath, new FormData());
     } catch (error: any) {
         return apiUtils.handleError(error);
     }
@@ -40,7 +42,8 @@ export async function apiSendEmailVerification(email: string) {
     const formData = new FormData();
     formData.append('email', email);
     try {
-        await request.post(pathUtils.join(prefix, 'send-email-verification'), formData);
+        const apiPath = `${prefix}/send-email-verification`;
+        await request.post(apiPath, formData);
     } catch (error: any) {
         return apiUtils.handleError(error);
     }
@@ -50,7 +53,8 @@ export async function apiVerifyEmail(email: string, verifyCode: string) {
     formData.append('email', email);
     formData.append('verify_code', verifyCode);
     try {
-        const res = await request.post(pathUtils.join(prefix, 'verify-email'), formData);
+        const apiPath = `${prefix}/verify-email`;
+        const res = await request.post(apiPath, formData);
         const { data: { token } } = res.data as ApiResponseWithData<{ token: string; }>;
         tokenUtils.setToken(token);
     } catch (error: any) {
@@ -61,7 +65,8 @@ export async function apiSendPasswordResetEmail(email: string) {
     const formData = new FormData();
     formData.append('email', email);
     try {
-        await request.post(pathUtils.join(prefix, 'send-password-reset-email'), formData);
+        const apiPath = `${prefix}/send-password-reset-email`;
+        await request.post(apiPath, formData);
     } catch (error: any) {
         return apiUtils.handleError(error);
     }
@@ -71,21 +76,24 @@ export async function apiVerifyPasswordResetCode(email: string, verifyCode: stri
     formData.append('email', email);
     formData.append('verify_code', verifyCode);
     try {
-        await request.post(pathUtils.join(prefix, 'verify-password-reset-code'), formData);
+        const apiPath = `${prefix}/verify-password-reset-code`;
+        await request.post(apiPath, formData);
     } catch (error: any) {
         return apiUtils.handleError(error);
     }
 }
 export async function apiResetPassword(formData: FormData) {
     try {
-        await request.post(pathUtils.join(prefix, 'reset-password'), formData);
+        const apiPath = `${prefix}/reset-password`;
+        await request.post(apiPath, formData);
     } catch (error: any) {
         return apiUtils.handleError(error);
     }
 }
 export async function apiGetLoginSessions() {
     try {
-        const res = await request.get(pathUtils.join(prefix, 'sessions'));
+        const apiPath = `${prefix}/sessions`;
+        const res = await request.get(apiPath);
         const { data } = res.data as ApiResponseWithData<PersonalAccessToken[]>;
         return data;
     } catch (error: any) {
@@ -94,7 +102,8 @@ export async function apiGetLoginSessions() {
 }
 export async function apiRevokeLoginSession(id: string | number) {
     try {
-        await request.delete(pathUtils.join(prefix, 'sessions', id));
+        const apiPath = `${prefix}/sessions/${id}`;
+        await request.delete(apiPath);
     } catch (error: any) {
         return apiUtils.handleError(error);
     }

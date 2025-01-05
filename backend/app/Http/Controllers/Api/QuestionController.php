@@ -105,14 +105,17 @@ class QuestionController extends Controller
 
         DB::beginTransaction();
         try {
-            $is_valid_chapter = Chapter::where('subject_id', $data['subject_id'])
+            $data['content'] = DOMStringHelper::processImagesFromDOM($data['content']);
+            
+            $target_question = Question::findOrFail($id);
+            
+            $is_valid_chapter = Chapter::where('subject_id', $target_question->subject_id)
                 ->where('id', $data['chapter_id'])
                 ->exists();
             if ($is_valid_chapter) {
                 return Reply::error('app.errors.404', 404);
             }
-            $data['content'] = DOMStringHelper::processImagesFromDOM($data['content']);
-            $target_question = Question::findOrFail($id);
+            
             $target_question->update($data);
             $question_options = $target_question->question_options;
 

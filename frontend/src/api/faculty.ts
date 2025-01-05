@@ -4,13 +4,13 @@ import request from '../config/api';
 import { Faculty, FacultyDetail, QueryFacultyType } from '../models/faculty';
 import { ApiResponseWithData, Pagination } from '../models/response';
 import encodeFormData from '../utils/encodeFormData';
-import pathUtils from '../utils/pathUtils';
 
 const prefix = 'faculties';
 
 export async function apiAutoCompleteFaculty(search: string) {
     try {
-        const res = await request.get(pathUtils.join(prefix, 'complete'), {
+        const apiPath = `${prefix}/complete`;
+        const res = await request.get(apiPath, {
             params: {
                 search: search
             }
@@ -23,7 +23,8 @@ export async function apiAutoCompleteFaculty(search: string) {
 }
 export async function apiGetFaculties(query?: QueryFacultyType) {
     try {
-        const res = await request.get(pathUtils.join(prefix), {
+        const apiPath = prefix;
+        const res = await request.get(apiPath, {
             params: {
                 page: query?.page || 1,
                 per_page: query?.perPage || 10,
@@ -38,15 +39,17 @@ export async function apiGetFaculties(query?: QueryFacultyType) {
 }
 export async function apiCreateFaculty(formData: FormData) {
     try {
-        await request.post(pathUtils.join(prefix), formData);
+        const apiPath = prefix;
+        await request.post(apiPath, formData);
     } catch (error: any) {
         return apiUtils.handleError(error);
     }
 }
 export async function apiUpdateFaculty(formData: FormData, id: string | number) {
     try {
+        const apiPath = `${prefix}/${id}`;
         const encodedData = encodeFormData(formData);
-        await request.put(pathUtils.join(prefix, id), encodedData, {
+        await request.put(apiPath, encodedData, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
@@ -57,7 +60,8 @@ export async function apiUpdateFaculty(formData: FormData, id: string | number) 
 }
 export async function apiGetFacultyById(id: string | number) {
     try {
-        const res = await request.get(pathUtils.join(prefix, id));
+        const apiPath = `${prefix}/${id}`;
+        const res = await request.get(apiPath);
         const { data } = res.data as ApiResponseWithData<FacultyDetail>;
         return data;
     } catch (error: any) {
@@ -66,7 +70,8 @@ export async function apiGetFacultyById(id: string | number) {
 }
 export async function apiDeleteFacultiesByIds(ids: (string | number)[]) {
     try {
-        await request.delete(pathUtils.join(prefix), {
+        const apiPath = prefix;
+        await request.delete(apiPath, {
             params: {
                 ids: ids,
             }

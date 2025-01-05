@@ -3,13 +3,13 @@ import { AxiosResponse } from 'axios';
 import { ApiResponseWithData } from '~models/response';
 import request from '../config/api';
 import apiUtils from '../utils/apiUtils';
-import pathUtils from '../utils/pathUtils';
 
 const prefix = 'settings';
 
 export async function apiGetCallableCommands() {
     try {
-        const res = await request.get(pathUtils.join(prefix, 'commands'));
+        const apiPath = `${prefix}/commands`;
+        const res = await request.get(apiPath);
         const { data } = res.data as ApiResponseWithData<string[]>;
         return data;
     } catch (error: any) {
@@ -20,14 +20,16 @@ export async function apiRunArtisan(command: string) {
     const formData = new FormData();
     formData.set('command', command);
     try {
-        await request.post(pathUtils.join(prefix, 'run-artisan'), formData);
+        const apiPath = `${prefix}/run-artisan`;
+        await request.post(apiPath, formData);
     } catch (error: any) {
         return apiUtils.handleError(error);
     }
 }
 export async function apiDownloadLogFile(defaultFileName: string) {
     try {
-        const res: AxiosResponse<Blob> = await request.get(pathUtils.join(prefix, 'log'), {
+        const apiPath = `${prefix}/log`;
+        const res: AxiosResponse<Blob> = await request.get(apiPath, {
             responseType: 'blob'
         });
         const contentDisposition = res.headers['content-disposition'] as string | undefined;
@@ -39,7 +41,8 @@ export async function apiDownloadLogFile(defaultFileName: string) {
 }
 export async function apiDeleteLogFile() {
     try {
-        await request.delete(pathUtils.join(prefix, 'log'));
+        const apiPath = `${prefix}/log`;
+        await request.delete(apiPath);
     } catch (error: any) {
         return apiUtils.handleError(error);
     }

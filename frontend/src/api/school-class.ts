@@ -4,13 +4,13 @@ import request from '../config/api';
 import { ApiResponseWithData, Pagination } from '../models/response';
 import { QuerySchoolClassType, SchoolClass, SchoolClassDetail } from '../models/school-class';
 import encodeFormData from '../utils/encodeFormData';
-import pathUtils from '../utils/pathUtils';
 
 const prefix = 'school-classes';
 
 export async function apiAutoCompleteSchoolClass(search: string) {
     try {
-        const res = await request.get(pathUtils.join(prefix, 'complete'), {
+        const apiPath = `${prefix}/complete`;
+        const res = await request.get(apiPath, {
             params: {
                 search: search
             }
@@ -23,7 +23,8 @@ export async function apiAutoCompleteSchoolClass(search: string) {
 }
 export async function apiGetSchoolClasses(query?: QuerySchoolClassType) {
     try {
-        const res = await request.get(pathUtils.join(prefix), {
+        const apiPath = prefix;
+        const res = await request.get(apiPath, {
             params: {
                 page: query?.page || 1,
                 per_page: query?.perPage || 10,
@@ -38,7 +39,8 @@ export async function apiGetSchoolClasses(query?: QuerySchoolClassType) {
 }
 export async function apiGetSchoolClassById(id: string | number) {
     try {
-        const res = await request.get(pathUtils.join(prefix, id));
+        const apiPath = `${prefix}/${id}`;
+        const res = await request.get(apiPath);
         const { data } = res.data as ApiResponseWithData<SchoolClassDetail>;
         return data;
     } catch (error: any) {
@@ -47,8 +49,9 @@ export async function apiGetSchoolClassById(id: string | number) {
 }
 export async function apiUpdateSchoolClass(formData: FormData, id: string | number) {
     try {
+        const apiPath = `${prefix}/${id}`;
         const encodedData = encodeFormData(formData);
-        await request.put(pathUtils.join(prefix, id), encodedData, {
+        await request.put(apiPath, encodedData, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
@@ -59,7 +62,8 @@ export async function apiUpdateSchoolClass(formData: FormData, id: string | numb
 }
 export async function apiDeleteSchoolClassIds(ids: (string | number)[]) {
     try {
-        await request.delete(pathUtils.join(prefix), {
+        const apiPath = prefix;
+        await request.delete(apiPath, {
             params: {
                 ids: ids,
             }
@@ -70,7 +74,8 @@ export async function apiDeleteSchoolClassIds(ids: (string | number)[]) {
 }
 export async function apiCreateSchoolClass(formData: FormData) {
     try {
-        await request.post(pathUtils.join(prefix), formData);
+        const apiPath = prefix;
+        await request.post(apiPath, formData);
     } catch (error: any) {
         return apiUtils.handleError(error);
     }

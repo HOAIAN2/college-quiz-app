@@ -3,13 +3,13 @@ import apiUtils from '~utils/apiUtils';
 import request from '../config/api';
 import { DashboarData } from '../models/dashboard';
 import { ApiResponseWithData } from '../models/response';
-import pathUtils from '../utils/pathUtils';
 
 const prefix = 'dashboard';
 
 export async function apiGetDashboard() {
     try {
-        const res = await request.get(pathUtils.join(prefix));
+        const apiPath = prefix;
+        const res = await request.get(apiPath);
         const { data } = res.data as ApiResponseWithData<DashboarData>;
         return data;
     } catch (error: any) {

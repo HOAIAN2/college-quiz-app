@@ -6,13 +6,13 @@ import {
     RolePermissionsResponse
 } from '../models/response';
 import { RoleWithPermissionCount } from '../models/role';
-import pathUtils from '../utils/pathUtils';
 
 const prefix = 'role-permissions';
 
 export async function apiGetRolePermissionCount() {
     try {
-        const res = await request.get(pathUtils.join(prefix));
+        const apiPath = prefix;
+        const res = await request.get(apiPath);
         const { data } = res.data as ApiResponseWithData<RoleWithPermissionCount[]>;
         return data;
     } catch (error: any) {
@@ -22,7 +22,8 @@ export async function apiGetRolePermissionCount() {
 
 export async function apiGetRolePermissions(id: number) {
     try {
-        const res = await request.get(pathUtils.join(prefix, id));
+        const apiPath = `${prefix}/${id}`;
+        const res = await request.get(apiPath);
         const { data } = res.data as ApiResponseWithData<RolePermissionsResponse>;
         return data;
     } catch (error: any) {
@@ -36,7 +37,8 @@ export async function apiUpdateRolePermissions(id: number | string, permissionId
         permissionIds.forEach(item => {
             encodedData.append('ids[]', String(item));
         });
-        await request.put(pathUtils.join(prefix, id), encodedData, {
+        const apiPath = `${prefix}/${id}`;
+        await request.put(apiPath, encodedData, {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
