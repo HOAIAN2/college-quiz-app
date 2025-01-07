@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             RolePermissionSeeder::class,
             AdminSeeder::class,
+            SettingSeeder::class,
         ]);
 
         if (config('custom.app.demo')) {

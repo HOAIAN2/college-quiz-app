@@ -11,6 +11,9 @@ return [
         'default_rate_limit' => (int)env('DEFAULT_RATE_LIMIT', 100),
         'content_security_policy' => env('CONTENT_SECURITY_POLICY'),
     ],
+    /**
+     * deprecated, use Setting model instead
+     */
     'exam' => [
         'base_score_scale' => (int)env('BASE_SCORE_SCALE', 10),
         'max_late_seconds' => env('MAX_LATE_SECONDS'),
@@ -22,5 +25,11 @@ return [
     ],
     'demo_credentials' => [
         'password' => (string)env('DEMO_PASSWORD'),
+    ],
+    'setting_number_keys' => [
+        'exam_base_score_scale',
+        'exam_allow_late_submit_seconds',
+        'exam_max_late_seconds',
+        'exam_can_remark_within_days',
     ],
 ];

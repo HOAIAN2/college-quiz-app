@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Enums\RoleType;
 use Illuminate\Support\Facades\Cookie;
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use App\Models\User;
 
 class HomeController extends Controller
@@ -22,7 +23,7 @@ class HomeController extends Controller
                 Cookie::queue(Cookie::forget('demo_credentials'));
             }
 
-            $this->queueCookie('base_score_scale', config('custom.exam.base_score_scale'));
+            $this->queueCookie('base_score_scale', Setting::get('exam_base_score_scale'));
         } catch (\Exception $error) {
             $this->handleException($error);
         } finally {

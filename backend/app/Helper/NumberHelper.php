@@ -2,14 +2,16 @@
 
 namespace App\Helper;
 
+use App\Models\Setting;
 use NumberFormatter;
 
 class NumberHelper
 {
     public static function caculateScore(int|null $correct_count, int $question_count)
     {
+        $base_score_scale = (int)Setting::get('exam_base_score_scale');
         return $correct_count != null
-            ? ($correct_count / $question_count) * config('custom.exam.base_score_scale')
+            ? ($correct_count / $question_count) * $base_score_scale
             : 0;
     }
 

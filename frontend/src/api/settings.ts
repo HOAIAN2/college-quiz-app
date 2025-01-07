@@ -1,11 +1,30 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosResponse } from 'axios';
 import { ApiResponseWithData } from '~models/response';
+import { Setting } from '~models/setting';
 import request from '../config/api';
 import apiUtils from '../utils/apiUtils';
 
 const prefix = 'settings';
 
+export async function apiGetAllSettings() {
+    try {
+        const apiPath = prefix;
+        const res = await request.get(apiPath);
+        const { data } = res.data as ApiResponseWithData<Setting[]>;
+        return data;
+    } catch (error: any) {
+        return apiUtils.handleError(error);
+    }
+}
+export async function apiUpdateSettings(formData: FormData) {
+    try {
+        const apiPath = prefix;
+        await request.post(apiPath, formData);
+    } catch (error: any) {
+        return apiUtils.handleError(error);
+    }
+}
 export async function apiGetCallableCommands() {
     try {
         const apiPath = `${prefix}/commands`;

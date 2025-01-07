@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Exam;
+use App\Models\Setting;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -27,7 +28,7 @@ class CancelLateExams extends Command
      */
     public function handle()
     {
-        $max_late_seconds = config('custom.exam.max_late_seconds');
+        $max_late_seconds = Setting::get('exam_max_late_seconds');
         if ($max_late_seconds == null) return;
         $now = Carbon::now();
 

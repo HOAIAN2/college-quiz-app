@@ -23,6 +23,7 @@ use App\Models\ExamResult;
 use App\Models\ExamSupervisor;
 use App\Models\ExamQuestionsAnswer;
 use App\Models\Question;
+use App\Models\Setting;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
@@ -38,7 +39,7 @@ class ExamController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->allowLateSubmitSeconds = config('custom.exam.allow_late_submit_seconds');
+        $this->allowLateSubmitSeconds = (int)Setting::get('exam_allow_late_submit_seconds');
     }
 
     public function index(IndexRequest $request)

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ExamResult\CancelRequest;
 use App\Http\Requests\ExamResult\RemarkRequest;
 use App\Models\ExamResult;
+use App\Models\Setting;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -63,15 +64,16 @@ class ExamResultController extends Controller
 
         DB::beginTransaction();
         try {
+            $can_remark_within_days = (int)Setting::get('exam_can_remark_within_days');
             if (!Hash::check($request->password, $user->password)) {
                 return Reply::error(trans('auth.errors.password_incorrect'));
             }
             $target_exam_result = ExamResult::findOrFail($id);
 
             // Limit time to remark 2 months
-            if (!$now->subDays(60)->greaterThan(Carbon::parse($target_exam_result->created_at))) {
+            if (!$now->subDays($can_remark_within_days)->greaterThan(Carbon::parse($target_exam_result->created_at))) {
                 return Reply::error(trans('exam.can_remark_within_days', [
-                    'days' => 60
+                    'days' => $can_remark_within_days
                 ]));
             }
 
