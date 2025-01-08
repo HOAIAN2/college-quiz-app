@@ -31,7 +31,7 @@ export default function SecurityContent() {
                 queryData.isLoading ? <Loading /> : null
             }
             <article className={styles.article}>
-                <h3>{language?.loginSession}</h3>
+                <h3>{language?.security.loginSession}</h3>
                 <ul className={styles.sessionsList}>
                     {
                         queryData.data?.map(session => {
@@ -42,11 +42,11 @@ export default function SecurityContent() {
                                     </big>
                                     {
                                         session.id === currentTokenId ?
-                                            <b className={styles.currentSession}>{language?.currentSession}</b> : null
+                                            <b className={styles.currentSession}>{language?.security.currentSession}</b> : null
                                     }
-                                    <p>{language?.lastActivedAt} {new Date(session.lastUsedAt).toLocaleString(appLanguage.language)}</p>
-                                    <p>{language?.loginedAt}: {new Date(session.createdAt).toLocaleString(appLanguage.language)}</p>
-                                    <p>{language?.userAgent}: {session.userAgent}</p>
+                                    <p>{language?.security.lastActivedAt} {new Date(session.lastUsedAt).toLocaleString(appLanguage.language)}</p>
+                                    <p>{language?.security.loginedAt}: {new Date(session.createdAt).toLocaleString(appLanguage.language)}</p>
+                                    <p>{language?.security.userAgent}: {session.userAgent}</p>
                                     <button
                                         onClick={() => { mutate(session.id); }}
                                         className={css(appStyles.actionItemWhiteBorderRed, styles.buttonItem)}

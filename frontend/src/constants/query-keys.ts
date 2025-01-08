@@ -31,6 +31,7 @@ const keys = [
     'EXAM_QUESTIONS',
     'LOGIN_SESSIONS',
     'CALLABLE_COMMANDS',
+    'ALL_SETTINGS',
 ] as const;
 
 type QueryKey = (typeof keys)[number];

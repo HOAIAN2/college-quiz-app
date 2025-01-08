@@ -23,7 +23,7 @@ export default function ThemeContent() {
     return (
         <>
             <article className={settingsStyles.article}>
-                <h3>{language?.primaryColor}</h3>
+                <h3>{language?.theme.primaryColor}</h3>
                 <div className={styles.primaryColorContainer}>
                     {
                         colors.map(color => {
@@ -75,7 +75,7 @@ export default function ThemeContent() {
                     }
                 </div>
                 <div>
-                    <h4>{language?.primaryColorCustom}</h4>
+                    <h4>{language?.theme.primaryColorCustom}</h4>
                     <input
                         defaultValue={themeUtils.getPrimaryColor() || themeUtils.getVariable('color-primary')}
                         onChange={e => {

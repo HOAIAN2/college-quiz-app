@@ -54,9 +54,9 @@ export default function SystemContent() {
                 user.user?.role.name === 'admin' ?
                     <>
                         <article className={styles.article}>
-                            <h3>{language?.artisancommand}</h3>
-                            <p>{language?.runArtisanCommand}</p>
-                            <label>{language?.command}</label>
+                            <h3>{language?.system.artisancommand}</h3>
+                            <p>{language?.system.runArtisanCommand}</p>
+                            <label>{language?.system.command}</label>
                             <input
                                 ref={artisanCommandInputRef}
                                 className={css(appStyles.input, styles.inputItem)}
@@ -74,17 +74,17 @@ export default function SystemContent() {
                                 <button
                                     onClick={handleRunArtisan}
                                     className={css(appStyles.actionItem, styles.buttonItem)}
-                                >{language?.run}</button>
+                                >{language?.system.run}</button>
                             </div>
                         </article>
                         <article className={styles.article}>
-                            <h3>{language?.logFile}</h3>
-                            <p>{language?.logDescription}</p>
+                            <h3>{language?.system.logFile}</h3>
+                            <p>{language?.system.logDescription}</p>
                             <div className={styles.actionItems}>
                                 <button
                                     onClick={handleDownloadLogFile}
                                     className={css(appStyles.actionItem, styles.buttonItem)}
-                                >{language?.download}</button>
+                                >{language?.system.download}</button>
                                 <button
                                     onClick={handleDeleteLogFile}
                                     className={css(appStyles.actionItemWhiteBorderRed, styles.buttonItem)}

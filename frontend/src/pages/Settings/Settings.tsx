@@ -6,6 +6,7 @@ import { HiOutlineWrenchScrewdriver } from 'react-icons/hi2';
 // import { IoMdNotificationsOutline } from 'react-icons/io';
 import { IoColorPaletteOutline } from 'react-icons/io5';
 import { MdOutlineSecurity } from 'react-icons/md';
+import { PiExam } from 'react-icons/pi';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
@@ -43,6 +44,12 @@ export default function Settings() {
             name: language?.theme,
             to: 'theme',
             icon: <IoColorPaletteOutline />,
+            isActive: true
+        },
+        {
+            name: language?.exam,
+            to: 'exam',
+            icon: <PiExam />,
             isActive: true
         },
     ];

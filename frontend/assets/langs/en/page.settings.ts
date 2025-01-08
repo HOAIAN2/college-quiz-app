@@ -4,4 +4,5 @@ export default {
     notifications: 'Notifications',
     security: 'Security',
     theme: 'Theme',
+    exam: 'Exam',
 };

@@ -38,3 +38,9 @@
 .currentSession {
     color: var(--color-soft-green);
 }
+
+.appSettingList>li {
+    list-style-type: none;
+    /* background-color: var(--color-white); */
+    margin-bottom: 20px;
+}

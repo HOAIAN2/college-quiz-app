@@ -17,18 +17,22 @@ class SettingSeeder extends Seeder
             [
                 'key' => 'exam_base_score_scale',
                 'value' => '10',
+                'group' => 'exam',
             ],
             [
                 'key' => 'exam_allow_late_submit_seconds',
                 'value' => '60',
+                'group' => 'exam',
             ],
             [
                 'key' => 'exam_max_late_seconds',
                 'value' => '300',
+                'group' => 'exam',
             ],
             [
                 'key' => 'exam_can_remark_within_days',
                 'value' => '600',
+                'group' => 'exam',
             ],
         ];
         foreach ($settings as $setting) {

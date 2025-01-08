@@ -4,4 +4,5 @@ export default {
     notifications: 'Thông báo',
     security: 'Bảo mật',
     theme: 'Giao diện',
+    exam: 'Bài thi',
 };

@@ -7,7 +7,7 @@ import apiUtils from '../utils/apiUtils';
 
 const prefix = 'settings';
 
-export async function apiGetAllSettings() {
+export async function apiGetSettings() {
     try {
         const apiPath = prefix;
         const res = await request.get(apiPath);
