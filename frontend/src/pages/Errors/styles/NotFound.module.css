@@ -10,28 +10,9 @@
 .notFound>.title {
     font-size: 20vw;
     font-weight: 600;
-    user-select: none;
-    background-image: linear-gradient(var(--color-primary), var(--color-soft-blue), var(--color-soft-green));
-    background-clip: text;
-    color: transparent;
-    animation: gradient 5s ease infinite;
-    background-size: 300% 300%;
+    color: var(--color-primary);
 }
 
 .goHome {
     color: var(--color-primary);
-}
-
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
 }
