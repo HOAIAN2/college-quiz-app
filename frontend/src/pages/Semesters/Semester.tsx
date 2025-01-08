@@ -11,6 +11,7 @@ import YesNoPopUp from '~components/YesNoPopUp';
 import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
+import NotFound from '~pages/Errors/NotFound';
 import createFormUtils from '~utils/createFormUtils';
 import css from '~utils/css';
 import dateFormat from '~utils/date-format';
@@ -27,7 +28,9 @@ export default function Semester() {
     const queryData = useQuery({
         queryKey: [QUERY_KEYS.PAGE_SEMESTER, { id: id }],
         queryFn: () => apiGetSemesterById(String(id)),
-        enabled: permissions.has('semester_view')
+        enabled: permissions.has('semester_view'),
+        retry: false,
+        refetchOnWindowFocus: false,
     });
     const handleUpdateSemester = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
         e.preventDefault();
@@ -58,6 +61,11 @@ export default function Semester() {
         };
     }, [id, queryClient]);
     if (!permissions.has('semester_view')) return <Navigate to='/' />;
+    if (queryData.error) return (
+        <main className={css(appStyles.dashboard, styles.pageContent)}>
+            <NotFound />
+        </main>
+    );
     return (
         <>
             {showDeletePopUp === true ?

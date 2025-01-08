@@ -13,6 +13,7 @@ import YesNoPopUp from '~components/YesNoPopUp';
 import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
+import NotFound from '~pages/Errors/NotFound';
 import caculateScore from '~utils/caculateScore';
 import css from '~utils/css';
 import languageUtils from '~utils/languageUtils';
@@ -35,7 +36,8 @@ export default function Exam() {
         queryKey: [QUERY_KEYS.EXAM, { id: id }],
         queryFn: () => apiGetExamById(String(id)),
         refetchOnWindowFocus: false,
-        enabled: permissions.has('exam_view')
+        enabled: permissions.has('exam_view'),
+        retry: false,
     });
     const onMutateSuccess = () => { queryData.refetch(); };
     const isSubmitted = queryData.data ?
@@ -69,6 +71,11 @@ export default function Exam() {
         style: 'long'
     });
     if (!permissions.has('exam_view')) return <Navigate to='/' />;
+    if (queryData.error) return (
+        <main className={css(appStyles.dashboard, styles.pageContent)}>
+            <NotFound />
+        </main>
+    );
     return (
         <>
             {showStartExamPopUp === true ?

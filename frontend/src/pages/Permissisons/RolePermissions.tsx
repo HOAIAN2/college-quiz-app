@@ -10,6 +10,7 @@ import Loading from '~components/Loading';
 import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
+import NotFound from '~pages/Errors/NotFound';
 import css from '~utils/css';
 
 export default function RolePermissions() {
@@ -22,7 +23,8 @@ export default function RolePermissions() {
         queryKey: [QUERY_KEYS.PAGE_ROLE_PERMISSIONS, { id: id }],
         queryFn: () => apiGetRolePermissions(Number(id)),
         enabled: permissions.has('role_permission_view'),
-        refetchOnWindowFocus: false
+        refetchOnWindowFocus: false,
+        retry: false,
     });
     const handleUpdatePermission = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -62,6 +64,11 @@ export default function RolePermissions() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [appLanguage.language]);
     if (!permissions.has('role_permission_view')) return <Navigate to='/' />;
+    if (queryData.error) return (
+        <main className={css(appStyles.dashboard, styles.rolePermissionContainer)}>
+            <NotFound />
+        </main>
+    );
     return (
         <div className={css(appStyles.dashboard, styles.rolePermissionContainer)}
         >

@@ -13,6 +13,7 @@ import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
 import { Chapter } from '~models/chapter';
+import NotFound from '~pages/Errors/NotFound';
 import createFormUtils from '~utils/createFormUtils';
 import css from '~utils/css';
 import CreateChapter from './components/CreateChapter';
@@ -32,7 +33,9 @@ export default function Subject() {
     const queryData = useQuery({
         queryKey: [QUERY_KEYS.PAGE_SUBJECT, { id: id }],
         queryFn: () => apiGetSubjectById(String(id)),
-        enabled: permissions.has('subject_view')
+        enabled: permissions.has('subject_view'),
+        retry: false,
+        refetchOnWindowFocus: false,
     });
     const handleUpdateSubject = async (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
         e.preventDefault();
@@ -68,6 +71,11 @@ export default function Subject() {
         };
     }, [id, queryClient]);
     if (!permissions.has('subject_view')) return <Navigate to='/' />;
+    if (queryData.error) return (
+        <main className={css(appStyles.dashboard, styles.pageContent)}>
+            <NotFound />
+        </main>
+    );
     return (
         <>
             {showViewChapterPopUp && currentChapter ?

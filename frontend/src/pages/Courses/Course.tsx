@@ -17,6 +17,7 @@ import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
 import useDebounce from '~hooks/useDebounce';
 import useLanguage from '~hooks/useLanguage';
+import NotFound from '~pages/Errors/NotFound';
 import createFormUtils from '~utils/createFormUtils';
 import css from '~utils/css';
 import languageUtils from '~utils/languageUtils';
@@ -42,7 +43,9 @@ export default function Course() {
     const queryData = useQuery({
         queryKey: [QUERY_KEYS.PAGE_COURSE, { id: courseId }],
         queryFn: () => apiGetCourseById(String(courseId)),
-        enabled: permissions.has('course_view')
+        enabled: permissions.has('course_view'),
+        retry: false,
+        refetchOnWindowFocus: false,
     });
     const userQueryData = useQuery({
         queryKey: [QUERY_KEYS.AUTO_COMPLETE_SUBJECT, { search: debounceQueryUser }],
@@ -83,6 +86,11 @@ export default function Course() {
         if (queryData.data) appTitle.setAppTitle(queryData.data.name);
     }, [appTitle, queryData.data]);
     if (!permissions.has('course_view')) return <Navigate to='/' />;
+    if (queryData.error) return (
+        <main className={css(appStyles.dashboard, styles.pageContent)}>
+            <NotFound />
+        </main>
+    );
     return (
         <>
             {showViewExamPopUp ?

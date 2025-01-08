@@ -74,6 +74,9 @@ request.interceptors.response.use(
                     toast.error(data.message);
                 });
             }
+            if (error.request.method === 'GET' && error.response?.status === 404) {
+                return;
+            }
             if (response.data.message) toast.error(response.data.message);
         }
         return Promise.reject(error);
