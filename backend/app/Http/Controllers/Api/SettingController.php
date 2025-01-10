@@ -60,7 +60,7 @@ class SettingController extends Controller
             foreach ($validated_data as $setting_field) {
                 if (
                     in_array($setting_field['key'], config('custom.setting_number_keys')) &&
-                    is_numeric($setting_field['value'])
+                    !is_numeric($setting_field['value'])
                 ) {
                     continue;
                 }

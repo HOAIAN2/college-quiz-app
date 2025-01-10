@@ -31,7 +31,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'key' => 'exam_can_remark_within_days',
-                'value' => '600',
+                'value' => '60',
                 'group' => 'exam',
             ],
         ];

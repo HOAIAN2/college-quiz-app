@@ -8,7 +8,7 @@
 }
 
 .notFound>.title {
-    font-size: 20vw;
+    font-size: 72px;
     font-weight: 600;
     color: var(--color-primary);
 }
