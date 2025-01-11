@@ -154,7 +154,7 @@ export default function Sidebar() {
                 <div className={styles.appInfos}>
                     <small>App version: {__APP_VERSION__}</small> <br />
                     <small>Build date: {__APP_BUILD_DATE__}</small> <br />
-                    <small>&#169; {new Date(__APP_BUILD_DATE__).getFullYear()} {getMetaContent('author')}</small>
+                    <small>&#169; {new Date().getFullYear()} {getMetaContent('author')}</small>
                 </div>
             </div>
         </nav>
