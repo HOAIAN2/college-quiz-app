@@ -63,14 +63,8 @@ This project combine both frontend and backend, maybe it some extensions not cor
 
 ```json
 {
- "LaravelExtraIntellisense.basePath": "./backend",
- "LaravelExtraIntellisense.basePathForCode": "./backend",
- "laravel_goto_view.folders": {
-  "default": "/backend/resources/views",
-  "js": "/backend/resources/js/Pages",
-  "vendor": "/backend/resources/views/vendor"
- },
- "typescript.tsdk": "./frontend/node_modules/typescript/lib",
+  "Laravel.basePath": "backend",
+  "typescript.tsdk": "./frontend/node_modules/typescript/lib",
 }
 ```
 
