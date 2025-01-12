@@ -2,34 +2,38 @@ import appStyles from '~styles/App.module.css';
 import styles from '~styles/CardPage.module.css';
 
 import { useQuery } from '@tanstack/react-query';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useSearchParams } from 'react-router-dom';
 import { apiGetExamsByMonth } from '~api/exam';
 import Loading from '~components/Loading';
 import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
-import useForceUpdate from '~hooks/useForceUpdate';
 import useLanguage from '~hooks/useLanguage';
 import { ExamInMonth } from '~models/exam';
 import css from '~utils/css';
 import timeUtils from '~utils/timeUtils';
 
 export default function Exams() {
-    const forceUpdate = useForceUpdate();
+    // This state use to trigger re-render each second
+    const [, setNow] = useState(new Date().toLocaleString());
     const [searchParams, setSearchParams] = useSearchParams();
     const { appLanguage, permissions, appTitle } = useAppContext();
     const language = useLanguage('page.exams');
     const requestRef = useRef<number>(0);
     const initQueryDate = () => {
-        const year = searchParams.get('year');
-        const month = searchParams.get('month');
+        let year = searchParams.get('year');
+        let month = searchParams.get('month');
+        if (month && month.length == 1) month = '0' + month;
         if (month && year) return `${year}-${month}`;
-        return `${new Date().getFullYear()}-${new Date().getMonth() + 1}`;
+        year = String(new Date().getFullYear());
+        month = new Date().getMonth() + 1 < 10 ?
+            '0' + String(new Date().getMonth() + 1) : String(new Date().getMonth() + 1);
+        return `${year}-${month}`;
     };
     const animate = useCallback(() => {
-        forceUpdate();
+        setNow(new Date().toLocaleString());
         requestRef.current = requestAnimationFrame(animate);
-    }, [forceUpdate]);
+    }, []);
     const showExamStatus = (exam: ExamInMonth) => {
         const examDate = new Date(exam.examDate);
         const getClassNames = (color: 'red' | 'green' | 'yellow') => css(styles.badge, styles[color]);
