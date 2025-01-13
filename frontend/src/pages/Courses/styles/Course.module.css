@@ -9,7 +9,7 @@
 
 .header {
     height: 50px;
-    padding: 20px;
+    /* padding: 20px; */
     display: flex;
     align-items: center;
 }
@@ -43,7 +43,7 @@
 
 .wrapItem {
     position: relative;
-    margin-left: 20px;
+    /* margin-left: 20px; */
     height: 90px;
     flex: 0 0 30%;
 }
@@ -76,7 +76,7 @@
     align-items: center;
     flex-direction: row-reverse;
     gap: 10px;
-    padding-right: 20px;
+    /* padding-right: 20px; */
 }
 
 .editStudentsButton {
@@ -96,7 +96,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    padding: 20px;
+    /* padding: 20px; */
 }
 
 .card {

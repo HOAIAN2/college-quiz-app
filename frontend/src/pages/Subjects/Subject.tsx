@@ -181,7 +181,7 @@ export default function Subject() {
                             {
                                 permissions.has('subject_update') ?
                                     <div className={appStyles.actionBar}
-                                        style={{ paddingLeft: '20px' }}
+                                        style={{ marginBottom: '20px' }}
                                     >
                                         <div className={appStyles.actionItem}
                                             onClick={() => {
