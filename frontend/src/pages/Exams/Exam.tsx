@@ -192,9 +192,7 @@ export default function Exam() {
                                 <div className={styles.header}>
                                     <h2 className={styles.title}>{language?.result}</h2>
                                 </div>
-                                <div className={appStyles.actionBar}
-                                    style={{ marginBottom: '20px' }}
-                                >
+                                <div className={appStyles.actionBar}>
                                     <button
                                         className={
                                             css(

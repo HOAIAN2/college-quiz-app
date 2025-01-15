@@ -21,7 +21,7 @@ import ViewChapter from './components/ViewChapter';
 
 export default function Subject() {
     const { id } = useParams();
-    const { permissions } = useAppContext();
+    const { permissions, appTitle } = useAppContext();
     const language = useLanguage('page.subject');
     const [currentChapter, setCurrentChapter] = useState<Chapter>();
     const queryClient = useQueryClient();
@@ -70,6 +70,10 @@ export default function Subject() {
             queryClient.removeQueries({ queryKey: [QUERY_KEYS.PAGE_SUBJECT, { id: id }] });
         };
     }, [id, queryClient]);
+    useEffect(() => {
+        if (!queryData.data) return;
+        appTitle.setAppTitle(queryData.data.name);
+    }, [appTitle, queryData.data]);
     if (!permissions.has('subject_view')) return <Navigate to='/' />;
     if (queryData.error) return (
         <main className={css(appStyles.dashboard, styles.pageContent)}>
@@ -180,9 +184,7 @@ export default function Subject() {
                             </div>
                             {
                                 permissions.has('subject_update') ?
-                                    <div className={appStyles.actionBar}
-                                        style={{ marginBottom: '20px' }}
-                                    >
+                                    <div className={appStyles.actionBar}>
                                         <div className={appStyles.actionItem}
                                             onClick={() => {
                                                 setShowCreateChapterPopUp(true);

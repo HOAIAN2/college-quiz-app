@@ -230,7 +230,6 @@ export default function Course() {
                                     permissions.has('course_update') ?
                                         <div
                                             className={appStyles.actionBar}
-                                            style={{ marginBottom: '20px' }}
                                         >
                                             <button
                                                 className={css(appStyles.actionItem, styles.editStudentsButton)}
@@ -273,7 +272,6 @@ export default function Course() {
                             {
                                 permissions.has('exam_create') ?
                                     <div className='action-bar-d'
-                                        style={{ marginBottom: '20px' }}
                                     >
                                         <button
                                             className={appStyles.actionItem}
