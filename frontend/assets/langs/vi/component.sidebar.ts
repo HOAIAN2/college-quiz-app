@@ -6,6 +6,7 @@ export default {
     faculty: 'Khoa',
     profile: 'Cá nhân',
     exams: 'Bài thi',
+    archives: 'Lưu trữ',
     questions: 'Câu hỏi',
     admins: 'Quản trị',
     teachers: 'Giáo viên',

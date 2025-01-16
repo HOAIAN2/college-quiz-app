@@ -34,6 +34,9 @@ const Exam = lazy(() => import('./pages/Exams/Exam'));
 const TakeExam = lazy(() => import('./pages/Exams/TakeExam'));
 const Settings = lazy(() => import('./pages/Settings/Settings'));
 const Profile = lazy(() => import('./pages/Profile/Profile'));
+const Archives = lazy(() => import('./pages/Archives/Archives'));
+const ExamResults = lazy(() => import('./pages/Archives/ExamResults'));
+const ExamResult = lazy(() => import('./pages/Archives/ExamResult'));
 
 const router = createBrowserRouter([
     {
@@ -151,6 +154,28 @@ const router = createBrowserRouter([
                                 ]
                             }
                         ],
+                    },
+                    {
+                        path: 'archives',
+                        children: [
+                            {
+                                index: true,
+                                element: <Suspense key='archives' fallback={<SuspenseLoading />}><Archives /></Suspense>
+                            },
+                            {
+                                path: 'exams',
+                                children: [
+                                    {
+                                        index: true,
+                                        element: <Suspense key='exam-results' fallback={<SuspenseLoading />}><ExamResults /></Suspense>
+                                    },
+                                    {
+                                        path: ':examId',
+                                        element: <Suspense key='exam-result' fallback={<SuspenseLoading />}><ExamResult /></Suspense>
+                                    },
+                                ]
+                            },
+                        ]
                     },
                     {
                         path: 'teachers',

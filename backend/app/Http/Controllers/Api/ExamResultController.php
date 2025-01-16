@@ -7,6 +7,9 @@ use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExamResult\CancelRequest;
 use App\Http\Requests\ExamResult\RemarkRequest;
+use App\Models\Exam;
+use App\Models\ExamQuestionsAnswer;
+use App\Models\ExamQuestionsOrder;
 use App\Models\ExamResult;
 use App\Models\Setting;
 use Carbon\Carbon;
@@ -19,41 +22,54 @@ class ExamResultController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = $this->getUser();
+        abort_if(!$user->isAdmin(), 403);
+
+        try {
+            $exam_results = ExamResult::with([
+                'user'
+            ])->where('exam_id', '=', $request->exam_id)
+                ->get();
+            return Reply::successWithData($exam_results, '');
+        } catch (\Exception $error) {
+            return $this->handleException($error);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
-    }
+        $user = $this->getUser();
+        abort_if(!$user->isAdmin(), 403);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        try {
+            $exam_result = ExamResult::findOrFail($id);
+            $exam_questions_order = ExamQuestionsOrder::where('exam_id', $exam_result->exam_id)
+                ->where('user_id', '=', $exam_result->user_id)
+                ->firstOrFail();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+            $exam_questions_answers = ExamQuestionsAnswer::with([
+                'exam_question.question' => function ($query) use ($exam_questions_order) {
+                    $query->withTrashed()
+                        ->select('questions.id', 'content')
+                        ->with(['question_options' => function ($query)  use ($exam_questions_order) {
+                            $query->withTrashed()
+                                ->select('id', 'question_id', 'content', 'is_correct')
+                                ->inRandomOrder($exam_questions_order->id);
+                        }])
+                        ->inRandomOrder($exam_questions_order->id);
+                }
+            ])->where('exam_id', '=', $exam_result->exam_id)
+                ->get();
+
+            return Reply::successWithData([
+                'exam_result' => $exam_result,
+                'exam_questions_answers' => $exam_questions_answers,
+            ], '');
+        } catch (\Exception $error) {
+            return $this->handleException($error);
+        }
     }
 
     public function remark(RemarkRequest $request, string $id)

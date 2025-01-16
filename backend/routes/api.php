@@ -156,7 +156,7 @@ Route::prefix('/exams')->middleware(AUTH_MIDDLEWARES)
         Route::post('/', 'store');
     });
 
-Route::prefix('/exam-result')->middleware(AUTH_MIDDLEWARES)
+Route::prefix('/exam-results')->middleware(AUTH_MIDDLEWARES)
     ->controller(ExamResultController::class)->group(function () {
         Route::get('/{id}', 'show');
         Route::get('/{id}/remark', 'remark');
