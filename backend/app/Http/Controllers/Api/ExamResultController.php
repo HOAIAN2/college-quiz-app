@@ -31,11 +31,6 @@ class ExamResultController extends Controller
         try {
             $exam = Exam::findOrFail($request->exam_id);
 
-            $exam_results = ExamResult::with([
-                'user.school_class',
-            ])->where('exam_id', '=', $request->exam_id)
-                ->get();
-
             $result = [];
             $students = Course::findOrFail($exam->course_id)->enrollments->pluck('user');
 
@@ -53,8 +48,8 @@ class ExamResultController extends Controller
                     'question_count' => $exam_result?->question_count,
                     'correct_count' => $exam_result?->correct_count,
                     'submitted_at' => $exam_result?->created_at,
-                    'remarked' => false,
-                    'cancelled' => false,
+                    'remarked' => $exam_result?->remark_by_user_id ? true : false,
+                    'cancelled' => $exam_result?->cancelled_by_user_id ? true : false,
                 ];
             }
 

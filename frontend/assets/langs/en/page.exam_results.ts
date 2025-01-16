@@ -24,5 +24,9 @@ export default {
     score: 'Score',
     didNotSubmitted: 'Not submitted',
     export: 'Export',
-    submittedAt: 'Submitted at'
+    submittedAt: 'Submitted at',
+    remarked: 'Remarked',
+    cancelled: 'Cancelled',
+    yes: 'Yes',
+    no: 'No',
 };

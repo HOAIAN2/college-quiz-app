@@ -116,10 +116,10 @@ function ExamResults() {
                                                     {language?.submittedAt}
                                                 </th>
                                                 <th className={css(styles.column, styles.medium)}>
-                                                    Đã qua phúc khảo
+                                                    {language?.remarked}
                                                 </th>
                                                 <th className={css(styles.column, styles.medium)}>
-                                                    Hủy kết quả
+                                                    {language?.cancelled}
                                                 </th>
                                             </tr>
                                         </thead>
@@ -152,10 +152,10 @@ function ExamResults() {
                                                                     : null}
                                                             </td>
                                                             <td className={css(styles.column, styles.medium)}>
-                                                                {item.remarked}
+                                                                {item.remarked ? language?.yes : language?.no}
                                                             </td>
                                                             <td className={css(styles.column, styles.medium)}>
-                                                                {item.cancelled}
+                                                                {item.cancelled ? language?.yes : language?.no}
                                                             </td>
                                                         </tr>
                                                     );

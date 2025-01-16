@@ -24,5 +24,9 @@ export default {
     score: 'Điểm số',
     didNotSubmitted: 'Chưa nộp bài',
     export: 'Xuất',
-    submittedAt: 'Thời gian nộp bài'
+    submittedAt: 'Thời gian nộp bài',
+    remarked: 'Phúc khảo',
+    cancelled: 'Hủy kết quả',
+    yes: 'Có',
+    no: 'Không',
 };
