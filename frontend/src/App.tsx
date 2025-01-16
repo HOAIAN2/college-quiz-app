@@ -35,6 +35,7 @@ const TakeExam = lazy(() => import('./pages/Exams/TakeExam'));
 const Settings = lazy(() => import('./pages/Settings/Settings'));
 const Profile = lazy(() => import('./pages/Profile/Profile'));
 const Archives = lazy(() => import('./pages/Archives/Archives'));
+const ArchiveExamResults = lazy(() => import('./pages/Archives/ArchiveExamResults'));
 const ExamResults = lazy(() => import('./pages/Archives/ExamResults'));
 const ExamResult = lazy(() => import('./pages/Archives/ExamResult'));
 
@@ -167,11 +168,20 @@ const router = createBrowserRouter([
                                 children: [
                                     {
                                         index: true,
-                                        element: <Suspense key='exam-results' fallback={<SuspenseLoading />}><ExamResults /></Suspense>
+                                        element: <Suspense key='archive-xam-results' fallback={<SuspenseLoading />}><ArchiveExamResults /></Suspense>
                                     },
                                     {
                                         path: ':examId',
-                                        element: <Suspense key='exam-result' fallback={<SuspenseLoading />}><ExamResult /></Suspense>
+                                        children: [
+                                            {
+                                                index: true,
+                                                element: <Suspense key='exam-results' fallback={<SuspenseLoading />}><ExamResults /></Suspense>
+                                            },
+                                            {
+                                                path: ':id',
+                                                element: <Suspense key='exam-result' fallback={<SuspenseLoading />}><ExamResult /></Suspense>
+                                            },
+                                        ]
                                     },
                                 ]
                             },

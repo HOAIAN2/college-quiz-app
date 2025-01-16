@@ -7,6 +7,7 @@ use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExamResult\CancelRequest;
 use App\Http\Requests\ExamResult\RemarkRequest;
+use App\Models\Course;
 use App\Models\Exam;
 use App\Models\ExamQuestionsAnswer;
 use App\Models\ExamQuestionsOrder;
@@ -28,11 +29,39 @@ class ExamResultController extends Controller
         abort_if(!$user->isAdmin(), 403);
 
         try {
+            $exam = Exam::findOrFail($request->exam_id);
+
             $exam_results = ExamResult::with([
-                'user'
+                'user.school_class',
             ])->where('exam_id', '=', $request->exam_id)
                 ->get();
-            return Reply::successWithData($exam_results, '');
+
+            $result = [];
+            $students = Course::findOrFail($exam->course_id)->enrollments->pluck('user');
+
+            foreach ($students as $student) {
+                $exam_result = $student->exam_results()
+                    ->where('exam_id', $exam->id)
+                    ->first();
+                $result[] = [
+                    'id' => $exam_result?->id,
+                    'student_id' => $student->id,
+                    'first_name' => $student->first_name,
+                    'last_name' => $student->last_name,
+                    'school_class_shortcode' => $student->school_class->shortcode,
+                    'gender' => $student->gender,
+                    'question_count' => $exam_result?->question_count,
+                    'correct_count' => $exam_result?->correct_count,
+                    'submitted_at' => $exam_result?->created_at,
+                    'remarked' => false,
+                    'cancelled' => false,
+                ];
+            }
+
+            return Reply::successWithData([
+                'exam' => $exam,
+                'result' => $result,
+            ], '');
         } catch (\Exception $error) {
             return $this->handleException($error);
         }

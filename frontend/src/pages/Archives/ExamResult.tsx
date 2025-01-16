@@ -1,12 +1,16 @@
+import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
+import { apiGetExamResult } from '~api/exam-result';
 
 function ExamResult() {
-    // Show exam detail, exam result
-    const { examId } = useParams();
+    const { id } = useParams();
+    const queryData = useQuery({
+        queryKey: ['test', { id: id }],
+        queryFn: () => apiGetExamResult(String(id))
+    });
+    if (queryData.data) console.log(queryData.data);
     return (
-        <>
-            <main>Exam result {examId}</main>
-        </>
+        <>{id}</>
     );
 }
 

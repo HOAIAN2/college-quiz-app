@@ -70,20 +70,6 @@ export type ExamQuestion = {
     questionOptions: QuestionOption[];
 };
 
-export type ExamResult = {
-    id: number;
-    examId: number;
-    userId: number;
-    correctCount: number;
-    questionCount: number;
-    ip: string;
-    userAgent: string;
-    cancelledAt: string | null;
-    cancellationReason: string | null;
-    createdAt: string | null;
-    updatedAt: string | null;
-};
-
 type Pivot = {
     examId: number;
     questionId: number;

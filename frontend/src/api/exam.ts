@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosResponse } from 'axios';
+import { ExamResult } from '~models/exam-result';
 import request from '../config/api';
-import { ExamDetail, ExamInMonth, ExamResult, ExamWithQuestion, QueryExamType } from '../models/exam';
+import { ExamDetail, ExamInMonth, ExamWithQuestion, QueryExamType } from '../models/exam';
 import { ApiResponseWithData } from '../models/response';
 import apiUtils from '../utils/apiUtils';
 import encodeFormData from '../utils/encodeFormData';
