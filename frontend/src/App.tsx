@@ -150,7 +150,7 @@ const router = createBrowserRouter([
                                         element: <Suspense key='take-exam' fallback={<SuspenseLoading />}><TakeExam /></Suspense>
                                     },
                                     {
-                                        path: ':resultId',
+                                        path: 'results/:resultId',
                                         element: <Suspense key='exam-result' fallback={<SuspenseLoading />}><ExamResult /></Suspense>
                                     },
                                 ]

@@ -294,7 +294,8 @@ export default function Exam() {
                                                             </td>
                                                             <td className={css(styles.column, styles.medium)}>
                                                                 {
-                                                                    item.result ? <Link to={String(item.result.id)}>{language?.detail}</Link> : null
+                                                                    permissions.has('exam_result_view') &&
+                                                                        item.result ? <Link to={`results/${item.result.id}`}>{language?.detail}</Link> : null
                                                                 }
                                                             </td>
                                                         </tr>

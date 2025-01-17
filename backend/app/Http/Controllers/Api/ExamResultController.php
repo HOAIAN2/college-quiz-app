@@ -31,7 +31,7 @@ class ExamResultController extends Controller
     public function show(string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->isAdmin(), 403);
+        abort_if(!$user->hasPermission(PermissionType::EXAM_RESULT_VIEW), 403);
 
         try {
             $exam_result = ExamResult::findOrFail($id);
