@@ -58,6 +58,7 @@ class PermissionSeeder extends Seeder
             ['name' => 'semester_update'],
             ['name' => 'semester_delete'],
 
+            ['name' => 'exam_result_view'],
             ['name' => 'exam_result_remark'],
             ['name' => 'exam_result_cancel'],
         ];

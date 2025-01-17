@@ -36,6 +36,7 @@ return [
     'semester_create' => 'Create Semester',
     'semester_update' => 'Update Semester',
     'semester_delete' => 'Delete Semester',
+    'exam_result_view' => 'View Exam Result',
     'exam_result_remark' => 'Remark Exam Result',
     'exam_result_cancel' => 'Cancel Exam Result',
 ];

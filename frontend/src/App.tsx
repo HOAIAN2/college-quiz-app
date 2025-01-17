@@ -31,6 +31,7 @@ const Course = lazy(() => import('./pages/Courses/Course'));
 const Semester = lazy(() => import('./pages/Semesters/Semester'));
 const Exams = lazy(() => import('./pages/Exams/Exams'));
 const Exam = lazy(() => import('./pages/Exams/Exam'));
+const ExamResult = lazy(() => import('./pages/Exams/ExamResult'));
 const TakeExam = lazy(() => import('./pages/Exams/TakeExam'));
 const Settings = lazy(() => import('./pages/Settings/Settings'));
 const Profile = lazy(() => import('./pages/Profile/Profile'));
@@ -147,6 +148,10 @@ const router = createBrowserRouter([
                                     {
                                         path: 'take',
                                         element: <Suspense key='take-exam' fallback={<SuspenseLoading />}><TakeExam /></Suspense>
+                                    },
+                                    {
+                                        path: ':resultId',
+                                        element: <Suspense key='exam-result' fallback={<SuspenseLoading />}><ExamResult /></Suspense>
                                     },
                                 ]
                             }

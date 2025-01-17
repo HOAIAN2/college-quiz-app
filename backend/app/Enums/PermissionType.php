@@ -16,6 +16,7 @@ enum PermissionType: string
     case EXAM_DELETE = 'exam_delete';
     case EXAM_RESULT_CANCEL = 'exam_result_cancel';
     case EXAM_RESULT_REMARK = 'exam_result_remark';
+    case EXAM_RESULT_VIEW = 'exam_result_view';
     case EXAM_SUBMIT = 'exam_submit';
     case EXAM_UPDATE = 'exam_update';
     case EXAM_VIEW = 'exam_view';

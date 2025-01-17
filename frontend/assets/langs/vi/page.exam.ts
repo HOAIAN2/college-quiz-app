@@ -29,4 +29,5 @@ export default {
     cancelled: 'Hủy kết quả',
     yes: 'Có',
     no: 'Không',
+    detail: 'Chi tiết'
 };

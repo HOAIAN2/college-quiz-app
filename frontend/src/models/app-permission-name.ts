@@ -7,6 +7,7 @@ export type AppPermissionName =
     'exam_delete' |
     'exam_result_cancel' |
     'exam_result_remark' |
+    'exam_result_view' |
     'exam_submit' |
     'exam_update' |
     'exam_view' |

@@ -29,4 +29,5 @@ export default {
     cancelled: 'Cancelled',
     yes: 'Yes',
     no: 'No',
+    detail: 'Detail',
 };

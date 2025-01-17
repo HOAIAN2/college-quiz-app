@@ -131,7 +131,7 @@ export default function Exam() {
                                             </p>
                                         </div>
                                         <div className={css(styles.wrapItem, styles.supervisorsContainer)}>
-                                            <label>{language?.supervisors}</label>
+                                            <label>{language?.supervisors}:</label>
                                             <p>
                                                 {queryData.data.supervisors.map(supervisor => {
                                                     return (
@@ -290,6 +290,11 @@ export default function Exam() {
                                                             <td className={css(styles.column, styles.medium)}>
                                                                 {
                                                                     item.result?.cancelledByUserId ? language?.yes : language?.no
+                                                                }
+                                                            </td>
+                                                            <td className={css(styles.column, styles.medium)}>
+                                                                {
+                                                                    item.result ? <Link to={String(item.result.id)}>{language?.detail}</Link> : null
                                                                 }
                                                             </td>
                                                         </tr>
