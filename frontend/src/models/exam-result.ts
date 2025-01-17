@@ -1,23 +1,5 @@
-import { Exam } from './exam';
 import { QuestionOption } from './question';
 import { User } from './user';
-
-export type ExamDetail = {
-    exam: Exam;
-    result: {
-        id: number | null;
-        studentId: number;
-        firstName: string;
-        lastName: string;
-        schoolClassShortcode: string;
-        gender: 'male' | 'female';
-        questionCount: number;
-        correctCount: number | null;
-        submittedAt: string | null;
-        remarked: boolean;
-        cancelled: false;
-    }[];
-};
 
 export type ExamResult = {
     id: number;
@@ -29,6 +11,8 @@ export type ExamResult = {
     userAgent: string;
     cancelledAt: string | null;
     cancellationReason: string | null;
+    cancelledByUserId: number | null,
+    remarkByUserId: number | null,
     createdAt: string | null;
     updatedAt: string | null;
 };

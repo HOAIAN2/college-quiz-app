@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import {
     AiOutlineUser
 } from 'react-icons/ai';
-import { FaRegBookmark } from 'react-icons/fa6';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { LuSchool } from 'react-icons/lu';
 import { MdOutlineStickyNote2 } from 'react-icons/md';
@@ -93,12 +92,6 @@ export default function Sidebar() {
             name: language?.exams,
             to: 'exams',
             icon: <PiExam />,
-            isActive: permissions.has('exam_view')
-        },
-        {
-            name: language?.archives,
-            to: 'archives',
-            icon: <FaRegBookmark />,
             isActive: permissions.has('exam_view')
         },
         {

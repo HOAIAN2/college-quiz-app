@@ -6,7 +6,6 @@ export default {
     faculty: 'Faculty',
     profile: 'Profile',
     exams: 'Exam',
-    archives: 'Archives',
     questions: 'Questions',
     admins: 'Admins',
     teachers: 'Teachers',

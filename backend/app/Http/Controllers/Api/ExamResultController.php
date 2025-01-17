@@ -25,41 +25,7 @@ class ExamResultController extends Controller
      */
     public function index(Request $request)
     {
-        $user = $this->getUser();
-        abort_if(!$user->isAdmin(), 403);
-
-        try {
-            $exam = Exam::findOrFail($request->exam_id);
-
-            $result = [];
-            $students = Course::findOrFail($exam->course_id)->enrollments->pluck('user');
-
-            foreach ($students as $student) {
-                $exam_result = $student->exam_results()
-                    ->where('exam_id', $exam->id)
-                    ->first();
-                $result[] = [
-                    'id' => $exam_result?->id,
-                    'student_id' => $student->id,
-                    'first_name' => $student->first_name,
-                    'last_name' => $student->last_name,
-                    'school_class_shortcode' => $student->school_class->shortcode,
-                    'gender' => $student->gender,
-                    'question_count' => $exam_result?->question_count,
-                    'correct_count' => $exam_result?->correct_count,
-                    'submitted_at' => $exam_result?->created_at,
-                    'remarked' => $exam_result?->remark_by_user_id ? true : false,
-                    'cancelled' => $exam_result?->cancelled_by_user_id ? true : false,
-                ];
-            }
-
-            return Reply::successWithData([
-                'exam' => $exam,
-                'result' => $result,
-            ], '');
-        } catch (\Exception $error) {
-            return $this->handleException($error);
-        }
+        //
     }
 
     public function show(string $id)

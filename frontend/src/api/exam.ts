@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosResponse } from 'axios';
 import { ExamResult } from '~models/exam-result';
+import { UserDetail } from '~models/user';
 import request from '../config/api';
 import { ExamDetail, ExamInMonth, ExamWithQuestion, QueryExamType } from '../models/exam';
 import { ApiResponseWithData } from '../models/response';
@@ -84,6 +85,20 @@ export async function apiGetTakeExam(id: string | number) {
         const apiPath = `${prefix}/${id}/take`;
         const res = await request.get(apiPath);
         const { data } = res.data as ApiResponseWithData<ExamWithQuestion>;
+        return data;
+    } catch (error: any) {
+        return apiUtils.handleError(error);
+    }
+}
+
+export async function apiGetExamResults(id: string | number) {
+    try {
+        const apiPath = `${prefix}/${id}/results`;
+        const res = await request.get(apiPath);
+        const { data } = res.data as ApiResponseWithData<{
+            user: UserDetail;
+            result: ExamResult | null;
+        }[]>;
         return data;
     } catch (error: any) {
         return apiUtils.handleError(error);

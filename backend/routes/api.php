@@ -147,6 +147,7 @@ Route::prefix('/exams')->middleware(AUTH_MIDDLEWARES)
                 Route::get('/{id}/take', 'take');
                 Route::post('/{id}/submit', 'submit');
             });
+        Route::get('/{id}/results', 'getResults');
         Route::get('/{id}/export-result', 'exportResult');
         Route::post('/{id}/status', 'updateStatus');
         Route::get('/{id}', 'show');
@@ -161,5 +162,4 @@ Route::prefix('/exam-results')->middleware(AUTH_MIDDLEWARES)
         Route::get('/{id}', 'show');
         Route::get('/{id}/remark', 'remark');
         Route::post('/{id}/cancel', 'cancel');
-        Route::get('/', 'index');
     });

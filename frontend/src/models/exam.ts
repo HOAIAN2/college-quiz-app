@@ -22,24 +22,6 @@ export type ExamInMonth = Exam & {
 
 export type ExamDetail = Exam & {
     questionsCount: number;
-    result: {
-        studentId: number;
-        firstName: string;
-        lastName: string;
-        schoolClassShortcode: string;
-        gender: 'male' | 'female';
-        questionCount: number;
-        correctCount: number | null;
-        submittedAt: string | null;
-    }[];
-    // examSupervisors: {
-    //     id: number;
-    //     examId: number;
-    //     userId: number;
-    //     createdAt: string;
-    //     updatedAt: string;
-    //     user: User;
-    // }[];
     supervisors: (User & {
         pivot: {
             examId: number;

@@ -269,18 +269,18 @@ class ExamController extends Controller
         ];
 
         try {
-            $data = Exam::with($relations);
+            $exam = Exam::with($relations);
             switch ($user->role_id) {
                 case RoleType::ADMIN->value:
                     break;
                 case RoleType::STUDENT->value:
-                    $data = $data
+                    $exam = $exam
                         ->whereHas('course.enrollments', function ($query) use ($user) {
                             $query->where('student_id', '=', $user->id);
                         });
                     break;
                 case RoleType::TEACHER->value:
-                    $data = $data
+                    $exam = $exam
                         ->whereHas('course.teacher', function ($query) use ($user) {
                             $query->where('id', '=', $user->id);
                         })
@@ -292,27 +292,8 @@ class ExamController extends Controller
                     return Reply::error(trans('app.errors.something_went_wrong'), 500);
                     break;
             }
-            $data = $data->findOrFail($id);
-            $result = [];
-            $students = Course::findOrFail($data->course_id)->enrollments->pluck('user');
-
-            foreach ($students as $student) {
-                $exam_result = $student->exam_results()
-                    ->where('exam_id', $data->id)
-                    ->first();
-                $result[] = [
-                    'student_id' => $student->id,
-                    'first_name' => $student->first_name,
-                    'last_name' => $student->last_name,
-                    'school_class_shortcode' => $student->school_class->shortcode,
-                    'gender' => $student->gender,
-                    'question_count' => $exam_result?->question_count,
-                    'correct_count' => $exam_result?->correct_count,
-                    'submitted_at' => $exam_result?->created_at
-                ];
-            }
-            $data->result = $result;
-            return Reply::successWithData($data, '');
+            $exam = $exam->findOrFail($id);
+            return Reply::successWithData($exam, '');
         } catch (\Exception $error) {
             return $this->handleException($error);
         }
@@ -623,6 +604,55 @@ class ExamController extends Controller
             return Reply::successWithData($result_data, '');
         } catch (\Exception $error) {
             DB::rollBack();
+            return $this->handleException($error);
+        }
+    }
+
+    public function getResults(string $id)
+    {
+        $user = $this->getUser();
+        abort_if(!$user->hasPermission(PermissionType::EXAM_VIEW), 403);
+
+        try {
+            $exam = Exam::query();
+            switch ($user->role_id) {
+                case RoleType::ADMIN->value:
+                    break;
+                case RoleType::STUDENT->value:
+                    $exam = $exam
+                        ->whereHas('course.enrollments', function ($query) use ($user) {
+                            $query->where('student_id', '=', $user->id);
+                        });
+                    break;
+                case RoleType::TEACHER->value:
+                    $exam = $exam
+                        ->whereHas('course.teacher', function ($query) use ($user) {
+                            $query->where('id', '=', $user->id);
+                        })
+                        ->orWhereHas('supervisors', function ($query) use ($user) {
+                            $query->where('user_id', '=', $user->id);
+                        });
+                    break;
+                default:
+                    return Reply::error(trans('app.errors.something_went_wrong'), 500);
+                    break;
+            }
+            $exam = $exam->findOrFail($id);
+            $results = [];
+            $students = Course::findOrFail($exam->course_id)->enrollments->pluck('user');
+
+            foreach ($students as $student) {
+                $student->load('school_class');
+                $exam_result = $student->exam_results()
+                    ->where('exam_id', $exam->id)
+                    ->first();
+                $results[] = [
+                    'user' => $student,
+                    'result' => $exam_result,
+                ];
+            }
+            return Reply::successWithData($results, '');
+        } catch (\Exception $error) {
             return $this->handleException($error);
         }
     }

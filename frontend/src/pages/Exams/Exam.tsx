@@ -7,7 +7,7 @@ import { BiExport } from 'react-icons/bi';
 import { ImCancelCircle } from 'react-icons/im';
 import { LuAlarmClock, LuRefreshCw } from 'react-icons/lu';
 import { Link, Navigate, useParams } from 'react-router-dom';
-import { apiExportExamResult, apiGetExamById, apiUpdateExamStatus } from '~api/exam';
+import { apiExportExamResult, apiGetExamById, apiGetExamResults, apiUpdateExamStatus } from '~api/exam';
 import Loading from '~components/Loading';
 import YesNoPopUp from '~components/YesNoPopUp';
 import QUERY_KEYS from '~constants/query-keys';
@@ -39,10 +39,17 @@ export default function Exam() {
         enabled: permissions.has('exam_view'),
         retry: false,
     });
+    const resultsQueryData = useQuery({
+        queryKey: [QUERY_KEYS.EXAM_RESULTS, { id: id }],
+        queryFn: () => apiGetExamResults(String(id)),
+        refetchOnWindowFocus: false,
+        enabled: permissions.has('exam_view'),
+        retry: false,
+    });
     const onMutateSuccess = () => { queryData.refetch(); };
-    const isSubmitted = queryData.data ?
-        queryData.data.result.find(item => item.studentId === user.user!.id)
-            ?.correctCount !== null
+    const isSubmitted = resultsQueryData.data ?
+        resultsQueryData.data.find(item => item.user.id === user.user!.id)
+            ?.result?.correctCount !== null
         : false;
     const handleExportExamResult = () => {
         setIsExporting(true);
@@ -196,13 +203,15 @@ export default function Exam() {
                                     <button
                                         className={
                                             css(
-                                                queryData.isFetching ? appStyles.buttonSubmitting : '',
-                                                queryData.isFetching ? styles.refreshing : '',
+                                                queryData.isFetching && resultsQueryData.isFetching ? appStyles.buttonSubmitting : '',
+                                                queryData.isFetching && resultsQueryData.isFetching ? styles.refreshing : '',
                                                 appStyles.actionItem
                                             )
                                         }
-                                        onClick={() => { queryData.refetch(); }}
-                                    >
+                                        onClick={() => {
+                                            queryData.refetch();
+                                            resultsQueryData.refetch();
+                                        }}>
                                         <LuRefreshCw />
                                         {language?.refresh}
                                     </button>
@@ -238,32 +247,50 @@ export default function Exam() {
                                                 <th className={css(styles.column, styles.medium)}>
                                                     {language?.submittedAt}
                                                 </th>
+                                                <th className={css(styles.column, styles.medium)}>
+                                                    Phúc khảo
+                                                </th>
+                                                <th className={css(styles.column, styles.medium)}>
+                                                    Hủy kết quả
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
-                                                queryData.data.result.map(item => {
+                                                resultsQueryData.data?.map(item => {
                                                     return (
-                                                        <tr key={`exam-result-${item.studentId}`}>
+                                                        <tr key={`exam-result-${item.user.id}`}>
                                                             <td className={css(styles.column, styles.superLarge)}>
-                                                                {languageUtils.getFullName(item.firstName, item.lastName)}
+                                                                {languageUtils.getFullName(item.user.firstName, item.user.lastName)}
                                                             </td>
                                                             <td className={css(styles.column, styles.medium)}>
-                                                                {item.schoolClassShortcode}
+                                                                {item.user.schoolClass?.shortcode}
                                                             </td>
                                                             <td className={css(styles.column, styles.medium)}>
-                                                                {language?.genders[item.gender]}
+                                                                {language?.genders[item.user.gender]}
                                                             </td>
                                                             <td className={css(styles.column, styles.medium)}>
-                                                                {isExamOver === true && item.questionCount === null ? 0 :
-                                                                    item.correctCount === null
-                                                                        ? language?.didNotSubmitted :
-                                                                        caculateScore(item.correctCount, item.questionCount)}
+                                                                {
+                                                                    isExamOver === true && item.result === null ? 0 :
+                                                                        item.result !== null ?
+                                                                            caculateScore(item.result.correctCount, item.result.questionCount)
+                                                                            : language?.didNotSubmitted
+                                                                }
                                                             </td>
                                                             <td className={css(styles.column, styles.medium)}>
-                                                                {item.submittedAt ?
-                                                                    new Date(item.submittedAt).toLocaleString(appLanguage.language)
+                                                                {item.result?.createdAt ?
+                                                                    new Date(item.result.createdAt).toLocaleString(appLanguage.language)
                                                                     : null}
+                                                            </td>
+                                                            <td className={css(styles.column, styles.medium)}>
+                                                                {
+                                                                    item.result?.remarkByUserId ? 'Có' : 'Không'
+                                                                }
+                                                            </td>
+                                                            <td className={css(styles.column, styles.medium)}>
+                                                                {
+                                                                    item.result?.cancelledByUserId ? 'Có' : 'Không'
+                                                                }
                                                             </td>
                                                         </tr>
                                                     );

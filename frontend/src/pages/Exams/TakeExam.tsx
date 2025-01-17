@@ -14,7 +14,7 @@ import YesNoPopUp from '~components/YesNoPopUp';
 import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
-import { ExamResult } from '~models/exam';
+import { ExamResult } from '~models/exam-result';
 import timeUtils from '~utils/timeUtils';
 import ExamQuestion from './components/ExamQuestion';
 
@@ -84,6 +84,7 @@ export default function TakeExam() {
         if (!queryData.data) return;
         return () => {
             queryClient.refetchQueries({ queryKey: [QUERY_KEYS.EXAM, { id: id }] });
+            queryClient.refetchQueries({ queryKey: [QUERY_KEYS.EXAM_RESULTS, { id: id }] });
             queryClient.removeQueries({ queryKey: [QUERY_KEYS.EXAM_QUESTIONS, { examId: id }] });
         };
     }, [id, queryClient, queryData.data]);
