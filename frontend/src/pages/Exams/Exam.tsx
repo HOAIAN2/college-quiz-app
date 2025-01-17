@@ -248,10 +248,10 @@ export default function Exam() {
                                                     {language?.submittedAt}
                                                 </th>
                                                 <th className={css(styles.column, styles.medium)}>
-                                                    Phúc khảo
+                                                    {language?.remarked}
                                                 </th>
                                                 <th className={css(styles.column, styles.medium)}>
-                                                    Hủy kết quả
+                                                    {language?.cancelled}
                                                 </th>
                                             </tr>
                                         </thead>
@@ -284,12 +284,12 @@ export default function Exam() {
                                                             </td>
                                                             <td className={css(styles.column, styles.medium)}>
                                                                 {
-                                                                    item.result?.remarkByUserId ? 'Có' : 'Không'
+                                                                    item.result?.remarkByUserId ? language?.yes : language?.no
                                                                 }
                                                             </td>
                                                             <td className={css(styles.column, styles.medium)}>
                                                                 {
-                                                                    item.result?.cancelledByUserId ? 'Có' : 'Không'
+                                                                    item.result?.cancelledByUserId ? language?.yes : language?.no
                                                                 }
                                                             </td>
                                                         </tr>
