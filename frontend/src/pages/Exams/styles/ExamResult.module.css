@@ -22,7 +22,6 @@
 }
 
 .questionOptionContainer {
-    cursor: pointer;
     display: flex;
     gap: 5px;
 }

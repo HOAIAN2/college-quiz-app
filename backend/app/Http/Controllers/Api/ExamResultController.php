@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Enums\PermissionType;
+use App\Enums\RoleType;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExamResult\CancelRequest;
@@ -76,6 +77,32 @@ class ExamResultController extends Controller
             }
             $target_exam_result = ExamResult::findOrFail($id);
 
+            // Check valid permission
+            $exam = Exam::query();
+            switch ($user->role_id) {
+                case RoleType::ADMIN->value:
+                    break;
+                // case RoleType::STUDENT->value:
+                //     $exam = $exam
+                //         ->whereHas('course.enrollments', function ($query) use ($user) {
+                //             $query->where('student_id', '=', $user->id);
+                //         });
+                //     break;
+                case RoleType::TEACHER->value:
+                    $exam = $exam
+                        ->whereHas('course.teacher', function ($query) use ($user) {
+                            $query->where('id', '=', $user->id);
+                        })
+                        ->orWhereHas('supervisors', function ($query) use ($user) {
+                            $query->where('user_id', '=', $user->id);
+                        });
+                    break;
+                default:
+                    return Reply::error(trans('app.errors.something_went_wrong'), 500);
+                    break;
+            }
+            $exam->findOrFail($target_exam_result->exam_id);
+
             // Limit time to remark 2 months
             if (!$now->subDays($can_remark_within_days)->greaterThan(Carbon::parse($target_exam_result->created_at))) {
                 return Reply::error(trans('exam.can_remark_within_days', [
@@ -123,6 +150,32 @@ class ExamResultController extends Controller
                 return Reply::error(trans('auth.errors.password_incorrect'));
             }
             $target_exam_result = ExamResult::findOrFail($id);
+            // Check valid permission
+            $exam = Exam::query();
+            switch ($user->role_id) {
+                case RoleType::ADMIN->value:
+                    break;
+                // case RoleType::STUDENT->value:
+                //     $exam = $exam
+                //         ->whereHas('course.enrollments', function ($query) use ($user) {
+                //             $query->where('student_id', '=', $user->id);
+                //         });
+                //     break;
+                case RoleType::TEACHER->value:
+                    $exam = $exam
+                        ->whereHas('course.teacher', function ($query) use ($user) {
+                            $query->where('id', '=', $user->id);
+                        })
+                        ->orWhereHas('supervisors', function ($query) use ($user) {
+                            $query->where('user_id', '=', $user->id);
+                        });
+                    break;
+                default:
+                    return Reply::error(trans('app.errors.something_went_wrong'), 500);
+                    break;
+            }
+            $exam->findOrFail($target_exam_result->exam_id);
+            
             $target_exam_result->update([
                 'cancellation_reason' => $request->cancellation_reason,
                 'cancelled_at' => Carbon::now(),
