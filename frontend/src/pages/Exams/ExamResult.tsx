@@ -41,6 +41,8 @@ function ExamResult() {
                                 <div className={styles.questionsContainer}>
                                     {
                                         queryData.data.examQuestionsAnswers.map(answer => {
+                                            const selectAnswer = answer.examQuestion.question.questionOptions.findIndex(option => option.id === answer.answerId);
+                                            const correctAnswer = answer.examQuestion.question.questionOptions.findIndex(option => option.isCorrect);
                                             return (
                                                 <div key={answer.id}
                                                     className={styles.examQuestionContainer}
@@ -54,18 +56,26 @@ function ExamResult() {
                                                         answer.examQuestion.question.questionOptions.map((option, i) => {
                                                             return (
                                                                 <div key={option.id}
-                                                                    className={styles.questionOptionContainer}>
+                                                                    className={styles.questionOptionContainer}
+                                                                >
                                                                     <div>{languageUtils.getLetterFromIndex(i)}.</div>
                                                                     <p dangerouslySetInnerHTML={{ __html: option.content }}></p>
                                                                 </div>
                                                             );
                                                         })
                                                     }
+                                                    <br />
+                                                    <div>Kết quả: {answer.isCorrect ? 'Đúng' : 'Sai'}</div>
+                                                    <div>Đáp án lựa chọn: {languageUtils.getLetterFromIndex(selectAnswer)}</div>
+                                                    <div>Đáp án đúng: {languageUtils.getLetterFromIndex(correctAnswer)}</div>
                                                 </div>
                                             );
                                         })
                                     }
                                 </div>
+                            </section>
+                            <section>
+                                <h2>Hành động</h2>
                             </section>
                         </> : null
                 }
