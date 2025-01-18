@@ -13,8 +13,8 @@ export type ExamResult = {
     cancellationReason: string | null;
     cancelledByUserId: number | null,
     remarkByUserId: number | null,
-    createdAt: string | null;
-    updatedAt: string | null;
+    createdAt: string;
+    updatedAt: string;
 };
 
 export type ExamResultWithUser = {
@@ -33,7 +33,7 @@ export type ExamResultWithUser = {
 };
 
 export type ExamResultWithAnswers = {
-    examResult: ExamResultWithUser;
+    examResult: ExamResult;
     examQuestionsAnswers: ExamQuestionsAnswer[];
 };
 

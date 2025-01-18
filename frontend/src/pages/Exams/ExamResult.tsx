@@ -7,12 +7,14 @@ import { apiGetExamResult } from '~api/exam-result';
 import Loading from '~components/Loading';
 import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
+import useLanguage from '~hooks/useLanguage';
 import caculateScore from '~utils/caculateScore';
 import css from '~utils/css';
 import languageUtils from '~utils/languageUtils';
 
 function ExamResult() {
-    const { permissions } = useAppContext();
+    const { permissions, appLanguage } = useAppContext();
+    const language = useLanguage('page.exam_result');
     const { resultId } = useParams();
     const queryData = useQuery({
         queryKey: [QUERY_KEYS.EXAM_RESULT, { id: resultId }],
@@ -31,16 +33,16 @@ function ExamResult() {
                     queryData.data ?
                         <>
                             <section>
-                                <h2>Kết quả</h2>
-                                <div>Số câu đúng: {queryData.data.examResult.correctCount}</div>
-                                <div>Số câu hỏi: {queryData.data.examResult.questionCount}</div>
-                                <div>Điểm số: {caculateScore(queryData.data.examResult.correctCount, queryData.data.examResult.questionCount)}</div>
+                                <h2>{language?.result}</h2>
+                                <div>{language?.numberOfCorrectAnswers}: {queryData.data.examResult.correctCount}</div>
+                                <div>{language?.numberOfQuestion}: {queryData.data.examResult.questionCount}</div>
+                                <div>{language?.score}: {caculateScore(queryData.data.examResult.correctCount, queryData.data.examResult.questionCount)}</div>
+                                <div>{language?.submittedAt}: {new Date(queryData.data.examResult.createdAt).toLocaleString(appLanguage.language)}</div>
                             </section>
                             <section>
-                                <h2>Chi tiết</h2>
                                 <div className={styles.questionsContainer}>
                                     {
-                                        queryData.data.examQuestionsAnswers.map(answer => {
+                                        queryData.data.examQuestionsAnswers.map((answer, index) => {
                                             const selectAnswer = answer.examQuestion.question.questionOptions.findIndex(option => option.id === answer.answerId);
                                             const correctAnswer = answer.examQuestion.question.questionOptions.findIndex(option => option.isCorrect);
                                             return (
@@ -49,7 +51,7 @@ function ExamResult() {
                                                 >
                                                     <div
                                                         dangerouslySetInnerHTML={{
-                                                            __html: answer.examQuestion.question.content
+                                                            __html: `<span>${language?.question} ${index + 1}. ${answer.examQuestion.question.content}</span>`
                                                         }}>
                                                     </div>
                                                     {
@@ -65,9 +67,13 @@ function ExamResult() {
                                                         })
                                                     }
                                                     <br />
-                                                    <div>Kết quả: {answer.isCorrect ? 'Đúng' : 'Sai'}</div>
-                                                    <div>Đáp án lựa chọn: {languageUtils.getLetterFromIndex(selectAnswer)}</div>
-                                                    <div>Đáp án đúng: {languageUtils.getLetterFromIndex(correctAnswer)}</div>
+                                                    <div>{language?.result}: {
+                                                        answer.isCorrect ?
+                                                            <span style={{ fontWeight: 'bold', color: 'var(--color-green)' }}>{language?.right}</span>
+                                                            : <span style={{ fontWeight: 'bold', color: 'var(--color-red)' }}>{language?.wrong}</span>}
+                                                    </div>
+                                                    <div>{language?.choosenAnswer}: {languageUtils.getLetterFromIndex(selectAnswer)}</div>
+                                                    <div>{language?.correctAnswer}: {languageUtils.getLetterFromIndex(correctAnswer)}</div>
                                                 </div>
                                             );
                                         })
@@ -75,7 +81,16 @@ function ExamResult() {
                                 </div>
                             </section>
                             <section>
-                                <h2>Hành động</h2>
+                                <div className={styles.actionItems}>
+                                    <button
+                                        className={appStyles.actionItem}>
+                                        {language?.remark}
+                                    </button>
+                                    <button
+                                        className={appStyles.actionItemWhiteBorderRed}>
+                                        {language?.cancel}
+                                    </button>
+                                </div>
                             </section>
                         </> : null
                 }
