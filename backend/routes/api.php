@@ -148,7 +148,7 @@ Route::prefix('/exams')->middleware(AUTH_MIDDLEWARES)
                 Route::post('/{id}/submit', 'submit');
             });
         Route::get('/{id}/results', 'getResults');
-        Route::get('/{id}/export-result', 'exportResult');
+        Route::get('/{id}/export-results', 'exportResults');
         Route::post('/{id}/status', 'updateStatus');
         Route::get('/{id}', 'show');
         Route::put('/{id}', 'update');

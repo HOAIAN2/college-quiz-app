@@ -657,7 +657,7 @@ class ExamController extends Controller
         }
     }
 
-    public function exportResult(string $id)
+    public function exportResults(string $id)
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::EXAM_VIEW), 403);

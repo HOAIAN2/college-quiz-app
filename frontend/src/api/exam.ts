@@ -121,7 +121,7 @@ export async function apiSubmitExam(id: string | number, answers: number[], bypa
 
 export async function apiExportExamResult(id: string | number, defaultFileName: string) {
     try {
-        const apiPath = `${prefix}/${id}/export-result`;
+        const apiPath = `${prefix}/${id}/export-results`;
         const res: AxiosResponse<Blob> = await request.get(apiPath, {
             responseType: 'blob'
         });

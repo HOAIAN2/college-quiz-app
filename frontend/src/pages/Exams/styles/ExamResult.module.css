@@ -1,0 +1,28 @@
+.examResultContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
+.questionsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.examQuestionContainer {
+    width: 100%;
+    height: fit-content;
+    border-radius: var(--border-radius-low);
+    box-shadow: 0px 0px 10px var(--color-shadow);
+    border: 1px solid var(--color-white);
+    background-color: white;
+    padding: 10px;
+}
+
+.questionOptionContainer {
+    cursor: pointer;
+    display: flex;
+    gap: 5px;
+}
