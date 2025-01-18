@@ -42,7 +42,8 @@ return [
         'teacher_id' => 'giáo viên',
         'exam_date' => 'ngày thi',
         'exam_time' => 'thời gian thi',
-        'question_counts' => 'số lượng câu hỏi'
+        'question_counts' => 'số lượng câu hỏi',
+        'cancellation_reason' => 'Lý do hủy',
     ],
     'custom' => [
         'role' => [

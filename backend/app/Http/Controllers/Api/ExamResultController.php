@@ -131,7 +131,7 @@ class ExamResultController extends Controller
             $exam->findOrFail($target_exam_result->exam_id);
 
             // Limit time to remark 2 months
-            if (!$now->subDays($can_remark_within_days)->greaterThan(Carbon::parse($target_exam_result->created_at))) {
+            if ($now->subDays($can_remark_within_days)->greaterThan(Carbon::parse($target_exam_result->created_at))) {
                 return Reply::error(trans('exam.can_remark_within_days', [
                     'days' => $can_remark_within_days
                 ]));
@@ -146,7 +146,7 @@ class ExamResultController extends Controller
             $correct_count = 0;
             foreach ($answers as $answer) {
                 $current_is_correct = $answer->is_correct;
-                $new_is_correct = $answer->question_option()->is_correct;
+                $new_is_correct = $answer->question_option->is_correct;
                 if ($new_is_correct) $correct_count++;
                 if ($current_is_correct != $new_is_correct) {
                     $answer->update([

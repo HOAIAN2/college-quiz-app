@@ -16,3 +16,21 @@ export async function apiGetExamResult(id: string | number) {
         return apiUtils.handleError(error);
     }
 }
+
+export async function apiRemarkExamResult(id: string | number, formData: FormData) {
+    try {
+        const apiPath = `${prefix}/${id}/remark`;
+        await request.post(apiPath, formData);
+    } catch (error: any) {
+        return apiUtils.handleError(error);
+    }
+}
+
+export async function apiCacelExamResult(id: string | number, formData: FormData) {
+    try {
+        const apiPath = `${prefix}/${id}/cancel`;
+        await request.post(apiPath, formData);
+    } catch (error: any) {
+        return apiUtils.handleError(error);
+    }
+}

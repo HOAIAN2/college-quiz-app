@@ -9,6 +9,7 @@ export type Language = {
 	'component.create_semester': typeof import('../../assets/langs/en/component.create_semester.ts').default;
 	'component.create_subject': typeof import('../../assets/langs/en/component.create_subject.ts').default;
 	'component.create_user': typeof import('../../assets/langs/en/component.create_user.ts').default;
+	'component.exam_action_popup': typeof import('../../assets/langs/en/component.exam_action_popup.ts').default;
 	'component.exam_question': typeof import('../../assets/langs/en/component.exam_question.ts').default;
 	'component.export_users': typeof import('../../assets/langs/en/component.export_users.ts').default;
 	'component.faculties_table': typeof import('../../assets/langs/en/component.faculties_table.ts').default;

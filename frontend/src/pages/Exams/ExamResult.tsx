@@ -1,8 +1,8 @@
 import appStyles from '~styles/App.module.css';
 import styles from './styles/ExamResult.module.css';
 
-import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { apiGetExamById } from '~api/exam';
 import { apiGetExamResult } from '~api/exam-result';
@@ -14,10 +14,14 @@ import NotFound from '~pages/Errors/NotFound';
 import caculateScore from '~utils/caculateScore';
 import css from '~utils/css';
 import languageUtils from '~utils/languageUtils';
+import ExamActionPopUp from './components/ExamActionPopUp';
 
 function ExamResult() {
+    const [showActionPopUp, setShowActionPopUp] = useState(false);
+    const [action, setAction] = useState<'cancel' | 'remark'>('cancel');
     const { permissions, appLanguage, appTitle } = useAppContext();
     const language = useLanguage('page.exam_result');
+    const queryClient = useQueryClient();
     const { id, resultId } = useParams();
     const queryData = useQuery({
         queryKey: [QUERY_KEYS.EXAM_RESULT, { id: resultId }],
@@ -37,6 +41,10 @@ function ExamResult() {
     const durationFormat = new Intl.DurationFormat(appLanguage.language, {
         style: 'long'
     });
+    const onMutateSuccess = () => {
+        queryClient.refetchQueries({ queryKey: [QUERY_KEYS.EXAM_RESULT, { id: resultId }] });
+        queryClient.removeQueries({ queryKey: [QUERY_KEYS.EXAM_RESULTS, { examId: id }] });
+    };
     useEffect(() => {
         if (language) appTitle.setAppTitle(language.examResult);
     }, [appTitle, language]);
@@ -48,6 +56,15 @@ function ExamResult() {
     if (!permissions.has('exam_result_view')) return <Navigate to='/' />;
     return (
         <>
+            {
+                showActionPopUp ?
+                    <ExamActionPopUp
+                        action={action}
+                        examResultId={String(resultId)}
+                        setShowPopUp={setShowActionPopUp}
+                        onMutateSuccess={onMutateSuccess}
+                    /> : null
+            }
             <main className={css(appStyles.dashboard, styles.examResultContainer)}>
                 {
                     queryData.isLoading || examQueryData.isLoading ? <Loading /> : null
@@ -65,6 +82,18 @@ function ExamResult() {
                                 <p>{language?.numberOfQuestion}: {queryData.data.examResult.questionCount}</p>
                                 <p>{language?.score}: {caculateScore(queryData.data.examResult.correctCount, queryData.data.examResult.questionCount)}</p>
                                 <p>{language?.submittedAt}: {new Date(queryData.data.examResult.createdAt).toLocaleString(appLanguage.language)}</p>
+                                <br />
+                                {
+                                    queryData.data.examResult.remarkByUserId
+                                        ? <p>{language?.remarked}</p> : null
+                                }
+                                {
+                                    queryData.data.examResult.cancelledByUserId ?
+                                        <>
+                                            <p style={{ color: 'var(--color-red)' }}>{language?.cancelled}</p>
+                                            <p>{language?.cancellationReason}: {queryData.data.examResult.cancellationReason}</p>
+                                        </> : null
+                                }
                             </section>
                             <section>
                                 <div className={styles.questionsContainer}>
@@ -108,16 +137,35 @@ function ExamResult() {
                                 </div>
                             </section>
                             <section>
-                                <div className={styles.actionItems}>
-                                    <button
-                                        className={appStyles.actionItem}>
-                                        {language?.remark}
-                                    </button>
-                                    <button
-                                        className={appStyles.actionItemWhiteBorderRed}>
-                                        {language?.cancel}
-                                    </button>
-                                </div>
+                                {
+                                    permissions.hasAnyFormList(['exam_result_remark', 'exam_result_cancel']) ?
+                                        <div className={styles.actionItems}>
+                                            {
+                                                permissions.has('exam_result_remark') && queryData.data.examResult.cancelledByUserId === null ?
+                                                    <button
+                                                        className={appStyles.actionItem}
+                                                        onClick={() => {
+                                                            setAction('remark');
+                                                            setShowActionPopUp(true);
+                                                        }}
+                                                    >
+                                                        {language?.remark}
+                                                    </button> : null
+                                            }
+                                            {
+                                                permissions.has('exam_result_cancel') && queryData.data.examResult.cancelledByUserId === null ?
+                                                    <button
+                                                        className={appStyles.actionItemWhiteBorderRed}
+                                                        onClick={() => {
+                                                            setAction('cancel');
+                                                            setShowActionPopUp(true);
+                                                        }}
+                                                    >
+                                                        {language?.cancel}
+                                                    </button> : null
+                                            }
+                                        </div> : null
+                                }
                             </section>
                         </> : null
                 }

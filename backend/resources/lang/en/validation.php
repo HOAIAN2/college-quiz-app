@@ -42,7 +42,8 @@ return [
         'teacher_id' => 'teacher',
         'exam_date' => 'exam date',
         'exam_time' => 'exam time',
-        'question_counts' => 'questions count'
+        'question_counts' => 'questions count',
+        'cancellation_reason' => 'cancellation reason',
     ],
     'custom' => [
         'role' => [

@@ -160,6 +160,6 @@ Route::prefix('/exams')->middleware(AUTH_MIDDLEWARES)
 Route::prefix('/exam-results')->middleware(AUTH_MIDDLEWARES)
     ->controller(ExamResultController::class)->group(function () {
         Route::get('/{id}', 'show');
-        Route::get('/{id}/remark', 'remark');
+        Route::post('/{id}/remark', 'remark');
         Route::post('/{id}/cancel', 'cancel');
     });

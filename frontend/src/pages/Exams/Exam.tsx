@@ -40,7 +40,7 @@ export default function Exam() {
         retry: false,
     });
     const resultsQueryData = useQuery({
-        queryKey: [QUERY_KEYS.EXAM_RESULTS, { id: id }],
+        queryKey: [QUERY_KEYS.EXAM_RESULTS, { examId: id }],
         queryFn: () => apiGetExamResults(String(id)),
         refetchOnWindowFocus: false,
         enabled: permissions.has('exam_view'),
