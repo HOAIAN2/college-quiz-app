@@ -36,6 +36,33 @@ class ExamResultController extends Controller
 
         try {
             $exam_result = ExamResult::with('user')->findOrFail($id);
+
+            // Check valid permission
+            $exam = Exam::query();
+            switch ($user->role_id) {
+                case RoleType::ADMIN->value:
+                    break;
+                case RoleType::STUDENT->value:
+                    $exam = $exam
+                        ->whereHas('course.enrollments', function ($query) use ($user) {
+                            $query->where('student_id', '=', $user->id);
+                        });
+                    break;
+                case RoleType::TEACHER->value:
+                    $exam = $exam
+                        ->whereHas('course.teacher', function ($query) use ($user) {
+                            $query->where('id', '=', $user->id);
+                        })
+                        ->orWhereHas('supervisors', function ($query) use ($user) {
+                            $query->where('user_id', '=', $user->id);
+                        });
+                    break;
+                default:
+                    return Reply::error(trans('app.errors.something_went_wrong'), 500);
+                    break;
+            }
+            $exam->findOrFail($exam_result->exam_id);
+
             $exam_questions_order = ExamQuestionsOrder::where('exam_id', $exam_result->exam_id)
                 ->where('user_id', '=', $exam_result->user_id)
                 ->firstOrFail();
@@ -175,7 +202,7 @@ class ExamResultController extends Controller
                     break;
             }
             $exam->findOrFail($target_exam_result->exam_id);
-            
+
             $target_exam_result->update([
                 'cancellation_reason' => $request->cancellation_reason,
                 'cancelled_at' => Carbon::now(),
