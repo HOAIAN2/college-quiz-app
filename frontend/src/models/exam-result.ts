@@ -17,23 +17,10 @@ export type ExamResult = {
     updatedAt: string;
 };
 
-export type ExamResultWithUser = {
-    id: number;
-    examId: number;
-    userId: number;
-    correctCount: number;
-    questionCount: number;
-    ip: string;
-    userAgent: string;
-    cancelledAt: string | null;
-    cancellationReason: string | null;
-    createdAt: string | null;
-    updatedAt: string | null;
-    user: User;
-};
-
 export type ExamResultWithAnswers = {
-    examResult: ExamResult;
+    examResult: ExamResult & {
+        user: User;
+    };
     examQuestionsAnswers: ExamQuestionsAnswer[];
 };
 

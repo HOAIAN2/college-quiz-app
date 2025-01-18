@@ -34,7 +34,7 @@ class ExamResultController extends Controller
         abort_if(!$user->hasPermission(PermissionType::EXAM_RESULT_VIEW), 403);
 
         try {
-            $exam_result = ExamResult::findOrFail($id);
+            $exam_result = ExamResult::with('user')->findOrFail($id);
             $exam_questions_order = ExamQuestionsOrder::where('exam_id', $exam_result->exam_id)
                 ->where('user_id', '=', $exam_result->user_id)
                 ->firstOrFail();

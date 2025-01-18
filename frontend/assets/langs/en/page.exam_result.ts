@@ -1,4 +1,8 @@
 export default {
+    examResult: 'Exam result',
+    examName: 'Exam name',
+    examTime: 'Exam time',
+    studentName: 'Student\'s name',
     numberOfCorrectAnswers: 'Number of correct answers',
     numberOfQuestion: 'Number of questions',
     score: 'Score',
@@ -10,5 +14,5 @@ export default {
     right: 'Right',
     wrong: 'Wrong',
     remark: 'Remark',
-    cancel: 'Cancel',
+    cancel: 'Cancel result',
 };

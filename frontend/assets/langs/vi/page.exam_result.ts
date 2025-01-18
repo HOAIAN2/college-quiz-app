@@ -1,4 +1,8 @@
 export default {
+    examResult: 'Kết quả bài thi',
+    examName: 'Tên bài thi',
+    examTime: 'Thời gian',
+    studentName: 'Tên sinh viên',
     numberOfCorrectAnswers: 'Số câu đúng',
     numberOfQuestion: 'Số câu hỏi',
     score: 'Điểm số',
@@ -10,5 +14,5 @@ export default {
     right: 'Đúng',
     wrong: 'Sai',
     remark: 'Phúc khảo',
-    cancel: 'Hủy',
+    cancel: 'Hủy kết quả',
 };
