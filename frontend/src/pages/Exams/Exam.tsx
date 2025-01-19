@@ -49,7 +49,7 @@ export default function Exam() {
     const onMutateSuccess = () => { queryData.refetch(); };
     const isSubmitted = resultsQueryData.data ?
         resultsQueryData.data.find(item => item.user.id === user.user!.id)
-            ?.result?.correctCount !== null
+            ?.result !== null
         : false;
     const handleExportExamResult = () => {
         setIsExporting(true);
