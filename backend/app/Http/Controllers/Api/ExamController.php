@@ -639,13 +639,21 @@ class ExamController extends Controller
             }
             $exam = $exam->findOrFail($id);
             $results = [];
-            $students = Course::findOrFail($exam->course_id)->enrollments->pluck('user');
+
+            $students = Course::with([
+                'students' => function ($query) use ($exam) {
+                    $query->with([
+                        'school_class',
+                        'exam_results' => function ($result_query) use ($exam) {
+                            $result_query->where('exam_id', $exam->id);
+                        }
+                    ]);
+                }
+            ])->findOrFail($exam->course_id)
+                ->students;
 
             foreach ($students as $student) {
-                $student->load('school_class');
-                $exam_result = $student->exam_results()
-                    ->where('exam_id', $exam->id)
-                    ->first();
+                $exam_result = $student->exam_results->first();
                 $results[] = [
                     'user' => $student,
                     'result' => $exam_result,
@@ -687,14 +695,26 @@ class ExamController extends Controller
             }
             $exam = $exam->findOrFail($id);
             $question_count = $exam->questions()->count();
-            $students = $exam->course->enrollments->pluck('user');
+
+            $students = Course::with([
+                'students' => function ($query) use ($exam) {
+                    $query->with([
+                        'school_class',
+                        'exam_results' => function ($result_query) use ($exam) {
+                            $result_query->where('exam_id', $exam->id);
+                        }
+                    ]);
+                }
+            ])->findOrFail($exam->course_id)
+                ->students;
+
+            $base_score_scale = (int)Setting::get('exam_base_score_scale');
 
             foreach ($students as $student) {
-                $exam_result = $student->exam_results()
-                    ->where('exam_id', $id)
-                    ->first();
-                $score = NumberHelper::caculateScore($exam_result?->correct_count, $question_count);
+                $exam_result = $student->exam_results->first();
+                $score = NumberHelper::caculateScore($exam_result?->correct_count, $question_count, $base_score_scale);
                 $data[] = [
+                    'student_shortcode' => $student->shortcode,
                     'first_name' => $student->first_name,
                     'last_name' => $student->last_name,
                     'school_class_shortcode' => $student->school_class->shortcode,

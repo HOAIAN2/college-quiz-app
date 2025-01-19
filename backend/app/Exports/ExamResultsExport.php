@@ -21,6 +21,7 @@ class ExamResultsExport implements
     public function __construct(Collection $collection)
     {
         $this->headers = [
+            trans('headers.users.shortcode'),
             trans('headers.users.first_name'),
             trans('headers.users.last_name'),
             trans('headers.school_class.shortcode'),

@@ -90,7 +90,7 @@ function ExamResult() {
                                 {
                                     queryData.data.examResult.cancelledByUserId ?
                                         <>
-                                            <p style={{ color: 'var(--color-red)' }}>{language?.cancelled}</p>
+                                            <p style={{ color: 'var(--color-red)', fontWeight: 'bold' }}>{language?.cancelled}</p>
                                             <p>{language?.cancellationReason}: {queryData.data.examResult.cancellationReason}</p>
                                         </> : null
                                 }
@@ -125,7 +125,7 @@ function ExamResult() {
                                                     <br />
                                                     <div>{language?.result}: {
                                                         answer.isCorrect ?
-                                                            <span style={{ fontWeight: 'bold', color: 'var(--color-green)' }}>{language?.right}</span>
+                                                            <span style={{ fontWeight: 'bold', color: 'var(--color-soft-green)' }}>{language?.right}</span>
                                                             : <span style={{ fontWeight: 'bold', color: 'var(--color-red)' }}>{language?.wrong}</span>}
                                                     </div>
                                                     <div>{language?.choosenAnswer}: {languageUtils.getLetterFromIndex(selectAnswer)}</div>
