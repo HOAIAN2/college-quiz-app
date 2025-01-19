@@ -641,19 +641,18 @@ class ExamController extends Controller
             $results = [];
 
             $students = Course::with([
-                'students' => function ($query) use ($exam) {
+                'students' => function ($query) {
                     $query->with([
                         'school_class',
-                        'exam_results' => function ($result_query) use ($exam) {
-                            $result_query->where('exam_id', $exam->id);
-                        }
                     ]);
                 }
             ])->findOrFail($exam->course_id)
                 ->students;
 
+            $exam_results = $exam->exam_results;
+
             foreach ($students as $student) {
-                $exam_result = $student->exam_results->first();
+                $exam_result = $exam_results->where('user_id', '=', $student->id)->first();
                 $results[] = [
                     'user' => $student,
                     'result' => $exam_result,
@@ -697,21 +696,20 @@ class ExamController extends Controller
             $question_count = $exam->questions()->count();
 
             $students = Course::with([
-                'students' => function ($query) use ($exam) {
+                'students' => function ($query) {
                     $query->with([
                         'school_class',
-                        'exam_results' => function ($result_query) use ($exam) {
-                            $result_query->where('exam_id', $exam->id);
-                        }
                     ]);
                 }
             ])->findOrFail($exam->course_id)
                 ->students;
 
+            $exam_results = $exam->exam_results;
+
             $base_score_scale = (int)Setting::get('exam_base_score_scale');
 
             foreach ($students as $student) {
-                $exam_result = $student->exam_results->first();
+                $exam_result = $exam_results->where('user_id', '=', $student->id)->first();
                 $score = NumberHelper::caculateScore($exam_result?->correct_count, $question_count, $base_score_scale);
                 $data[] = [
                     'student_shortcode' => $student->shortcode,
