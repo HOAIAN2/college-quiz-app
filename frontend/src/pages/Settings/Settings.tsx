@@ -16,7 +16,7 @@ import SettingsContent from './components/SettingsContent';
 const STRICT_WIDTH = 800;
 
 export default function Settings() {
-    const { appTitle } = useAppContext();
+    const { user, appTitle } = useAppContext();
     const language = useLanguage('page.settings');
     const [isWindowWidthExceeded, setIsWindowWidthExceeded] = useState(window.innerWidth > STRICT_WIDTH);
     const { name } = useParams();
@@ -26,7 +26,7 @@ export default function Settings() {
             name: language?.system,
             to: 'system',
             icon: <HiOutlineWrenchScrewdriver />,
-            isActive: true
+            isActive: user.user?.role.name === 'admin'
         },
         // {
         //     name: language?.notifications,
@@ -50,12 +50,17 @@ export default function Settings() {
             name: language?.exam,
             to: 'exam',
             icon: <PiExam />,
-            isActive: true
+            isActive: user.user?.role.name === 'admin'
         },
     ];
     useEffect(() => {
+        const defaultSetting = settings.find(setting => setting.isActive);
+        const currentSetting = settings.find(setting => setting.to === name);
         if (!settings.find(setting => setting.to === name) && isWindowWidthExceeded) {
-            navigate(settings[0].to);
+            navigate(defaultSetting!.to);
+        }
+        if (!currentSetting?.isActive) {
+            navigate(defaultSetting!.to)
         }
     });
     useEffect(() => {
