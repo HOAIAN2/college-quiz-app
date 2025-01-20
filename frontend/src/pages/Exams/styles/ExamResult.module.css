@@ -21,6 +21,11 @@
     padding: 10px;
 }
 
+.examQuestionContainer img {
+    width: 50%;
+    max-height: 500px;
+}
+
 .questionOptionContainer {
     display: flex;
     gap: 5px;
@@ -36,4 +41,10 @@
 
 .actionItems button {
     width: fit-content;
+}
+
+@media (width<=800px) {
+    .examQuestionContainer img {
+        width: 100%;
+    }
 }

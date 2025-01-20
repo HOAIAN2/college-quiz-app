@@ -65,10 +65,6 @@
 
 
 @media(width<=800px) {
-    .permissionContent {
-        padding: 20px;
-    }
-
     .listConatiner {
         flex-wrap: wrap;
         gap: 0px;
