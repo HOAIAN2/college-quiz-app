@@ -16,7 +16,7 @@ return [
         'server_error' => 'Lỗi server',
         'fail_to_save_record' => 'Lưu bản ghi thất bại',
         'class_not_exists' => 'Lớp :shortcodes không tồn tại',
-        'fauclty_not_exists' => 'Khoa :shortcodes không tồn tại',
+        'faculty_not_exists' => 'Khoa :shortcodes không tồn tại',
         'semester_over' => 'Học kỳ đã kết thúc',
         'max_chapter_question_count' => 'Chương :name chỉ có :number câu hỏi.',
         'exam_date_greater_than_semester' => 'Ngày thi phải trước :date.',
