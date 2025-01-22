@@ -185,7 +185,7 @@ class QuestionController extends Controller
         try {
             $subject = Subject::findOrFail($request->subject_id);
             $chapter = $subject->chapters()->findOrFail($request->chapter_id);
-            
+
             $php_word = IOFactory::load($file_path);
             $parsed_data = [];
             $current_question = null; // Start with no current question
@@ -222,25 +222,25 @@ class QuestionController extends Controller
                     }
                     if (empty($text)) {
                         // Push line break to current question content or answer
-                        if ($current_question) {
-                            if (count($current_question['answers']) == 0) {
-                                $current_question['content'] = $current_question['content'] . '<br>';
-                            } else {
-                                $last_answer_index = count($current_question['answers']) - 1;
-                                $current_question[$last_answer_index]['content'] = $current_question[$last_answer_index]['content'] . '<br>';
-                            }
-                        }
+                        // if ($current_question) {
+                        //     if (count($current_question['answers']) == 0) {
+                        //         $current_question['content'] = $current_question['content'] . '<br>';
+                        //     } else {
+                        //         $last_answer_index = count($current_question['answers']) - 1;
+                        //         $current_question['answers'][$last_answer_index]['content'] = $current_question['answers'][$last_answer_index]['content'] . '<br>';
+                        //     }
+                        // }
                         continue;
                     };
 
-                    if (preg_match('/^quest\s*(.+)$/i', $text, $question_match)) {
+                    if (preg_match('/^(easy|medium|hard|expert)\squest\s*(.+)$/i', $text, $question_match)) {
                         // If a new question is found, push last question and init new one.
                         if ($current_question !== null) {
                             $parsed_data[] = $current_question;
                         }
                         $current_question = [
-                            'content' => trim($question_match[1]),
-                            'level' => 'easy',
+                            'content' => trim($question_match[2]),
+                            'level' => $question_match[1],
                             'subject_id' => $subject->id,
                             'chapter_id' => $chapter->id,
                             'answers' => [],
@@ -253,7 +253,7 @@ class QuestionController extends Controller
                             })) != 0;
                             $current_question['answers'][] = [
                                 'content' => trim($answer_match[1]),
-                                'is_correct' =>$already_have_correct == false ? $is_correct: false
+                                'is_correct' => $already_have_correct == false ? $is_correct : false
                             ];
                         }
                     } else {

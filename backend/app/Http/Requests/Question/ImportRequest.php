@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests\Question;
 
+use App\Traits\CustomValidateResponse;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ImportRequest extends FormRequest
 {
+    use CustomValidateResponse;
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,7 +26,7 @@ class ImportRequest extends FormRequest
         return [
             'subject_id' => ['required', 'integer'],
             'chapter_id' => ['required', 'integer'],
-            // 'file' => ['required', 'mimes:doc,docx'],
+            'file' => ['required', 'mimes:docx,doc'],
         ];
     }
 }
