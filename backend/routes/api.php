@@ -115,6 +115,7 @@ Route::prefix('/questions')->middleware(AUTH_MIDDLEWARES)
         Route::get('/{id}', 'show');
         Route::put('/{id}', 'update');
         Route::delete('/{id}', 'destroy');
+        Route::post('/import', 'import');
         Route::get('/', 'index');
         Route::post('/', 'store');
     });

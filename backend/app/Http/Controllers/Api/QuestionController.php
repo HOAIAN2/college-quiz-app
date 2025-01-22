@@ -6,6 +6,7 @@ use App\Enums\PermissionType;
 use App\Helper\DOMStringHelper;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Question\ImportRequest;
 use App\Http\Requests\Question\IndexRequest;
 use App\Http\Requests\Question\StoreRequest;
 use App\Http\Requests\Question\UpdateRequest;
@@ -14,6 +15,7 @@ use App\Models\Question;
 use App\Models\QuestionOption;
 use App\Models\Subject;
 use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpWord\IOFactory;
 
 class QuestionController extends Controller
 {
@@ -163,6 +165,126 @@ class QuestionController extends Controller
             Question::destroy($id);
             DB::commit();
             return Reply::successWithMessage(trans('app.successes.record_delete_success'));
+        } catch (\Exception $error) {
+            DB::rollBack();
+            return $this->handleException($error);
+        }
+    }
+
+    public function import(ImportRequest $request)
+    {
+        // Validate the uploaded file
+        // $request->validate([
+        //     'file' => 'required|mimes:doc,docx|max:2048', // Accept only .doc and .docx files
+        // ]);
+
+        $file = $request->file('file');
+        $file_path = $file->getPathname();
+
+        DB::beginTransaction();
+        try {
+            $subject = Subject::findOrFail($request->subject_id);
+            $chapter = $subject->chapters()->findOrFail($request->chapter_id);
+            
+            $php_word = IOFactory::load($file_path);
+            $parsed_data = [];
+            $current_question = null; // Start with no current question
+            foreach ($php_word->getSections() as $section) {
+                // Element is a line;
+                foreach ($section->getElements() as $element) {
+                    $text = '';
+                    $is_correct = false;
+
+                    if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
+                        foreach ($element->getElements() as $text_element) {
+                            if ($text_element instanceof \PhpOffice\PhpWord\Element\Text) {
+                                $sub_text = $text_element->getText();
+                                $style = $text_element->getFontStyle();
+
+                                // Text begin with 'ans' and underline is a correct answer
+                                if (!$text && $style->getUnderline() != 'none' && $sub_text == 'ans') {
+                                    $is_correct = true;
+                                }
+
+                                if ($style->isBold()) {
+                                    $text = $text . "<b>$sub_text</b>";
+                                } elseif ($style->isItalic()) {
+                                    $text = $text . "<i>$sub_text</i>";
+                                } else {
+                                    $text = $text . $sub_text;
+                                }
+                            }
+                        }
+                    } elseif ($element instanceof \PhpOffice\PhpWord\Element\Text) {
+                        $text = $text . $element->getText();
+                        $sub_text = $element->getText();
+                        $style = $element->getFontStyle();
+                    }
+                    if (empty($text)) {
+                        // Push line break to current question content or answer
+                        if ($current_question) {
+                            if (count($current_question['answers']) == 0) {
+                                $current_question['content'] = $current_question['content'] . '<br>';
+                            } else {
+                                $last_answer_index = count($current_question['answers']) - 1;
+                                $current_question[$last_answer_index]['content'] = $current_question[$last_answer_index]['content'] . '<br>';
+                            }
+                        }
+                        continue;
+                    };
+
+                    if (preg_match('/^quest\s*(.+)$/i', $text, $question_match)) {
+                        // If a new question is found, push last question and init new one.
+                        if ($current_question !== null) {
+                            $parsed_data[] = $current_question;
+                        }
+                        $current_question = [
+                            'content' => trim($question_match[1]),
+                            'level' => 'easy',
+                            'subject_id' => $subject->id,
+                            'chapter_id' => $chapter->id,
+                            'answers' => [],
+                        ];
+                    } elseif (preg_match('/^ans\s*(.+)$/i', $text, $answer_match)) {
+                        // Add answers to the current question
+                        if ($current_question !== null) {
+                            $already_have_correct = count(array_filter($current_question['answers'], function ($answer) {
+                                return $answer['is_correct'];
+                            })) != 0;
+                            $current_question['answers'][] = [
+                                'content' => trim($answer_match[1]),
+                                'is_correct' =>$already_have_correct == false ? $is_correct: false
+                            ];
+                        }
+                    } else {
+                        // Push current text to current question content or answer
+                        if ($current_question) {
+                            if (count($current_question['answers']) == 0) {
+                                $current_question['content'] = $current_question['content'] . "<br>$text";
+                            } else {
+                                $last_answer_index = count($current_question['answers']) - 1;
+                                $current_question[$last_answer_index]['content'] = $current_question[$last_answer_index]['content'] . "<br>$text";
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Push last question
+            if ($current_question !== null) {
+                $parsed_data[] = $current_question;
+            }
+            foreach ($parsed_data as $question_data) {
+                $question_data['content'] = DOMStringHelper::processImagesFromDOM($question_data['content']);
+                $question = Question::create($question_data);
+                foreach ($question_data['answers'] as $answer) {
+                    $answer['content'] = DOMStringHelper::processImagesFromDOM($answer['content']);
+                    $answer['question_id'] = $question->id;
+                    QuestionOption::create($answer);
+                }
+            }
+            DB::commit();
+            return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
