@@ -240,7 +240,11 @@ class QuestionController extends Controller
                     if (preg_match('/^(easy|medium|hard|expert)\squest\s*(.+)$/i', $text, $question_match)) {
                         // If a new question is found, push last question and init new one.
                         if ($current_question !== null) {
-                            $parsed_data[] = $current_question;
+                            // Ensure question have atleast one correct answer
+                            $already_have_correct = count(array_filter($current_question['answers'], function ($answer) {
+                                return $answer['is_correct'];
+                            })) != 0;
+                            if ($already_have_correct) $parsed_data[] = $current_question;
                         }
                         $current_question = [
                             'content' => trim($question_match[2]),
