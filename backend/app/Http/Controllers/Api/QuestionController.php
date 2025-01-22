@@ -233,6 +233,10 @@ class QuestionController extends Controller
                         continue;
                     };
 
+                    if (str_starts_with($text, '#') || str_starts_with($text, '//')) {
+                        continue;
+                    }
+
                     if (preg_match('/^(easy|medium|hard|expert)\squest\s*(.+)$/i', $text, $question_match)) {
                         // If a new question is found, push last question and init new one.
                         if ($current_question !== null) {
