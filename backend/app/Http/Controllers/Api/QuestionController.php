@@ -173,11 +173,6 @@ class QuestionController extends Controller
 
     public function import(ImportRequest $request)
     {
-        // Validate the uploaded file
-        // $request->validate([
-        //     'file' => 'required|mimes:doc,docx|max:2048', // Accept only .doc and .docx files
-        // ]);
-
         $file = $request->file('file');
         $file_path = $file->getPathname();
 
@@ -188,7 +183,7 @@ class QuestionController extends Controller
 
             $php_word = IOFactory::load($file_path);
             $parsed_data = [];
-            $current_question = null; // Start with no current question
+            $current_question = null;
             foreach ($php_word->getSections() as $section) {
                 // Element is a line;
                 foreach ($section->getElements() as $element) {
