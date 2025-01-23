@@ -201,7 +201,9 @@ class QuestionController extends Controller
                                     $is_correct = true;
                                 }
 
-                                if ($style->isBold()) {
+                                if ($style->isBold() && $style->isItalic()) {
+                                    $text = $text . "<b><i>$sub_text</i></b>";
+                                } elseif ($style->isBold()) {
                                     $text = $text . "<b>$sub_text</b>";
                                 } elseif ($style->isItalic()) {
                                     $text = $text . "<i>$sub_text</i>";
@@ -220,7 +222,7 @@ class QuestionController extends Controller
                         $sub_text = $element->getText();
                         $style = $element->getFontStyle();
                     }
-                    if (empty($text)) {
+                    if (empty(trim($text))) {
                         // Push line break to current question content or answer
                         // if ($current_question) {
                         //     if (count($current_question['answers']) == 0) {
@@ -237,7 +239,7 @@ class QuestionController extends Controller
                         continue;
                     }
 
-                    if (preg_match('/^(easy|medium|hard|expert)\squest\s*(.+)$/i', $text, $question_match)) {
+                    if (preg_match('/^(easy|medium|hard|expert)\s+quest\s*(.+)$/i', $text, $question_match)) {
                         // If a new question is found, push last question and init new one.
                         if ($current_question !== null) {
                             // Ensure question have atleast one correct answer
@@ -271,7 +273,7 @@ class QuestionController extends Controller
                                 $current_question['content'] = $current_question['content'] . "<br>$text";
                             } else {
                                 $last_answer_index = count($current_question['answers']) - 1;
-                                $current_question[$last_answer_index]['content'] = $current_question[$last_answer_index]['content'] . "<br>$text";
+                                $current_question['answers'][$last_answer_index]['content'] = $current_question['answers'][$last_answer_index]['content'] . "<br>$text";
                             }
                         }
                     }

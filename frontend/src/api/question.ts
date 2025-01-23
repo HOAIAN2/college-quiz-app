@@ -66,3 +66,12 @@ export async function apiDeleteQuestion(id: string | number) {
         return apiUtils.handleError(error);
     }
 }
+
+export async function apiImportQuestions(formData: FormData) {
+    try {
+        const apiPath = `${prefix}/import`;
+        await request.post(apiPath, formData);
+    } catch (error: any) {
+        return apiUtils.handleError(error);
+    }
+}
