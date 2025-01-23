@@ -208,6 +208,11 @@ class QuestionController extends Controller
                                 } else {
                                     $text = $text . $sub_text;
                                 }
+                            } elseif ($text_element instanceof \PhpOffice\PhpWord\Element\Image) {
+                                $image_data = $this->processWordImage($text_element);
+                                if ($image_data) {
+                                    $text .= "<img src=\"$image_data\">";
+                                }
                             }
                         }
                     } elseif ($element instanceof \PhpOffice\PhpWord\Element\Text) {
@@ -291,6 +296,17 @@ class QuestionController extends Controller
         } catch (\Exception $error) {
             DB::rollBack();
             return $this->handleException($error);
+        }
+    }
+
+    private function processWordImage($image_element)
+    {
+        try {
+            $image_data = $image_element->getImageString();
+            $mime_type = $image_element->getImageType();
+            return 'data:' . $mime_type . ';base64,' . base64_encode($image_data);
+        } catch (\Exception $e) {
+            return null;
         }
     }
 }

@@ -31,13 +31,13 @@ class CleanupImages extends Command
     {
         $question_images = [];
 
-        Question::select('content')->chunk(100, function ($questions) use (&$question_images) {
+        Question::withTrashed()->select('content')->chunk(100, function ($questions) use (&$question_images) {
             foreach ($questions as $question) {
                 $question_images = array_merge($question_images, $this->extractImagePathsFromContent($question->content));
             }
         });
 
-        QuestionOption::select('content')->chunk(100, function ($options) use (&$question_images) {
+        QuestionOption::withTrashed()->select('content')->chunk(100, function ($options) use (&$question_images) {
             foreach ($options as $option) {
                 $question_images = array_merge($question_images, $this->extractImagePathsFromContent($option->content));
             }
