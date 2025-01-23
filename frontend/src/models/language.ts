@@ -15,6 +15,7 @@ export type Language = {
 	'component.faculties_table': typeof import('../../assets/langs/en/component.faculties_table.ts').default;
 	'component.header': typeof import('../../assets/langs/en/component.header.ts').default;
 	'component.import_data': typeof import('../../assets/langs/en/component.import_data.ts').default;
+	'component.import_questions': typeof import('../../assets/langs/en/component.import_questions.ts').default;
 	'component.loading': typeof import('../../assets/langs/en/component.loading.ts').default;
 	'component.school_classes_table': typeof import('../../assets/langs/en/component.school_classes_table.ts').default;
 	'component.score_pop_up': typeof import('../../assets/langs/en/component.score_pop_up.ts').default;

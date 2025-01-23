@@ -4,6 +4,7 @@ import styles from '~styles/CardPage.module.css';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
+import { BiImport } from 'react-icons/bi';
 import { RiAddFill } from 'react-icons/ri';
 import { Navigate, useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { apiGetQuestions } from '~api/question';
@@ -17,6 +18,7 @@ import useLanguage from '~hooks/useLanguage';
 import { SubjectDetail } from '~models/subject';
 import css from '~utils/css';
 import CreateQuestion from './components/CreateQuestion';
+import ImportQuestions from './components/ImportQuestions';
 import ViewQuestion from './components/ViewQuestion';
 
 export default function Questions() {
@@ -27,6 +29,7 @@ export default function Questions() {
     const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
     const [questionId, setQuestionId] = useState<number>(0);
     const [showViewPopUp, setShowViewPopUp] = useState(false);
+    const [showImportPopUp, setShowImportPopUp] = useState(false);
     const queryDebounce = useDebounce(searchQuery);
     const { permissions, appTitle } = useAppContext();
     const { id } = useParams();
@@ -46,6 +49,10 @@ export default function Questions() {
         }),
         enabled: permissions.has('question_view') && permissions.has('subject_view')
     });
+    const chapterOptions = subjectDetail?.chapters.map(chapter => ({
+        value: String(chapter.id),
+        label: `${chapter.chapterNumber}. ${chapter.name}`
+    }));
     useEffect(() => {
         if (!permissions.has('subject_view')) return;
         apiGetSubjectById(String(id)).then(res => {
@@ -82,6 +89,14 @@ export default function Questions() {
                     setShowPopUp={setShowCreatePopUp}
                     subjectDetail={subjectDetail}
                 /> : null}
+            {showImportPopUp === true ?
+                <ImportQuestions
+                    onMutateSuccess={() => { queryData.refetch(); }}
+                    setShowPopUp={setShowImportPopUp}
+                    subjectId={String(id)}
+                    chapterOptions={chapterOptions || []}
+                />
+                : null}
             <main className={appStyles.dashboard}>
                 {
                     permissions.hasAnyFormList(['question_create'])
@@ -89,14 +104,25 @@ export default function Questions() {
                         <section className={appStyles.actionBar}>
                             {
                                 permissions.has('question_create') ?
-                                    <div
-                                        className={appStyles.actionItem}
-                                        onClick={() => {
-                                            setShowCreatePopUp(true);
-                                        }}
-                                    >
-                                        <RiAddFill /> {language?.add}
-                                    </div>
+                                    <>
+                                        <div
+                                            className={appStyles.actionItem}
+                                            onClick={() => {
+                                                setShowCreatePopUp(true);
+                                            }}
+                                        >
+                                            <RiAddFill /> {language?.add}
+                                        </div>
+
+                                        <div
+                                            className={appStyles.actionItemWhite}
+                                            onClick={() => {
+                                                setShowImportPopUp(true);
+                                            }}
+                                        >
+                                            <BiImport /> {language?.import}
+                                        </div>
+                                    </>
                                     : null
                             }
                         </section>
@@ -122,10 +148,8 @@ export default function Questions() {
                                             label: language?.unselect,
                                             value: ''
                                         },
-                                        ...subjectDetail.chapters.map(chapter => ({
-                                            value: String(chapter.id),
-                                            label: `${chapter.chapterNumber}. ${chapter.name}`
-                                        }))]
+                                        ...chapterOptions ?? []
+                                    ]
                                 }
                                 onChange={(option) => {
                                     if (option.value != '') searchParams.set('chapter', option.value);
