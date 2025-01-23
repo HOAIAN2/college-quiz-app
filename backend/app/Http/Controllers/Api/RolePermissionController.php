@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RolePermission\UpdateRequest;
 use App\Models\Permission;
 use App\Models\Role;
-use App\Models\RolePermission;
 use Illuminate\Support\Facades\DB;
 
 class RolePermissionController extends Controller

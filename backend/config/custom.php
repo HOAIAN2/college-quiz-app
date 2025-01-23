@@ -11,14 +11,6 @@ return [
         'default_rate_limit' => (int)env('DEFAULT_RATE_LIMIT', 100),
         'content_security_policy' => env('CONTENT_SECURITY_POLICY'),
     ],
-    /**
-     * deprecated, use Setting model instead
-     */
-    'exam' => [
-        'base_score_scale' => (int)env('BASE_SCORE_SCALE', 10),
-        'max_late_seconds' => env('MAX_LATE_SECONDS'),
-        'allow_late_submit_seconds' => (int)env('EXAM_ALLOW_LATE_SUBMIT_SECONDS', 60),
-    ],
     'query' => [
         'auto_complete_result_limit' => (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5),
         'default_limit' => (int) env('DEFAULT_QUERY_LIMIT', 50),

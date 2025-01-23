@@ -91,5 +91,6 @@ return [
             'required' => 'Please select at least one supervisor'
         ]
     ],
-    'attribute_sum_min' => 'Total of :attribute must be at least :min'
+    'attribute_sum_min' => 'Total of :attribute must be at least :min',
+    'attribute_sum_max' => 'Total of :attribute must not exceed :max',
 ];

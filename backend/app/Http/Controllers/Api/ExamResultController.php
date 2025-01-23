@@ -8,7 +8,6 @@ use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExamResult\CancelRequest;
 use App\Http\Requests\ExamResult\RemarkRequest;
-use App\Models\Course;
 use App\Models\Exam;
 use App\Models\ExamQuestionsAnswer;
 use App\Models\ExamQuestionsOrder;

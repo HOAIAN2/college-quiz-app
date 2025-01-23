@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Helper\Reply;
 use Illuminate\Http\Request;
-use App\Enums\PermissionType;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Setting\UpdateRequest;
@@ -77,6 +76,8 @@ class SettingController extends Controller
 
     public function getCommands(Request $request)
     {
+        $user = $this->getUser();
+        abort_if(!$user->isAdmin(), 403);
         try {
             return Reply::successWithData($this->callableCommands, '');
         } catch (\Exception $error) {
@@ -87,6 +88,8 @@ class SettingController extends Controller
 
     public function runArtisan(Request $request)
     {
+        $user = $this->getUser();
+        abort_if(!$user->isAdmin(), 403);
         $command = $request->get('command');
         abort_if(!in_array($command, $this->callableCommands), 403);
 
@@ -105,7 +108,8 @@ class SettingController extends Controller
 
     public function getLogFile()
     {
-        abort_if(!$this->getUser()->isAdmin(), 403);
+        $user = $this->getUser();
+        abort_if(!$user->isAdmin(), 403);
         $log_file_path = storage_path('logs/laravel.log');
         if (File::exists($log_file_path)) {
             return response()->download($log_file_path);
@@ -115,7 +119,8 @@ class SettingController extends Controller
 
     public function deleteLogFile()
     {
-        abort_if(!$this->getUser()->isAdmin(), 403);
+        $user = $this->getUser();
+        abort_if(!$user->isAdmin(), 403);
         $log_file_path = storage_path('logs/laravel.log');
         File::delete($log_file_path);
         return Reply::successWithMessage(trans('app.successes.success'));

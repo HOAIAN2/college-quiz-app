@@ -11,7 +11,6 @@ use App\Http\Requests\Course\StoreRequest;
 use App\Http\Requests\Course\UpdateRequest;
 use App\Http\Requests\Course\UpdateStudentsRequest;
 use App\Models\Course;
-use App\Models\Enrollment;
 use App\Models\Semester;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;

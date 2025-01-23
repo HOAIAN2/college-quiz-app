@@ -91,5 +91,6 @@ return [
             'required' => 'Vui lòng chọn ít nhất 1 giám thị'
         ]
     ],
-    'attribute_sum_min' => 'Tổng của :attribute phải ít nhất là :min'
+    'attribute_sum_min' => 'Tổng của :attribute phải ít nhất là :min',
+    'attribute_sum_max' => 'Tổng của :attribute không được vượt quá :max',
 ];

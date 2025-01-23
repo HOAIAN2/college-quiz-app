@@ -6,7 +6,6 @@
 
 namespace App\Models;
 
-use App\Traits\FullTextSearch;
 use App\Traits\Searchable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
