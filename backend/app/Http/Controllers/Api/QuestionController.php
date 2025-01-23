@@ -218,9 +218,28 @@ class QuestionController extends Controller
                             }
                         }
                     } elseif ($element instanceof \PhpOffice\PhpWord\Element\Text) {
-                        $text = $text . $element->getText();
                         $sub_text = $element->getText();
                         $style = $element->getFontStyle();
+
+                        // Text begin with 'ans' and underline is a correct answer
+                        if (!$text && $style->getUnderline() != 'none' && $sub_text == 'ans') {
+                            $is_correct = true;
+                        }
+
+                        if ($style->isBold() && $style->isItalic()) {
+                            $text = $text . "<b><i>$sub_text</i></b>";
+                        } elseif ($style->isBold()) {
+                            $text = $text . "<b>$sub_text</b>";
+                        } elseif ($style->isItalic()) {
+                            $text = $text . "<i>$sub_text</i>";
+                        } else {
+                            $text = $text . $sub_text;
+                        }
+                    } elseif ($element instanceof \PhpOffice\PhpWord\Element\Image) {
+                        $image_data = $this->processWordImage($element);
+                        if ($image_data) {
+                            $text .= "<img src=\"$image_data\">";
+                        }
                     }
                     if (empty(trim($text))) {
                         // Push line break to current question content or answer
