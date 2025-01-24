@@ -29,7 +29,7 @@ type ExamQuestionsAnswer = {
     userId: number;
     examId: number;
     questionId: number;
-    answerId: number;
+    answerId: number | null;
     isCorrect: boolean;
     examQuestion: ExamQuestion;
 };

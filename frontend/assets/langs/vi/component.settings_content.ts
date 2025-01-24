@@ -7,7 +7,7 @@ export default {
         title: 'Bài thi',
         'exam_base_score_scale': 'Thang điểm cơ bản cho bài thi',
         'exam_allow_late_submit_seconds': 'Cho phép nộp bài trễ (giây)',
-        'exam_max_late_seconds': 'Thời gian tối đa nộp bài trễ (giây)',
+        'exam_max_late_seconds': 'Tự hủy nếu không bắt đầu sau (giây)',
         'exam_can_remark_within_days': 'Có thể phúc khảo trong vòng (ngày)',
     },
     theme: {

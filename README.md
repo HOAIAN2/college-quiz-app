@@ -90,7 +90,7 @@ You can host this with `docker` by run simple command
 
 ```console
 ./scripts/build.sh --docker
-sudo docker composer up
+sudo docker compose up -d
 ```
 
 Docker settings save in `docker` directory, `Nginx` connect to `php-fpm` via unix socket instead of normal TCP socket. You can custom `php-fpm` settings by modify the `zz-docker.conf`, but you have to create the file first by copy content from `zz-docker.example.conf`

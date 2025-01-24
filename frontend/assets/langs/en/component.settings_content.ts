@@ -7,7 +7,7 @@ export default {
         title: 'Exam',
         'exam_base_score_scale': 'Exam Base Score Scale',
         'exam_allow_late_submit_seconds': 'Allow Late Submission (Seconds)',
-        'exam_max_late_seconds': 'Maximum Late Submission Time (Seconds)',
+        'exam_max_late_seconds': 'Auto-cancel If Not Started After (Seconds)',
         'exam_can_remark_within_days': 'Can Remark Within Days',
     },
     theme: {
