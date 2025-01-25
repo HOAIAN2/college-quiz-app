@@ -21,7 +21,7 @@ return [
     'setting_number_keys' => [
         'exam_base_score_scale',
         'exam_allow_late_submit_seconds',
-        'exam_max_late_seconds',
+        'exam_auto_cancel_after_seconds',
         'exam_can_remark_within_days',
     ],
 ];

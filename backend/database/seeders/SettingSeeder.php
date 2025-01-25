@@ -25,7 +25,7 @@ class SettingSeeder extends Seeder
                 'group' => 'exam',
             ],
             [
-                'key' => 'exam_max_late_seconds',
+                'key' => 'exam_auto_cancel_after_seconds',
                 'value' => '300',
                 'group' => 'exam',
             ],
