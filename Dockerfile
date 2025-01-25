@@ -63,6 +63,7 @@ RUN mkdir -p /var/www/college-quiz-app/storage/uploads && \
 COPY ./docker/nginx/nginx.conf /etc/nginx/http.d/default.conf
 COPY ./docker/cronjob /etc/crontabs/root
 COPY ./docker/php/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
+COPY ./docker/php/docker-php-ext-opcache.ini /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 
 # Handle php-fpm via unix socket
 RUN mkdir -p /var/run/php-fpm && \
