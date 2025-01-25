@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 class RunTasks
 {
     const TASKS = [
-        'app:clear-unsed-tokens',
         'app:cancel-late-exams',
         'app:clear-expired-otp-codes',
     ];

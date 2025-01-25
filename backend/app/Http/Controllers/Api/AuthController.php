@@ -245,7 +245,9 @@ class AuthController extends Controller
         $user = $this->getUser();
 
         try {
-            $tokens = $user->tokens()->latest('last_used_at')
+            $tokens = $user->tokens()
+                ->where('expires_at', '>', now())
+                ->latest('last_used_at')
                 ->get();
             return Reply::successWithData($tokens, '');
         } catch (\Exception $error) {

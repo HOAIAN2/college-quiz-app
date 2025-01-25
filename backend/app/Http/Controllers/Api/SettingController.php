@@ -17,7 +17,7 @@ class SettingController extends Controller
         'app:cancel-late-exams',
         'app:cleanup-images',
         'app:clear-expired-otp-codes',
-        'app:clear-unsed-tokens',
+        'sanctum:prune-expired',
 
         'schedule:run',
 

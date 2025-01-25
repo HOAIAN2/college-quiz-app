@@ -136,9 +136,9 @@ function ExamResult() {
                                     }
                                 </div>
                             </section>
-                            <section>
-                                {
-                                    permissions.hasAnyFormList(['exam_result_remark', 'exam_result_cancel']) ?
+                            {
+                                permissions.hasAnyFormList(['exam_result_remark', 'exam_result_cancel']) ?
+                                    <section>
                                         <div className={styles.actionItems}>
                                             {
                                                 permissions.has('exam_result_remark') && queryData.data.examResult.cancelledByUserId === null ?
@@ -164,9 +164,10 @@ function ExamResult() {
                                                         {language?.cancel}
                                                     </button> : null
                                             }
-                                        </div> : null
-                                }
-                            </section>
+                                        </div>
+                                    </section>
+                                    : null
+                            }
                         </> : null
                 }
             </main>
