@@ -15,4 +15,5 @@ Schedule::call(function () {
 
 Schedule::call((function () {
     Artisan::call('app:cleanup-images');
+    Artisan::call('app:delete-never-used-questions');
 }))->weekly();
