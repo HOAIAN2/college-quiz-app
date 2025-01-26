@@ -18,7 +18,6 @@ class SettingController extends Controller
         'app:cleanup-images',
         'app:clear-expired-otp-codes',
         'app:delete-never-used-questions',
-        'sanctum:prune-expired',
 
         'schedule:run',
 
