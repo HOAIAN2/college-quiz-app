@@ -75,13 +75,13 @@
 
 .wrapItem {
     position: relative;
-    margin-left: 20px;
+    /* margin-left: 20px; */
     height: 90px;
-    flex: 0 0 30%;
+    flex: 0 0 calc((100% / 3) - 10px);
 }
 
 .wrapItem.textarea {
-    flex: 0 0 95%;
+    flex: 0 0 100%;
     height: fit-content;
 }
 
@@ -139,7 +139,7 @@
     .groupInputs {
         flex-wrap: unset;
         flex-direction: column;
-        padding-right: 20px;
+        /* padding-right: 20px; */
         gap: 20px;
     }
 

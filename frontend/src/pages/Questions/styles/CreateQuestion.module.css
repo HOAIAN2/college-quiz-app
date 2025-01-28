@@ -1,5 +1,5 @@
 .textareaGroup {
-    flex: 0 0 calc(50% - 35px) !important;
+    flex: 0 0 calc(50% - 5px) !important;
     height: fit-content;
 }
 

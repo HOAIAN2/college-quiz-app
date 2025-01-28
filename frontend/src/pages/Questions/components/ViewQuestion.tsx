@@ -205,7 +205,6 @@ export default function ViewQuestion({
                                             {
                                                 permissions.has('question_update') ?
                                                     <div
-                                                        style={{ paddingLeft: '20px' }}
                                                         className={appStyles.actionBar}>
                                                         {
                                                             <div

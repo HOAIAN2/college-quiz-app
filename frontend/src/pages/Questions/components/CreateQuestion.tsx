@@ -146,7 +146,6 @@ export default function CreateQuestion({
                                 />
                             </div>
                             <div
-                                style={{ paddingLeft: '20px' }}
                                 className={appStyles.actionBar}>
                                 {
                                     <div
