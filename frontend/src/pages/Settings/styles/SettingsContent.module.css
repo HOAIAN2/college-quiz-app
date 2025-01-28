@@ -44,3 +44,9 @@
     /* background-color: var(--color-white); */
     margin-bottom: 20px;
 }
+
+@media (width<=800px) {
+    .inputItem {
+        width: 100%;
+    }
+}

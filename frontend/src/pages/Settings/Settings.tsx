@@ -54,13 +54,16 @@ export default function Settings() {
         },
     ];
     useEffect(() => {
-        const defaultSetting = settings.find(setting => setting.isActive);
+        const currentWidth = window.innerWidth;
+        const defaultSetting = currentWidth > STRICT_WIDTH ?
+            settings.find(setting => setting.isActive) :
+            undefined;
         const currentSetting = settings.find(setting => setting.to === name);
         if (!settings.find(setting => setting.to === name) && isWindowWidthExceeded) {
-            navigate(defaultSetting!.to);
+            if (defaultSetting) navigate(defaultSetting.to);
         }
         if (!currentSetting?.isActive) {
-            navigate(defaultSetting!.to)
+            if (defaultSetting) navigate(defaultSetting.to);
         }
     });
     useEffect(() => {
