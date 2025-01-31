@@ -13,7 +13,7 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
-    padding-top: 10px;
+    /* padding-top: 10px; */
 }
 
 .section {
@@ -26,8 +26,8 @@
 .wrapSections {
     width: 100%;
     margin-top: 20px;
-    padding-left: 10px;
-    padding-right: 10px;
+    /* padding-left: 10px;
+    padding-right: 10px; */
     display: flex;
     gap: 10px;
     height: 350px;
