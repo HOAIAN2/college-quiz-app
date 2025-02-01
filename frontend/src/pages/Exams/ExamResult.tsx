@@ -36,11 +36,7 @@ function ExamResult() {
         enabled: permissions.has('exam_view'),
         retry: false,
     });
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const durationFormat = new Intl.DurationFormat(appLanguage.language, {
-        style: 'long'
-    });
+    const durationFormat = languageUtils.createDurationFormatter(appLanguage.language);
     const onMutateSuccess = () => {
         queryClient.refetchQueries({ queryKey: [QUERY_KEYS.EXAM_RESULT, { id: resultId }] });
         queryClient.removeQueries({ queryKey: [QUERY_KEYS.EXAM_RESULTS, { examId: id }] });
@@ -75,7 +71,7 @@ function ExamResult() {
                             <section>
                                 <h2>{language?.examResult}</h2>
                                 <p>{language?.examName}: {examQueryData.data.name}</p>
-                                <p>{language?.examTime}: {durationFormat.format({ minutes: examQueryData.data.examTime })}</p>
+                                <p>{language?.examTime}: {durationFormat(examQueryData.data.examTime)}</p>
                                 <br />
                                 <p>{language?.studentName}: {languageUtils.getFullName(queryData.data.examResult.user.firstName, queryData.data.examResult.user.lastName)}</p>
                                 <p>{language?.numberOfCorrectAnswers}: {queryData.data.examResult.correctCount}</p>

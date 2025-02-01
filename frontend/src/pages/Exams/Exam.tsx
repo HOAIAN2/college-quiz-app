@@ -2,7 +2,7 @@ import appStyles from '~styles/App.module.css';
 import styles from './styles/Exam.module.css';
 
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BiExport } from 'react-icons/bi';
 import { ImCancelCircle } from 'react-icons/im';
 import { LuAlarmClock, LuRefreshCw } from 'react-icons/lu';
@@ -20,7 +20,7 @@ import languageUtils from '~utils/languageUtils';
 import { saveBlob } from '~utils/saveBlob';
 
 export default function Exam() {
-    const { user, appLanguage, permissions } = useAppContext();
+    const { user, appLanguage, permissions, appTitle } = useAppContext();
     const [isExporting, setIsExporting] = useState(false);
     const [showStartExamPopUp, setShowStartExamPopUp] = useState(false);
     const [showCancelExamPopUp, setShowCancelExamPopUp] = useState(false);
@@ -72,11 +72,10 @@ export default function Exam() {
         }
         else return false;
     })();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const durationFormat = new Intl.DurationFormat(appLanguage.language, {
-        style: 'long'
-    });
+    const durationFormat = languageUtils.createDurationFormatter(appLanguage.language);
+    useEffect(() => {
+        if (language) appTitle.setAppTitle(language.exam);
+    }, [appTitle, language]);
     if (!permissions.has('exam_view')) return <Navigate to='/' />;
     if (queryData.error) return (
         <main className={css(appStyles.dashboard, styles.pageContent)}>
@@ -127,7 +126,7 @@ export default function Exam() {
                                         <div className={styles.wrapItem}>
                                             <label>{language?.examTime}: </label>
                                             <p>
-                                                {durationFormat.format({ minutes: queryData.data.examTime })}
+                                                {durationFormat(queryData.data.examTime)}
                                             </p>
                                         </div>
                                         <div className={css(styles.wrapItem, styles.supervisorsContainer)}>

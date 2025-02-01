@@ -5,6 +5,40 @@ const languagesSupported = [
     'en'
 ];
 
+const divMod = (n: number, m: number): [number, number] => [Math.floor(n / m), n % m];
+
+// const createDurationFormatter = (locale: string, unitDisplay: 'long' | 'short' | 'narrow' = 'long') => {
+//     const timeUnitFormatter = (locale: string, unit: 'hour' | 'minute', unitDisplay: 'long' | 'short' | 'narrow') =>
+//         new Intl.NumberFormat(locale, { style: 'unit', unit, unitDisplay }).format;
+
+//     const fmtHours = timeUnitFormatter(locale, 'hour', unitDisplay);
+//     const fmtMinutes = timeUnitFormatter(locale, 'minute', unitDisplay);
+//     const fmtList = new Intl.ListFormat(locale, { style: 'long', type: 'conjunction' });
+
+//     return (minutes: number): string => {
+//         const [hrs, mins] = divMod(minutes, 60);
+//         return fmtList.format(
+//             [hrs ? fmtHours(hrs) : null, mins ? fmtMinutes(mins) : null]
+//                 .filter((v): v is string => v !== null) // Type guard to remove `null`
+//         );
+//     };
+// };
+
+// const createDurationFormatter = (locale: string, unitDisplay: 'long' | 'short' | 'narrow' = 'long', separator: string = ' ') => {
+//     const timeUnitFormatter = (unit: 'hour' | 'minute') => 
+//         new Intl.NumberFormat(locale, { style: 'unit', unit, unitDisplay }).format;
+
+//     const fmtHours = timeUnitFormatter('hour');
+//     const fmtMinutes = timeUnitFormatter('minute');
+
+//     return (minutes: number): string => {
+//         const [hrs, mins] = divMod(minutes, 60);
+//         return [hrs ? fmtHours(hrs) : null, mins ? fmtMinutes(mins) : null]
+//             .filter((v): v is string => v !== null) // Type guard to remove `null`
+//             .join(separator);
+//     };
+// };
+
 const languageUtils = {
     languageCodeName: languagesSupported.map(item => {
         return {
@@ -41,6 +75,20 @@ const languageUtils = {
             if (!item) return undefined;
             return item.trim()[0].toUpperCase();
         }).join('').replace(/Đ/g, 'D').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    },
+    createDurationFormatter(locale: string, unitDisplay: 'long' | 'short' | 'narrow' = 'long', separator: string = ' ') {
+        const timeUnitFormatter = (unit: 'hour' | 'minute') =>
+            new Intl.NumberFormat(locale, { style: 'unit', unit, unitDisplay }).format;
+
+        const fmtHours = timeUnitFormatter('hour');
+        const fmtMinutes = timeUnitFormatter('minute');
+
+        return (minutes: number): string => {
+            const [hrs, mins] = divMod(minutes, 60);
+            return [hrs ? fmtHours(hrs) : null, mins ? fmtMinutes(mins) : null]
+                .filter((v): v is string => v !== null)
+                .join(separator);
+        };
     }
 };
 
