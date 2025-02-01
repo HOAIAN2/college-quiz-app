@@ -10,11 +10,11 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@tanstack/react-query": "^5.65.1",
-        "@tiptap/extension-image": "^2.11.4",
-        "@tiptap/pm": "^2.11.4",
-        "@tiptap/react": "^2.11.4",
-        "@tiptap/starter-kit": "^2.11.4",
+        "@tanstack/react-query": "^5.66.0",
+        "@tiptap/extension-image": "^2.11.5",
+        "@tiptap/pm": "^2.11.5",
+        "@tiptap/react": "^2.11.5",
+        "@tiptap/starter-kit": "^2.11.5",
         "axios": "^1.7.9",
         "canvas-confetti": "^1.9.3",
         "chart.js": "^4.4.7",
@@ -22,8 +22,8 @@
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-icons": "^5.4.0",
-        "react-router-dom": "^7.1.4",
-        "sonner": "^1.7.3"
+        "react-router-dom": "^7.1.5",
+        "sonner": "^1.7.4"
     },
     "devDependencies": {
         "@eslint/js": "^9.11.1",

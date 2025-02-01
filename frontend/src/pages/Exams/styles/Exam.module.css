@@ -79,6 +79,7 @@
 .tableContainer {
     margin: 10px 0px 10px 0px;
     width: fit-content;
+    max-width: 100%;
     height: fit-content;
     padding: 15px;
     border-radius: var(--border-radius-low);
@@ -117,6 +118,7 @@ th {
     height: 30px;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding-left: 15px;
 }
 
 .column.tiny {
