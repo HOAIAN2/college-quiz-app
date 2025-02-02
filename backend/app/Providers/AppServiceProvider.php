@@ -28,15 +28,28 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
-
-        Route::pattern('id', '([1-9]+[0-9]*)');
-
-        RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(config('custom.app.default_rate_limit'))->by($request->user()?->id ?: $request->ip());
-        });
-
+        $this->configSanctum();
+        $this->configRoutePattern();
+        $this->configRateLimit();
         $this->configQueryLog();
+    }
+
+    private function configSanctum(): void
+    {
+        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
+    }
+
+    private function configRoutePattern(): void
+    {
+        Route::pattern('id', '([1-9]+[0-9]*)');
+    }
+
+    private function configRateLimit(): void
+    {
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(config('custom.app.default_rate_limit'))
+                ->by($request->user()?->id ?: $request->ip());
+        });
     }
 
     private function configQueryLog(): void
