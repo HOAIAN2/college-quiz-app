@@ -89,7 +89,8 @@ return [
         ],
         'supervisor_ids' => [
             'required' => 'Please select at least one supervisor'
-        ]
+        ],
+        'question_counts.*.min' => 'The number of questions must be at least :min.',
     ],
     'attribute_sum_min' => 'Total of :attribute must be at least :min',
     'attribute_sum_max' => 'Total of :attribute must not exceed :max',

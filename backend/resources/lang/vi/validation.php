@@ -89,7 +89,8 @@ return [
         ],
         'supervisor_ids' => [
             'required' => 'Vui lòng chọn ít nhất 1 giám thị'
-        ]
+        ],
+        'question_counts.*.min' => 'Số lượng câu hỏi phải ít nhất là :min.',
     ],
     'attribute_sum_min' => 'Tổng của :attribute phải ít nhất là :min',
     'attribute_sum_max' => 'Tổng của :attribute không được vượt quá :max',
