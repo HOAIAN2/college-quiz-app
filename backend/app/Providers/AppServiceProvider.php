@@ -36,9 +36,16 @@ class AppServiceProvider extends ServiceProvider
             return Limit::perMinute(config('custom.app.default_rate_limit'))->by($request->user()?->id ?: $request->ip());
         });
 
+        $this->configQueryLog();
+    }
+
+    private function configQueryLog(): void
+    {
         if (config('app.debug') == true && !app()->runningInConsole())
             DB::listen(function (QueryExecuted $query) {
-                Log::info("{$query->sql} => {$query->time} ms");
+                Log::info($query->sql, [
+                    'time' => "$query->time ms"
+                ]);
             });
     }
 }
