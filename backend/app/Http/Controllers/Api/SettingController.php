@@ -122,7 +122,7 @@ class SettingController extends Controller
         $user = $this->getUser();
         abort_if(!$user->isAdmin(), 403);
         $log_file_path = storage_path('logs/laravel.log');
-        File::delete($log_file_path);
+        File::put($log_file_path, '');
         return Reply::successWithMessage(trans('app.successes.success'));
     }
 }
