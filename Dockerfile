@@ -60,6 +60,7 @@ RUN mkdir -p /var/www/college-quiz-app/storage/uploads && \
 
 # Extra stuff: config, logging,...
 
+COPY ./docker/php/php.ini /usr/local/etc/php/php.ini
 COPY ./docker/nginx/nginx.conf /etc/nginx/http.d/default.conf
 COPY ./docker/cronjob /etc/crontabs/root
 COPY ./docker/php/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
