@@ -23,7 +23,12 @@ abstract class Controller
 
     public function handleException(\Exception $error)
     {
-        Log::error($error);
+        $context = [
+            'user_id' => $this->getUser()?->id ?? null,
+            'url' => request()->url(),
+            'stack_trace' => $error->getTraceAsString(),
+        ];
+        Log::error($error->getMessage(), $context);
         $message = config('app.debug') ? $error->getMessage() : trans('app.errors.something_went_wrong');
         if ($error instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
             return Reply::error(trans('app.errors.404'), 404);
