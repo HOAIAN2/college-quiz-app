@@ -159,15 +159,15 @@ const router = createBrowserRouter([
                     },
                     {
                         path: 'teachers',
-                        element: <Suspense key='users' fallback={<SuspenseLoading />}><Users role='teacher' /></Suspense>
+                        element: <Suspense key='teachers' fallback={<SuspenseLoading />}><Users role='teacher' /></Suspense>
                     },
                     {
                         path: 'students',
-                        element: <Suspense key='users' fallback={<SuspenseLoading />}><Users role='student' /></Suspense>
+                        element: <Suspense key='students' fallback={<SuspenseLoading />}><Users role='student' /></Suspense>
                     },
                     {
                         path: 'admins',
-                        element: <Suspense key='users' fallback={<SuspenseLoading />}><Users role='admin' /></Suspense>
+                        element: <Suspense key='admins' fallback={<SuspenseLoading />}><Users role='admin' /></Suspense>
                     },
                     {
                         path: 'permissions',
