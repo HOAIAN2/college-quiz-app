@@ -19,7 +19,7 @@ class CamelCaseResponse
         $response = $next($request);
         if ($response->getStatusCode() === 422) return $response;
         $content_type = $response->headers->get('content-type');
-        if ($content_type === 'application/json') {
+        if (str_contains($content_type, 'application/json')) {
             $content = $this->toCamelCase(json_decode($response->getContent(), true));
             $response->setContent(json_encode($content));
         }
