@@ -44,17 +44,19 @@ export default function Profile() {
         mutationFn: handleUpdateUser,
         onError: (error) => { formUtils.showFormError(error); },
         onSuccess: () => {
-            apiGetUser()
-                .then((data) => {
-                    user.setUser(data.user);
-                    permissions.setPermissions(data.permissions);
-                });
+            queryData.refetch();
         }
     });
     const genderOptions = [
         { value: 'male', label: language?.genders.male },
         { value: 'female', label: language?.genders.female },
     ];
+    useEffect(() => {
+        if (!queryData.data) return;
+        user.setUser(queryData.data.user);
+        permissions.setPermissions(queryData.data.permissions);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [queryData.data]);
     useEffect(() => {
         return () => {
             queryClient.removeQueries({ queryKey: [QUERY_KEYS.PAGE_PROFILE] });
