@@ -96,18 +96,24 @@ class Question extends Model
     public function getContentAttribute($value)
     {
         libxml_use_internal_errors(true);
-        $htmlString = mb_convert_encoding($value, 'UTF-8', 'auto');
+        $html_string = mb_convert_encoding($value, 'UTF-8', 'auto');
         $dom = new \DOMDocument();
-        @$dom->loadHTML(mb_convert_encoding($htmlString, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        @$dom->loadHTML(mb_convert_encoding($html_string, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         libxml_clear_errors();
         $images = $dom->getElementsByTagName('img');
 
+        // Replace token when command not run in console (throught api call, etc)
+        $replace_token = app()->runningInConsole() ?
+            '/uploads/'
+            : request()->schemeAndHttpHost() . '/uploads/';
+
         foreach ($images as $img) {
             $src = $img->attributes['src']->textContent;
-            if (Str::startsWith($src, '/uploads') && !app()->runningInConsole()) {
-                $img->attributes['src']->textContent = request()->schemeAndHttpHost() . $src;
+            if (Str::startsWith($src, $replace_token)) {
+                $image_paths[] = Str::replace($replace_token, '', $src);
             }
         }
+        
         return $dom->saveHTML();
     }
 }
