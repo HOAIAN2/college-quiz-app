@@ -27,14 +27,10 @@ class DeleteNeverUsedQuestions extends Command
      */
     public function handle()
     {
-        $trash_question_ids = Question::onlyTrashed()->pluck('id')->toArray();
-
-        $used_question_ids = ExamQuestion::whereIn('question_id', $trash_question_ids)
-            ->pluck('question_id')
-            ->toArray();
-
-        $never_used_question_ids = array_diff($trash_question_ids, $used_question_ids);
-
-        Question::whereIn('id', $never_used_question_ids)->forceDelete();
+        Question::onlyTrashed()
+            ->whereNotIn('id', function ($query) {
+                $query->select('question_id')->from('exam_questions');
+            })
+            ->forceDelete();
     }
 }
