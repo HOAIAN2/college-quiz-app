@@ -2,6 +2,7 @@
 docker/php/zz-docker.conf
 docker/php/docker-php-ext-opcache.ini
 docker/php/php.ini
+docker/nginx/default.conf
 docker/nginx/nginx.conf
 docker/nginx/logs
 /redis-data

@@ -59,9 +59,8 @@ RUN mkdir -p /var/www/college-quiz-app/storage/uploads && \
     chmod -R 775 /var/www/college-quiz-app/storage/uploads
 
 # Extra stuff: config, logging,...
-
 COPY ./docker/php/php.ini /usr/local/etc/php/php.ini
-COPY ./docker/nginx/nginx.conf /etc/nginx/http.d/default.conf
+COPY ./docker/nginx/default.conf /etc/nginx/http.d/default.conf
 COPY ./docker/cronjob /etc/crontabs/root
 COPY ./docker/php/zz-docker.conf /usr/local/etc/php-fpm.d/zz-docker.conf
 COPY ./docker/php/docker-php-ext-opcache.ini /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
