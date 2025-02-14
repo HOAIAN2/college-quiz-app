@@ -12,7 +12,7 @@ class RestrictDemoMode
     private $action;
     public function __construct()
     {
-        $this->action = request()->route()->getAction();
+        $this->action = request()->route()?->getAction();
     }
     /**
      * Handle an incoming request.
@@ -22,6 +22,7 @@ class RestrictDemoMode
     public function handle(Request $request, Closure $next): Response
     {
         if (!config('custom.app.demo')) return $next($request);
+        if (!$this->action) return $next($request);
         if (
             $this->restrictChangeDemoAccountPassword() ||
             $this->restrictDeleteDemoAccount()
