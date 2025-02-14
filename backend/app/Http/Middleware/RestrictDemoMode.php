@@ -25,6 +25,7 @@ class RestrictDemoMode
     {
         if (!config('custom.app.demo')) return $next($request);
         if (!$this->action) return $next($request);
+        if (!in_array('controller', $this->action)) return $next($request);
         if (
             $this->restrictChangeDemoAccountPassword() ||
             $this->restrictDeleteDemoAccount()
