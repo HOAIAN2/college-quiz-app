@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 class RestrictDemoMode
 {
     private $action;
+    private int $rootAdminId = 1;
+
     public function __construct()
     {
         $this->action = request()->route()?->getAction();
@@ -38,7 +40,7 @@ class RestrictDemoMode
             return false;
         }
         $current_user_id = auth('sanctum')->user()->id;
-        if ($current_user_id == 1) return true;
+        if ($current_user_id == $this->rootAdminId) return true;
         return false;
     }
 
@@ -48,7 +50,7 @@ class RestrictDemoMode
             return false;
         }
         $user_ids = request()->all()['ids'];
-        if (is_array($user_ids) && in_array(1, $user_ids)) return true;
+        if (is_array($user_ids) && in_array($this->rootAdminId, $user_ids)) return true;
         return false;
     }
 }
