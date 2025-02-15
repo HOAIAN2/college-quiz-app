@@ -16,7 +16,7 @@ else
     rm -rf vendor
     composer install --optimize-autoloader --no-dev
     php artisan optimize:clear
-    rm -f storage/logs/laravel.log
+    truncate -s 0 storage/logs/laravel.log
     rm -rf storage/framework/sessions/*
     echo 'Compressing...'
     tar --exclude=node_modules --exclude=dump --exclude=storage/uploads -czf ../app.tar.gz * .env.example

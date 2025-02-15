@@ -11,7 +11,7 @@ services:
             - "./docker/nginx/logs:/var/log/nginx"
 
     redis:
-        image: redis:alpine
+        image: redis:7.4.2-alpine
         privileged: true
         command: [ "sh", "-c", "sysctl vm.overcommit_memory=1 && redis-server" ]
         ports:
