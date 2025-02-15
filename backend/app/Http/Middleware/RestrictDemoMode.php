@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Helper\Reply;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class RestrictDemoMode
@@ -50,7 +51,12 @@ class RestrictDemoMode
         if ($this->action['controller'] != 'App\Http\Controllers\Api\UserController@destroy') {
             return false;
         }
-        $user_ids = request()->all()['ids'] ?? [];
+        $delete_request = new \App\Http\Requests\DeleteRequest();
+        $validator = Validator::make(request()->all(), $delete_request->rules());
+        if ($validator->fails()) {
+            return false;
+        }
+        $user_ids = request()->ids;
         if (is_array($user_ids) && in_array($this->rootAdminId, $user_ids)) return true;
         return false;
     }
