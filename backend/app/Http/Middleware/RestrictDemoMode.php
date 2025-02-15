@@ -25,7 +25,7 @@ class RestrictDemoMode
     {
         if (!config('custom.app.demo')) return $next($request);
         if (!$this->action) return $next($request);
-        if (!in_array('controller', $this->action)) return $next($request);
+        if (!array_key_exists('controller', $this->action)) return $next($request);
         if (
             $this->restrictChangeDemoAccountPassword() ||
             $this->restrictDeleteDemoAccount()
@@ -50,7 +50,7 @@ class RestrictDemoMode
         if ($this->action['controller'] != 'App\Http\Controllers\Api\UserController@destroy') {
             return false;
         }
-        $user_ids = request()->all()['ids'];
+        $user_ids = request()->all()['ids'] ?? [];
         if (is_array($user_ids) && in_array($this->rootAdminId, $user_ids)) return true;
         return false;
     }
