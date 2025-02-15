@@ -105,9 +105,8 @@ export async function apiGetExamResults(id: string | number) {
     }
 }
 
-export async function apiSubmitExam(id: string | number, answers: number[], bypassKey?: string) {
+export async function apiSubmitExam(id: string | number, answers: number[]) {
     const formData = new FormData();
-    if (bypassKey) formData.append('bypass_key', bypassKey);
     answers.forEach(answer => { formData.append('answers[]', String(answer)); });
     try {
         const apiPath = `${prefix}/${id}/submit`;

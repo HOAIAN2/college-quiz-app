@@ -2,7 +2,6 @@ import appStyles from '~styles/App.module.css';
 import styles from './styles/TakeExam.module.css';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { sha256 } from 'js-sha256';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { TbSend } from 'react-icons/tb';
 import { Navigate, useParams } from 'react-router-dom';
@@ -23,7 +22,6 @@ export default function TakeExam() {
     const { appTitle } = useAppContext();
     const [showSubmitPopUp, setShowSubmitPopUp] = useState(false);
     const [examResult, setExamResult] = useState<ExamResult>();
-    const [bypassKey, setBypassKey] = useState('');
     const [timeLeft, setTimeLeft] = useState('');
     const queryClient = useQueryClient();
     const requestRef = useRef<number>(0);
@@ -41,7 +39,7 @@ export default function TakeExam() {
         apiSyncExamAnswersCache(String(id), answers);
     }, [answers, id]);
     const { mutateAsync, isPending } = useMutation({
-        mutationFn: () => apiSubmitExam(String(id), answers, bypassKey),
+        mutationFn: () => apiSubmitExam(String(id), answers),
         onSuccess: (data) => {
             setExamResult(data);
         },
@@ -65,10 +63,6 @@ export default function TakeExam() {
         requestRef.current = requestAnimationFrame(animate);
         return () => cancelAnimationFrame(requestRef.current!);
     }, [animate, examResult]);
-    useEffect(() => {
-        if (!queryData.data) return;
-        setBypassKey(sha256(queryData.data.examData.startedAt!));
-    }, [queryData.data]);
     useEffect(() => {
         if (!queryData.data) return;
         appTitle.setAppTitle(queryData.data.examData.name);

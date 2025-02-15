@@ -18,7 +18,6 @@
         "axios": "^1.7.9",
         "canvas-confetti": "^1.9.3",
         "chart.js": "^4.4.7",
-        "js-sha256": "^0.11.0",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
         "react-icons": "^5.4.0",

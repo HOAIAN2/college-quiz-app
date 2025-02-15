@@ -555,10 +555,8 @@ class ExamController extends Controller
             $exam_date = Carbon::parse($exam->exam_date);
             $exam_end_date = $exam_date->copy()->addMinutes($exam->exam_time);
 
-            if ($request->bypass_key != null && $exam->canBypassExamTime($request->bypass_key)) {
-                $allow_late_submit_seconds = (int)Setting::get('exam_allow_late_submit_seconds');
-                $exam_end_date = $exam_end_date->addSeconds($allow_late_submit_seconds);
-            }
+            $allow_late_submit_seconds = (int)Setting::get('exam_allow_late_submit_seconds');
+            $exam_end_date = $exam_end_date->addSeconds($allow_late_submit_seconds);
 
             if ($now->lessThan($exam_date)) {
                 return Reply::error(trans('app.errors.exam_not_start'));
