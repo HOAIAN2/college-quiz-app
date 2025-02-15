@@ -12,6 +12,7 @@ return [
         'content_security_policy' => env('CONTENT_SECURITY_POLICY'),
     ],
     'query' => [
+        'slow_query_time' => (int)env('SLOW_QUERY_MILISECONDS', 100),
         'auto_complete_result_limit' => (int)env('AUTO_COMPLETE_RESULT_LIMIT', 5),
         'default_limit' => (int) env('DEFAULT_QUERY_LIMIT', 50),
     ],

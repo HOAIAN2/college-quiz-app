@@ -54,11 +54,23 @@ class AppServiceProvider extends ServiceProvider
 
     private function configQueryLog(): void
     {
+        // Debug
         if (config('app.debug') == true && !app()->runningInConsole())
             DB::listen(function (QueryExecuted $query) {
-                Log::info($query->sql, [
+                Log::debug($query->sql, [
                     'time' => "$query->time ms"
                 ]);
             });
+
+        // Slow queries
+        DB::listen(function (QueryExecuted $query) {
+            if ($query->time > config('custom.query.slow_query_time')) {
+                Log::alert('Slow query', [
+                    'query' => $query->sql,
+                    'time' => "$query->time ms",
+                    'url' => request()->url(),
+                ]);
+            }
+        });
     }
 }
