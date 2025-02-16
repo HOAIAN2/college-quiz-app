@@ -35,7 +35,14 @@ DB_PASSWORD=123456789
 APP_TIMEZONE=UTC
 ```
 
-- Create databse, seed data
+- Remember to update demo password if you run application in demo mode.
+
+```env
+DEMO=true
+DEMO_PASSWORD="123456789"
+```
+
+- Create database, seed data
 
 ```console
 php artisan migrate
@@ -45,8 +52,6 @@ php artisan migrate
 php artisan db:seed
 ```
 
-- Seed databse (Change root account in databse/seeders/UserSeeder.php)
-
 - Build
 
 Some free hosting like infinityfree, 000webhost only allow GET, POST method so you can config override method when call api on client
@@ -55,6 +60,10 @@ Some free hosting like infinityfree, 000webhost only allow GET, POST method so y
 VITE_DEV_PORT=3000
 VITE_DEV_SERVER_PORT=8000
 VITE_OVERRIDE_HTTP_METHOD=true
+```
+
+```console
+./scripts/build.sh
 ```
 
 ## Editor settings
@@ -86,16 +95,17 @@ VITE_API_HOST=
 
 ### VPS with Docker
 
-You can host this with `docker` by run simple command
-
-```console
-./scripts/build.sh --docker
-sudo docker compose up -d
-```
-
 Docker settings save in `docker` directory, `Nginx` connect to `php-fpm` via unix socket instead of normal TCP socket. You can custom `php-fpm` settings by modify the `zz-docker.conf`, but you have to create the file first by copy content from `zz-docker.example.conf`
 
 I'm only setup `Nginx` with `php-fpm` and `Redis` so you have to host your database yourself, or just modify the `docker-compose.yml` or using any other way to host you database.
+
+You can host this application with `docker` by run simple command
+
+```console
+./scripts/install.sh --docker # Create docker config files
+./scripts/build.sh --docker
+docker compose up -d
+```
 
 ## Cron Job
 
