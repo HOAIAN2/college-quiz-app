@@ -26,7 +26,7 @@ abstract class Controller
         $context = [
             'user_id' => $this->getUser()?->id ?? null,
             'url' => request()->url(),
-            'stack_trace' => $error->getTraceAsString(),
+            'stack_trace' => $error->getTrace()[0] ?? [],
         ];
         Log::error($error->getMessage(), $context);
         $message = config('app.debug') ? $error->getMessage() : trans('app.errors.something_went_wrong');
