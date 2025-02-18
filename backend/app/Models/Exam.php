@@ -6,7 +6,9 @@
 
 namespace App\Models;
 
+use App\Observers\ExamObserver;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -33,6 +35,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
+#[ObservedBy(ExamObserver::class)]
 class Exam extends Model
 {
     protected $table = 'exams';

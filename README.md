@@ -109,19 +109,9 @@ docker compose up -d
 
 ## Cron Job
 
-Free hostings do not allow run cron job so I setup cron job inside a middlware in bootstrap/app.php. But you can also setup "real" cron job: <https://laravel.com/docs/scheduling>
+This application still works even if you do not set up a cron job. But you should set up a cron job to clean up data, files, etc.
 
-```php
-$middleware->group('api', [
-   \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-   'throttle:api',
-   \Illuminate\Routing\Middleware\SubstituteBindings::class,
-   \App\Http\Middleware\CamelCaseResponse::class,
-   \App\Http\Middleware\RunTasks::class, // Disable this thing if you already have real cron job
-   // \App\Http\Middleware\Authenticate::class,
-   // \App\Http\Middleware\AcceptContentType::class,
-  ]);
-```
+Cron job file stored in `docker/crontab`
 
 ## Backup database
 
