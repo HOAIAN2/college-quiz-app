@@ -130,6 +130,7 @@ class AuthController extends Controller
             $otp_code = $user->otp_codes()
                 ->where('type', OtpCodeType::VERIFY_EMAIL)
                 ->where('code', $request->verify_code)
+                ->where('expires_at', '>=', now())
                 ->first();
 
             if ($otp_code == null) {
@@ -194,6 +195,7 @@ class AuthController extends Controller
             $is_valid_otp = $user->otp_codes()
                 ->where('type', OtpCodeType::PASSWORD_RESET)
                 ->where('code', $request->verify_code)
+                ->where('expires_at', '>=', now())
                 ->exists();
 
             if ($is_valid_otp == false) {
@@ -222,6 +224,7 @@ class AuthController extends Controller
             $otp_code = $user->otp_codes()
                 ->where('type', OtpCodeType::PASSWORD_RESET)
                 ->where('code', $request->verify_code)
+                ->where('expires_at', '>=', now())
                 ->first();
 
             if ($otp_code == null) {
