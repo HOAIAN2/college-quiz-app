@@ -5,9 +5,6 @@ use Illuminate\Support\Facades\Schedule;
 
 Schedule::call(function () {
     Artisan::call('app:clear-expired-otp-codes');
-})->everyMinute();
-
-Schedule::call(function () {
     Artisan::call('sanctum:prune-expired --hours=0');
 })->daily();
 
