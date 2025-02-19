@@ -5,7 +5,7 @@ namespace App\Http\Requests\User;
 use App\Traits\CustomValidateResponse;
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetByTypeRequest extends FormRequest
+class PaginateRequest extends FormRequest
 {
     use CustomValidateResponse;
     /**

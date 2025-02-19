@@ -11,9 +11,9 @@ use App\Http\Requests\DeleteRequest;
 use App\Http\Requests\User\AutoCompleteRequest;
 use App\Http\Requests\User\ExportableRequest;
 use App\Http\Requests\User\ExportRequest;
-use App\Http\Requests\User\GetAllRequest;
-use App\Http\Requests\User\GetByTypeRequest;
 use App\Http\Requests\User\ImportRequest;
+use App\Http\Requests\User\PaginateRequest;
+use App\Http\Requests\User\SearchRequest;
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\UpdateRequest;
 use App\Models\Faculty;
@@ -144,7 +144,7 @@ class UserController extends Controller
         }
     }
 
-    public function paginateUsers(GetByTypeRequest $request)
+    public function paginateUsers(PaginateRequest $request)
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::USER_VIEW), 403);
@@ -351,7 +351,7 @@ class UserController extends Controller
         }
     }
 
-    public function searchUsers(GetAllRequest $request)
+    public function searchUsers(SearchRequest $request)
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::USER_VIEW), 403);
@@ -361,7 +361,7 @@ class UserController extends Controller
                 ->where('role_id', '=', RoleType::valueFromName($request->role))
                 ->latest('id');
             if ($request->search) {
-                $users = $users->search($request->search);
+                $users = $users->whereFullText(User::FULLTEXT, $request->search);
             }
             $users = $users->take($this->autoCompleteResultLimit * 10)
                 ->get();
