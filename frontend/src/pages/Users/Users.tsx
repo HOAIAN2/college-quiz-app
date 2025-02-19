@@ -15,7 +15,7 @@ import {
 import { Navigate, useSearchParams } from 'react-router-dom';
 import { apiAutoCompleteFaculty, apiGetFacultyById } from '~api/faculty';
 import { apiAutoCompleteSchoolClass, apiGetSchoolClassById } from '~api/school-class';
-import { apiDeleteUserByIds, apiGetUsersByType, apiImportUsers } from '~api/user';
+import { apiDeleteUserByIds, apiGetPaginateUsers, apiImportUsers } from '~api/user';
 import CustomDataList from '~components/CustomDataList';
 import CustomSelect from '~components/CustomSelect';
 import ImportData from '~components/ImportData';
@@ -71,7 +71,7 @@ export default function Users({
                 schoolClassId: searchParams.get(schoolClassFilterKey) || undefined
             }
         ],
-        queryFn: () => apiGetUsersByType({
+        queryFn: () => apiGetPaginateUsers({
             role: role,
             page: Number(searchParams.get('page')),
             perPage: Number(searchParams.get('per_page')),

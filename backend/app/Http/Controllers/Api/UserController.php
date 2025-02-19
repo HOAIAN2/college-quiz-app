@@ -144,7 +144,7 @@ class UserController extends Controller
         }
     }
 
-    public function getUsersByType(GetByTypeRequest $request)
+    public function paginateUsers(GetByTypeRequest $request)
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::USER_VIEW), 403);
@@ -351,7 +351,7 @@ class UserController extends Controller
         }
     }
 
-    public function getAllUsers(GetAllRequest $request)
+    public function searchUsers(GetAllRequest $request)
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::USER_VIEW), 403);
@@ -363,7 +363,7 @@ class UserController extends Controller
             if ($request->search) {
                 $users = $users->search($request->search);
             }
-            $users = $users->take($this->autoCompleteResultLimit * 20)
+            $users = $users->take($this->autoCompleteResultLimit * 10)
                 ->get();
             return Reply::successWithData($users, '');
         } catch (\Exception $error) {

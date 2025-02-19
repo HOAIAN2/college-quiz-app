@@ -48,11 +48,11 @@ Route::prefix('/auth')->controller(AuthController::class)->group(function () {
 
 Route::prefix('/users')->middleware(AUTH_MIDDLEWARES)
     ->controller(UserController::class)->group(function () {
-        Route::get('/query', 'getUsersByType');
+        Route::get('/paginate', 'paginateUsers');
         Route::post('/import', 'importUsers');
         Route::get('/export', 'exportUsers');
         Route::get('/exportable', 'exportableFields');
-        Route::get('/all-user', 'getAllUsers');
+        Route::get('/search', 'searchUsers');
         Route::get('/complete', 'autocomplete');
         Route::get('/{id}', 'show');
         Route::put('/{id}', 'update');

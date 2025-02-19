@@ -52,7 +52,7 @@
 
 .formContent {
     flex: 1;
-    padding: 20px;
+    padding: 10px;
     height: calc(100% - 40px);
 }
 

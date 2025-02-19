@@ -8,7 +8,7 @@ import { RxCross2 } from 'react-icons/rx';
 import { toast } from 'sonner';
 import { apiCreateExam } from '~api/exam';
 import { apiGetSubjectById } from '~api/subject';
-import { apiGetAllUser } from '~api/user';
+import { apiSearchUsers } from '~api/user';
 import Loading from '~components/Loading';
 import { AUTO_COMPLETE_DEBOUNCE } from '~config/env';
 import QUERY_KEYS from '~constants/query-keys';
@@ -47,7 +47,7 @@ export default function CreateExam({
     });
     const userQueryData = useQuery({
         queryKey: [QUERY_KEYS.ALL_TEACHER, { search: debounceQueryUser }],
-        queryFn: () => apiGetAllUser('teacher', debounceQueryUser),
+        queryFn: () => apiSearchUsers('teacher', debounceQueryUser),
     });
     const handleCreateExam = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

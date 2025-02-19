@@ -63,9 +63,9 @@ export async function apiImportUsers(file: File, role: RoleName) {
     }
 }
 
-export async function apiGetUsersByType(query: QueryUserType) {
+export async function apiGetPaginateUsers(query: QueryUserType) {
     try {
-        const apiPath = `${prefix}/query`;
+        const apiPath = `${prefix}/paginate`;
         const res = await request.get(apiPath, {
             params: {
                 role: query.role,
@@ -159,9 +159,9 @@ export async function apiAutoCompleteUser(role: RoleName, search: string) {
     }
 }
 
-export async function apiGetAllUser(role: RoleName, search?: string) {
+export async function apiSearchUsers(role: RoleName, search?: string) {
     try {
-        const apiPath = `${prefix}/all-user`;
+        const apiPath = `${prefix}/search`;
         const res = await request.get(apiPath, {
             params: {
                 search: search,

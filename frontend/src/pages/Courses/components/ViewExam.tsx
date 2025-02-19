@@ -7,7 +7,7 @@ import { FiSave } from 'react-icons/fi';
 import { MdDeleteOutline } from 'react-icons/md';
 import { RxCross2 } from 'react-icons/rx';
 import { apiDeleteExam, apiGetExamById, apiUpdateExam } from '~api/exam';
-import { apiGetAllUser } from '~api/user';
+import { apiSearchUsers } from '~api/user';
 import Loading from '~components/Loading';
 import YesNoPopUp from '~components/YesNoPopUp';
 import { AUTO_COMPLETE_DEBOUNCE } from '~config/env';
@@ -49,7 +49,7 @@ export default function ViewExam({
     });
     const userQueryData = useQuery({
         queryKey: [QUERY_KEYS.ALL_TEACHER, { search: debounceQueryUser }],
-        queryFn: () => apiGetAllUser('teacher', debounceQueryUser),
+        queryFn: () => apiSearchUsers('teacher', debounceQueryUser),
         enabled: permissions.has('user_view') ? true : false
     });
     const handleUpdateExam = async (e: React.FormEvent<HTMLFormElement>) => {
