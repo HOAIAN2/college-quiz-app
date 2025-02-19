@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import packageJson from './package.json';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -25,7 +26,7 @@ export default defineConfig(({ mode }) => ({
         }
     },
     define: {
-        __APP_VERSION__: JSON.stringify('1.1.0'),
+        __APP_VERSION__: JSON.stringify(packageJson.version),
         __APP_BUILD_DATE__: JSON.stringify(new Date().toISOString()),
         __TEXT_EDITOR_MAX_FILE_SIZE__: 2 * 1024 * 1024
     }
