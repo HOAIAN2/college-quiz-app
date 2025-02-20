@@ -4,7 +4,7 @@ ROOT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )
 cd $ROOT_DIR
 
 if [[ $1 = '--docker' ]] ; then
-    docker compose build --no-cache
+    docker compose build
     docker image prune --filter="dangling=true" --force
 else
     cd frontend
