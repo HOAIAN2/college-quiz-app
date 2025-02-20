@@ -7,12 +7,14 @@ use App\Enums\RoleType;
 use App\Helper\Reply;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExamResult\CancelRequest;
+use App\Http\Requests\ExamResult\GetByUserRequest;
 use App\Http\Requests\ExamResult\RemarkRequest;
 use App\Models\Exam;
 use App\Models\ExamQuestionsAnswer;
 use App\Models\ExamQuestionsOrder;
 use App\Models\ExamResult;
 use App\Models\Setting;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -108,12 +110,12 @@ class ExamResultController extends Controller
             switch ($user->role_id) {
                 case RoleType::ADMIN->value:
                     break;
-                // case RoleType::STUDENT->value:
-                //     $exam = $exam
-                //         ->whereHas('course.enrollments', function ($query) use ($user) {
-                //             $query->where('student_id', '=', $user->id);
-                //         });
-                //     break;
+                    // case RoleType::STUDENT->value:
+                    //     $exam = $exam
+                    //         ->whereHas('course.enrollments', function ($query) use ($user) {
+                    //             $query->where('student_id', '=', $user->id);
+                    //         });
+                    //     break;
                 case RoleType::TEACHER->value:
                     $exam = $exam
                         ->whereHas('course.teacher', function ($query) use ($user) {
@@ -181,12 +183,12 @@ class ExamResultController extends Controller
             switch ($user->role_id) {
                 case RoleType::ADMIN->value:
                     break;
-                // case RoleType::STUDENT->value:
-                //     $exam = $exam
-                //         ->whereHas('course.enrollments', function ($query) use ($user) {
-                //             $query->where('student_id', '=', $user->id);
-                //         });
-                //     break;
+                    // case RoleType::STUDENT->value:
+                    //     $exam = $exam
+                    //         ->whereHas('course.enrollments', function ($query) use ($user) {
+                    //             $query->where('student_id', '=', $user->id);
+                    //         });
+                    //     break;
                 case RoleType::TEACHER->value:
                     $exam = $exam
                         ->whereHas('course.teacher', function ($query) use ($user) {
@@ -211,6 +213,29 @@ class ExamResultController extends Controller
             return Reply::successWithMessage(trans('app.successes.success'));
         } catch (\Exception $error) {
             DB::rollBack();
+            return $this->handleException($error);
+        }
+    }
+
+    public function getByUser(GetByUserRequest $request, string $id)
+    {
+        $user = $this->getUser();
+        abort_if(!$user->hasPermission(PermissionType::EXAM_RESULT_VIEW), 403);
+
+        try {
+            // Force error to reduce queries
+            User::where('role_id', '=', RoleType::STUDENT)->findOrFail($id);
+            $exam_results = ExamResult::where('user_id', $id);
+            // Filter
+            if ($request->subject_id) {
+                $exam_ids = Exam::whereHas('course.subject', function ($query) use ($request) {
+                    $query->where('id', $request->subject_id);
+                })->pluck('id');
+                $exam_results->whereIn('exam_id', $exam_ids);
+            }
+            $exam_results = $exam_results->get();
+            return Reply::successWithData($exam_results);
+        } catch (\Exception $error) {
             return $this->handleException($error);
         }
     }

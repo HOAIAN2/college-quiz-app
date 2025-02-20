@@ -163,4 +163,5 @@ Route::prefix('/exam-results')->middleware(AUTH_MIDDLEWARES)
         Route::get('/{id}', 'show');
         Route::post('/{id}/remark', 'remark');
         Route::post('/{id}/cancel', 'cancel');
+        Route::get('/user/{id}', 'getByUser');
     });

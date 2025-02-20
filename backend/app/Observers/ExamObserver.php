@@ -14,6 +14,14 @@ class ExamObserver
 
     public function retrieved(Exam $exam): void
     {
+        // Check enough fields because execute logic or it will set to all field.
+        if (!$exam->isDirty([
+            'started_at',
+            'cancelled_at',
+            'exam_date',
+        ])) return;
+        if ($exam->started_at != null || $exam->cancelled_at != null) return;
+
         // Load setting only once per request
         if (self::$examAutoCancelAfterSeconds === null) {
             self::$examAutoCancelAfterSeconds = (int) Setting::get('exam_auto_cancel_after_seconds');
