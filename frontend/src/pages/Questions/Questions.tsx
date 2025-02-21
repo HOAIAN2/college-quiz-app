@@ -38,7 +38,7 @@ export default function Questions() {
         queryKey: [
             QUERY_KEYS.PAGE_QUESTIONS,
             {
-                chapter: searchParams.get('chapter') || '10',
+                chapter: searchParams.get('chapter'),
                 search: queryDebounce
             },
         ],

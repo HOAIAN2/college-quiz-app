@@ -67,17 +67,17 @@ export default function Users({
                 page: searchParams.get('page') || '1',
                 perPage: searchParams.get('per_page') || '10',
                 search: queryDebounce,
-                facultyId: searchParams.get(facultyFilterKey) || undefined,
-                schoolClassId: searchParams.get(schoolClassFilterKey) || undefined
+                facultyId: searchParams.get(facultyFilterKey) || '',
+                schoolClassId: searchParams.get(schoolClassFilterKey) || ''
             }
         ],
         queryFn: () => apiGetPaginateUsers({
             role: role,
-            page: Number(searchParams.get('page')),
-            perPage: Number(searchParams.get('per_page')),
+            page: Number(searchParams.get('page') || '1'),
+            perPage: Number(searchParams.get('per_page') || '10'),
             search: queryDebounce,
-            facultyId: searchParams.get(facultyFilterKey) || undefined,
-            schoolClassId: searchParams.get(schoolClassFilterKey) || undefined
+            facultyId: searchParams.get(facultyFilterKey) || '',
+            schoolClassId: searchParams.get(schoolClassFilterKey) || ''
         }),
         enabled: permissions.has('user_view')
     });

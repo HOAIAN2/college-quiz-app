@@ -21,15 +21,12 @@ export async function apiAutoCompleteFaculty(search: string) {
         return apiUtils.handleError(error);
     }
 }
-export async function apiGetFaculties(query?: QueryFacultyType) {
+export async function apiGetFaculties(query: QueryFacultyType) {
+    const searchParams = apiUtils.objectToSearchParams(query);
     try {
         const apiPath = prefix;
         const res = await request.get(apiPath, {
-            params: {
-                page: query?.page || 1,
-                per_page: query?.perPage || 10,
-                search: query?.search
-            }
+            params: searchParams
         });
         const { data } = res.data as ApiResponseWithData<Pagination<FacultyDetail>>;
         return data;

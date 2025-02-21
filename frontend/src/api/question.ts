@@ -8,14 +8,11 @@ import encodeFormData from '../utils/encodeFormData';
 const prefix = 'questions';
 
 export async function apiGetQuestions(query: QueryQuestionType) {
+    const searchParams = apiUtils.objectToSearchParams(query);
     try {
         const apiPath = prefix;
         const res = await request.get(apiPath, {
-            params: {
-                subject_id: query.subjectId,
-                chapter_id: query.chapterId,
-                search: query.search
-            }
+            params: searchParams
         });
         const { data } = res.data as ApiResponseWithData<Question[]>;
         return data;

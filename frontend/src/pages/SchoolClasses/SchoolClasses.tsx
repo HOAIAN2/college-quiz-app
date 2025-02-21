@@ -38,8 +38,8 @@ export default function SchoolClasses() {
             },
         ],
         queryFn: () => apiGetSchoolClasses({
-            page: Number(searchParams.get('page')),
-            perPage: Number(searchParams.get('per_page')),
+            page: Number(searchParams.get('page') || '1'),
+            perPage: Number(searchParams.get('per_page') || '10'),
             search: queryDebounce
         }),
         enabled: permissions.has('school_class_view')

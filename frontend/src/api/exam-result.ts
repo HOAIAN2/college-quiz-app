@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ExamResult, ExamResultWithAnswers } from '~models/exam-result';
+import { ExamResult, ExamResultWithAnswers, QueryExamResultsByUser } from '~models/exam-result';
 import apiUtils from '~utils/apiUtils';
 import request from '../config/api';
 import { ApiResponseWithData } from '../models/response';
@@ -35,10 +35,13 @@ export async function apiCacelExamResult(id: string | number, formData: FormData
     }
 }
 
-export async function apiGetResultsByUser(id: string | number) {
+export async function apiGetResultsByUser(id: string | number, query: QueryExamResultsByUser) {
+    const searchParams = apiUtils.objectToSearchParams(query);
     try {
         const apiPath = `${prefix}/user/${id}`;
-        const res = await request.get(apiPath);
+        const res = await request.get(apiPath, {
+            params: searchParams
+        });
         const { data } = res.data as ApiResponseWithData<ExamResult[]>;
         return data;
     } catch (error: any) {

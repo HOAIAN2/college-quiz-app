@@ -46,3 +46,7 @@ type Question = {
     content: string;
     questionOptions: QuestionOption[];
 };
+
+export type QueryExamResultsByUser = {
+    subjectId: string | number;
+};

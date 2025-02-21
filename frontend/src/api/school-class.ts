@@ -21,15 +21,12 @@ export async function apiAutoCompleteSchoolClass(search: string) {
         return apiUtils.handleError(error);
     }
 }
-export async function apiGetSchoolClasses(query?: QuerySchoolClassType) {
+export async function apiGetSchoolClasses(query: QuerySchoolClassType) {
+    const searchParams = apiUtils.objectToSearchParams(query);
     try {
         const apiPath = prefix;
         const res = await request.get(apiPath, {
-            params: {
-                page: query?.page || 1,
-                per_page: query?.perPage || 10,
-                search: query?.search
-            }
+            params: searchParams
         });
         const { data } = res.data as ApiResponseWithData<Pagination<SchoolClassDetail>>;
         return data;

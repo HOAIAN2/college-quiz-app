@@ -18,6 +18,18 @@ const apiUtils = {
         // Handle 422 error by Laravel
         if (error.response.data.errors) return Promise.reject(error.response.data.errors);
         throw new Error(message);
+    },
+    camelToSnakeCase(content: string) {
+        return content.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    objectToSearchParams(object: Record<any, any>) {
+        const searchParams = new URLSearchParams(
+            Object.entries(object).map(([key, value]) => {
+                return [apiUtils.camelToSnakeCase(key), value || ''];
+            })
+        );
+        return searchParams;
     }
 };
 

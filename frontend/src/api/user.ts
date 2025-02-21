@@ -64,17 +64,11 @@ export async function apiImportUsers(file: File, role: RoleName) {
 }
 
 export async function apiGetPaginateUsers(query: QueryUserType) {
+    const searchParams = apiUtils.objectToSearchParams(query);
     try {
         const apiPath = `${prefix}/paginate`;
         const res = await request.get(apiPath, {
-            params: {
-                role: query.role,
-                page: query.page || 1,
-                per_page: query.perPage || 10,
-                search: query.search,
-                faculty_id: query.facultyId,
-                school_class_id: query.schoolClassId
-            }
+            params: searchParams
         });
         const { data } = res.data as ApiResponseWithData<Pagination<UserDetail>>;
         return data;

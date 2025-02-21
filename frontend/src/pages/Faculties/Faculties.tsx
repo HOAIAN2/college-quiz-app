@@ -38,8 +38,8 @@ export default function Faculties() {
             },
         ],
         queryFn: () => apiGetFaculties({
-            page: Number(searchParams.get('page')),
-            perPage: Number(searchParams.get('per_page')),
+            page: Number(searchParams.get('page') || '1'),
+            perPage: Number(searchParams.get('per_page') || '10'),
             search: queryDebounce
         }),
         enabled: permissions.has('faculty_view')

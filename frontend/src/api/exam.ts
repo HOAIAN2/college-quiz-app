@@ -11,13 +11,11 @@ import encodeFormData from '../utils/encodeFormData';
 const prefix = 'exams';
 
 export async function apiGetExamsByMonth(query: QueryExamType) {
+    const searchParams = apiUtils.objectToSearchParams(query);
     try {
         const apiPath = prefix;
         const res = await request.get(apiPath, {
-            params: {
-                month: query.month,
-                year: query.year
-            }
+            params: searchParams
         });
         const { data } = res.data as ApiResponseWithData<ExamInMonth[]>;
         return data;

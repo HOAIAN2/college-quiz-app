@@ -8,13 +8,11 @@ import encodeFormData from '../utils/encodeFormData';
 const prefix = 'courses';
 
 export async function apiGetCourses(query: QueryCourseType) {
+    const searchParams = apiUtils.objectToSearchParams(query);
     try {
         const apiPath = prefix;
         const res = await request.get(apiPath, {
-            params: {
-                search: query.search,
-                semester_id: query.semesterId
-            }
+            params: searchParams
         });
         const { data } = res.data as ApiResponseWithData<Course[]>;
         return data;
