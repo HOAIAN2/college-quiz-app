@@ -233,7 +233,7 @@ class ExamResultController extends Controller
                 })->pluck('id');
                 $exam_results->whereIn('exam_id', $exam_ids);
             }
-            $exam_results = $exam_results->get();
+            $exam_results = $exam_results->latest()->get();
             return Reply::successWithData($exam_results);
         } catch (\Exception $error) {
             return $this->handleException($error);
