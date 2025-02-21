@@ -220,7 +220,7 @@ class ExamResultController extends Controller
     public function getByUser(GetByUserRequest $request, string $id)
     {
         $user = $this->getUser();
-        abort_if(!$user->hasPermission(PermissionType::EXAM_RESULT_VIEW), 403);
+        abort_if($user->isStudent() && $user->id != $id, 403);
 
         try {
             // Force error to reduce queries

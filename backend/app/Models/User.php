@@ -173,6 +173,11 @@ class User extends Authenticatable
         return $this->role_id == RoleType::TEACHER->value;
     }
 
+    public function isStudent()
+    {
+        return $this->role_id == RoleType::STUDENT->value;
+    }
+
     public function hasPermission(string|PermissionType $name)
     {
         return $this->role->permissions()->where('name', '=', $name)->exists();
