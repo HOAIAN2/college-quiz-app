@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 import { RiAddFill } from 'react-icons/ri';
-import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router';
 import { apiDeleteSubject, apiGetSubjectById, apiUpdateSubject } from '~api/subject';
 import Loading from '~components/Loading';
 import YesNoPopUp from '~components/YesNoPopUp';

@@ -12,7 +12,7 @@ import { PiMicrosoftExcelLogoFill } from 'react-icons/pi';
 import {
     RiAddFill
 } from 'react-icons/ri';
-import { Navigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router';
 import { apiAutoCompleteFaculty, apiGetFacultyById } from '~api/faculty';
 import { apiAutoCompleteSchoolClass, apiGetSchoolClassById } from '~api/school-class';
 import { apiDeleteUserByIds, apiGetPaginateUsers, apiImportUsers } from '~api/user';

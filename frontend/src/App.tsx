@@ -5,7 +5,7 @@ import {
     QueryClientProvider,
 } from '@tanstack/react-query';
 import { lazy, Suspense, useEffect } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router';
 import { Toaster } from 'sonner';
 import SuspenseLoading from '~components/SuspenseLoading';
 import themeUtils from '~utils/themeUtils';

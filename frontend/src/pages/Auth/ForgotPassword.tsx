@@ -2,7 +2,7 @@ import appStyles from '~styles/App.module.css';
 import styles from './styles/ForgotPassword.module.css';
 
 import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router';
 import { apiResetPassword, apiSendPasswordResetEmail, apiVerifyPasswordResetCode } from '~api/auth';
 import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';

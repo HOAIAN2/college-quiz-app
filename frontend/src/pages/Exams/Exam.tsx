@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { BiExport } from 'react-icons/bi';
 import { ImCancelCircle } from 'react-icons/im';
 import { LuAlarmClock, LuRefreshCw } from 'react-icons/lu';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router';
 import { apiExportExamResult, apiGetExamById, apiGetExamResults, apiUpdateExamStatus } from '~api/exam';
 import Loading from '~components/Loading';
 import YesNoPopUp from '~components/YesNoPopUp';

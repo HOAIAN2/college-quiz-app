@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { MdDeleteOutline } from 'react-icons/md';
 import { RxCross2 } from 'react-icons/rx';
+import { Link } from 'react-router';
 import { apiDeleteExam, apiGetExamById, apiUpdateExam } from '~api/exam';
 import { apiSearchUsers } from '~api/user';
 import Loading from '~components/Loading';
@@ -74,6 +75,11 @@ export default function ViewExam({
         if (!queryData.data.startedAt) return false;
         const examStartedAt = new Date(queryData.data.startedAt);
         return new Date().getTime() > examStartedAt.getTime();
+    };
+    const isExamCancelled = () => {
+        if (!queryData.data) return false;
+        if (queryData.data.cancelledAt) return true;
+        return false;
     };
     const { mutate, isPending } = useMutation({
         mutationFn: handleUpdateExam,
@@ -255,35 +261,41 @@ export default function ViewExam({
                                                 </> : null
                                         }
                                     </div>
-                                    {
-                                        permissions.hasAnyFormList(['exam_update', 'exam_delete']) && !isExamStarted() ?
-                                            <div className={styles.actionItems}>
-                                                {
-                                                    permissions.has('exam_update') && !isExamStarted() ?
-                                                        <button name='save'
-                                                            className={
-                                                                css(
-                                                                    appStyles.actionItem,
-                                                                    isPending ? appStyles.buttonSubmitting : ''
-                                                                )
-                                                            }
-                                                        ><FiSave />{language?.save}
-                                                        </button> : null
-                                                }
-                                                {
-                                                    permissions.has('exam_delete') && !isExamStarted() ?
-                                                        <button
-                                                            type='button'
-                                                            onClick={() => {
-                                                                setShowDeletePopUp(true);
-                                                            }}
-                                                            className={appStyles.actionItemWhiteBorderRed}>
-                                                            <MdDeleteOutline /> {language?.delete}
-                                                        </button> : null
-                                                }
-                                            </div>
-                                            : null
-                                    }
+                                    <div className={styles.actionItems}>
+                                        <button
+                                            type='button'
+                                            className={
+                                                css(
+                                                    appStyles.actionItemWhite,
+                                                )
+                                            }
+                                        >
+                                            <Link to={`/exams/${queryData.data.id}`}>{language?.viewInExamsPage}</Link>
+                                        </button>
+                                        {
+                                            permissions.has('exam_update') && !isExamStarted() && !isExamCancelled() ?
+                                                <button name='save'
+                                                    className={
+                                                        css(
+                                                            appStyles.actionItem,
+                                                            isPending ? appStyles.buttonSubmitting : ''
+                                                        )
+                                                    }
+                                                ><FiSave />{language?.save}
+                                                </button> : null
+                                        }
+                                        {
+                                            permissions.has('exam_delete') && !isExamStarted() && !isExamCancelled() ?
+                                                <button
+                                                    type='button'
+                                                    onClick={() => {
+                                                        setShowDeletePopUp(true);
+                                                    }}
+                                                    className={appStyles.actionItemWhiteBorderRed}>
+                                                    <MdDeleteOutline /> {language?.delete}
+                                                </button> : null
+                                        }
+                                    </div>
                                 </form>
                                 : null
                         }

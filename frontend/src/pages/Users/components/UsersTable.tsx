@@ -4,7 +4,7 @@ import styles from '~styles/Table.module.css';
 import { useEffect, useState } from 'react';
 import { GiFemale, GiMale } from 'react-icons/gi';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
-import { SetURLSearchParams } from 'react-router-dom';
+import { SetURLSearchParams } from 'react-router';
 import StatusBadge from '~components/StatusBadge';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';

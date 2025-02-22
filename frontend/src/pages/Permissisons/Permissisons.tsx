@@ -4,7 +4,7 @@ import styles from './styles/Permissions.module.css';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { LuUsers } from 'react-icons/lu';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router';
 import { apiGetRolePermissionCount } from '~api/role-permission';
 import Loading from '~components/Loading';
 import QUERY_KEYS from '~constants/query-keys';

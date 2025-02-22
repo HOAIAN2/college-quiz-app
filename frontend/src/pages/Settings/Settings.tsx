@@ -7,7 +7,7 @@ import { HiOutlineWrenchScrewdriver } from 'react-icons/hi2';
 import { IoColorPaletteOutline } from 'react-icons/io5';
 import { MdOutlineSecurity } from 'react-icons/md';
 import { PiExam } from 'react-icons/pi';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';

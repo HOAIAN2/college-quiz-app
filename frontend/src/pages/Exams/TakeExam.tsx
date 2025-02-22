@@ -4,7 +4,7 @@ import styles from './styles/TakeExam.module.css';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { TbSend } from 'react-icons/tb';
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router';
 import { toast } from 'sonner';
 import { apiGetTakeExam, apiSubmitExam, apiSyncExamAnswersCache } from '~api/exam';
 import Loading from '~components/Loading';

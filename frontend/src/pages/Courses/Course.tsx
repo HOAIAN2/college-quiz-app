@@ -6,7 +6,7 @@ import { SyntheticEvent, useEffect, useState } from 'react';
 import { FiEdit, FiSave } from 'react-icons/fi';
 import { MdDeleteOutline } from 'react-icons/md';
 import { RiAddFill } from 'react-icons/ri';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router';
 import { apiDeleteCourse, apiGetCourseById, apiUpdateCourse } from '~api/course';
 import { apiAutoCompleteUser } from '~api/user';
 import CustomDataList from '~components/CustomDataList';

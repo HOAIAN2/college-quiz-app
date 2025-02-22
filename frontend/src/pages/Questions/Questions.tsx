@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { BiImport } from 'react-icons/bi';
 import { RiAddFill } from 'react-icons/ri';
-import { Navigate, useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { Navigate, useLocation, useParams, useSearchParams } from 'react-router';
 import { apiGetQuestions } from '~api/question';
 import { apiGetSubjectById } from '~api/subject';
 import CustomSelect from '~components/CustomSelect';

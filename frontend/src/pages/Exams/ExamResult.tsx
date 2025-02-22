@@ -3,7 +3,7 @@ import styles from './styles/ExamResult.module.css';
 
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router';
 import { apiGetExamById } from '~api/exam';
 import { apiGetExamResult } from '~api/exam-result';
 import Loading from '~components/Loading';
