@@ -241,7 +241,8 @@ class QuestionController extends Controller
                             $text .= "<img src=\"$image_data\">";
                         }
                     }
-                    if (empty(trim($text))) {
+                    $text = trim($text);
+                    if (empty($text)) {
                         // Push line break to current question content or answer
                         // if ($current_question) {
                         //     if (count($current_question['answers']) == 0) {
