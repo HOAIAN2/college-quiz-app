@@ -196,6 +196,15 @@ const router = createBrowserRouter([
                             },
                         ],
                     },
+                    {
+                        path: 'exam-results',
+                        children: [
+                            {
+                                path:'students/:id',
+                                element: <Suspense key='exam-results-student' fallback={<SuspenseLoading />}>div</Suspense>
+                            },
+                        ]
+                    },
                 ]
             }
         ]

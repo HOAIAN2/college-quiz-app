@@ -23,5 +23,6 @@ export default {
     birthDate: 'Birth date',
     password: 'Password',
     leaveBlank: 'Leave blank to remain unchanged',
-    save: 'Save'
+    save: 'Save',
+    examResults: 'Exam results',
 };

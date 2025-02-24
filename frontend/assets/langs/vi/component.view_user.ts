@@ -23,5 +23,6 @@ export default {
     birthDate: 'Ngày sinh',
     password: 'Mật khẩu',
     leaveBlank: 'Để trống để giữ nguyên',
-    save: 'Lưu'
+    save: 'Lưu',
+    examResults: 'Kết quả bài thi',
 };

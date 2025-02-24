@@ -5,6 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { RxCross2 } from 'react-icons/rx';
+import { Link } from 'react-router';
 import { apiAutoCompleteFaculty } from '~api/faculty';
 import { apiAutoCompleteSchoolClass } from '~api/school-class';
 import { apiGetUserById, apiUpdateUser } from '~api/user';
@@ -129,91 +130,71 @@ export default function ViewUser({
                                 }}
                                     onInput={(e) => { formUtils.handleOnInput(e); }}
                                     className={styles.formData}>
-                                    <div className={styles.groupInputs}>
-                                        <div className={styles.wrapItem}>
-                                            <label className={appStyles.required} htmlFor='email'>{language?.email}</label>
-                                            <input
-                                                id='email'
-                                                disabled={disabledUpdate}
-                                                defaultValue={queryData.data.email}
-                                                name='email'
-                                                className={css(appStyles.input, styles.inputItem)}
-                                                type='text' />
-                                        </div>
-                                        <div className={styles.wrapItem}>
-                                            <label htmlFor='phone_number'>{language?.phoneNumber}</label>
-                                            <input
-                                                id='phone_number'
-                                                disabled={disabledUpdate}
-                                                defaultValue={queryData.data.phoneNumber || ''}
-                                                name='phone_number'
-                                                className={css(appStyles.input, styles.inputItem)}
-                                                type='text' />
-                                        </div>
-                                        <div className={styles.wrapItem}>
-                                            <label className={appStyles.required} htmlFor='first_name'>{language?.firstName}</label>
-                                            <input
-                                                id='first_name'
-                                                disabled={disabledUpdate}
-                                                defaultValue={queryData.data.firstName}
-                                                name='first_name'
-                                                className={css(appStyles.input, styles.inputItem)}
-                                                type='text' />
-                                        </div>
-                                        <div className={styles.wrapItem}>
-                                            <label className={appStyles.required} htmlFor='last_name'>{language?.lastName}</label>
-                                            <input
-                                                id='last_name'
-                                                disabled={disabledUpdate}
-                                                defaultValue={queryData.data.lastName}
-                                                name='last_name'
-                                                className={css(appStyles.input, styles.inputItem)}
-                                                type='text' />
-                                        </div>
-                                        <div className={styles.wrapItem}>
-                                            <label className={appStyles.required} htmlFor='shortcode'>{language?.shortcode}</label>
-                                            <input
-                                                id='shortcode'
-                                                disabled={disabledUpdate}
-                                                defaultValue={queryData.data.shortcode}
-                                                name='shortcode'
-                                                className={css(appStyles.input, styles.inputItem)}
-                                                type='text' />
-                                        </div>
-                                        {queryData.data.role.name === 'student' ?
-                                            <div style={{ zIndex: 3 }} className={styles.wrapItem}>
-                                                <label className={appStyles.required} htmlFor='school_class_id'>{language?.class}</label>
-                                                <CustomDataList
-                                                    name='school_class_id'
-                                                    defaultOption={
-                                                        {
-                                                            label: queryData.data.schoolClass?.name,
-                                                            value: queryData.data.schoolClass ? String(queryData.data.schoolClass.id) : ''
-                                                        }
-                                                    }
-                                                    onInput={e => { setQueryClass(e.currentTarget.value); }}
-                                                    options={classQueryData.data ? classQueryData.data.map(item => {
-                                                        return {
-                                                            label: item.name,
-                                                            value: String(item.id)
-                                                        };
-                                                    }) : []}
+                                    <div>
+                                        <div className={styles.groupInputs}>
+                                            <div className={styles.wrapItem}>
+                                                <label className={appStyles.required} htmlFor='email'>{language?.email}</label>
+                                                <input
+                                                    id='email'
                                                     disabled={disabledUpdate}
-                                                />
+                                                    defaultValue={queryData.data.email}
+                                                    name='email'
+                                                    className={css(appStyles.input, styles.inputItem)}
+                                                    type='text' />
                                             </div>
-                                            : queryData.data.role.name === 'teacher' ?
+                                            <div className={styles.wrapItem}>
+                                                <label htmlFor='phone_number'>{language?.phoneNumber}</label>
+                                                <input
+                                                    id='phone_number'
+                                                    disabled={disabledUpdate}
+                                                    defaultValue={queryData.data.phoneNumber || ''}
+                                                    name='phone_number'
+                                                    className={css(appStyles.input, styles.inputItem)}
+                                                    type='text' />
+                                            </div>
+                                            <div className={styles.wrapItem}>
+                                                <label className={appStyles.required} htmlFor='first_name'>{language?.firstName}</label>
+                                                <input
+                                                    id='first_name'
+                                                    disabled={disabledUpdate}
+                                                    defaultValue={queryData.data.firstName}
+                                                    name='first_name'
+                                                    className={css(appStyles.input, styles.inputItem)}
+                                                    type='text' />
+                                            </div>
+                                            <div className={styles.wrapItem}>
+                                                <label className={appStyles.required} htmlFor='last_name'>{language?.lastName}</label>
+                                                <input
+                                                    id='last_name'
+                                                    disabled={disabledUpdate}
+                                                    defaultValue={queryData.data.lastName}
+                                                    name='last_name'
+                                                    className={css(appStyles.input, styles.inputItem)}
+                                                    type='text' />
+                                            </div>
+                                            <div className={styles.wrapItem}>
+                                                <label className={appStyles.required} htmlFor='shortcode'>{language?.shortcode}</label>
+                                                <input
+                                                    id='shortcode'
+                                                    disabled={disabledUpdate}
+                                                    defaultValue={queryData.data.shortcode}
+                                                    name='shortcode'
+                                                    className={css(appStyles.input, styles.inputItem)}
+                                                    type='text' />
+                                            </div>
+                                            {queryData.data.role.name === 'student' ?
                                                 <div style={{ zIndex: 3 }} className={styles.wrapItem}>
-                                                    <label className={appStyles.required} htmlFor='faculty_id'>{language?.faculty}</label>
+                                                    <label className={appStyles.required} htmlFor='school_class_id'>{language?.class}</label>
                                                     <CustomDataList
-                                                        name='faculty_id'
+                                                        name='school_class_id'
                                                         defaultOption={
                                                             {
-                                                                label: queryData.data.faculty?.name,
-                                                                value: queryData.data.faculty ? String(queryData.data.faculty.id) : ''
+                                                                label: queryData.data.schoolClass?.name,
+                                                                value: queryData.data.schoolClass ? String(queryData.data.schoolClass.id) : ''
                                                             }
                                                         }
-                                                        onInput={e => { setQueryFaculty(e.currentTarget.value); }}
-                                                        options={facultyQueryData.data ? facultyQueryData.data.map(item => {
+                                                        onInput={e => { setQueryClass(e.currentTarget.value); }}
+                                                        options={classQueryData.data ? classQueryData.data.map(item => {
                                                             return {
                                                                 label: item.name,
                                                                 value: String(item.id)
@@ -222,68 +203,100 @@ export default function ViewUser({
                                                         disabled={disabledUpdate}
                                                     />
                                                 </div>
+                                                : queryData.data.role.name === 'teacher' ?
+                                                    <div style={{ zIndex: 3 }} className={styles.wrapItem}>
+                                                        <label className={appStyles.required} htmlFor='faculty_id'>{language?.faculty}</label>
+                                                        <CustomDataList
+                                                            name='faculty_id'
+                                                            defaultOption={
+                                                                {
+                                                                    label: queryData.data.faculty?.name,
+                                                                    value: queryData.data.faculty ? String(queryData.data.faculty.id) : ''
+                                                                }
+                                                            }
+                                                            onInput={e => { setQueryFaculty(e.currentTarget.value); }}
+                                                            options={facultyQueryData.data ? facultyQueryData.data.map(item => {
+                                                                return {
+                                                                    label: item.name,
+                                                                    value: String(item.id)
+                                                                };
+                                                            }) : []}
+                                                            disabled={disabledUpdate}
+                                                        />
+                                                    </div>
+                                                    : null
+                                            }
+                                            <div
+                                                className={styles.wrapItem}
+                                                style={{ zIndex: 2 }}>
+                                                <label className={appStyles.required} htmlFor=''>{language?.genders.gender}</label>
+                                                <CustomSelect
+                                                    name='gender'
+                                                    defaultOption={
+                                                        queryData.data.gender === 'male'
+                                                            ? genderOptions[0] : genderOptions[1]
+                                                    }
+                                                    disabled={disabledUpdate}
+                                                    options={genderOptions}
+                                                    className={styles.customSelect}
+                                                />
+                                            </div>
+                                            <div className={styles.wrapItem}>
+                                                <label className={appStyles.required} htmlFor='address'>{language?.address}</label>
+                                                <input
+                                                    id='address'
+                                                    disabled={disabledUpdate}
+                                                    defaultValue={queryData.data.address}
+                                                    name='address'
+                                                    className={css(appStyles.input, styles.inputItem)}
+                                                    type='text' />
+                                            </div>
+                                            <div className={styles.wrapItem}>
+                                                <label className={appStyles.required} htmlFor='birth_date'>{language?.birthDate}</label>
+                                                <input
+                                                    defaultValue={dateFormat.toDateString(new Date(queryData.data.birthDate))}
+                                                    max={dateFormat.toDateString(new Date())}
+                                                    type='date'
+                                                    id='birth_date'
+                                                    name='birth_date'
+                                                    className={css(appStyles.input, styles.inputItem)}
+                                                    disabled={disabledUpdate}
+                                                />
+                                            </div>
+                                            <div className={styles.wrapItem}>
+                                                <label className={appStyles.required} htmlFor=''>{language?.status.accountStatus}</label>
+                                                <CustomSelect
+                                                    name='is_active'
+                                                    defaultOption={
+                                                        queryData.data.isActive
+                                                            ? statusOptions[0] : statusOptions[1]
+                                                    }
+                                                    disabled={disabledUpdate}
+                                                    options={statusOptions}
+                                                    className={styles.customSelect}
+                                                />
+                                            </div>
+                                            <div className={styles.wrapItem}>
+                                                <label htmlFor='password'>{language?.password}</label>
+                                                <input
+                                                    id='password'
+                                                    disabled={disabledUpdate}
+                                                    placeholder={language?.leaveBlank}
+                                                    name='password'
+                                                    className={css(appStyles.input, styles.inputItem)}
+                                                    type='password' />
+                                            </div>
+                                        </div>
+                                        {
+                                            queryData.data.role.name === 'student' ?
+                                                <section style={{
+                                                    borderTop: '1px solid var(--color-gray)',
+                                                    paddingTop: '10px',
+                                                }}>
+                                                    <Link className={styles.link} to={`/exam-results/students/${queryData.data.id}`}>{language?.examResults}</Link>
+                                                </section>
                                                 : null
                                         }
-                                        <div
-                                            className={styles.wrapItem}
-                                            style={{ zIndex: 2 }}>
-                                            <label className={appStyles.required} htmlFor=''>{language?.genders.gender}</label>
-                                            <CustomSelect
-                                                name='gender'
-                                                defaultOption={
-                                                    queryData.data.gender === 'male'
-                                                        ? genderOptions[0] : genderOptions[1]
-                                                }
-                                                disabled={disabledUpdate}
-                                                options={genderOptions}
-                                                className={styles.customSelect}
-                                            />
-                                        </div>
-                                        <div className={styles.wrapItem}>
-                                            <label className={appStyles.required} htmlFor='address'>{language?.address}</label>
-                                            <input
-                                                id='address'
-                                                disabled={disabledUpdate}
-                                                defaultValue={queryData.data.address}
-                                                name='address'
-                                                className={css(appStyles.input, styles.inputItem)}
-                                                type='text' />
-                                        </div>
-                                        <div className={styles.wrapItem}>
-                                            <label className={appStyles.required} htmlFor='birth_date'>{language?.birthDate}</label>
-                                            <input
-                                                defaultValue={dateFormat.toDateString(new Date(queryData.data.birthDate))}
-                                                max={dateFormat.toDateString(new Date())}
-                                                type='date'
-                                                id='birth_date'
-                                                name='birth_date'
-                                                className={css(appStyles.input, styles.inputItem)}
-                                                disabled={disabledUpdate}
-                                            />
-                                        </div>
-                                        <div className={styles.wrapItem}>
-                                            <label className={appStyles.required} htmlFor=''>{language?.status.accountStatus}</label>
-                                            <CustomSelect
-                                                name='is_active'
-                                                defaultOption={
-                                                    queryData.data.isActive
-                                                        ? statusOptions[0] : statusOptions[1]
-                                                }
-                                                disabled={disabledUpdate}
-                                                options={statusOptions}
-                                                className={styles.customSelect}
-                                            />
-                                        </div>
-                                        <div className={styles.wrapItem}>
-                                            <label htmlFor='password'>{language?.password}</label>
-                                            <input
-                                                id='password'
-                                                disabled={disabledUpdate}
-                                                placeholder={language?.leaveBlank}
-                                                name='password'
-                                                className={css(appStyles.input, styles.inputItem)}
-                                                type='password' />
-                                        </div>
                                     </div>
                                     {
                                         permissions.has('user_update') && !disabledUpdate ?
