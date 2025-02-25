@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ExamResult, ExamResultWithAnswers, QueryExamResultsByUser } from '~models/exam-result';
+import { ExamResultWithAnswers, ExamResultWithExam, QueryExamResultsByUser } from '~models/exam-result';
 import apiUtils from '~utils/apiUtils';
 import request from '../config/api';
 import { ApiResponseWithData } from '../models/response';
@@ -42,7 +42,7 @@ export async function apiGetExamResultsByUser(id: string | number, query: QueryE
         const res = await request.get(apiPath, {
             params: searchParams
         });
-        const { data } = res.data as ApiResponseWithData<ExamResult[]>;
+        const { data } = res.data as ApiResponseWithData<ExamResultWithExam[]>;
         return data;
     } catch (error: any) {
         return apiUtils.handleError(error);

@@ -225,7 +225,9 @@ class ExamResultController extends Controller
         try {
             // Force error to reduce queries
             User::where('role_id', '=', RoleType::STUDENT)->findOrFail($id);
-            $exam_results = ExamResult::where('user_id', $id);
+            $exam_results = ExamResult::with([
+                'exam'
+            ])->where('user_id', $id);
             // Filter
             if ($request->subject_id) {
                 $exam_ids = Exam::whereHas('course.subject', function ($query) use ($request) {

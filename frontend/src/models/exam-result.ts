@@ -1,3 +1,4 @@
+import { Exam } from './exam';
 import { QuestionOption } from './question';
 import { User } from './user';
 
@@ -15,6 +16,10 @@ export type ExamResult = {
     remarkByUserId: number | null,
     createdAt: string;
     updatedAt: string;
+};
+
+export type ExamResultWithExam = ExamResult & {
+    exam: Exam;
 };
 
 export type ExamResultWithAnswers = {
