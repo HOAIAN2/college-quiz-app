@@ -2,7 +2,7 @@
 
 ## Technologies
 
-- Laravel 11
+- Laravel 12
 - React 19
 
 ## Prerequisites
