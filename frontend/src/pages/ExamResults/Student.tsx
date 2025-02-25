@@ -7,6 +7,7 @@ import { BiExport } from 'react-icons/bi';
 import { Link, useParams, useSearchParams } from 'react-router';
 import { apiGetExamResultsByUser } from '~api/exam-result';
 import { apiAutoCompleteSubject, apiGetSubjectById } from '~api/subject';
+import { apiGetUserById } from '~api/user';
 import CustomDataList from '~components/CustomDataList';
 import Loading from '~components/Loading';
 import { AUTO_COMPLETE_DEBOUNCE } from '~config/env';
@@ -19,7 +20,7 @@ import css from '~utils/css';
 import languageUtils from '~utils/languageUtils';
 
 export default function Student() {
-    const { permissions, appLanguage, appTitle, user } = useAppContext();
+    const { permissions, appLanguage, appTitle } = useAppContext();
     const { id } = useParams();
     const language = useLanguage('page_exam_results_user');
     const [querySubject, setQuerySubject] = useState('');
@@ -35,6 +36,11 @@ export default function Student() {
             subjectId: searchParams.get('subject_id') || '',
         })
     });
+    const userQueryData = useQuery({
+        queryKey: [QUERY_KEYS.USER_DETAIL, { id: id }],
+        queryFn: () => apiGetUserById(String(id)),
+        refetchOnWindowFocus: false,
+    });
     const initQuerySubjectData = useQuery({
         queryKey: [QUERY_KEYS.PAGE_SUBJECT, { id: searchParams.get('subject_id') }],
         queryFn: () => apiGetSubjectById(searchParams.get('subject_id') || ''),
@@ -48,9 +54,10 @@ export default function Student() {
     });
     useEffect(() => {
         if (!language) return;
-        const fullname = languageUtils.getFullName(user.user?.firstName, user.user?.lastName);
+        if (!userQueryData.data) return;
+        const fullname = languageUtils.getFullName(userQueryData.data.firstName, userQueryData.data.lastName);
         appTitle.setAppTitle(language.title.replace('@name', fullname));
-    });
+    }, [appTitle, language, userQueryData.data]);
     if (initQuerySubject.current && !initQuerySubjectData.data) return null;
     return (
         <>
