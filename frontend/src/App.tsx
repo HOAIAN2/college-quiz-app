@@ -35,6 +35,7 @@ const ExamResult = lazy(() => import('./pages/Exams/ExamResult'));
 const TakeExam = lazy(() => import('./pages/Exams/TakeExam'));
 const Settings = lazy(() => import('./pages/Settings/Settings'));
 const Profile = lazy(() => import('./pages/Profile/Profile'));
+const StudentExamResults = lazy(() => import('./pages/ExamResults/Student'));
 
 const router = createBrowserRouter([
     {
@@ -200,8 +201,8 @@ const router = createBrowserRouter([
                         path: 'exam-results',
                         children: [
                             {
-                                path:'students/:id',
-                                element: <Suspense key='exam-results-student' fallback={<SuspenseLoading />}>div</Suspense>
+                                path: 'students/:id',
+                                element: <Suspense key='exam-results-student' fallback={<SuspenseLoading />}><StudentExamResults /></Suspense>
                             },
                         ]
                     },

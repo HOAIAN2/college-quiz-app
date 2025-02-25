@@ -35,7 +35,7 @@ export async function apiCacelExamResult(id: string | number, formData: FormData
     }
 }
 
-export async function apiGetResultsByUser(id: string | number, query: QueryExamResultsByUser) {
+export async function apiGetExamResultsByUser(id: string | number, query: QueryExamResultsByUser) {
     const searchParams = apiUtils.objectToSearchParams(query);
     try {
         const apiPath = `${prefix}/user/${id}`;

@@ -34,6 +34,7 @@ const keys = [
     'ALL_SETTINGS',
     'EXAM_RESULTS',
     'EXAM_RESULT',
+    'EXAM_RESULTS_BY_USER',
 ] as const;
 
 type QueryKey = (typeof keys)[number];
