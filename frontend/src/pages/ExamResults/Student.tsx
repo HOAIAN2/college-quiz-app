@@ -1,5 +1,5 @@
 import appStyles from '~styles/App.module.css';
-import styles from '~styles/CardPage.module.css';
+import styles from './styles/Student.module.css';
 
 import { useQuery } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
@@ -11,10 +11,12 @@ import Loading from '~components/Loading';
 import { AUTO_COMPLETE_DEBOUNCE } from '~config/env';
 import QUERY_KEYS from '~constants/query-keys';
 import useDebounce from '~hooks/useDebounce';
+import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
 
 export default function Student() {
     const { id } = useParams();
+    const language = useLanguage('page_exam_results_user');
     const [querySubject, setQuerySubject] = useState('');
     const debounceQuerySubject = useDebounce(querySubject, AUTO_COMPLETE_DEBOUNCE);
     const [searchParams, setSearchParams] = useSearchParams();
@@ -32,9 +34,6 @@ export default function Student() {
         queryKey: [QUERY_KEYS.PAGE_SUBJECT, { id: searchParams.get('subject_id') }],
         queryFn: () => apiGetSubjectById(searchParams.get('subject_id') || ''),
         enabled: initQuerySubject.current ? true : false,
-        // enabled: permissions.has('subject_view'),
-        // retry: false,
-        // refetchOnWindowFocus: false,
     });
     const subjectQueryData = useQuery({
         queryKey: [QUERY_KEYS.AUTO_COMPLETE_SUBJECT, { search: debounceQuerySubject }],
@@ -50,7 +49,7 @@ export default function Student() {
                 }
                 <section className={styles.filterForm}>
                     <div className={styles.wrapInputItem}>
-                        <label htmlFor='subject_id'>Môn học</label>
+                        <label htmlFor='subject_id'>{language?.subject}</label>
                         <CustomDataList
                             name='subject_id'
                             defaultOption={
