@@ -19,5 +19,6 @@ export default {
     otherSection: {
         other: 'Khác',
         changePassword: 'Đổi mật khẩu'
-    }
+    },
+    examResults: 'Kết quả bài thi',
 };

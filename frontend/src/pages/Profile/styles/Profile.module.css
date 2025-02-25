@@ -79,6 +79,11 @@
     pointer-events: none;
 }
 
+.link {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
 @media (width<=800px) {
     .groupInputs {
         flex-direction: column;

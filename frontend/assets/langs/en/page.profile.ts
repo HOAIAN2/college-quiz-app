@@ -19,5 +19,6 @@ export default {
     otherSection: {
         other: 'Other',
         changePassword: 'Change password'
-    }
+    },
+    examResults: 'Exam results',
 };

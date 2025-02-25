@@ -5,6 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { SyntheticEvent, useEffect, useState } from 'react';
 import { FiSave } from 'react-icons/fi';
 import { PiKey } from 'react-icons/pi';
+import { Link } from 'react-router';
 import { apiGetUser, apiUpdateUser } from '~api/user';
 import CustomSelect from '~components/CustomSelect';
 import Loading from '~components/Loading';
@@ -223,6 +224,17 @@ export default function Profile() {
                         </button>
                     </div>
                 </section>
+                {
+                    queryData.data.user.role.name === 'student' ?
+                        <section style={{
+                            borderTop: '1px solid var(--color-gray)',
+                            marginTop: '10px',
+                            paddingTop: '10px',
+                        }}>
+                            <Link className={styles.link} to={`/exam-results/students/${queryData.data.user.id}`}>{language?.examResults}</Link>
+                        </section>
+                        : null
+                }
             </main>
         </>
     );
