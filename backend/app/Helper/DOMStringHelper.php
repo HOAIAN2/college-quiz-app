@@ -26,10 +26,17 @@ class DOMStringHelper
                 $image_data = substr($src, strpos($src, ',') + 1);
                 $decoded_image = base64_decode($image_data);
 
-                $image_name = (string) Str::uuid() . '-' . time() . '.' . $matches[1];
+                $image = imagecreatefromstring($decoded_image);
+
+                // imagewebp function not return value, use ob_start to capture the image
+                ob_start();
+                imagewebp($image, null);
+                $webp_image = ob_get_clean();
+
+                $image_name = (string) Str::uuid() . '-' . time() . '.' . $matches[1] . '.webp';
                 $image_path = '' . $image_name;
 
-                Storage::put($image_path, $decoded_image);
+                Storage::put($image_path, $webp_image);
 
                 $img->attributes['src']->textContent = "/uploads/$image_name";
             }
