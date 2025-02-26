@@ -245,7 +245,7 @@ class ExamResultController extends Controller
         }
     }
 
-    public function exportExamResultsByUser(Request $request, string $id)
+    public function exportExamResultsByUser(GetByUserRequest $request, string $id)
     {
         $user = $this->getUser();
         abort_if($user->isStudent() && $user->id != $id, 403);
@@ -272,15 +272,15 @@ class ExamResultController extends Controller
             foreach ($exam_results as $exam_result) {
                 $score = NumberHelper::caculateScore($exam_result->correct_count, $exam_result->question_count, $base_score_scale);
                 $data[] = [
+                    'subject_name' => $exam_result->exam->course->subject->name,
                     'exam_name' => $exam_result->exam->name,
                     // 'course_name' => $exam_result->exam->course->name,
-                    'subject_name' => $exam_result->exam->course->subject->name,
                     'score' => NumberHelper::formatScore($score)
                 ];
             }
             return Excel::download(
                 new ExamResultsByUserExport(collect($data)),
-                "$student->shortcode-result-$now.xlsx"
+                "$student->shortcode-exam-results-$now.xlsx"
             );
             return Reply::successWithData($exam_results);
         } catch (\Exception $error) {

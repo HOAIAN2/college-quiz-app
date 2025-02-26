@@ -21,9 +21,9 @@ class ExamResultsByUserExport implements
     public function __construct(Collection $collection)
     {
         $this->headers = [
+            trans('headers.subject.name'),
             trans('headers.exam.name'),
             // trans('headers.course.name'),
-            trans('headers.subject.name'),
             trans('headers.exam.score'),
         ];
         $this->collection = $collection;
