@@ -54,11 +54,13 @@ class QuestionController extends Controller
 
         DB::beginTransaction();
         try {
-            $is_chapter_exists = Chapter::where('subject_id', $question_data['subject_id'])
-                ->where('id', $question_data['chapter_id'])
-                ->exists();
-            if (!$is_chapter_exists) {
-                return Reply::error(trans('app.errors.404'), 404);
+            if ($request->chapter_id) {
+                $is_chapter_exists = Chapter::where('subject_id', $question_data['subject_id'])
+                    ->where('id', $question_data['chapter_id'])
+                    ->exists();
+                if (!$is_chapter_exists) {
+                    return Reply::error(trans('app.errors.404'), 404);
+                }
             }
             $question_data['content'] = DOMStringHelper::processImagesFromDOM($question_data['content']);
             $question = Question::create($question_data);
@@ -111,11 +113,13 @@ class QuestionController extends Controller
 
             $target_question = Question::findOrFail($id);
 
-            $is_chapter_exists = Chapter::where('subject_id', $target_question->subject_id)
-                ->where('id', $data['chapter_id'])
-                ->exists();
-            if (!$is_chapter_exists) {
-                return Reply::error(trans('app.errors.404'), 404);
+            if ($request->chapter_id) {
+                $is_chapter_exists = Chapter::where('subject_id', $target_question->subject_id)
+                    ->where('id', $data['chapter_id'])
+                    ->exists();
+                if (!$is_chapter_exists) {
+                    return Reply::error(trans('app.errors.404'), 404);
+                }
             }
 
             $target_question->update($data);
