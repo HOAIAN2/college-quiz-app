@@ -32,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         $this->configRoutePattern();
         $this->configRateLimit();
         $this->configQueryLog();
+        $this->configCommands();
     }
 
     private function configSanctum(): void
@@ -72,5 +73,10 @@ class AppServiceProvider extends ServiceProvider
                 ]);
             }
         });
+    }
+
+    private function configCommands(): void
+    {
+        DB::prohibitDestructiveCommands(app()->isProduction());
     }
 }
