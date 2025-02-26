@@ -22,7 +22,14 @@ return [
         'shortcode' => 'Khoa',
         'name' => 'Tên khoa'
     ],
+    'course' => [
+        'name' => 'Tên khóa học',
+    ],
     'exam' => [
+        'name' => 'Tên bài thi',
         'score' => 'Điểm'
-    ]
+    ],
+    'subject' => [
+        'name' => 'Tên môn học',
+    ],
 ];

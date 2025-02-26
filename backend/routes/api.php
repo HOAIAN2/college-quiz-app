@@ -164,4 +164,5 @@ Route::prefix('/exam-results')->middleware(AUTH_MIDDLEWARES)
         Route::post('/{id}/remark', 'remark');
         Route::post('/{id}/cancel', 'cancel');
         Route::get('/user/{id}', 'getByUser');
+        Route::get('/user/{id}/export', 'exportExamResultsByUser');
     });

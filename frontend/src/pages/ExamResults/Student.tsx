@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
 import { BiExport } from 'react-icons/bi';
 import { Link, useParams, useSearchParams } from 'react-router';
-import { apiGetExamResultsByUser } from '~api/exam-result';
+import { apiExportExamResultsByUser, apiGetExamResultsByUser } from '~api/exam-result';
 import { apiAutoCompleteSubject, apiGetSubjectById } from '~api/subject';
 import { apiGetUserById } from '~api/user';
 import CustomDataList from '~components/CustomDataList';
@@ -18,6 +18,7 @@ import useLanguage from '~hooks/useLanguage';
 import caculateScore from '~utils/caculateScore';
 import css from '~utils/css';
 import languageUtils from '~utils/languageUtils';
+import { saveBlob } from '~utils/saveBlob';
 
 export default function Student() {
     const { permissions, appLanguage, appTitle } = useAppContext();
@@ -52,6 +53,15 @@ export default function Student() {
         queryFn: () => apiAutoCompleteSubject(debounceQuerySubject),
         enabled: debounceQuerySubject ? true : false
     });
+    const handleExportExamResultsByUser = () => {
+        const defaultFileName = `${userQueryData.data?.shortcode}-result-${new Date().toISOString().split('T')[0]}.xlsx`;
+        apiExportExamResultsByUser(String(id), defaultFileName, {
+            subjectId: searchParams.get('subject_id') || '',
+        })
+            .then(res => {
+                saveBlob(res.data, res.fileName);
+            });
+    };
     useEffect(() => {
         if (!language) return;
         if (!userQueryData.data) return;
@@ -72,7 +82,7 @@ export default function Student() {
                                 appStyles.actionItemWhite
                             )
                         }
-                        onClick={() => { }}
+                        onClick={handleExportExamResultsByUser}
                     >
                         <BiExport />
                         {language?.export}

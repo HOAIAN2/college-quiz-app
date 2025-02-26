@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { AxiosResponse } from 'axios';
 import { ExamResultWithAnswers, ExamResultWithExam, QueryExamResultsByUser } from '~models/exam-result';
 import apiUtils from '~utils/apiUtils';
 import request from '../config/api';
@@ -44,6 +45,22 @@ export async function apiGetExamResultsByUser(id: string | number, query: QueryE
         });
         const { data } = res.data as ApiResponseWithData<ExamResultWithExam[]>;
         return data;
+    } catch (error: any) {
+        return apiUtils.handleError(error);
+    }
+}
+
+export async function apiExportExamResultsByUser(id: string | number, defaultFileName: string, query: QueryExamResultsByUser) {
+    const searchParams = apiUtils.objectToSearchParams(query);
+    try {
+        const apiPath = `${prefix}/user/${id}/export`;
+        const res: AxiosResponse<Blob> = await request.get(apiPath, {
+            params: searchParams,
+            responseType: 'blob'
+        });
+        const contentDisposition = res.headers['content-disposition'] as string | undefined;
+        const fileName = apiUtils.getFileNameFromContentDisposition(contentDisposition, defaultFileName);
+        return { data: res.data, fileName };
     } catch (error: any) {
         return apiUtils.handleError(error);
     }

@@ -2,23 +2,26 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enums\PermissionType;
-use App\Enums\RoleType;
-use App\Helper\Reply;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ExamResult\CancelRequest;
-use App\Http\Requests\ExamResult\GetByUserRequest;
-use App\Http\Requests\ExamResult\RemarkRequest;
-use App\Models\Exam;
-use App\Models\ExamQuestionsAnswer;
-use App\Models\ExamQuestionsOrder;
-use App\Models\ExamResult;
-use App\Models\Setting;
-use App\Models\User;
 use Carbon\Carbon;
+use App\Models\Exam;
+use App\Models\User;
+use App\Helper\Reply;
+use App\Enums\RoleType;
+use App\Models\Setting;
+use App\Models\ExamResult;
+use App\Helper\NumberHelper;
 use Illuminate\Http\Request;
+use App\Enums\PermissionType;
+use App\Models\ExamQuestionsOrder;
 use Illuminate\Support\Facades\DB;
+use App\Models\ExamQuestionsAnswer;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExamResultsByUserExport;
+use App\Http\Requests\ExamResult\CancelRequest;
+use App\Http\Requests\ExamResult\RemarkRequest;
+use App\Http\Requests\ExamResult\GetByUserRequest;
 
 class ExamResultController extends Controller
 {
@@ -236,6 +239,49 @@ class ExamResultController extends Controller
                 $exam_results->whereIn('exam_id', $exam_ids);
             }
             $exam_results = $exam_results->latest()->get();
+            return Reply::successWithData($exam_results);
+        } catch (\Exception $error) {
+            return $this->handleException($error);
+        }
+    }
+
+    public function exportExamResultsByUser(Request $request, string $id)
+    {
+        $user = $this->getUser();
+        abort_if($user->isStudent() && $user->id != $id, 403);
+
+        try {
+            $data = [];
+            $now = Carbon::now();
+            // Force error to reduce queries
+            $student = User::where('role_id', '=', RoleType::STUDENT)->findOrFail($id);
+            $exam_results = ExamResult::with([
+                'exam.course.subject'
+            ])->where('user_id', $id);
+            // Filter
+            if ($request->subject_id) {
+                $exam_ids = Exam::whereHas('course.subject', function ($query) use ($request) {
+                    $query->where('id', $request->subject_id);
+                })->pluck('id');
+                $exam_results->whereIn('exam_id', $exam_ids);
+            }
+
+            $exam_results = $exam_results->latest()->get();
+            $base_score_scale = (int)Setting::get('exam_base_score_scale');
+
+            foreach ($exam_results as $exam_result) {
+                $score = NumberHelper::caculateScore($exam_result->correct_count, $exam_result->question_count, $base_score_scale);
+                $data[] = [
+                    'exam_name' => $exam_result->exam->name,
+                    // 'course_name' => $exam_result->exam->course->name,
+                    'subject_name' => $exam_result->exam->course->subject->name,
+                    'score' => NumberHelper::formatScore($score)
+                ];
+            }
+            return Excel::download(
+                new ExamResultsByUserExport(collect($data)),
+                "$student->shortcode-result-$now.xlsx"
+            );
             return Reply::successWithData($exam_results);
         } catch (\Exception $error) {
             return $this->handleException($error);

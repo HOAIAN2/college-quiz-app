@@ -22,7 +22,14 @@ return [
         'shortcode' => 'Faculty',
         'name' => 'Faculty name'
     ],
+    'course' => [
+        'name' => 'Course name',
+    ],
     'exam' => [
+        'name' => 'Exam name',
         'score' => 'Score'
-    ]
+    ],
+    'subject' => [
+        'name' => 'Subject name',
+    ],
 ];
