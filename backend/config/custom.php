@@ -5,7 +5,6 @@ return [
         'demo' => (bool)env('DEMO', false),
         'app_author' => env('APP_AUTHOR'),
         'must_verify_email' => (bool)env('MUST_VERIFY_EMAIL', false),
-        'run_tasks_interval' => (int)env('RUN_TASK_INTERVAL'),
         'otp_code_timeout_seconds' => (int)env('OTP_CODE_TIMEOUT_SECONDS', 600),
         'token_expiration_minutes' => (int)env('TOKEN_EXPIRATION_MINUTES'),
         'default_rate_limit' => (int)env('DEFAULT_RATE_LIMIT', 100),

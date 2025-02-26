@@ -24,11 +24,15 @@ abstract class Controller
     public function handleException(\Exception $error)
     {
         $context = [
-            'error_type' => get_class($error),
             'user_id' => $this->getUser()?->id ?? 'guest',
-            'url' => request()->fullUrl(),
+            'action' => request()->route()->getActionName(),
+            'parameters' => request()->route()->parameters,
             'method' => request()->method(),
-            'request_data' => request()->except(['password', 'password_confirmation', 'token']), // Avoid logging sensitive data
+            'request_data' => request()->except([
+                'password',
+                'password_confirmation',
+                'token'
+            ]),
             'stack_trace' => $error->getTrace()[0] ?? [],
         ];
         Log::error($error->getMessage(), $context);

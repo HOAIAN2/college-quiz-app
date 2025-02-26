@@ -44,7 +44,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\CamelCaseResponse::class,
-            // \App\Http\Middleware\RunTasks::class,
             \App\Http\Middleware\RestrictDemoMode::class,
         ]);
 
