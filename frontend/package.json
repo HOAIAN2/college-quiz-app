@@ -15,7 +15,7 @@
         "@tiptap/pm": "^2.11.5",
         "@tiptap/react": "^2.11.5",
         "@tiptap/starter-kit": "^2.11.5",
-        "axios": "^1.7.9",
+        "axios": "^1.8.1",
         "canvas-confetti": "^1.9.3",
         "chart.js": "^4.4.8",
         "react": "^19.0.0",
