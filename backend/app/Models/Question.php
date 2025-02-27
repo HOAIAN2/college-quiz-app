@@ -6,7 +6,9 @@
 
 namespace App\Models;
 
+use App\Observers\QuestionObserver;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -34,6 +36,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @package App\Models
  */
+
+#[ObservedBy(QuestionObserver::class)]
 class Question extends Model
 {
     use SoftDeletes;
@@ -126,10 +130,7 @@ class Question extends Model
         libxml_clear_errors();
         $images = $dom->getElementsByTagName('img');
 
-        // Replace token when command not run in console (throught api call, etc)
-        $replace_token = app()->runningInConsole() ?
-            '/uploads/'
-            : request()->schemeAndHttpHost() . '/uploads/';
+        $replace_token = '/uploads/';
 
         $image_paths = [];
 

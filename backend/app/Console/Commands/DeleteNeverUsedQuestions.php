@@ -46,10 +46,12 @@ class DeleteNeverUsedQuestions extends Command
 
         Question::whereIn('id', $trashed_questions->pluck('id'))->forceDelete();
 
-        if (!Storage::delete($image_paths)) {
-            Log::error("Fail to delete images", [
-                'name' => $image_paths
-            ]);
+        if (count($image_paths) != 0) {
+            if (!Storage::delete($image_paths)) {
+                Log::error("Fail to delete images", [
+                    'name' => $image_paths
+                ]);
+            }
         }
     }
 }
