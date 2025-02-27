@@ -6,7 +6,7 @@
 
 namespace App\Models;
 
-use App\Observers\QuestionObserver;
+use App\Observers\QuestionOptionObserver;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Collection;
@@ -31,7 +31,7 @@ use Illuminate\Support\Str;
  * @package App\Models
  */
 
-#[ObservedBy(QuestionObserver::class)]
+#[ObservedBy(QuestionOptionObserver::class)]
 class QuestionOption extends Model
 {
     use SoftDeletes;
