@@ -37,6 +37,7 @@ class DOMStringHelper
                 $image_path = '' . $image_name;
 
                 Storage::put($image_path, $webp_image);
+                imagedestroy($image);
 
                 $img->attributes['src']->textContent = "/uploads/$image_name";
             }
