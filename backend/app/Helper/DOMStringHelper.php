@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class DOMStringHelper
 {
+    const MAX_WIDTH_OR_HEIGHT = 1080;
     /**
      * Save all base64 images, replace base64 url with image path
      */
@@ -28,9 +29,20 @@ class DOMStringHelper
 
                 $image = imagecreatefromstring($decoded_image);
 
+                $width = imagesx($image);
+                $height = imagesy($image);
+
+                if ($width >= $height && $width > self::MAX_WIDTH_OR_HEIGHT) {
+                    $resized_image = imagescale($image, self::MAX_WIDTH_OR_HEIGHT, -1);
+                } elseif ($height > $width && $height > self::MAX_WIDTH_OR_HEIGHT) {
+                    $resized_image = imagescale($image, -1, self::MAX_WIDTH_OR_HEIGHT);
+                } else {
+                    $resized_image = $image;
+                }
+
                 // imagewebp function not return value, use ob_start to capture the image
                 ob_start();
-                imagewebp($image, null);
+                imagewebp($resized_image, null);
                 $webp_image = ob_get_clean();
 
                 $image_name = (string) Str::uuid() . '-' . time() . '.' . $matches[1] . '.webp';
@@ -38,6 +50,7 @@ class DOMStringHelper
 
                 Storage::put($image_path, $webp_image);
                 imagedestroy($image);
+                imagedestroy($resized_image);
 
                 $img->attributes['src']->textContent = "/uploads/$image_name";
             }
