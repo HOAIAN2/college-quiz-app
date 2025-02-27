@@ -113,7 +113,33 @@ class Question extends Model
                 $image_paths[] = Str::replace($replace_token, '', $src);
             }
         }
-        
+
         return $dom->saveHTML();
+    }
+
+    public function getImages()
+    {
+        libxml_use_internal_errors(true);
+        $html_string = mb_convert_encoding($this->content, 'UTF-8', 'auto');
+        $dom = new \DOMDocument();
+        @$dom->loadHTML(mb_convert_encoding($html_string, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
+        $images = $dom->getElementsByTagName('img');
+
+        // Replace token when command not run in console (throught api call, etc)
+        $replace_token = app()->runningInConsole() ?
+            '/uploads/'
+            : request()->schemeAndHttpHost() . '/uploads/';
+
+        $image_paths = [];
+
+        foreach ($images as $img) {
+            $src = $img->attributes['src']->textContent;
+            if (Str::startsWith($src, $replace_token)) {
+                $image_paths[] = Str::replace($replace_token, '', $src);
+            }
+        }
+
+        return $image_paths;
     }
 }
