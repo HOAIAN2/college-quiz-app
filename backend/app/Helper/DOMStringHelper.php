@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Storage;
 
 class DOMStringHelper
 {
-    const MAX_WIDTH_OR_HEIGHT = 1080;
+    const MAX_WIDTH = 1440;
+    const MAX_HEIGHT = 2160;
     /**
      * Save all base64 images, replace base64 url with image path
      */
@@ -32,10 +33,10 @@ class DOMStringHelper
                 $width = imagesx($image);
                 $height = imagesy($image);
 
-                if ($width >= $height && $width > self::MAX_WIDTH_OR_HEIGHT) {
-                    $resized_image = imagescale($image, self::MAX_WIDTH_OR_HEIGHT, -1);
-                } elseif ($height > $width && $height > self::MAX_WIDTH_OR_HEIGHT) {
-                    $resized_image = imagescale($image, -1, self::MAX_WIDTH_OR_HEIGHT);
+                if ($width >= $height && $width > self::MAX_WIDTH) {
+                    $resized_image = imagescale($image, self::MAX_WIDTH, -1);
+                } elseif ($height > $width && $height > self::MAX_HEIGHT) {
+                    $resized_image = imagescale($image, -1, self::MAX_HEIGHT);
                 } else {
                     $resized_image = $image;
                 }
