@@ -40,14 +40,6 @@ class DOMStringHelper
                 $new_width = $width;
                 $new_height = $height;
 
-                if ($width >= $height && $width > self::MAX_WIDTH) {
-                    $resized_image = imagescale($image, self::MAX_WIDTH, -1);
-                } elseif ($height > $width && $height > self::MAX_HEIGHT) {
-                    $resized_image = imagescale($image, -1, self::MAX_HEIGHT);
-                } else {
-                    $resized_image = $image;
-                }
-
                 if ($width > self::MAX_WIDTH || $height > self::MAX_HEIGHT) {
                     if ($width >= $height) {
                         $new_width = self::MAX_WIDTH;
