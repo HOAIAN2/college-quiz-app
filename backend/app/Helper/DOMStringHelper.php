@@ -61,7 +61,7 @@ class DOMStringHelper
 
                 // imagewebp function not return value, use ob_start to capture the image
                 ob_start();
-                imagewebp($resized_image, null, 90);
+                imagewebp($resized_image, null);
                 $webp_image = ob_get_clean();
                 Storage::put($image_path, $webp_image);
 
