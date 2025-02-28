@@ -9,6 +9,7 @@ class DOMStringHelper
 {
     const MAX_WIDTH = 1440;
     const MAX_HEIGHT = 2160;
+    const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
     /**
      * Save all base64 images, replace base64 url with image path
      */
@@ -27,6 +28,10 @@ class DOMStringHelper
             if (preg_match('/^data:image\/(\w+);base64,/', $src, $matches)) {
                 $image_data = substr($src, strpos($src, ',') + 1);
                 $decoded_image = base64_decode($image_data);
+
+                if (strlen($decoded_image) > self::MAX_FILE_SIZE) {
+                    continue;
+                }
 
                 $image = imagecreatefromstring($decoded_image);
 
