@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 class DOMStringHelper
 {
     const MAX_WIDTH = 1440;
-    const MAX_HEIGHT = 2160;
+    const MAX_HEIGHT = 1440;
     const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
     /**
      * Save all base64 images, replace base64 url with image path
