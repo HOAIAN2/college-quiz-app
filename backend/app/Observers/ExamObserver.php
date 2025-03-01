@@ -15,11 +15,12 @@ class ExamObserver
     public function retrieved(Exam $exam): void
     {
         // Check enough fields because execute logic or it will set to all field.
-        if (!$exam->isDirty([
-            'started_at',
-            'cancelled_at',
-            'exam_date',
-        ])) return;
+        $loaded_attributes = $exam->getAttributes();
+        if (
+            !array_key_exists('started_at', $loaded_attributes) &&
+            !array_key_exists('cancelled_at', $loaded_attributes) &&
+            !array_key_exists('exam_date', $loaded_attributes)
+        ) return;
         if ($exam->started_at != null || $exam->cancelled_at != null) return;
 
         // Load setting only once per request
