@@ -35,6 +35,8 @@ class DOMStringHelper
 
                 $image = imagecreatefromstring($decoded_image);
 
+                if (!$image) continue;
+
                 $width = imagesx($image);
                 $height = imagesy($image);
                 $new_width = $width;
