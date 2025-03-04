@@ -117,7 +117,7 @@ Cron job file stored in `docker/crontab`
 
 Use any tool or cli like `mysqldump`, `mariadb-dump`. I already write a NodeJS wrapper base on `mysqldump` for better performance. <https://github.com/HOAIAN2/mysql-backup>
 
-## Databse Diagram
+## Database Diagram
 
 ![DB Diagram](./img/college-quiz-app.png)
 
