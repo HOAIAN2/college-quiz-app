@@ -10,12 +10,12 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@tanstack/react-query": "^5.67.2",
+        "@tanstack/react-query": "^5.67.3",
         "@tiptap/extension-image": "^2.11.5",
         "@tiptap/pm": "^2.11.5",
         "@tiptap/react": "^2.11.5",
         "@tiptap/starter-kit": "^2.11.5",
-        "axios": "^1.8.2",
+        "axios": "^1.8.3",
         "canvas-confetti": "^1.9.3",
         "chart.js": "^4.4.8",
         "react": "^19.0.0",
@@ -35,7 +35,7 @@
         "eslint-plugin-react-refresh": "^0.4.19",
         "globals": "^15.15.0",
         "typescript": "^5.8.2",
-        "typescript-eslint": "^8.26.0",
+        "typescript-eslint": "^8.26.1",
         "typescript-plugin-css-modules": "^5.1.0",
         "vite": "^6.2.1",
         "vite-tsconfig-paths": "^5.1.4"
