@@ -13,29 +13,6 @@ use Illuminate\Support\Facades\Artisan;
 
 class SettingController extends Controller
 {
-    public array $callableCommands = [
-        'app:cancel-late-exams',
-        'app:cleanup-images',
-        'app:clear-expired-otp-codes',
-        'app:delete-never-used-questions',
-
-        'schedule:run',
-
-        'optimize',
-        'optimize:clear',
-
-        'route:cache',
-        'route:clear',
-        'cache:clear',
-        'cache:forget',
-        'clear-compiled',
-        'config:cache',
-        'config:clear',
-        'view:cache',
-        'view:clear',
-        'event:clear',
-    ];
-
     public function index()
     {
         $user = $this->getUser();
