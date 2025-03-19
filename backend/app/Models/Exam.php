@@ -100,22 +100,4 @@ class Exam extends Model
     {
         return $this->hasMany(ExamResult::class);
     }
-
-    public function isOver()
-    {
-        $over_at = Carbon::parse($this->exam_date)->addMinutes($this->exam_time);
-        return $over_at->greaterThan(Carbon::now());
-    }
-
-    public function gradeExam()
-    {
-        foreach ($this->exam_questions_answers as $exam_questions_answer) {
-            $exam_questions_answer->gradeAnswer();
-        }
-    }
-
-    public function canBypassExamTime(string $bypass_key)
-    {
-        return hash('sha256', $this->started_at->format(Exam::DATE_FORMAT)) == $bypass_key;
-    }
 }

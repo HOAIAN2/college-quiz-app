@@ -79,7 +79,7 @@ class SettingController extends Controller
         $user = $this->getUser();
         abort_if(!$user->isAdmin(), 403);
         try {
-            return Reply::successWithData($this->callableCommands, '');
+            return Reply::successWithData(config('custom.callable_commands'), '');
         } catch (\Exception $error) {
             Log::error($error);
             return Reply::error(trans('app.errors.something_went_wrong'), 500);
@@ -91,7 +91,7 @@ class SettingController extends Controller
         $user = $this->getUser();
         abort_if(!$user->isAdmin(), 403);
         $command = $request->get('command');
-        abort_if(!in_array($command, $this->callableCommands), 403);
+        abort_if(!in_array($command, config('custom.callable_commands')), 403);
 
         try {
             /**

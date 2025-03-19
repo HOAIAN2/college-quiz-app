@@ -24,4 +24,8 @@ return [
         'exam_auto_cancel_after_seconds',
         'exam_can_remark_within_days',
     ],
+    // Callable commands through controller, check out Api/SettingController
+    'callable_commands' => array_map(function ($item) {
+        return trim($item);
+    }, explode(';', env('CALLABLE_COMMANDS', ''))),
 ];
