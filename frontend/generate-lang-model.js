@@ -17,10 +17,10 @@ fileList.forEach(file => {
 
 const result = [
     'export type Language = {',
-    '\t@data',
+    '    @data',
     '};'
 ].join('\n');
 
-fs.writeFileSync(targetModelFile, result.replace('@data', langModels.join('\n\t')) + '\n');
+fs.writeFileSync(targetModelFile, result.replace('@data', langModels.join('\n    ')) + '\n');
 
 console.log('Generate language models successfully!');
