@@ -112,9 +112,13 @@ class Question extends Model
             : request()->schemeAndHttpHost() . '/uploads/';
 
         foreach ($images as $img) {
+            if (!$img->hasAttribute('loading')) {
+                $img->setAttribute('loading', 'lazy');
+            }
+
             $src = $img->attributes['src']->textContent;
-            if (Str::startsWith($src, $replace_token)) {
-                $image_paths[] = Str::replace($replace_token, '', $src);
+            if (Str::startsWith($src, '/uploads/')) {
+                $img->attributes['src']->textContent = Str::replace('/uploads/', $replace_token, $src);
             }
         }
 
