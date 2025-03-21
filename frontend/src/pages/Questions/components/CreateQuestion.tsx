@@ -39,6 +39,7 @@ export default function CreateQuestion({
         return { key: index.toString(), content: '' };
     }));
     const [trueOptionKey, setTrueOptionKey] = useState<string>();
+    const [resetIndex, setResetIndex] = useState(0);
     const language = useLanguage('component.create_question');
     const handleClosePopUp = () => {
         setShowPopUp(false);
@@ -55,7 +56,10 @@ export default function CreateQuestion({
         const formData = new FormData(form);
         await apiCreateQuestion(formData);
         if (submitter.name === 'save') handleClosePopUp();
-        else form.reset();
+        else {
+            // form.reset() not work because TextEditor not an input element
+            setResetIndex(pre => pre + 1);
+        }
     };
     const { mutate, isPending } = useMutation({
         mutationFn: handleCreateQuestion,
@@ -63,7 +67,7 @@ export default function CreateQuestion({
         onSuccess: onMutateSuccess
     });
     return (
-        <div className={
+        <div key={resetIndex} className={
             css(
                 globalStyles.createModelContainer,
             )

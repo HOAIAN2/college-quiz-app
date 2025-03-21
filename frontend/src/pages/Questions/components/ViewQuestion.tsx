@@ -68,7 +68,10 @@ export default function ViewQuestion({
     const { mutate, isPending } = useMutation({
         mutationFn: handleUpdateQuestion,
         onError: (error) => { formUtils.showFormError(error); },
-        onSuccess: onMutateSuccess
+        onSuccess: () => {
+            queryData.refetch();
+            onMutateSuccess();
+        }
     });
     const handleDeleteQuestion = async () => {
         await apiDeleteQuestion(id);
@@ -197,6 +200,7 @@ export default function ViewQuestion({
                                             <div className={css(globalStyles.wrapItem, globalStyles.textarea)}>
                                                 <label className={appStyles.required} htmlFor='content'>{language?.content}</label>
                                                 <TextEditor
+                                                    key={queryData.data.content}
                                                     disabled={disabledUpdate}
                                                     name='content'
                                                     defaultContent={queryData.data.content}
@@ -246,6 +250,7 @@ export default function ViewQuestion({
                                                             }
                                                         </div>
                                                         <TextEditor
+                                                            key={option.content}
                                                             disabled={disabledUpdate}
                                                             name='options[]'
                                                             defaultContent={option.content}
