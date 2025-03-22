@@ -11,16 +11,16 @@ const langModels = [];
 fileList.forEach(file => {
     const fileName = path.parse(file).name;
     langModels.push(
-        `'${fileName}': typeof import('../../assets/langs/en/${file}').default;`
+        `    '${fileName}': typeof import('../../assets/langs/en/${file}').default;`
     );
 });
 
 const result = [
     'export type Language = {',
-    '    @data',
+    '@data',
     '};'
 ].join('\n');
 
-fs.writeFileSync(targetModelFile, result.replace('@data', langModels.join('\n    ')) + '\n');
+fs.writeFileSync(targetModelFile, result.replace('@data', langModels.join('\n')) + '\n');
 
 console.log('Generate language models successfully!');
