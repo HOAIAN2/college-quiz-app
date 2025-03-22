@@ -60,10 +60,10 @@ export default function Settings() {
             undefined;
         const currentSetting = settings.find(setting => setting.to === name);
         if (!settings.find(setting => setting.to === name) && isWindowWidthExceeded) {
-            if (defaultSetting) navigate(defaultSetting.to);
+            if (defaultSetting) navigate(defaultSetting.to, { replace: true });
         }
-        if (!currentSetting?.isActive) {
-            if (defaultSetting) navigate(defaultSetting.to);
+        if (currentSetting && !currentSetting?.isActive) {
+            if (defaultSetting) navigate(defaultSetting.to, { replace: true });
         }
     });
     useEffect(() => {

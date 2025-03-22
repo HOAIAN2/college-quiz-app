@@ -126,8 +126,7 @@ export default function Sidebar() {
                 sidebarItems.map((feature, index) => {
                     if (feature.isActive === false) return;
                     return (
-                        <li onClick={e => {
-                            e.currentTarget.querySelector('a')?.click();
+                        <li onClick={() => {
                             if (window.innerWidth < STRICT_WIDTH) DOM.sideBarRef.current?.classList.add(styles.hide);
                         }} key={index} className={
                             css(
