@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Helper\Reply;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Setting\UpdateRequest;
 use App\Models\Setting;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 
 class SettingController extends Controller
 {
@@ -31,6 +31,7 @@ class SettingController extends Controller
         $user = $this->getUser();
         abort_if(!$user->isAdmin(), 403);
 
+        DB::beginTransaction();
         try {
             $validated_data = $request->validated()['data'];
             foreach ($validated_data as $setting_field) {
@@ -45,8 +46,10 @@ class SettingController extends Controller
                         'value' => $setting_field['value']
                     ]);
             }
+            DB::commit();
             return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
+            DB::rollBack();
             return $this->handleException($error);
         }
     }
@@ -55,11 +58,11 @@ class SettingController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->isAdmin(), 403);
+
         try {
             return Reply::successWithData(config('custom.callable_commands'), '');
         } catch (\Exception $error) {
-            Log::error($error);
-            return Reply::error(trans('app.errors.something_went_wrong'), 500);
+            return $this->handleException($error);
         }
     }
 
@@ -78,8 +81,7 @@ class SettingController extends Controller
             Artisan::call($command);
             return Reply::successWithMessage($message);
         } catch (\Exception $error) {
-            Log::error($error);
-            return Reply::error(trans('app.errors.something_went_wrong'), 500);
+            return $this->handleException($error);
         }
     }
 
