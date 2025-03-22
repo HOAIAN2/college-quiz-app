@@ -43,6 +43,10 @@
     box-shadow: none;
 }
 
+.userFullName {
+    white-space: nowrap;
+}
+
 .profileItem {
     height: 40px;
     padding: 10px;

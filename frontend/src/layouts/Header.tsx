@@ -22,7 +22,7 @@ export default function Header() {
     const handleLogout = () => {
         apiLogout()
             .finally(() => {
-                window.location.reload();
+                window.location.pathname = '/';
             });
     };
     const handleToggleDropdownProfile = () => {
