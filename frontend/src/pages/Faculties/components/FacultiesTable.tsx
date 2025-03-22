@@ -9,7 +9,7 @@ import useLanguage from '~hooks/useLanguage';
 import { FacultyDetail } from '~models/faculty';
 import { Pagination } from '~models/response';
 import css from '~utils/css';
-import languageUtils from '~utils/languageUtils';
+import languageUtils from '~utils/language-utils';
 import ViewFaculty from './ViewFaculty';
 
 type FacultiesTableProps = {

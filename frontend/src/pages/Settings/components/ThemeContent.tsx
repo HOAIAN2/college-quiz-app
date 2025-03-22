@@ -4,7 +4,7 @@ import styles from '../styles/ThemeContent.module.css';
 
 import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
-import themeUtils from '~utils/themeUtils';
+import themeUtils from '~utils/theme-utils';
 
 export default function ThemeContent() {
     const language = useLanguage('component.settings_content');

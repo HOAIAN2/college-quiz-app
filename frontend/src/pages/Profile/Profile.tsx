@@ -13,10 +13,10 @@ import SuspenseLoading from '~components/SuspenseLoading';
 import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
-import createFormUtils from '~utils/createFormUtils';
+import createFormUtils from '~utils/create-form-utils';
 import css from '~utils/css';
 import dateFormat from '~utils/date-format';
-import languageUtils from '~utils/languageUtils';
+import languageUtils from '~utils/language-utils';
 import ChangePassword from './components/ChangePassword';
 
 export default function Profile() {

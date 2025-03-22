@@ -16,9 +16,9 @@ import useDebounce from '~hooks/useDebounce';
 import useLanguage from '~hooks/useLanguage';
 import { Option } from '~models/option';
 import { Semester } from '~models/semester';
-import createFormUtils from '~utils/createFormUtils';
+import createFormUtils from '~utils/create-form-utils';
 import css from '~utils/css';
-import languageUtils from '~utils/languageUtils';
+import languageUtils from '~utils/language-utils';
 
 type CreateCourseProps = {
     semester: Semester;
@@ -32,6 +32,7 @@ export default function CreateCourse({
     onMutateSuccess,
     setShowPopUp
 }: CreateCourseProps) {
+    const [resetIndex, setResetIndex] = useState(0);
     const language = useLanguage('component.create_course');
     const [queryUser, setQueryUser] = useState('');
     const [querySubject, setQuerySubject] = useState('');
@@ -64,7 +65,10 @@ export default function CreateCourse({
         const formData = new FormData(form);
         await apiCreateCourse(formData);
         if (submitter.name === 'save') handleClosePopUp();
-        else form.reset();
+        else {
+            // form.reset() not work because CustomDataList not an input element
+            setResetIndex(pre => pre + 1);
+        }
     };
     const { mutate, isPending } = useMutation({
         mutationFn: handleCreateCourse,
@@ -90,7 +94,7 @@ export default function CreateCourse({
         };
     }, [queryClient]);
     return (
-        <div className={
+        <div key={resetIndex} className={
             css(
                 styles.createModelContainer,
             )

@@ -1,7 +1,7 @@
 import { createContext, useRef, useState } from 'react';
 import { AppPermissionName } from '~models/app-permission-name';
 import { UserDetail } from '../models/user';
-import languageUtils from '../utils/languageUtils';
+import languageUtils from '../utils/language-utils';
 
 type AppContextType = ReturnType<typeof useAppContextValue>;
 

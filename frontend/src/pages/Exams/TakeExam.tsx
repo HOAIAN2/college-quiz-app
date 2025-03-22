@@ -14,7 +14,7 @@ import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
 import { ExamResult } from '~models/exam-result';
-import timeUtils from '~utils/timeUtils';
+import timeUtils from '~utils/time-utils';
 import ExamQuestion from './components/ExamQuestion';
 
 export default function TakeExam() {

@@ -26,7 +26,7 @@ import { API_HOST } from '~config/env';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
-import getMetaContent from '~utils/getMetaContent';
+import getMetaContent from '~utils/get-meta-content';
 
 const STRICT_WIDTH = 800;
 

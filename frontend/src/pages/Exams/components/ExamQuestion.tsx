@@ -5,7 +5,7 @@ import { MdOutlineRadioButtonChecked, MdOutlineRadioButtonUnchecked } from 'reac
 import useLanguage from '~hooks/useLanguage';
 import { ExamQuestion as TExamQuestion } from '~models/exam';
 import css from '~utils/css';
-import languageUtils from '~utils/languageUtils';
+import languageUtils from '~utils/language-utils';
 
 type ExamQuestionProps = {
     index: number;

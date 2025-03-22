@@ -14,7 +14,7 @@ import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
 import { Chapter } from '~models/chapter';
 import NotFound from '~pages/Errors/NotFound';
-import createFormUtils from '~utils/createFormUtils';
+import createFormUtils from '~utils/create-form-utils';
 import css from '~utils/css';
 import CreateChapter from './components/CreateChapter';
 import ViewChapter from './components/ViewChapter';

@@ -17,10 +17,10 @@ import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
 import useDebounce from '~hooks/useDebounce';
 import useLanguage from '~hooks/useLanguage';
-import createFormUtils from '~utils/createFormUtils';
+import createFormUtils from '~utils/create-form-utils';
 import css from '~utils/css';
 import dateFormat from '~utils/date-format';
-import languageUtils from '~utils/languageUtils';
+import languageUtils from '~utils/language-utils';
 
 type ViewUserProps = {
     id: number;

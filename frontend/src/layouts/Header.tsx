@@ -13,7 +13,7 @@ import { apiLogout } from '~api/auth';
 import CustomSelect from '~components/CustomSelect';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
-import languageUtils from '~utils/languageUtils';
+import languageUtils from '~utils/language-utils';
 
 export default function Header() {
     const { DOM, user, appLanguage, appTitle } = useAppContext();

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import apiUtils from '~utils/apiUtils';
+import apiUtils from '~utils/api-utils';
 import request from '../config/api';
 import { Faculty, FacultyDetail, QueryFacultyType } from '../models/faculty';
 import { ApiResponseWithData, Pagination } from '../models/response';
-import encodeFormData from '../utils/encodeFormData';
+import encodeFormData from '../utils/encode-form-data';
 
 const prefix = 'faculties';
 

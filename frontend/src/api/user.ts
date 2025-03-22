@@ -10,9 +10,9 @@ import {
     UserDetail,
     UserWithPermissions
 } from '../models/user';
-import apiUtils from '../utils/apiUtils';
-import encodeFormData from '../utils/encodeFormData';
-import tokenUtils from '../utils/tokenUtils';
+import apiUtils from '../utils/api-utils';
+import encodeFormData from '../utils/encode-form-data';
+import tokenUtils from '../utils/token-utils';
 
 const prefix = 'users';
 

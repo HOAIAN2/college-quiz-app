@@ -14,10 +14,10 @@ import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
 import NotFound from '~pages/Errors/NotFound';
-import caculateScore from '~utils/caculateScore';
+import caculateScore from '~utils/caculate-score';
 import css from '~utils/css';
-import languageUtils from '~utils/languageUtils';
-import { saveBlob } from '~utils/saveBlob';
+import languageUtils from '~utils/language-utils';
+import { saveBlob } from '~utils/save-blob';
 
 export default function Exam() {
     const { user, appLanguage, permissions, appTitle } = useAppContext();

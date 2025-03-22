@@ -16,7 +16,7 @@ import Loading from '~components/Loading';
 import TextEditor from '~components/TextEditor';
 import useLanguage from '~hooks/useLanguage';
 import { SubjectDetail } from '~models/subject';
-import createFormUtils from '~utils/createFormUtils';
+import createFormUtils from '~utils/create-form-utils';
 import css from '~utils/css';
 
 type CreateQuestionProps = {

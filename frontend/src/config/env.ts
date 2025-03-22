@@ -1,4 +1,4 @@
-import getCookieValue from '~utils/getCookieValue';
+import getCookieValue from '~utils/get-cookie-value';
 
 const env = import.meta.env;
 

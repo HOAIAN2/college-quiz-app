@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import apiUtils from '~utils/apiUtils';
+import apiUtils from '~utils/api-utils';
 import request from '../config/api';
 import { QueryQuestionType, Question, QuestionDetail } from '../models/question';
 import { ApiResponseWithData } from '../models/response';
-import encodeFormData from '../utils/encodeFormData';
+import encodeFormData from '../utils/encode-form-data';
 
 const prefix = 'questions';
 

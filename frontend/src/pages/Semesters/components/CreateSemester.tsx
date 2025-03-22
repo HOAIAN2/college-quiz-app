@@ -8,7 +8,7 @@ import { RxCross2 } from 'react-icons/rx';
 import { apiCreateSemester } from '~api/semester';
 import Loading from '~components/Loading';
 import useLanguage from '~hooks/useLanguage';
-import createFormUtils from '~utils/createFormUtils';
+import createFormUtils from '~utils/create-form-utils';
 import css from '~utils/css';
 import dateFormat from '~utils/date-format';
 

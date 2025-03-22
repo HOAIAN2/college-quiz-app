@@ -6,7 +6,7 @@ import { TiArrowBack } from 'react-icons/ti';
 import { useNavigate } from 'react-router';
 import useLanguage from '~hooks/useLanguage';
 import { ExamResult } from '~models/exam';
-import caculateScore from '~utils/caculateScore';
+import caculateScore from '~utils/caculate-score';
 
 type ScorePopUpProps = {
     data: ExamResult;

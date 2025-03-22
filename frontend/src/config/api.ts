@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'sonner';
-import languageUtils from '../utils/languageUtils';
-import tokenUtils from '../utils/tokenUtils';
+import languageUtils from '../utils/language-utils';
+import tokenUtils from '../utils/token-utils';
 import { API_HOST, OVERRIDE_HTTP_METHOD } from './env';
 
 const ignoreLoaders: string[] = [];

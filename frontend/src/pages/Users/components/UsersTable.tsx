@@ -12,7 +12,7 @@ import { Pagination } from '~models/response';
 import { RoleName } from '~models/role';
 import { UserDetail } from '~models/user';
 import css from '~utils/css';
-import languageUtils from '~utils/languageUtils';
+import languageUtils from '~utils/language-utils';
 import ViewUser from './ViewUser';
 
 type UsersTableProps = {

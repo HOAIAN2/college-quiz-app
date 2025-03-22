@@ -11,7 +11,7 @@ import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
 import { ExamInMonth } from '~models/exam';
 import css from '~utils/css';
-import timeUtils from '~utils/timeUtils';
+import timeUtils from '~utils/time-utils';
 
 export default function Exams() {
     // This state use to trigger re-render each second

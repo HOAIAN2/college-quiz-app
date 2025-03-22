@@ -15,7 +15,7 @@ import useDebounce from '~hooks/useDebounce';
 import useLanguage from '~hooks/useLanguage';
 import { CourseDetail } from '~models/course';
 import css from '~utils/css';
-import languageUtils from '~utils/languageUtils';
+import languageUtils from '~utils/language-utils';
 
 type UpdateCourseStudentsProps = {
     courseDetail: CourseDetail;

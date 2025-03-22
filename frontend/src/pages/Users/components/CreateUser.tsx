@@ -18,7 +18,7 @@ import QUERY_KEYS from '~constants/query-keys';
 import useDebounce from '~hooks/useDebounce';
 import useLanguage from '~hooks/useLanguage';
 import { RoleName } from '~models/role';
-import createFormUtils from '~utils/createFormUtils';
+import createFormUtils from '~utils/create-form-utils';
 import css from '~utils/css';
 import dateFormat from '~utils/date-format';
 
@@ -32,6 +32,7 @@ export default function CreateUser({
     onMutateSuccess,
     setShowPopUp
 }: CreateUserProps) {
+    const [resetIndex, setResetIndex] = useState(0);
     const language = useLanguage('component.create_user');
     const [queryClass, setQueryClass] = useState('');
     const [queryFaculty, setQueryFaculty] = useState('');
@@ -64,7 +65,10 @@ export default function CreateUser({
         formData.append('role', role !== undefined ? role : 'student');
         await apiCreateUser(formData);
         if (submitter.name === 'save') handleClosePopUp();
-        else form.reset();
+        else {
+            // form.reset() not work because CustomDataList not an input element
+            setResetIndex(pre => pre + 1);
+        }
     };
     const { mutate, isPending } = useMutation({
         mutationFn: handleCreateUser,
@@ -82,7 +86,7 @@ export default function CreateUser({
         };
     }, [queryClient]);
     return (
-        <div className={
+        <div key={resetIndex} className={
             css(
                 styles.createModelContainer,
             )

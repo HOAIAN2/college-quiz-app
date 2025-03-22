@@ -11,7 +11,7 @@ import useLanguage from '~hooks/useLanguage';
 import { RoleName } from '~models/role';
 import { ExportQueryUserType } from '~models/user';
 import css from '~utils/css';
-import { saveBlob } from '~utils/saveBlob';
+import { saveBlob } from '~utils/save-blob';
 
 const schoolClassFilterKey = 'school_class_id';
 const facultyFilterKey = 'faculty_id';

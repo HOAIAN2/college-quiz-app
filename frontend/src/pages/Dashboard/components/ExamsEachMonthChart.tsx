@@ -3,7 +3,7 @@ import styles from '../styles/ExamsEachMonthChart.module.css';
 import Chart from 'chart.js/auto';
 import { useEffect, useRef } from 'react';
 import useAppContext from '~hooks/useAppContext';
-import themeUtils from '~utils/themeUtils';
+import themeUtils from '~utils/theme-utils';
 
 type ExamsEachMonthChartProps = {
     data: number[];

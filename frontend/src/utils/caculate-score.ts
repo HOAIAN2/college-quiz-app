@@ -1,5 +1,5 @@
 import { BASE_SCORE_SCALE } from '../config/env';
-import languageUtils from './languageUtils';
+import languageUtils from './language-utils';
 
 export default function caculateScore(correctCount: number, questionCount: number) {
     languageUtils.getLanguage();

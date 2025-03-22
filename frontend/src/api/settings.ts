@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 import { ApiResponseWithData } from '~models/response';
 import { Setting } from '~models/setting';
 import request from '../config/api';
-import apiUtils from '../utils/apiUtils';
+import apiUtils from '../utils/api-utils';
 
 const prefix = 'settings';
 

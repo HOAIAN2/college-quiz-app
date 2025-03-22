@@ -12,7 +12,7 @@ import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
 import NotFound from '~pages/Errors/NotFound';
-import createFormUtils from '~utils/createFormUtils';
+import createFormUtils from '~utils/create-form-utils';
 import css from '~utils/css';
 import dateFormat from '~utils/date-format';
 

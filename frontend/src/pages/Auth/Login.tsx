@@ -7,7 +7,7 @@ import { apiLogin, apiSendEmailVerification } from '~api/auth';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
-import getCookieValue from '~utils/getCookieValue';
+import getCookieValue from '~utils/get-cookie-value';
 
 export default function Login() {
     const language = useLanguage('page.login');

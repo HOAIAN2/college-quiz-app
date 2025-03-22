@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import apiUtils from '~utils/apiUtils';
+import apiUtils from '~utils/api-utils';
 import request from '../config/api';
 import { PersonalAccessToken } from '../models/auth';
 import { ApiResponseWithData, LoginResponse } from '../models/response';
-import tokenUtils from '../utils/tokenUtils';
+import tokenUtils from '../utils/token-utils';
 
 const prefix = 'auth';
 

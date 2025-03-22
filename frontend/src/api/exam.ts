@@ -5,8 +5,8 @@ import { UserDetail } from '~models/user';
 import request from '../config/api';
 import { ExamDetail, ExamInMonth, ExamWithQuestion, QueryExamType } from '../models/exam';
 import { ApiResponseWithData } from '../models/response';
-import apiUtils from '../utils/apiUtils';
-import encodeFormData from '../utils/encodeFormData';
+import apiUtils from '../utils/api-utils';
+import encodeFormData from '../utils/encode-form-data';
 
 const prefix = 'exams';
 

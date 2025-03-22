@@ -8,7 +8,7 @@ import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
-import tokenUtils from '~utils/tokenUtils';
+import tokenUtils from '~utils/token-utils';
 
 export default function SecurityContent() {
     const { appLanguage } = useAppContext();

@@ -8,7 +8,7 @@ import QUERY_KEYS from '~constants/query-keys';
 import useAppContext from '~hooks/useAppContext';
 import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
-import { saveBlob } from '~utils/saveBlob';
+import { saveBlob } from '~utils/save-blob';
 
 export default function SystemContent() {
     const { user } = useAppContext();
