@@ -8,6 +8,7 @@
     z-index: 10;
     scrollbar-gutter: stable;
     border-right: 1px solid var(--color-gray);
+    will-change: margin-left;
 }
 
 .sidebar:hover {

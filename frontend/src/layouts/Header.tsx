@@ -57,7 +57,7 @@ export default function Header() {
                 <Link to='/'>
                     <img style={{ userSelect: 'none' }} height={30} src={'/favicon.ico'} alt="app icon" />
                 </Link>
-                <h1 style={{ userSelect: 'none' }} className={styles.appTitle}>{appTitle.title}</h1>
+                <h1 className={styles.appTitle}>{appTitle.title}</h1>
             </div>
             <div className={styles.rightItems}>
                 <div>
