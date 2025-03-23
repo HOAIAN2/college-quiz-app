@@ -131,7 +131,7 @@ th {
     color: white;
     cursor: pointer;
     border: none;
-    outline: none;
+    outline-color: transparent;
 }
 
 .tableLinks>.linkContent>button.inactive {
@@ -145,7 +145,7 @@ th {
     color: black;
     background: none;
     border: none;
-    outline: none;
+    outline-color: transparent;
 }
 
 .tableLinks>.linkContent>button.nextPrevious>svg {

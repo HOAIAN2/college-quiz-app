@@ -25,7 +25,7 @@
 
 .actionItem {
     border: none;
-    outline: none;
+    outline-color: transparent;
     min-width: 80px;
     width: fit-content;
     height: 80%;
@@ -89,7 +89,7 @@
 .button {
     background-color: var(--color-primary);
     color: white;
-    outline: none;
+    outline-color: transparent;
     border: 1px solid var(--color-shadow);
     border-radius: var(--border-radius-low);
     box-shadow: 0px 0px 10px var(--color-shadow);
@@ -99,7 +99,7 @@
 
 .input {
     padding-left: 10px;
-    outline: none;
+    outline-color: transparent;
     border: 1px solid var(--color-shadow);
     border-radius: var(--border-radius-low);
     box-shadow: 0px 0px 10px var(--color-shadow);
