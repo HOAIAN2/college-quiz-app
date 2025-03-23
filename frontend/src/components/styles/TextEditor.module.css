@@ -39,7 +39,7 @@
 
 .editorContent,
 [contenteditable="true"] {
-    outline-color: transparent;
+    outline: none;
 }
 
 .editorContent img {
