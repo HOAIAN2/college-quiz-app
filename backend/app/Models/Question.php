@@ -134,7 +134,9 @@ class Question extends Model
         libxml_clear_errors();
         $images = $dom->getElementsByTagName('img');
 
-        $replace_token = '/uploads/';
+        $replace_token = app()->runningInConsole() ?
+            '/uploads/'
+            : request()->schemeAndHttpHost() . '/uploads/';
 
         $image_paths = [];
 

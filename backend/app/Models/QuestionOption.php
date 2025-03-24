@@ -77,12 +77,19 @@ class QuestionOption extends Model
         libxml_clear_errors();
         $images = $dom->getElementsByTagName('img');
 
-        $replace_token = '/uploads/';
+        // Replace token when command not run in console (throught api call, etc)
+        $replace_token = app()->runningInConsole() ?
+            '/uploads/'
+            : request()->schemeAndHttpHost() . '/uploads/';
 
         foreach ($images as $img) {
+            if (!$img->hasAttribute('loading')) {
+                $img->setAttribute('loading', 'lazy');
+            }
+
             $src = $img->attributes['src']->textContent;
-            if (Str::startsWith($src, $replace_token)) {
-                $image_paths[] = Str::replace($replace_token, '', $src);
+            if (Str::startsWith($src, '/uploads/')) {
+                $img->attributes['src']->textContent = Str::replace('/uploads/', $replace_token, $src);
             }
         }
 
@@ -98,7 +105,6 @@ class QuestionOption extends Model
         libxml_clear_errors();
         $images = $dom->getElementsByTagName('img');
 
-        // Replace token when command not run in console (throught api call, etc)
         $replace_token = app()->runningInConsole() ?
             '/uploads/'
             : request()->schemeAndHttpHost() . '/uploads/';
@@ -106,13 +112,9 @@ class QuestionOption extends Model
         $image_paths = [];
 
         foreach ($images as $img) {
-            if (!$img->hasAttribute('loading')) {
-                $img->setAttribute('loading', 'lazy');
-            }
-
             $src = $img->attributes['src']->textContent;
-            if (Str::startsWith($src, '/uploads/')) {
-                $img->attributes['src']->textContent = Str::replace('/uploads/', $replace_token, $src);
+            if (Str::startsWith($src, $replace_token)) {
+                $image_paths[] = Str::replace($replace_token, '', $src);
             }
         }
 
