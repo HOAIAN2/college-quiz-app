@@ -24,19 +24,14 @@ class ServeFilesController extends Controller
             if (!in_array($mime_type, $this->allowedMimeTypes)) {
                 abort(403);
             }
-
-            // Stream file directly to avoid loading it into memory
-            return response()->stream(function () use ($file_name) {
-                $stream = Storage::readStream($file_name);
-                if ($stream) {
-                    fpassthru($stream);
-                    fclose($stream);
-                }
-            }, 200, [
-                'Content-Type' => $mime_type,
-                'Cache-Control' => 'public, max-age=86400', // Cache for 1 day
-                'Expires' => now()->addDay()->toRfc1123String(),
-            ]);
+            return Storage::response(
+                $file_name,
+                null,
+                [
+                    'Cache-Control' => 'public, max-age=86400', // Cache for 1 day
+                    'Expires' => now()->addDay()->toRfc1123String(),
+                ]
+            );
         } catch (\Exception $error) {
             $this->handleException($error);
             abort(500);
