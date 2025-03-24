@@ -12,11 +12,12 @@
 }
 
 .leftItems {
-    max-width: 60%;
     display: flex;
     align-items: center;
     gap: 15px;
     margin-left: 15px;
+    flex: 1;
+    overflow: hidden;
 }
 
 .appTitle {
