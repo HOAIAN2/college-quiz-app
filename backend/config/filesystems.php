@@ -74,7 +74,7 @@ return [
             // Optional FTP Settings...
             'port' => (int)env('FTP_PORT', 21),
             'root' => env('FTP_ROOT'),
-            'passive' => true,
+            'passive' => (bool) env('FTP_PASSIVE', true),
             'ssl' => (bool)env('FTP_SSL', true),
             'timeout' => 30,
         ],
