@@ -77,6 +77,7 @@ return [
             'passive' => (bool) env('FTP_PASSIVE', true),
             'ssl' => (bool)env('FTP_SSL', true),
             'timeout' => 30,
+            'transferMode' => FTP_BINARY
         ],
     ],
 
