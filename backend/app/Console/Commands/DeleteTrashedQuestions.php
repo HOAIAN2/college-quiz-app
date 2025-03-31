@@ -7,14 +7,14 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
-class DeleteNeverUsedQuestions extends Command
+class DeleteTrashedQuestions extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:delete-never-used-questions';
+    protected $signature = 'app:delete-trashed-questions';
 
     /**
      * The console command description.

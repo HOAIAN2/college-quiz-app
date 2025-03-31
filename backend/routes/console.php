@@ -9,5 +9,5 @@ Schedule::call(function () {
 })->daily();
 
 Schedule::call((function () {
-    Artisan::call('app:delete-never-used-questions');
+    Artisan::call('app:delete-trashed-questions');
 }))->weekly();
