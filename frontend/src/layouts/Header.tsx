@@ -2,7 +2,6 @@ import styles from './styles/Header.module.css';
 import sidebarStyles from './styles/Sidebar.module.css';
 
 import { useEffect, useRef } from 'react';
-import { AiOutlineUser } from 'react-icons/ai';
 import {
     BiLogOut
 } from 'react-icons/bi';
@@ -86,7 +85,7 @@ export default function Header() {
                                         className={styles.dropItem}
                                         title={languageUtils.getFullName(user.user?.firstName, user.user?.lastName)}
                                     >
-                                        <AiOutlineUser />
+                                        <LuCircleUserRound />
                                         <span>{language?.profile}</span>
                                     </Link>
                                     <div onClick={handleLogout} className={styles.dropItem}>

@@ -2,6 +2,7 @@ import appStyles from '~styles/App.module.css';
 import settingsStyles from '../styles/SettingsContent.module.css';
 import styles from '../styles/ThemeContent.module.css';
 
+import React from 'react';
 import useLanguage from '~hooks/useLanguage';
 import css from '~utils/css';
 import themeUtils from '~utils/theme-utils';
@@ -28,10 +29,10 @@ export default function ThemeContent() {
                     {
                         colors.map(color => {
                             return (
-                                <>
+                                // Cannot add key prop to <>, use React.Fragment instead
+                                <React.Fragment key={color}>
                                     <div
                                         onClick={() => { themeUtils.setPrimaryColor(color); }}
-                                        key={color}
                                         className={styles.primaryColorItem}
                                         style={{
                                             borderColor: color
@@ -69,7 +70,7 @@ export default function ThemeContent() {
                                             <div className={styles.primaryColorBody}></div>
                                         </div>
                                     </div>
-                                </>
+                                </React.Fragment>
                             );
                         })
                     }

@@ -1,11 +1,8 @@
 import styles from './styles/Sidebar.module.css';
 
 import { useEffect } from 'react';
-import {
-    AiOutlineUser
-} from 'react-icons/ai';
 import { IoSettingsOutline } from 'react-icons/io5';
-import { LuSchool } from 'react-icons/lu';
+import { LuCircleUserRound, LuSchool } from 'react-icons/lu';
 import { MdOutlineStickyNote2 } from 'react-icons/md';
 import {
     PiBooks,
@@ -43,7 +40,7 @@ export default function Sidebar() {
         {
             name: language?.profile,
             to: 'profile',
-            icon: <AiOutlineUser />,
+            icon: <LuCircleUserRound />,
             isActive: true
         },
         {
