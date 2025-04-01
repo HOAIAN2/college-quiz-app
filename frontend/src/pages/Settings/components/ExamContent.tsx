@@ -68,7 +68,13 @@ export default function ExamContent() {
                             </ul>
                             <div className={styles.actionItems}>
                                 <button
-                                    className={css(appStyles.actionItem, styles.buttonItem)}
+                                    className={
+                                        css(
+                                            appStyles.actionItem,
+                                            styles.buttonItem,
+                                            isPending ? appStyles.buttonSubmitting : ''
+                                        )
+                                    }
                                 >{language?.save}</button>
                             </div>
                         </form>
