@@ -1277,16 +1277,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v12.4.1",
+            "version": "v12.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "cdefd852ecb459a65392cd6ccb578c92a15b8e2b"
+                "reference": "0219fdf28b749460e2f9ebd4e283a00d58b8f758"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/cdefd852ecb459a65392cd6ccb578c92a15b8e2b",
-                "reference": "cdefd852ecb459a65392cd6ccb578c92a15b8e2b",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/0219fdf28b749460e2f9ebd4e283a00d58b8f758",
+                "reference": "0219fdf28b749460e2f9ebd4e283a00d58b8f758",
                 "shasum": ""
             },
             "require": {
@@ -1488,7 +1488,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-03-30T16:27:26+00:00"
+            "time": "2025-04-02T16:25:03+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -2712,16 +2712,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "3.8.6",
+            "version": "3.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CarbonPHP/carbon.git",
-                "reference": "ff2f20cf83bd4d503720632ce8a426dc747bf7fd"
+                "reference": "6d16a8a015166fe54e22c042e0805c5363aef50d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/ff2f20cf83bd4d503720632ce8a426dc747bf7fd",
-                "reference": "ff2f20cf83bd4d503720632ce8a426dc747bf7fd",
+                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/6d16a8a015166fe54e22c042e0805c5363aef50d",
+                "reference": "6d16a8a015166fe54e22c042e0805c5363aef50d",
                 "shasum": ""
             },
             "require": {
@@ -2814,7 +2814,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-02-20T17:33:38+00:00"
+            "time": "2025-03-27T12:57:33+00:00"
         },
         {
             "name": "nette/schema",
