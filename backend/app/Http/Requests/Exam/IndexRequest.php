@@ -24,9 +24,8 @@ class IndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'month' => ['nullable', 'integer', 'min:0', 'max:12'],
+            'month' => ['nullable', 'integer', 'min:1', 'max:12'],
             'year' => ['nullable', 'integer', 'min:1970'],
-            'step' => ['nullable', 'in:week,month']
         ];
     }
 }
