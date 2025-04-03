@@ -18,11 +18,10 @@ class SubjectController extends Controller
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::SUBJECT_VIEW), 403);
 
-        $subjects = Subject::select('*');
-
         try {
-            if ($request->search != null) {
-                $subjects = $subjects->whereFullText(Subject::FULLTEXT, $request->search);
+            $subjects = Subject::select('*');
+            if ($request->input('search') != null) {
+                $subjects = $subjects->whereFullText(Subject::FULLTEXT, $request->input('search'));
             }
             $subjects = $subjects
                 ->limit($this->defaultLimit)
@@ -105,7 +104,7 @@ class SubjectController extends Controller
         abort_if(!$user->hasPermission(PermissionType::SUBJECT_VIEW), 403);
 
         try {
-            $users = Subject::search($request->search)
+            $users = Subject::search($request->input('search'))
                 ->take($this->autoCompleteResultLimit)
                 ->get();
             return Reply::successWithData($users, '');

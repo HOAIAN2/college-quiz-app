@@ -45,21 +45,22 @@ class UserController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::USER_CREATE), 403);
-
+        $validated = $request->validated();
         DB::beginTransaction();
+
         try {
-            $data = collect($request->validated())->except(['role', 'school_class_id', 'faculty_id'])->toArray();
+            $data = collect($validated)->except(['role', 'school_class_id', 'faculty_id'])->toArray();
 
-            $data['password'] = Hash::make($request->password);
-            $data['role_id'] = RoleType::valueFromName($request->role);
-            if ($request->role == 'student') {
-                $data['school_class_id'] = $request->school_class_id;
+            $data['password'] = Hash::make($validated['password']);
+            $data['role_id'] = RoleType::valueFromName($validated['role']);
+            if ($validated['role'] == 'student') {
+                $data['school_class_id'] = $validated['school_class_id'];
             }
 
-            if ($request->role == 'teacher') {
-                $data['faculty_id'] = $request->faculty_id;
+            if ($validated['role'] == 'teacher') {
+                $data['faculty_id'] = $validated['faculty_id'];
             }
-            $data['birth_date'] = Carbon::parse($request->birth_date);
+            $data['birth_date'] = Carbon::parse($validated['birth_date']);
             User::create($data);
             DB::commit();
             return Reply::successWithMessage(trans('app.successes.record_save_success'));
@@ -86,8 +87,9 @@ class UserController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::USER_UPDATE), 403);
-
+        $validated = $request->validated();
         DB::beginTransaction();
+
         try {
             $target_user = User::with('role')->findOrFail($id);
 
@@ -95,27 +97,27 @@ class UserController extends Controller
                 return Reply::error(trans('app.errors.403'), 403);
             }
 
-            $data = collect($request->validated())->except(['password', 'school_class_id', 'faculty_id'])->toArray();
+            $data = collect($validated)->except(['password', 'school_class_id', 'faculty_id'])->toArray();
 
             if ($user->id == $id) $data['is_active'] = 1;
 
-            if ($request->password != null && $target_user->role_id != RoleType::ADMIN->value) {
-                $data['password'] = Hash::make($request->password);
+            if (!empty($validated['password']) && $target_user->role_id != RoleType::ADMIN->value) {
+                $data['password'] = Hash::make($validated['password']);
             }
 
             if ($target_user->role_id == RoleType::STUDENT->value) {
-                $data['school_class_id'] = $request->school_class_id;
+                $data['school_class_id'] = $validated['school_class_id'];
             }
 
             if ($target_user->role_id == RoleType::TEACHER->value) {
-                $data['faculty_id'] = $request->faculty_id;
+                $data['faculty_id'] = $validated['faculty_id'];
             }
 
             if ($target_user->email != $data['email']) {
                 $data['email_verified_at'] = null;
             }
 
-            $data['birth_date'] = Carbon::parse($request->birth_date);
+            $data['birth_date'] = Carbon::parse($validated['birth_date']);
             $target_user->update($data);
             DB::commit();
             if ($data['is_active'] == 0) $target_user->tokens()->delete();
@@ -130,10 +132,11 @@ class UserController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::USER_DELETE), 403);
-
+        $validated = $request->validated();
         DB::beginTransaction();
+
         try {
-            User::whereIn('id', $request->ids)
+            User::whereIn('id', $validated['ids'])
                 ->where('id', '<>', $user->id)
                 ->delete();
             DB::commit();
@@ -148,27 +151,28 @@ class UserController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::USER_VIEW), 403);
+        $validated = $request->validated();
 
         try {
             $users = User::with(['role', 'school_class', 'faculty'])
-                ->where('role_id', '=', RoleType::valueFromName($request->role));
+                ->where('role_id', '=', RoleType::valueFromName($validated['role']));
             // Filter
-            if ($request->school_class_id) {
-                $users = $users->where('school_class_id', $request->school_class_id);
+            if (!empty($validated['school_class_id'])) {
+                $users = $users->where('school_class_id', $validated['school_class_id']);
             }
-            if ($request->faculty_id) {
-                $users = $users->where('faculty_id', $request->faculty_id);
+            if (!empty($validated['faculty_id'])) {
+                $users = $users->where('faculty_id', $validated['faculty_id']);
             }
-            if ($request->search != null) {
-                $users = $users->where(function ($query) use ($request) {
-                    $query->whereFullText(User::FULLTEXT, $request->search);
-                    if (ctype_alnum($request->search)) {
-                        $query->orWhere('shortcode', 'like', "$request->search%");
+            if (!empty($validated['search'])) {
+                $users = $users->where(function ($query) use ($validated) {
+                    $query->whereFullText(User::FULLTEXT, $validated['search']);
+                    if (ctype_alnum($validated['search'])) {
+                        $query->orWhere('shortcode', 'like', "{$validated['search']}%");
                     }
                 });
             }
 
-            $users = $users->latest('id')->paginate($request->per_page);
+            $users = $users->latest('id')->paginate($validated['per_page']);
             return Reply::successWithData($users, '');
         } catch (\Exception $error) {
             return $this->handleException($error);
@@ -179,11 +183,12 @@ class UserController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::USER_CREATE), 403);
-
+        $validated = $request->validated();
         DB::beginTransaction();
+
         try {
             $file = $request->file('file');
-            $role_id = RoleType::valueFromName($request->role);
+            $role_id = RoleType::valueFromName($validated['role']);
             $sheets = Excel::toArray([], $file);
             $data = [];
             $non_exists_classes = [];
@@ -191,7 +196,7 @@ class UserController extends Controller
             foreach ($sheets[0] as $index => $row) {
                 if ($index == 0) continue;
                 $record = [
-                    'role' => $request->role,
+                    'role' => $validated['role'],
                     'shortcode' => $row[1],
                     'first_name' => $row[3],
                     'last_name' => $row[2],
@@ -210,13 +215,13 @@ class UserController extends Controller
                 }
                 $validated_record = $validated_result['data'];
 
-                if ($request->role == 'student') {
+                if ($validated['role'] == 'student') {
                     $school_class_id = SchoolClass::where('shortcode', $row[0])->pluck('id')->first();
                     $validated_record['school_class_id'] = $school_class_id;
                     if ($school_class_id == null) $non_exists_classes[] = $row[0];
                 }
 
-                if ($request->role == 'teacher') {
+                if ($validated['role'] == 'teacher') {
                     $faculty_id = Faculty::where('shortcode', $row[0])->pluck('id')->first();
                     $validated_record['faculty_id'] = $faculty_id;
                     if ($faculty_id == null) $non_exists_faculties[] = $row[0];
@@ -254,6 +259,7 @@ class UserController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::USER_VIEW), 403);
+        $validated = $request->validated();
 
         $hiddens = $user->getHidden();
         $fillable = $user->getFillable();
@@ -277,14 +283,14 @@ class UserController extends Controller
             ];
         }
 
-        if ($request->role == 'student') {
+        if ($validated['role'] == 'student') {
             $data[] = [
                 'field_name' => trans('headers.school_class.shortcode'),
                 'field' => 'school_class.shortcode'
             ];
         }
 
-        if ($request->role == 'teacher') {
+        if ($validated['role'] == 'teacher') {
             $data[] = [
                 'field_name' => trans('headers.faculty.shortcode'),
                 'field' => 'faculty.shortcode'
@@ -297,37 +303,37 @@ class UserController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::USER_VIEW), 403);
-        $data = $request->validated();
+        $validated = $request->validated();
 
         try {
-            $query = User::where('role_id', '=', RoleType::valueFromName($data['role']));
-            if ($data['role'] == 'student') $query = $query->with('school_class');
-            if ($data['role'] == 'teacher') $query = $query->with('faculty');
+            $query = User::where('role_id', '=', RoleType::valueFromName($validated['role']));
+            if ($validated['role'] == 'student') $query = $query->with('school_class');
+            if ($validated['role'] == 'teacher') $query = $query->with('faculty');
 
-            if ($request->school_class_id) {
-                $query = $query->where('school_class_id', $request->school_class_id);
+            if (!empty($validated['school_class_id'])) {
+                $query = $query->where('school_class_id', $validated['school_class_id']);
             }
-            if ($request->faculty_id) {
-                $query = $query->where('faculty_id', $request->faculty_id);
+            if (!empty($validated['faculty_id'])) {
+                $query = $query->where('faculty_id', $validated['faculty_id']);
             }
-            if ($request->search != null) {
-                $query = $query->where(function ($query) use ($request) {
-                    $query->whereFullText(User::FULLTEXT, $request->search);
-                    if (ctype_alnum($request->search)) {
-                        $query->orWhere('shortcode', 'like', "$request->search%");
+            if (!empty($validated['search'])) {
+                $query = $query->where(function ($query) use ($validated) {
+                    $query->whereFullText(User::FULLTEXT, $validated['search']);
+                    if (ctype_alnum($validated['search'])) {
+                        $query->orWhere('shortcode', 'like', "{$validated['search']}%");
                     }
                 });
             }
 
             $hiddens = (new User())->getHidden();
-            $columns = array_filter($data['fields'], function ($value) use ($hiddens) {
+            $columns = array_filter($validated['fields'], function ($value) use ($hiddens) {
                 return !in_array($value, $hiddens);
             });
 
             $collection = $query->get();
             return Excel::download(
                 new UsersExport($collection, $columns),
-                'Export-' . trans("role.{$data['role']}") . '-' . Carbon::now() . '.xlsx'
+                'Export-' . trans("role.{$validated['role']}") . '-' . Carbon::now() . '.xlsx'
             );
         } catch (\Exception $error) {
             DB::rollBack();
@@ -339,10 +345,11 @@ class UserController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::USER_VIEW), 403);
+        $validated = $request->validated();
 
         try {
-            $users = User::where('role_id', '=', RoleType::valueFromName($request->role))
-                ->search($request->search)
+            $users = User::where('role_id', '=', RoleType::valueFromName($validated['role']))
+                ->search($validated['search'])
                 ->take($this->autoCompleteResultLimit)
                 ->get();
             return Reply::successWithData($users, '');
@@ -355,13 +362,14 @@ class UserController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::USER_VIEW), 403);
+        $validated = $request->validated();
 
         try {
             $users = User::with(['role', 'school_class', 'faculty'])
-                ->where('role_id', '=', RoleType::valueFromName($request->role))
+                ->where('role_id', '=', RoleType::valueFromName($validated['role']))
                 ->latest('id');
-            if ($request->search) {
-                $users = $users->whereFullText(User::FULLTEXT, $request->search);
+            if (!empty($validated['search'])) {
+                $users = $users->whereFullText(User::FULLTEXT, $validated['search']);
             }
             $users = $users->take($this->autoCompleteResultLimit * 10)
                 ->get();

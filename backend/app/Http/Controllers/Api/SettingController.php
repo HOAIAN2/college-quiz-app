@@ -30,10 +30,11 @@ class SettingController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->isAdmin(), 403);
+        $validated_data = $request->validated()['data'];
 
         DB::beginTransaction();
+
         try {
-            $validated_data = $request->validated()['data'];
             foreach ($validated_data as $setting_field) {
                 if (
                     in_array($setting_field['key'], config('custom.setting_number_keys')) &&
@@ -70,7 +71,7 @@ class SettingController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->isAdmin(), 403);
-        $command = $request->get('command');
+        $command = $request->input('command');
         abort_if(!in_array($command, config('custom.callable_commands')), 403);
 
         try {

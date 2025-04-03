@@ -23,14 +23,15 @@ class QuestionController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::QUESTION_VIEW), 403);
+        $validated = $request->validated();
 
         try {
-            $data = Question::where('subject_id', '=', $request->subject_id);
-            if ($request->chapter_id != null) {
-                $data = $data->where('chapter_id', '=', $request->chapter_id);
+            $data = Question::where('subject_id', '=', $validated['subject_id']);
+            if (!empty($validated['chapter_id'])) {
+                $data = $data->where('chapter_id', '=', $validated['chapter_id']);
             }
-            if ($request->search != null) {
-                $data = $data->whereFullText(Question::FULLTEXT, $request->search);
+            if (!empty($validated['search'])) {
+                $data = $data->whereFullText(Question::FULLTEXT, $validated['search']);
             }
             $data = $data
                 ->limit($this->defaultLimit)
@@ -45,16 +46,18 @@ class QuestionController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::QUESTION_CREATE), 403);
+        $validated = $request->validated();
 
-        $question_data = collect($request->validated())->except([
+        $question_data = collect($validated)->except([
             'options',
             'true_option'
         ])->toArray();
         $question_data['created_by_user_id'] = $user->id;
 
         DB::beginTransaction();
+
         try {
-            if ($request->chapter_id) {
+            if (!empty($validated['chapter_id'])) {
                 $is_chapter_exists = Chapter::where('subject_id', $question_data['subject_id'])
                     ->where('id', $question_data['chapter_id'])
                     ->exists();
@@ -65,12 +68,12 @@ class QuestionController extends Controller
             $question_data['content'] = DOMStringHelper::processImagesFromDOM($question_data['content']);
             $question = Question::create($question_data);
 
-            $question_options = $request->options;
+            $question_options = $validated['options'];
             foreach ($question_options as $key => $value) {
                 QuestionOption::create([
                     'question_id' => $question->id,
                     'content' => DOMStringHelper::processImagesFromDOM($value),
-                    'is_correct' => $request->true_option == $key
+                    'is_correct' => $validated['true_option'] == $key
                 ]);
             }
             DB::commit();
@@ -98,34 +101,35 @@ class QuestionController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::QUESTION_UPDATE), 403);
+        $validated = $request->validated();
 
-        $data = collect($request->validated())
+        $question_data = collect($validated)
             ->except([
                 'options',
                 'true_option',
             ])->toArray();
 
-        $data['last_updated_by_user_id'] = $user->id;
+        $question_data['last_updated_by_user_id'] = $user->id;
 
         DB::beginTransaction();
         try {
-            $data['content'] = DOMStringHelper::processImagesFromDOM($data['content']);
+            $question_data['content'] = DOMStringHelper::processImagesFromDOM($question_data['content']);
 
             $target_question = Question::findOrFail($id);
 
-            if ($request->chapter_id) {
+            if (!empty($validated['chapter_id'])) {
                 $is_chapter_exists = Chapter::where('subject_id', $target_question->subject_id)
-                    ->where('id', $data['chapter_id'])
+                    ->where('id', $question_data['chapter_id'])
                     ->exists();
                 if (!$is_chapter_exists) {
                     return Reply::error(trans('app.errors.404'), 404);
                 }
             }
 
-            $target_question->update($data);
+            $target_question->update($question_data);
             $question_options = $target_question->question_options;
 
-            $new_option_keys = collect($request->options)->keys();
+            $new_option_keys = collect($validated['options'])->keys();
             $ids_to_delete = [];
 
             foreach ($question_options as $key => $existing_option) {
@@ -138,16 +142,16 @@ class QuestionController extends Controller
                 QuestionOption::whereIn('id', $ids_to_delete)->delete();
             }
 
-            foreach ($request->options as $key => $option) {
+            foreach ($validated['options'] as $key => $option) {
                 if ($question_options->has($key)) {
                     $question_options[$key]->update([
                         'content' => DOMStringHelper::processImagesFromDOM($option),
-                        'is_correct' => $request->true_option == $key
+                        'is_correct' => $validated['true_option'] == $key
                     ]);
                 } else QuestionOption::create([
                     'question_id' => $target_question->id,
                     'content' => DOMStringHelper::processImagesFromDOM($option),
-                    'is_correct' => $request->true_option == $key
+                    'is_correct' => $validated['true_option'] == $key
                 ]);
             }
 
@@ -180,10 +184,12 @@ class QuestionController extends Controller
         $file = $request->file('file');
         $file_path = $file->getPathname();
 
+        $validated = $request->validated();
         DB::beginTransaction();
+
         try {
-            $subject = Subject::findOrFail($request->subject_id);
-            $chapter = $subject->chapters()->findOrFail($request->chapter_id);
+            $subject = Subject::findOrFail($validated['subject_id']);
+            $chapter = $subject->chapters()->findOrFail($validated['chapter_id']);
 
             $php_word = IOFactory::load($file_path);
             $parsed_data = [];

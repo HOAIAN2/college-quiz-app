@@ -25,19 +25,21 @@ class AuthController extends Controller
 {
     public function login(LoginRequest $request)
     {
+        $validated = $request->validated();
+
         try {
             $data = (object)[
                 'user' => null,
                 'token' => null
             ];
-            $data->user = User::with('role')->where('email', '=', $request->email)->first();
+            $data->user = User::with('role')->where('email', '=', $validated['email'])->first();
             if (!$data->user) {
                 return Reply::error(trans('auth.errors.email_not_found'), 404);
             }
             if ($data->user->is_active == false) {
                 return Reply::error(trans('auth.errors.account_disabled'));
             }
-            if (!Hash::check($request->password, $data->user->password)) {
+            if (!Hash::check($validated['password'], $data->user->password)) {
                 return Reply::error(trans('auth.errors.password_incorrect'));
             }
             if (!$data->user->email_verified_at && config('custom.app.must_verify_email')) {
@@ -65,17 +67,18 @@ class AuthController extends Controller
     public function changePassword(ChangePassRequest $request)
     {
         $user = $this->getUser();
+        $validated = $request->validated();
 
         DB::beginTransaction();
         try {
-            if (!Hash::check($request->current_password, $user->password)) {
+            if (!Hash::check($validated['current_password'], $user->password)) {
                 return Reply::error(trans('auth.errors.password_incorrect'));
             }
-            if ($request->current_password == $request->password) {
+            if ($validated['current_password'] == $validated['password']) {
                 return Reply::error(trans('auth.errors.new_password_is_same'));
             }
             $user->update([
-                'password' => Hash::make($request->password),
+                'password' => Hash::make($validated['password']),
             ]);
             $user->tokens()->delete();
             DB::commit();
@@ -88,10 +91,12 @@ class AuthController extends Controller
 
     public function sendEmailVerification(SendEmailVerificationRequest $request)
     {
+        $validated = $request->validated();
         DB::beginTransaction();
+
         try {
             $user = User::whereNull('email_verified_at')
-                ->where('email', '=', $request->email)
+                ->where('email', '=', $validated['email'])
                 ->firstOrFail();
 
             $code = NumberHelper::randomDitgits();
@@ -115,10 +120,12 @@ class AuthController extends Controller
 
     public function verifyEmail(VerifyEmailRequest $request)
     {
+        $validated = $request->validated();
         DB::beginTransaction();
+
         try {
             $user = User::whereNull('email_verified_at')
-                ->where('email', '=', $request->email)
+                ->where('email', '=', $validated['email'])
                 ->first();
             if (!$user) {
                 return Reply::error(trans('auth.errors.email_not_found'), 404);
@@ -129,7 +136,7 @@ class AuthController extends Controller
 
             $otp_code = $user->otp_codes()
                 ->where('type', OtpCodeType::VERIFY_EMAIL)
-                ->where('code', $request->verify_code)
+                ->where('code', $validated['verify_code'])
                 ->where('expires_at', '>=', now())
                 ->first();
 
@@ -152,9 +159,11 @@ class AuthController extends Controller
 
     public function sendPasswordResetEmail(SendPasswordResetEmailRequest $request)
     {
+        $validated = $request->validated();
         DB::beginTransaction();
+
         try {
-            $user = User::where('email', '=', $request->email)->first();
+            $user = User::where('email', '=', $validated['email'])->first();
             if (!$user) {
                 return Reply::error(trans('auth.errors.email_not_found'), 404);
             }
@@ -182,9 +191,11 @@ class AuthController extends Controller
 
     public function verifyPasswordResetCode(VerifyEmailRequest $request)
     {
+        $validated = $request->validated();
         DB::beginTransaction();
+
         try {
-            $user = User::where('email', '=', $request->email)->first();
+            $user = User::where('email', '=', $validated['email'])->first();
             if (!$user) {
                 return Reply::error(trans('auth.errors.email_not_found'), 404);
             }
@@ -194,7 +205,7 @@ class AuthController extends Controller
 
             $is_valid_otp = $user->otp_codes()
                 ->where('type', OtpCodeType::PASSWORD_RESET)
-                ->where('code', $request->verify_code)
+                ->where('code', $validated['verify_code'])
                 ->where('expires_at', '>=', now())
                 ->exists();
 
@@ -211,9 +222,11 @@ class AuthController extends Controller
 
     public function resetPassword(ResetPasswordRequest $request)
     {
+        $validated = $request->validated();
         DB::beginTransaction();
+
         try {
-            $user = User::where('email', '=', $request->email)->first();
+            $user = User::where('email', '=', $validated['email'])->first();
             if (!$user) {
                 return Reply::error(trans('auth.errors.email_not_found'), 404);
             }
@@ -223,7 +236,7 @@ class AuthController extends Controller
 
             $otp_code = $user->otp_codes()
                 ->where('type', OtpCodeType::PASSWORD_RESET)
-                ->where('code', $request->verify_code)
+                ->where('code', $validated['verify_code'])
                 ->where('expires_at', '>=', now())
                 ->first();
 
@@ -231,7 +244,7 @@ class AuthController extends Controller
                 return Reply::error(trans('auth.errors.verify_code_mismatch'));
             }
             $user->update([
-                'password' => Hash::make($request->password),
+                'password' => Hash::make($validated['password']),
             ]);
             $user->tokens()->delete();
             $otp_code->delete();

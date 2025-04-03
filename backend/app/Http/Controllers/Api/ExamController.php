@@ -39,6 +39,7 @@ class ExamController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::EXAM_VIEW), 403);
+        $validated = $request->validated();
         $date = Carbon::now();
         $relations = [
             'course',
@@ -46,9 +47,9 @@ class ExamController extends Controller
             // 'exam_supervisors.user',
             // 'course.teacher',
         ];
-        if ($request->month != null && $request->year != null) {
-            $date->setYear((int)$request->year);
-            $date->setMonth((int)$request->month);
+        if (!empty($validated['month']) && !empty($validated['year'])) {
+            $date->setYear((int) $validated['year']);
+            $date->setMonth((int) $validated['month']);
         }
 
         try {
@@ -92,17 +93,18 @@ class ExamController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::EXAM_CREATE), 403);
+        $validated = $request->validated();
 
         DB::beginTransaction();
         try {
-            $expert_count = $request->expert_count;
-            $hard_count = $request->hard_count;
-            $medium_count = $request->medium_count;
+            $expert_count = $validated['expert_count'];
+            $hard_count = $validated['hard_count'];
+            $medium_count = $validated['medium_count'];
 
             // Validate phrase
             if (
                 array_sum([$expert_count, $hard_count, $medium_count])
-                > array_sum(array_values($request->question_counts))
+                > array_sum(array_values($validated['question_counts']))
             ) {
                 return Reply::error(trans('exam.question_level_limit_error'));
             }
@@ -113,10 +115,10 @@ class ExamController extends Controller
                     $course = $course->whereHas('teacher', function ($query) use ($user) {
                         $query->where('id', '=', $user->id);
                     })
-                        ->findOrFail($request->course_id);
+                        ->findOrFail($validated['course_id']);
                     break;
                 case RoleType::ADMIN->value:
-                    $course = $course->findOrFail($request->course_id);
+                    $course = $course->findOrFail($validated['course_id']);
                     break;
                 default:
                     return Reply::error(trans('app.errors.something_went_wrong'), 500);
@@ -127,7 +129,7 @@ class ExamController extends Controller
             if ($course->isOver()) {
                 return Reply::error(trans('app.errors.semester_end'), 400);
             }
-            $exam_date = Carbon::parse($request->exam_date);
+            $exam_date = Carbon::parse($validated['exam_date']);
             if ($exam_date->greaterThanOrEqualTo($course_end_date)) {
                 return Reply::error(trans('app.errors.exam_date_greater_than_semester', [
                     'date' => $course_end_date
@@ -138,14 +140,14 @@ class ExamController extends Controller
                 ->orderBy('chapter_number')
                 ->get();
             $exam = Exam::create([
-                'course_id' => $request->course_id,
-                'name' => $request->name,
+                'course_id' => $validated['course_id'],
+                'name' => $validated['name'],
                 'exam_date' => $exam_date,
-                'exam_time' => $request->exam_time,
+                'exam_time' => $validated['exam_time'],
             ]);
 
             foreach ($chapters as $key => $chapter) {
-                $chapter->max_select_question = $request->question_counts[$key];
+                $chapter->max_select_question = $validated['question_counts'][$key];
             }
             $chapters = $chapters->filter(function ($chapter) {
                 return $chapter->max_select_question != null;
@@ -243,7 +245,7 @@ class ExamController extends Controller
                 ]);
             }
             $supervisor_ids = User::where('role_id', '=', RoleType::TEACHER)
-                ->whereIn('id', $request->supervisor_ids)
+                ->whereIn('id', $validated['supervisor_ids'])
                 ->pluck('id');
             foreach ($supervisor_ids as $supervisor_id) {
                 ExamSupervisor::create([
@@ -334,7 +336,7 @@ class ExamController extends Controller
             $target_exam->update($data);
 
             $supervisor_ids = User::where('role_id', '=', RoleType::TEACHER)
-                ->whereIn('id', $request->supervisor_ids ?? [])
+                ->whereIn('id', $request->input('supervisor_ids') ?? [])
                 ->pluck('id');
             $target_exam->supervisors->sync($supervisor_ids);
             DB::commit();
@@ -389,6 +391,7 @@ class ExamController extends Controller
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::EXAM_UPDATE), 403);
         $now = Carbon::now();
+        $validated = $request->validated();
 
         DB::beginTransaction();
         try {
@@ -410,7 +413,7 @@ class ExamController extends Controller
             if ($is_exam_over) {
                 return Reply::error(trans('app.errors.exam_has_end'));
             }
-            switch ($request->status) {
+            switch ($validated['status']) {
                 case 'start':
                     if ($target_exam->cancelled_at != null) {
                         return Reply::error(trans('app.errors.exam_has_cancel'));
@@ -516,7 +519,8 @@ class ExamController extends Controller
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::EXAM_SUBMIT), 403);
         $now = Carbon::now();
-        $answers = $request->answers;
+        $validated = $request->validated();
+        $answers = $validated['answers'];
 
         DB::beginTransaction();
         try {
@@ -731,6 +735,7 @@ class ExamController extends Controller
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::EXAM_SUBMIT), 403);
         $now = Carbon::now();
+        $validated = $request->validated();
 
         try {
             $answers_cache_key = str_replace(
@@ -759,7 +764,7 @@ class ExamController extends Controller
             $allow_late_submit_seconds = (int)Setting::get('exam_allow_late_submit_seconds');
             Cache::put(
                 $answers_cache_key,
-                array_map('intval', $request->answers),
+                array_map('intval', $validated['answers']),
                 Carbon::parse($exam->started_at)->addMinutes($exam->exam_time + $allow_late_submit_seconds / 60)
             );
             return Reply::success();

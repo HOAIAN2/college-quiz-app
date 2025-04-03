@@ -19,14 +19,15 @@ class SchoolClassController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::SCHOOL_CLASS_VIEW), 403);
+        $validated = $request->validated();
 
         $school_classes = SchoolClass::with(['faculty'])->latest('id');
 
         try {
-            if ($request->search != null) {
-                $school_classes = $school_classes->search($request->search);
+            if (!empty($validated['search'])) {
+                $school_classes = $school_classes->search($validated['search']);
             }
-            $school_classes = $school_classes->paginate($request->per_page);
+            $school_classes = $school_classes->paginate($validated['per_page']);
             return Reply::successWithData($school_classes, '');
         } catch (\Exception $error) {
             return $this->handleException($error);
@@ -85,10 +86,11 @@ class SchoolClassController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::SCHOOL_CLASS_DELETE), 403);
+        $validated = $request->validated();
         DB::beginTransaction();
 
         try {
-            SchoolClass::destroy($request->ids);
+            SchoolClass::destroy($validated['ids']);
             DB::commit();
             return Reply::successWithMessage(trans('app.successes.record_delete_success'));
         } catch (\Exception $error) {
@@ -103,7 +105,7 @@ class SchoolClassController extends Controller
         abort_if(!$user->hasPermission(PermissionType::SCHOOL_CLASS_VIEW), 403);
 
         try {
-            $school_classes = SchoolClass::search($request->search)
+            $school_classes = SchoolClass::search($request->input('search'))
                 ->take($this->autoCompleteResultLimit)
                 ->get();
             return Reply::successWithData($school_classes, '');

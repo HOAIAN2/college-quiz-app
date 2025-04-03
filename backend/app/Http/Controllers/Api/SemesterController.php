@@ -20,8 +20,8 @@ class SemesterController extends Controller
 
         try {
             $data = Semester::select('*');
-            if ($request->search != null) {
-                $data = $data->search($request->search);
+            if ($request->input('search') != null) {
+                $data = $data->search($request->input('search'));
             }
             $data = $data
                 ->limit($this->defaultLimit)
@@ -38,13 +38,11 @@ class SemesterController extends Controller
 
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::SEMESTER_CREATE), 403);
-        $data = $request->validated();
-        $data['start_date'] = Carbon::parse($request->start_date);
-        $data['end_date'] = Carbon::parse($request->end_date);
+        $validated = $request->validated();
 
         DB::beginTransaction();
         try {
-            Semester::create($data);
+            Semester::create($validated);
             DB::commit();
             return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
@@ -70,14 +68,12 @@ class SemesterController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::SEMESTER_UPDATE), 403);
-        $data = $request->validated();
-        $data['start_date'] = Carbon::parse($request->start_date);
-        $data['end_date'] = Carbon::parse($request->end_date);
+        $validated = $request->validated();
 
         DB::beginTransaction();
         try {
             $semester = Semester::findOrFail($id);
-            $semester->update($data);
+            $semester->update($validated);
             DB::commit();
             return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
@@ -109,7 +105,7 @@ class SemesterController extends Controller
 
         try {
             $semesters = Semester::where('end_date', '>=', Carbon::now())
-                ->search($request->search)
+                ->search($request->input('search'))
                 ->take($this->autoCompleteResultLimit)
                 ->get();
             return Reply::successWithData($semesters, '');

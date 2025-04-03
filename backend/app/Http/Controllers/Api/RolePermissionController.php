@@ -60,13 +60,15 @@ class RolePermissionController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::ROLE_PERMISSION_GRANT), 403);
+        $validated = $request->validated();
 
         DB::beginTransaction();
+
         try {
             $role = Role::where('name', '<>', 'admin')
                 ->findOrFail($id);
 
-            $permission_ids = Permission::whereIn('id', $request->ids ?? [])
+            $permission_ids = Permission::whereIn('id', $validated['ids'] ?? [])
                 ->whereNotIn('name', $this->ignore_permissions)
                 ->pluck('id')
                 ->toArray();

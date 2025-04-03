@@ -21,11 +21,12 @@ class CourseController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::COURSE_VIEW), 403);
+        $validated = $request->validated();
 
         try {
-            $data = Course::where('semester_id', '=', $request->semester_id);
-            if ($request->search != null) {
-                $data = $data->search($request->search);
+            $data = Course::where('semester_id', '=', $validated['semester_id']);
+            if (!empty($validated['search'])) {
+                $data = $data->search($validated['search']);
             }
             $data = $data
                 ->limit($this->defaultLimit)
@@ -41,17 +42,17 @@ class CourseController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::COURSE_CREATE), 403);
-        $data = $request->validated();
+        $validated = $request->validated();
 
         DB::beginTransaction();
         try {
-            $semester = Semester::findOrFail($request->semester_id);
+            $semester = Semester::findOrFail($validated['semester_id']);
             if ($semester->isOver()) {
                 return Reply::error(trans('app.errors.semester_end'), 400);
             }
             User::where('role_id', '=', RoleType::TEACHER)
-                ->select('id')->findOrFail($request->teacher_id);
-            Course::create($data);
+                ->select('id')->findOrFail($validated['teacher_id']);
+            Course::create($validated);
             DB::commit();
             return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
@@ -86,7 +87,7 @@ class CourseController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::COURSE_UPDATE), 403);
-        $data = $request->validated();
+        $validated = $request->validated();
         DB::beginTransaction();
 
         try {
@@ -95,8 +96,8 @@ class CourseController extends Controller
                 return Reply::error(trans('app.errors.semester_end'), 400);
             }
             User::where('role_id', '=', RoleType::TEACHER)
-                ->select('id')->findOrFail($request->teacher_id);
-            $target_course->update($data);
+                ->select('id')->findOrFail($validated['teacher_id']);
+            $target_course->update($validated);
             DB::commit();
             return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
@@ -133,7 +134,7 @@ class CourseController extends Controller
                 return Reply::error(trans('app.errors.semester_end'), 400);
             }
             $student_ids  = User::where('role_id', RoleType::STUDENT)
-                ->whereIn('id', $request->student_ids ?? [])
+                ->whereIn('id', $request->input('student_ids') ?? [])
                 ->pluck('id')
                 ->toArray();
             $target_course->students()->sync($student_ids);

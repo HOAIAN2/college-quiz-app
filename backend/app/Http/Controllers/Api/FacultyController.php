@@ -19,16 +19,16 @@ class FacultyController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::FACULTY_VIEW), 403);
-
-        $faculties = Faculty::with([
-            'leader'
-        ])->latest('id');
+        $validated = $request->validated();
 
         try {
-            if ($request->search != null) {
-                $faculties = $faculties->search($request->search);
+            $faculties = Faculty::with([
+                'leader'
+            ])->latest('id');
+            if (!empty($validated['search'])) {
+                $faculties = $faculties->search($validated['search']);
             }
-            $faculties = $faculties->paginate($request->per_page);
+            $faculties = $faculties->paginate($validated['per_page']);
             return Reply::successWithData($faculties, '');
         } catch (\Exception $error) {
             return $this->handleException($error);
@@ -39,11 +39,11 @@ class FacultyController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::FACULTY_CREATE), 403);
-        $data = $request->validated();
+        $validated = $request->validated();
         DB::beginTransaction();
 
         try {
-            Faculty::create($data);
+            Faculty::create($validated);
             DB::commit();
             return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
@@ -71,12 +71,12 @@ class FacultyController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::FACULTY_UPDATE), 403);
-        $data = $request->validated();
+        $validated = $request->validated();
         DB::beginTransaction();
 
         try {
             $faculty = Faculty::findOrFail($id);
-            $faculty->update($data);
+            $faculty->update($validated);
             DB::commit();
             return Reply::successWithMessage(trans('app.successes.record_save_success'));
         } catch (\Exception $error) {
@@ -89,10 +89,11 @@ class FacultyController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::FACULTY_DELETE), 403);
+        $validated = $request->validated();
         DB::beginTransaction();
 
         try {
-            Faculty::destroy($request->ids);
+            Faculty::destroy($validated['ids']);
             DB::commit();
             return Reply::successWithMessage(trans('app.successes.record_delete_success'));
         } catch (\Exception $error) {
@@ -106,7 +107,7 @@ class FacultyController extends Controller
         abort_if(!$user->hasPermission(PermissionType::FACULTY_VIEW), 403);
 
         try {
-            $school_classes = Faculty::search($request->search)
+            $school_classes = Faculty::search($request->input('search'))
                 ->take($this->autoCompleteResultLimit)
                 ->get();
             return Reply::successWithData($school_classes, '');

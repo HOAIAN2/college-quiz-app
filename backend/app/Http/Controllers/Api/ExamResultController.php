@@ -99,11 +99,12 @@ class ExamResultController extends Controller
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::EXAM_RESULT_REMARK), 403);
         $now = Carbon::now();
+        $validated = $request->validated();
 
         DB::beginTransaction();
         try {
             $can_remark_within_days = (int)Setting::get('exam_can_remark_within_days');
-            if (!Hash::check($request->password, $user->password)) {
+            if (!Hash::check($validated['password'], $user->password)) {
                 return Reply::error(trans('auth.errors.password_incorrect'));
             }
             $target_exam_result = ExamResult::findOrFail($id);
@@ -113,12 +114,12 @@ class ExamResultController extends Controller
             switch ($user->role_id) {
                 case RoleType::ADMIN->value:
                     break;
-                    // case RoleType::STUDENT->value:
-                    //     $exam = $exam
-                    //         ->whereHas('course.enrollments', function ($query) use ($user) {
-                    //             $query->where('student_id', '=', $user->id);
-                    //         });
-                    //     break;
+                // case RoleType::STUDENT->value:
+                //     $exam = $exam
+                //         ->whereHas('course.enrollments', function ($query) use ($user) {
+                //             $query->where('student_id', '=', $user->id);
+                //         });
+                //     break;
                 case RoleType::TEACHER->value:
                     $exam = $exam
                         ->whereHas('course.teacher', function ($query) use ($user) {
@@ -174,10 +175,11 @@ class ExamResultController extends Controller
     {
         $user = $this->getUser();
         abort_if(!$user->hasPermission(PermissionType::EXAM_RESULT_CANCEL), 403);
+        $validated = $request->validated();
 
         DB::beginTransaction();
         try {
-            if (!Hash::check($request->password, $user->password)) {
+            if (!Hash::check($validated['password'], $user->password)) {
                 return Reply::error(trans('auth.errors.password_incorrect'));
             }
             $target_exam_result = ExamResult::findOrFail($id);
@@ -186,12 +188,12 @@ class ExamResultController extends Controller
             switch ($user->role_id) {
                 case RoleType::ADMIN->value:
                     break;
-                    // case RoleType::STUDENT->value:
-                    //     $exam = $exam
-                    //         ->whereHas('course.enrollments', function ($query) use ($user) {
-                    //             $query->where('student_id', '=', $user->id);
-                    //         });
-                    //     break;
+                // case RoleType::STUDENT->value:
+                //     $exam = $exam
+                //         ->whereHas('course.enrollments', function ($query) use ($user) {
+                //             $query->where('student_id', '=', $user->id);
+                //         });
+                //     break;
                 case RoleType::TEACHER->value:
                     $exam = $exam
                         ->whereHas('course.teacher', function ($query) use ($user) {
@@ -208,7 +210,7 @@ class ExamResultController extends Controller
             $exam->findOrFail($target_exam_result->exam_id);
 
             $target_exam_result->update([
-                'cancellation_reason' => $request->cancellation_reason,
+                'cancellation_reason' => $validated['cancellation_reason'],
                 'cancelled_at' => Carbon::now(),
                 'cancelled_by_user_id' => $user->id
             ]);
@@ -224,6 +226,7 @@ class ExamResultController extends Controller
     {
         $user = $this->getUser();
         abort_if($user->isStudent() && $user->id != $id, 403);
+        $validated = $request->validated();
 
         try {
             // Force error to reduce queries
@@ -232,9 +235,9 @@ class ExamResultController extends Controller
                 'exam'
             ])->where('user_id', $id);
             // Filter
-            if ($request->subject_id) {
-                $exam_ids = Exam::whereHas('course.subject', function ($query) use ($request) {
-                    $query->where('id', $request->subject_id);
+            if (!empty($validated['subject_id'])) {
+                $exam_ids = Exam::whereHas('course.subject', function ($query) use ($validated) {
+                    $query->where('id', $validated['subject_id']);
                 })->pluck('id');
                 $exam_results->whereIn('exam_id', $exam_ids);
             }
@@ -249,6 +252,7 @@ class ExamResultController extends Controller
     {
         $user = $this->getUser();
         abort_if($user->isStudent() && $user->id != $id, 403);
+        $validated = $request->validated();
 
         try {
             $data = [];
@@ -259,9 +263,9 @@ class ExamResultController extends Controller
                 'exam.course.subject'
             ])->where('user_id', $id);
             // Filter
-            if ($request->subject_id) {
-                $exam_ids = Exam::whereHas('course.subject', function ($query) use ($request) {
-                    $query->where('id', $request->subject_id);
+            if (!empty($validated['subject_id'])) {
+                $exam_ids = Exam::whereHas('course.subject', function ($query) use ($validated) {
+                    $query->where('id', $validated['subject_id']);
                 })->pluck('id');
                 $exam_results->whereIn('exam_id', $exam_ids);
             }
