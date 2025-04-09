@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
 
-class Locale
+class SetLocale
 {
     /**
      * Handle an incoming request.

@@ -12,9 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->validateCsrfTokens(except: [
-            '*',
-        ]);
+        // $middleware->validateCsrfTokens(except: [
+        //     '*',
+        // ]);
 
         $middleware->use([
             // \Illuminate\Http\Middleware\TrustHosts::class,
@@ -24,7 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Http\Middleware\ValidatePostSize::class,
             \Illuminate\Foundation\Http\Middleware\TrimStrings::class,
             \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-            \App\Http\Middleware\Locale::class,
+            \App\Http\Middleware\SetLocale::class,
         ]);
 
         $middleware->group('web', [
