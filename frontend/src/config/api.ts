@@ -8,7 +8,8 @@ const ignoreLoaders: string[] = [];
 
 const request = axios.create({
     baseURL: API_HOST + '/api/',
-    adapter: ['fetch', 'xhr', 'http']
+    adapter: ['fetch', 'xhr', 'http'],
+    withXSRFToken: false,
 });
 
 request.interceptors.request.use(config => {
