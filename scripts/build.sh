@@ -20,5 +20,4 @@ else
         mkdir ./resources/views
     fi
     cp -r ./public/index.html ./resources/views/index.blade.php
-    echo 'Completed!'
 fi
