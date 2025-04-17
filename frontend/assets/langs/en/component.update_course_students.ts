@@ -1,5 +1,5 @@
 export default {
-    title: 'Student Management',
+    title: 'Student List',
     search: 'Search',
     joinedStudents: 'Joined Students',
     allStudents: 'All Students',
