@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Helper\DOMStringHelper;
 use App\Models\Chapter;
 use App\Models\Question;
 use App\Models\QuestionOption;
@@ -34,7 +35,7 @@ class QuestionSeeder extends Seeder
         }
         foreach ($questions as $question) {
             $created_question = Question::create([
-                'content' => $question->content,
+                'content' => DOMStringHelper::processImagesFromDOM($question->content),
                 'subject_id' => $subject_id,
                 'level' => $levels[array_rand($levels)],
                 'chapter_id' => $chapter_ids[array_rand($chapter_ids)]
@@ -42,7 +43,7 @@ class QuestionSeeder extends Seeder
             foreach ($question->answers as $answer) {
                 QuestionOption::create([
                     'question_id' => $created_question->id,
-                    'content' => $answer->content,
+                    'content' => DOMStringHelper::processImagesFromDOM($answer->content),
                     'is_correct' => $answer->is_correct
                 ]);
             }
