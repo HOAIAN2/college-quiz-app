@@ -17,23 +17,25 @@ class ValidateToken
     {
         $token = $request->user()->currentAccessToken();
 
-        abort_if(!$this->isValidIp($request, $token), 401);
-        // abort_if(!$this->isValidUserAgent($request, $token), 401);
+        // ip can change if you got dynamic ip from ISP, browser update can change user-agent
+        // but change 2 things at same time kinda sus.
+        if (
+            !$this->isSameIp($request, $token) ||
+            !$this->isSameUserAgent($request, $token)
+        ) abort(401);
 
         return $next($request);
     }
 
-    private function isValidIp($request, $token)
+    private function isSameIp($request, $token)
     {
-        $request_id = $request->ip();
-        $token_ip = $token->ip;
-        return $token_ip == $request_id;
+        $request_ip = $request->ip();
+        return $token->ip == $request_ip;
     }
 
-    private function isValidUserAgent($request, $token)
+    private function isSameUserAgent($request, $token)
     {
         $request_user_agent = $request->userAgent();
-        $token_user_agent = $token->user_agent;
-        return $request_user_agent == $token_user_agent;
+        return $token->user_agent == $request_user_agent;
     }
 }
