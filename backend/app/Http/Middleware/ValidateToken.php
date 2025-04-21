@@ -20,9 +20,13 @@ class ValidateToken
         // ip can change if you got dynamic ip from ISP, browser update can change user-agent
         // but change 2 things at same time kinda sus.
         if (
-            !$this->isSameIp($request, $token) ||
+            !$this->isSameIp($request, $token) &&
             !$this->isSameUserAgent($request, $token)
         ) abort(401);
+
+        $token->ip = $request->ip();
+        $token->user_agent = $request->userAgent();
+        $token->save();
 
         return $next($request);
     }
