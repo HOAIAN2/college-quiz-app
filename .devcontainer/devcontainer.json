@@ -1,0 +1,6 @@
+{
+    "name": "College Quiz App",
+    "build": {
+        "dockerfile": "Dockerfile"
+    }
+}

@@ -11,8 +11,8 @@ else
     npm run build
     cd $ROOT_DIR
     cd backend
-    rm public/index.html
-    rm public/favicon.ico
+    rm -f public/index.html
+    rm -f public/favicon.ico
     rm -rf public/assets
     cp -r ../frontend/dist/* public
     echo 'Copying distribution to server...'
