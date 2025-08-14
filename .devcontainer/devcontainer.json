@@ -1,6 +1,6 @@
 {
     "name": "College Quiz App",
-    "build": {
-        "dockerfile": "Dockerfile"
-    }
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "college-quiz-app",
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
 }
