@@ -2,5 +2,5 @@
     "name": "College Quiz App",
     "dockerComposeFile": "docker-compose.yml",
     "service": "college-quiz-app",
-    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
+    "workspaceFolder": "/workspaces"
 }
