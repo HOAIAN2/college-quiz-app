@@ -1,6 +1,13 @@
 # Laravel Stage
 FROM php:8.2 AS base
 
+ARG UID=1000
+ARG GID=1000
+
+# Create the 'vscode' user with the same UID and GID as the host
+RUN groupadd -g $GID vscode && \
+    useradd -u $UID -g vscode -s /bin/bash -m vscode
+
 COPY --from=node:lts-slim /usr/local/bin /usr/local/bin
 COPY --from=node:lts-slim /usr/local/lib /usr/local/lib
 
@@ -33,3 +40,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get purge -y --auto-remove libpcre2-dev ${PHPIZE_DEPS} \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+USER vscode
