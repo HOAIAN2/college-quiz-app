@@ -9,5 +9,14 @@
         8000
     ],
     "remoteUser": "vscode",
-    "updateRemoteUserUID": false
+    "updateRemoteUserUID": false,
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "bmewburn.vscode-intelephense-client",
+                "mehedidracula.php-namespace-resolver",
+                "laravel.vscode-laravel"
+            ]
+        }
+    }
 }
