@@ -1,15 +1,21 @@
-# Laravel Stage
 FROM php:8.2 AS base
 
+ARG USERNAME=vscode
 ARG UID=1000
 ARG GID=1000
 
-# Create the 'vscode' user with the same UID and GID as the host
-RUN groupadd -g $GID vscode && \
-    useradd -u $UID -g vscode -s /bin/bash -m vscode
+# Create user with the same UID and GID as the host
+RUN groupadd -g $GID $USERNAME && \
+    useradd -u $UID -g $USERNAME -s /bin/bash -m $USERNAME
 
-COPY --from=node:lts-slim /usr/local/bin /usr/local/bin
-COPY --from=node:lts-slim /usr/local/lib /usr/local/lib
+USER $USERNAME
+# Install node 22 LTS via nvm
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash && \
+    export NVM_DIR="$HOME/.nvm" && \
+    \. "$HOME/.nvm/nvm.sh" && \
+    nvm install 22
+
+USER root
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
@@ -41,4 +47,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-USER vscode
+USER $USERNAME
